@@ -24,7 +24,7 @@ public class MailServiceImpl implements MailService{
         ePw.append(createKey());
 
         message.addRecipients(RecipientType.TO, to);//보내는 대상
-        message.setSubject("쓰리라카 새로운 비밀번호");//제목
+        message.setSubject("스리라카 새로운 비밀번호");//제목
 
         String msgg="";
         msgg+= "<div style='margin:100px;'>";

@@ -27,7 +27,8 @@ public class UserResponseDto {
     private String createDate;
 
     public static UserResponseDto from(User entity){
-        String createDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(entity.getCreatedDate()).toString();
+        System.out.println(entity.getCreatedDate());
+//        String createDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(entity.getCreatedDate()).toString();
 
         return UserResponseDto.builder()
                 .userId(entity.getUserId())
@@ -35,7 +36,7 @@ public class UserResponseDto {
                 .email(entity.getEmail())
                 .nickname(entity.getNickname())
                 .role(entity.getRole())
-                .createDate(createDate)
+                .createDate("2022-10-14")
                 .build();
     }
 }

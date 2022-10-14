@@ -117,10 +117,9 @@ public class UserServiceImpl implements UserService{
         User user = User.builder()
                 .username(requestDto.getUsername())
                 .email(requestDto.getEmail())
-                .nickname("")
+                .nickname(requestDto.getNickname())
                 .password(passwordEncoder.encode(requestDto.getPassword()))
                 .role(Role.ROLE_USER)
-                // 대표 독초몬은 개나리몬이 디폴트
                 .build();
 
         return UserResponseDto.from(user);
