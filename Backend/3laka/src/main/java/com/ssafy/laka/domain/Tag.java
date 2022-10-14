@@ -19,7 +19,7 @@ public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long tagId;
+    public int tagId;
 
     public String name;
     //  로라킴 화이팅 !

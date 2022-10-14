@@ -12,12 +12,12 @@ import javax.persistence.*;
 @Getter
 @Builder
 @AllArgsConstructor
-@Table(name = "watchRecord")
+@Table(name = "watch_record")
 public class WatchRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long watchRecordId;
+    private int watchRecordId;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

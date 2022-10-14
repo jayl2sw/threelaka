@@ -13,15 +13,14 @@ import javax.persistence.*;
 @Getter
 @Builder
 @AllArgsConstructor
-@Table(name = "likeVideo")
 public class LikeVideo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long likeVideoId;
+    private int likeVideoId;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="user")
+    @JoinColumn(name="user_id")
     private User user;
 
     @ManyToOne(targetEntity = Video.class, fetch = FetchType.LAZY)

@@ -18,7 +18,7 @@ public class Dubbing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dubbingId;
+    private int dubbingId;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -17,7 +17,7 @@ import java.util.List;
 public class Dictionary {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private String word;
 
     @Column(name = "content")

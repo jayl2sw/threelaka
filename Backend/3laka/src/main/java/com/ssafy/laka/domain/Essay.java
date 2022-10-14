@@ -19,7 +19,7 @@ public class Essay {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long essayId;
+    private int essayId;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -11,19 +11,19 @@ public interface UserService {
     boolean checkEmail(String email);
     boolean checkUsername(String username);
     boolean checkNickName(String nickname);
-    boolean checkPW(Long id, String nowPW);
+    boolean checkPW(int id, String nowPW);
     boolean checkSameUser(String email, String username);
     TokenDto doLogin(LoginRequestDto requestDto);
     UserResponseDto doSignUp(SignUpRequestDto requestDto);
-    //UserResponseDto getUserInfo(Long id);
-    //void updateUser(Long id, UpdateUserRequestDto requestDto);
-    void deleteUser(Long id);
+    //UserResponseDto getUserInfo(int id);
+    //void updateUser(int id, UpdateUserRequestDto requestDto);
+    void deleteUser(int id);
     void changePW(String email, String newPW);
-    void changePW(Long id, String newPW);
+    void changePW(int id, String newPW);
     void setNickname(String nickname);
     UserResponseDto getMyInfo();
 
-    UserResponseDto getUserInfo(Long userId);
+    UserResponseDto getUserInfo(int userId);
     TokenDto refresh(TokenRequestDto requestDto);
     void logout();
     UserResponseDto search(String keyword);

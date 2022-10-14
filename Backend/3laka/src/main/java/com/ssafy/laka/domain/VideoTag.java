@@ -12,11 +12,11 @@ import javax.persistence.*;
 @Getter
 @Builder
 @AllArgsConstructor
-@Table(name = "videoTag")
+@Table(name = "video_tag")
 public class VideoTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long videoTagId;
+    private int videoTagId;
 
     // 이게 외래키라서 video에서 videoId 컬럼을 가져오는 거예요
     // 얘는 1:N 관계라서 videoTag에는 ManyToOne 어노테이션 해주구

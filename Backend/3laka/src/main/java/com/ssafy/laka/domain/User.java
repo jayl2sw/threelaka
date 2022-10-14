@@ -22,7 +22,7 @@ import static com.ssafy.laka.domain.enums.Gender.SECRET;
 public class User extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private int userId;
     @Column(name = "username")
     private String username;
     @Column(name = "password")

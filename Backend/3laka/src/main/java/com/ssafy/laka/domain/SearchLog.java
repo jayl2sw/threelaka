@@ -12,12 +12,12 @@ import javax.persistence.*;
 @Getter
 @Builder
 @AllArgsConstructor
-@Table(name = "searchLog")
+@Table(name = "search_log")
 public class SearchLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long searchLogId;
+    private int searchLogId;
 
     @Column(name = "keyword")
     private String keyword;

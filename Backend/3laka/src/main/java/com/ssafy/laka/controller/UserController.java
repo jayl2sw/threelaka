@@ -52,6 +52,8 @@ public class UserController {
     @ApiOperation(value = "회원 가입")
     public ResponseEntity<UserResponseDto> doSignUp(@Valid @RequestBody SignUpRequestDto requestDto, BindingResult result){
 
+        System.out.println(result);
+        System.out.println(requestDto);
         if(result.hasErrors()){
             throw new InvalidParameterException(result);
         }
@@ -79,7 +81,7 @@ public class UserController {
 //        if(result.hasErrors()){
 //            throw new InvalidParameterException(result);
 //        }
-//        Long id = userService.getMyInfo().getUser_id();
+//        int id = userService.getMyInfo().getUser_id();
 //        userService.updateUser(id, requestDto);
 //        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 //    }
@@ -89,7 +91,7 @@ public class UserController {
         if(result.hasErrors()){
             throw new InvalidParameterException(result);
         }
-        Long id = userService.getMyInfo().getUserId();
+        int id = userService.getMyInfo().getUserId();
         if(!userService.checkPW(id, dto.getNowPW())){
             throw new RuntimeException("비밀번호가 다릅니다.");
         }
@@ -107,7 +109,7 @@ public class UserController {
     @DeleteMapping("/")
     @ApiOperation(value = "회원 탈퇴")
     public ResponseEntity<String> deleteUser(){
-        Long id = userService.getMyInfo().getUserId();
+        int id = userService.getMyInfo().getUserId();
         userService.deleteUser(id);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }

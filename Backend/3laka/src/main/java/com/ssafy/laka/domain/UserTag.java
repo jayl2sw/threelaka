@@ -12,11 +12,11 @@ import javax.persistence.*;
 @Getter
 @Builder
 @AllArgsConstructor
-@Table(name = "userTag")
+@Table(name = "user_tag")
 public class UserTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userTagId;
+    private int userTagId;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 @ApiModel(value = "UserResponseDto", description = "유저 정보 응답 Dto")
 public class UserResponseDto {
 
-    private Long userId;
+    private int userId;
     private String username;
     private String password;
     private String nickname;
@@ -27,8 +27,8 @@ public class UserResponseDto {
     private String createDate;
 
     public static UserResponseDto from(User entity){
-        System.out.println(entity.getCreatedDate());
-//        String createDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(entity.getCreatedDate()).toString();
+//        System.out.println(entity.getCreatedDate());
+        String createDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(entity.getCreatedDate()).toString();
 
         return UserResponseDto.builder()
                 .userId(entity.getUserId())
@@ -36,7 +36,7 @@ public class UserResponseDto {
                 .email(entity.getEmail())
                 .nickname(entity.getNickname())
                 .role(entity.getRole())
-                .createDate("2022-10-14")
+                .createDate(createDate)
                 .build();
     }
 }

@@ -18,7 +18,7 @@ public class Wordbook {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long wordbookId;
+    private int wordbookId;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

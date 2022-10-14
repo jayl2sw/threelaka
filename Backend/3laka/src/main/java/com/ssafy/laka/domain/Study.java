@@ -18,7 +18,7 @@ public class Study {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studyId;
+    private int studyId;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     private User user;

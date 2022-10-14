@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean checkPW(Long id, String nowPW){
+    public boolean checkPW(int id, String nowPW){
         String username = userRepository.findById(id).orElseThrow(UserNotFoundException::new).getUsername();
 
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -70,8 +70,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean checkSameUser(String email, String username){
-        Long emailId = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new).getUserId();
-        Long nameId = userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new).getUserId();
+        int emailId = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new).getUserId();
+        int nameId = userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new).getUserId();
 
         return emailId == nameId;
     }
@@ -105,15 +105,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserResponseDto doSignUp(SignUpRequestDto requestDto) {
-
         if(userRepository.findByUsername(requestDto.getUsername()).orElse(null)!=null){
             throw new DuplicateUsernameException();
         }
-
         if(userRepository.findByEmail(requestDto.getEmail()).orElse(null)!=null){
             throw new DuplicateEmailException();
         }
-
         User user = User.builder()
                 .username(requestDto.getUsername())
                 .email(requestDto.getEmail())
@@ -121,6 +118,8 @@ public class UserServiceImpl implements UserService{
                 .password(passwordEncoder.encode(requestDto.getPassword()))
                 .role(Role.ROLE_USER)
                 .build();
+
+        userRepository.save(user);
 
         return UserResponseDto.from(user);
     }
@@ -133,18 +132,18 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public UserResponseDto getUserInfo(Long userId) {
+    public UserResponseDto getUserInfo(int userId) {
         return UserResponseDto.from(userRepository.findById(userId).orElseThrow(UserNotFoundException::new));
     }
 
 //  현재 사용처 없음
 //    @Override
-//    public UserResponseDto getUserInfo(Long id){
+//    public UserResponseDto getUserInfo(int id){
 //        return UserResponseDto.from(userRepository.findById(id).orElseThrow(UserNotFoundException::new));
 //    }
 
 //    @Override
-//    public void updateUser(Long id, UpdateUserRequestDto requestDto){
+//    public void updateUser(int id, UpdateUserRequestDto requestDto){
 //        Optional<User> entity = userRepository.findById(id);
 //
 //        if(entity.isPresent()){
@@ -163,7 +162,7 @@ public class UserServiceImpl implements UserService{
 //    }
 
     @Override
-    public void deleteUser(Long id){
+    public void deleteUser(int id){
         Optional<User> entity = userRepository.findById(id);
 
         if(entity.isPresent()){
@@ -187,7 +186,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void changePW(Long id, String newPW){
+    public void changePW(int id, String newPW){
         Optional<User> entity = userRepository.findById(id);
 
         if(entity.isPresent()){
