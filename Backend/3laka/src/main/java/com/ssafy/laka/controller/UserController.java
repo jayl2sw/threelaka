@@ -5,9 +5,11 @@ import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.dto.jwt.TokenDto;
 import com.ssafy.laka.dto.jwt.TokenRequestDto;
 import com.ssafy.laka.dto.user.*;
-import com.ssafy.laka.service.user.MailService;
-import com.ssafy.laka.service.user.UserService;
+import com.ssafy.laka.service.MailService;
+import com.ssafy.laka.service.UserService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,7 +19,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,31 +30,38 @@ public class UserController {
     private final MailService mailService;
 
     @GetMapping("/auth/check/nickname/{nickname}")
-    @ApiOperation(value = "닉네임 중복 검사")
+    @ApiOperation(value = "닉네임 중복 검사", notes = "해당 닉네임이 중복인지 확인하여 중복이면 true, 중복이 아니면 false를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Boolean.class)
+    })
     public ResponseEntity<Boolean> checkNickName(@PathVariable String nickname){
-        // 이미 있으면 true, 없으면 false
         return new ResponseEntity<>(userService.checkNickName(nickname), HttpStatus.OK);
     }
 
     @GetMapping("/auth/check/username/{username}")
-    @ApiOperation(value = "아이디 중복 검사")
+    @ApiOperation(value = "아이디 중복 검사", notes = "해당 아이디가 중복인지 확인하여 중복이면 true, 중복이 아니면 false를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Boolean.class)
+    })
     public ResponseEntity<Boolean> checkUsername(@PathVariable String username){
         return new ResponseEntity<>(userService.checkUsername(username), HttpStatus.OK);
     }
 
     @GetMapping("/auth/check/email/{email}")
-    @ApiOperation(value = "이메일 중복 검사")
+    @ApiOperation(value = "이메일 중복 검사", notes = "해당 이메일이 중복인지 확인하여 중복이면 true, 중복이 아니면 false를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Boolean.class)
+    })
     public ResponseEntity<Boolean> checkEmail(@PathVariable String email){
-        // 이미 있으면 true, 없으면 false
         return new ResponseEntity<>(userService.checkEmail(email), HttpStatus.OK);
     }
 
     @PostMapping("/auth/signup")
-    @ApiOperation(value = "회원 가입")
+    @ApiOperation(value = "회원 가입", notes = "회원 정보를 통해 회원을 추가한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = UserResponseDto.class)
+    })
     public ResponseEntity<UserResponseDto> doSignUp(@Valid @RequestBody SignUpRequestDto requestDto, BindingResult result){
-
-        System.out.println(result);
-        System.out.println(requestDto);
         if(result.hasErrors()){
             throw new InvalidParameterException(result);
         }
@@ -61,7 +69,10 @@ public class UserController {
     }
 
     @PostMapping("/auth/login")
-    @ApiOperation(value = "로그인")
+    @ApiOperation(value = "로그인", notes = "아이디와 비밀번호로 로그인한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = TokenDto.class)
+    })
     public ResponseEntity<TokenDto> doLogin(@Valid @RequestBody LoginRequestDto requestDto, BindingResult result){
         if(result.hasErrors()){
             throw new InvalidParameterException(result);
@@ -75,18 +86,20 @@ public class UserController {
         return new ResponseEntity<>(tokenDto, headers, HttpStatus.OK);
     }
     
-//    @PutMapping("/")
-//    @ApiOperation(value = "회원 정보 수정")
-//    public ResponseEntity<String> updateUser(@RequestBody UpdateUserRequestDto requestDto, BindingResult result){
-//        if(result.hasErrors()){
-//            throw new InvalidParameterException(result);
-//        }
-//        int id = userService.getMyInfo().getUser_id();
-//        userService.updateUser(id, requestDto);
-//        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-//    }
+    @PutMapping("/")
+    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 입력을 통해 회원 정보를 수정한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
+    public ResponseEntity<String> updateUser(){
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
     @PutMapping("/password")
-    @ApiOperation(value = "비밀번호 변경")
+    @ApiOperation(value = "비밀번호 변경", notes = "현재 비밀번호와 비교한 후 비밀번호를 수정한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
     public ResponseEntity<String> changePassword(@Valid @RequestBody ChangePasswordDto dto, BindingResult result){
         if(result.hasErrors()){
             throw new InvalidParameterException(result);
@@ -98,16 +111,12 @@ public class UserController {
         userService.changePW(id, passwordEncoder.encode(dto.getNewPW()));
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
-
-    @PutMapping("/set/nickname")
-    @ApiOperation(value = "닉네임 설정")
-    public ResponseEntity<String> setNickname(@RequestParam String nickname){
-        userService.setNickname(nickname);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-    }
     
-    @DeleteMapping("/")
-    @ApiOperation(value = "회원 탈퇴")
+    @DeleteMapping("")
+    @ApiOperation(value = "회원 탈퇴", notes = "현재 로그인한 회원의 계정을 삭제한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
     public ResponseEntity<String> deleteUser(){
         int id = userService.getMyInfo().getUserId();
         userService.deleteUser(id);
@@ -115,7 +124,10 @@ public class UserController {
     }
 
     @PutMapping("/auth/findpw")
-    @ApiOperation(value = "비밀번호 찾기")
+    @ApiOperation(value = "비밀번호 찾기", notes = "회원 정보와 일치 여부를 확인한 후 비밀번호를 랜덤한 문자열로 변경한 후 메일을 전송한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
     public ResponseEntity<String> findPW(@RequestBody FindPasswordDto dto){
         String email = dto.getEmail();
         String username = dto.getUsername();
@@ -141,30 +153,99 @@ public class UserController {
         return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/myinfo")
-    @ApiOperation(value = "내 정보 보기")
-    public ResponseEntity<UserResponseDto> getMyInfo(){
-        return new ResponseEntity<>(userService.getMyInfo(), HttpStatus.OK);
-    }
-
     @PostMapping("/auth/refresh")
-    @ApiOperation(value = "Access Token 재발급")
+    @ApiOperation(value = "Access Token 재발급", notes = "현재 access token과 refresh token을 통해 access token을 재발급한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = TokenDto.class)
+    })
     public ResponseEntity<TokenDto> refresh(@RequestBody TokenRequestDto requestDto){
         return new ResponseEntity<>(userService.refresh(requestDto), HttpStatus.OK);
     }
 
     @PutMapping("/logout")
-    @ApiOperation(value = "로그아웃")
+    @ApiOperation(value = "로그아웃", notes = "현재 로그인한 회원의 refresh token을 삭제한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
     public ResponseEntity<String> logout(){
         userService.logout();
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
     @GetMapping("/search/{keyword}")
-    @ApiOperation(value = "회원 검색")
+    @ApiOperation(value = "회원 검색", notes = "회원의 닉네임을 통해 회원을 검색한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = UserResponseDto.class)
+    })
     public ResponseEntity<UserResponseDto> search(@PathVariable String keyword){
-
         return new ResponseEntity<>(userService.search(keyword), HttpStatus.OK);
+    }
+
+    @PutMapping("/friend/request")
+    @ApiOperation(value = "친구 요청", notes = "특정 회원에게 친구 요청을 보낸다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
+    public ResponseEntity<String> requestFriend(@RequestBody int user_id){
+//        userService.requestFriend(user_id);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @GetMapping("/friend/request")
+    @ApiOperation(value = "친구 요청 조회", notes = "특정 회원이 받은 친구 요청 리스트를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> showFriendRequest(){
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @PutMapping("/friend/accept")
+    @ApiOperation(value = "친구 요청 수락", notes = "특정 회원이 받은 친구 요청을 수락한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
+    public ResponseEntity<String> acceptFriend(@RequestBody int friend_id){
+//        userService.acceptFriend(propose_id);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/friend/refuse/{friend_id}")
+    @ApiOperation(value = "친구 요청 거절", notes = "특정 회원이 받은 친구 요청을 거절한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
+    public ResponseEntity<String> refuseFriend(@PathVariable int friend_id){
+//        userService.refuseFriend(propose_id);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @GetMapping("/friend")
+    @ApiOperation(value = "친구 목록", notes = "특정 회원의 친구 리스트를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> getFriendList(){
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/friend/{user_id}")
+    @ApiOperation(value = "친구 삭제", notes = "특정 회원의 특정 친구를 삭제한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
+    public ResponseEntity<String> deleteFriend(@PathVariable int user_id){
+//        userService.deleteFriend(user_id);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @GetMapping("/newbie")
+    @ApiOperation(value = "튜토리얼 필요 여부 반환", notes = "회원이 튜토리얼 다시 보지 않기를 선택했다면 false, 선택하지 않았다면 true를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Boolean.class)
+    })
+    public ResponseEntity<Boolean> checkNewbie(){
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
 }

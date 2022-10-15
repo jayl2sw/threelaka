@@ -1,4 +1,4 @@
-package com.ssafy.laka.service.user;
+package com.ssafy.laka.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;

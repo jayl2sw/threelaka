@@ -1,4 +1,4 @@
-package com.ssafy.laka.service.user;
+package com.ssafy.laka.service;
 
 
 import com.ssafy.laka.dto.jwt.TokenDto;

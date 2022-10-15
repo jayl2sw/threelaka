@@ -1,4 +1,4 @@
-package com.ssafy.laka.service.user;
+package com.ssafy.laka.service;
 
 import com.ssafy.laka.domain.*;
 import com.ssafy.laka.domain.enums.Role;
