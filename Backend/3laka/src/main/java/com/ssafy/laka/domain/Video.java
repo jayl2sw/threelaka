@@ -30,7 +30,7 @@ public class Video {
     private List<VideoTag> videoTags;
 
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
-    private List<WatchRecord> watchRecords;
+    private List<LearningRecord> LearningRecords;
 
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
     private List<Wordbook> wordbooks;

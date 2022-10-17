@@ -56,7 +56,7 @@ public class User extends BaseTime {
     private List<LikeDub> likeDubbings;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<WatchRecord> watchRecords;
+    private List<LearningRecord> LearningRecords;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserTag> userTags;
