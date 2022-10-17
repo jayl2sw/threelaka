@@ -57,12 +57,22 @@ public class StudyController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @PostMapping("/essay")
+    @GetMapping("/essay/download")
     @ApiOperation(value = "에세이 저장", notes = "특정 회원 / 특정 강의의 에세이를 저장한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> saveEssay(){
+        // 에세이 저장
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @PostMapping("/complete")
+    @ApiOperation(value = "학습 스테이지 업데이트", notes = "해당 학습 아이디를 가지는 학습의 스테이지를 해당 값으로 업데이트한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> updateCompletedStage(){
         // 에세이 저장
         return new ResponseEntity<>(null, HttpStatus.OK);
     }

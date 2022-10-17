@@ -1,5 +1,6 @@
 package com.ssafy.laka.domain;
 
+import com.ssafy.laka.domain.enums.Stage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,12 +13,12 @@ import javax.persistence.*;
 @Getter
 @Builder
 @AllArgsConstructor
-@Table(name = "watch_record")
-public class WatchRecord {
+@Table(name = "learning_record")
+public class LearningRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int watchRecordId;
+    private int learningRecordId;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -27,7 +28,12 @@ public class WatchRecord {
     @JoinColumn(name = "video_id")
     private Video video;
 
+    private String continueTime;
+    private Stage stage;
+
     @Column(name = "latest_time")
     private String latestTime;
+
+
 
 }
