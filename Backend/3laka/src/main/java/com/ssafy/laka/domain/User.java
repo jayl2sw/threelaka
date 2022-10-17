@@ -67,6 +67,10 @@ public class User extends BaseTime {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Wordbook> wordbooks;
 
+    @ManyToOne(targetEntity = Guild.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "guild_id")
+    private Guild guild;
+
     @PrePersist
     public void prePersist(){
         this.age = this.age == null ? 0 : this.age;
