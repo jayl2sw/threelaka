@@ -49,12 +49,6 @@ public class User extends BaseTime {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Essay> essays;
 
-    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
-    private List<Friend> senders;
-
-    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
-    private List<Friend> receivers;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<LikeVideo> likeVideos;
 
@@ -85,7 +79,9 @@ public class User extends BaseTime {
     }
     public void changePW(String password){this.password = password;}
     public void setNickname(String nickname){this.nickname = nickname;}
+    public void joinGuild(int guild_id){
 
+    }
 
 
 }

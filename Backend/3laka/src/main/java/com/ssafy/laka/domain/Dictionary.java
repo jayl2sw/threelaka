@@ -18,6 +18,8 @@ public class Dictionary {
 
     @Id
     @GeneratedValue
+    private int word_id;
+
     private String word;
 
     @Column(name = "content")

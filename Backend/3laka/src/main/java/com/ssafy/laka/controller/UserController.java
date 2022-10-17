@@ -181,64 +181,6 @@ public class UserController {
         return new ResponseEntity<>(userService.search(keyword), HttpStatus.OK);
     }
 
-    @PutMapping("/friend/request")
-    @ApiOperation(value = "친구 요청", notes = "특정 회원에게 친구 요청을 보낸다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = String.class)
-    })
-    public ResponseEntity<String> requestFriend(@RequestBody int user_id){
-//        userService.requestFriend(user_id);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-    }
-
-    @GetMapping("/friend/request")
-    @ApiOperation(value = "친구 요청 조회", notes = "특정 회원이 받은 친구 요청 리스트를 반환한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
-    })
-    public ResponseEntity<?> showFriendRequest(){
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
-    @PutMapping("/friend/accept")
-    @ApiOperation(value = "친구 요청 수락", notes = "특정 회원이 받은 친구 요청을 수락한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = String.class)
-    })
-    public ResponseEntity<String> acceptFriend(@RequestBody int friend_id){
-//        userService.acceptFriend(propose_id);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-    }
-
-    @DeleteMapping("/friend/refuse/{friend_id}")
-    @ApiOperation(value = "친구 요청 거절", notes = "특정 회원이 받은 친구 요청을 거절한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = String.class)
-    })
-    public ResponseEntity<String> refuseFriend(@PathVariable int friend_id){
-//        userService.refuseFriend(propose_id);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-    }
-
-    @GetMapping("/friend")
-    @ApiOperation(value = "친구 목록", notes = "특정 회원의 친구 리스트를 반환한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
-    })
-    public ResponseEntity<?> getFriendList(){
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/friend/{user_id}")
-    @ApiOperation(value = "친구 삭제", notes = "특정 회원의 특정 친구를 삭제한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = String.class)
-    })
-    public ResponseEntity<String> deleteFriend(@PathVariable int user_id){
-//        userService.deleteFriend(user_id);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-    }
-
     @GetMapping("/newbie")
     @ApiOperation(value = "튜토리얼 필요 여부 반환", notes = "회원이 튜토리얼 다시 보지 않기를 선택했다면 false, 선택하지 않았다면 true를 반환한다")
     @ApiResponses({
