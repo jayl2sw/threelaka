@@ -1,5 +1,6 @@
 package com.ssafy.laka.domain;
 
+import com.ssafy.laka.domain.basetime.BaseTime;
 import com.ssafy.laka.domain.enums.Stage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @Table(name = "learning_record")
-public class LearningRecord {
+public class LearningRecord extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
