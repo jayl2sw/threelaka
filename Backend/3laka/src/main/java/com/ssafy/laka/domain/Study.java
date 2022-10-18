@@ -1,5 +1,6 @@
 package com.ssafy.laka.domain;
 
+import com.ssafy.laka.domain.basetime.BaseTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @Table(name = "study")
-public class Study {
+public class Study extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

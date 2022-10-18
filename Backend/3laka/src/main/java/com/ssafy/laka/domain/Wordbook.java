@@ -32,10 +32,20 @@ public class Wordbook {
     @JoinColumn(name = "word")
     private Dictionary dictionary;
 
+    @Column(name ="custom_word")
+    private String customWord;
+
+    @Column(name ="definition")
+    private String definition;
+
+    @Column(name ="example")
+    private String example;
+
     @Column(name = "is_memorized")
     private boolean isMemorized;
 
     @OneToMany(mappedBy = "wordbook", cascade = CascadeType.ALL)
     private List<Essay> essays;
 
+    public void setMemorized(){this.isMemorized = true;}
 }

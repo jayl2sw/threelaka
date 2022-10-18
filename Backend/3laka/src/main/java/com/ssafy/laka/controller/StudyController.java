@@ -58,7 +58,20 @@ public class StudyController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @PostMapping("/video/search")
+    @DeleteMapping("/video/wish")
+    @ApiOperation(value = "나중에 볼 영상 제거", notes = "회원의 나중에 볼 영상에 해당 영상을 제거한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> deleteWishVideo(
+            @RequestBody int likeVideoId
+    ){
+        // 나중에 볼 영상 추가
+        studyService.deleteWish(likeVideoId);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @GetMapping("/video/search")
     @ApiOperation(value = "keyword로 영상 검색", notes = "keyword를 이용한 영상 검색")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
@@ -76,10 +89,22 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> addWord(
-            @RequestBody String word
+            WordRequestDto data
     ){
         // 단어장에 단어 하나 추가해줌
-        studyService.addWord(word);
+        studyService.addWord(data);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+    @DeleteMapping("/word")
+    @ApiOperation(value = "단어 제거", notes = "특정 회원의 특정 강의에 해당 단어를 제거한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> deleteWord(
+            @RequestBody int wordbookId
+    ){
+        // 단어장에 단어 하나 추가해줌
+        studyService.deleteWord(wordbookId);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
@@ -102,7 +127,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<List<WordbookResponseDto>> getWords(
-            @PathVariable String video_id){
+            @PathVariable int video_id){
         // 해당 강좌의 단어장 불러오기
         return new ResponseEntity<>(studyService.getWordbookByVideo(video_id), HttpStatus.OK);
     }
@@ -117,6 +142,19 @@ public class StudyController {
     ){
         // 단어장에 커스텀 단어 하나 추가해줌
         studyService.addCustomWord(customWord);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @PutMapping("/word/complete")
+    @ApiOperation(value = "단어 외움 처리", notes = "학습량을 업데이트 한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> updateWordbookStatus(
+            int wordbook_id
+    ){
+        // 단어장 단어 외움 처리
+        studyService.memorizeWord(wordbook_id);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
@@ -143,7 +181,7 @@ public class StudyController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @PostMapping("/complete")
+    @PostMapping("/complete/stage")
     @ApiOperation(value = "학습 스테이지 업데이트", notes = "해당 학습 아이디를 가지는 학습의 스테이지를 해당 값으로 업데이트한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
@@ -153,6 +191,19 @@ public class StudyController {
     ){
         // 학습 스테이지 저장
         studyService.updateCompletedStage(data);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @PostMapping("/complete")
+    @ApiOperation(value = "학습량 업데이트", notes = "학습량을 업데이트 한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> updateLearningTime(
+            UpdateLearningRequestDto data
+    ){
+        // 학습 스테이지 저장
+        studyService.addLearningTime(data);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 

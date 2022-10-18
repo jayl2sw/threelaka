@@ -25,9 +25,6 @@ public class Dictionary {
     private String content;
 
     @OneToMany(mappedBy = "dictionary", cascade = CascadeType.ALL)
-    private List<Essay> essays;
-
-    @OneToMany(mappedBy = "dictionary", cascade = CascadeType.ALL)
     private List<Wordbook> wordbooks;
 
 }

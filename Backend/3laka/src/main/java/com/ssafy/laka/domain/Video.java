@@ -25,6 +25,7 @@ public class Video {
     private String script;
     private String url;
     private int views;
+    private String youtube_id;
 
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
     private List<VideoTag> videoTags;

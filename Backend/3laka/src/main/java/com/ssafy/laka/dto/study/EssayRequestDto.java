@@ -8,7 +8,7 @@ import lombok.Data;
 @ApiModel(value = "EssayRequestDto", description = "에세이 저장 요청 Dto")
 public class EssayRequestDto {
 
-    private WordbookResponseDto wordbook;
+    private int wordbookId;
     private UserResponseDto user;
     private String content;
 

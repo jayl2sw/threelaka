@@ -87,5 +87,4 @@ public class User extends BaseTime {
 
     }
 
-
 }

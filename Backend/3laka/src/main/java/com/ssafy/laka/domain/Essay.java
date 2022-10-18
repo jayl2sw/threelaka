@@ -29,8 +29,6 @@ public class Essay {
     @JoinColumn(name = "wordbook_id")
     private Wordbook wordbook;
 
-    @ManyToOne(targetEntity = Dictionary.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "word")
-    private Dictionary dictionary;
+    private String content;
 
 }

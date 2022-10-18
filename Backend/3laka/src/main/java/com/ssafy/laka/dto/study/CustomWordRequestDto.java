@@ -7,8 +7,9 @@ import lombok.Data;
 @ApiModel(value = "CustomWordRequestDto", description = "커스텀 단어 생성 요청 Dto")
 public class CustomWordRequestDto {
 
+    private int videoId;
     private String word;
     private String definition;
-    private String sentence;
+    private String example;
 
 }
