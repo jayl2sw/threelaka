@@ -1,15 +1,11 @@
 package com.ssafy.laka.dto.study;
 
-import com.ssafy.laka.domain.User;
 import com.ssafy.laka.domain.Video;
-import com.ssafy.laka.dto.user.UserResponseDto;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.format.DateTimeFormatter;
 
 @Getter
 @Builder

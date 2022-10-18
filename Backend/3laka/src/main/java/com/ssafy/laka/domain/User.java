@@ -83,7 +83,7 @@ public class User extends BaseTime {
     }
     public void changePW(String password){this.password = password;}
     public void setNickname(String nickname){this.nickname = nickname;}
-    public void joinGuild(int guild_id){
+    public void joinGuild(int guildId){
 
     }
 

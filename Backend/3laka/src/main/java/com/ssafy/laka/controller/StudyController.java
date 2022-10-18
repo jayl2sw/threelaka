@@ -1,28 +1,38 @@
 package com.ssafy.laka.controller;
 
-import com.ssafy.laka.dto.study.VideoResponseDto;
+import com.ssafy.laka.dto.study.*;
+import com.ssafy.laka.repository.UserRepository;
+import com.ssafy.laka.service.StudyService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.sql.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/study")
 public class StudyController {
 
+    private final StudyService studyService;
+
     @PostMapping("/video")
     @ApiOperation(value = "비디오 조회", notes = "링크에 해당하는 비디오를 조회하여 반환한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<VideoResponseDto> getVideo(){
+    public ResponseEntity<VideoResponseDto> getVideo(
+            @RequestBody String url
+    ){
         // 링크 입력하면 DB 확인 후 없으면 데이터 저장, 있으면 불러온다.
         // Video Dto + 시청 기록 Dto 반환
-        return new ResponseEntity<>(null, HttpStatus.OK);
+
+        return new ResponseEntity<>(studyService.getVideo(), HttpStatus.OK);
     }
 
     @PostMapping("/video/latest")
@@ -32,7 +42,7 @@ public class StudyController {
     })
     public ResponseEntity<VideoResponseDto> getRecentVideo(){
 
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(studyService.getRecentVideo(), HttpStatus.OK);
     }
 
     @PostMapping("/video/wish")
@@ -40,19 +50,24 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> addWishVideo(){
+    public ResponseEntity<?> addWishVideo(
+            @RequestBody int video_id
+    ){
         // 나중에 볼 영상 추가
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        studyService.addWish(video_id);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     @PostMapping("/video/search")
-    @ApiOperation(value = "나중에 볼 영상 추가", notes = "회원의 나중에 볼 영상에 해당 영상을 추가한다")
+    @ApiOperation(value = "keyword로 영상 검색", notes = "keyword를 이용한 영상 검색")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> searchVideos(){
+    public ResponseEntity<List<VideoResponseDto>> searchVideos(
+            @RequestBody String keyword
+    ){
         // 나중에 볼 영상 추가
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(studyService.getVideosByKeyword(keyword), HttpStatus.OK);
     }
 
     @PostMapping("/word")
@@ -60,9 +75,12 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> addWord(){
+    public ResponseEntity<?> addWord(
+            @RequestBody String word
+    ){
         // 단어장에 단어 하나 추가해줌
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        studyService.addWord(word);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     @PostMapping("/word/search")
@@ -70,9 +88,12 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> searchWord(){
-        // 단어장에 단어 하나 추가해줌
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<WordResponseDto> searchWord(
+            @RequestBody String word
+    ){
+        // DB에서 word를 찾고 만약 DB에 없으면 콜린스 api통해서 요청 보냄
+
+        return new ResponseEntity<>(studyService.getWord(word), HttpStatus.OK);
     }
 
     @GetMapping("/word/{video_id}")
@@ -80,10 +101,10 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> getWords(
+    public ResponseEntity<List<WordbookResponseDto>> getWords(
             @PathVariable String video_id){
         // 해당 강좌의 단어장 불러오기
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(studyService.getWordbookByVideo(video_id), HttpStatus.OK);
     }
 
     @PostMapping("/word/myword")
@@ -91,9 +112,12 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> addCustomWord(){
+    public ResponseEntity<?> addCustomWord(
+            CustomWordRequestDto customWord
+    ){
         // 단어장에 커스텀 단어 하나 추가해줌
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        studyService.addCustomWord(customWord);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     @GetMapping("/essay")
@@ -101,9 +125,12 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> saveEssay(){
+    public ResponseEntity<?> saveEssay(
+            EssayRequestDto essay
+    ){
         // 에세이 저장
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        studyService.addEssay(essay);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     @GetMapping("/essay/download")
@@ -121,9 +148,12 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> updateCompletedStage(){
-        // 에세이 저장
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<?> updateCompletedStage(
+            UpdateStageRequestDto data
+    ){
+        // 학습 스테이지 저장
+        studyService.updateCompletedStage(data);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
 }

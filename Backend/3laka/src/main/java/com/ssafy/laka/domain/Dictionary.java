@@ -18,11 +18,10 @@ public class Dictionary {
 
     @Id
     @GeneratedValue
-    private int word_id;
+    private int wordId;
 
     private String word;
 
-    @Column(name = "content")
     private String content;
 
     @OneToMany(mappedBy = "dictionary", cascade = CascadeType.ALL)
