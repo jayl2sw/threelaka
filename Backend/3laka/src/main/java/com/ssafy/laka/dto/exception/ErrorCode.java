@@ -15,12 +15,9 @@ public enum ErrorCode {
     DUPLICATE_FRIEND(400, "U007", "이미 친구입니다."),
 
     DUPLICATE_PROPOSE(400, "U008", "이미 전송된 요청입니다."),
-    EXCEEDED_MONEY(400, "U008", "알맞은 금액이 아닙니다."),
-    MONSTER_NOT_FOUND(404, "G001", "몬스터 정보를 찾을 수 없습니다."),
-    PLANT_NOT_FOUND(404, "P001", "식물 정보를 찾을 수 없습니다,"),
-    ITEM_NOT_FOUND(404, "G001", "판매 아이템 정보를 찾을 수 없습니다,"),
-    CASH_BELOW_ZERO(400, "G002", "캐시가 부족합니다."),
-    SKILL_NOT_FOUND(404, "G003", "해당 스킬을 찾을 수 없습니다.");
+    LEARNING_RECORD_NOT_FOUND(400, "D001", "해당 유저의 최신 학습 기록을 찾을 수 없습니다."),
+    WORDBOOK_NOT_FOUND(400, "D002", "해당 유저 해당 강의의 단어장을 찾을 수 없습니다."),
+    VIDEO_NOT_FOUND(400, "D003", "해당 비디오를 찾을 수 없습니다.");
 
 
     private final int status;
