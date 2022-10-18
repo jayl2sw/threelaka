@@ -1,5 +1,8 @@
 package com.ssafy.laka.controller;
 
+import com.ssafy.laka.dto.dashboard.PlayingVideoDto;
+import com.ssafy.laka.dto.dashboard.TodayWordDto;
+import com.ssafy.laka.service.DashboardService;
 import com.ssafy.laka.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -9,10 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/dashboard")
 public class DashboardController {
+
+    private final DashboardService dashboardService;
 
     @GetMapping("/profile")
     @ApiOperation(value = "회원 정보 조회", notes = "회원의 프로필 관련 정보를 반환한다")
@@ -27,22 +34,21 @@ public class DashboardController {
     @GetMapping("/dailywords")
     @ApiOperation(value = "오늘의 단어 조회", notes = "회원의 단어장 중 외우지 못한 단어를 랜덤하게 반환한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
+            @ApiResponse(code = 200, message = "Success", response = TodayWordDto.class)
     })
-    public ResponseEntity<?> getDailyWords(){
+    public ResponseEntity<List<TodayWordDto>> getDailyWords(){
         // 제일 최근 영상의 단어장에서 몇개 뽑아서 오늘의 단어 다섯 개 반환
-
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(dashboardService.getRandomWords(), HttpStatus.OK);
     }
 
     @GetMapping("/playing")
     @ApiOperation(value = "현재 공부 중인 영상 조회", notes = "회원이 현재 공부를 완료하지 못한 영상 리스트를 반환한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
+            @ApiResponse(code = 200, message = "Success", response = PlayingVideoDto.class)
     })
-    public ResponseEntity<?> getPlayingList(){
+    public ResponseEntity<PlayingVideoDto> getPlayingList(){
         // 현재 공부중인 영상 리스트 반환
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(dashboardService.getPlayingList(), HttpStatus.OK);
     }
 
     @GetMapping("/history")

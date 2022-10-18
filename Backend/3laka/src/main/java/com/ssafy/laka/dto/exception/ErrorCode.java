@@ -16,7 +16,8 @@ public enum ErrorCode {
 
     DUPLICATE_PROPOSE(400, "U008", "이미 전송된 요청입니다."),
     LEARNING_RECORD_NOT_FOUND(400, "D001", "해당 유저의 최신 학습 기록을 찾을 수 없습니다."),
-    WORDBOOK_NOT_FOUND(400, "D002", "해당 유저 해당 강의의 단어장을 찾을 수 없습니다.");
+    WORDBOOK_NOT_FOUND(400, "D002", "해당 유저 해당 강의의 단어장을 찾을 수 없습니다."),
+    VIDEO_NOT_FOUND(400, "D003", "해당 비디오를 찾을 수 없습니다.");
 
 
     private final int status;
