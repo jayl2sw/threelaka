@@ -1,5 +1,6 @@
 package com.ssafy.laka.controller;
 
+import com.ssafy.laka.dto.dashboard.HistoryNumDto;
 import com.ssafy.laka.dto.dashboard.PlayingVideoDto;
 import com.ssafy.laka.dto.dashboard.TodayWordDto;
 import com.ssafy.laka.service.DashboardService;
@@ -54,11 +55,11 @@ public class DashboardController {
     @GetMapping("/history")
     @ApiOperation(value = "최근 학습량 및 영상수 조회", notes = "회원이 최근 학습한 양과 영상의 수를 반환한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
+            @ApiResponse(code = 200, message = "Success", response = HistoryNumDto.class)
     })
-    public ResponseEntity<?> getTime(){
+    public ResponseEntity<HistoryNumDto> getHistory(){
         // 지금까지 전체 공부한 양 반환 (공부 완료 비디오, 에세이, 단어 수)
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(dashboardService.getHistory(), HttpStatus.OK);
     }
 
     @GetMapping("/calendar")
@@ -86,7 +87,7 @@ public class DashboardController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> getHistory(){
+    public ResponseEntity<?> getDone(){
         // 지금까지 공부한 영상 리스트 반환
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
