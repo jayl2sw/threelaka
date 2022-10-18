@@ -8,9 +8,9 @@ import com.ssafy.laka.dto.study.*;
 import com.ssafy.laka.repository.*;
 import com.ssafy.laka.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,18 +21,37 @@ import java.util.stream.Collectors;
 @Transactional
 public class StudyServiceImpl implements StudyService{
 
-    UserRepository userRepository;
-    VideoRepository videoRepository;
-    LikeVideoRepository likeVideoRepository;
-    DictionaryRepository dictionaryRepository;
-    StudyRepository studyRepository;
-    LearningRecordRepository learningRecordRepository;
-    EssayRepository essayRepository;
-    WordbookRepository wordbookRepository;
+    private final UserRepository userRepository;
+    private final VideoRepository videoRepository;
+    private final LikeVideoRepository likeVideoRepository;
+    private final DictionaryRepository dictionaryRepository;
+    private final StudyRepository studyRepository;
+    private final LearningRecordRepository learningRecordRepository;
+    private final EssayRepository essayRepository;
+    private final WordbookRepository wordbookRepository;
+
+    private final YoutubeService youtubeService;
 
     @Override
-    public VideoResponseDto getVideo() {
-        return null;
+    public VideoResponseDto getVideo(String url) {
+        String videoId = parseVideoId(url);
+        return sendGETRequest(videoId);
+    }
+
+    private VideoResponseDto sendGETRequest(String videoId) {
+        return VideoResponseDto.from(youtubeService.get(videoId));
+    }
+
+    private String parseVideoId(String url) throws VideoNotFoundException {
+
+        if ( url.contains("watch")){
+            return url.replace("https://www.youtube.com/watch?v=","");
+        } else if (url.contains(".be/")) {
+            String[] parts = url.split("be/");
+            return parts[1];
+        } else {
+            throw new VideoNotFoundException();
+        }
     }
 
     @Override
@@ -48,7 +67,7 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public void addWish(int video_id) {
+    public void addWish(String video_id) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         Video video = videoRepository.findById(video_id).orElseThrow(VideoNotFoundException::new);
         LikeVideo.builder().user(user).video(video);
@@ -116,7 +135,7 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public List<WordbookResponseDto> getWordbookByVideo(int video_id) {
+    public List<WordbookResponseDto> getWordbookByVideo(String video_id) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         Video video = videoRepository.findById(video_id).orElseThrow(VideoNotFoundException::new);
 

@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface StudyService {
 
-    VideoResponseDto getVideo();
+    VideoResponseDto getVideo(String url);
 
     VideoResponseDto getRecentVideo();
 
-    void addWish(int video_id);
+    void addWish(String video_id);
     void deleteWish(int like_video_id);
     List<VideoResponseDto> getVideosByKeyword(String keyword);
 
@@ -18,7 +18,7 @@ public interface StudyService {
     void deleteWord(int wordbook_id);
     WordResponseDto getWord(String word);
 
-    List<WordbookResponseDto> getWordbookByVideo(int video_id);
+    List<WordbookResponseDto> getWordbookByVideo(String video_id);
 
     void addCustomWord(CustomWordRequestDto data);
     void addEssay(EssayRequestDto essay);

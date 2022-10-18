@@ -14,12 +14,11 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "VideoResponseDto", description = "영상 정보 응답 Dto")
 public class VideoResponseDto {
 
-    private int videoId;
+    private String videoId;
     private String title;
     private String description;
     private String script;
-    private String url;
-    private int views;
+
 
     public static VideoResponseDto from(Video entity){
 
@@ -28,8 +27,6 @@ public class VideoResponseDto {
                 .title(entity.getTitle())
                 .description(entity.getDescription())
                 .script(entity.getScript())
-                .url(entity.getUrl())
-                .views(0)
                 .build();
     }
 }

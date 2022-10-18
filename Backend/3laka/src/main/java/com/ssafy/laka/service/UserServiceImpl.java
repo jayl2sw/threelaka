@@ -82,10 +82,13 @@ public class UserServiceImpl implements UserService{
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(requestDto.getUsername(), requestDto.getPassword());
 
+        System.out.println(authenticationToken);
         // 검증 과정
         // CustomUserDetailsService의 loadByUserName 실행
         Authentication authentication = authenticationManagerBuilder.getObject()
                 .authenticate(authenticationToken);
+
+        System.out.println(authentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // 인증 정보를 기반으로 JWT 토큰 생성

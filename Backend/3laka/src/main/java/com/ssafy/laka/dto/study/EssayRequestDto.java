@@ -9,7 +9,6 @@ import lombok.Data;
 public class EssayRequestDto {
 
     private int wordbookId;
-    private UserResponseDto user;
     private String content;
 
 }

@@ -32,7 +32,7 @@ public class StudyController {
         // 링크 입력하면 DB 확인 후 없으면 데이터 저장, 있으면 불러온다.
         // Video Dto + 시청 기록 Dto 반환
 
-        return new ResponseEntity<>(studyService.getVideo(), HttpStatus.OK);
+        return new ResponseEntity<>(studyService.getVideo(url), HttpStatus.OK);
     }
 
     @PostMapping("/video/latest")
@@ -51,7 +51,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> addWishVideo(
-            @RequestBody int video_id
+            @RequestBody String video_id
     ){
         // 나중에 볼 영상 추가
         studyService.addWish(video_id);
@@ -127,7 +127,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<List<WordbookResponseDto>> getWords(
-            @PathVariable int video_id){
+            @PathVariable String video_id){
         // 해당 강좌의 단어장 불러오기
         return new ResponseEntity<>(studyService.getWordbookByVideo(video_id), HttpStatus.OK);
     }
