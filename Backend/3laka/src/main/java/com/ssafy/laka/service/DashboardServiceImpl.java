@@ -2,7 +2,6 @@ package com.ssafy.laka.service;
 
 import com.ssafy.laka.domain.LearningRecord;
 import com.ssafy.laka.domain.User;
-import com.ssafy.laka.domain.Wordbook;
 import com.ssafy.laka.domain.enums.Stage;
 import com.ssafy.laka.dto.dashboard.*;
 import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
@@ -10,7 +9,6 @@ import com.ssafy.laka.dto.exception.dashboard.VideoNotFoundException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.repository.*;
 import com.ssafy.laka.util.SecurityUtil;
-import jdk.internal.org.jline.reader.History;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,8 +73,21 @@ public class DashboardServiceImpl implements DashboardService{
     }
 
     @Override
-    public List<LikeVideoDto> getLikeVideos() {
+    public List<VideoDto> getLikeVideos() {
         User user = getUser();
-        return likeVideoRepository.findAllByUser(user).stream().map(s -> LikeVideoDto.of(s.getVideo())).collect(Collectors.toList());
+        return likeVideoRepository.findAllByUser(user)
+                .stream().map(s -> VideoDto.of(s.getVideo())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<VideoDto> getDoneVideos() {
+        User user = getUser();
+        return learningRecordRepository.findAllByUserAndStage(user, Stage.COMPLETE)
+                .stream().map(s -> VideoDto.of(s.getVideo())).collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateInterestTags(InterestTagReqeustDto interestTagReqeustDto) {
+        User user = getUser();
     }
 }

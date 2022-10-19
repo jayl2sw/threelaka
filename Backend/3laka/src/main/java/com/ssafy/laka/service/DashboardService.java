@@ -10,6 +10,8 @@ public interface DashboardService {
     PlayingVideoDto getPlayingList();
     HistoryNumDto getHistory();
     CalendarDto getCalendar();
-    List<LikeVideoDto> getLikeVideos();
+    List<VideoDto> getLikeVideos();
+    List<VideoDto> getDoneVideos();
+    void updateInterestTags(InterestTagReqeustDto interestTagReqeustDto);
 
 }

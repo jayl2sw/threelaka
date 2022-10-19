@@ -1,7 +1,6 @@
 package com.ssafy.laka.dto.dashboard;
 
 import com.ssafy.laka.domain.Video;
-import com.ssafy.laka.domain.enums.Stage;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,15 +11,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "LikeVideoDto", description = "나중에 볼 영상 Dto")
-public class LikeVideoDto {
+@ApiModel(value = "VideoDto", description = "영상 Dto")
+public class VideoDto {
 
     private int videoId;
     private String title;
     private String url;
 
-    public static LikeVideoDto of(Video video) {
-        return LikeVideoDto.builder()
+    public static VideoDto of(Video video) {
+        return VideoDto.builder()
                 .videoId(video.getVideoId())
                 .title(video.getTitle())
                 .url(video.getUrl())
