@@ -2,12 +2,11 @@ package com.ssafy.laka.service;
 
 import com.ssafy.laka.domain.LearningRecord;
 import com.ssafy.laka.domain.User;
-import com.ssafy.laka.domain.Wordbook;
 import com.ssafy.laka.domain.enums.Stage;
 import com.ssafy.laka.dto.dashboard.PlayingVideoDto;
 import com.ssafy.laka.dto.dashboard.TodayWordDto;
 import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
-import com.ssafy.laka.dto.exception.dashboard.VideoNotFoundException;
+import com.ssafy.laka.dto.exception.study.VideoNotFoundException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.repository.LearningRecordRepository;
 import com.ssafy.laka.repository.UserRepository;

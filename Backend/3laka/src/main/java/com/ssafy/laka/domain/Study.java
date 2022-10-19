@@ -19,10 +19,11 @@ import java.time.format.DateTimeFormatter;
 public class Study extends BaseTime {
 
     @Id
+    private int studyId;
+
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     private User user;
 
-    @Id
     private String date;
 
     private int time;

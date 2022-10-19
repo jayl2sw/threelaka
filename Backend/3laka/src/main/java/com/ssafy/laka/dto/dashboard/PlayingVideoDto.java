@@ -14,10 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @ApiModel(value = "PlayingVideoDto", description = "현재 공부 중인 영상 Dto")
 public class PlayingVideoDto {
-    private int videoId;
+    private String videoId;
     private String title;
-    private String url;
     public static PlayingVideoDto of(Video video) {
-        return PlayingVideoDto.builder().videoId(video.getVideoId()).title(video.getTitle()).url(video.getUrl()).build();
+        return PlayingVideoDto.builder().videoId(video.getVideoId()).title(video.getTitle()).build();
     }
 }

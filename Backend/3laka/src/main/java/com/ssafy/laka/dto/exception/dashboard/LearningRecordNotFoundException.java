@@ -6,6 +6,6 @@ import com.ssafy.laka.dto.exception.ErrorCode;
 
 public class LearningRecordNotFoundException extends CustomException {
     public LearningRecordNotFoundException(){
-        super(ErrorCode.LEARNING_RECORD_NOT_FOUND);
+        super(ErrorCode.LEARNING_RECORD_NOT_EXIST);
     }
 }
