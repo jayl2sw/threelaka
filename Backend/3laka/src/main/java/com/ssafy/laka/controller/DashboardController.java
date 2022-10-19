@@ -1,6 +1,7 @@
 package com.ssafy.laka.controller;
 
 import com.ssafy.laka.dto.dashboard.HistoryNumDto;
+import com.ssafy.laka.dto.dashboard.LikeVideoDto;
 import com.ssafy.laka.dto.dashboard.PlayingVideoDto;
 import com.ssafy.laka.dto.dashboard.TodayWordDto;
 import com.ssafy.laka.service.DashboardService;
@@ -38,7 +39,7 @@ public class DashboardController {
             @ApiResponse(code = 200, message = "Success", response = TodayWordDto.class)
     })
     public ResponseEntity<List<TodayWordDto>> getDailyWords(){
-        // 제일 최근 영상의 단어장에서 몇개 뽑아서 오늘의 단어 다섯 개 반환
+        // 제일 최근 영상의 단어장에서 안 외운 단어만 뽑아서 오늘의 단어 다섯 개 반환
         return new ResponseEntity<>(dashboardService.getRandomWords(), HttpStatus.OK);
     }
 
@@ -68,22 +69,22 @@ public class DashboardController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> getCalendarInfo(){
-        // 이번 달 학습량 반환 (List<Study> 이번달)
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        // 이번 달 학습한 날짜 반환(이거 스터디테이블에 createdate 생기면 할게요), 연속 출석일 수 (유저테이블에 있음)
+        return new ResponseEntity<>(dashboardService.getCalendar(), HttpStatus.OK);
     }
 
     @GetMapping("/liked")
     @ApiOperation(value = "나중에 볼 영상 조회", notes = "회원의 나중에 볼 영상 리스트를 반환한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
+            @ApiResponse(code = 200, message = "Success", response = LikeVideoDto.class)
     })
-    public ResponseEntity<?> getLikes(){
+    public ResponseEntity<List<LikeVideoDto>> getLikes(){
         // 나중에 공부할 영상 리스트 반환
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(dashboardService.getLikeVideos(), HttpStatus.OK);
     }
 
     @GetMapping("/done")
-    @ApiOperation(value = "학습 히스토리 데이터 조회", notes = "회원의 학습 히스토리 데이터를 반환한다")
+    @ApiOperation(value = "학습 히스토리 데이터 조회", notes = "회원의 일별/주별/월별 학습 데이터를 반환한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })

@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,6 +36,8 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success", response = Boolean.class)
     })
     public ResponseEntity<Boolean> checkNickName(@PathVariable String nickname){
+        Date date = new Date();
+        System.out.println(date.getDate());
         return new ResponseEntity<>(userService.checkNickName(nickname), HttpStatus.OK);
     }
 

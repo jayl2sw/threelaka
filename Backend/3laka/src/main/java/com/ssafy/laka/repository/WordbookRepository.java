@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface WordbookRepository extends JpaRepository<Wordbook, Integer> {
 
-    @Query(nativeQuery = true, value = "select * from wordbook wb where wb.user_id = :userId and wb.video_id = :videoId order by RAND() limit 5")
-    List<Wordbook> findRandom5ByUserAndVideo(int userId, int videoId);
+    @Query(nativeQuery = true, value = "select * from wordbook wb where wb.user_id = :userId and wb.video_id = :videoId and wb.is_memorized = :isMemorized order by RAND() limit 5")
+    List<Wordbook> findRandom5ByUserAndVideoAndMemorized(int userId, int videoId, boolean isMemorized);
 
     int countByUser(User user);
 
