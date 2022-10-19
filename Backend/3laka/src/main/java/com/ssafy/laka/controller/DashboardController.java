@@ -1,5 +1,9 @@
 package com.ssafy.laka.controller;
 
+import com.ssafy.laka.dto.dashboard.PlayingVideoDto;
+import com.ssafy.laka.dto.dashboard.TodayWordDto;
+import com.ssafy.laka.service.DashboardService;
+import com.ssafy.laka.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -8,10 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/dashboard")
 public class DashboardController {
+
+    private final DashboardService dashboardService;
 
     @GetMapping("/profile")
     @ApiOperation(value = "회원 정보 조회", notes = "회원의 프로필 관련 정보를 반환한다")
@@ -26,30 +34,30 @@ public class DashboardController {
     @GetMapping("/dailywords")
     @ApiOperation(value = "오늘의 단어 조회", notes = "회원의 단어장 중 외우지 못한 단어를 랜덤하게 반환한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
+            @ApiResponse(code = 200, message = "Success", response = TodayWordDto.class)
     })
-    public ResponseEntity<?> getDailyWords(){
-        // 단어장에서 몇개 뽑아서 오늘의 단어 반환
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<List<TodayWordDto>> getDailyWords(){
+        // 제일 최근 영상의 단어장에서 몇개 뽑아서 오늘의 단어 다섯 개 반환
+        return new ResponseEntity<>(dashboardService.getRandomWords(), HttpStatus.OK);
     }
 
     @GetMapping("/playing")
     @ApiOperation(value = "현재 공부 중인 영상 조회", notes = "회원이 현재 공부를 완료하지 못한 영상 리스트를 반환한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
+            @ApiResponse(code = 200, message = "Success", response = PlayingVideoDto.class)
     })
-    public ResponseEntity<?> getPlayingList(){
+    public ResponseEntity<PlayingVideoDto> getPlayingList(){
         // 현재 공부중인 영상 리스트 반환
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(dashboardService.getPlayingList(), HttpStatus.OK);
     }
 
-    @GetMapping("/time")
+    @GetMapping("/history")
     @ApiOperation(value = "최근 학습량 및 영상수 조회", notes = "회원이 최근 학습한 양과 영상의 수를 반환한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> getTime(){
-        // 최근 몇 주간 학습량, 영상 개수 (목업에서 더 자세히 살펴보기)
+        // 지금까지 전체 공부한 양 반환 (공부 완료 비디오, 에세이, 단어 수)
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
@@ -59,7 +67,7 @@ public class DashboardController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> getCalendarInfo(){
-        // 캘린더에 필요한 데이터 제공 (얘도 목업 참고)
+        // 이번 달 학습량 반환 (List<Study> 이번달)
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
@@ -73,13 +81,13 @@ public class DashboardController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @GetMapping("/history")
+    @GetMapping("/done")
     @ApiOperation(value = "학습 히스토리 데이터 조회", notes = "회원의 학습 히스토리 데이터를 반환한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> getHistory(){
-        // 학습 히스토리를 한눈에 확인할 수 있는 데이터 제공 (얘도 목업 참고)
+        // 지금까지 공부한 영상 리스트 반환
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
@@ -89,7 +97,7 @@ public class DashboardController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> changeTag(){
-        // 관심 태그 수정
+        // 관심 태그 수정 (최대 3개)
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
