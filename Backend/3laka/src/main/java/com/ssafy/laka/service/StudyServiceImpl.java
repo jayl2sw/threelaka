@@ -9,8 +9,12 @@ import com.ssafy.laka.repository.*;
 import com.ssafy.laka.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -80,9 +84,9 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public List<VideoResponseDto> getVideosByKeyword(String keyword) {
-        // page로 반환?
-        return null;
+    public List<VideoResponseDto> getVideosByKeyword(String keyword, Pageable pageable) {
+        return videoRepository.findByKeyword(keyword, pageable).stream().map(
+                v -> VideoResponseDto.from(v)).collect(Collectors.toList());
     }
 
     @Override
@@ -168,16 +172,32 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public void addLearningTime(UpdateLearningRequestDto data) {
+    public void addLearningTime(UpdateStageRequestDto data) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        Study study = Study.builder().user(user).time(data.getTime()).build();
-        studyRepository.save(study);
-
+        String today = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now()).toString();
+        Optional<Study> learning = studyRepository.findByUserAndDate(user, today);
+        if (learning.isPresent()) {
+            learning.get().addTime(data.getTime());
+        } else {
+            Study study = Study.builder().user(user).time(data.getTime()).build();
+            studyRepository.save(study);
+            user.addContinuousLearningDate();
+        }
     }
 
     @Override
     public void memorizeWord(int wordbook_id) {
         Wordbook wordbook = wordbookRepository.findById(wordbook_id).orElseThrow(NotInWordbookException::new);
         wordbook.setMemorized();
+    }
+
+    @Override
+    public void checkContinuousLearningDate(String token) {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        String today = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now()).toString();
+        String yesterday = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now().minusDays(1)).toString();
+        if (studyRepository.findByUserAndDate(user, yesterday).isEmpty() && studyRepository.findByUserAndDate(user, today).isEmpty()) {
+            user.resetContinuousLearningDate();
+        }
     }
 }

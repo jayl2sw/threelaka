@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.sql.Update;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -76,11 +77,12 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<List<VideoResponseDto>> searchVideos(
+    public ResponseEntity<?> searchVideos(
+            Pageable pageable,
             @RequestBody String keyword
     ){
-        // 나중에 볼 영상 추가
-        return new ResponseEntity<>(studyService.getVideosByKeyword(keyword), HttpStatus.OK);
+        // 키워드로 영상 검색
+        return new ResponseEntity<>(studyService.getVideosByKeyword(keyword, pageable), HttpStatus.OK);
     }
 
     @PostMapping("/word")
@@ -181,7 +183,7 @@ public class StudyController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @PostMapping("/complete/stage")
+    @PutMapping("/complete/stage")
     @ApiOperation(value = "학습 스테이지 업데이트", notes = "해당 학습 아이디를 가지는 학습의 스테이지를 해당 값으로 업데이트한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
@@ -191,18 +193,6 @@ public class StudyController {
     ){
         // 학습 스테이지 저장
         studyService.updateCompletedStage(data);
-        return new ResponseEntity<>("success", HttpStatus.OK);
-    }
-
-    @PostMapping("/complete")
-    @ApiOperation(value = "학습량 업데이트", notes = "학습량을 업데이트 한다.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
-    })
-    public ResponseEntity<?> updateLearningTime(
-            UpdateLearningRequestDto data
-    ){
-        // 학습 스테이지 저장
         studyService.addLearningTime(data);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }

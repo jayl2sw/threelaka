@@ -1,6 +1,8 @@
 package com.ssafy.laka.service;
 
 import com.ssafy.laka.dto.study.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public interface StudyService {
 
     void addWish(String video_id);
     void deleteWish(int like_video_id);
-    List<VideoResponseDto> getVideosByKeyword(String keyword);
+    List<VideoResponseDto> getVideosByKeyword(String keyword, Pageable pageable);
 
     void addWord(WordRequestDto data);
     void deleteWord(int wordbook_id);
@@ -25,7 +27,9 @@ public interface StudyService {
 
     void updateCompletedStage(UpdateStageRequestDto data);
 
-    void addLearningTime(UpdateLearningRequestDto data);
+    void addLearningTime(UpdateStageRequestDto data);
 
     void memorizeWord(int wordbook_id);
+
+    void checkContinuousLearningDate(String token);
 }
