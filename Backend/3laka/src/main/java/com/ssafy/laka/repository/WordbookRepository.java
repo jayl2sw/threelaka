@@ -19,6 +19,4 @@ public interface WordbookRepository extends JpaRepository<Wordbook, Integer> {
     List<Wordbook> findRandom5ByUserAndVideoAndMemorized(int userId, String videoId, boolean isMemorized);
 
     int countByUser(User user);
-
-    List<Wordbook> findByUserAndVideo(User user, Video video);
 }
