@@ -35,6 +35,6 @@ public class LearningRecord extends BaseTime {
     @Column(name = "latest_time")
     private String latestTime;
 
-
+    public void setStage (Stage stage) { this.stage = stage; }
 
 }

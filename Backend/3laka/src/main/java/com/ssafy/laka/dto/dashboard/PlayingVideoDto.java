@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @ApiModel(value = "PlayingVideoDto", description = "현재 공부 중인 영상 Dto")
 public class PlayingVideoDto {
-    private int videoId;
+    private String videoId;
     private String title;
     private String url;
     private String continueTime;

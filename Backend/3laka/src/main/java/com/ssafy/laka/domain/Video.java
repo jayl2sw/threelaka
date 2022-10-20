@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.json.JSONObject;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,14 +18,11 @@ import java.util.List;
 public class Video {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int videoId;
-
+    private String videoId;
     private String title;
     private String description;
     private String script;
-    private String url;
-    private int views;
+
 
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
     private List<VideoTag> videoTags;
@@ -37,4 +35,13 @@ public class Video {
 
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
     private List<LikeVideo> likeVideos;
+
+    public void setScript(String script) { this.script = script; }
+    public static Video from(com.google.api.services.youtube.model.Video entity) {
+        return Video.builder()
+                .videoId(entity.getId())
+                .title(entity.getSnippet().getTitle())
+                .description(entity.getSnippet().getDescription())
+                .build();
+    }
 }

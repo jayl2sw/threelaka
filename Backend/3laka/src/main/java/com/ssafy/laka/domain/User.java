@@ -38,7 +38,8 @@ public class User extends BaseTime {
     private Integer age;
     private Gender gender;
     private Integer grade;
-    private String lastLogin;
+
+    private int contiuousLearningDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments;
@@ -70,12 +71,12 @@ public class User extends BaseTime {
     @ManyToOne(targetEntity = Guild.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "guild_id")
     private Guild guild;
-
     @PrePersist
     public void prePersist(){
         this.age = this.age == null ? 0 : this.age;
         this.gender = this.gender == null ? SECRET : this.gender;
         this.grade = this.grade == null ? 0 : this.grade;
+        this.contiuousLearningDate = 0;
     }
 
     public void saveToken(String token) {
@@ -83,9 +84,7 @@ public class User extends BaseTime {
     }
     public void changePW(String password){this.password = password;}
     public void setNickname(String nickname){this.nickname = nickname;}
-    public void joinGuild(int guild_id){
-
-    }
-
+    public void addContinuousLearningDate() { this.contiuousLearningDate += 1; }
+    public void resetContinuousLearningDate() { this.contiuousLearningDate = 0; }
 
 }

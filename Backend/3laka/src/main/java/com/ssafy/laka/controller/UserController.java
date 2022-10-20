@@ -6,6 +6,7 @@ import com.ssafy.laka.dto.jwt.TokenDto;
 import com.ssafy.laka.dto.jwt.TokenRequestDto;
 import com.ssafy.laka.dto.user.*;
 import com.ssafy.laka.service.MailService;
+import com.ssafy.laka.service.StudyService;
 import com.ssafy.laka.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -29,6 +30,7 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
+    private final StudyService studyService;
 
     @GetMapping("/auth/check/nickname/{nickname}")
     @ApiOperation(value = "닉네임 중복 검사", notes = "해당 닉네임이 중복인지 확인하여 중복이면 true, 중복이 아니면 false를 반환한다")
@@ -78,11 +80,12 @@ public class UserController {
         if(result.hasErrors()){
             throw new InvalidParameterException(result);
         }
+        System.out.println(1);
         TokenDto tokenDto = userService.doLogin(requestDto);
-
         HttpHeaders headers = new HttpHeaders();
         headers.add("Auth", tokenDto.getAccessToken());
         headers.add("Refresh", tokenDto.getRefreshToken());
+        studyService.checkContinuousLearningDate(tokenDto.getAccessToken());
 
         return new ResponseEntity<>(tokenDto, headers, HttpStatus.OK);
     }

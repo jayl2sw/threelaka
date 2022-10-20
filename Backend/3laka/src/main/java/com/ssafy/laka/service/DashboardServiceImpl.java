@@ -5,7 +5,7 @@ import com.ssafy.laka.domain.User;
 import com.ssafy.laka.domain.enums.Stage;
 import com.ssafy.laka.dto.dashboard.*;
 import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
-import com.ssafy.laka.dto.exception.dashboard.VideoNotFoundException;
+import com.ssafy.laka.dto.exception.study.VideoNotFoundException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.repository.*;
 import com.ssafy.laka.util.SecurityUtil;

@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface LearningRecordRepository extends JpaRepository<LearningRecord, Integer> {
 
+    List<LearningRecord> findLearningRecordsByUserOrderByModifiedDateDesc(User user);
     Optional<LearningRecord> findTop1ByUserOrderByModifiedDateDesc(User user);
     Optional<LearningRecord> findTop1ByUserAndStageLessThanOrderByModifiedDateDesc(User user, Stage stage);
     Integer countByUserAndStage(User user, Stage stage);
