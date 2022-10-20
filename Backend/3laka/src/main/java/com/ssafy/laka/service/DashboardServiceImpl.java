@@ -3,20 +3,17 @@ package com.ssafy.laka.service;
 import com.ssafy.laka.domain.LearningRecord;
 import com.ssafy.laka.domain.User;
 import com.ssafy.laka.domain.enums.Stage;
-import com.ssafy.laka.dto.dashboard.PlayingVideoDto;
-import com.ssafy.laka.dto.dashboard.TodayWordDto;
+import com.ssafy.laka.dto.dashboard.*;
 import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
 import com.ssafy.laka.dto.exception.study.VideoNotFoundException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
-import com.ssafy.laka.repository.LearningRecordRepository;
-import com.ssafy.laka.repository.UserRepository;
-import com.ssafy.laka.repository.VideoRepository;
-import com.ssafy.laka.repository.WordbookRepository;
+import com.ssafy.laka.repository.*;
 import com.ssafy.laka.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +27,8 @@ public class DashboardServiceImpl implements DashboardService{
     private final LearningRecordRepository learningRecordRepository;
     private final WordbookRepository wordbookRepository;
     private final VideoRepository videoRepository;
+    private final EssayRepository essayRepository;
+    private final LikeVideoRepository likeVideoRepository;
 
     private User getUser() {
         return SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername)
@@ -40,7 +39,7 @@ public class DashboardServiceImpl implements DashboardService{
         User user = getUser();
         LearningRecord learningRecord = learningRecordRepository.findTop1ByUserOrderByModifiedDateDesc(user)
                 .orElseThrow(LearningRecordNotFoundException::new);
-        List<TodayWordDto> wordbook = wordbookRepository.findRandom5ByUserAndVideo(user.getUserId(), learningRecord.getVideo().getVideoId())
+        List<TodayWordDto> wordbook = wordbookRepository.findRandom5ByUserAndVideoAndMemorized(user.getUserId(), learningRecord.getVideo().getVideoId(), false)
                 .stream().map(s -> TodayWordDto.of(s)).collect(Collectors.toList());
         return wordbook;
     }
@@ -50,7 +49,45 @@ public class DashboardServiceImpl implements DashboardService{
         User user = getUser();
         LearningRecord learningRecord = learningRecordRepository.findTop1ByUserAndStageLessThanOrderByModifiedDateDesc(user, Stage.COMPLETE)
                 .orElseThrow(LearningRecordNotFoundException::new);
-        return PlayingVideoDto.of(videoRepository.findById(learningRecord.getVideo().getVideoId())
-                .orElseThrow(VideoNotFoundException::new));
+        return PlayingVideoDto.of(videoRepository.findById(learningRecord.getVideo().getVideoId()).orElseThrow(VideoNotFoundException::new),
+                learningRecord.getContinueTime(), learningRecord.getStage());
+    }
+
+    @Override
+    public HistoryNumDto getHistory() {
+        User user = getUser();
+        int videos = learningRecordRepository.countByUserAndStage(user, Stage.COMPLETE);
+        int essays = essayRepository.countByUser(user);
+        int words = wordbookRepository.countByUser(user);
+        HistoryNumDto historyNumDto = new HistoryNumDto(videos, essays, words);
+        return historyNumDto;
+    }
+
+    @Override
+    public CalendarDto getCalendar() {
+        int date = new Date().getDate();
+        for (int i = 1; i <= date; i++) {
+
+        }
+        return null;
+    }
+
+    @Override
+    public List<VideoDto> getLikeVideos() {
+        User user = getUser();
+        return likeVideoRepository.findAllByUser(user)
+                .stream().map(s -> VideoDto.of(s.getVideo())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<VideoDto> getDoneVideos() {
+        User user = getUser();
+        return learningRecordRepository.findAllByUserAndStage(user, Stage.COMPLETE)
+                .stream().map(s -> VideoDto.of(s.getVideo())).collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateInterestTags(InterestTagReqeustDto interestTagReqeustDto) {
+        User user = getUser();
     }
 }
