@@ -1,5 +1,6 @@
 package com.ssafy.laka.dto.user;
 
+import com.ssafy.laka.domain.enums.Gender;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,4 +27,7 @@ public class SignUpRequestDto {
     @NotBlank(message="이메일은 필수값입니다.")
     @Email(message = "이메일 형식이 맞지 않습니다.")
     private String email;
+
+    private int age;
+    private Gender gender;
 }

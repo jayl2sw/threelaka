@@ -77,19 +77,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public TokenDto doLogin(LoginRequestDto requestDto) {
+    public TokenDto doLogin(LoginRequestDto loginDto) {
         // Login id/pw로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(requestDto.getUsername(), requestDto.getPassword());
+                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
         System.out.println(authenticationToken);
         // 검증 과정
         // CustomUserDetailsService의 loadByUserName 실행
-        Authentication authentication = authenticationManagerBuilder.getObject()
-                .authenticate(authenticationToken);
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);;
 
-        System.out.println(authentication);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // 인증 정보를 기반으로 JWT 토큰 생성
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
@@ -119,6 +117,8 @@ public class UserServiceImpl implements UserService{
                 .email(requestDto.getEmail())
                 .nickname(requestDto.getNickname())
                 .password(passwordEncoder.encode(requestDto.getPassword()))
+                .age(requestDto.getAge())
+                .gender(requestDto.getGender())
                 .role(Role.ROLE_USER)
                 .build();
 

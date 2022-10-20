@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.ssafy'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = "1.8"
+sourceCompatibility = "8"
 
 configurations {
 	compileOnly {
@@ -66,4 +66,4 @@ dependencies {
 
 }
 
-//targetCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_1_8
