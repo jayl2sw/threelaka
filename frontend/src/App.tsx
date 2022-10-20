@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 // Main
 import MainPage from './pages/Main/MainPage';
+// Layout
+import StudyLayout from './layout/StudyLayout';
 
 // Auth
 import LoginPage from './pages/User/Login/LoginPage';
@@ -37,7 +39,7 @@ function App() {
           <Route path="" element={<PageNotFound />} />
           {/* 뒤에 라우트 주소가 비었을때도 NotFound로 갈 수 있게끔*/}
         </Route>
-        <Route path="study">
+        <Route path="study" element={<StudyLayout />}>
           <Route path="read" element={<ReadPage />} />
           <Route path="voca" element={<VocaPage />} />
           <Route path="writing" element={<WritingPage />} />
