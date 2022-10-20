@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 // Main
 import MainPage from './pages/Main/MainPage';
+import VideosPage from './pages/Videos/VideosPage';
 // Layout
 import StudyLayout from './layout/StudyLayout';
 
@@ -31,6 +32,7 @@ function App() {
       <Routes>
         {/* Main */}
         <Route path="" element={<MainPage />}></Route>
+        <Route path="videos" element={<VideosPage />}></Route>
 
         {/* Auth */}
         <Route path="auth">
