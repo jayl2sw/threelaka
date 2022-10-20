@@ -16,7 +16,6 @@ public class VideoDto {
 
     private String videoId;
     private String title;
-    private String url;
 
     public static VideoDto of(Video video) {
         return VideoDto.builder()

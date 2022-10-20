@@ -12,6 +12,8 @@ public interface DashboardService {
     CalendarDto getCalendar();
     List<VideoDto> getLikeVideos();
     List<VideoDto> getDoneVideos();
-    void updateInterestTags(InterestTagReqeustDto interestTagReqeustDto);
+    int[] getData();
+    List<String> getInterestTags();
+    void updateInterestTags(int[] interestTags);
 
 }

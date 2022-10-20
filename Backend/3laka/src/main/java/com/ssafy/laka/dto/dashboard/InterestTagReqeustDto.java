@@ -15,4 +15,6 @@ public class InterestTagReqeustDto {
     private int tag1;
     private int tag2;
     private int tag3;
+    private int tag4;
+    private int tag5;
 }
