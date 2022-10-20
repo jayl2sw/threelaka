@@ -1,15 +1,24 @@
 package com.ssafy.laka.controller;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ssafy.laka.dto.dashboard.*;
 import com.ssafy.laka.service.DashboardService;
+import com.ssafy.laka.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -18,6 +27,10 @@ import java.util.List;
 public class DashboardController {
 
     private final DashboardService dashboardService;
+    private final UserService userService;
+    private final AmazonS3Client amazonS3Client;
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucketName;
 
     // 아직 안함 =========================================================================================================
     @GetMapping("/profile")
@@ -60,14 +73,13 @@ public class DashboardController {
         return new ResponseEntity<>(dashboardService.getHistory(), HttpStatus.OK);
     }
 
-    // 아직 안함 =========================================================================================================
     @GetMapping("/calendar")
     @ApiOperation(value = "캘린더 조회", notes = "회원의 캘린더 관련 정보를 반환한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
+            @ApiResponse(code = 200, message = "Success", response = CalendarDto.class)
     })
-    public ResponseEntity<?> getCalendarInfo(){
-        // 이번 달 학습한 날짜 반환(이거 스터디테이블에 createdate 생기면 할게요), 연속 출석일 수 (유저테이블에 있음)
+    public ResponseEntity<CalendarDto> getCalendarInfo(){
+        // 이번 달 하루 당 학습량, 연속 출석일 수
         return new ResponseEntity<>(dashboardService.getCalendar(), HttpStatus.OK);
     }
 
@@ -91,39 +103,57 @@ public class DashboardController {
         return new ResponseEntity<>(dashboardService.getDoneVideos(), HttpStatus.OK);
     }
 
-    // 아직 안함 =========================================================================================================
     @GetMapping("/data")
-    @ApiOperation(value = "학습 히스토리 데이터 조회", notes = "회원의 일별/주별/월별 학습 데이터를 반환한다")
+    @ApiOperation(value = "학습 히스토리 데이터 조회", notes = "회원의 이번 주 학습 데이터를 반환한다<br/>1부터 월요일")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
+            @ApiResponse(code = 200, message = "Success", response = int[].class)
     })
-    public ResponseEntity<?> getData(){
-        // 회원의 일별/주별/월별 학습 데이터를 반환
-        // 주별 : 월~오늘
-        // 월별 : 1일~오늘 아마두
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<int[]> getData(){
+        // 회원의 이번 주 학습 데이터 반환
+        return new ResponseEntity<>(dashboardService.getData(), HttpStatus.OK);
     }
 
-    // 아직 안함 =========================================================================================================
+    @GetMapping("/tag")
+    @ApiOperation(value = "관심 태그 조회", notes = "회원의 관심 태그를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = List.class)
+    })
+    public ResponseEntity<List<String>> getTags(){
+        // 관심 태그 조회
+        return new ResponseEntity<>(dashboardService.getInterestTags(), HttpStatus.OK);
+    }
+
     @PutMapping("/tag")
     @ApiOperation(value = "관심 태그 수정", notes = "회원의 관심 태그를 수정한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = String.class)
     })
-    public ResponseEntity<String> changeTag(@RequestBody InterestTagReqeustDto interestTags){
-        // 관심 태그 수정 (최대 3개)
+    public ResponseEntity<String> changeTag(@RequestBody int[] interestTags){
+        // 관심 태그 수정
+        dashboardService.updateInterestTags(interestTags);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
-    // 아직 안함 =========================================================================================================
     @PutMapping("/profile")
     @ApiOperation(value = "프로필 사진 수정", notes = "회원의 프로필 사진을 수정한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
+            @ApiResponse(code = 200, message = "Success", response = String.class)
     })
-    public ResponseEntity<?> changeProfile(){
+    public ResponseEntity<?> changeProfile(@RequestPart MultipartFile file) {
         // 프로필 사진 수정
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        if(file.isEmpty()){
+            throw new RuntimeException("이미지가 없습니다.");
+        }
+        int userId = userService.getMyInfo().getUserId();
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentType(file.getContentType());
+        try(InputStream inputStream = file.getInputStream()){
+            amazonS3Client.putObject(new PutObjectRequest(bucketName, String.valueOf(userId), inputStream, objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+        } catch (IOException e){
+            throw new RuntimeException("이미지 업로드 실패");
+        }
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
 }

@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 public class PlayingVideoDto {
     private String videoId;
     private String title;
-    private String url;
     private String continueTime;
     private Stage stage;
     public static PlayingVideoDto of(Video video, String continueTime, Stage stage) {

@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "CalendarDto", description = "이번 달 학습일 및 연속 출석일 Dto")
+@ApiModel(value = "CalendarDto", description = "이번 달 학습일 당 학습시간 및 연속 출석일 Dto")
 public class CalendarDto {
-    private boolean[] presence;
+    private int[] time;
     private int seqDays;
 }
