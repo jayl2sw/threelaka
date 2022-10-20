@@ -53,8 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-                // permitAll -> 요청 허용
-                // autenticated -> 인증해야함
+                // permitAll
+                // authenticated
                 .and()
                 .authorizeRequests()
                 .antMatchers(
@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v3/api-docs/**",
                         "/swagger-ui/**").permitAll()
 
-//                .anyRequest().authenticated()
+                .anyRequest().authenticated()
 
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
