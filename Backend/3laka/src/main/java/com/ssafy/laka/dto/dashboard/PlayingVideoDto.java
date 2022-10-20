@@ -24,7 +24,6 @@ public class PlayingVideoDto {
         return PlayingVideoDto.builder()
                 .videoId(video.getVideoId())
                 .title(video.getTitle())
-                .url(video.getUrl())
                 .continueTime(continueTime)
                 .stage(stage)
                 .build();

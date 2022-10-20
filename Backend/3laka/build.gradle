@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.ssafy'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = "11"
+sourceCompatibility = "8"
 
 configurations {
 	compileOnly {
@@ -62,4 +62,4 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 }
 
-targetCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_1_8

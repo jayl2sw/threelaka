@@ -196,7 +196,7 @@ public class StudyServiceImpl implements StudyService{
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         String today = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now()).toString();
         String yesterday = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now().minusDays(1)).toString();
-        if (studyRepository.findByUserAndDate(user, yesterday).isEmpty() && studyRepository.findByUserAndDate(user, today).isEmpty()) {
+        if (!studyRepository.findByUserAndDate(user, yesterday).isPresent() && !studyRepository.findByUserAndDate(user, today).isPresent()) {
             user.resetContinuousLearningDate();
         }
     }
