@@ -1,10 +1,13 @@
 package com.ssafy.laka.service;
 
 import com.ssafy.laka.domain.LearningRecord;
+import com.ssafy.laka.domain.Study;
 import com.ssafy.laka.domain.User;
+import com.ssafy.laka.domain.UserTag;
 import com.ssafy.laka.domain.enums.Stage;
 import com.ssafy.laka.dto.dashboard.*;
 import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
+import com.ssafy.laka.dto.exception.dashboard.TagNotFoundException;
 import com.ssafy.laka.dto.exception.study.VideoNotFoundException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.repository.*;
@@ -13,6 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +35,9 @@ public class DashboardServiceImpl implements DashboardService{
     private final VideoRepository videoRepository;
     private final EssayRepository essayRepository;
     private final LikeVideoRepository likeVideoRepository;
+    private final StudyRepository studyRepository;
+    private final TagRepository tagRepository;
+    private final UserTagRepository userTagRepository;
 
     private User getUser() {
         return SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername)
@@ -65,11 +74,15 @@ public class DashboardServiceImpl implements DashboardService{
 
     @Override
     public CalendarDto getCalendar() {
-        int date = new Date().getDate();
-        for (int i = 1; i <= date; i++) {
-
+        User user = getUser();
+        int[] time = new int[32];
+        List<Study> studies = studyRepository.findStudyDateThisMonth(user.getUserId());
+        for (int i = 0; i < studies.size(); i++) {
+            int len = studies.get(i).getDate().length();
+            time[Integer.parseInt(studies.get(i).getDate().substring(len - 2, len))] = studies.get(0).getTime();
         }
-        return null;
+        int seqDay = user.getContiuousLearningDate();
+        return new CalendarDto(time, seqDay);
     }
 
     @Override
@@ -87,7 +100,36 @@ public class DashboardServiceImpl implements DashboardService{
     }
 
     @Override
-    public void updateInterestTags(InterestTagReqeustDto interestTagReqeustDto) {
+    public int[] getData() {
         User user = getUser();
+        int[] week = new int[8];
+        List<Study> study = studyRepository.findStudyDateThisWeek(user.getUserId());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        for (int i = 0; i < study.size(); i++) {
+            String date = study.get(i).getDate();
+            LocalDateTime ldt = LocalDateTime.parse(date, formatter);
+            week[ldt.getDayOfWeek().getValue()] = study.get(i).getTime();
+        }
+        return week;
+    }
+
+    @Override
+    public List<String> getInterestTags() {
+        User user = getUser();
+        return userTagRepository.findAllByUser(user)
+                .stream().map(s -> s.getTag().getName()).collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateInterestTags(int[] interestTags) {
+        User user = getUser();
+        userTagRepository.deleteAllByUser(user);
+        for (int i = 0; i < interestTags.length; i++) {
+            UserTag usertag = UserTag.builder()
+                    .user(user)
+                    .tag(tagRepository.findById(interestTags[i]).orElseThrow(TagNotFoundException::new))
+                    .build();
+            userTagRepository.save(usertag);
+        }
     }
 }
