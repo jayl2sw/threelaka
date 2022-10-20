@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "VideoDto", description = "영상 Dto")
 public class VideoDto {
 
-    private int videoId;
+    private String videoId;
     private String title;
     private String url;
 
@@ -22,7 +22,6 @@ public class VideoDto {
         return VideoDto.builder()
                 .videoId(video.getVideoId())
                 .title(video.getTitle())
-                .url(video.getUrl())
                 .build();
     }
 
