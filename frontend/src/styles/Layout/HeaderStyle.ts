@@ -13,9 +13,15 @@ export const HeaderBlock = styled.div`
   align-items: center;
   width: 100vw;
   height: 15vh;
-  background-color: black;
+  background-color: red;
   font-size: 3rem;
   color: white;
+  transform: translateY(-8vh);
+  transition: transform 1s ease-in-out;
+  :hover{
+    transform: translateY(0vh);
+    transition: transform 1.5s ease-in-out;
+  }    
 `;
 
 export const HeaderMenuRegion = styled.div`
@@ -23,39 +29,103 @@ export const HeaderMenuRegion = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 10vh;
-  background-color: blue;
+  height: 8vh;
+  background-color: black;
   font-size: 3rem;
-  color: white;
+  color: white;  
 `;
 
 export const StudyProgressRegion = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 90vw;
-  height: 5vh;
-  background-color: yellow;
-  font-size: 3rem;
+  align-items: center;  
+  width: 100vw;
+  height: 7vh;
+  background-color: black;  
   color: white;
 `;
+
+export const ProgressBarContainer = styled.div`
+  position: relative;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  border-radius: 20px;
+  width: 66vw;
+  height: 4vh;  
+  /* font-size: 3rem; */
+  color: white;  
+`
+
+export const ProgressBarIndicator = styled.div`
+  position: absolute;
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: 66vw 4vh;
+  background-image: linear-gradient(90deg, rgba(74,159,255,1) 0%, rgba(88,172,240,1) 41%, rgba(176,255,145,1) 100%);
+  border-radius: 15px;
+  &.indicator-0 {
+    width: 33%;
+    transition: width 1s ease-in-out;
+  }
+  &.indicator-1 {
+    width: 66%;
+    transition: width 1s ease-in-out;
+  }
+  &.indicator-2 {
+    width: 100%;
+    transition: width 1s ease-in-out;
+  }
+`
+
+export const ProgressBarItem = styled.div`
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  width: 16vw;
+  height: 4vh;
+  margin: 0 2vw;  
+  /* font-size: 3rem; */
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;  
+`
 
 export const LinkWrapper = styled.div<LinkMenuProps>`
   background-color: ${(props) => props.bgColor};
   width: ${props => props.widthSize};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 8vh;
-  font-size: 2rem;
-  color: white;
+  font-size: 1.2rem;
+  color: white;  
+  a {
+    text-decoration: none;
+    color: white;
+  } 
+  a:hover {
+    text-decoration: underline;
+    color: white;
+  }
 `;
 
 export const TitleRegion = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: flex;  
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 15vh;
+  width: 50vw;
+  height: 8vh;
   background-color: black;
   font-size: 3rem;
   color: white;
+  margin-right: 10vw;
+`
+
+export const ProgressTest = styled.progress`
+
+
 `

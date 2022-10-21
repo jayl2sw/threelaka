@@ -1,27 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   HeaderBlock,
   HeaderMenuRegion,
   StudyProgressRegion,
   LinkWrapper,
+  TitleRegion,
+  ProgressBarContainer,
+  ProgressBarIndicator,
+  ProgressBarItem,
 } from '../styles/Layout/HeaderStyle';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+  const [stageNum, setStageNum] = useState<number>(0);
+  const onClickChangeStage = (nextStage: number) => {
+    setStageNum(nextStage);
+  };
   return (
     <HeaderBlock>
       <HeaderMenuRegion>
-        <LinkWrapper bgColor="green" widthSize="15vw">
+        <LinkWrapper bgColor="black" widthSize="10vw">
           <Link to="/">홈</Link>
         </LinkWrapper>
-        <LinkWrapper bgColor="#adff45" widthSize="15vw">
+        <LinkWrapper bgColor="black" widthSize="10vw">
           <Link to="/videos">비디오스</Link>
         </LinkWrapper>
-        <LinkWrapper bgColor="yellow" widthSize="15vw">
+        <TitleRegion>THREELAKA</TitleRegion>
+        <LinkWrapper bgColor="black" widthSize="10vw">
           <Link to="/dashboard/profile">프로필</Link>
         </LinkWrapper>
       </HeaderMenuRegion>
-      <StudyProgressRegion></StudyProgressRegion>
+      <StudyProgressRegion>
+        <ProgressBarContainer>
+          <ProgressBarItem
+            onClick={() => {
+              onClickChangeStage(0);
+            }}
+          >
+            R/L
+          </ProgressBarItem>
+          <ProgressBarItem
+            onClick={() => {
+              onClickChangeStage(1);
+            }}
+          >
+            Speaking
+          </ProgressBarItem>
+          <ProgressBarItem
+            onClick={() => {
+              onClickChangeStage(2);
+            }}
+          >
+            Writing
+          </ProgressBarItem>
+          <ProgressBarIndicator
+            className={'indicator-' + stageNum}
+          ></ProgressBarIndicator>
+        </ProgressBarContainer>
+      </StudyProgressRegion>
     </HeaderBlock>
   );
 };
