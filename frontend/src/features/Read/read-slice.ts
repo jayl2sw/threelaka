@@ -15,7 +15,7 @@ const readSlice = createSlice({
   name: 'read',
   initialState,
   reducers: {
-    getScripts(state) {
+    getScripts(state, action:PayloadAction<string>) {
       state.loading = true;
     },
     getScriptsSuccess(state, action:PayloadAction<TedScript[]>) {

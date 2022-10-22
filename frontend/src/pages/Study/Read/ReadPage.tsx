@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import YouTube, { YouTubePlayer } from 'react-youtube';
+import { useAppDispatch } from '../../../utils/hooks';
+import { readActions } from '../../../features/Read/read-slice';
 import {
   ReadPageBlock,
   YoutubeAndDictContainer,
@@ -11,10 +13,14 @@ let videoElement: YouTubePlayer = null;
 
 const ReadPage = () => {
   const [isPaused, setIsPaused] = useState(false);
-
+  const dispatch = useAppDispatch();
   const togglePause = () => {
     setIsPaused(!isPaused);
   };
+
+  const onClickgetScript = (videoId:string) => {
+    dispatch(readActions.getScripts(videoId))
+  }
 
   const opts = {
     width: '100%',
@@ -108,6 +114,7 @@ const ReadPage = () => {
             opts={opts}
             onReady={_onReady}
           />
+          <button onClick={() => onClickgetScript('KQ9FfzMKBNc')}></button>
           {/* <button onClick={togglePause}>Pause</button> */}
           <DictRegion>사전 영역입니다</DictRegion>
         </YoutubeAndDictContainer>

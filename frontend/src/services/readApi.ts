@@ -1,5 +1,6 @@
-import { customAxios } from "./customAxios";
+import customAxios from "./customAxios";
+import { TedScript } from '../models';
 
-export const getTedScriptApi = async (videoId: string) => {
-  await customAxios.get(`video/script/${videoId}`);
+export const getTedScriptApi = async (videoId: string): Promise<TedScript[]> => {
+  return customAxios.post(`api/v1/video/script/${videoId}`);
 }
