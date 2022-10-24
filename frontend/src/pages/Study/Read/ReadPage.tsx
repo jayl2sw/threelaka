@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import YouTube, { YouTubePlayer } from 'react-youtube';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { readActions } from '../../../features/Read/read-slice';
@@ -6,23 +6,23 @@ import {
   ReadPageBlock,
   YoutubeAndDictContainer,
   DictRegion,
-  ScriptAndSpeakContainer,
+  ScriptContainer,
   ScriptItemBox,
-  SentenceSpeakingRegion,
   ButtonRegion,
   ScriptTimeStamp,
-  ScriptText
+  ScriptText,
 } from '../../../styles/Read/ReadStyle';
 import { TedScript } from '../../../models';
 
 let videoElement: YouTubePlayer = null;
 
 const ReadPage = () => {
-  const [isPaused, setIsPaused] = useState(false)
+  const [isPaused, setIsPaused] = useState(false);
   const [nowPlayedIdx, setNowPlayedIdx] = useState(30);
   const [currentTime, setCurrentTime] = useState(0);
   const dispatch = useAppDispatch();
   const tedScriptList = useAppSelector((state) => state.read.TedScriptList);
+  const scriptContainerRef = useRef<HTMLDivElement[]>([]);
   const togglePause = () => {
     setIsPaused(!isPaused);
   };
@@ -44,21 +44,6 @@ const ReadPage = () => {
       // get current time
       const elapsed_seconds = videoElement.target.getCurrentTime();
       setCurrentTime(elapsed_seconds);
-      // calculations
-      const elapsed_milliseconds = Math.floor(elapsed_seconds * 1000);
-      const ms = elapsed_milliseconds % 1000;
-      const min = Math.floor(elapsed_milliseconds / 60000);
-      const seconds = Math.floor((elapsed_milliseconds - min * 60000) / 1000);
-
-      const formattedCurrentTime =
-        min.toString().padStart(2, '0') +
-        ':' +
-        seconds.toString().padStart(2, '0') +
-        ':' +
-        ms.toString().padStart(3, '0');
-
-      console.log(formattedCurrentTime);
-
       // Pause and Play video
       if (isPaused) {
         videoElement.target.pauseVideo();
@@ -74,20 +59,9 @@ const ReadPage = () => {
 
     const interval = setInterval(async () => {
       if (videoElement && videoElement.target.getCurrentTime() > 0) {
+        console.log('인터벌들어옴');
         const elapsed_seconds = videoElement.target.getCurrentTime();
         setCurrentTime(elapsed_seconds);
-        //calculations
-        // const elapsed_milliseconds = Math.floor(elapsed_seconds * 1000);
-        // const ms = elapsed_milliseconds % 1000;
-        // const min = Math.floor(elapsed_milliseconds / 60000);
-        // const seconds = Math.floor((elapsed_milliseconds - min * 60000) / 1000);
-
-        // const formattedCurrentTime =
-        //   min.toString().padStart(2, '0') +
-        //   ':' +
-        //   seconds.toString().padStart(2, '0') +
-        //   ':' +
-        //   ms.toString().padStart(3, '0');
 
         // verify video status
         if (videoElement.target.playerInfo.playerState === 1) {
@@ -104,26 +78,38 @@ const ReadPage = () => {
   }, []);
 
   useEffect(() => {
-    console.log(tedScriptList)
-    if (tedScriptList === undefined || tedScriptList.length===0) {
+    if (tedScriptList.length === 0) {
       return;
     }
     let tempCurrentIdx = nowPlayedIdx;
-  
-    if (currentTime > tedScriptList[tempCurrentIdx].start){
-      while (currentTime > tedScriptList[tempCurrentIdx].start){  
-        console.warn("증가중")          
+
+    if (currentTime > tedScriptList[tempCurrentIdx].start) {
+      while (currentTime > tedScriptList[tempCurrentIdx].start) {
+        console.warn('증가중');
         tempCurrentIdx++;
       }
-    } else {
-      while (currentTime < tedScriptList[tempCurrentIdx-1].start){         
-        console.log(tedScriptList[tempCurrentIdx-1].start, currentTime)   
-        console.warn("감소중")   
-        tempCurrentIdx--;       
+    }
+    if (currentTime < tedScriptList[tempCurrentIdx].start) {
+      while (currentTime < tedScriptList[tempCurrentIdx].start) {
+        console.warn('감소중');
+        tempCurrentIdx--;
       }
     }
     setNowPlayedIdx(tempCurrentIdx);
   }, [currentTime]);
+
+  useEffect(() => {
+    
+    if (null !== scriptContainerRef.current){
+      // const { scrollHeight, clientHeight } = scriptContainerRef.current;
+      // const nextScrollPos = (nowPlayedIdx/tedScriptList.length)*(scrollHeight - clientHeight);
+      // console.warn(nextScrollPos, scrollHeight - clientHeight);
+      // scriptContainerRef.current.scrollTop = nextScrollPos;
+      if (undefined !== scriptContainerRef.current[nowPlayedIdx]){
+        scriptContainerRef.current[nowPlayedIdx].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
+      }
+    }
+  }, [nowPlayedIdx])
 
   const _onReady = (event: YouTubePlayer) => {
     videoElement = event;
@@ -145,22 +131,34 @@ const ReadPage = () => {
             opts={opts}
             onReady={_onReady}
           />
-          <button onClick={() => onClickgetScript('KQ9FfzMKBNc')}></button>
-          {/* <button onClick={togglePause}>Pause</button> */}
-          <DictRegion>{currentTime}, {!!tedScriptList[nowPlayedIdx]? tedScriptList[nowPlayedIdx-1].text: ''}</DictRegion>
+          {/* <button onClick={() => scrollToBottom()}></button>           */}
+          {/* {!!tedScriptList[nowPlayedIdx]? tedScriptList[nowPlayedIdx-1].text: ''} */}
+          <DictRegion>
+            {currentTime}, , {nowPlayedIdx}
+          </DictRegion>
         </YoutubeAndDictContainer>
-        <SentenceSpeakingRegion></SentenceSpeakingRegion>
-        <ScriptAndSpeakContainer>
-          {tedScriptList.map((script, idx) => (
-            <ScriptItemBox key={`script-${idx}`}>
-              <ScriptTimeStamp>{`${Math.floor(script.start/60)}: ${String(Math.floor(script.start%60)).padStart(2, "0")}`}</ScriptTimeStamp>
-              <ScriptText>
-                {script.text}
-              </ScriptText>              
+        <ScriptContainer>
+          {tedScriptList.map((script: TedScript, idx: number) => (
+            <ScriptItemBox key={`script-${idx}`} ref={(el) => {
+              if (null != el) {
+                scriptContainerRef.current[idx] = el
+              }}
+            }>
+              <ScriptTimeStamp
+                className={idx === nowPlayedIdx ? 'now-played' : ''}
+              >{`${Math.floor(script.start / 60)}: ${String(
+                Math.floor(script.start % 60)
+              ).padStart(2, '0')}`}</ScriptTimeStamp>
+              <ScriptText>{script.text}</ScriptText>
+              
             </ScriptItemBox>
           ))}
-        </ScriptAndSpeakContainer>
-      <ButtonRegion></ButtonRegion>
+          {/* <ScriptItemBox ref={scriptContainerRef}>
+            <ScriptTimeStamp>0:23</ScriptTimeStamp>
+            <ScriptText>안안녕테스트</ScriptText>
+          </ScriptItemBox>           */}
+        </ScriptContainer>
+        {/* <ButtonRegion></ButtonRegion> */}
       </ReadPageBlock>
     </>
   );
