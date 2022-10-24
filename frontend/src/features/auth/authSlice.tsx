@@ -5,8 +5,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '../../models/user';
 
 export interface SignupPayload {
+  username: string;
   email: string;
   password: string;
+  gender: 'male' | 'female' | 'secret';
+  age: number;
+  nickname: string;
 }
 
 export interface AuthState {
