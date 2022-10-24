@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,10 +27,14 @@ public class Guild {
     private String description;
     private String notice;
 
-    @OneToMany(mappedBy = "guild", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "guild")
     private List<User> members;
 
     @OneToMany(mappedBy = "guild", cascade = CascadeType.ALL)
     private List<JoinRequest> JoinRequests;
 
+    @PrePersist
+    public void prePersist(){
+        this.members = new ArrayList<User>();
+    }
 }

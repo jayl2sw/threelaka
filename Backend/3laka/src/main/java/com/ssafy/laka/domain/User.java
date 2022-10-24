@@ -88,7 +88,10 @@ public class User extends BaseTime {
     }
     public void changePW(String password){this.password = password;}
     public void setNickname(String nickname){this.nickname = nickname;}
-    public void joinGuild(Guild guild){this.guild = guild;}
+    public User joinGuild(Guild guild){
+        this.guild = guild;
+        return this;
+    }
     public void addContinuousLearningDate() { this.contiuousLearningDate += 1; }
     public void resetContinuousLearningDate() { this.contiuousLearningDate = 0; }
 

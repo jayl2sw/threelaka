@@ -16,19 +16,19 @@ public interface GuildService {
 //    길드 가입 요청 목록 조회
     List<UserResponseDto> getJoinReqList();
 //    길드 가입 요청 수락
-    void AcceptGuild(int guildId);
+    void acceptGuild(int guildId);
 //    길드 가입 요청 거절
-    void RejectGuild(int guildId);
+    void rejectGuild(int guildId);
 //    길드원 목록
     List<UserResponseDto> getMemberList();
 //    길드 찾기
-    List<GuildResponseDto> SearchGuild();
+    List<GuildResponseDto> searchGuild();
 //    회원 조회
     UserResponseDto getMemberInfo(String username, int guildId);
 //    길드 생성
-    void CreateGuild(GuildCreateDto data);
+    GuildResponseDto createGuild(GuildCreateDto data);
 //    길드 해체
-    void DeleteGuild(int userId);
+    void deleteGuild(int userId);
 //    길드원 추방
-    Void DeleteMember(int userId);
+    Void deleteMember(int userId);
 }
