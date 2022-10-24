@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const customAxios = axios.create({
-  baseURL: "http://localhost:8000/",   
+  baseURL: "http://localhost:8080/",   
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',    
   },
