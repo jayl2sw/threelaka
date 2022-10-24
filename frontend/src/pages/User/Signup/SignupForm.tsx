@@ -1,4 +1,3 @@
-
 import styled from 'styled-components';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -7,7 +6,11 @@ import { useAppDispatch } from '../../../utils/hooks';
 import { authActions } from '../../../features/auth/authSlice';
 
 //api
-import { idCheckApi } from '../../../services/userApi';
+import {
+  idCheckApi,
+  nicknameCheckApi,
+  emailCheckApi,
+} from '../../../services/userApi';
 
 //form 관리 라이브러리
 import { useForm } from 'react-hook-form';
@@ -38,13 +41,8 @@ const StyledForm = styled.form`
 `;
 
 const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
-  // 아이디,이메일, 닉네임 중복검사
-  const [isIdChecked, setIsIdChecked] = useState(false);
-  const [isEmailChecked, setIsEmailChecked] = useState(false);
-  const [isNickChecked, setIsNickChecked] = useState(false);
-  
   // const [errMsg, setErrMsg] = useState('');
-  
+
   const dispatch = useAppDispatch();
 
   const schema = yup.object().shape({
@@ -69,12 +67,12 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
         /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
         '이메일 형태로 입력해주세요'
       ),
-    nickname: yup.string()
-    .required('닉네임을 입력해주세요'),
+    nickname: yup.string().required('닉네임을 입력해주세요'),
     gender: yup.string(),
-    age: yup.number()
-    .min(1, "최소 입력값은 1 입니다")
-    .max(100, "최대 입력값은 100 입니다")
+    age: yup
+      .number()
+      .min(1, '최소 입력값은 1 입니다')
+      .max(100, '최대 입력값은 100 입니다'),
   });
 
   const {
@@ -108,36 +106,35 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
     }
   };
 
-
-
-  // const onValid = (data: IAuthForm) => {
-
-  //   if (data.password !== data.passwordConfirm) {
-  //     setError(
-  //       'passwordConfirm', // 에러 핸들링할 input요소 name
-  //       { message: '비밀번호가 일치하지 않습니다.' }, // 에러 메세지
-  //       { shouldFocus: true } // 에러가 발생한 input으로 focus 이동
-  //     );
-  //   }
-  // };
-
   const onValid = useCallback(async (data: IAuthForm) => {
-   
-    const idCurrent = data.username;
-    const idCheckRes = await idCheckApi(idCurrent);
-    
+    const { username, nickname, email } = data;
+
+    const idCheckRes = await idCheckApi(username);
+    const nicknameCheckRes = await nicknameCheckApi(nickname);
+    const emailCheckRes = await emailCheckApi(email);
     if (data.password !== data.passwordConfirm) {
       setError(
         'passwordConfirm', // 에러 핸들링할 input요소 name
         { message: '비밀번호가 일치하지 않습니다.' }, // 에러 메세지
         { shouldFocus: true } // 에러가 발생한 input으로 focus 이동
       );
-    }
-    else if (idCheckRes) {
+    } else if (idCheckRes) {
       setError(
-        'username', 
-        { message: '아이디가중복이에여' }, 
-        { shouldFocus: true } 
+        'username',
+        { message: '아이디가중복이에여' },
+        { shouldFocus: true }
+      );
+    } else if (nicknameCheckRes) {
+      setError(
+        'nickname',
+        { message: '닉네임이중복이에여' },
+        { shouldFocus: true }
+      );
+    } else if (emailCheckRes) {
+      setError(
+        'email',
+        { message: '이메일이중복이에여' },
+        { shouldFocus: true }
       );
     }
   }, []);

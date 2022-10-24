@@ -28,7 +28,18 @@ export const createUserApi = async (
 
 //아이디중복검사
 export const idCheckApi = async (id: string) => {
-  console.log('id는 잘 받아지는지 확인', id);
   const res = await customAxios.get(`api/v1/user/auth/check/username/${id}`);
+  return res;
+};
+//닉네임중복검사
+export const nicknameCheckApi = async (nickname: string) => {
+  const res = await customAxios.get(
+    `api/v1/user/auth/check/nickname/${nickname}`
+  );
+  return res;
+};
+//이메일중복검사
+export const emailCheckApi = async (email: string) => {
+  const res = await customAxios.get(`api/v1/user/auth/check/email/${email}`);
   return res;
 };

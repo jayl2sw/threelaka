@@ -1,8 +1,7 @@
 import React from 'react';
-import { ISignupRespons } from '../../services/createUserApi';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { User } from '../../models/user';
+import { ISignupRespons } from '../../services/userApi';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface SignupPayload {
   username: string;
