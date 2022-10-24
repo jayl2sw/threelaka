@@ -37,12 +37,12 @@ function* createUser(action: PayloadAction<SignupPayload>) {
   try {
     console.log("그래도 여기까지는올걸", action.payload)
     const response: ISignupRespons = yield call(createUserApi, action.payload)
-    // console.log("이거에러안뜨고 되는거임?",response)
+    
     
     yield put(authActions.signupSuccess(response));
-    console.log("이거에러안뜨고 되는거임?",response)
+   
   } catch (error) {
-    console.log(`아마에러가 뜨겠지`, error);
+    console.log(`유저생성실패`, error);
     // yield put(readActions.getScriptsFailed(error.message));
   }
   // try {

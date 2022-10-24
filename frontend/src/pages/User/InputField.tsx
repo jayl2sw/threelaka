@@ -27,7 +27,7 @@ export const InputField = ({
       fullWidth
       size="small"
       margin="normal"
-      value={value || ''}
+      value={value || ""}
       onChange={onChange}
       onBlur={onBlur}
       label={label}
