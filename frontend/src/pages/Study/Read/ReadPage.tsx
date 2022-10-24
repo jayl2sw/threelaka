@@ -1,26 +1,35 @@
 import { useState, useEffect } from 'react';
 import YouTube, { YouTubePlayer } from 'react-youtube';
-import { useAppDispatch } from '../../../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { readActions } from '../../../features/Read/read-slice';
 import {
   ReadPageBlock,
   YoutubeAndDictContainer,
   DictRegion,
-  ScriptAndSpeakContainer
+  ScriptAndSpeakContainer,
+  ScriptItemBox,
+  SentenceSpeakingRegion,
+  ButtonRegion,
+  ScriptTimeStamp,
+  ScriptText
 } from '../../../styles/Read/ReadStyle';
+import { TedScript } from '../../../models';
 
 let videoElement: YouTubePlayer = null;
 
 const ReadPage = () => {
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState(false)
+  const [nowPlayedIdx, setNowPlayedIdx] = useState(30);
+  const [currentTime, setCurrentTime] = useState(0);
   const dispatch = useAppDispatch();
+  const tedScriptList = useAppSelector((state) => state.read.TedScriptList);
   const togglePause = () => {
     setIsPaused(!isPaused);
   };
 
-  const onClickgetScript = (videoId:string) => {
-    dispatch(readActions.getScripts(videoId))
-  }
+  const onClickgetScript = (videoId: string) => {
+    dispatch(readActions.getScripts(videoId));
+  };
 
   const opts = {
     width: '100%',
@@ -34,7 +43,7 @@ const ReadPage = () => {
     if (videoElement) {
       // get current time
       const elapsed_seconds = videoElement.target.getCurrentTime();
-
+      setCurrentTime(elapsed_seconds);
       // calculations
       const elapsed_milliseconds = Math.floor(elapsed_seconds * 1000);
       const ms = elapsed_milliseconds % 1000;
@@ -61,24 +70,24 @@ const ReadPage = () => {
 
   //get current time and video status in real time
   useEffect(() => {
+    dispatch(readActions.getScripts('KQ9FfzMKBNc'));
+
     const interval = setInterval(async () => {
       if (videoElement && videoElement.target.getCurrentTime() > 0) {
         const elapsed_seconds = videoElement.target.getCurrentTime();
+        setCurrentTime(elapsed_seconds);
+        //calculations
+        // const elapsed_milliseconds = Math.floor(elapsed_seconds * 1000);
+        // const ms = elapsed_milliseconds % 1000;
+        // const min = Math.floor(elapsed_milliseconds / 60000);
+        // const seconds = Math.floor((elapsed_milliseconds - min * 60000) / 1000);
 
-        // calculations
-        const elapsed_milliseconds = Math.floor(elapsed_seconds * 1000);
-        const ms = elapsed_milliseconds % 1000;
-        const min = Math.floor(elapsed_milliseconds / 60000);
-        const seconds = Math.floor((elapsed_milliseconds - min * 60000) / 1000);
-
-        const formattedCurrentTime =
-          min.toString().padStart(2, '0') +
-          ':' +
-          seconds.toString().padStart(2, '0') +
-          ':' +
-          ms.toString().padStart(3, '0');
-
-        console.log(formattedCurrentTime);
+        // const formattedCurrentTime =
+        //   min.toString().padStart(2, '0') +
+        //   ':' +
+        //   seconds.toString().padStart(2, '0') +
+        //   ':' +
+        //   ms.toString().padStart(3, '0');
 
         // verify video status
         if (videoElement.target.playerInfo.playerState === 1) {
@@ -93,6 +102,28 @@ const ReadPage = () => {
       clearInterval(interval);
     };
   }, []);
+
+  useEffect(() => {
+    console.log(tedScriptList)
+    if (tedScriptList === undefined || tedScriptList.length===0) {
+      return;
+    }
+    let tempCurrentIdx = nowPlayedIdx;
+  
+    if (currentTime > tedScriptList[tempCurrentIdx].start){
+      while (currentTime > tedScriptList[tempCurrentIdx].start){  
+        console.warn("증가중")          
+        tempCurrentIdx++;
+      }
+    } else {
+      while (currentTime < tedScriptList[tempCurrentIdx-1].start){         
+        console.log(tedScriptList[tempCurrentIdx-1].start, currentTime)   
+        console.warn("감소중")   
+        tempCurrentIdx--;       
+      }
+    }
+    setNowPlayedIdx(tempCurrentIdx);
+  }, [currentTime]);
 
   const _onReady = (event: YouTubePlayer) => {
     videoElement = event;
@@ -116,9 +147,20 @@ const ReadPage = () => {
           />
           <button onClick={() => onClickgetScript('KQ9FfzMKBNc')}></button>
           {/* <button onClick={togglePause}>Pause</button> */}
-          <DictRegion>사전 영역입니다</DictRegion>
+          <DictRegion>{currentTime}, {!!tedScriptList[nowPlayedIdx]? tedScriptList[nowPlayedIdx-1].text: ''}</DictRegion>
         </YoutubeAndDictContainer>
-        <ScriptAndSpeakContainer>스크립트와 스피킹영역입니다</ScriptAndSpeakContainer>
+        <SentenceSpeakingRegion></SentenceSpeakingRegion>
+        <ScriptAndSpeakContainer>
+          {tedScriptList.map((script, idx) => (
+            <ScriptItemBox key={`script-${idx}`}>
+              <ScriptTimeStamp>{`${Math.floor(script.start/60)}: ${String(Math.floor(script.start%60)).padStart(2, "0")}`}</ScriptTimeStamp>
+              <ScriptText>
+                {script.text}
+              </ScriptText>              
+            </ScriptItemBox>
+          ))}
+        </ScriptAndSpeakContainer>
+      <ButtonRegion></ButtonRegion>
       </ReadPageBlock>
     </>
   );
