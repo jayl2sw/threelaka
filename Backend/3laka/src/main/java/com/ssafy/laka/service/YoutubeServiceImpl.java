@@ -36,8 +36,8 @@ public class YoutubeServiceImpl implements YoutubeService {
     @Value("${youtube.apiKey}")
     private String apiKey;
 
-    @Value("${fastApi.url}")
-    private String urlString;
+//    @Value("${fastApi.url}")
+    private String urlString = "https://k7e202.p.ssafy.io:8081/api/v1/video/script/";
     private final VideoRepository videoRepository;
 
     @Override
