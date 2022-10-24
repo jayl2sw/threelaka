@@ -6,6 +6,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { useAppDispatch } from '../../../utils/hooks';
 import { authActions } from '../../../features/auth/authSlice';
 
+//api
+import { idCheckApi } from '../../../services/userApi';
 
 //form 관리 라이브러리
 import { useForm } from 'react-hook-form';
@@ -108,8 +110,22 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
 
 
 
-  const onValid = (data: IAuthForm) => {
+  // const onValid = (data: IAuthForm) => {
 
+  //   if (data.password !== data.passwordConfirm) {
+  //     setError(
+  //       'passwordConfirm', // 에러 핸들링할 input요소 name
+  //       { message: '비밀번호가 일치하지 않습니다.' }, // 에러 메세지
+  //       { shouldFocus: true } // 에러가 발생한 input으로 focus 이동
+  //     );
+  //   }
+  // };
+
+  const onValid = useCallback(async (data: IAuthForm) => {
+   
+    const idCurrent = data.username;
+    const idCheckRes = await idCheckApi(idCurrent);
+    
     if (data.password !== data.passwordConfirm) {
       setError(
         'passwordConfirm', // 에러 핸들링할 input요소 name
@@ -117,7 +133,14 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
         { shouldFocus: true } // 에러가 발생한 input으로 focus 이동
       );
     }
-  };
+    else if (idCheckRes) {
+      setError(
+        'username', 
+        { message: '아이디가중복이에여' }, 
+        { shouldFocus: true } 
+      );
+    }
+  }, []);
 
   return (
     <StyledForm onSubmit={handleSubmit(handleFormSubmit)}>
