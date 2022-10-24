@@ -19,6 +19,7 @@ public class Guild {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String guildName;
 
     private int master;
 
@@ -27,5 +28,8 @@ public class Guild {
 
     @OneToMany(mappedBy = "guild", cascade = CascadeType.ALL)
     private List<User> members;
+
+    @OneToMany(mappedBy = "guild", cascade = CascadeType.ALL)
+    private List<JoinRequest> JoinRequests;
 
 }
