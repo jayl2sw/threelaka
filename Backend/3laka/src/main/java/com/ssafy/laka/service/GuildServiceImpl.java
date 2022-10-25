@@ -33,8 +33,13 @@ public class GuildServiceImpl implements GuildService{
     public void joinGuild(int guildId) {
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
-        JoinRequest joinRequest = joinRequestRepository.findByGuildAndSender(guild, me).orElseThrow(RequestNotFoundException::new);
-        if (joinRequest != null){
+        Optional<JoinRequest> joinRequest = joinRequestRepository.findByGuildAndSender(guild, me);
+
+        if (me.getGuild() != null){
+            throw new AlreadyInGuildException();
+        }
+
+        else if (joinRequest.isPresent()){
             throw new DuplicateRequestException();
         }
         joinRequestRepository.save(JoinRequest.builder().sender(me).guild(guild).state(State.pending).build());
@@ -43,13 +48,41 @@ public class GuildServiceImpl implements GuildService{
     }
 
     @Override
-    public List<UserResponseDto> getJoinReqList() {
-        return null;
+    public List<UserResponseDto> getJoinReqList(int guildId) {
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        int myId = me.getUserId();
+
+        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
+        int masterId = guild.getMaster();
+
+        if (myId != masterId) {
+            throw new NotMasterException();
+        }
+        else{
+            List<UserResponseDto> JoinReqList = joinRequestRepository.findByGuildId(guild.getId());
+            return JoinReqList;
+        }
+
+
     }
 
     @Override
 //    길드 가입 요청 수락
-    public void acceptGuild(int userId) {
+    public void acceptGuild(int requestId) {
+        JoinRequest joinRequest = joinRequestRepository.findById(requestId).orElseThrow(RequestNotFoundException::new);
+        System.out.println("joinRequest" + joinRequest);
+
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        int masterId = joinRequest.getGuild().getMaster();
+
+        if (me.getUserId() != masterId) {
+            throw new NotMasterException();
+        }
+        joinRequestRepository.delete(joinRequest);
+        Guild guild = guildRepository.findByMaster(masterId).orElseThrow(GuildNotFoundException::new);
+
+        guild.getMembers().add(joinRequest.getSender());
+        System.out.println(guild);
 
     }
 
@@ -81,6 +114,13 @@ public class GuildServiceImpl implements GuildService{
     @Override
     public GuildResponseDto createGuild(GuildCreateDto data) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+//이미 소속된 길드가 있다면 에러 반환
+//        System.out.println("================");
+//        System.out.println(user.getGuild().getId());
+//        System.out.println("================");
+        if (user.getGuild() != null){
+            throw new AlreadyInGuildException();
+        }
         Guild guild = Guild.builder()
                 .guildName(data.getName())
                 .master(user.getUserId())

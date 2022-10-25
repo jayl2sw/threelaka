@@ -9,6 +9,7 @@ import java.util.Optional;
 @Repository
 public interface GuildRepository extends JpaRepository<Guild, Integer> {
     Optional<Guild> findById(int id);
+    Optional<Guild> findByMaster(int master);
 
 
 

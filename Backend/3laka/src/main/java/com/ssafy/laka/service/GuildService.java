@@ -14,12 +14,12 @@ public interface GuildService {
     void joinGuild(int guildId);
 
 //    길드 가입 요청 목록 조회
-    List<UserResponseDto> getJoinReqList();
+    List<UserResponseDto> getJoinReqList(int guildId);
 //    길드 가입 요청 수락
     void acceptGuild(int guildId);
 //    길드 가입 요청 거절
     void rejectGuild(int guildId);
-//    길드원 목록
+//    길드원 목록 조회
     List<UserResponseDto> getMemberList();
 //    길드 찾기
     List<GuildResponseDto> searchGuild();
@@ -29,6 +29,12 @@ public interface GuildService {
     GuildResponseDto createGuild(GuildCreateDto data);
 //    길드 해체
     void deleteGuild(int userId);
-//    길드원 추방
+//    마스터의 길드원 추방
     Void deleteMember(int userId);
+
+//    회원의 길드 탈퇴
+//    길드 이름 중복 검사
+//    마스터 이름 중복 검사
+//    길드 공지 수정
+//    길드 정보 수정
 }

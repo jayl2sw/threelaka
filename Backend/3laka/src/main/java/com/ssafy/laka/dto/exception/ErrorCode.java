@@ -24,7 +24,9 @@ public enum ErrorCode {
     REQUEST_NOT_FOUND(400, "G002", "해당 요청을 찾을 수 없습니다."),
     SAME_REQUEST_EXISTS(400, "G003", "해당 요청이 이미 존재합니다."),
     NOT_GUILD_MASTER(400 , "G004", "해당 길드의 마스터가 아닙니다."),
-    LEFT_MEMBER_EXISTS(400 , "G005", "길드에 아직 멤버가 남아 있습니다.");
+    LEFT_MEMBER_EXISTS(400 , "G005", "길드에 아직 멤버가 남아 있습니다."), 
+    ALREADY_IN_GUILD(400,"G006" , "이미 소속된 길드가 있습니다." ),
+    REQUEST_LIST_EMPTY(400, "G006", "새로운 가입 요청이 없습니다" );
 
 
     private final int status;
