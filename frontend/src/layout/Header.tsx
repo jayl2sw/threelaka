@@ -37,21 +37,21 @@ const Header = () => {
               onClickChangeStage(0);
             }}
           >
-            R/L
+            Reading&Listening
           </ProgressBarItem>
           <ProgressBarItem
             onClick={() => {
               onClickChangeStage(1);
             }}
           >
-            Speaking
+            Writing
           </ProgressBarItem>
           <ProgressBarItem
             onClick={() => {
               onClickChangeStage(2);
             }}
           >
-            Writing
+            Speaking
           </ProgressBarItem>
           <ProgressBarIndicator
             className={'indicator-' + stageNum}

@@ -5,9 +5,9 @@ import { Outlet } from 'react-router-dom';
 const StudyLayout = () => {
   return (
     <>
-     <Header></Header> 
+      <Header></Header>
 
-     <Outlet />
+      <Outlet />
     </>
   );
 };
