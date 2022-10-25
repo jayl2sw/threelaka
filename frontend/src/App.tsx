@@ -8,7 +8,7 @@ import StudyLayout from './layout/StudyLayout';
 
 // Auth
 import LoginPage from './pages/User/Login/LoginPage';
-import Signup from './pages/User/Signup/Signup';
+import SignupPage from './pages/User/Signup/SignupPage';
 
 // Study
 import ReadPage from './pages/Study/Read/ReadPage';
@@ -37,7 +37,7 @@ function App() {
         {/* Auth */}
         <Route path="auth">
           <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<Signup />} />
+          <Route path="signup" element={<SignupPage />} />
           <Route path="" element={<PageNotFound />} />
           {/* 뒤에 라우트 주소가 비었을때도 NotFound로 갈 수 있게끔*/}
         </Route>
