@@ -30,15 +30,18 @@ export const RecommendVideos = styled.div`
 export const VideoCardBlock = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0.5rem;
+  width: 20vw;
+  /* border: 1px solid red; */
+  padding: 1vw;
 
   & .video-title {
+    margin: 1vh 0 0 0;
   }
 `;
 
 export const VideoImg = styled.img`
-  width: 300px;
-  height: 200px;
+  width: 18vw;
+  height: 22vh;
   object-fit: cover;
 
   &:hover {
@@ -55,6 +58,6 @@ export const SubTagContainer = styled.div`
 
 export const SubTag = styled.button`
   border-radius: 10px;
-  padding: 5px;
-  margin: 0.5rem;
+  padding: 0.5vh 0.5vw;
+  margin: 0.5vw 0.5vw 0 0;
 `;

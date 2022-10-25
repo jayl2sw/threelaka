@@ -27,14 +27,14 @@ const VideoCard = ({ data }: VideoCardProps) => {
       </Link>
       <p className="video-title">{data.title}</p>
       <SubTagContainer>
-        {data.script_kor && (
-          <SubTag>
-            <p>한글자막</p>
-          </SubTag>
-        )}
         {data.script && (
           <SubTag>
             <p>영어자막</p>
+          </SubTag>
+        )}
+        {data.script_kor && (
+          <SubTag>
+            <p>한글자막</p>
           </SubTag>
         )}
       </SubTagContainer>
