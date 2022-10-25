@@ -1,6 +1,7 @@
 package com.ssafy.laka.dto.user;
 
 import com.ssafy.laka.domain.User;
+import com.ssafy.laka.domain.enums.Gender;
 import com.ssafy.laka.domain.enums.Role;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -19,15 +20,17 @@ public class UserResponseDto {
 
     private int userId;
     private String username;
-    private String password;
     private String nickname;
     private String email;
     private Role role;
-    private String token;
+    private int age;
+    private Gender gender;
+    private int grade;
+    private int continuousLearningDate;
     private String createDate;
 
+
     public static UserResponseDto from(User entity){
-//        System.out.println(entity.getCreatedDate());
         String createDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(entity.getCreatedDate()).toString();
 
         return UserResponseDto.builder()
@@ -36,6 +39,10 @@ public class UserResponseDto {
                 .email(entity.getEmail())
                 .nickname(entity.getNickname())
                 .role(entity.getRole())
+                .age(entity.getAge())
+                .gender(entity.getGender())
+                .grade(entity.getGrade())
+                .continuousLearningDate(entity.getContiuousLearningDate())
                 .createDate(createDate)
                 .build();
     }

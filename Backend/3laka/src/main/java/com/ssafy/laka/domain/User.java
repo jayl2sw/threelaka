@@ -23,13 +23,13 @@ public class User extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
     @Column(name = "password")
     private String password;
-    @Column(name = "nickname")
+    @Column(name = "nickname", unique = true)
     private String nickname;
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
     @Column(name = "role")
     private Role role;
