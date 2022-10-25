@@ -8,7 +8,7 @@ export const ReadPageBlock = styled.div`
   width: 100vw;
   height: 85vh;
   padding: 0vh 5vw 0vh 5vw;  
-  border: 1px solid black;
+  /* border: 1px solid black; */
 `;
 
 export const YoutubeAndDictContainer = styled.div`
@@ -17,18 +17,25 @@ export const YoutubeAndDictContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 40vw;
-  height: 85vh;  
-  border: 1px solid blue;
+  height: 80vh;  
+  /* border: 1px solid blue; */
 `;
 
 export const DictRegion = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;  
   width: 40vw;
   height: 45vh;  
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
 `;
+
+export const DictInput = styled.input`
+  width: 40vw;
+  height: 10vh;
+  border: black 2px solid;
+`
 
 export const ScriptContainer = styled.div`
   display: flex;
@@ -56,6 +63,7 @@ export const ScriptItemBox = styled.div`
 `;
 
 export const ScriptTimeStamp = styled.div`
+  cursor: pointer;
   min-height: 5vh;
   width: 10vw;
   display: flex;
@@ -66,6 +74,9 @@ export const ScriptTimeStamp = styled.div`
   border: 1px solid green;
   &.now-played {
     background-color: #adff45;
+  }
+  :hover {
+    background: linear-gradient(90deg, rgba(74,159,255,1) 0%, rgba(88,172,240,1) 41%, rgba(176,255,145,1) 100%)
   }
 `;
 
@@ -78,7 +89,7 @@ export const ScriptText = styled.div`
   align-items: center;
   color: black;
   font-size: 2vmin;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 `;
 
 export const ButtonRegion = styled.div`
@@ -90,3 +101,14 @@ export const ButtonRegion = styled.div`
   height: 5vh;
   border: 1px solid green;
 `;
+
+export const ScriptWordSpan = styled.span`
+  margin-right: 0.7vmin;
+  cursor: pointer;
+  :hover {
+    background-color: yellow;
+  }
+  &.word-selected {
+    background-color: #adff45;
+  }
+`
