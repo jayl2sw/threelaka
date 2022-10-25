@@ -14,7 +14,7 @@ public interface UserService {
     boolean checkPW(int id, String nowPW);
     boolean checkSameUser(String email, String username);
     TokenDto doLogin(LoginRequestDto requestDto);
-    UserResponseDto doSignUp(SignUpRequestDto requestDto);
+    void doSignUp(SignUpRequestDto requestDto);
     //UserResponseDto getUserInfo(int id);
     //void updateUser(int id, UpdateUserRequestDto requestDto);
     void deleteUser(int id);
