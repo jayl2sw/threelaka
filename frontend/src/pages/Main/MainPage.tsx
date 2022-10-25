@@ -1,6 +1,12 @@
 import React from 'react';
 import MainHeader from '../../layout/MainHeader';
-import { MainPageBlock, RecommendVideos } from '../../styles/Main/MainStyle';
+import SearchBar from './components/SearchBar';
+import {
+  MainPageBlock,
+  RecentVideo,
+  RecommendVideos,
+} from '../../styles/Main/MainStyle';
+import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import VideoCard from './components/VideoCard';
 
 const recommendDummy1 = [
@@ -64,17 +70,21 @@ const recommendDummy2 = [
     script_kor: true,
   },
 ];
-
 const MainPage = () => {
   return (
     <MainPageBlock>
-      <div>검색창 넣기</div>
-      <div>최근 학습한 영상</div>
+      <NewVideo>
+        <SearchBar />
+      </NewVideo>
+      <RecentVideo>
+        <div>최근 학습한 영상</div>
+      </RecentVideo>
       <RecommendVideos>
         {recommendDummy1.map((videoData, i) => {
           return <VideoCard data={videoData} key={i} />;
         })}
       </RecommendVideos>
+
       <RecommendVideos>
         {recommendDummy2.map((videoData, i) => {
           return <VideoCard data={videoData} key={i} />;

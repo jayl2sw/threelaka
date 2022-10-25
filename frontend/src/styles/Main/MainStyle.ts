@@ -4,6 +4,8 @@ import styled from 'styled-components';
 export const MainPageBlock = styled.div`
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
   width: 100vw;
   height: 85vh;
   padding: 0 10vw 5vh 10vw;
@@ -12,19 +14,20 @@ export const MainPageBlock = styled.div`
   }
 `;
 
-// 메인페이지 검색
-export const SearchBarContainer = styled.div``;
-
-export const SearchBar = styled.div``;
-
 // 메인페이지 최근 학습
-export const RecentVideoContainer = styled.div``;
+export const RecentVideo = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+`;
 
-export const RecentVideo = styled.div``;
+export const RecentVideoContainer = styled.div``;
 
 // 메인페이지 추천 영상
 export const RecommendVideos = styled.div`
   display: flex;
+  border: 1px solid blue;
 `;
 
 export const VideoCardBlock = styled.div`
