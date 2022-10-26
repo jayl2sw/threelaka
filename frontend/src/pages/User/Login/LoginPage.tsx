@@ -1,19 +1,25 @@
 import React from 'react';
 import styled from 'styled-components'
+import LoginForm from './LoginForm';
+import { userInfoApi } from '../../../services/userApi';
 
-const Text = styled.div`
-  font-size: 100px;
+const LoginBlock = styled.div`
+  
  
 `
+const handeltest = () => {
+  const res = userInfoApi()
+  console.log("잘되나",res)
+  return res
+}
 
 const LoginPage = () => {
   return (
-    <div>
-      <Text >
-        
-        로그인페이지지롱
-      </Text>
-    </div>
+    <LoginBlock>
+      
+      <button onClick={handeltest}></button>
+      <LoginForm></LoginForm>
+    </LoginBlock>
   );
 };
 
