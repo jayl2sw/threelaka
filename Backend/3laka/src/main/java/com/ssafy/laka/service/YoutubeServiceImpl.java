@@ -37,7 +37,7 @@ public class YoutubeServiceImpl implements YoutubeService {
     private String apiKey;
 
 //    @Value("${fastApi.url}")
-    private String urlString = "https://k7e202.p.ssafy.io:8081/api/v1/video/script/";
+    private String urlString = "http://3laka.com:8081/api/v1/video/script/";
     private final VideoRepository videoRepository;
 
     @Override
@@ -59,7 +59,9 @@ public class YoutubeServiceImpl implements YoutubeService {
                 Video video = videoList.get(0);
                 com.ssafy.laka.domain.Video v = com.ssafy.laka.domain.Video.from(video);
                 v.setScript(getScript(video.getId()));
+                System.out.println(v);
                 videoRepository.save(v);
+                System.out.println(v);
                 return v;
             }
         } catch (GoogleJsonResponseException e) {
@@ -74,16 +76,14 @@ public class YoutubeServiceImpl implements YoutubeService {
         return null;
     }
 
-    private String getScript(String id) throws IOException, JSONException {
+    private String getScript(String id) throws IOException {
+        System.out.println(urlString+id);
         URL url = new URL(urlString+id);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setDoOutput(true);
         con.setDoInput(true);
         con.setRequestMethod("GET");
         con.setRequestProperty("Content-Type", "application/json");
-
-        OutputStream os = con.getOutputStream();
-        os.close();
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
         StringBuffer stringBuffer = new StringBuffer();
@@ -92,6 +92,7 @@ public class YoutubeServiceImpl implements YoutubeService {
         while ((inputLine = bufferedReader.readLine()) != null)  {
             stringBuffer.append(inputLine);
         }
+
         bufferedReader.close();
 
         String response = stringBuffer.toString();
