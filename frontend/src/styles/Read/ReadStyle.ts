@@ -41,39 +41,42 @@ export const ScriptContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 5vw;
-  /* justify-content: center; */
-  align-items: center;
   width: 45vw;  
   height: 80vh; 
   /* padding: 4vh 4vw; */
   overflow-y : scroll;
   overflow-x: hidden;
+  background-color: #d1edf2;
   border: 1px solid green;
 `;
 
 export const ScriptItemBox = styled.div`
-  min-height: 5vh;
+  min-height: 20vh;
   width: 45vw;
   display: flex;
-  /* justify-content: center; */
+  /* justify-content: flex-start; */
   align-items: center;
   color: black;
   font-size: 2vmin;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 `;
 
 export const ScriptTimeStamp = styled.div`
   cursor: pointer;
   min-height: 5vh;
-  width: 10vw;
+  background-color: white;
+  width: 8vw;
+  margin-left: 2vw;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: black;
-  font-size: 2vmin;
-  border: 1px solid green;
+  font-size: 3vmin;
+  /* border: 1px solid green; */
   &.now-played {
-    background-color: #adff45;
+    background-color: #1c2e4a;
+    color: white;
   }
   :hover {
     background: linear-gradient(90deg, rgba(74,159,255,1) 0%, rgba(88,172,240,1) 41%, rgba(176,255,145,1) 100%)
@@ -81,8 +84,8 @@ export const ScriptTimeStamp = styled.div`
 `;
 
 export const ScriptText = styled.div`
-  min-height: 5vh;
-  width: 35vw;
+  min-height: 20vh;
+  width: 30vw;
   padding: 0vh 2vw;
   display: flex;
   /* justify-content: center; */
@@ -111,4 +114,14 @@ export const ScriptWordSpan = styled.span`
   &.word-selected {
     background-color: #adff45;
   }
+`
+
+export const AutoScrollBtn = styled.div`
+  cursor: pointer;
+  position: absolute;
+  top: 10vh;
+  right: 5vw;
+  width: 15vw;
+  height: 2vh;
+  background-color: blue;
 `

@@ -13,6 +13,7 @@ import {
   ScriptText,
   ScriptWordSpan,
   DictInput,
+  AutoScrollBtn,
 } from '../../../styles/Read/ReadStyle';
 import { TedScript } from '../../../models';
 import { BlobOptions } from 'buffer';
@@ -30,6 +31,7 @@ const ReadPage = () => {
   const [selectedSentenceIdx, setSelectedSentenceIdx] = useState<number | null>(
     null
   );
+  const [isAutoScroll, setIsAutoScroll] = useState<boolean>(true);
 
   const moveToTimeStamp = (idx: number) => {
     const targetTime = tedScriptList[idx].start;
@@ -39,6 +41,12 @@ const ReadPage = () => {
   const dictInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDictInputvalue(e.target.value);
   };
+  
+  const checkHumanWheel = () => {
+    if (isAutoScroll === true) {
+      setIsAutoScroll(false);
+    }
+  }
 
   const wordClickHandler = (
     e: React.MouseEvent<HTMLSpanElement>,
@@ -114,25 +122,27 @@ const ReadPage = () => {
 
   useEffect(() => {
     if (null !== scriptContainerRef.current) {
-      if (undefined !== scriptContainerRef.current[nowPlayedIdx]) {
-        if (nowPlayedIdx < 8) {
-          scriptContainerRef.current[0].scrollIntoView({
-            behavior: 'smooth',
-            block: 'end',
-            inline: 'nearest',
-          });
-        } else if (nowPlayedIdx + 10 > tedScriptList.length) {
-          scriptContainerRef.current[tedScriptList.length - 1].scrollIntoView({
-            behavior: 'smooth',
-            block: 'end',
-            inline: 'nearest',
-          });
-        } else {
-          scriptContainerRef.current[nowPlayedIdx + 8].scrollIntoView({
-            behavior: 'smooth',
-            block: 'end',
-            inline: 'nearest',
-          });
+      if (isAutoScroll === true) {
+        if (undefined !== scriptContainerRef.current[nowPlayedIdx]) {
+          if (nowPlayedIdx < 2) {
+            scriptContainerRef.current[0].scrollIntoView({
+              behavior: 'smooth',
+              block: 'end',
+              inline: 'nearest',
+            });
+          } else if (nowPlayedIdx + 3 > tedScriptList.length) {
+            scriptContainerRef.current[tedScriptList.length - 1].scrollIntoView({
+              behavior: 'smooth',
+              block: 'end',
+              inline: 'nearest',
+            });
+          } else {
+            scriptContainerRef.current[nowPlayedIdx + 2].scrollIntoView({
+              behavior: 'smooth',
+              block: 'end',
+              inline: 'nearest',
+            });
+          }
         }
       }
     }
@@ -163,7 +173,7 @@ const ReadPage = () => {
             {currentTime}, , {nowPlayedIdx}
           </DictRegion>
         </YoutubeAndDictContainer>
-        <ScriptContainer>
+        <ScriptContainer onWheel={checkHumanWheel}>
           {tedScriptList.map((script: TedScript, idx: number) => (
             <ScriptItemBox
               key={`script-${idx}`}
@@ -182,7 +192,7 @@ const ReadPage = () => {
                 ).padStart(2, '0')}`}
               </ScriptTimeStamp>
               <ScriptText>
-                <p>
+                <p style={{wordBreak: `break-all`}}>
                   {script.text
                     .split(/\r?\n| /)
                     .map((word: string, wordIdx: number) => {
@@ -216,6 +226,7 @@ const ReadPage = () => {
             </ScriptItemBox>
           ))}
         </ScriptContainer>
+        <AutoScrollBtn onClick={() => setIsAutoScroll(true)}>오토스크롤ON</AutoScrollBtn>
       </ReadPageBlock>
     </>
   );
