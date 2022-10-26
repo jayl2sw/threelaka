@@ -4,10 +4,12 @@ import MainPage from './pages/Main/MainPage';
 import VideosPage from './pages/Videos/VideosPage';
 // Layout
 import StudyLayout from './layout/StudyLayout';
+import MainLayout from './layout/MainLayout'
+
 
 // Auth
 import LoginPage from './pages/User/Login/LoginPage';
-import Signup from './pages/User/Signup/Signup';
+import SignupPage from './pages/User/Signup/SignupPage';
 
 // Study
 import ReadPage from './pages/Study/Read/ReadPage';
@@ -30,13 +32,16 @@ function App() {
     <div className="App">
       <Routes>
         {/* Main */}
-        <Route path="" element={<MainPage />}></Route>
-        <Route path="videos" element={<VideosPage />}></Route>
-
+        <Route path="" element={<MainLayout />}>
+          <Route path="home" element={<MainPage />}/>
+          <Route path="videos" element={<VideosPage />}/>
+          <Route path="" element={<MainPage />}/>
+          {/* 뒤에 라우트 주소가 비었을 때에도 무조건 메인으로 */}
+        </Route>
         {/* Auth */}
         <Route path="auth">
           <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<Signup />} />
+          <Route path="signup" element={<SignupPage />} />
           <Route path="" element={<PageNotFound />} />
           {/* 뒤에 라우트 주소가 비었을때도 NotFound로 갈 수 있게끔*/}
         </Route>

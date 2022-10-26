@@ -1,9 +1,18 @@
 import React from 'react';
+import styled from 'styled-components'
+
+const Text = styled.div`
+  font-size: 100px;
+ 
+`
 
 const LoginPage = () => {
   return (
     <div>
-      로그인페이지지롱
+      <Text >
+        
+        로그인페이지지롱
+      </Text>
     </div>
   );
 };
