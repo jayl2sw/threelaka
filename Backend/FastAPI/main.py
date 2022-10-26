@@ -1,6 +1,7 @@
 from fastapi import FastAPI 
 from youtube_transcript_api import YouTubeTranscriptApi
 from fastapi.middleware.cors import CORSMiddleware
+from preprocess import preprocess
 
 origins = ["*"]
 
@@ -17,7 +18,7 @@ app.add_middleware(
 
 @app.get("/api/v1/video/script/{video_id}") 
 async def root(video_id): 
-    return YouTubeTranscriptApi.get_transcript(video_id)
+    return preprocess(YouTubeTranscriptApi.get_transcript(video_id))
 
 
     
