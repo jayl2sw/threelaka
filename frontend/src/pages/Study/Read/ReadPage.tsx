@@ -14,6 +14,7 @@ import {
   ScriptWordSpan,
   DictInput,
   AutoScrollBtn,
+  AutoScrollText,
 } from '../../../styles/Read/ReadStyle';
 import { TedScript } from '../../../models';
 import { BlobOptions } from 'buffer';
@@ -226,7 +227,10 @@ const ReadPage = () => {
             </ScriptItemBox>
           ))}
         </ScriptContainer>
-        <AutoScrollBtn onClick={() => setIsAutoScroll(true)}>오토스크롤ON</AutoScrollBtn>
+        <AutoScrollText>
+          <p>{isAutoScroll? '자동 스크롤': '수동 스크롤'}</p>
+        </AutoScrollText>
+        <AutoScrollBtn onClick={() => setIsAutoScroll(!isAutoScroll)} className={isAutoScroll? 'auto-scroll': 'manual-scroll'}></AutoScrollBtn>
       </ReadPageBlock>
     </>
   );

@@ -107,21 +107,67 @@ export const ButtonRegion = styled.div`
 
 export const ScriptWordSpan = styled.span`
   margin-right: 0.7vmin;
+  border-radius: 5px;
   cursor: pointer;
-  :hover {
-    background-color: yellow;
+  :hover {    
+    background-color: grey;  
+    padding: 0.5vmin 0;
   }
   &.word-selected {
-    background-color: #adff45;
+    background-color: #1c2e4a;
+    color: white;
   }
 `
 
 export const AutoScrollBtn = styled.div`
   cursor: pointer;
   position: absolute;
+  z-index: -1;
   top: 10vh;
-  right: 5vw;
-  width: 15vw;
-  height: 2vh;
-  background-color: blue;
+  right: 6vw;
+  width: 5vw;
+  height: 3vh;
+  border-radius: 10px;  
+  background-color: grey;
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.3);
+  &::before {
+    content: '';
+    position: absolute;    
+    width: 2vmin;
+    height: 2vmin;
+    border-radius: 10px;      
+    top: 0.5vmin;  
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.4) ;
+  }
+  &.auto-scroll {
+    background: linear-gradient(90deg, rgba(74,159,255,1) 0%, rgba(88,172,240,1) 41%, rgba(176,255,145,1) 100%);    
+  }
+  &.auto-scroll::before {
+    background-color: white;
+    transform: translateX(3.5vw);    
+    transition: 1s;
+  }
+  &.manual-scroll::before {
+    background-color: black;
+    /* left: 0.5vmin;
+    top: 0.5vmin; */
+    transform: translateX(0.5vw); 
+    transition: 1s;
+  }
+`
+
+export const AutoScrollText = styled.div`
+  z-index: -1;
+  font-size: 2vmin;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 10.1vh;
+  right: 11vw;
+  width: 10vw;
+  height: 3vh;  
+  & p {
+    margin: 0;
+  }
 `
