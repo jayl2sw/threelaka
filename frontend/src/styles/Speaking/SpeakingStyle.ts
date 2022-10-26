@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// 스피킹 페이지 전체 스타일
 export const SpeakingPageBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,7 +24,7 @@ export const VideoAudioContainer = styled.div`
   width: 60vw;
   height: 40vh;
   background-color: #111111;
-  boarder-radius: 20px;
+  border-radius: 20px;
 `;
 
 export const ModePickContainer = styled.div`
@@ -32,10 +33,13 @@ export const ModePickContainer = styled.div`
   background-color: pink;
 `;
 
+// 비디오 녹화 스타일
+
+// 에세이 스크립트 스타일
 export const EssayContainer = styled.div`
   display: flex;
   width: 60vw;
   height: 20vh;
   background-color: skyblue;
-  boarder-radius: 20px;
+  border-radius: 20px;
 `;
