@@ -10,6 +10,7 @@ import com.ssafy.laka.jwt.TokenProvider;
 import com.ssafy.laka.repository.*;
 import com.ssafy.laka.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -105,13 +106,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserResponseDto doSignUp(SignUpRequestDto requestDto) {
-        if(userRepository.findByUsername(requestDto.getUsername()).orElse(null)!=null){
-            throw new DuplicateUsernameException();
-        }
-        if(userRepository.findByEmail(requestDto.getEmail()).orElse(null)!=null){
-            throw new DuplicateEmailException();
-        }
+    public void doSignUp(SignUpRequestDto requestDto) {
         User user = User.builder()
                 .username(requestDto.getUsername())
                 .email(requestDto.getEmail())
@@ -121,10 +116,11 @@ public class UserServiceImpl implements UserService{
                 .gender(requestDto.getGender())
                 .role(Role.ROLE_USER)
                 .build();
-
-        userRepository.save(user);
-
-        return UserResponseDto.from(user);
+        try {
+            userRepository.save(user);
+        } catch (DataIntegrityViolationException exception) {
+            exception.printStackTrace();
+        }
     }
 
 
