@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { useEffect, useCallback } from 'react';
 
-import { useAppDispatch,useAppSelector } from '../../../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { authActions } from '../../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 //api
@@ -20,6 +20,8 @@ import { RadioField } from '../RadioField';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { StyledForm } from '../../../styles/User/UserStyle';
+
 interface IAuthForm {
   username: string;
   email: string;
@@ -35,16 +37,13 @@ interface ISignupFormProps {
   onSubmit?: (formValues: IAuthForm) => void;
 }
 
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
+
 
 const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
   // const [errMsg, setErrMsg] = useState('');
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   const schema = yup.object().shape({
@@ -69,7 +68,8 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
         /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
         '이메일 형태로 입력해주세요'
       ),
-    nickname: yup.string()
+    nickname: yup
+      .string()
       .required('닉네임을 입력해주세요')
       .matches(
         /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/,
@@ -77,7 +77,8 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
       ),
     gender: yup.string(),
     age: yup
-      .number().default(1)
+      .number()
+      .default(1)
       .min(1, '최소 입력값은 1 입니다')
       .max(100, '최대 입력값은 100 입니다'),
   });
@@ -96,7 +97,7 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
       //유효검사
       onValid?.(formValues);
 
-      //회원가입 
+      //회원가입
       let { email, username, password, nickname, age, gender } = formValues;
       const signupInfo = {
         email: email,
@@ -129,7 +130,6 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
         { shouldFocus: true } // 에러가 발생한 input으로 focus 이동
       );
     } else if (idCheckRes) {
-      console.log("뭐냐고",idCheckRes)
       setError(
         'username',
         { message: '아이디가중복이에여' },
@@ -151,51 +151,53 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
   }, []);
 
   useEffect(() => {
-
     if (isLoggedIn) {
       console.log('회원가입 성공');
       navigate('/');
     }
   }, [isLoggedIn]);
   return (
-    <StyledForm onSubmit={handleSubmit(handleFormSubmit)}>
-      <InputField name="username" control={control} label="아이디" />
-      <InputField
-        name="password"
-        control={control}
-        label="비밀번호"
-        type="password"
-      />
-      <InputField
-        name="passwordConfirm"
-        control={control}
-        label="비밀번호 확인"
-        type="password"
-      />
-      <InputField name="nickname" control={control} label="닉네임" />
-      <InputField name="email" control={control} label="이메일" />
-      <InputField name="age" control={control} label="나이" type="number" />
-      <RadioField
-        name="gender"
-        control={control}
-        label="성별"
-        options={[
-          {
-            label: '남성',
-            value: '0',
-          },
-          {
-            label: '여성',
-            value: '1',
-          },
-          {
-            label: '쉿,비밀이야',
-            value: '2',
-          },
-        ]}
-      />
-      <button>제출</button>
-    </StyledForm>
+   
+
+      <StyledForm onSubmit={handleSubmit(handleFormSubmit)}>
+        <InputField name="username" control={control} label="아이디" />
+        <InputField
+          name="password"
+          control={control}
+          label="비밀번호"
+          type="password"
+        />
+        <InputField
+          name="passwordConfirm"
+          control={control}
+          label="비밀번호 확인"
+          type="password"
+        />
+        <InputField name="nickname" control={control} label="닉네임" />
+        <InputField name="email" control={control} label="이메일" />
+        <InputField name="age" control={control} label="나이" type="number" />
+        <RadioField
+          name="gender"
+          control={control}
+          label="성별"
+          options={[
+            {
+              label: '남성',
+              value: '0',
+            },
+            {
+              label: '여성',
+              value: '1',
+            },
+            {
+              label: '쉿,비밀이야',
+              value: '2',
+            },
+          ]}
+        />
+        <button>제출</button>
+      </StyledForm>
+  
   );
 };
 
