@@ -1,13 +1,11 @@
 package com.ssafy.laka.controller;
 
 import com.ssafy.laka.dto.study.*;
-import com.ssafy.laka.repository.UserRepository;
 import com.ssafy.laka.service.StudyService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.Update;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +32,20 @@ public class StudyController {
         // Video Dto + 시청 기록 Dto 반환
 
         return new ResponseEntity<>(studyService.getVideo(url), HttpStatus.OK);
+    }
+
+    @PostMapping("/start")
+    @ApiOperation(value = "학습 시작", notes = "해당 비디오를 사용하여 학습을 시작한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<LearningRecordResponseDto> startLearning(
+            @RequestBody String videoId
+    ){
+        // 링크 입력하면 DB 확인 후 없으면 데이터 저장, 있으면 불러온다.
+        // Video Dto + 시청 기록 Dto 반환
+
+        return new ResponseEntity<>(studyService.startLeaning(videoId), HttpStatus.OK);
     }
 
     @PostMapping("/video/latest")

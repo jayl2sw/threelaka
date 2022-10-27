@@ -33,7 +33,6 @@ public class StudyServiceImpl implements StudyService{
     private final LearningRecordRepository learningRecordRepository;
     private final EssayRepository essayRepository;
     private final WordbookRepository wordbookRepository;
-
     private final YoutubeService youtubeService;
 
     @Override
@@ -199,5 +198,19 @@ public class StudyServiceImpl implements StudyService{
         if (!studyRepository.findByUserAndDate(user, yesterday).isPresent() && !studyRepository.findByUserAndDate(user, today).isPresent()) {
             user.resetContinuousLearningDate();
         }
+    }
+
+    @Override
+    public LearningRecordResponseDto startLeaning(String videoId) {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        Video video = videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new);
+        LearningRecord lr = LearningRecord.builder()
+                .user(user)
+                .video(video)
+                .stage(Stage.LISTENING)
+                .build();
+        learningRecordRepository.save(lr);
+        return LearningRecordResponseDto.from(lr);
+
     }
 }

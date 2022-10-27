@@ -1,8 +1,9 @@
 package com.ssafy.laka.service;
 
+import com.ssafy.laka.dto.study.LearningRecordResponseDto;
 import com.ssafy.laka.dto.study.*;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -32,4 +33,6 @@ public interface StudyService {
     void memorizeWord(int wordbook_id);
 
     void checkContinuousLearningDate(String token);
+
+    LearningRecordResponseDto startLeaning(String videoId);
 }
