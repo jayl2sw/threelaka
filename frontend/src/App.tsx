@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 // Main
 import MainPage from './pages/Main/MainPage';
@@ -27,6 +26,8 @@ import StudyLog from './pages/Dashboard/StudyLog/StudyLog';
 import PageNotFound from './layout/PageNotFound';
 
 import Counter from './pages/Counter/Counter';
+
+
 
 function App() {
   return (

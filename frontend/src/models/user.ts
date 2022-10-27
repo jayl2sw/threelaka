@@ -4,4 +4,6 @@ export interface User {
   password: string;
   // gender: 'male' | 'female';
 
-} //일단 사용하는데는 없음 비워놓으면 에러뜨네
+
+
+} //아직안씀

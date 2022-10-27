@@ -1,7 +1,13 @@
 import React from 'react';
 
-import { ISignupRespons } from '../../services/userApi';
+import { ILoginResponse } from '../../services/userApi';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from '../../models/user';
+
+export interface LoginPayload {
+  username: string;
+  password: string;
+}
 
 export interface SignupPayload {
   username: string;
@@ -13,11 +19,15 @@ export interface SignupPayload {
 }
 
 export interface AuthState {
+  isLoggedIn: boolean;
   loading?: boolean;
+  currentUser?: User;
 }
 
 const initialState: AuthState = {
+  isLoggedIn: false,
   loading: false, //로딩중
+  currentUser: undefined, //유저정보 따로 요청보낼거임
 };
 
 const authSlice = createSlice({
@@ -27,13 +37,25 @@ const authSlice = createSlice({
     signup(state, action: PayloadAction<SignupPayload>) {
       state.loading = true;
     },
-    signupSuccess(state, action: PayloadAction<ISignupRespons>) {
+    signupSuccess(state, action: PayloadAction<string>) {
       state.loading = false;
     },
     signupFailed(state, action: PayloadAction<string>) {
       state.loading = false;
       console.log(action.payload);
     },
+    login(state, action: PayloadAction<LoginPayload>) {
+      state.loading = true;
+    },
+    loginSuccess(state, action: PayloadAction<ILoginResponse>) {
+      state.isLoggedIn = true;
+      state.loading = false;
+      console.log(action.payload);
+    },
+    loginFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    test(state) {},
   },
 });
 
