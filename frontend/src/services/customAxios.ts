@@ -1,5 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-
+import axios, { AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
 // const customAxios = axios.create({
 //   baseURL: "http://localhost:8080/",   
 //   // baseURL: "http://k7e202.p.ssafy.io/",   
@@ -31,18 +30,6 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 // export default customAxios;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 const customAxios = axios.create({
   baseURL: "http://localhost:8080/",   
   // baseURL: "http://k7e202.p.ssafy.io/",   
@@ -53,26 +40,17 @@ const customAxios = axios.create({
 
 // Interceptors
 customAxios.interceptors.request.use(
-  function (config: AxiosRequestConfig) {
-    // 요청이 전달되기 전에 작업 수행
-    try {
-      const accessToken = localStorage.getItem('accessToken')
-        ? localStorage.getItem('accessToken')
-        : null;
-      if (accessToken) {
-        console.log(customAxios.defaults.headers);
-        customAxios.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${accessToken}`;
-      }
-    } catch (error) {
-      console.log(error);
+  (config) => {
+    const token = getLocalAccessToken();
+   
+    if (token) {
+      customAxios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      
     }
-    // Do something before request is sent
     return config;
   },
-  function (error) {
-    // Do something with request error
+  (error) => {
+    
     return Promise.reject(error);
   }
 );
@@ -120,6 +98,8 @@ customAxios.interceptors.response.use(
           ] = `Bearer ${accessToken}`;
           return customAxios(originalConfig);
         } catch (_error) {
+
+          alert("리프레쉬 토큰도 만료됐으니 재로그인하세요")
           // if (_error.response && _error.response.data) {
           //   return Promise.reject(_error.response.data);
           // }

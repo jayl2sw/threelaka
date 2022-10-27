@@ -52,12 +52,15 @@ const authSlice = createSlice({
       state.loading = false;
       console.log(action.payload)
       const {accessToken, refreshToken} = action.payload
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
+      // localStorage.setItem('accessToken', accessToken);
+      // localStorage.setItem('refreshToken', refreshToken);
     },
     loginFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
+    test(state) {
+      console.log("이건되나")
+    }
   },
 });
 

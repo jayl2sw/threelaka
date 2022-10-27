@@ -1,19 +1,20 @@
 import React from 'react';
 import styled from 'styled-components'
 import LoginForm from './LoginForm';
-import { userInfoApi } from '../../../services/userApi';
+
+import { useAppDispatch } from '../../../utils/hooks';
+import { authActions } from '../../../features/auth/authSlice';
 
 const LoginBlock = styled.div`
   
  
 `
-const handeltest = () => {
-  const res = userInfoApi()
-  console.log("잘되나",res)
-  return res
-}
 
 const LoginPage = () => {
+  const dispatch = useAppDispatch();
+  const handeltest = () => {
+    dispatch(authActions.test());
+  }
   return (
     <LoginBlock>
       
