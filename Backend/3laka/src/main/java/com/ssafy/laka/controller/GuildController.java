@@ -2,10 +2,7 @@ package com.ssafy.laka.controller;
 
 import com.ssafy.laka.dto.exception.guild.RequestListEmptyException;
 import com.ssafy.laka.dto.exception.guild.RequestNotFoundException;
-import com.ssafy.laka.dto.guild.GuildCreateDto;
-import com.ssafy.laka.dto.guild.GuildResponseDto;
-import com.ssafy.laka.dto.guild.JoinRequestDto;
-import com.ssafy.laka.dto.guild.MemberResponseDto;
+import com.ssafy.laka.dto.guild.*;
 import com.ssafy.laka.dto.user.UserResponseDto;
 import com.ssafy.laka.service.GuildService;
 import com.ssafy.laka.service.UserService;
@@ -79,6 +76,20 @@ public class GuildController {
     public ResponseEntity<MemberResponseDto> searchMembers(@PathVariable @RequestBody int guildId){
         return new ResponseEntity<>(guildService.searchMembers(guildId), HttpStatus.OK);
 
+    }
+
+    @PutMapping("/user/guild")
+    @ApiOperation(value = "내가 마스터인 길드 정보 수정")
+    public ResponseEntity<String> UpdateGuild(String description, int guildId){
+        guildService.setDescription(description, guildId);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/user/guild/quit/{guildId}")
+    @ApiOperation(value = "내가 가입한 길드 탈퇴")
+    public ResponseEntity<String> quitGuild(@PathVariable int guildId){
+        guildService.quitGuild(guildId);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
 

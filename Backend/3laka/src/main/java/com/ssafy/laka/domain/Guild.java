@@ -33,6 +33,7 @@ public class Guild {
     @OneToMany(mappedBy = "guild", cascade = CascadeType.ALL)
     private List<JoinRequest> JoinRequests;
 
+    public void setDescription(String description){this.description = description;}
     @PrePersist
     public void prePersist(){
         this.members = new ArrayList<User>();

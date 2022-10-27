@@ -1,9 +1,6 @@
 package com.ssafy.laka.service;
 
-import com.ssafy.laka.dto.guild.GuildCreateDto;
-import com.ssafy.laka.dto.guild.GuildResponseDto;
-import com.ssafy.laka.dto.guild.JoinRequestDto;
-import com.ssafy.laka.dto.guild.MemberResponseDto;
+import com.ssafy.laka.dto.guild.*;
 import com.ssafy.laka.dto.user.UserResponseDto;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -22,7 +19,7 @@ List<JoinRequestDto> getJoinReqList(int guildId);
 //    길드 가입 요청 거절
     void rejectGuild(int guildId);
 //    길드원 목록 조회
-    List<UserResponseDto> getMemberList();
+    List<UserResponseDto> getMemberDetail();
 //   멤버 정보 제외한 길드 조회
     GuildResponseDto searchGuild(int guildId);
 //    회원 조회
@@ -32,7 +29,7 @@ List<JoinRequestDto> getJoinReqList(int guildId);
 //    길드 해체
     void deleteGuild(int userId);
 //    마스터의 길드원 추방
-    Void deleteMember(int userId);
+    void deleteMember(int userId);
 
 //    해당 길드의 멤버 조회
     MemberResponseDto searchMembers(int guildId);
@@ -42,4 +39,8 @@ List<JoinRequestDto> getJoinReqList(int guildId);
 //    마스터 이름 중복 검사
 //    길드 공지 수정
 //    길드 정보 수정
+void setDescription(String description, int guildId);
+void quitGuild(int guildId);
 }
+
+

@@ -26,7 +26,11 @@ public enum ErrorCode {
     NOT_GUILD_MASTER(400 , "G004", "해당 길드의 마스터가 아닙니다."),
     LEFT_MEMBER_EXISTS(400 , "G005", "길드에 아직 멤버가 남아 있습니다."), 
     ALREADY_IN_GUILD(400,"G006" , "이미 소속된 길드가 있습니다." ),
-    REQUEST_LIST_EMPTY(400, "G006", "새로운 가입 요청이 없습니다" );
+    REQUEST_LIST_EMPTY(400, "G007", "새로운 가입 요청이 없습니다" ),
+
+    NOT_IN_GUILD(400, "G008", "가입한 길드가 없습니다"),
+
+    NOT_MY_GUILD(400, "G009", "해당 길드에 가입되어있지 않습니다");
 
 
     private final int status;

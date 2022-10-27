@@ -3,6 +3,7 @@ package com.ssafy.laka.repository;
 import com.ssafy.laka.domain.Guild;
 import com.ssafy.laka.domain.JoinRequest;
 import com.ssafy.laka.domain.User;
+import com.ssafy.laka.domain.enums.State;
 import com.ssafy.laka.dto.guild.JoinRequestDto;
 import com.ssafy.laka.dto.user.UserResponseDto;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,5 +18,7 @@ public interface JoinRequestRepository extends JpaRepository<JoinRequest, Intege
     List<JoinRequestDto> findByGuildId(int guildId);
 
     Optional<JoinRequest> findBySender(User sender);
+
+    List<JoinRequestDto> findByGuildIdAndState(int guildId, State state);
 
 }
