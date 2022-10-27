@@ -26,7 +26,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<VideoResponseDto> getVideo(
-            UrlRequestDto data
+            @RequestBody UrlRequestDto data
     ){
         // 링크 입력하면 DB 확인 후 없으면 데이터 저장, 있으면 불러온다.
         // Video Dto + 시청 기록 Dto 반환
@@ -40,7 +40,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<LearningRecordResponseDto> startLearning(
-            VideoRequestDto data
+            @RequestBody VideoRequestDto data
     ){
         // 링크 입력하면 DB 확인 후 없으면 데이터 저장, 있으면 불러온다.
         // Video Dto + 시청 기록 Dto 반환
@@ -64,7 +64,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> addWishVideo(
-            VideoRequestDto data
+            @RequestBody VideoRequestDto data
     ){
         // 나중에 볼 영상 추가
         studyService.addWish(data.getVideoId());
@@ -77,7 +77,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> deleteWishVideo(
-            LikeVideoRequestDto data
+            @RequestBody LikeVideoRequestDto data
     ){
         // 나중에 볼 영상 추가
         studyService.deleteWish(data.getLikeVideoId());
@@ -103,7 +103,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> addWord(
-            WordRequestDto data
+            @RequestBody WordRequestDto data
     ){
         // 단어장에 단어 하나 추가해줌
         studyService.addWord(data);
@@ -115,7 +115,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> deleteWord(
-            WordbookRequestDto data
+            @RequestBody WordbookRequestDto data
     ){
         // 단어장에 단어 하나 추가해줌
         studyService.deleteWord(data.getWordbookId());
@@ -128,7 +128,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<WordResponseDto> searchWord(
-            WordRequestDto data
+            @RequestBody WordRequestDto data
     ){
         // DB에서 word를 찾고 만약 DB에 없으면 콜린스 api통해서 요청 보냄
 
@@ -152,7 +152,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> addCustomWord(
-            CustomWordRequestDto customWord
+            @RequestBody CustomWordRequestDto customWord
     ){
         // 단어장에 커스텀 단어 하나 추가해줌
         studyService.addCustomWord(customWord);
@@ -165,7 +165,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> updateWordbookStatus(
-            WordbookRequestDto data
+            @RequestBody WordbookRequestDto data
     ){
         // 단어장 단어 외움 처리
         studyService.memorizeWord(data.getWordbookId());
@@ -178,7 +178,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> saveEssay(
-            EssayRequestDto essay
+            @RequestBody EssayRequestDto essay
     ){
         // 에세이 저장
         studyService.addEssay(essay);
@@ -201,7 +201,7 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> updateCompletedStage(
-            UpdateStageRequestDto data
+            @RequestBody UpdateStageRequestDto data
     ){
         // 학습 스테이지 저장
         studyService.updateCompletedStage(data);
