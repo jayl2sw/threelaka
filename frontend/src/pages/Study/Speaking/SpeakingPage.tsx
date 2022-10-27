@@ -1,6 +1,7 @@
 import React from 'react';
 import VoiceRecoding from './components/VoiceRecoding';
 import WebCam from './components/WebCam';
+import VideoOrAudio from './components/VideoOrAudio';
 import EssayScript from './components/EssayScript';
 import {
   SpeakingPageBlock,
@@ -10,8 +11,8 @@ import {
 const SpeakingPage = () => {
   return (
     <SpeakingPageBlock>
-      <VideoAudioButtonContainer>영상/음성 선택 버튼</VideoAudioButtonContainer>
-      <WebCam></WebCam>
+      <VideoOrAudio />
+      <WebCam />
       <EssayScript />
     </SpeakingPageBlock>
   );

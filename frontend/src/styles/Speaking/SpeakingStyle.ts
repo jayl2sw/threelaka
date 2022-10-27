@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const SpeakingPageBlock = styled.div`
   display: flex;
   flex-direction: column;
-  // justify-content: center;
+  justify-content: center;
   align-items: center;
   width: 100vw;
   height: 85vh;
@@ -29,18 +29,35 @@ export const VideoAudioContainer = styled.div`
   & Webcam {
     width: 100%;
     height: 100%;
-    
   }
   & video {
     width: 100%;
-    height: 100%
+    height: 100%;
+  }
+`;
+
+export const VideoOrAudioPick = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 15vw;
+  height: 5vh;
+  & button {
+    background-color: #4a9fff;
+    color: white;
   }
 `;
 
 export const ModePickContainer = styled.div`
-  width: 20vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 15vw;
   height: 5vh;
-  background-color: pink;
+  & button {
+    background-color: #4a9fff;
+    color: white;
+  }
 `;
 
 // 비디오 녹화 스타일

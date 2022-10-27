@@ -24,6 +24,7 @@ const WebCam = () => {
 
   // 영상 녹화 시작
   const handleStartCaptureClick = useCallback(() => {
+    setRecordedChunks([]);
     setCapturing(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: 'video/webm',
@@ -57,12 +58,14 @@ const WebCam = () => {
 
   // 녹화된 영상 세팅
   const setRecordedVideo = useCallback(() => {
+    console.log(recordedChunks);
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: 'video/webm',
       });
       const url = URL.createObjectURL(blob);
       const video = document.getElementById('video-replay') as HTMLVideoElement;
+      console.log(video, camIsOn);
       video.src = url;
     }
   }, [recordedChunks]);
@@ -85,11 +88,17 @@ const WebCam = () => {
   return (
     <div>
       <VideoAudioContainer>
-        {camIsOn ? (
-          <Webcam audio={true} ref={webcamRef} muted />
-        ) : (
-          <video id="video-replay" controls></video>
-        )}
+        <Webcam
+          audio={true}
+          style={{ display: `${camIsOn ? '' : 'none'}` }}
+          ref={webcamRef}
+          muted
+        />
+        <video
+          id="video-replay"
+          style={{ display: `${camIsOn ? 'none' : ''}` }}
+          controls
+        ></video>
       </VideoAudioContainer>
 
       {capturing ? (
@@ -97,6 +106,7 @@ const WebCam = () => {
       ) : (
         <button onClick={handleStartCaptureClick}>녹화 시작</button>
       )}
+
       {recordedChunks.length > 0 && (
         <div>
           <button
@@ -107,7 +117,6 @@ const WebCam = () => {
           >
             화면 전환
           </button>
-          <button onClick={setRecordedVideo}>영상 세팅</button>
           <button onClick={handleDownload}>영상 다운</button>
         </div>
       )}
