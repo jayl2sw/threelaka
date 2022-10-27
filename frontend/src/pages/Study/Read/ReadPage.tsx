@@ -1,26 +1,71 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import YouTube, { YouTubePlayer } from 'react-youtube';
-import { useAppDispatch } from '../../../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { readActions } from '../../../features/Read/read-slice';
 import {
   ReadPageBlock,
   YoutubeAndDictContainer,
   DictRegion,
-  ScriptAndSpeakContainer
+  ScriptContainer,
+  ScriptItemBox,
+  ButtonRegion,
+  ScriptTimeStamp,
+  ScriptText,
+  ScriptWordSpan,
+  DictInput,
+  AutoScrollBtn,
+  AutoScrollText,
 } from '../../../styles/Read/ReadStyle';
+import { TedScript } from '../../../models';
+import { BlobOptions } from 'buffer';
 
 let videoElement: YouTubePlayer = null;
 
 const ReadPage = () => {
-  const [isPaused, setIsPaused] = useState(false);
+  const [nowPlayedIdx, setNowPlayedIdx] = useState<number>(30);
+  const [currentTime, setCurrentTime] = useState<number>(0);
   const dispatch = useAppDispatch();
-  const togglePause = () => {
-    setIsPaused(!isPaused);
+  const tedScriptList = useAppSelector((state) => state.read.TedScriptList);
+  const scriptContainerRef = useRef<HTMLDivElement[]>([]);
+  const [dictInputValue, setDictInputvalue] = useState<string>('');
+  const [selectedWordIdxArr, setSelectedWordIdxArr] = useState<number[]>([]);
+  const [selectedSentenceIdx, setSelectedSentenceIdx] = useState<number | null>(
+    null
+  );
+  const [isAutoScroll, setIsAutoScroll] = useState<boolean>(true);
+
+  const moveToTimeStamp = (idx: number) => {
+    const targetTime = tedScriptList[idx].start;
+    videoElement.target.seekTo(targetTime, 1);
   };
 
-  const onClickgetScript = (videoId:string) => {
-    dispatch(readActions.getScripts(videoId))
+  const dictInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDictInputvalue(e.target.value);
+  };
+  
+  const checkHumanWheel = () => {
+    if (isAutoScroll === true) {
+      setIsAutoScroll(false);
+    }
   }
+
+  const wordClickHandler = (
+    e: React.MouseEvent<HTMLSpanElement>,
+    idx: number,
+    wordIdx: number
+  ) => {
+    let nextInputValue: string = '';
+    if (selectedSentenceIdx === idx) {
+      nextInputValue =
+        dictInputValue + (e.target as HTMLSpanElement).innerText + ' ';
+      setSelectedWordIdxArr([...selectedWordIdxArr, wordIdx]);
+    } else {
+      nextInputValue = (e.target as HTMLSpanElement).innerText + ' ';
+      setSelectedSentenceIdx(idx);
+      setSelectedWordIdxArr([wordIdx]);
+    }
+    setDictInputvalue(nextInputValue);
+  };
 
   const opts = {
     width: '100%',
@@ -33,59 +78,20 @@ const ReadPage = () => {
   useEffect(() => {
     if (videoElement) {
       // get current time
+      console.log(videoElement.target);
       const elapsed_seconds = videoElement.target.getCurrentTime();
-
-      // calculations
-      const elapsed_milliseconds = Math.floor(elapsed_seconds * 1000);
-      const ms = elapsed_milliseconds % 1000;
-      const min = Math.floor(elapsed_milliseconds / 60000);
-      const seconds = Math.floor((elapsed_milliseconds - min * 60000) / 1000);
-
-      const formattedCurrentTime =
-        min.toString().padStart(2, '0') +
-        ':' +
-        seconds.toString().padStart(2, '0') +
-        ':' +
-        ms.toString().padStart(3, '0');
-
-      console.log(formattedCurrentTime);
-
-      // Pause and Play video
-      if (isPaused) {
-        videoElement.target.pauseVideo();
-      } else {
-        videoElement.target.playVideo();
-      }
+      setCurrentTime(elapsed_seconds);
     }
-  }, [isPaused, videoElement]);
+  }, [videoElement]);
 
   //get current time and video status in real time
   useEffect(() => {
+    dispatch(readActions.getScripts('KQ9FfzMKBNc'));
+
     const interval = setInterval(async () => {
       if (videoElement && videoElement.target.getCurrentTime() > 0) {
         const elapsed_seconds = videoElement.target.getCurrentTime();
-
-        // calculations
-        const elapsed_milliseconds = Math.floor(elapsed_seconds * 1000);
-        const ms = elapsed_milliseconds % 1000;
-        const min = Math.floor(elapsed_milliseconds / 60000);
-        const seconds = Math.floor((elapsed_milliseconds - min * 60000) / 1000);
-
-        const formattedCurrentTime =
-          min.toString().padStart(2, '0') +
-          ':' +
-          seconds.toString().padStart(2, '0') +
-          ':' +
-          ms.toString().padStart(3, '0');
-
-        console.log(formattedCurrentTime);
-
-        // verify video status
-        if (videoElement.target.playerInfo.playerState === 1) {
-          console.log('the video is running');
-        } else if (videoElement.target.playerInfo.playerState === 2) {
-          console.log('the video is paused');
-        }
+        setCurrentTime(elapsed_seconds);
       }
     }, 1000);
 
@@ -93,6 +99,55 @@ const ReadPage = () => {
       clearInterval(interval);
     };
   }, []);
+
+  useEffect(() => {
+    if (tedScriptList.length === 0) {
+      return;
+    }
+    let tempCurrentIdx = nowPlayedIdx;
+    if (currentTime > tedScriptList[tempCurrentIdx].start) {
+      while (currentTime > tedScriptList[tempCurrentIdx].start) {
+        if (tempCurrentIdx > tedScriptList.length - 2) {
+          break;
+        }
+        tempCurrentIdx++;
+      }
+    }
+    if (currentTime < tedScriptList[tempCurrentIdx].start) {
+      while (currentTime < tedScriptList[tempCurrentIdx].start) {
+        tempCurrentIdx--;
+      }
+    }
+    setNowPlayedIdx(tempCurrentIdx);
+  }, [currentTime]);
+
+  useEffect(() => {
+    if (null !== scriptContainerRef.current) {
+      if (isAutoScroll === true) {
+        if (undefined !== scriptContainerRef.current[nowPlayedIdx]) {
+          if (nowPlayedIdx < 2) {
+            scriptContainerRef.current[0].scrollIntoView({
+              behavior: 'smooth',
+              block: 'end',
+              inline: 'nearest',
+            });
+          } else if (nowPlayedIdx + 3 > tedScriptList.length) {
+            scriptContainerRef.current[tedScriptList.length - 1].scrollIntoView({
+              behavior: 'smooth',
+              block: 'end',
+              inline: 'nearest',
+            });
+          } else {
+            scriptContainerRef.current[nowPlayedIdx + 2].scrollIntoView({
+              behavior: 'smooth',
+              block: 'end',
+              inline: 'nearest',
+            });
+          }
+        }
+      }
+    }
+  }, [nowPlayedIdx]);
 
   const _onReady = (event: YouTubePlayer) => {
     videoElement = event;
@@ -114,11 +169,68 @@ const ReadPage = () => {
             opts={opts}
             onReady={_onReady}
           />
-          <button onClick={() => onClickgetScript('KQ9FfzMKBNc')}></button>
-          {/* <button onClick={togglePause}>Pause</button> */}
-          <DictRegion>사전 영역입니다</DictRegion>
+          <DictRegion>
+            <DictInput value={dictInputValue} onChange={dictInputChange} />
+            {currentTime}, , {nowPlayedIdx}
+          </DictRegion>
         </YoutubeAndDictContainer>
-        <ScriptAndSpeakContainer>스크립트와 스피킹영역입니다</ScriptAndSpeakContainer>
+        <ScriptContainer onWheel={checkHumanWheel}>
+          {tedScriptList.map((script: TedScript, idx: number) => (
+            <ScriptItemBox
+              key={`script-${idx}`}
+              ref={(el) => {
+                if (null != el) {
+                  scriptContainerRef.current[idx] = el;
+                }
+              }}
+            >
+              <ScriptTimeStamp
+                className={idx === nowPlayedIdx ? 'now-played' : ''}
+                onClick={() => moveToTimeStamp(idx)}
+              >
+                {`${Math.floor(script.start / 60)}: ${String(
+                  Math.floor(script.start % 60)
+                ).padStart(2, '0')}`}
+              </ScriptTimeStamp>
+              <ScriptText>
+                <p style={{wordBreak: `break-all`}}>
+                  {script.text
+                    .split(/\r?\n| /)
+                    .map((word: string, wordIdx: number) => {
+                      if (idx === selectedSentenceIdx) {
+                        return (
+                          <ScriptWordSpan
+                            key={`script-${idx}-word-${wordIdx}`}
+                            onClick={(e) => wordClickHandler(e, idx, wordIdx)}
+                            className={`${
+                              selectedWordIdxArr.includes(wordIdx)
+                                ? 'word-selected'
+                                : ''
+                            }`}
+                          >
+                            {word}
+                          </ScriptWordSpan>
+                        );
+                      } else {
+                        return (
+                          <ScriptWordSpan
+                            key={`script-${idx}-word-${wordIdx}`}
+                            onClick={(e) => wordClickHandler(e, idx, wordIdx)}
+                          >
+                            {word}
+                          </ScriptWordSpan>
+                        );
+                      }
+                    })}
+                </p>
+              </ScriptText>
+            </ScriptItemBox>
+          ))}
+        </ScriptContainer>
+        <AutoScrollText>
+          <p>{isAutoScroll? '자동 스크롤': '수동 스크롤'}</p>
+        </AutoScrollText>
+        <AutoScrollBtn onClick={() => setIsAutoScroll(!isAutoScroll)} className={isAutoScroll? 'auto-scroll': 'manual-scroll'}></AutoScrollBtn>
       </ReadPageBlock>
     </>
   );
