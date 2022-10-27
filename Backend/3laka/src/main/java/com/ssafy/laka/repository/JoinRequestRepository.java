@@ -15,6 +15,9 @@ public interface JoinRequestRepository extends JpaRepository<JoinRequest, Intege
 //    해당 길드의 가입요청 조회하기
 
     Optional<JoinRequest> findByGuildAndSender(Guild guild, User sender);
+
+    Optional<JoinRequest> findByGuildAndSenderAndState(Guild guild, User sender, State state);
+
     List<JoinRequestDto> findByGuildId(int guildId);
 
     Optional<JoinRequest> findBySender(User sender);

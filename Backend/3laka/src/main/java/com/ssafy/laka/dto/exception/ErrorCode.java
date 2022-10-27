@@ -30,7 +30,11 @@ public enum ErrorCode {
 
     NOT_IN_GUILD(400, "G008", "가입한 길드가 없습니다"),
 
-    NOT_MY_GUILD(400, "G009", "해당 길드에 가입되어있지 않습니다");
+    NOT_MY_GUILD(400, "G009", "해당 길드에 가입되어있지 않습니다"),
+
+    NOT_GUILD_MEMBER(400, "G010", "해당 유저는 길드원이 아닙니다"),
+
+    SAME_GUILDNAME_EXISTS(400, "G011", "이미 존재하는 길드명입니다");
 
 
     private final int status;

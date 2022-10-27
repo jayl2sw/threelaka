@@ -32,7 +32,7 @@ public class GuildServiceImpl implements GuildService{
     public void joinGuild(int guildId) {
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
-        Optional<JoinRequest> joinRequest = joinRequestRepository.findByGuildAndSender(guild, me);
+        Optional<JoinRequest> joinRequest = joinRequestRepository.findByGuildAndSenderAndState(guild, me, State.pending);
 
         if (me.getGuild() != null){
             throw new AlreadyInGuildException();
@@ -147,6 +147,9 @@ public class GuildServiceImpl implements GuildService{
         if (user.getGuild() != null){
             throw new AlreadyInGuildException();
         }
+        if (guildRepository.findByGuildName(data.getName()).isPresent()) {
+            throw new DuplicateGuildNameException();
+        }
         Guild guild = Guild.builder()
                 .guildName(data.getName())
                 .master(user.getUserId())
@@ -208,6 +211,21 @@ public class GuildServiceImpl implements GuildService{
 //  길드에서 멤버 추방
     @Override
     public void deleteMember(int userId) {
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+//        로그인 한 유저의 길드 마스터 ID
+        int myMasterId = me.getGuild().getMaster();
+//        추방하려는 유저의 길드 마스터 ID
+        User member = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        int memberMasterId = member.getGuild().getMaster();
+
+        if (me.getUserId() != myMasterId){
+            throw new NotMasterException();
+        }
+        if (myMasterId != memberMasterId){
+            throw new NotGuildMemberException();
+        }
+
+        member.joinGuild(null);
     }
     @Override
     public void quitGuild(int guildId){

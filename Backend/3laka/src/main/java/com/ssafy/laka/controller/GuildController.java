@@ -27,7 +27,7 @@ public class GuildController {
         return new ResponseEntity<>(guildService.createGuild(data), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{guild_id}")
+    @DeleteMapping("/{guildId}")
     @ApiOperation(value = "내가 마스터인 길드 삭제")
     public ResponseEntity<?> deleteGuild(@PathVariable int guildId){
         guildService.deleteGuild(guildId);
@@ -92,8 +92,11 @@ public class GuildController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
-
-
-
+    @DeleteMapping("/user/guild/remove/{userId}")
+    @ApiOperation(value = "마스터의 멤버 추방")
+    public ResponseEntity<String> DeleteMember(@PathVariable int userId){
+        guildService.deleteMember(userId);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
 
 }
