@@ -1,19 +1,26 @@
 import React from 'react';
 import styled from 'styled-components'
+import LoginForm from './LoginForm';
 
-const Text = styled.div`
-  font-size: 100px;
+import { useAppDispatch } from '../../../utils/hooks';
+import { authActions } from '../../../features/auth/authSlice';
+
+const LoginBlock = styled.div`
+  
  
 `
 
 const LoginPage = () => {
+  const dispatch = useAppDispatch();
+  const handeltest = () => {
+    dispatch(authActions.test());
+  }
   return (
-    <div>
-      <Text >
-        
-        로그인페이지지롱
-      </Text>
-    </div>
+    <LoginBlock>
+      
+      <button onClick={handeltest}></button>
+      <LoginForm></LoginForm>
+    </LoginBlock>
   );
 };
 
