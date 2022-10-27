@@ -50,17 +50,12 @@ const authSlice = createSlice({
     loginSuccess(state, action: PayloadAction<ILoginResponse>) {
       state.isLoggedIn = true;
       state.loading = false;
-      console.log(action.payload)
-      const {accessToken, refreshToken} = action.payload
-      // localStorage.setItem('accessToken', accessToken);
-      // localStorage.setItem('refreshToken', refreshToken);
+      console.log(action.payload);
     },
     loginFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
-    test(state) {
-      console.log("이건되나")
-    }
+    test(state) {},
   },
 });
 

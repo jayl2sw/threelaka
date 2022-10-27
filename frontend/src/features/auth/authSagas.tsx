@@ -8,10 +8,13 @@ import { createUserApi, loginApi } from '../../services/userApi';
 import { userInfoApi } from '../../services/userApi';
 
 function* createUser(action: PayloadAction<SignupPayload>) {
+  const { login } = authActions;
   try {
     const response: string = yield call(createUserApi, action.payload);
     //string이 타입
+    const {username,password} = action.payload
     yield put(authActions.signupSuccess(response));
+    yield put(login({username,password}))
   } catch (error) {
     console.log(`유저생성실패`, error);
   }
@@ -24,8 +27,7 @@ function* login(action: PayloadAction<LoginPayload>) {
   try {
     console.log(action.payload);
     const response: ILoginResponse = yield call(loginApi, action.payload);
-    console.log('반환', response);
-    //string이 타입
+
     localStorage.setItem('refreshToken', response.refreshToken);
     localStorage.setItem('accessToken', response.accessToken);
 
@@ -38,20 +40,20 @@ function* watchLoginFlow() {
   yield takeLatest(authActions.login.type, login);
 }
 
-function* test(action: PayloadAction<string>) {
+function* test() {
   try {
-    console.log(action.payload);
+    // console.log(action.payload);
     const response: string = yield call(userInfoApi);
     console.log('테스트성공', response);
     //string이 타입
-
-   
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 }
 function* watchtestFlow() {
   yield takeLatest(authActions.test.type, test);
 }
 
-export const authSagas = [fork(watchSignupFlow), fork(watchLoginFlow), fork(watchtestFlow)];
+export const authSagas = [
+  fork(watchSignupFlow),
+  fork(watchLoginFlow),
+  fork(watchtestFlow),
+];
