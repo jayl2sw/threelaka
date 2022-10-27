@@ -4,6 +4,8 @@ import com.ssafy.laka.dto.exception.guild.RequestListEmptyException;
 import com.ssafy.laka.dto.exception.guild.RequestNotFoundException;
 import com.ssafy.laka.dto.guild.GuildCreateDto;
 import com.ssafy.laka.dto.guild.GuildResponseDto;
+import com.ssafy.laka.dto.guild.JoinRequestDto;
+import com.ssafy.laka.dto.guild.MemberResponseDto;
 import com.ssafy.laka.dto.user.UserResponseDto;
 import com.ssafy.laka.service.GuildService;
 import com.ssafy.laka.service.UserService;
@@ -37,7 +39,7 @@ public class GuildController {
 
     @GetMapping("/request/{guildId}")
     @ApiOperation(value = "내가 마스터인 길드 가입 요청 조회")
-    public ResponseEntity <List<UserResponseDto>>  getJoinReqList(@PathVariable int guildId) {
+    public ResponseEntity <List<JoinRequestDto>>  getJoinReqList(@PathVariable int guildId) {
         List RequestLists = guildService.getJoinReqList(guildId);
         if (RequestLists.size() < 1) {
             throw new RequestListEmptyException();
@@ -64,6 +66,23 @@ public class GuildController {
         guildService.rejectGuild(requestId);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
+
+    @GetMapping("/search/{guildId}")
+    @ApiOperation(value = "멤버 정보 제외한 길드 정보 조회")
+    public ResponseEntity<GuildResponseDto> searchGuild(@PathVariable @RequestBody int guildId){
+        return new ResponseEntity<>(guildService.searchGuild(guildId), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/members/{guildId}")
+    @ApiOperation(value = "길드의 멤버들 정보 조회")
+    public ResponseEntity<MemberResponseDto> searchMembers(@PathVariable @RequestBody int guildId){
+        return new ResponseEntity<>(guildService.searchMembers(guildId), HttpStatus.OK);
+
+    }
+
+
+
 
 
 }

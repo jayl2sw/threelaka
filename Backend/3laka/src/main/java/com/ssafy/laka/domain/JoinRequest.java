@@ -1,16 +1,14 @@
 package com.ssafy.laka.domain;
 
 import com.ssafy.laka.domain.enums.State;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @Table(name = "join_request")

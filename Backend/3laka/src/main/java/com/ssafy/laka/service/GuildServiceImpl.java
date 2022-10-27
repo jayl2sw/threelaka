@@ -8,6 +8,8 @@ import com.ssafy.laka.dto.exception.guild.*;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.dto.guild.GuildCreateDto;
 import com.ssafy.laka.dto.guild.GuildResponseDto;
+import com.ssafy.laka.dto.guild.JoinRequestDto;
+import com.ssafy.laka.dto.guild.MemberResponseDto;
 import com.ssafy.laka.dto.user.UserResponseDto;
 import com.ssafy.laka.repository.GuildRepository;
 import com.ssafy.laka.repository.JoinRequestRepository;
@@ -48,7 +50,7 @@ public class GuildServiceImpl implements GuildService{
     }
 
     @Override
-    public List<UserResponseDto> getJoinReqList(int guildId) {
+    public List<JoinRequestDto> getJoinReqList(int guildId) {
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         int myId = me.getUserId();
 
@@ -59,8 +61,9 @@ public class GuildServiceImpl implements GuildService{
             throw new NotMasterException();
         }
         else{
-            List<UserResponseDto> JoinReqList = joinRequestRepository.findByGuildId(guild.getId());
-            return JoinReqList;
+            List<JoinRequestDto> joinReqList = joinRequestRepository.findByGuildId(guild.getId());
+            return joinReqList;
+
         }
 
 
@@ -78,10 +81,14 @@ public class GuildServiceImpl implements GuildService{
         if (me.getUserId() != masterId) {
             throw new NotMasterException();
         }
-        joinRequestRepository.delete(joinRequest);
+        joinRequest.setState(State.accepted);
         Guild guild = guildRepository.findByMaster(masterId).orElseThrow(GuildNotFoundException::new);
 
+
+        User sender = userRepository.findById(joinRequest.getSender().getUserId()).orElseThrow(UserNotFoundException::new);
+        sender.joinGuild(guild);
         guild.getMembers().add(joinRequest.getSender());
+        guildRepository.flush();
         System.out.println(guild);
 
     }
@@ -89,6 +96,7 @@ public class GuildServiceImpl implements GuildService{
     @Override
 //    길드 가입 요청 거절
     public void rejectGuild(int userId) {
+
 
     }
 
@@ -98,8 +106,17 @@ public class GuildServiceImpl implements GuildService{
     }
 
     @Override
-    public List<GuildResponseDto> searchGuild() {
-        return null;
+    public GuildResponseDto searchGuild(int guildId) {
+        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
+        User master = userRepository.findById(guild.getMaster()).orElseThrow(UserNotFoundException::new);
+
+        return GuildResponseDto.from(guild, master.getNickname());
+    }
+
+    @Override
+    public MemberResponseDto searchMembers(int guildId) {
+        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
+        return MemberResponseDto.from(guild);
     }
 
 
@@ -132,7 +149,7 @@ public class GuildServiceImpl implements GuildService{
         guild1.getMembers().add(user);
         System.out.println(guild1.getId());
         System.out.println(guild1.getMembers());
-        return GuildResponseDto.from(guild1);
+        return GuildResponseDto.from(guild1, user.getNickname());
 
 
     }
