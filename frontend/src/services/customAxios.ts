@@ -3,7 +3,7 @@ import axios from 'axios';
 const customAxios = axios.create({
   // baseURL: 'http://localhost:8080/',
   // nginx가 안달려있을 땐 port번호를 적어줘야 제대로감
-  baseURL: "http://k7e202.p.ssafy.io:8080/",
+  baseURL: 'https://3laka.com//',
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     // 'Access-Control-Allow-Origin': '*',
@@ -66,13 +66,12 @@ customAxios.interceptors.response.use(
           ] = `Bearer ${accessToken}`;
           return customAxios(originalConfig);
         } catch (_error) {
-        // 리프레쉬 토큰도 만료됐으니 재로그인하세요
+          // 리프레쉬 토큰도 만료됐으니 재로그인하세요
           window.location.href = '/auth/login';
 
           // if (_error.response && _error.response.data) {
           //   return Promise.reject(_error.response.data);
           // }
-
 
           return Promise.reject(_error);
         }
