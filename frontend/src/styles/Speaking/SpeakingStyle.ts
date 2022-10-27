@@ -21,10 +21,20 @@ export const VideoAudioButtonContainer = styled.div`
 
 export const VideoAudioContainer = styled.div`
   display: flex;
+  flex-direction: column;
   width: 60vw;
   height: 40vh;
   background-color: #111111;
-  border-radius: 20px;
+  /* border-radius: 20px; */
+  & Webcam {
+    width: 100%;
+    height: 100%;
+    
+  }
+  & video {
+    width: 100%;
+    height: 100%
+  }
 `;
 
 export const ModePickContainer = styled.div`
