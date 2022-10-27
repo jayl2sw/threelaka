@@ -26,12 +26,12 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<VideoResponseDto> getVideo(
-            @RequestBody String url
+            UrlRequestDto data
     ){
         // 링크 입력하면 DB 확인 후 없으면 데이터 저장, 있으면 불러온다.
         // Video Dto + 시청 기록 Dto 반환
 
-        return new ResponseEntity<>(studyService.getVideo(url), HttpStatus.OK);
+        return new ResponseEntity<>(studyService.getVideo(data.getUrl()), HttpStatus.OK);
     }
 
     @PostMapping("/start")
@@ -40,12 +40,12 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<LearningRecordResponseDto> startLearning(
-            @RequestBody String videoId
+            VideoRequestDto data
     ){
         // 링크 입력하면 DB 확인 후 없으면 데이터 저장, 있으면 불러온다.
         // Video Dto + 시청 기록 Dto 반환
 
-        return new ResponseEntity<>(studyService.startLeaning(videoId), HttpStatus.OK);
+        return new ResponseEntity<>(studyService.startLeaning(data.getVideoId()), HttpStatus.OK);
     }
 
     @PostMapping("/video/latest")
@@ -64,10 +64,10 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> addWishVideo(
-            @RequestBody String video_id
+            VideoRequestDto data
     ){
         // 나중에 볼 영상 추가
-        studyService.addWish(video_id);
+        studyService.addWish(data.getVideoId());
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
@@ -77,21 +77,21 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> deleteWishVideo(
-            @RequestBody int likeVideoId
+            LikeVideoRequestDto data
     ){
         // 나중에 볼 영상 추가
-        studyService.deleteWish(likeVideoId);
+        studyService.deleteWish(data.getLikeVideoId());
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @GetMapping("/video/search")
+    @GetMapping("/video/search/{keyword}")
     @ApiOperation(value = "keyword로 영상 검색", notes = "keyword를 이용한 영상 검색")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> searchVideos(
             Pageable pageable,
-            @RequestBody String keyword
+            @PathVariable String keyword
     ){
         // 키워드로 영상 검색
         return new ResponseEntity<>(studyService.getVideosByKeyword(keyword, pageable), HttpStatus.OK);
@@ -115,10 +115,10 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> deleteWord(
-            @RequestBody int wordbookId
+            WordbookRequestDto data
     ){
         // 단어장에 단어 하나 추가해줌
-        studyService.deleteWord(wordbookId);
+        studyService.deleteWord(data.getWordbookId());
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
@@ -128,11 +128,11 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<WordResponseDto> searchWord(
-            @RequestBody String word
+            WordRequestDto data
     ){
         // DB에서 word를 찾고 만약 DB에 없으면 콜린스 api통해서 요청 보냄
 
-        return new ResponseEntity<>(studyService.getWord(word), HttpStatus.OK);
+        return new ResponseEntity<>(studyService.getWord(data.getWord()), HttpStatus.OK);
     }
 
     @GetMapping("/word/{video_id}")
@@ -165,10 +165,10 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> updateWordbookStatus(
-            int wordbook_id
+            WordbookRequestDto data
     ){
         // 단어장 단어 외움 처리
-        studyService.memorizeWord(wordbook_id);
+        studyService.memorizeWord(data.getWordbookId());
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
