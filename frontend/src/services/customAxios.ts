@@ -66,7 +66,13 @@ customAxios.interceptors.response.use(
           ] = `Bearer ${accessToken}`;
           return customAxios(originalConfig);
         } catch (_error) {
+        // 리프레쉬 토큰도 만료됐으니 재로그인하세요
           window.location.href = '/auth/login';
+
+          // if (_error.response && _error.response.data) {
+          //   return Promise.reject(_error.response.data);
+          // }
+
 
           return Promise.reject(_error);
         }
