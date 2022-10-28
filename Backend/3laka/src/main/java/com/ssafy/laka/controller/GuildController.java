@@ -99,4 +99,11 @@ public class GuildController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
+    @PostMapping("/user/guild/notice/{guildId}")
+    @ApiOperation(value = "내가 마스터인 길드 공지 생성")
+    public ResponseEntity<GuildResponseDto> createNotice (@PathVariable int guildId, String notice){
+        return new ResponseEntity<>(guildService.createNotice(guildId, notice), HttpStatus.OK);
+
+    }
+
 }

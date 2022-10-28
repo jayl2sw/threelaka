@@ -38,4 +38,7 @@ public class Guild {
     public void prePersist(){
         this.members = new ArrayList<User>();
     }
+
+    public void setNotice(String notice){this.notice = notice;}
+
 }

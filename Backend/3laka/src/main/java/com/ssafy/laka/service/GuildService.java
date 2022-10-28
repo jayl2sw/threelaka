@@ -41,6 +41,8 @@ List<JoinRequestDto> getJoinReqList(int guildId);
 //    길드 정보 수정
 void setDescription(String description, int guildId);
 void quitGuild(int guildId);
+
+GuildResponseDto createNotice(int guildId, String notice);
 }
 
 

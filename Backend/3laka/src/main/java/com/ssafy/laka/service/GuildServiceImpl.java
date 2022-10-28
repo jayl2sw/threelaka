@@ -240,4 +240,16 @@ public class GuildServiceImpl implements GuildService{
         }
         user.joinGuild(null);
     }
+
+    @Override
+    public GuildResponseDto createNotice(int guildId, String notice) {
+        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
+        guild.setNotice(notice);
+        guildRepository.save(guild);
+        int masterId = guild.getMaster();
+
+        User master = userRepository.findById(masterId).orElseThrow(UserNotFoundException::new);
+
+        return GuildResponseDto.from(guild, master.getNickname());
+    }
 }
