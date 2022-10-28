@@ -9,7 +9,7 @@ def preprocess(script):
         tmp += no_whitespace_line
         duration += line['duration']
         if "." in no_whitespace_line or "?" in no_whitespace_line or "!" in no_whitespace_line:
-            preprocessed_script.append({'text':tmp, "start":start.round(3), "duration":duration.round(3)})
+            preprocessed_script.append({'text':tmp, "start":round(start, 3), "duration":round(duration, 3)})
             tmp = ""
             
     return preprocessed_script
