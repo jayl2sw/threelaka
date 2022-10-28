@@ -9,6 +9,8 @@ import com.ssafy.laka.repository.*;
 import com.ssafy.laka.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class StudyServiceImpl implements StudyService{
 
     private final UserRepository userRepository;
@@ -38,6 +41,7 @@ public class StudyServiceImpl implements StudyService{
     @Override
     public VideoResponseDto getVideo(String url) {
         String videoId = parseVideoId(url);
+        log.debug("send GET Request with videoId: " + videoId);
         return sendGETRequest(videoId);
     }
 
@@ -46,7 +50,6 @@ public class StudyServiceImpl implements StudyService{
     }
 
     private String parseVideoId(String url) throws VideoNotFoundException {
-
         if ( url.contains("watch")){
             return url.replace("https://www.youtube.com/watch?v=","");
         } else if (url.contains(".be/")) {
@@ -95,6 +98,7 @@ public class StudyServiceImpl implements StudyService{
         Dictionary dict = dictionaryRepository.findByWord(data.getWord()).orElseThrow(NotInDictionaryException::new);
         Video video = videoRepository.findById(data.getVideoId()).orElseThrow(VideoNotFoundException::new);
         // 인덱싱 쓰고 싶은데 어케함?
+
         Wordbook wordbook = Wordbook.builder()
                 .user(user)
                 .video(video)

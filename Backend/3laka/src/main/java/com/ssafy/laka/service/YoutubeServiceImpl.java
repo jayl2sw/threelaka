@@ -11,6 +11,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.ssafy.laka.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class YoutubeServiceImpl implements YoutubeService {
 
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -58,10 +60,10 @@ public class YoutubeServiceImpl implements YoutubeService {
             if (videoList != null) {
                 Video video = videoList.get(0);
                 com.ssafy.laka.domain.Video v = com.ssafy.laka.domain.Video.from(video);
+                log.debug("try to get script for video with videoId: " + video.getId());
                 v.setScript(getScript(video.getId()));
-                System.out.println(v);
                 videoRepository.save(v);
-                System.out.println(v);
+                log.debug("success to get script for video with videoId: " + video.getId());
                 return v;
             }
         } catch (GoogleJsonResponseException e) {
