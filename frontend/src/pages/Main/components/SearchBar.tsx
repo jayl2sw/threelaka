@@ -13,11 +13,11 @@ const SearchBar = () => {
   const dispatch = useAppDispatch();
 
   const handlerGetVideoData = () => {
-    dispatch(videoActions.getVideoData('https://youtu.be/UhssmfRXYZI'));
+    dispatch(videoActions.getVideoData('https://youtu.be/CyElHdaqkjo'));
   };
 
   const handlerPostStartStudy = () => {
-    dispatch(studyActions.postStartStudy('UhssmfRXYZI'));
+    dispatch(studyActions.postStartStudy('CyElHdaqkjo'));
   };
 
   const stage = useAppSelector((state) => state.study.studyState.stage);
@@ -26,7 +26,8 @@ const SearchBar = () => {
 
   useEffect(() => {
     if (stage !== '') {
-      navigate(`/study/${stage}`);
+      // navigate(`/study/${stage}`);
+      navigate(`/study/reading`);
     }
   }, [stage]);
 

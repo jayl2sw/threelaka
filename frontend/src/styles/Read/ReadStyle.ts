@@ -122,7 +122,7 @@ export const ScriptWordSpan = styled.span`
 export const AutoScrollBtn = styled.div`
   cursor: pointer;
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   top: 10vh;
   right: 6vw;
   width: 5vw;

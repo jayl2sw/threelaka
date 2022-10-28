@@ -34,6 +34,20 @@ const studySlice = createSlice({
       state.loading = false;
       console.log(action);
     },
+
+    // 공부 중 종료(나가기, 뒤로가기 등)
+    putStopStudyStart(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 공부 중 종료 시작(나가기, 뒤로가기 등)
+    putStopStudyStartSuccess(state) {
+      state.loading = false;
+    },
+    // 공부 중 종료 실패(나가기, 뒤로가기 등)
+    putStopStudyStartFailed(state) {
+      state.loading = false;
+      // console.log(action);
+    },
   },
 });
 
