@@ -42,7 +42,12 @@ public class StudyServiceImpl implements StudyService{
     public VideoResponseDto getVideo(String url) {
         String videoId = parseVideoId(url);
         log.debug("send GET Request with videoId: " + videoId);
-        return sendGETRequest(videoId);
+        Optional<Video> video = videoRepository.findById(videoId);
+        if (video.isPresent()) {
+            return VideoResponseDto.from(video.get());
+        } else {
+            return sendGETRequest(videoId);
+        }
     }
 
     private VideoResponseDto sendGETRequest(String videoId) {

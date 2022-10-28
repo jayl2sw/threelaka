@@ -63,13 +63,13 @@ public class YoutubeServiceImpl implements YoutubeService {
                 Video video = videoList.get(0);
                 com.ssafy.laka.domain.Video v = com.ssafy.laka.domain.Video.from(video);
                 videoRepository.save(v);
-                log.debug("try to get script for video with videoId: " + video.getId());
+                log.info("try to get script for video with videoId: " + video.getId());
                 Script script = Script.builder()
                         .videoId(v.getVideoId())
                         .scripts(getScript(video.getId()))
                         .build();
                 scriptRepository.save(script);
-                log.debug(" to get script for video with videoId: " + video.getId());
+                log.info(" to get script for video with videoId: " + video.getId());
                 return v;
             }
         } catch (GoogleJsonResponseException e) {
