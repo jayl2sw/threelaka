@@ -31,5 +31,7 @@ public interface StudyService {
 
     void checkContinuousLearningDate(String token);
 
-    LearningRecordResponseDto startLeaning(String videoId);
+    LearningRecordResponseDto startLearning(String videoId);
+
+    LearningRecordResponseDto getLearningRecordByVideo(String videoId);
 }

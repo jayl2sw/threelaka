@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,13 +27,21 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<VideoResponseDto> getVideo(
+    public ResponseEntity<Map<String, Object>> getVideo(
             @RequestBody UrlRequestDto data
     ){
         // 링크 입력하면 DB 확인 후 없으면 데이터 저장, 있으면 불러온다.
         // Video Dto + 시청 기록 Dto 반환
+        Map response = new HashMap();
 
-        return new ResponseEntity<>(studyService.getVideo(data.getUrl()), HttpStatus.OK);
+        VideoResponseDto video = studyService.getVideo(data.getUrl());
+        response.put("video", video);
+        if (studyService.getLearningRecordByVideo(video.getVideoId()) == null) {
+            response.put("watched", true);
+        } else {
+            response.put("watched", false);
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/start")
@@ -45,7 +55,7 @@ public class StudyController {
         // 링크 입력하면 DB 확인 후 없으면 데이터 저장, 있으면 불러온다.
         // Video Dto + 시청 기록 Dto 반환
 
-        return new ResponseEntity<>(studyService.startLeaning(data.getVideoId()), HttpStatus.OK);
+        return new ResponseEntity<>(studyService.startLearning(data.getVideoId()), HttpStatus.OK);
     }
 
     @PostMapping("/video/latest")
