@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, TouchEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { videoActions } from '../../../features/video/video-slice';
@@ -25,6 +25,8 @@ const SearchBar = () => {
   const onClickModal = useCallback(() => {
     setIsOpenModal(!isOpenModal);
   }, [isOpenModal]);
+  // 모달에 띄워줄 비디오 정보
+  const videoData = useAppSelector((state) => state.video.videoData);
 
   // 해당 영상으로 새로운 공부 시작
   const handlerPostStartStudy = () => {
@@ -50,12 +52,15 @@ const SearchBar = () => {
         <i></i>
       </SearchBarInput>
       <SearchButton>
-        {isOpenModal && (
-          <VideoDataModal onClickModal={onClickModal}>
-            이 곳에 children이 들어갑니다?
-          </VideoDataModal>
-        )}
-        <button onClick={onClickModal}>비디오 정보 받기</button>
+        {isOpenModal && <VideoDataModal videoData={videoData} />}
+        <button
+          onClick={() => {
+            onClickModal();
+            handlerGetVideoData();
+          }}
+        >
+          비디오 정보 받기
+        </button>
         {/* <button onClick={handlerGetVideoData}>비디오 정보 받기</button> */}
       </SearchButton>
     </SearchBarContainer>

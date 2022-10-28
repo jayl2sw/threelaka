@@ -10,5 +10,6 @@ export interface VideoData {
 
 // VideoData 띄우는 모달의 타입
 export interface VideoDataModalType {
-  onClickModal: () => void;
+  // onClickModal: () => void;
+  videoData: VideoData;
 }

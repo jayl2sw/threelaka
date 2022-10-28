@@ -7,13 +7,12 @@ import {
 } from '../../../styles/Main/VideoModalStyle';
 
 const VideoDataModal = ({
-  onClickModal,
-  children,
+  videoData,
 }: PropsWithChildren<VideoDataModalType>) => {
   return (
     <ModalContainer>
-      <VideoDataContainer>{children}</VideoDataContainer>
-      <Backdrop
+      <VideoDataContainer>{videoData}</VideoDataContainer>
+      {/* <Backdrop
         onClick={(e: MouseEvent) => {
           e.preventDefault();
 
@@ -21,7 +20,7 @@ const VideoDataModal = ({
             onClickModal();
           }
         }}
-      ></Backdrop>
+      ></Backdrop> */}
     </ModalContainer>
   );
 };
