@@ -122,19 +122,6 @@ public class StudyController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @PostMapping("/word/search")
-    @ApiOperation(value = "단어 검색", notes = "단어 검색, 내 딕셔너리에 없으면 콜린스 api로 받아서 추가하고 반환")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
-    })
-    public ResponseEntity<WordResponseDto> searchWord(
-            @RequestBody WordRequestDto data
-    ){
-        // DB에서 word를 찾고 만약 DB에 없으면 콜린스 api통해서 요청 보냄
-
-        return new ResponseEntity<>(studyService.getWord(data.getWord()), HttpStatus.OK);
-    }
-
     @GetMapping("/word/{video_id}")
     @ApiOperation(value = "강의 단어장 조회", notes = "특정 회원 / 특정 강의의 단어 리스트를 반환한다")
     @ApiResponses({
@@ -145,19 +132,7 @@ public class StudyController {
         // 해당 강좌의 단어장 불러오기
         return new ResponseEntity<>(studyService.getWordbookByVideo(video_id), HttpStatus.OK);
     }
-
-    @PostMapping("/word/myword")
-    @ApiOperation(value = "커스텀 단어 추가", notes = "특정 회원의 특정 강의에 해당 커스텀 단어를 추가한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
-    })
-    public ResponseEntity<?> addCustomWord(
-            @RequestBody CustomWordRequestDto customWord
-    ){
-        // 단어장에 커스텀 단어 하나 추가해줌
-        studyService.addCustomWord(customWord);
-        return new ResponseEntity<>("success", HttpStatus.OK);
-    }
+    
 
     @PutMapping("/word/complete")
     @ApiOperation(value = "단어 외움 처리", notes = "학습량을 업데이트 한다.")

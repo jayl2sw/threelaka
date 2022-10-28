@@ -16,9 +16,9 @@ public class TodayWordDto {
     private String word;
     private String definition;
     public static TodayWordDto of(Wordbook wordbook) {
-        if (wordbook.getDictionary() == null) {
-            return TodayWordDto.builder().word(wordbook.getCustomWord()).definition(wordbook.getDefinition()).build();
+        if (wordbook.getWord() == null) {
+            return TodayWordDto.builder().word(wordbook.getWord()).build();
         }
-        return TodayWordDto.builder().word(wordbook.getDictionary().getWord()).definition(wordbook.getDefinition()).build();
+        return TodayWordDto.builder().word(wordbook.getWord()).build();
     }
 }

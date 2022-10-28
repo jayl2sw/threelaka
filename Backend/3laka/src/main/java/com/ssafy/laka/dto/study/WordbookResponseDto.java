@@ -17,14 +17,14 @@ public class WordbookResponseDto {
     private int wordbookId;
     private UserResponseDto user;
     private VideoResponseDto video;
-    private WordResponseDto word;
+    private String word;
 
     public static WordbookResponseDto from(Wordbook entity){
         return WordbookResponseDto.builder()
                 .wordbookId(entity.getWordbookId())
                 .user(UserResponseDto.from(entity.getUser()))
                 .video(VideoResponseDto.from(entity.getVideo()))
-                .word(WordResponseDto.from(entity.getDictionary()))
+                .word(entity.getWord())
                 .build();
     }
 }

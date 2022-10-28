@@ -31,7 +31,6 @@ public class StudyServiceImpl implements StudyService{
     private final UserRepository userRepository;
     private final VideoRepository videoRepository;
     private final LikeVideoRepository likeVideoRepository;
-    private final DictionaryRepository dictionaryRepository;
     private final StudyRepository studyRepository;
     private final LearningRecordRepository learningRecordRepository;
     private final EssayRepository essayRepository;
@@ -76,7 +75,14 @@ public class StudyServiceImpl implements StudyService{
     public void addWish(String video_id) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         Video video = videoRepository.findById(video_id).orElseThrow(VideoNotFoundException::new);
-        LikeVideo.builder().user(user).video(video);
+        try {
+            LikeVideo lv = LikeVideo.builder().user(user).video(video).build();
+            likeVideoRepository.save(lv);
+        } catch (Exception e) {
+            log.debug("failed to add wishlist:" + e);
+            throw e;
+        }
+
     }
 
     @Override
@@ -95,51 +101,31 @@ public class StudyServiceImpl implements StudyService{
     public void addWord(WordRequestDto data) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         // 딕셔너리에 해당 word가 있는지 확인
-        Dictionary dict = dictionaryRepository.findByWord(data.getWord()).orElseThrow(NotInDictionaryException::new);
         Video video = videoRepository.findById(data.getVideoId()).orElseThrow(VideoNotFoundException::new);
         // 인덱싱 쓰고 싶은데 어케함?
 
         Wordbook wordbook = Wordbook.builder()
                 .user(user)
                 .video(video)
-                .dictionary(dict)
+                .word(data.getWord())
                 .example(data.getExample())
                 .build();
 
         wordbookRepository.save(wordbook);
     }
 
-    @Override
-    public void addCustomWord(CustomWordRequestDto data) {
-        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        Video video = videoRepository.findById(data.getVideoId()).orElseThrow(VideoNotFoundException::new);
-        Wordbook wordbook = Wordbook.builder().user(user).video(video)
-                .customWord(data.getWord())
-                .definition(data.getDefinition())
-                .example(data.getExample())
-                .build();
-        wordbookRepository.save(wordbook);
-    }
 
     @Override
     public void deleteWord(int wordbook_id) {
-        Wordbook wordbook = wordbookRepository.findById(wordbook_id).orElseThrow(NotInWordbookException::new);
-        wordbookRepository.delete(wordbook);
-    }
-
-    @Override
-    public WordResponseDto getWord(String word) {
-        // DB 확인
-        Optional<Dictionary> dict = dictionaryRepository.findByWord(word);
-        // 만약 DB에 데이터가 존재하면 그대로 반환
-        if (dict.isPresent()) {
-            return WordResponseDto.from(dict.get());
-        } else {
-            // 만약 DB에 데이터가 존재하지 않으면 API 요청을 통해서 DB를 채운 후에 저장
-
+        try {
+            Wordbook wordbook = wordbookRepository.findById(wordbook_id).orElseThrow(NotInWordbookException::new);
+            wordbookRepository.delete(wordbook);
+        } catch (Exception e) {
+            log.debug("failed to delete workbook: " + e);
+            throw e;
         }
-        return null;
     }
+
 
     @Override
     public List<WordbookResponseDto> getWordbookByVideo(String video_id) {
@@ -155,9 +141,13 @@ public class StudyServiceImpl implements StudyService{
     public void addEssay(EssayRequestDto data) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         Wordbook wordbook = wordbookRepository.findById(data.getWordbookId()).orElseThrow(NotInWordbookException::new);
-
-        Essay essay = Essay.builder().user(user).wordbook(wordbook).content(data.getContent()).build();
-        essayRepository.save(essay);
+        try {
+            Essay essay = Essay.builder().user(user).wordbook(wordbook).content(data.getContent()).build();
+            essayRepository.save(essay);
+        } catch (Exception e) {
+            log.debug("failed to save essay: " + e);
+            throw e;
+        }
     }
 
     @Override
