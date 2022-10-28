@@ -3,7 +3,7 @@ import axios from 'axios';
 const customAxios = axios.create({
   // baseURL: 'http://localhost:8080/',
   // nginx가 안달려있을 땐 port번호를 적어줘야 제대로감
-  baseURL: 'https://3laka.com//',
+  baseURL: 'https://3laka.com/',
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     // 'Access-Control-Allow-Origin': '*',
@@ -14,7 +14,7 @@ const customAxios = axios.create({
 customAxios.interceptors.request.use(
   (config) => {
     const token = getLocalAccessToken();
-    console.log('토큰이있나', token);
+    console.log('토큰이 있나', token);
     if (config.headers && token)
       config.headers.Authorization = `Bearer ${token}`;
     return config;

@@ -1,8 +1,7 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { videoActions } from '../../../features/video/video-slice';
-import { startStudyActions } from '../../../features/study/startStudy-slice';
-
+import { studyActions } from '../../../features/study/study-slice';
 import {
   SearchBarContainer,
   SearchBarInput,
@@ -17,7 +16,7 @@ const SearchBar = () => {
   };
 
   const handlerPostStartStudy = () => {
-    dispatch(startStudyActions.postStartStudy('https://youtu.be/UhssmfRXYZI'));
+    dispatch(studyActions.postStartStudy('UhssmfRXYZI'));
   };
 
   return (
