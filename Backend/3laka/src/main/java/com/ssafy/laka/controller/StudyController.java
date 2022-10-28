@@ -190,8 +190,34 @@ public class StudyController {
     ){
         // 학습 스테이지 저장
         studyService.updateCompletedStage(data);
-        studyService.addLearningTime(data);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
+    @PutMapping("/complete/time")
+    @ApiOperation(value = "학습 시간 업데이트", notes = "해당 Learning Time을 업데이트한다..")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> updateLearningTime(
+            @RequestBody UpdateLearningRequestDto data
+    ){
+        studyService.addLearningTime(data);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+    @GetMapping("/{videoId}/script")
+    @ApiOperation(value = "학습 스테이지 업데이트", notes = "해당 학습 아이디를 가지는 학습의 스테이지를 해당 값으로 업데이트한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> getScript(
+             @PathVariable String videoId
+    ){
+        // 학습 스테이지 저장
+        String script = studyService.getScript(videoId);
+        Map<String, Object> response = new HashMap<>();
+        response.put("video_id", videoId);
+        response.put("script", script);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

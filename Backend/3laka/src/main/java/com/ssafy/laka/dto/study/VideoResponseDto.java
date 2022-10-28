@@ -17,8 +17,6 @@ public class VideoResponseDto {
     private String videoId;
     private String title;
     private String description;
-    private String script;
-
 
     public static VideoResponseDto from(Video entity){
 
@@ -26,7 +24,6 @@ public class VideoResponseDto {
                 .videoId(entity.getVideoId())
                 .title(entity.getTitle())
                 .description(entity.getDescription())
-                .script(entity.getScript())
                 .build();
     }
 }

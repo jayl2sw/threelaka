@@ -36,6 +36,7 @@ public class StudyServiceImpl implements StudyService{
     private final EssayRepository essayRepository;
     private final WordbookRepository wordbookRepository;
     private final YoutubeService youtubeService;
+    private final ScriptRepository scriptRepository;
 
     @Override
     public VideoResponseDto getVideo(String url) {
@@ -62,7 +63,6 @@ public class StudyServiceImpl implements StudyService{
     @Override
     public VideoResponseDto getRecentVideo() {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-
         List<LearningRecord> learningRecords = learningRecordRepository.findLearningRecordsByUserOrderByModifiedDateDesc(user);
         if (learningRecords.size() > 1) {
             return VideoResponseDto.from(learningRecords.get(0).getVideo());
@@ -100,9 +100,7 @@ public class StudyServiceImpl implements StudyService{
     @Override
     public void addWord(WordRequestDto data) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        // 딕셔너리에 해당 word가 있는지 확인
         Video video = videoRepository.findById(data.getVideoId()).orElseThrow(VideoNotFoundException::new);
-        // 인덱싱 쓰고 싶은데 어케함?
 
         Wordbook wordbook = Wordbook.builder()
                 .user(user)
@@ -154,7 +152,7 @@ public class StudyServiceImpl implements StudyService{
     public void updateCompletedStage(UpdateStageRequestDto data) {
         LearningRecord lr = learningRecordRepository.findById(data.getLearningRecordId()).orElseThrow(LearningRecordNotExistException::new);
         if (data.getStage() == 0) {
-            lr.setStage(Stage.LISTENING);
+            lr.setStage(Stage.READING);
         } else if (data.getStage() == 1) {
             lr.setStage(Stage.WRITING);
         } else if (data.getStage() == 2) {
@@ -165,7 +163,7 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public void addLearningTime(UpdateStageRequestDto data) {
+    public void addLearningTime(UpdateLearningRequestDto data) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         String today = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now()).toString();
         Optional<Study> learning = studyRepository.findByUserAndDate(user, today);
@@ -201,7 +199,7 @@ public class StudyServiceImpl implements StudyService{
         LearningRecord lr = LearningRecord.builder()
                 .user(user)
                 .video(video)
-                .stage(Stage.LISTENING)
+                .stage(Stage.READING)
                 .build();
         learningRecordRepository.save(lr);
         return LearningRecordResponseDto.from(lr);
@@ -218,5 +216,10 @@ public class StudyServiceImpl implements StudyService{
         } else {
             return LearningRecordResponseDto.from(lrs.get(0));
         }
+    }
+
+    @Override
+    public String getScript(String videoId) {
+        return scriptRepository.findScriptByVideoId(videoId).orElseThrow(ScriptNotFoundException::new).getScripts();
     }
 }

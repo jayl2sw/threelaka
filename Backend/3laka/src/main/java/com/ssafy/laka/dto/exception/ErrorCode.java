@@ -15,6 +15,7 @@ public enum ErrorCode {
     NOT_LIKED_VIDEO(400, "S002", "존재하지 않는 위시리스트 항목입니다."),
     NOT_IN_DICTIONARY(400, "S003", "사전에 존재하지 않는 항목입니다."),
     NOT_IN_WORDBOOK(400, "S004", "단어장에 존재하지 않는 항목입니다."),
+    SCRIPT_NOT_FOUND(400, "S005", "스크립트가 존재하지 않습니다."),
     LEARNING_RECORD_NOT_EXIST(400, "D001", "존재하지 않는 학습 기록입니다."),
     TAG_NOT_EXIST(400, "D002", "존재하지 않는 태그입니다");
 

@@ -9,6 +9,5 @@ public class UpdateStageRequestDto {
 
     private int learningRecordId;
     private int stage;
-    private int time;
 
 }

@@ -9,6 +9,8 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
+import com.ssafy.laka.domain.Script;
+import com.ssafy.laka.repository.ScriptRepository;
 import com.ssafy.laka.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +43,7 @@ public class YoutubeServiceImpl implements YoutubeService {
 //    @Value("${fastApi.url}")
     private String urlString = "http://3laka.com:8081/api/v1/video/script/";
     private final VideoRepository videoRepository;
-
+    private final ScriptRepository scriptRepository;
     @Override
     public com.ssafy.laka.domain.Video get(String videoId) {
         try {
@@ -60,10 +62,14 @@ public class YoutubeServiceImpl implements YoutubeService {
             if (videoList != null) {
                 Video video = videoList.get(0);
                 com.ssafy.laka.domain.Video v = com.ssafy.laka.domain.Video.from(video);
-                log.debug("try to get script for video with videoId: " + video.getId());
-                v.setScript(getScript(video.getId()));
                 videoRepository.save(v);
-                log.debug("success to get script for video with videoId: " + video.getId());
+                log.debug("try to get script for video with videoId: " + video.getId());
+                Script script = Script.builder()
+                        .videoId(v.getVideoId())
+                        .scripts(getScript(video.getId()))
+                        .build();
+                scriptRepository.save(script);
+                log.debug(" to get script for video with videoId: " + video.getId());
                 return v;
             }
         } catch (GoogleJsonResponseException e) {

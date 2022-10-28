@@ -21,8 +21,6 @@ public class Video {
     private String videoId;
     private String title;
     private String description;
-    private String script;
-
 
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
     private List<VideoTag> videoTags;
@@ -36,7 +34,6 @@ public class Video {
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
     private List<LikeVideo> likeVideos;
 
-    public void setScript(String script) { this.script = script; }
     public static Video from(com.google.api.services.youtube.model.Video entity) {
         return Video.builder()
                 .videoId(entity.getId())

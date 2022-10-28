@@ -25,7 +25,7 @@ public interface StudyService {
 
     void updateCompletedStage(UpdateStageRequestDto data);
 
-    void addLearningTime(UpdateStageRequestDto data);
+    void addLearningTime(UpdateLearningRequestDto data);
 
     void memorizeWord(int wordbook_id);
 
@@ -34,4 +34,6 @@ public interface StudyService {
     LearningRecordResponseDto startLearning(String videoId);
 
     LearningRecordResponseDto getLearningRecordByVideo(String videoId);
+
+    String getScript(String videoId);
 }
