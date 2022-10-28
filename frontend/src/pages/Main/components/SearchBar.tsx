@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import { useNavigate } from 'react-router-dom';
 import { videoActions } from '../../../features/video/video-slice';
 import { studyActions } from '../../../features/study/study-slice';
 import {
@@ -19,9 +20,18 @@ const SearchBar = () => {
     dispatch(studyActions.postStartStudy('UhssmfRXYZI'));
   };
 
+  const stage = useAppSelector((state) => state.study.studyState.stage);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (stage !== '') {
+      navigate('/study/read');
+    }
+  }, [stage]);
+
   return (
     <SearchBarContainer>
-      <button onClick={handlerGetVideoData}>비디오 정보 받기</button>
       <button onClick={handlerPostStartStudy}>학습 시작하기</button>
       <SearchBarInput>
         <input type="text" required />
@@ -29,9 +39,8 @@ const SearchBar = () => {
         <i></i>
       </SearchBarInput>
       <SearchButton>
-        <button>
-          <p>공부 하러 가기</p>
-        </button>
+        <button onClick={handlerGetVideoData}>비디오 정보 받기</button>
+        <p>위에 버튼 누르면 모달 띄우세요</p>
       </SearchButton>
     </SearchBarContainer>
   );
