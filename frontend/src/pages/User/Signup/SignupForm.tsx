@@ -16,6 +16,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { InputField } from '../InputField';
 import { RadioField } from '../RadioField';
+
 //유효성평가 라이브러리
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -36,8 +37,6 @@ interface ISignupFormProps {
   initialValues?: IAuthForm;
   onSubmit?: (formValues: IAuthForm) => void;
 }
-
-
 
 const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
   // const [errMsg, setErrMsg] = useState('');
@@ -157,47 +156,44 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
     }
   }, [isLoggedIn]);
   return (
-   
-
-      <StyledForm onSubmit={handleSubmit(handleFormSubmit)}>
-        <InputField name="username" control={control} label="아이디" />
-        <InputField
-          name="password"
-          control={control}
-          label="비밀번호"
-          type="password"
-        />
-        <InputField
-          name="passwordConfirm"
-          control={control}
-          label="비밀번호 확인"
-          type="password"
-        />
-        <InputField name="nickname" control={control} label="닉네임" />
-        <InputField name="email" control={control} label="이메일" />
-        <InputField name="age" control={control} label="나이" type="number" />
-        <RadioField
-          name="gender"
-          control={control}
-          label="성별"
-          options={[
-            {
-              label: '남성',
-              value: '0',
-            },
-            {
-              label: '여성',
-              value: '1',
-            },
-            {
-              label: '쉿,비밀이야',
-              value: '2',
-            },
-          ]}
-        />
-        <button>제출</button>
-      </StyledForm>
-  
+    <StyledForm onSubmit={handleSubmit(handleFormSubmit)}>
+      <InputField name="username" control={control} label="아이디" />
+      <InputField
+        name="password"
+        control={control}
+        label="비밀번호"
+        type="password"
+      />
+      <InputField
+        name="passwordConfirm"
+        control={control}
+        label="비밀번호 확인"
+        type="password"
+      />
+      <InputField name="nickname" control={control} label="닉네임" />
+      <InputField name="email" control={control} label="이메일" />
+      <InputField name="age" control={control} label="나이" type="number" />
+      <RadioField
+        name="gender"
+        control={control}
+        label="성별"
+        options={[
+          {
+            label: '남성',
+            value: '0',
+          },
+          {
+            label: '여성',
+            value: '1',
+          },
+          {
+            label: '쉿,비밀이야',
+            value: '2',
+          },
+        ]}
+      />
+      <button>제출</button>
+    </StyledForm>
   );
 };
 
