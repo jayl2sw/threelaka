@@ -1,7 +1,7 @@
 import customAxios from './customAxios';
-import { StudyStart } from './../models';
+import { StartStudy } from './../models';
 
-export const postStudyStartApi = async (videoId: string) => {
+export const postStartStudyApi = async (videoId: string) => {
   const res = await customAxios.post(`api/v1/study/video`, { videoId });
   return res.data;
 };
