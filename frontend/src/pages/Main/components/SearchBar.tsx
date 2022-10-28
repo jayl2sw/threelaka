@@ -26,7 +26,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     if (stage !== '') {
-      navigate('/study/read');
+      navigate(`/study/${stage}`);
     }
   }, [stage]);
 
