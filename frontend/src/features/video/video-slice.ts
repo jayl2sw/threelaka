@@ -9,10 +9,13 @@ type VideoState = {
 let initialState: VideoState = {
   loading: false,
   videoData: {
-    videoId: '',
-    title: '',
-    description: '',
-    script: '',
+    watched: null,
+    video: {
+      videoId: '',
+      title: '',
+      description: '',
+      script: '',
+    },
   },
 };
 
