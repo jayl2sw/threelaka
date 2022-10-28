@@ -195,7 +195,7 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public LearningRecordResponseDto startLeaning(String videoId) {
+    public LearningRecordResponseDto startLearning(String videoId) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         Video video = videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new);
         LearningRecord lr = LearningRecord.builder()
@@ -206,5 +206,17 @@ public class StudyServiceImpl implements StudyService{
         learningRecordRepository.save(lr);
         return LearningRecordResponseDto.from(lr);
 
+    }
+
+    @Override
+    public LearningRecordResponseDto getLearningRecordByVideo(String videoId) {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        Video video = videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new);
+        List<LearningRecord> lrs = learningRecordRepository.findByUserAndVideoOrderByModifiedDateDesc(user, video);
+        if (lrs.isEmpty()) {
+            return null;
+        } else {
+            return LearningRecordResponseDto.from(lrs.get(0));
+        }
     }
 }
