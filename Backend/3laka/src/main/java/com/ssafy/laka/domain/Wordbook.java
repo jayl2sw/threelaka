@@ -28,15 +28,7 @@ public class Wordbook {
     @JoinColumn(name = "video_id")
     private Video video;
 
-    @ManyToOne(targetEntity = Dictionary.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "word")
-    private Dictionary dictionary;
-
-    @Column(name ="custom_word")
-    private String customWord;
-
-    @Column(name ="definition")
-    private String definition;
+    private String word;
 
     @Column(name ="example")
     private String example;

@@ -41,4 +41,6 @@ public class Guild {
 
     public void setNotice(String notice){this.notice = notice;}
 
+    public void setMaster(int master){this.master = master;}
+
 }

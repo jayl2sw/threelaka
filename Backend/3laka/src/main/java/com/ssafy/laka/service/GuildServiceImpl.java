@@ -230,7 +230,12 @@ public class GuildServiceImpl implements GuildService{
     @Override
     public void quitGuild(int guildId){
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
 
+        if (user.getUserId() == guild.getMaster()){
+            throw new GuildMasterException();
+
+        }
         if (user.getGuild() == null){
             throw new NotInGuildException();
         }
@@ -242,14 +247,76 @@ public class GuildServiceImpl implements GuildService{
     }
 
     @Override
-    public GuildResponseDto createNotice(int guildId, String notice) {
+    public NoticeResponseDto createNotice(int guildId, String notice) {
         Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
         guild.setNotice(notice);
         guildRepository.save(guild);
         int masterId = guild.getMaster();
 
-        User master = userRepository.findById(masterId).orElseThrow(UserNotFoundException::new);
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        if (me.getUserId() != masterId){
+            throw new NotMasterException();
+        };
 
-        return GuildResponseDto.from(guild, master.getNickname());
+        return NoticeResponseDto.from(guild);
+    }
+
+    @Override
+    public NoticeResponseDto getNotice(int guildId) {
+        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        if (!guild.getMembers().contains(user)){
+            throw new NotMyGuildException();
+        }
+        return NoticeResponseDto.from(guild);
+
+    }
+
+    @Override
+    public void deleteNotice(int guildId) {
+        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
+User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        if (me.getUserId() != guild.getMaster()){
+            throw new NotMasterException();
+        };
+
+        guild.setNotice(null);
+        guildRepository.save(guild);
+    }
+
+    @Override
+    public NoticeResponseDto UpdateNotice(int guildId, String notice) {
+        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
+        guild.setNotice(notice);
+        guildRepository.save(guild);
+        int masterId = guild.getMaster();
+
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        if (me.getUserId() != masterId){
+            throw new NotMasterException();
+        };
+
+        return NoticeResponseDto.from(guild);
+    }
+
+    @Override
+    public void changeMaster(int userId) {
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+
+        User member = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+
+        Guild myGuild = me.getGuild();
+//        내가 멤버가 속한 길드의 마스터가 아닐 경우
+        if (me.getUserId() != member.getGuild().getMaster()){
+            throw new NotMasterException();
+        }
+//        내 길드에 해당 멤버가 없을 경우
+        if (!me.getGuild().getMembers().contains(member)){
+            throw new NotGuildMemberException();
+        }
+
+        myGuild.setMaster(userId);
+
+
     }
 }

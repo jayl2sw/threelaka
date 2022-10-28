@@ -34,8 +34,9 @@ public enum ErrorCode {
 
     NOT_GUILD_MEMBER(400, "G010", "해당 유저는 길드원이 아닙니다"),
 
-    SAME_GUILDNAME_EXISTS(400, "G011", "이미 존재하는 길드명입니다");
+    SAME_GUILDNAME_EXISTS(400, "G011", "이미 존재하는 길드명입니다"),
 
+    MASTER_CANNOT_QUIT(400, "G012", "마스터는 길드를 탈퇴할 수 없습니다");
 
     private final int status;
     private final String code;

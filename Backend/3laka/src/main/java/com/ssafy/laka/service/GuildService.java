@@ -42,7 +42,16 @@ List<JoinRequestDto> getJoinReqList(int guildId);
 void setDescription(String description, int guildId);
 void quitGuild(int guildId);
 
-GuildResponseDto createNotice(int guildId, String notice);
+    NoticeResponseDto createNotice(int guildId, String notice);
+
+NoticeResponseDto getNotice(int guildId);
+
+void deleteNotice(int guildId);
+
+NoticeResponseDto UpdateNotice(int guildId, String notice);
+
+void changeMaster(int userId);
 }
+
 
 

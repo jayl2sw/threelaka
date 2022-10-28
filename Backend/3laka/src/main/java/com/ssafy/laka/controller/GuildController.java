@@ -101,9 +101,35 @@ public class GuildController {
 
     @PostMapping("/user/guild/notice/{guildId}")
     @ApiOperation(value = "내가 마스터인 길드 공지 생성")
-    public ResponseEntity<GuildResponseDto> createNotice (@PathVariable int guildId, String notice){
+    public ResponseEntity<NoticeResponseDto> createNotice (@PathVariable int guildId, String notice){
         return new ResponseEntity<>(guildService.createNotice(guildId, notice), HttpStatus.OK);
-
     }
+
+    @GetMapping("/user/guild/notice/{guildId}")
+    @ApiOperation(value = "길드 멤버의 길드 공지 조회")
+    public ResponseEntity<NoticeResponseDto> GetNotice (@PathVariable int guildId){
+        return new ResponseEntity<>(guildService.getNotice(guildId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/user/guild/notice/{guildId}")
+    @ApiOperation(value = "길드 마스터의 길드 공지 삭제")
+    public ResponseEntity<String> DeleteNotice (@PathVariable int guildId){
+        guildService.deleteNotice(guildId);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PutMapping("/user/guild/notice/{guildId}")
+    @ApiOperation(value = "길드 마스터의 길드 공지 수정")
+    public ResponseEntity<NoticeResponseDto> UpdateNotice (@PathVariable int guildId, String notice){
+        return new ResponseEntity<>(guildService.UpdateNotice(guildId, notice), HttpStatus.OK);
+    }
+
+    @PostMapping("/user/guild/master/{userId}")
+    @ApiOperation(value = "길드 마스터 변경")
+    public ResponseEntity<String> ChangeMaster (@PathVariable int userId){
+        guildService.changeMaster(userId);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
 
 }

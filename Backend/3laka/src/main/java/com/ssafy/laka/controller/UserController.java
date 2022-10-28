@@ -1,6 +1,9 @@
 package com.ssafy.laka.controller;
 
 import com.ssafy.laka.dto.exception.common.InvalidParameterException;
+import com.ssafy.laka.dto.exception.user.DuplicateEmailException;
+import com.ssafy.laka.dto.exception.user.DuplicateNicknameException;
+import com.ssafy.laka.dto.exception.user.DuplicateUsernameException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.dto.jwt.TokenDto;
 import com.ssafy.laka.dto.jwt.TokenRequestDto;
@@ -62,13 +65,20 @@ public class UserController {
     @PostMapping("/auth/signup")
     @ApiOperation(value = "회원 가입", notes = "회원 정보를 통해 회원을 추가한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = UserResponseDto.class)
+            @ApiResponse(code = 200, message = "Success", response = String.class)
     })
-    public ResponseEntity<UserResponseDto> doSignUp(@Valid @RequestBody SignUpRequestDto requestDto, BindingResult result){
-        if(result.hasErrors()){
+    public ResponseEntity<String> doSignUp(@Valid @RequestBody SignUpRequestDto requestDto, BindingResult result){
+        if (result.hasErrors()) {
             throw new InvalidParameterException(result);
+        } else if (userService.checkUsername(requestDto.getUsername())) {
+            throw new DuplicateUsernameException();
+        } else if (userService.checkNickName(requestDto.getNickname())) {
+            throw new DuplicateNicknameException();
+        } else if (userService.checkEmail(requestDto.getEmail())) {
+            throw new DuplicateEmailException();
         }
-        return new ResponseEntity<>(userService.doSignUp(requestDto), HttpStatus.OK);
+        userService.doSignUp(requestDto);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
     @PostMapping("/auth/login")
@@ -93,7 +103,7 @@ public class UserController {
     @PutMapping("/")
     @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 입력을 통해 회원 정보를 수정한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = String.class)
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<String> updateUser(){
         return new ResponseEntity<>(null, HttpStatus.OK);
@@ -192,6 +202,15 @@ public class UserController {
     })
     public ResponseEntity<Boolean> checkNewbie(){
         return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @GetMapping("/info")
+    @ApiOperation(value = "유저 정보 반환", notes = "로그인한 회원의 계정 정보를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = UserResponseDto.class)
+    })
+    public ResponseEntity<UserResponseDto> getUserInfo(){
+        return new ResponseEntity<>(userService.getMyInfo(), HttpStatus.OK);
     }
 
 }

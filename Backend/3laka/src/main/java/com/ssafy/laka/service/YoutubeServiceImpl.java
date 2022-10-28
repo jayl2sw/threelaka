@@ -11,6 +11,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.ssafy.laka.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class YoutubeServiceImpl implements YoutubeService {
 
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -36,7 +38,8 @@ public class YoutubeServiceImpl implements YoutubeService {
     @Value("${youtube.apiKey}")
     private String apiKey;
 
-    private String urlString = "http://localhost:8081/api/v1/video/script/";
+//    @Value("${fastApi.url}")
+    private String urlString = "http://3laka.com:8081/api/v1/video/script/";
     private final VideoRepository videoRepository;
 
     @Override
@@ -57,8 +60,10 @@ public class YoutubeServiceImpl implements YoutubeService {
             if (videoList != null) {
                 Video video = videoList.get(0);
                 com.ssafy.laka.domain.Video v = com.ssafy.laka.domain.Video.from(video);
+                log.debug("try to get script for video with videoId: " + video.getId());
                 v.setScript(getScript(video.getId()));
                 videoRepository.save(v);
+                log.debug("success to get script for video with videoId: " + video.getId());
                 return v;
             }
         } catch (GoogleJsonResponseException e) {
@@ -73,16 +78,14 @@ public class YoutubeServiceImpl implements YoutubeService {
         return null;
     }
 
-    private String getScript(String id) throws IOException, JSONException {
+    private String getScript(String id) throws IOException {
+        System.out.println(urlString+id);
         URL url = new URL(urlString+id);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setDoOutput(true);
         con.setDoInput(true);
         con.setRequestMethod("GET");
         con.setRequestProperty("Content-Type", "application/json");
-
-        OutputStream os = con.getOutputStream();
-        os.close();
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
         StringBuffer stringBuffer = new StringBuffer();
@@ -91,6 +94,7 @@ public class YoutubeServiceImpl implements YoutubeService {
         while ((inputLine = bufferedReader.readLine()) != null)  {
             stringBuffer.append(inputLine);
         }
+
         bufferedReader.close();
 
         String response = stringBuffer.toString();
