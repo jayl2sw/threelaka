@@ -68,6 +68,10 @@ public class User extends BaseTime {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Wordbook> wordbooks;
 
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    private List<JoinRequest> JoinRequests;
+
+
     @ManyToOne(targetEntity = Guild.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "guild_id")
     private Guild guild;
@@ -84,6 +88,10 @@ public class User extends BaseTime {
     }
     public void changePW(String password){this.password = password;}
     public void setNickname(String nickname){this.nickname = nickname;}
+    public User joinGuild(Guild guild){
+        this.guild = guild;
+        return this;
+    }
     public void addContinuousLearningDate() { this.contiuousLearningDate += 1; }
     public void resetContinuousLearningDate() { this.contiuousLearningDate = 0; }
 
