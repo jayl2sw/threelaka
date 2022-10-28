@@ -156,7 +156,7 @@ public class StudyServiceImpl implements StudyService{
         } else if (data.getStage() == 1) {
             lr.setStage(Stage.WRITING);
         } else if (data.getStage() == 2) {
-            lr.setStage(Stage.COMPLETE);
+            lr.setStage(Stage.SPEAKING);
         } else {
             lr.setStage(Stage.COMPLETE);
         }
@@ -221,5 +221,10 @@ public class StudyServiceImpl implements StudyService{
     @Override
     public String getScript(String videoId) {
         return scriptRepository.findScriptByVideoId(videoId).orElseThrow(ScriptNotFoundException::new).getScripts();
+    }
+
+    @Override
+    public List<VideoResponseDto> getRecommends() {
+        return videoRepository.findFourVideos();
     }
 }

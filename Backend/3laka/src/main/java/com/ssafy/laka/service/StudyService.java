@@ -36,4 +36,6 @@ public interface StudyService {
     LearningRecordResponseDto getLearningRecordByVideo(String videoId);
 
     String getScript(String videoId);
+
+    List<VideoResponseDto> getRecommends();
 }
