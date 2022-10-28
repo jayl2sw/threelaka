@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { videoActions } from '../../../features/video/video-slice';
 import { studyActions } from '../../../features/study/study-slice';
+import VideoDataModal from './VideoDataModal';
 import {
   SearchBarContainer,
   SearchBarInput,
@@ -11,19 +12,28 @@ import {
 
 const SearchBar = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
+  // 영상 정보 조회
   const handlerGetVideoData = () => {
     dispatch(videoActions.getVideoData('https://youtu.be/UhssmfRXYZI'));
   };
 
+  // 영상 정보 조회용 모달
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  // 모달 눌렀을 때
+  const onClickModal = useCallback(() => {
+    setIsOpenModal(!isOpenModal);
+  }, [isOpenModal]);
+
+  // 해당 영상으로 새로운 공부 시작
   const handlerPostStartStudy = () => {
     dispatch(studyActions.postStartStudy('UhssmfRXYZI'));
   };
 
+  // 현재 영상 stage 확인
   const stage = useAppSelector((state) => state.study.studyState.stage);
-
-  const navigate = useNavigate();
-
+  // stage 변경 시 해당 스테이지로 이동
   useEffect(() => {
     if (stage !== '') {
       navigate(`/study/${stage}`);
@@ -32,6 +42,7 @@ const SearchBar = () => {
 
   return (
     <SearchBarContainer>
+      {/* 새로운 학습 시작 */}
       <button onClick={handlerPostStartStudy}>학습 시작하기</button>
       <SearchBarInput>
         <input type="text" required />
@@ -39,8 +50,13 @@ const SearchBar = () => {
         <i></i>
       </SearchBarInput>
       <SearchButton>
-        <button onClick={handlerGetVideoData}>비디오 정보 받기</button>
-        <p>위에 버튼 누르면 모달 띄우세요</p>
+        {isOpenModal && (
+          <VideoDataModal onClickModal={onClickModal}>
+            이 곳에 children이 들어갑니다?
+          </VideoDataModal>
+        )}
+        <button onClick={onClickModal}>비디오 정보 받기</button>
+        {/* <button onClick={handlerGetVideoData}>비디오 정보 받기</button> */}
       </SearchButton>
     </SearchBarContainer>
   );
