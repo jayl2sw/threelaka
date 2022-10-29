@@ -1,7 +1,9 @@
 export interface VideoData {
-  videoId: string;
-  title: string;
-  description: string;
-  script: boolean;
-  script_kor: boolean;
+  watched: boolean | null;
+  video: {
+    videoId: string;
+    title: string;
+    description: string;
+    script: string;
+  };
 }

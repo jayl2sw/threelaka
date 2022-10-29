@@ -13,7 +13,7 @@ const MainHeader = () => {
         <Link to="/">Home</Link>
       </LinkWrapper>
       <LinkWrapper bgColor="black" widthSize="10vw">
-        <Link to="/videos">Vidoes</Link>
+        <Link to="/videos">Videos</Link>
       </LinkWrapper>
       <TitleRegion>THREELAKA</TitleRegion>
       <LinkWrapper bgColor="black" widthSize="10vw">
