@@ -14,7 +14,7 @@ export const StyledForm = styled.form`
 
 `;
 
-export const LoginBlock = styled.div`
+export const AuthBlock = styled.div`
   /* *, *::before, *::after{
     padding: 0;
     margin: 0;
@@ -46,7 +46,7 @@ export const LoginBlock = styled.div`
   }
 `;
 
-export const LoginContainer = styled.div`
+export const AuthContainer = styled.div`
   position: relative;
   background-color: white;
   width: 100%;

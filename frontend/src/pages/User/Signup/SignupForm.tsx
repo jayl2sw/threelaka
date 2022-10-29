@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, RefObject } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { authActions } from '../../../features/auth/authSlice';
@@ -16,12 +16,11 @@ import {
 import { useForm } from 'react-hook-form';
 import { InputField } from '../InputField';
 import { RadioField } from '../RadioField';
-
 //유효성평가 라이브러리
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { StyledForm } from '../../../styles/User/UserStyle';
+import { StyledForm, Heading, InputWrap } from '../../../styles/User/UserStyle';
 
 interface IAuthForm {
   username: string;
@@ -36,9 +35,22 @@ interface IAuthForm {
 interface ISignupFormProps {
   initialValues?: IAuthForm;
   onSubmit?: (formValues: IAuthForm) => void;
+  AuthBlockRef: RefObject<HTMLDivElement>;
+  FormBlockRef: RefObject<HTMLDivElement>;
+  setMoveCarousel: React.Dispatch<React.SetStateAction<string>>;
+  moveCarousel: string;
+  handleToggle: ()=>void
 }
 
-const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
+const SignupForm = ({
+  initialValues,
+  onSubmit,
+  AuthBlockRef,
+  FormBlockRef,
+  setMoveCarousel,
+  moveCarousel,
+  handleToggle
+}: ISignupFormProps) => {
   // const [errMsg, setErrMsg] = useState('');
 
   const dispatch = useAppDispatch();
@@ -129,6 +141,7 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
         { shouldFocus: true } // 에러가 발생한 input으로 focus 이동
       );
     } else if (idCheckRes) {
+      console.log('뭐냐고', idCheckRes);
       setError(
         'username',
         { message: '아이디가중복이에여' },
@@ -156,42 +169,53 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
     }
   }, [isLoggedIn]);
   return (
-    <StyledForm onSubmit={handleSubmit(handleFormSubmit)}>
-      <InputField name="username" control={control} label="아이디" />
-      <InputField
-        name="password"
-        control={control}
-        label="비밀번호"
-        type="password"
-      />
-      <InputField
-        name="passwordConfirm"
-        control={control}
-        label="비밀번호 확인"
-        type="password"
-      />
-      <InputField name="nickname" control={control} label="닉네임" />
-      <InputField name="email" control={control} label="이메일" />
-      <InputField name="age" control={control} label="나이" type="number" />
-      <RadioField
-        name="gender"
-        control={control}
-        label="성별"
-        options={[
-          {
-            label: '남성',
-            value: '0',
-          },
-          {
-            label: '여성',
-            value: '1',
-          },
-          {
-            label: '쉿,비밀이야',
-            value: '2',
-          },
-        ]}
-      />
+    <StyledForm
+      onSubmit={handleSubmit(handleFormSubmit)}
+      className="sign-up-form"
+    >
+      <Heading>
+        <h6>회원가입함해봐랑</h6>
+        <a href="#" onClick={handleToggle} className="toggle">
+          다시로그인해야징
+        </a>
+      </Heading>
+      <InputWrap>
+        <InputField name="username" control={control} label="아이디" />
+        <InputField
+          name="password"
+          control={control}
+          label="비밀번호"
+          type="password"
+        />
+        <InputField
+          name="passwordConfirm"
+          control={control}
+          label="비밀번호 확인"
+          type="password"
+        />
+        <InputField name="nickname" control={control} label="닉네임" />
+        <InputField name="email" control={control} label="이메일" />
+        <InputField name="age" control={control} label="나이" type="number" />
+        <RadioField
+          name="gender"
+          control={control}
+          label="성별"
+          options={[
+            {
+              label: '남성',
+              value: '0',
+            },
+            {
+              label: '여성',
+              value: '1',
+            },
+            {
+              label: '쉿,비밀이야',
+              value: '2',
+            },
+          ]}
+        />
+      </InputWrap>
       <button>제출</button>
     </StyledForm>
   );
