@@ -1,10 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { StudyStage } from '../../models';
+import { string } from 'yup';
+import { StudyStage, WordMeaning, StageInfo } from '../../models';
 
 type StudyState = {
   loading: boolean;
   studyState: StudyStage;
+  wordMeaning: WordMeaning;  
 };
+
+
 
 let initialState: StudyState = {
   loading: false,
@@ -12,6 +16,12 @@ let initialState: StudyState = {
     learningRecordId: 0,
     stage: '',
     userId: 0,
+  },
+  wordMeaning: {
+    wordId: '',
+    wordDefinition: '',
+    wordExample: '',
+    lexicalCategory: '',
   },
 };
 
@@ -45,6 +55,37 @@ const studySlice = createSlice({
     },
     // 공부 중 종료 실패(나가기, 뒤로가기 등)
     putStopStudyStartFailed(state) {
+      state.loading = false;
+      // console.log(action);
+    },
+
+    // 사전 검색 시작
+    SearchDictStart(state, action: PayloadAction<string>) {
+      state.loading = true;
+      
+    },
+    // 사전 검색 성공
+    SearchDictSuccess(state, action: PayloadAction<WordMeaning>) {
+      state.loading = false;
+      state.wordMeaning = action.payload;
+    },
+    // 사전 검색 실패
+    SearchDictFailed(state) {
+      state.loading = false;
+      // console.log(action);
+    },
+
+    // 학습상황 업데이트 시작
+    UpdateStudyStageStart(state, action: PayloadAction<StageInfo>) {
+      state.loading = true;
+      
+    },
+    // 학습상황 업데이트 시작 성공
+    UpdateStudyStageStartSuccess(state) {
+      state.loading = false;      
+    },
+    // 학습상황 업데이트 시작 실패
+    UpdateStudyStageStartFailed(state) {
       state.loading = false;
       // console.log(action);
     },

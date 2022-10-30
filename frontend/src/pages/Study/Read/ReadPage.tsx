@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import YouTube, { YouTubePlayer } from 'react-youtube';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import { useNavigate } from 'react-router-dom';
 import { readActions } from '../../../features/Read/read-slice';
 import { studyActions } from '../../../features/study/study-slice';
 import {
@@ -14,10 +15,15 @@ import {
   ScriptText,
   ScriptWordSpan,
   DictInput,
+  DictInputAndBtnBox,
+  DictBtn,
+  WordBookAddReqBtn,
+  DictResult,
   AutoScrollBtn,
-  AutoScrollText,
+  AutoScrollText,  
+  MoveToSpeakingBtn,
 } from '../../../styles/Read/ReadStyle';
-import { TedScript } from '../../../models';
+import { TedScript, WordMeaning } from '../../../models';
 
 let videoElement: YouTubePlayer = null;
 
@@ -26,6 +32,7 @@ const ReadPage = () => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const studyDuration = useRef<number>(0);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const tedScriptList = useAppSelector((state) => state.read.TedScriptList);
   const scriptContainerRef = useRef<HTMLDivElement[]>([]);
   const [dictInputValue, setDictInputvalue] = useState<string>('');
@@ -35,6 +42,8 @@ const ReadPage = () => {
   );
   const [isAutoScroll, setIsAutoScroll] = useState<boolean>(true);
   const videoId = useAppSelector((state) => state.video.videoData.video.videoId);
+  const wordMeaning:WordMeaning = useAppSelector((state) => state.study.wordMeaning);
+  const studyState = useAppSelector((state) => state.study.studyState)
 
   const moveToTimeStamp = (idx: number) => {
     const targetTime = tedScriptList[idx].start;
@@ -68,6 +77,37 @@ const ReadPage = () => {
     }
     setDictInputvalue(nextInputValue);
   };
+
+  const WordSearchHandler = (e: React.MouseEvent<HTMLSpanElement> ,targetWord: string) => {
+    const trimmedWord = targetWord.replace(/\s/g, "").toLowerCase();
+
+    dispatch(studyActions.SearchDictStart(trimmedWord))
+    
+    // const selectedSentence = tedScriptList[selectedSentenceIdx!].text;
+    // console.log(trimmedWord, selectedSentence);
+  }
+
+  const AddWordToWordbook = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const selectedSentence = tedScriptList[selectedSentenceIdx!].text;
+    const wordInfo = {
+      definition: wordMeaning.wordDefinition,
+      example: selectedSentence,
+      videoId: videoId,
+      word: wordMeaning.wordId
+    }
+    dispatch(readActions.postAddWordToWordBookStart(wordInfo));
+  }
+
+  const moveToSpeaking = (e: React.MouseEvent<HTMLSpanElement>) => {
+    // 1. 스테이지 업데이트 액션 dispatch
+    const stageInfo = {
+      learningRecordId: studyState.learningRecordId,
+      stage: Number(studyState.stage) + 1
+    }
+    dispatch(studyActions.UpdateStudyStageStart(stageInfo))
+    // 2. 스피킹 페이지로 이동
+    navigate('/study/speaking');
+  }
 
   const opts = {
     width: '100%',
@@ -176,6 +216,7 @@ const ReadPage = () => {
   return (
     <>
       <ReadPageBlock>
+        <MoveToSpeakingBtn onClick={(e) => moveToSpeaking(e)}>스피킹가기</MoveToSpeakingBtn>
         <YoutubeAndDictContainer>
           {videoId!==''? (<YouTube
             style={{ width: `${FRAME_WIDTH}vw`, height: `${FRAME_HEIGHT}vh` }}
@@ -183,9 +224,18 @@ const ReadPage = () => {
             opts={opts}
             onReady={_onReady}
           />): ''}
+          {/* 사전 */}
           <DictRegion>
-            <DictInput value={dictInputValue} onChange={dictInputChange} />
-            {currentTime}, , {nowPlayedIdx}
+            <DictInputAndBtnBox>
+              <DictInput value={dictInputValue} onChange={dictInputChange} />   
+              <DictBtn onClick={(e) => WordSearchHandler(e, dictInputValue)}>검색</DictBtn>      
+            </DictInputAndBtnBox>
+            <DictResult>
+              <p>뜻: {wordMeaning.wordDefinition}</p>
+              <p>예문: {wordMeaning.wordExample}</p>
+              <p>품사: {wordMeaning.lexicalCategory}</p>
+            </DictResult>     
+            <WordBookAddReqBtn onClick={(e) => AddWordToWordbook(e)}>+</WordBookAddReqBtn>
           </DictRegion>
         </YoutubeAndDictContainer>
         <ScriptContainer onWheel={checkHumanWheel}>

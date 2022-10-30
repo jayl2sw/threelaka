@@ -4,3 +4,22 @@ export interface StudyStage {
   stage: string;
   userId: number;
 }
+
+export interface WordMeaning {
+  wordId: string,
+  wordDefinition: string;
+  wordExample: string
+  lexicalCategory: string
+};
+
+export interface WordInfo {
+  definition: string;
+  example: string;
+  videoId: string;
+  word: string;
+};
+
+export interface StageInfo {
+  learningRecordId: number;
+  stage: number;
+};
