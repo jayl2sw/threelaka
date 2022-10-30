@@ -23,7 +23,6 @@ public interface StudyService {
 
     void addEssay(EssayRequestDto essay);
 
-    void updateCompletedStage(UpdateStageRequestDto data);
 
     void addLearningTime(UpdateLearningRequestDto data);
 
@@ -31,11 +30,17 @@ public interface StudyService {
 
     void checkContinuousLearningDate(String token);
 
+    LearningRecordResponseDto updateCompletedStage(UpdateStageRequestDto data);
+
     LearningRecordResponseDto startLearning(String videoId);
 
     LearningRecordResponseDto getLearningRecordByVideo(String videoId);
 
+    LearningRecordResponseDto findLearningRecordById(LearningRecordRequestDto data);
+
     String getScript(String videoId);
 
     List<VideoResponseDto> getRecommends();
+
+
 }

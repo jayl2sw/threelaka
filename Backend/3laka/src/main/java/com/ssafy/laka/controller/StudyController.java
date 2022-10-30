@@ -191,6 +191,20 @@ public class StudyController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+
+    @GetMapping("/record")
+    @ApiOperation(value = "Learning Record 조회", notes = "해당 아이디를 가지는 Learning Record 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> findLearningRecords(
+            @RequestBody LearningRecordRequestDto data
+    ){
+        // 학습 스테이지 저장
+        studyService.findLearningRecordById(data);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
     @PutMapping("/complete/stage")
     @ApiOperation(value = "학습 스테이지 업데이트", notes = "해당 학습 아이디를 가지는 학습의 스테이지를 해당 값으로 업데이트한다.")
     @ApiResponses({
@@ -200,8 +214,8 @@ public class StudyController {
             @RequestBody UpdateStageRequestDto data
     ){
         // 학습 스테이지 저장
-        studyService.updateCompletedStage(data);
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        LearningRecordResponseDto lr = studyService.updateCompletedStage(data);
+        return new ResponseEntity<>(lr, HttpStatus.OK);
     }
 
     @PutMapping("/complete/time")

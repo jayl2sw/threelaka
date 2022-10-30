@@ -2,6 +2,7 @@ package com.ssafy.laka.service;
 
 import com.ssafy.laka.domain.*;
 import com.ssafy.laka.domain.enums.Stage;
+import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
 import com.ssafy.laka.dto.exception.study.*;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.dto.study.*;
@@ -154,7 +155,7 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public void updateCompletedStage(UpdateStageRequestDto data) {
+    public LearningRecordResponseDto updateCompletedStage(UpdateStageRequestDto data) {
         LearningRecord lr = learningRecordRepository.findById(data.getLearningRecordId()).orElseThrow(LearningRecordNotExistException::new);
         if (data.getStage() == 0) {
             lr.setStage(Stage.READING);
@@ -165,6 +166,7 @@ public class StudyServiceImpl implements StudyService{
         } else {
             lr.setStage(Stage.COMPLETE);
         }
+        return LearningRecordResponseDto.from(lr);
     }
 
     @Override
@@ -221,6 +223,11 @@ public class StudyServiceImpl implements StudyService{
         } else {
             return LearningRecordResponseDto.from(lrs.get(0));
         }
+    }
+
+    @Override
+    public LearningRecordResponseDto findLearningRecordById(LearningRecordRequestDto data) {
+        return LearningRecordResponseDto.from(learningRecordRepository.findById(data.getLearningRecordId()).orElseThrow(LearningRecordNotFoundException::new));
     }
 
     @Override
