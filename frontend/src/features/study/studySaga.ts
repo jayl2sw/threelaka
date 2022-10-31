@@ -2,7 +2,7 @@ import { postStartStudyApi, putStopStudyApi, updateStudyStageApi, getWordBookApi
 import { getFindWordApi } from '../../services/readApi';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
-import { StudyStage, WordMeaning, StageInfo} from '../../models';
+import { StudyStage, WordMeaning, StageInfo, WordBook} from '../../models';
 import { studyActions } from './study-slice';
 // 공부 시작 SAGA
 function* onPostStartStudyAsync(action: PayloadAction<string>) {
@@ -50,11 +50,11 @@ function* onUpdateStudyStageAsync(action: PayloadAction<StageInfo>) {
 // 해당 learning record의 단어장 가져오기 SAGA
 function* onGetWordBookAsync(action: PayloadAction<number>) {
   try {
-    const response: WordMeaning = yield call(getWordBookApi, action.payload);
-    yield put(studyActions.SearchDictSuccess(response));
+    const response: WordBook[] = yield call(getWordBookApi, action.payload);
+    yield put(studyActions.getWordBookSuccess(response));
   } catch (error: any) {
     console.log(`Failed to fetch StartStudy`, error);
-    yield put(studyActions.SearchDictFailed());
+    yield put(studyActions.getWordBookFailed());
   }
 }
 
