@@ -1,4 +1,4 @@
-import { postStartStudyApi } from '../../services/startApi';
+import { postStartStudyApi } from '../../services/studyApi';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
 import { StudyStage } from '../../models';
