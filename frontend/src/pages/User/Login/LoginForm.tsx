@@ -10,6 +10,10 @@ import { useForm } from 'react-hook-form';
 import { InputField } from '../InputField';
 import { RadioField } from '../RadioField';
 
+//유효성평가 라이브러리
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 interface IAuthForm {
   username: string;
   password: string;
@@ -39,7 +43,23 @@ const LoginForm = ({
   // const [errMsg, setErrMsg] = useState('');
 
   const dispatch = useAppDispatch();
-
+  
+  const schema = yup.object().shape({
+    username: yup
+      .string()
+      .required('아이디를 입력해주세요')
+      .matches(
+        /^[a-z0-9]{4,16}$/,
+        '4자 이상, 16자 이하의 영문 혹은 숫자로 입력해주세요.'
+      ),
+    password: yup
+      .string()
+      .required('비밀번호를 입력해주세요')
+      .matches(
+        /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,16}$/,
+        '4자 이상, 16자 이하의 영문, 숫자 조합으로 입력해주세요.'
+      ),
+  });
   const {
     control,
     handleSubmit,
@@ -47,6 +67,7 @@ const LoginForm = ({
     setError,
   } = useForm<IAuthForm>({
     defaultValues: initialValues,
+    resolver: yupResolver(schema),
   });
   const handleFormSubmit = (formValues: IAuthForm) => {
     try {
