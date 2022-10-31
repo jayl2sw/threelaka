@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -34,6 +35,9 @@ public class LearningRecord extends BaseTime {
 
     @Column(name = "latest_time")
     private String latestTime;
+
+    @OneToMany(mappedBy = "learningRecord", cascade = CascadeType.ALL)
+    private List<Wordbook> wordbooks;
 
     public void setStage (Stage stage) { this.stage = stage; }
 

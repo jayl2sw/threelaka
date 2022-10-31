@@ -143,15 +143,15 @@ public class StudyController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @GetMapping("/word/{video_id}")
+    @GetMapping("/word/{lr_id}")
     @ApiOperation(value = "강의 단어장 조회", notes = "특정 회원 / 특정 강의의 단어 리스트를 반환한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<List<WordbookResponseDto>> getWords(
-            @PathVariable String video_id){
+            @PathVariable int lr_id){
         // 해당 강좌의 단어장 불러오기
-        return new ResponseEntity<>(studyService.getWordbookByVideo(video_id), HttpStatus.OK);
+        return new ResponseEntity<>(studyService.getWordbookById(lr_id), HttpStatus.OK);
     }
     
 

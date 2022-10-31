@@ -19,7 +19,7 @@ public interface StudyService {
     void addWord(WordRequestDto data);
     void deleteWord(int wordbook_id);
 
-    List<WordbookResponseDto> getWordbookByVideo(String video_id);
+    List<WordbookResponseDto> getWordbookById(int lrId);
 
     void addEssay(EssayRequestDto essay);
 

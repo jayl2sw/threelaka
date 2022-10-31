@@ -24,9 +24,10 @@ public class Wordbook {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(targetEntity = Video.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "video_id")
-    private Video video;
+    @ManyToOne(targetEntity = LearningRecord.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "learning_record_id")
+    private LearningRecord learningRecord;
+
 
     private String word;
 

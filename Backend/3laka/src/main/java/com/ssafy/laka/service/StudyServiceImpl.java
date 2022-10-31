@@ -107,11 +107,11 @@ public class StudyServiceImpl implements StudyService{
     @Override
     public void addWord(WordRequestDto data) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        Video video = videoRepository.findById(data.getVideoId()).orElseThrow(VideoNotFoundException::new);
+        LearningRecord lr = learningRecordRepository.findById(data.getLrId()).orElseThrow(LearningRecordNotFoundException::new);
 
         Wordbook wordbook = Wordbook.builder()
                 .user(user)
-                .video(video)
+                .learningRecord(lr)
                 .word(data.getWord())
                 .example(data.getExample())
                 .build();
@@ -133,11 +133,9 @@ public class StudyServiceImpl implements StudyService{
 
 
     @Override
-    public List<WordbookResponseDto> getWordbookByVideo(String video_id) {
-        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        Video video = videoRepository.findById(video_id).orElseThrow(VideoNotFoundException::new);
-
-        return wordbookRepository.findByUserAndVideo(user, video).stream()
+    public List<WordbookResponseDto> getWordbookById(int lrId) {
+        LearningRecord lr = learningRecordRepository.findById(lrId).orElseThrow(LearningRecordNotFoundException::new);
+        return wordbookRepository.findWordbooksByLearningRecord(lr).stream()
                 .map(w -> WordbookResponseDto.from(w)).collect(Collectors.toList());
 
     }

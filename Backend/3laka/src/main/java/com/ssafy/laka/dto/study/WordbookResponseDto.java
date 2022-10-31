@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 public class WordbookResponseDto {
     private int wordbookId;
     private UserResponseDto user;
-    private VideoResponseDto video;
+    private LearningRecordResponseDto lr;
     private String word;
 
     public static WordbookResponseDto from(Wordbook entity){
         return WordbookResponseDto.builder()
                 .wordbookId(entity.getWordbookId())
                 .user(UserResponseDto.from(entity.getUser()))
-                .video(VideoResponseDto.from(entity.getVideo()))
+                .lr(LearningRecordResponseDto.from(entity.getLearningRecord()))
                 .word(entity.getWord())
                 .build();
     }

@@ -29,9 +29,6 @@ public class Video {
     private List<LearningRecord> LearningRecords;
 
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
-    private List<Wordbook> wordbooks;
-
-    @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
     private List<LikeVideo> likeVideos;
 
     public static Video from(com.google.api.services.youtube.model.Video entity) {
