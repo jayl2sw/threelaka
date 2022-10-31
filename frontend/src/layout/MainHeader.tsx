@@ -17,7 +17,7 @@ const MainHeader = () => {
       </LinkWrapper>
       <TitleRegion>THREELAKA</TitleRegion>
       <LinkWrapper bgColor="black" widthSize="10vw">
-        <Link to="/dashboard/profile">프로필</Link>
+        <Link to="/auth/dashboard/1">대시보드</Link>
       </LinkWrapper>
     </HeaderMenuRegion>
   );

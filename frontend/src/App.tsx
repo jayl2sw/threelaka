@@ -1,4 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAppDispatch } from './utils/hooks';
+import { authActions } from './features/auth/authSlice';
 // Main
 import MainPage from './pages/Main/MainPage';
 import VideosPage from './pages/Videos/VideosPage';
@@ -16,10 +19,7 @@ import SpeakingPage from './pages/Study/Speaking/SpeakingPage';
 import VocaPage from './pages/Study/Voca/VocaPage';
 
 // Dashboard
-import CustomSetting from './pages/Dashboard/CustomSetting/CustomSetting';
-import Profile from './pages/Dashboard/Profile/Profile';
-import Statistics from './pages/Dashboard/Statistics/Statistics';
-import StudyLog from './pages/Dashboard/StudyLog/StudyLog';
+import DashBoardPage from './pages/Dashboard/DashBoardPage';
 // pageNotFound
 import PageNotFound from './layout/PageNotFound';
 
@@ -28,6 +28,9 @@ import Counter from './pages/Counter/Counter';
 
 
 function App() {
+  const dispatch = useAppDispatch();
+
+
   return (
     <div className="App">
       <Routes>
@@ -41,6 +44,7 @@ function App() {
         {/* Auth */}
         <Route path="auth">
           <Route path="login" element={<AuthPage />} />
+          <Route path="dashboard/:pageNum" element={<DashBoardPage />} />
           <Route path="" element={<PageNotFound />} />
           {/* 뒤에 라우트 주소가 비었을때도 NotFound로 갈 수 있게끔*/}
         </Route>
@@ -51,13 +55,7 @@ function App() {
           <Route path="speaking" element={<SpeakingPage />} />
           <Route path="" element={<PageNotFound />} />
         </Route>
-        <Route path="dashboard">
-          <Route path="profile" element={<Profile />} />
-          <Route path="statistics" element={<Statistics />} />
-          <Route path="customsetting" element={<CustomSetting />} />
-          <Route path="studylog" element={<StudyLog />} />
-          <Route path="" element={<PageNotFound />} />
-        </Route>
+
         {/* Not Found */}
         <Route path="*" element={<PageNotFound />}></Route>
         {/* Dummy */}

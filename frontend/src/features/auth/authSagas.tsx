@@ -4,16 +4,17 @@ import { call, fork, takeLatest } from 'redux-saga/effects';
 import { SignupPayload, LoginPayload, authActions } from './authSlice';
 import { ILoginResponse } from '../../services/userApi';
 import { createUserApi, loginApi } from '../../services/userApi';
-
+import { User } from '../../models/user';
 import { userInfoApi } from '../../services/userApi';
 
 function* createUser(action: PayloadAction<SignupPayload>) {
-  const { login } = authActions;
+  const { fetchUser } = authActions;
   try {
     const response: string = yield call(createUserApi, action.payload);
     //string이 타입
     // const {username,password} = action.payload
     yield put(authActions.signupSuccess(response));
+    yield put(fetchUser())
     // console.log(username,password)
     //바로로그인 기능 일단 off
     // yield put(login({username,password}))
@@ -34,6 +35,8 @@ function* login(action: PayloadAction<LoginPayload>) {
     localStorage.setItem('accessToken', response.accessToken);
 
     yield put(authActions.loginSuccess(response));
+    yield put(authActions.fetchUser());
+
   } catch (error) {
     console.log(`로그인실패`, error);
   }
@@ -42,20 +45,22 @@ function* watchLoginFlow() {
   yield takeLatest(authActions.login.type, login);
 }
 
-function* test() {
+function* fetchUser() {
+  console.log("어디서멈춤")
   try {
     // console.log(action.payload);
-    const response: string = yield call(userInfoApi);
-    console.log('테스트성공', response);
-    //string이 타입
+    console.log("여긴오나")
+    const response: User = yield call(userInfoApi);
+    console.log(response)
+    yield put(authActions.fetchUserSuccess(response))
   } catch (error) {}
 }
-function* watchtestFlow() {
-  yield takeLatest(authActions.test.type, test);
+function* watchfetchUserFlow() {
+  yield takeLatest(authActions.fetchUser.type, fetchUser);
 }
 
 export const authSagas = [
   fork(watchSignupFlow),
   fork(watchLoginFlow),
-  fork(watchtestFlow),
+  fork(watchfetchUserFlow),
 ];

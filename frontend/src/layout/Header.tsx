@@ -27,7 +27,7 @@ const Header = () => {
         </LinkWrapper>
         <TitleRegion>THREELAKA</TitleRegion>
         <LinkWrapper bgColor="black" widthSize="10vw">
-          <Link to="/dashboard/profile">프로필</Link>
+          <Link to="/auth/dashboard/1">프로필</Link>
         </LinkWrapper>
       </HeaderMenuRegion>
       <StudyProgressRegion>
