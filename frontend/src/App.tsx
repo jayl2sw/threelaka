@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 // Main
 import MainPage from './pages/Main/MainPage';
@@ -28,6 +27,8 @@ import PageNotFound from './layout/PageNotFound';
 
 import Counter from './pages/Counter/Counter';
 
+
+
 function App() {
   return (
     <div className="App">
@@ -47,7 +48,7 @@ function App() {
           {/* 뒤에 라우트 주소가 비었을때도 NotFound로 갈 수 있게끔*/}
         </Route>
         <Route path="study" element={<StudyLayout />}>
-          <Route path="read" element={<ReadPage />} />
+          <Route path="reading" element={<ReadPage />} />
           <Route path="voca" element={<VocaPage />} />
           <Route path="writing" element={<WritingPage />} />
           <Route path="speaking" element={<SpeakingPage />} />

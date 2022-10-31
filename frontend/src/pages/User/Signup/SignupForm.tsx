@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 
-import { useAppDispatch } from '../../../utils/hooks';
+import { useAppDispatch,useAppSelector } from '../../../utils/hooks';
 import { authActions } from '../../../features/auth/authSlice';
-
+import { useNavigate } from 'react-router-dom';
 //api
 import {
   idCheckApi,
@@ -44,6 +44,8 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
   // const [errMsg, setErrMsg] = useState('');
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   const schema = yup.object().shape({
     username: yup
@@ -55,7 +57,7 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
       ),
     password: yup
       .string()
-      .required('아이디를 입력해주세요')
+      .required('비밀번호를 입력해주세요')
       .matches(
         /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,16}$/,
         '4자 이상, 16자 이하의 영문, 숫자 조합으로 입력해주세요.'
@@ -67,10 +69,15 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
         /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
         '이메일 형태로 입력해주세요'
       ),
-    nickname: yup.string().required('닉네임을 입력해주세요'),
+    nickname: yup.string()
+      .required('닉네임을 입력해주세요')
+      .matches(
+        /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/,
+        '닉네임은 2-10자리의 한글, 영문, 숫자만 가능합니다'
+      ),
     gender: yup.string(),
     age: yup
-      .number()
+      .number().default(1)
       .min(1, '최소 입력값은 1 입니다')
       .max(100, '최대 입력값은 100 입니다'),
   });
@@ -86,8 +93,10 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
   });
   const handleFormSubmit = (formValues: IAuthForm) => {
     try {
-      //비밀번호 일치 여부 확인
+      //유효검사
       onValid?.(formValues);
+
+      //회원가입 
       let { email, username, password, nickname, age, gender } = formValues;
       const signupInfo = {
         email: email,
@@ -106,6 +115,7 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
     }
   };
 
+  //유효검사 - 비밀번호 일치 및 아이디, 이메일, 닉네임 중복확인
   const onValid = useCallback(async (data: IAuthForm) => {
     const { username, nickname, email } = data;
 
@@ -119,6 +129,7 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
         { shouldFocus: true } // 에러가 발생한 input으로 focus 이동
       );
     } else if (idCheckRes) {
+      console.log("뭐냐고",idCheckRes)
       setError(
         'username',
         { message: '아이디가중복이에여' },
@@ -139,6 +150,13 @@ const SignupForm = ({ initialValues, onSubmit }: ISignupFormProps) => {
     }
   }, []);
 
+  useEffect(() => {
+
+    if (isLoggedIn) {
+      console.log('회원가입 성공');
+      navigate('/');
+    }
+  }, [isLoggedIn]);
   return (
     <StyledForm onSubmit={handleSubmit(handleFormSubmit)}>
       <InputField name="username" control={control} label="아이디" />
