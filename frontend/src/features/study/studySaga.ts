@@ -1,12 +1,12 @@
-<<<<<<< HEAD
-import { postStartStudyApi } from '../../services/studyApi';
-=======
-import { postStartStudyApi, putStopStudyApi, updateStudyStageApi } from '../../services/studyApi';
+import {
+  postStartStudyApi,
+  putStopStudyApi,
+  updateStudyStageApi,
+} from '../../services/studyApi';
 import { getFindWordApi } from '../../services/readApi';
->>>>>>> e223de8c2a7fbb703c51ada25e39d634422466f8
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
-import { StudyStage, WordMeaning, StageInfo} from '../../models';
+import { StudyStage, WordMeaning, StageInfo } from '../../models';
 import { studyActions } from './study-slice';
 // 공부 시작 SAGA
 function* onPostStartStudyAsync(action: PayloadAction<string>) {
@@ -42,7 +42,10 @@ function* onGetSearchDictAsync(action: PayloadAction<string>) {
 // 학습상황 업데이트 SAGA
 function* onUpdateStudyStageAsync(action: PayloadAction<StageInfo>) {
   try {
-    const response:StudyStage = yield call(updateStudyStageApi, action.payload);
+    const response: StudyStage = yield call(
+      updateStudyStageApi,
+      action.payload
+    );
     // console.warn(response);    // **이 사이에 state를 업데이트 시켜야 할 것 같음**
     yield put(studyActions.UpdateStudyStageStartSuccess(response));
   } catch (error: any) {
@@ -65,7 +68,10 @@ export function* watchgetSearchDictAsync() {
 }
 // 학습상황 업데이트 watch
 export function* watchUpdateStudyStageAsync() {
-  yield takeLatest(studyActions.UpdateStudyStageStart.type, onUpdateStudyStageAsync);
+  yield takeLatest(
+    studyActions.UpdateStudyStageStart.type,
+    onUpdateStudyStageAsync
+  );
 }
 
 export const studySagas = [
