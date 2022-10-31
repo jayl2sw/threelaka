@@ -12,9 +12,11 @@ function* createUser(action: PayloadAction<SignupPayload>) {
   try {
     const response: string = yield call(createUserApi, action.payload);
     //string이 타입
-    const {username,password} = action.payload
+    // const {username,password} = action.payload
     yield put(authActions.signupSuccess(response));
-    yield put(login({username,password}))
+    // console.log(username,password)
+    //바로로그인 기능 일단 off
+    // yield put(login({username,password}))
   } catch (error) {
     console.log(`유저생성실패`, error);
   }
