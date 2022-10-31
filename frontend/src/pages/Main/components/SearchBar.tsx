@@ -39,7 +39,8 @@ const SearchBar = () => {
   // stage 변경 시 해당 스테이지로 이동
   useEffect(() => {
     if (stage !== '') {
-      navigate(`/study/${stage}`);
+      // navigate(`/study/${stage}`);
+      navigate(`/study/reading`);
     }
   }, [stage]);
 
