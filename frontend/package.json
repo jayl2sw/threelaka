@@ -32,7 +32,6 @@
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
-    "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
     "eslint": "^8.3.0",
     "eslint-config-react-app": "^7.0.1",
@@ -163,5 +162,6 @@
   "devDependencies": {
     "@types/styled-components": "^5.1.26",
     "redux-devtools-extension": "^2.13.9"
-  }
+  },
+  "homepage": "./"
 }

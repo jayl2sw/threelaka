@@ -22,19 +22,66 @@ export const YoutubeAndDictContainer = styled.div`
 `;
 
 export const DictRegion = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;  
   width: 40vw;
   height: 45vh;  
+  border: 1px solid yellow;
+  padding-top: 5vh;
   /* border: 1px solid yellow; */
 `;
 
-export const DictInput = styled.input`
+export const WordBookAddReqBtn = styled.div`
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 1vw;
+  width: 5vmin;
+  height: 5vmin;
+  font-size: 5vmin;
+  background-color: black;
+  color: white;
+`
+
+export const DictInputAndBtnBox = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
   width: 40vw;
-  height: 10vh;
+  height: 5vh;
+`
+
+export const DictBtn = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10vw;
+  height: 5vh;
+  background-color: green;
+  color: white;
+  font-size: 2vmin;
+`
+
+export const DictInput = styled.input`
+  width: 30vw;
+  height: 5vh;
+  padding: 0vmin 1vmin;
+  font-size: 3vmin;
   border: black 2px solid;
+`
+
+export const DictResult = styled.div`
+  width: 40vw;
+  height: 35vh;
+  padding: 1vh 1vw;
+  /* font-size: 3vmin; */
+  border: black 2px solid;
+  background-color: grey;
+  color: white;
 `
 
 export const ScriptContainer = styled.div`
@@ -122,7 +169,7 @@ export const ScriptWordSpan = styled.span`
 export const AutoScrollBtn = styled.div`
   cursor: pointer;
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   top: 10vh;
   right: 6vw;
   width: 5vw;
@@ -171,3 +218,14 @@ export const AutoScrollText = styled.div`
     margin: 0;
   }
 `
+
+export const MoveToSpeakingBtn = styled.div`
+  cursor: pointer;
+  position: absolute;
+  right: 1vw;
+  top: 50vh;
+  width: 10vw;
+  height: 10vh;
+  background: blue;
+  color: white;
+`;

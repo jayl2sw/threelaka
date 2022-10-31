@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import YouTube, { YouTubePlayer } from 'react-youtube';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import { useNavigate } from 'react-router-dom';
 import { readActions } from '../../../features/Read/read-slice';
+import { studyActions } from '../../../features/study/study-slice';
 import {
   ReadPageBlock,
   YoutubeAndDictContainer,
@@ -13,18 +15,24 @@ import {
   ScriptText,
   ScriptWordSpan,
   DictInput,
+  DictInputAndBtnBox,
+  DictBtn,
+  WordBookAddReqBtn,
+  DictResult,
   AutoScrollBtn,
-  AutoScrollText,
+  AutoScrollText,  
+  MoveToSpeakingBtn,
 } from '../../../styles/Read/ReadStyle';
-import { TedScript } from '../../../models';
-import { BlobOptions } from 'buffer';
+import { TedScript, WordMeaning } from '../../../models';
 
 let videoElement: YouTubePlayer = null;
 
 const ReadPage = () => {
-  const [nowPlayedIdx, setNowPlayedIdx] = useState<number>(30);
+  const [nowPlayedIdx, setNowPlayedIdx] = useState<number>(10);
   const [currentTime, setCurrentTime] = useState<number>(0);
+  const studyDuration = useRef<number>(0);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const tedScriptList = useAppSelector((state) => state.read.TedScriptList);
   const scriptContainerRef = useRef<HTMLDivElement[]>([]);
   const [dictInputValue, setDictInputvalue] = useState<string>('');
@@ -33,6 +41,9 @@ const ReadPage = () => {
     null
   );
   const [isAutoScroll, setIsAutoScroll] = useState<boolean>(true);
+  const videoId = useAppSelector((state) => state.video.videoData.video.videoId);
+  const wordMeaning:WordMeaning = useAppSelector((state) => state.study.wordMeaning);
+  const studyState = useAppSelector((state) => state.study.studyState)
 
   const moveToTimeStamp = (idx: number) => {
     const targetTime = tedScriptList[idx].start;
@@ -67,6 +78,37 @@ const ReadPage = () => {
     setDictInputvalue(nextInputValue);
   };
 
+  const WordSearchHandler = (e: React.MouseEvent<HTMLSpanElement> ,targetWord: string) => {
+    const trimmedWord = targetWord.replace(/\s/g, "").toLowerCase();
+
+    dispatch(studyActions.SearchDictStart(trimmedWord))
+    
+    // const selectedSentence = tedScriptList[selectedSentenceIdx!].text;
+    // console.log(trimmedWord, selectedSentence);
+  }
+
+  const AddWordToWordbook = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const selectedSentence = tedScriptList[selectedSentenceIdx!].text;
+    const wordInfo = {
+      definition: wordMeaning.wordDefinition,
+      example: selectedSentence,
+      videoId: videoId,
+      word: wordMeaning.wordId
+    }
+    dispatch(readActions.postAddWordToWordBookStart(wordInfo));
+  }
+
+  const moveToSpeaking = (e: React.MouseEvent<HTMLSpanElement>) => {
+    // 1. 스테이지 업데이트 액션 dispatch
+    const stageInfo = {
+      learningRecordId: studyState.learningRecordId,
+      stage: 'LISTENING'
+    }
+    dispatch(studyActions.UpdateStudyStageStart(stageInfo))
+    // 2. 스피킹 페이지로 이동
+    navigate('/study/speaking');
+  }
+
   const opts = {
     width: '100%',
     height: '100%',
@@ -78,17 +120,17 @@ const ReadPage = () => {
   useEffect(() => {
     if (videoElement) {
       // get current time
-      console.log(videoElement.target);
+      // console.log(videoElement.target);
       const elapsed_seconds = videoElement.target.getCurrentTime();
       setCurrentTime(elapsed_seconds);
     }
   }, [videoElement]);
 
   //get current time and video status in real time
-  useEffect(() => {
-    dispatch(readActions.getScripts('KQ9FfzMKBNc'));
-
+  useEffect(() => {    
     const interval = setInterval(async () => {
+      studyDuration.current = studyDuration.current + 1;
+      // console.log(studyDuration)
       if (videoElement && videoElement.target.getCurrentTime() > 0) {
         const elapsed_seconds = videoElement.target.getCurrentTime();
         setCurrentTime(elapsed_seconds);
@@ -97,16 +139,27 @@ const ReadPage = () => {
 
     return () => {
       clearInterval(interval);
+      dispatch(studyActions.putStopStudyStart(studyDuration.current))
+      console.warn(studyDuration);
     };
   }, []);
+
+  useEffect(() => {
+    if (videoId !== ''){
+      dispatch(readActions.getScripts(videoId));
+    }
+  },[videoId])
 
   useEffect(() => {
     if (tedScriptList.length === 0) {
       return;
     }
     let tempCurrentIdx = nowPlayedIdx;
+    
+    // console.log("얍얍얍",tedScriptList[tempCurrentIdx].start)
     if (currentTime > tedScriptList[tempCurrentIdx].start) {
       while (currentTime > tedScriptList[tempCurrentIdx].start) {
+        console.log(tempCurrentIdx)
         if (tempCurrentIdx > tedScriptList.length - 2) {
           break;
         }
@@ -114,7 +167,8 @@ const ReadPage = () => {
       }
     }
     if (currentTime < tedScriptList[tempCurrentIdx].start) {
-      while (currentTime < tedScriptList[tempCurrentIdx].start) {
+      while (currentTime < tedScriptList[tempCurrentIdx].start && tempCurrentIdx > 0) {
+        console.log(tempCurrentIdx)
         tempCurrentIdx--;
       }
     }
@@ -162,20 +216,30 @@ const ReadPage = () => {
   return (
     <>
       <ReadPageBlock>
+        <MoveToSpeakingBtn onClick={(e) => moveToSpeaking(e)}>스피킹가기</MoveToSpeakingBtn>
         <YoutubeAndDictContainer>
-          <YouTube
+          {videoId!==''? (<YouTube
             style={{ width: `${FRAME_WIDTH}vw`, height: `${FRAME_HEIGHT}vh` }}
-            videoId={'KQ9FfzMKBNc'}
+            videoId={videoId}
             opts={opts}
             onReady={_onReady}
-          />
+          />): ''}
+          {/* 사전 */}
           <DictRegion>
-            <DictInput value={dictInputValue} onChange={dictInputChange} />
-            {currentTime}, , {nowPlayedIdx}
+            <DictInputAndBtnBox>
+              <DictInput value={dictInputValue} onChange={dictInputChange} />   
+              <DictBtn onClick={(e) => WordSearchHandler(e, dictInputValue)}>검색</DictBtn>      
+            </DictInputAndBtnBox>
+            <DictResult>
+              <p>뜻: {wordMeaning.wordDefinition}</p>
+              <p>예문: {wordMeaning.wordExample}</p>
+              <p>품사: {wordMeaning.lexicalCategory}</p>
+            </DictResult>     
+            <WordBookAddReqBtn onClick={(e) => AddWordToWordbook(e)}>+</WordBookAddReqBtn>
           </DictRegion>
         </YoutubeAndDictContainer>
         <ScriptContainer onWheel={checkHumanWheel}>
-          {tedScriptList.map((script: TedScript, idx: number) => (
+          {tedScriptList.length!==0?(tedScriptList.map((script: TedScript, idx: number) => (
             <ScriptItemBox
               key={`script-${idx}`}
               ref={(el) => {
@@ -225,7 +289,7 @@ const ReadPage = () => {
                 </p>
               </ScriptText>
             </ScriptItemBox>
-          ))}
+          ))): ''}
         </ScriptContainer>
         <AutoScrollText>
           <p>{isAutoScroll? '자동 스크롤': '수동 스크롤'}</p>
