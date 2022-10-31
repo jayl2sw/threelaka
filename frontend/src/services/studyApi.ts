@@ -14,6 +14,7 @@ export const putStopStudyApi = async (increasedTime: number) => {
 // 스테이지 업데이트 API
 export const updateStudyStageApi =async (stageInfo: StageInfo): Promise<any> => {
   const res = await customAxios.put(`api/v1/study/complete/stage`,stageInfo);
+  console.log(res.data);
   return res.data;
 }
 

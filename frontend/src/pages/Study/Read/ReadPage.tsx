@@ -102,7 +102,7 @@ const ReadPage = () => {
     // 1. 스테이지 업데이트 액션 dispatch
     const stageInfo = {
       learningRecordId: studyState.learningRecordId,
-      stage: Number(studyState.stage) + 1
+      stage: 'LISTENING'
     }
     dispatch(studyActions.UpdateStudyStageStart(stageInfo))
     // 2. 스피킹 페이지로 이동

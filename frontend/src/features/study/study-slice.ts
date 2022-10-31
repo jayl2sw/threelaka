@@ -81,8 +81,9 @@ const studySlice = createSlice({
       
     },
     // 학습상황 업데이트 시작 성공
-    UpdateStudyStageStartSuccess(state) {
-      state.loading = false;      
+    UpdateStudyStageStartSuccess(state, action: PayloadAction<StudyStage>) {
+      state.loading = false;
+      state.studyState = action.payload;      
     },
     // 학습상황 업데이트 시작 실패
     UpdateStudyStageStartFailed(state) {

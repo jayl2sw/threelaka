@@ -21,5 +21,5 @@ export interface WordInfo {
 
 export interface StageInfo {
   learningRecordId: number;
-  stage: number;
+  stage: string;
 };

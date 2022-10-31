@@ -38,10 +38,9 @@ function* onGetSearchDictAsync(action: PayloadAction<string>) {
 // 학습상황 업데이트 SAGA
 function* onUpdateStudyStageAsync(action: PayloadAction<StageInfo>) {
   try {
-    const response:string = yield call(updateStudyStageApi, action.payload);
-    console.warn(response);
-    // **이 사이에 state를 업데이트 시켜야 할 것 같음**
-    yield put(studyActions.UpdateStudyStageStartSuccess());
+    const response:StudyStage = yield call(updateStudyStageApi, action.payload);
+    // console.warn(response);    // **이 사이에 state를 업데이트 시켜야 할 것 같음**
+    yield put(studyActions.UpdateStudyStageStartSuccess(response));
   } catch (error: any) {
     console.log(`Failed to fetch StartStudy`, error);
     yield put(studyActions.SearchDictFailed());
