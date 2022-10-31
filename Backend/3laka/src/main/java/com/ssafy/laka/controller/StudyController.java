@@ -151,7 +151,7 @@ public class StudyController {
     public ResponseEntity<List<WordbookResponseDto>> getWords(
             @PathVariable int lr_id){
         // 해당 강좌의 단어장 불러오기
-        return new ResponseEntity<>(studyService.getWordbookById(lr_id), HttpStatus.OK);
+        return new ResponseEntity<>(studyService.getWordbooksById(lr_id), HttpStatus.OK);
     }
     
 

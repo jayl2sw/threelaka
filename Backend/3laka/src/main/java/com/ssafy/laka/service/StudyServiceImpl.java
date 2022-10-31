@@ -133,7 +133,7 @@ public class StudyServiceImpl implements StudyService{
 
 
     @Override
-    public List<WordbookResponseDto> getWordbookById(int lrId) {
+    public List<WordbookResponseDto> getWordbooksById(int lrId) {
         LearningRecord lr = learningRecordRepository.findById(lrId).orElseThrow(LearningRecordNotFoundException::new);
         return wordbookRepository.findWordbooksByLearningRecord(lr).stream()
                 .map(w -> WordbookResponseDto.from(w)).collect(Collectors.toList());

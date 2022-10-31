@@ -15,16 +15,14 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "WordbookResponseDto", description = "단어장 정보 응답 Dto")
 public class WordbookResponseDto {
     private int wordbookId;
-    private UserResponseDto user;
-    private LearningRecordResponseDto lr;
     private String word;
+    private String example;
 
     public static WordbookResponseDto from(Wordbook entity){
         return WordbookResponseDto.builder()
                 .wordbookId(entity.getWordbookId())
-                .user(UserResponseDto.from(entity.getUser()))
-                .lr(LearningRecordResponseDto.from(entity.getLearningRecord()))
                 .word(entity.getWord())
+                .example(entity.getExample())
                 .build();
     }
 }
