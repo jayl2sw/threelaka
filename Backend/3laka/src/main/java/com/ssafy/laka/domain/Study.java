@@ -16,9 +16,10 @@ import java.time.format.DateTimeFormatter;
 @Builder
 @AllArgsConstructor
 @Table(name = "study")
-public class Study extends BaseTime {
+public class Study {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int studyId;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)

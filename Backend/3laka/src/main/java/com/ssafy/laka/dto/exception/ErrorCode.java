@@ -20,6 +20,7 @@ public enum ErrorCode {
     NOT_IN_DICTIONARY(400, "S003", "사전에 존재하지 않는 항목입니다."),
     NOT_IN_WORDBOOK(400, "S004", "단어장에 존재하지 않는 항목입니다."),
     SCRIPT_NOT_FOUND(400, "S005", "스크립트가 존재하지 않습니다."),
+    NOT_CURRENT_USER(400, "S006", "해당 유저의 항목이 아닙니다."),
     TAG_NOT_EXIST(400, "D002", "존재하지 않는 태그입니다"),
     GUILD_NOT_FOUND(400, "G001", "해당 길드를 찾을 수 없습니다"),
     REQUEST_NOT_FOUND(400, "G002", "해당 요청을 찾을 수 없습니다."),
@@ -38,6 +39,7 @@ public enum ErrorCode {
     SAME_GUILDNAME_EXISTS(400, "G011", "이미 존재하는 길드명입니다"),
 
     MASTER_CANNOT_QUIT(400, "G012", "마스터는 길드를 탈퇴할 수 없습니다");
+
 
 
     private final int status;

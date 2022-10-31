@@ -1,5 +1,6 @@
 package com.ssafy.laka.dto.study;
 
+import com.ssafy.laka.domain.enums.Stage;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
@@ -8,6 +9,6 @@ import lombok.Data;
 public class UpdateStageRequestDto {
 
     private int learningRecordId;
-    private int stage;
+    private Stage stage;
 
 }

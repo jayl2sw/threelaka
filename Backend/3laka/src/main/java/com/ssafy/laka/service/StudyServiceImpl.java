@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -157,16 +158,12 @@ public class StudyServiceImpl implements StudyService{
     @Override
     public LearningRecordResponseDto updateCompletedStage(UpdateStageRequestDto data) {
         LearningRecord lr = learningRecordRepository.findById(data.getLearningRecordId()).orElseThrow(LearningRecordNotExistException::new);
-        if (data.getStage() == 0) {
-            lr.setStage(Stage.READING);
-        } else if (data.getStage() == 1) {
-            lr.setStage(Stage.WRITING);
-        } else if (data.getStage() == 2) {
-            lr.setStage(Stage.SPEAKING);
+        if (SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new).equals(lr.getUser())) {
+            lr.setStage(data.getStage());
+            return LearningRecordResponseDto.from(lr);
         } else {
-            lr.setStage(Stage.COMPLETE);
+            throw new NotCurrentUserException();
         }
-        return LearningRecordResponseDto.from(lr);
     }
 
     @Override
@@ -177,7 +174,7 @@ public class StudyServiceImpl implements StudyService{
         if (learning.isPresent()) {
             learning.get().addTime(data.getTime());
         } else {
-            Study study = Study.builder().user(user).time(data.getTime()).build();
+            Study study = new Study(user, data.getTime());
             studyRepository.save(study);
             user.addContinuousLearningDate();
         }
