@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import { postStartStudyApi } from '../../services/studyApi';
-=======
 import { postStartStudyApi, putStopStudyApi, updateStudyStageApi } from '../../services/studyApi';
 import { getFindWordApi } from '../../services/readApi';
->>>>>>> e223de8c2a7fbb703c51ada25e39d634422466f8
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
 import { StudyStage, WordMeaning, StageInfo} from '../../models';
