@@ -90,6 +90,20 @@ const studySlice = createSlice({
       state.loading = false;
       // console.log(action);
     },
+    // 단어장 불러오기 시작
+    getWordBookStart(state, action: PayloadAction<number>) {
+      state.loading = true;      
+    },
+    // 단어장 불러오기 성공
+    getWordBookSuccess(state, action: PayloadAction<StudyStage>) {
+      state.loading = false;
+      state.studyState = action.payload;      
+    },
+    // 단어장 불러오기 실패
+    getWordBookFailed(state) {
+      state.loading = false;
+      // console.log(action);
+    },
   },
 });
 

@@ -105,8 +105,8 @@ const ReadPage = () => {
       stage: 'LISTENING'
     }
     dispatch(studyActions.UpdateStudyStageStart(stageInfo))
-    // 2. 스피킹 페이지로 이동
-    navigate('/study/speaking');
+    // 2. 라이팅 페이지로 이동
+    navigate('/study/Writing');
   }
 
   const opts = {

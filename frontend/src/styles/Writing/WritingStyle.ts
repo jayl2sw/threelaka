@@ -35,13 +35,14 @@ export const WordListAndWritingContainer = styled.div`
 export const WordListRegion = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;  
   background-color: #daedf2;
   border-radius: 25px;  
   width: 17vw;
   height: 70vh;
   margin-right: 3vw;
+  padding-top: 5vh;
   /* border: 1px solid green; */
 `;
 
@@ -90,12 +91,14 @@ export const WritingTextArea = styled.textarea`
   width: 100%;
   height: 100%;
   padding: 2vmin 3vmin;
-  font-size: 2vmin;
+  font-size: 3vmin;
   border: none;
   resize: none;
 `;
 
 export const BtnsRegion = styled.div`
+  position: absolute;
+  top: 88vh;
   display: flex;
   justify-content: space-between;
   width: 20vw;
@@ -110,7 +113,7 @@ export const SaveBtn = styled.div`
   align-items: center;
   width: 9vw;  
   height: 5vh;  
-  font-size: 2.8vmin;
+  font-size: 2.5vmin;
   border-radius: 10px;
   background-color: navy;
   color: white;
