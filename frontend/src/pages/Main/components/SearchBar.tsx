@@ -41,7 +41,7 @@ const SearchBar = () => {
     if (studyState.stage !== '') {
       // navigate(`/study/${stage}`);
       navigate(
-        `/study/reading/${studyState.learningRecordId}/${studyState.stage}`
+        `/study/reading/${studyState.learningRecordId}/${studyState.stage}/${studyState.videoId}`
       );
     }
   }, [studyState]);
