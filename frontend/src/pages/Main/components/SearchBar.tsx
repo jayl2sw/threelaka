@@ -35,14 +35,16 @@ const SearchBar = () => {
   const { isOpenModal, onClickModal } = useModal();
 
   // 현재 영상 stage 확인
-  const stage = useAppSelector((state) => state.study.studyState.stage);
+  const studyState = useAppSelector((state) => state.study.studyState);
   // stage 변경 시 해당 스테이지로 이동
   useEffect(() => {
-    if (stage !== '') {
+    if (studyState.stage !== '') {
       // navigate(`/study/${stage}`);
-      navigate(`/study/reading`);
+      navigate(
+        `/study/reading/${studyState.learningRecordId}/${studyState.stage}`
+      );
     }
-  }, [stage]);
+  }, [studyState]);
 
   return (
     <SearchBarContainer>
@@ -53,7 +55,6 @@ const SearchBar = () => {
         <span>공부하려는 영상의 유튜브 링크를 넣어주세요</span>
         <i></i>
       </SearchBarInput>
-      <p>입력한 값: {videoUrl}</p>
       <SearchButton>
         <button
           onClick={() => {
