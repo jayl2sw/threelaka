@@ -67,3 +67,9 @@ export const userInfoApi = async () => {
   console.log("어디서막히나",res.data)
   return res.data;
 };
+
+
+export const logoutApi = async () => {
+  const res = await customAxios.put('api/v1/user/logout')
+  return res
+}

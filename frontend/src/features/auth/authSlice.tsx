@@ -67,6 +67,11 @@ const authSlice = createSlice({
     fetchUserFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
+    logout(state) {
+      state.isLoggedIn = false;
+      state.currentUser = undefined; 
+      // Object.assign(state, initialState)
+    },
   },
 });
 

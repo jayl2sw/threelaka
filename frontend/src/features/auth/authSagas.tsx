@@ -3,9 +3,9 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, takeLatest } from 'redux-saga/effects';
 import { SignupPayload, LoginPayload, authActions } from './authSlice';
 import { ILoginResponse } from '../../services/userApi';
-import { createUserApi, loginApi } from '../../services/userApi';
+import { createUserApi, loginApi,userInfoApi,logoutApi  } from '../../services/userApi';
 import { User } from '../../models/user';
-import { userInfoApi } from '../../services/userApi';
+
 
 function* createUser(action: PayloadAction<SignupPayload>) {
   const { fetchUser } = authActions;
@@ -59,8 +59,26 @@ function* watchfetchUserFlow() {
   yield takeLatest(authActions.fetchUser.type, fetchUser);
 }
 
+
+
+function* logout() {
+  try {
+    const response: string = yield call(logoutApi);
+    console.log("로그아웃성공",response)
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');  
+  } catch (error) {
+    console.log(`로그아웃실패`, error);
+  }
+}
+function* watchLogoutFlow() {
+  yield takeLatest(authActions.logout.type, logout);
+}
+
+
 export const authSagas = [
   fork(watchSignupFlow),
   fork(watchLoginFlow),
+  fork(watchLogoutFlow),
   fork(watchfetchUserFlow),
 ];
