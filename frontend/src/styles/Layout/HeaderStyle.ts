@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {RiLogoutBoxRLine} from "react-icons/ri"
 
 interface LinkMenuProps {
   bgColor: string;
@@ -128,4 +129,8 @@ export const TitleRegion = styled.div`
 export const ProgressTest = styled.progress`
 
 
+`
+
+export const LogoutIcon = styled(RiLogoutBoxRLine)`
+  cursor: pointer;
 `
