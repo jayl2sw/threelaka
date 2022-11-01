@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from youtube_transcript_api import YouTubeTranscriptApi
 from fastapi.middleware.cors import CORSMiddleware
 from nltk.stem import WordNetLemmatizer
+import requests
+import json
+from properties import spell_checker_key
 
 from preprocess import preprocess
 from models import EssayChecker
@@ -31,7 +34,7 @@ async def preprocess(video_id):
     return preprocess(YouTubeTranscriptApi.get_transcript(video_id))
 
 
-@app.post("/api/v1/study/writing/check") 
+@app.post("/api/v1/study/writing/wordcheck") 
 async def checkWords(essay_checker: EssayChecker): 
     essay = essay_checker.essay
     essay = essay.replace(',', ' ')
@@ -49,3 +52,18 @@ async def checkWords(essay_checker: EssayChecker):
     
     return result
     
+@app.post("/api/v1/study/writing/spellcheck") 
+async def spellcheck(text):
+    api_key = spell_checker_key
+    endpoint = "https://api.bing.microsoft.com/v7.0/SpellCheck"
+    data = {'text': text}
+    params = {
+        'mkt':'en-us',
+        'mode':'proof'
+    }
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Ocp-Apim-Subscription-Key': api_key,
+    }
+    response = requests.post(endpoint, headers=headers, params=params, data=data)
+    return response.json()
