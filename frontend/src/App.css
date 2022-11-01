@@ -5,3 +5,21 @@ p {
 .App {
   min-height: 100vh;
 }
+
+@font-face {
+  font-family: Fredoka;
+  src: url('./fonts/fredoka-one-v13-latin-regular.woff')
+  /* src: url('./fonts/fredoka-one-v13-latin-regular.woff'); */
+}
+a {
+  text-decoration: none;
+  font-family: Fredoka;
+}
+body,
+button,
+input {
+  font-family: Fredoka;
+}
+button{
+  font-family: Fredoka;
+}

@@ -61,8 +61,15 @@ export const emailCheckApi = async (email: string) => {
   return res.data;
 };
 
-//리프레쉬토큰테스트
+//유저정보로드
 export const userInfoApi = async () => {
-  const res = await customAxios.get('api/v1/dashboard/profile');
-  return res;
+  const res = await customAxios.get('api/v1/user/info');
+  console.log("어디서막히나",res.data)
+  return res.data;
 };
+
+
+export const logoutApi = async () => {
+  const res = await customAxios.put('api/v1/user/logout')
+  return res
+}
