@@ -36,7 +36,7 @@ public interface StudyService {
 
     LearningRecordResponseDto getLearningRecordByVideo(String videoId);
 
-    LearningRecordResponseDto findLearningRecordById(LearningRecordRequestDto data);
+    LearningRecordResponseDto findLearningRecordById(int lrId);
 
     String getScript(String videoId);
 

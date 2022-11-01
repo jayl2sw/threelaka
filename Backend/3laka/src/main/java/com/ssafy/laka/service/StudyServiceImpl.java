@@ -221,8 +221,8 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public LearningRecordResponseDto findLearningRecordById(LearningRecordRequestDto data) {
-        return LearningRecordResponseDto.from(learningRecordRepository.findById(data.getLearningRecordId()).orElseThrow(LearningRecordNotFoundException::new));
+    public LearningRecordResponseDto findLearningRecordById(int lrId) {
+        return LearningRecordResponseDto.from(learningRecordRepository.findById(lrId).orElseThrow(LearningRecordNotFoundException::new));
     }
 
     @Override

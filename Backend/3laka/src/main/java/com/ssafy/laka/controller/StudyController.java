@@ -192,16 +192,16 @@ public class StudyController {
     }
 
 
-    @GetMapping("/record")
+    @GetMapping("/record/{lr_id}")
     @ApiOperation(value = "Learning Record 조회", notes = "해당 아이디를 가지는 Learning Record 조회")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> findLearningRecords(
-            @RequestBody LearningRecordRequestDto data
+            @PathVariable int lr_id
     ){
         // 학습 스테이지 저장
-        studyService.findLearningRecordById(data);
+        studyService.findLearningRecordById(lr_id);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 

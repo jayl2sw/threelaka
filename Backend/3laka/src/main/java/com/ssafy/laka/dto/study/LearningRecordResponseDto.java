@@ -15,12 +15,15 @@ import lombok.NoArgsConstructor;
 public class LearningRecordResponseDto {
     private int learningRecordId;
     private int userId;
+    private String VideoId;
     private String stage;
+
 
     public static LearningRecordResponseDto from(LearningRecord entity) {
         return LearningRecordResponseDto.builder()
                 .learningRecordId(entity.getLearningRecordId())
                 .userId(entity.getUser().getUserId())
+                .VideoId(entity.getVideo().getVideoId())
                 .stage(entity.getStage().toString())
                 .build();
     }
