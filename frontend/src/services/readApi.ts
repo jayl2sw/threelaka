@@ -51,8 +51,10 @@ export const getFindWordApi = async (word: string) => {
   return response;
 };
 
-export const postAddWordToWordBookApi = async (wordInfo: WordInfo): Promise<any> => {
-  let res = await customAxios.post(`api/v1/study/word`, wordInfo);  
+export const postAddWordToWordBookApi = async (
+  wordInfo: WordInfo
+): Promise<any> => {
+  let res = await customAxios.post(`api/v1/study/word`, wordInfo);
   // res = JSON.parse(res.data.script);
   // console.log(res);
   return res.data; // "success"
