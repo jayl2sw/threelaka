@@ -22,4 +22,12 @@ export const updateStudyStageApi = async (
   const res = await customAxios.put(`api/v1/study/complete/stage`, stageInfo);
   console.log(res.data);
   return res.data;
-};
+}
+
+// 단어장 가져오기 API
+export const getWordBookApi =async (learningId: number): Promise<any> => {
+  const res = await customAxios.get(`api/v1/study/word/${learningId}`);
+  console.log(res.data);
+  return res.data;
+}
+

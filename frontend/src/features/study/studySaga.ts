@@ -1,12 +1,8 @@
-import {
-  postStartStudyApi,
-  putStopStudyApi,
-  updateStudyStageApi,
-} from '../../services/studyApi';
+import { postStartStudyApi, putStopStudyApi, updateStudyStageApi, getWordBookApi } from '../../services/studyApi';
 import { getFindWordApi } from '../../services/readApi';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
-import { StudyStage, WordMeaning, StageInfo } from '../../models';
+import { StudyStage, WordMeaning, StageInfo, WordBook} from '../../models';
 import { studyActions } from './study-slice';
 // 공부 시작 SAGA
 function* onPostStartStudyAsync(action: PayloadAction<string>) {
@@ -54,6 +50,17 @@ function* onUpdateStudyStageAsync(action: PayloadAction<StageInfo>) {
   }
 }
 
+// 해당 learning record의 단어장 가져오기 SAGA
+function* onGetWordBookAsync(action: PayloadAction<number>) {
+  try {
+    const response: WordBook[] = yield call(getWordBookApi, action.payload);
+    yield put(studyActions.getWordBookSuccess(response));
+  } catch (error: any) {
+    console.log(`Failed to fetch StartStudy`, error);
+    yield put(studyActions.getWordBookFailed());
+  }
+}
+
 // 공부 시작 watch
 export function* watchPostStartStudyAsync() {
   yield takeLatest(studyActions.postStartStudy.type, onPostStartStudyAsync);
@@ -73,10 +80,15 @@ export function* watchUpdateStudyStageAsync() {
     onUpdateStudyStageAsync
   );
 }
+// 단어장 불러오기 watch
+export function* watchGetWordBookAsync() {
+  yield takeLatest(studyActions.getWordBookStart.type, onGetWordBookAsync);
+}
 
 export const studySagas = [
   fork(watchPostStartStudyAsync),
   fork(watchPutStopStudyAsync),
   fork(watchgetSearchDictAsync),
   fork(watchUpdateStudyStageAsync),
+  fork(watchGetWordBookAsync),
 ];
