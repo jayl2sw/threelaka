@@ -36,7 +36,6 @@ function App() {
       <Routes>
         {/* Main */}
         <Route element={<ProtectedRoute />}>
-
           <Route path="" element={<MainLayout />}>
             <Route path="home" element={<MainPage />} />
             <Route path="videos" element={<VideosPage />} />
@@ -49,24 +48,27 @@ function App() {
         <Route path="auth">
           <Route path="login" element={<AuthPage />} />
           <Route element={<ProtectedRoute />}>
-
             <Route path="dashboard/:pageNum" element={<DashBoardPage />} />
             <Route path="" element={<PageNotFound />} />
-          {/* 뒤에 라우트 주소가 비었을때도 NotFound로 갈 수 있게끔*/}
+            {/* 뒤에 라우트 주소가 비었을때도 NotFound로 갈 수 있게끔*/}
           </Route>
-
         </Route>
 
         <Route element={<ProtectedRoute />}>
-
-          
-
-
           <Route path="study" element={<StudyLayout />}>
-            <Route path="reading/:learningRecordId/:stage" element={<ReadPage />} />
+            <Route
+              path="reading/:learningRecordId/:stage/:videoId"
+              element={<ReadPage />}
+            />
             <Route path="voca" element={<VocaPage />} />
-            <Route path="writing/:learningRecordId/:stage" element={<WritingPage />} />
-            <Route path="speaking/:learningRecordId/:stage" element={<SpeakingPage />} />
+            <Route
+              path="writing/:learningRecordId/:stage/:videoId"
+              element={<WritingPage />}
+            />
+            <Route
+              path="speaking/:learningRecordId/:stage/:videoId"
+              element={<SpeakingPage />}
+            />
             <Route path="" element={<PageNotFound />} />
           </Route>
         </Route>
