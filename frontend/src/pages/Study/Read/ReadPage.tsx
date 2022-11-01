@@ -115,7 +115,7 @@ const ReadPage = () => {
     dispatch(studyActions.UpdateStudyStageStart(stageInfo));
     // 2. 라이팅 페이지로 이동
     navigate(
-      `/study/writing/${pageParams.learningRecordId}/Writing/${pageParams.videoId}`
+      `/study/writing/${pageParams.learningRecordId}/WRITING/${pageParams.videoId}`
     );
   };
 

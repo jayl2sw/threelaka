@@ -10,6 +10,9 @@ interface CommonBtnProps {
 }
 
 export const TopBtn = styled.div<CommonBtnProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
@@ -50,6 +53,9 @@ export const TopBtn = styled.div<CommonBtnProps>`
 `;
 
 export const RightBtn = styled.div<CommonBtnProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
@@ -90,6 +96,9 @@ export const RightBtn = styled.div<CommonBtnProps>`
 `;
 
 export const MainBtn = styled.div<CommonBtnProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
@@ -129,6 +138,9 @@ export const MainBtn = styled.div<CommonBtnProps>`
 `;
 
 export const GradientRoundBtn = styled.div<CommonBtnProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};

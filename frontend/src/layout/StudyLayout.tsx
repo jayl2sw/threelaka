@@ -13,7 +13,6 @@ const StudyLayout = () => {
       }}
     >
       <Header></Header>
-
       <Outlet />
     </div>
   );
