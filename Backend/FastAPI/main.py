@@ -77,8 +77,25 @@ async def oxford(word):
     }
     language = "en-us"
     url = "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word.lower()
-    response = requests.get(url, headers=headers)
-    return response.json()
+    response = requests.get(url, headers=headers).json()
+
+    senses = response["results"][0]["lexicalEntries"][0]['entries'][0]['senses'][0]
+    wordDefinition = senses['definitions'][0]
+    wordExample = ''
+    try:
+        wordExample = senses['examples'][0]['text']
+    except:
+        wordExample = 'example does not exist'
+    lexicalCategory = response['results'][0]['lexicalEntries'][0]['lexicalCategory']['text']
+    response = {
+        "wordId": word,
+        "wordDefinition": wordDefinition,
+        "wordExample": wordExample,
+        "lexicalCategory": lexicalCategory,
+    }
+
+    return response
+    
 
 @app.post("/api/v2/study/speechace") 
 async def speechace(text, file: bytes = File()):
