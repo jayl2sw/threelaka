@@ -6,26 +6,33 @@ export interface StudyStage {
 }
 
 export interface WordMeaning {
-  wordId: string,
+  wordId: string;
   wordDefinition: string;
-  wordExample: string
-  lexicalCategory: string
-};
+  wordExample: string;
+  lexicalCategory: string;
+}
 
 export interface WordInfo {
   definition: string;
   example: string;
   videoId: string;
   word: string;
-};
+}
 
 export interface StageInfo {
   learningRecordId: number;
   stage: string;
-};
+}
 
 export interface WordBook {
   wordbookId: number;
   word: string;
   example: string;
+}
+
+export interface SpeakingMode {
+  pronunciationTest: boolean;
+  webcamMode: boolean;
+  voiceMode: boolean;
+  scriptOn: boolean;
 }

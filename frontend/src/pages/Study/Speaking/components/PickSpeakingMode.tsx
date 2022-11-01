@@ -1,7 +1,7 @@
 import React from 'react';
 import { VideoOrAudioPick } from '../../../../styles/Speaking/SpeakingStyle';
 
-const VideoOrAudio = () => {
+const PickSpeakingMode = () => {
   return (
     <VideoOrAudioPick>
       <button>발음 연습</button>
@@ -11,4 +11,4 @@ const VideoOrAudio = () => {
   );
 };
 
-export default VideoOrAudio;
+export default PickSpeakingMode;

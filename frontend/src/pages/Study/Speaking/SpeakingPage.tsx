@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import WebCam from './components/WebCam';
-import VideoOrAudio from './components/VideoOrAudio';
+import PickSpeakingMode from './components/PickSpeakingMode';
 import EssayScript from './components/EssayScript';
-
+import SpeechTest from './components/SpeechTest';
 import {
   SpeakingPageBlock,
   VideoAudioButtonContainer,
@@ -37,10 +37,11 @@ const SpeakingPage = () => {
 
   return (
     <SpeakingPageBlock>
-      <VideoOrAudio />
+      <PickSpeakingMode />
+      <SpeechTest />
       <WebCam />
       <VoiceRecorder />
-      <EssayScript />
+      {/* <EssayScript /> */}
     </SpeakingPageBlock>
   );
 };

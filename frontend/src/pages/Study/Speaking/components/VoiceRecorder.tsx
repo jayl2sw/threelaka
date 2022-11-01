@@ -15,7 +15,7 @@ const VoiceRecorder = () => {
   return (
     <div>
       <audio controls src={audioResult} />
-      {/* idel => 빨간 점, recordeing: REC 로고 */}
+      {/* idle => 빨간 점, recordeing: REC 로고 */}
       <p>{status}</p>
       <div>
         <p>{new Date(timer * 1000).toISOString().substr(11, 8)}</p>
