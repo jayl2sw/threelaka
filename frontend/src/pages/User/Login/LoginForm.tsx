@@ -43,12 +43,19 @@ const LoginForm = ({
   const dispatch = useAppDispatch();
 
   const schema = yup.object().shape({
+    // username: yup
+    //   .string()
+    //   .required('아이디를 입력해주세요')
+    //   .matches(
+    //     /^[a-z0-9]{4,16}$/,
+    //     '4자 이상, 16자 이하의 영문 혹은 숫자로 입력해주세요.'
+    //   ),
     username: yup
       .string()
-      .required('아이디를 입력해주세요')
+      .required('이메일을 입력해주세요')
       .matches(
-        /^[a-z0-9]{4,16}$/,
-        '4자 이상, 16자 이하의 영문 혹은 숫자로 입력해주세요.'
+        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+        '이메일 형태로 입력해주세요'
       ),
     password: yup
       .string()
@@ -99,7 +106,7 @@ const LoginForm = ({
         </p>
       </Heading>
       <InputWrap>
-        <InputField name="username" control={control} label="아이디" />
+        <InputField name="username" control={control} label="이메일" />
         <InputField
           name="password"
           control={control}

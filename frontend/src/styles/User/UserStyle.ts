@@ -234,7 +234,11 @@ export const StyledInput = styled.input`
   }
 `;
 
-export const ErrorText = styled.div``;
+export const ErrorText = styled.div`
+  font-size: 1.3vmin;
+  color: red;
+  margin-top: 3px;
+`;
 
 export const StyledLabel = styled.div`
   position: none;
