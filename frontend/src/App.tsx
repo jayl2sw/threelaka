@@ -4,8 +4,7 @@ import MainPage from './pages/Main/MainPage';
 import VideosPage from './pages/Videos/VideosPage';
 // Layout
 import StudyLayout from './layout/StudyLayout';
-import MainLayout from './layout/MainLayout'
-
+import MainLayout from './layout/MainLayout';
 
 // Auth
 import AuthPage from './pages/User/Auth/AuthPage';
@@ -25,17 +24,15 @@ import PageNotFound from './layout/PageNotFound';
 
 import Counter from './pages/Counter/Counter';
 
-
-
 function App() {
   return (
     <div className="App">
       <Routes>
         {/* Main */}
         <Route path="" element={<MainLayout />}>
-          <Route path="home" element={<MainPage />}/>
-          <Route path="videos" element={<VideosPage />}/>
-          <Route path="" element={<MainPage />}/>
+          <Route path="home" element={<MainPage />} />
+          <Route path="videos" element={<VideosPage />} />
+          <Route path="" element={<MainPage />} />
           {/* 뒤에 라우트 주소가 비었을 때에도 무조건 메인으로 */}
         </Route>
         {/* Auth */}
@@ -45,10 +42,19 @@ function App() {
           {/* 뒤에 라우트 주소가 비었을때도 NotFound로 갈 수 있게끔*/}
         </Route>
         <Route path="study" element={<StudyLayout />}>
-          <Route path="reading/:learningRecordId/:stage" element={<ReadPage />} />
+          <Route
+            path="reading/:learningRecordId/:stage"
+            element={<ReadPage />}
+          />
           <Route path="voca" element={<VocaPage />} />
-          <Route path="writing/:learningRecordId/:stage" element={<WritingPage />} />
-          <Route path="speaking/:learningRecordId/:stage" element={<SpeakingPage />} />
+          <Route
+            path="writing/:learningRecordId/:stage"
+            element={<WritingPage />}
+          />
+          <Route
+            path="speaking/:learningRecordId/:stage"
+            element={<SpeakingPage />}
+          />
           <Route path="" element={<PageNotFound />} />
         </Route>
         <Route path="dashboard">
