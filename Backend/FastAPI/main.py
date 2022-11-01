@@ -1,10 +1,11 @@
-from fastapi import FastAPI 
+from fastapi import FastAPI, File, UploadFile, Form
 from youtube_transcript_api import YouTubeTranscriptApi
 from fastapi.middleware.cors import CORSMiddleware
 from nltk.stem import WordNetLemmatizer
 import requests
 import json
-from properties import spell_checker_key
+from properties import spell_checker_key, oxford_appId, oxford_key, speechace_url
+from requests_toolbelt import MultipartEncoder
 
 from preprocess import preprocess
 from models import EssayChecker
@@ -29,12 +30,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/api/v1/video/script/{video_id}") 
+@app.get("/api/v2/video/script/{video_id}") 
 async def preprocess(video_id): 
     return preprocess(YouTubeTranscriptApi.get_transcript(video_id))
 
 
-@app.post("/api/v1/study/writing/wordcheck") 
+@app.post("/api/v2/study/writing/wordcheck") 
 async def checkWords(essay_checker: EssayChecker): 
     essay = essay_checker.essay
     essay = essay.replace(',', ' ')
@@ -52,7 +53,7 @@ async def checkWords(essay_checker: EssayChecker):
     
     return result
     
-@app.post("/api/v1/study/writing/spellcheck") 
+@app.post("/api/v2/study/writing/spellcheck") 
 async def spellcheck(text):
     api_key = spell_checker_key
     endpoint = "https://api.bing.microsoft.com/v7.0/SpellCheck"
@@ -66,4 +67,31 @@ async def spellcheck(text):
         'Ocp-Apim-Subscription-Key': api_key,
     }
     response = requests.post(endpoint, headers=headers, params=params, data=data)
+    return response.json()
+
+@app.post("/api/v2/study/dictionary") 
+async def oxford(word):
+    headers = {
+        "app_id": oxford_appId,
+        "app_key": oxford_key
+    }
+    language = "en-us"
+    url = "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word.lower()
+    response = requests.get(url, headers=headers)
+    return response.json()
+
+@app.post("/api/v2/study/speechace") 
+async def speechace(text, file: bytes = File()):
+    print(bytes)
+
+    data= {
+        "text": text,
+        "question_info": 'u1/q1',
+        "no_mc": 1
+    }
+    files = {
+        "user_audio_file" : file
+    }
+    session = requests.Session()
+    response = session.post(speechace_url, data=data, files=files)
     return response.json()
