@@ -41,7 +41,7 @@ public class YoutubeServiceImpl implements YoutubeService {
     private String apiKey;
 
 //    @Value("${fastApi.url}")
-    private String urlString = "http://3laka.com:8081/api/v1/video/script/";
+    private String urlString = "http://3laka.com:8081/api/v2/video/script/";
     private final VideoRepository videoRepository;
     private final ScriptRepository scriptRepository;
     @Override
@@ -85,7 +85,6 @@ public class YoutubeServiceImpl implements YoutubeService {
     }
 
     private String getScript(String id) throws IOException {
-        System.out.println(urlString+id);
         URL url = new URL(urlString+id);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setDoOutput(true);
