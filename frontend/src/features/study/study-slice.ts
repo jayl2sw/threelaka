@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { string } from 'yup';
-import { StudyStage, WordMeaning, StageInfo } from '../../models';
+import { StudyStage, WordMeaning, StageInfo, WordBook } from '../../models';
 
 type StudyState = {
   loading: boolean;
   studyState: StudyStage;
-  wordMeaning: WordMeaning;  
+  wordMeaning: WordMeaning;
+  wordBookList: WordBook[];
 };
 
 
@@ -23,6 +24,7 @@ let initialState: StudyState = {
     wordExample: '',
     lexicalCategory: '',
   },
+  wordBookList: [],
 };
 
 const studySlice = createSlice({
@@ -87,6 +89,20 @@ const studySlice = createSlice({
     },
     // 학습상황 업데이트 시작 실패
     UpdateStudyStageStartFailed(state) {
+      state.loading = false;
+      // console.log(action);
+    },
+    // 단어장 불러오기 시작
+    getWordBookStart(state, action: PayloadAction<number>) {
+      state.loading = true;      
+    },
+    // 단어장 불러오기 성공
+    getWordBookSuccess(state, action: PayloadAction<WordBook[]>) {
+      state.loading = false;
+      state.wordBookList = action.payload;      
+    },
+    // 단어장 불러오기 실패
+    getWordBookFailed(state) {
       state.loading = false;
       // console.log(action);
     },

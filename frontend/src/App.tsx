@@ -56,14 +56,17 @@ function App() {
           </Route>
 
         </Route>
+
         <Route element={<ProtectedRoute />}>
 
           
+
+
           <Route path="study" element={<StudyLayout />}>
-            <Route path="reading" element={<ReadPage />} />
+            <Route path="reading/:learningRecordId/:stage" element={<ReadPage />} />
             <Route path="voca" element={<VocaPage />} />
-            <Route path="writing" element={<WritingPage />} />
-            <Route path="speaking" element={<SpeakingPage />} />
+            <Route path="writing/:learningRecordId/:stage" element={<WritingPage />} />
+            <Route path="speaking/:learningRecordId/:stage" element={<SpeakingPage />} />
             <Route path="" element={<PageNotFound />} />
           </Route>
         </Route>

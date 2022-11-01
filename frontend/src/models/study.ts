@@ -23,3 +23,9 @@ export interface StageInfo {
   learningRecordId: number;
   stage: string;
 };
+
+export interface WordBook {
+  wordbookId: number;
+  word: string;
+  example: string;
+}

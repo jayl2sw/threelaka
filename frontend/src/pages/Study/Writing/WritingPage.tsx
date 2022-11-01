@@ -1,10 +1,15 @@
-import React from 'react';
+import {
+  WritingPageBlock,
+  
+} from '../../../styles/Writing/WritingStyle';
+
+import WordListAndWritingContainerComp from './components/WordListAndWritingContainer';
 
 const WritingPage = () => {
   return (
-    <div>
-      <p>라이팅페이지입니다</p>
-    </div>
+    <WritingPageBlock>
+      <WordListAndWritingContainerComp />      
+    </WritingPageBlock>
   );
 };
 
