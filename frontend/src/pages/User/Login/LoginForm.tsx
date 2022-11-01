@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { useState, useEffect, useCallback, RefObject } from 'react';
-import { StyledForm,Heading,InputWrap } from '../../../styles/User/UserStyle';
+import { StyledForm, Heading, InputWrap } from '../../../styles/User/UserStyle';
 import { useAppDispatch } from '../../../utils/hooks';
 import { authActions } from '../../../features/auth/authSlice';
 
@@ -26,10 +26,8 @@ interface ILoginFormProps {
   FormBlockRef: RefObject<HTMLDivElement>;
   setMoveCarousel: React.Dispatch<React.SetStateAction<string>>;
   moveCarousel: string;
-  handleToggle: ()=>void
+  handleToggle: () => void;
 }
-
-
 
 const LoginForm = ({
   handleToggle,
@@ -43,7 +41,7 @@ const LoginForm = ({
   // const [errMsg, setErrMsg] = useState('');
 
   const dispatch = useAppDispatch();
-  
+
   const schema = yup.object().shape({
     username: yup
       .string()
@@ -88,10 +86,17 @@ const LoginForm = ({
       className="login-form"
     >
       <Heading>
-        <h6>회원가입함해봐랑</h6>
-        <a href="#" onClick={handleToggle} className="toggle">
-          다시로그인해야징
-        </a>
+        <h1>
+          Yes,
+          <br />
+          It's time to ThreeLaka!
+        </h1>
+        <p>
+          Not Registered Yet?&nbsp;
+          <a href="#" onClick={handleToggle} className="toggle">
+            Sign Up
+          </a>
+        </p>
       </Heading>
       <InputWrap>
         <InputField name="username" control={control} label="아이디" />

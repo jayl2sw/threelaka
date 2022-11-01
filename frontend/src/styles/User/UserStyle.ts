@@ -1,17 +1,19 @@
+import { Radio } from '@material-ui/core';
 import styled from 'styled-components';
 export const StyledForm = styled.form`
-  max-width: 260px;
+  max-width: 400px;
   width: 100%;
   margin: 0 auto;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   grid-column: 1 / 2;
   grid-row: 1 / 2;
   transition: opacity 0.02s 0.4s;
-
-
+  &.login-form {
+    justify-content: space-around;
+  }
 `;
 
 export const AuthBlock = styled.div`
@@ -38,7 +40,7 @@ export const AuthBlock = styled.div`
   }
 
   .toggle-forms-wrap {
-    left: 55%;
+    left: 40%;
     /* background-color: black; */
   }
   .toggle-carousel {
@@ -71,20 +73,21 @@ export const InnerBox = styled.div`
 
 export const FormsWrap = styled.div`
   position: absolute;
-  height: 80%;
-  width: 45%;
+  height: 90%;
+  width: 60%;
   top: 0;
   left: 0;
-  background-color: red;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
-  
+
   .sign-up-form {
     opacity: 0;
     pointer-events: none;
   }
-
+  .sign-up-form > div:nth-child(2) {
+    height: 70%;
+  }
   .hide-login-form {
     opacity: 0;
     pointer-events: none;
@@ -102,9 +105,9 @@ export const FormsWrap = styled.div`
 
 export const Carousel = styled.div`
   position: absolute;
-  height: 80%;
-  left: 45%;
-  width: 55%;
+  height: 90%;
+  left: 60%;
+  width: 40%;
   /* background-color: beige; */
   background-color: blue;
   top: 0;
@@ -112,25 +115,37 @@ export const Carousel = styled.div`
 `;
 
 export const Heading = styled.div`
-  h6 {
+  h1 {
     display: inline;
+  }
+  p {
+    color: #aaa;
   }
   .toggle {
     text-decoration: none;
     font-size: 2vmin;
+    font-weight: bold;
+    transition: 0.3s;
   }
   .toggle:hover {
-    color: red;
+    color: black;
   }
 `;
 export const InputWrap = styled.div`
   position: relative;
-  height: 37px;
-  margin-bottom: 2rem;
-
+  height: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  .short {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .age {
+    width: 30%;
+  }
 `;
-
-
 // // 영상 url 넣을 input 스타일링
 // export const StyledInput = styled.div`
 //   position: relative;
@@ -201,44 +216,38 @@ export const InputWrap = styled.div`
 // `;
 
 export const StyledInput = styled.input`
-  /* position: absolute; */
   width: 100%;
-  height: 100%;
+  height: 50%;
   background: none;
   outline: none;
   border: none;
   border-bottom: 1px solid #bbb;
   padding: 0;
-  font-size: 1vmin;
+  font-size: 2vmin;
   color: #333333;
-  transition: .4s;
-  &.active{
-    border-bottom-color:#333333;
-    
+  transition: 0.4s;
+  &.active {
+    border-bottom-color: #333333;
   }
-  /* &.active +  {
-    font-size: 1vmin
+  &.age {
+    width: 20%;
+  }
+`;
 
-  } */
-
-`
-
-export const ErrorText = styled.div`
-`
+export const ErrorText = styled.div``;
 
 export const StyledLabel = styled.div`
   position: none;
   left: 0;
   top: 50%;
   transform: translateY(100%);
-  font-size: 2.5vmin;
+  font-size: 2vmin;
   color: #bbb;
   pointer-events: none;
-  transition: .4s;
-  &.active{
+  transition: 0.4s;
+  &.active {
     font-size: 1vmin;
+    transform: translateY(50%);
     top: -2px;
-    
   }
-
-`
+`;

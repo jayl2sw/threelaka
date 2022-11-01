@@ -39,7 +39,7 @@ interface ISignupFormProps {
   FormBlockRef: RefObject<HTMLDivElement>;
   setMoveCarousel: React.Dispatch<React.SetStateAction<string>>;
   moveCarousel: string;
-  handleToggle: ()=>void
+  handleToggle: () => void;
 }
 
 const SignupForm = ({
@@ -49,7 +49,7 @@ const SignupForm = ({
   FormBlockRef,
   setMoveCarousel,
   moveCarousel,
-  handleToggle
+  handleToggle,
 }: ISignupFormProps) => {
   // const [errMsg, setErrMsg] = useState('');
 
@@ -174,10 +174,17 @@ const SignupForm = ({
       className="sign-up-form"
     >
       <Heading>
-        <h6>회원가입함해봐랑</h6>
-        <a href="#" onClick={handleToggle} className="toggle">
-          다시로그인해야징
-        </a>
+        <h1>
+          Hello,
+          <br />
+          Welcome to ThreeLaka!
+        </h1>
+        <p>
+          Already Have an Account?&nbsp;
+          <a href="#" onClick={handleToggle} className="toggle">
+            Sign In
+          </a>
+        </p>
       </Heading>
       <InputWrap>
         <InputField name="username" control={control} label="아이디" />
@@ -195,26 +202,35 @@ const SignupForm = ({
         />
         <InputField name="nickname" control={control} label="닉네임" />
         <InputField name="email" control={control} label="이메일" />
-        <InputField name="age" control={control} label="나이" type="number" />
-        <RadioField
-          name="gender"
-          control={control}
-          label="성별"
-          options={[
-            {
-              label: '남성',
-              value: '0',
-            },
-            {
-              label: '여성',
-              value: '1',
-            },
-            {
-              label: '쉿,비밀이야',
-              value: '2',
-            },
-          ]}
-        />
+        <div className="short">
+          <div className="age">
+            <InputField
+              name="age"
+              control={control}
+              label="나이"
+              type="number"
+            />
+          </div>
+          <RadioField
+            name="gender"
+            control={control}
+            label="성별"
+            options={[
+              {
+                label: '남성',
+                value: '0',
+              },
+              {
+                label: '여성',
+                value: '1',
+              },
+              {
+                label: '비공개',
+                value: '2',
+              },
+            ]}
+          />
+        </div>
       </InputWrap>
       <button>제출</button>
     </StyledForm>
