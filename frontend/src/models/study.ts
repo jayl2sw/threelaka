@@ -22,7 +22,7 @@ export interface WordMeaning {
 export interface WordInfo {
   definition: string;
   example: string;
-  videoId: string;
+  lrId: number;
   word: string;
 }
 

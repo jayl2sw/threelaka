@@ -11,6 +11,8 @@ import {
   BtnsRegion,
   SaveBtn,
 } from '../../../../styles/Writing/WritingStyle';
+import { MainPaleBox } from '../../../../styles/Common/CommonDivStyle';
+import { TopBtn } from '../../../../styles/Common/CommonBtnStyle';
 import { StudyPageParams } from '../../../../models';
 
 interface IworlListAndWrtingProps {
@@ -37,8 +39,22 @@ const WordListAndWritingContainerComp = ({
 
   return (
     <WordListAndWritingContainer>
-      <WordListRegion>
-        <ContentBox bgColor="white" widthSize="15vw" heightSize="64vh">
+      <MainPaleBox
+        widthSize={'17vw'}
+        heightSize={'70vh'}
+        paddingSize={'0'}
+        fontColor={'black'}
+        fontSize={'2vmin'}
+      >
+        <ContentBox>
+          <TopBtn
+            widthSize={'30vw'}
+            heightSize={'10vh'}
+            paddingSize={'0'}
+            fontColor={'blue'}
+            fontSize={'2vmin'}
+            backgroundColor={'gradient'}
+          ></TopBtn>
           <ContentBoxTag
             topShift="-4vh"
             leftShift="0vw"
@@ -58,7 +74,7 @@ const WordListAndWritingContainerComp = ({
         {/* <ContentBox bgColor="#005e76" widthSize="15vw" heightSize='25vh'>
           <ContentBoxTag topShift='-4vh' leftShift='0vw' bgColor="#005e76" fontColor='white'>사전</ContentBoxTag>  
         </ContentBox>           */}
-      </WordListRegion>
+      </MainPaleBox>
       {/* <Preview id={'jsx-template'} > */}
       <WritingRegion>
         <WritingTextArea></WritingTextArea>

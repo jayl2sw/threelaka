@@ -100,7 +100,7 @@ const ReadPage = () => {
     const wordInfo = {
       definition: wordMeaning.wordDefinition,
       example: selectedSentence,
-      videoId: pageParams.videoId,
+      lrId: pageParams.learningRecordId,
       word: wordMeaning.wordId,
     };
     dispatch(readActions.postAddWordToWordBookStart(wordInfo));
