@@ -45,10 +45,10 @@ function App() {
           {/* 뒤에 라우트 주소가 비었을때도 NotFound로 갈 수 있게끔*/}
         </Route>
         <Route path="study" element={<StudyLayout />}>
-          <Route path="reading" element={<ReadPage />} />
+          <Route path="reading/:learningRecordId/:stage" element={<ReadPage />} />
           <Route path="voca" element={<VocaPage />} />
-          <Route path="writing" element={<WritingPage />} />
-          <Route path="speaking" element={<SpeakingPage />} />
+          <Route path="writing/:learningRecordId/:stage" element={<WritingPage />} />
+          <Route path="speaking/:learningRecordId/:stage" element={<SpeakingPage />} />
           <Route path="" element={<PageNotFound />} />
         </Route>
         <Route path="dashboard">
