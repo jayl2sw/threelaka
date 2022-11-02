@@ -64,7 +64,7 @@ const WordListAndWritingContainerComp = ({
   const essaySave = () => {
     const temp: SaveEssayPayload = {
       content: textAreaRef.current!.innerText,
-      learningRecordId: pageParams.learningRecordId,
+      learningRecordId: Number(pageParams.learningRecordId),
     };
     dispatch(writingActions.postSaveEssayStart(temp));
   };
@@ -79,6 +79,8 @@ const WordListAndWritingContainerComp = ({
   // 나갈 때 에세이 저장해달라고 함
   useEffect(() => {
     dispatch(studyActions.getWordBookStart(pageParams.learningRecordId));
+
+    //내가 쓴 에세이 불러오는거
     dispatch(writingActions.getEssayStart(pageParams.learningRecordId));
   }, []);
 

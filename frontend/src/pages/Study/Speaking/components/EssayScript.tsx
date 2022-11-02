@@ -8,19 +8,36 @@ import {
   TextContainer,
 } from '../../../../styles/Speaking/SpeakingStyle';
 import { useState } from 'react';
-import { useAppDispatch } from '../../../../utils/hooks';
+
+import { useAppDispatch, useAppSelector } from '../../../../utils/hooks';
 import { useCallback } from 'react';
+import { writingActions } from '../../../../features/writing/writing-slice';
+import { StudyPageParams } from '../../../../models';
 
 interface IEssayProps {
   setSelectedText: React.Dispatch<React.SetStateAction<string>>;
+  pageParams: StudyPageParams;
 }
 
-const EssayScript = ({ setSelectedText }: IEssayProps) => {
+const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const isOnScreen = useOnScreen(elementRef);
   const dispatch = useAppDispatch();
   const textBoxRef = useRef<HTMLDivElement[]>([]);
   const [script, setScript] = useState<string[]>([]);
+  const userEssay = useAppSelector((state) => state.write.essay);
+  useEffect(() => {
+    //내가 쓴 에세이 불러오는거
+    dispatch(writingActions.getEssayStart(pageParams.learningRecordId));
+  }, []);
+
+  // useEffect(() => {
+  //   if (userEssay === null) {
+  //     setTextAreaValue('아직 작성된 에세이가 없어요😂');
+  //   } else {
+  //     setTextAreaValue(userEssay);
+  //   }
+  // }, [userEssay]);
   //뉴라인만
   const FilterScript = () => {
     console.log('얘는뭘까', { isOnScreen });
@@ -39,7 +56,7 @@ const EssayScript = ({ setSelectedText }: IEssayProps) => {
     I love you so much.\
     I need delicious food.';
 
-    let splittedText = dummy3.split('.');
+    let splittedText = userEssay.split('.');
 
     const texts = splittedText.map((item, key) => {
       let trimmed = item.trimStart();
@@ -54,7 +71,7 @@ const EssayScript = ({ setSelectedText }: IEssayProps) => {
 
   useEffect(() => {
     dispatch(FilterScript);
-  }, []);
+  }, [userEssay]);
 
   const options = {
     root: null, // viewport
@@ -87,7 +104,7 @@ const EssayScript = ({ setSelectedText }: IEssayProps) => {
           <button>실전</button>
         </ModePickContainer> */}
 
-        {script &&
+        {script ? (
           script.map((item, idx) => (
             <TextBox
               key={idx}
@@ -99,7 +116,10 @@ const EssayScript = ({ setSelectedText }: IEssayProps) => {
             >
               {item}
             </TextBox>
-          ))}
+          ))
+        ) : (
+          <p>아직 작성된 에세이가 없어요😂</p>
+        )}
       </TextContainer>
     </EssayContainer>
   );
