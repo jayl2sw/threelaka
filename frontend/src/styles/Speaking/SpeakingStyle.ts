@@ -9,7 +9,7 @@ export const SpeakingPageBlock = styled.div`
   width: 100vw;
   height: 85vh;
   padding: 0 10vw 5vh 10vw;
-  border: 1px solid black;
+  border: 1px solid red;
 `;
 
 export const VideoAudioButtonContainer = styled.div`
@@ -36,15 +36,15 @@ export const VideoAudioContainer = styled.div`
   }
 `;
 
-export const VideoOrAudioPick = styled.div`
+export const ModeBtnBox = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 15vw;
-  height: 5vh;
+  flex-direction: column;
+  width: 10vw;
+  height: 30vh;
   & button {
-    background-color: #4a9fff;
-    color: white;
+    width: 5vw;
+    height: 5vh;
+    margin-bottom: 2vh;
   }
 `;
 

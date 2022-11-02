@@ -1,28 +1,26 @@
 import React, { useState } from 'react';
-import WebCam from './components/WebCam';
-import PickSpeakingMode from './components/PickSpeakingMode';
+import PickSpeakingMode from './components/ModeBtnContainer';
 import EssayScript from './components/EssayScript';
-import SpeechTest from './components/SpeechTest';
 import {
   SpeakingPageBlock,
   VideoAudioButtonContainer,
 } from '../../../styles/Speaking/SpeakingStyle';
-import VoiceRecorder from './components/VoiceRecorder';
-import PickedMode from './components/speakingMode';
+import { useLocation } from 'react-router-dom';
+import SpeakingScreen from './components/SpeakingScreen';
 
 const SpeakingPage = () => {
   // 발음 테스트 클릭
   const onClickProTest = () => {};
 
+  const modeCode = useLocation().search.replace('?mode=', '');
+
   // 실전녹화 선택
 
   return (
     <SpeakingPageBlock>
-      <PickSpeakingMode />
-      <SpeechTest />
-      {/* <WebCam /> */}
-      {/* <VoiceRecorder /> */}
-      <PickedMode />
+      <p>-------------스크린--------------</p>
+      <SpeakingScreen />
+      <p>-----------스피치테스트-----------</p>
       {/* <EssayScript /> */}
     </SpeakingPageBlock>
   );
