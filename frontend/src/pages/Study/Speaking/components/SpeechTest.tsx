@@ -1,10 +1,15 @@
 import React from 'react';
-import VoiceRecorder from './VoiceRecorder';
+import EssayScript from './EssayScript';
+import VoiceRecorderForTest from './VoiceRecorderForTest';
+import { useState } from 'react';
 const SpeechTest = () => {
+  const [selectedText, setSelectedText] = useState<string>('');
   return (
     <div>
-      스피치 테스트 들어갑니다
-      {/* <VoiceRecorder /> */}
+      {/* null일때 */}
+      {/* <p>테스트하고 싶은 문장을 클릭해보세요!</p> */}
+      <VoiceRecorderForTest></VoiceRecorderForTest>
+      <EssayScript setSelectedText={setSelectedText}></EssayScript>
     </div>
   );
 };

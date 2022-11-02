@@ -25,9 +25,6 @@ import PageNotFound from './layout/PageNotFound';
 // Private
 import { ProtectedRoute } from './pages/private/ProtectedRoute';
 
-//발음체크테스트
-import SpeechacePage from './pages/Study/Speaking/SpeechacePage';
-
 function App() {
   const dispatch = useAppDispatch();
 
@@ -66,11 +63,7 @@ function App() {
               element={<WritingPage />}
             />
             <Route
-              path="writing/:learningRecordId/:stage"
-              element={<WritingPage />}
-            />
-            <Route
-              path="speaking/:learningRecordId/:stage"
+              path="speaking/:learningRecordId/:stage/:videoId"
               element={<SpeakingPage />}
             />
             <Route path="" element={<PageNotFound />} />
@@ -79,8 +72,6 @@ function App() {
 
         {/* Not Found */}
         <Route path="*" element={<PageNotFound />}></Route>
-        {/* Dummy */}
-        <Route path="speechace" element={<SpeechacePage />}></Route>
       </Routes>
     </div>
   );

@@ -1,17 +1,29 @@
 import React, { useEffect, useRef } from 'react';
+import useOnScreen from '../UseOnScreen';
+import { MainBox } from '../../../../styles/Common/CommonDivStyle';
 import {
   ModePickContainer,
   EssayContainer,
   TextBox,
+  TextContainer,
 } from '../../../../styles/Speaking/SpeakingStyle';
 import { useState } from 'react';
 import { useAppDispatch } from '../../../../utils/hooks';
-const EssayScript = () => {
+import { useCallback } from 'react';
+
+interface IEssayProps {
+  setSelectedText: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const EssayScript = ({ setSelectedText }: IEssayProps) => {
+  const elementRef = useRef<HTMLDivElement>(null);
+  const isOnScreen = useOnScreen(elementRef);
   const dispatch = useAppDispatch();
   const textBoxRef = useRef<HTMLDivElement[]>([]);
   const [script, setScript] = useState<string[]>([]);
   //뉴라인만
   const FilterScript = () => {
+    console.log('얘는뭘까', { isOnScreen });
     let dummy1 =
       'Yes of course.\
       I grew up playing football like most children in my country.';
@@ -60,17 +72,21 @@ const EssayScript = () => {
     });
   }, options);
 
-  // const boxList = document.querySelectorAll('.box');
   const boxList = textBoxRef.current;
 
-  console.log('여기뭐나옴', boxList);
-
-  // // 반복문을 돌려 모든 DOM에 적용
   boxList.forEach((el) => observer.observe(el));
 
   return (
-    <div>
-      <EssayContainer>
+    <EssayContainer>
+      <TextContainer>
+        <p ref={elementRef} className="trigger">
+          에세이에요
+        </p>
+        {/* <ModePickContainer>
+          <button>연습</button>
+          <button>실전</button>
+        </ModePickContainer> */}
+
         {script &&
           script.map((item, idx) => (
             <TextBox
@@ -84,8 +100,8 @@ const EssayScript = () => {
               {item}
             </TextBox>
           ))}
-      </EssayContainer>
-    </div>
+      </TextContainer>
+    </EssayContainer>
   );
 };
 

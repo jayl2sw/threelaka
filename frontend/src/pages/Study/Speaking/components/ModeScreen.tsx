@@ -5,22 +5,20 @@ import VoiceRecorder from '../components/VoiceRecorder';
 import SpeechTest from '../components/SpeechTest';
 //style
 import { MainPaleBox } from '../../../../styles/Common/CommonDivStyle';
-
+import {
+  SpeechTestContainer,
+  SpeechTestBox,
+} from '../../../../styles/Speaking/SpeakingStyle';
 const ModeScreen = () => {
   const modeCode = useLocation().search.replace('?mode=', '');
 
   if (modeCode == 'test') {
     return (
-      <MainPaleBox
-        widthSize={'40vw'}
-        heightSize={'50vh'}
-        paddingSize={'2vw'}
-        fontSize={'1rem'}
-        color={'white'}
-        fontColor={'black'}
-      >
-        <SpeechTest />
-      </MainPaleBox>
+      <SpeechTestContainer className="speechtest">
+        <SpeechTestBox>
+          <SpeechTest />
+        </SpeechTestBox>
+      </SpeechTestContainer>
     );
   } else if (modeCode == 'video') {
     return (

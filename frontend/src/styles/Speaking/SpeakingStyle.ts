@@ -69,28 +69,68 @@ export const ModePickContainer = styled.div`
 
 // 에세이 스크립트 스타일
 export const EssayContainer = styled.div`
+  width: 57vw;
+  height: 33vh;
+  /* padding: 0; */
+  /* font-size: 1.5vmin; */
+
+  background: #ffffff;
+  box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
+  border-radius: 2vmin;
   display: flex;
   flex-direction: column;
-  width: 60vw;
-  height: 20vh;
-  background-color: skyblue;
-  border-radius: 20px;
+
   overflow: scroll;
+  .trigger {
+    display: none;
+  }
 `;
 
+export const TextContainer = styled.div`
+  margin-top: 4vh;
+`;
 export const TextBox = styled.div`
-  width: 20rem;
-  height: 10rem;
+  width: 50vw;
+  /* height: 10rem; */
+  /* padding-top: 5vh; */
   margin: 5rem auto;
+  /* margin-bottom: 1vh; */
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1rem;
-  background-color: #febf00;
+  font-size: 4vmin;
+  color: #9897a9;
+  /* background-color: #febf00; */
   transition: 0.4s;
   &.active {
-    width: 20rem;
-    background: #f03d3d;
+    font-size: 4vmin;
+    width: 50vw;
+    background-color: #8dc2ff;
     color: #fff;
+  }
+`;
+
+export const SpeechTestContainer = styled.div`
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  padding-top: 3vh;
+  height: 90vh;
+`;
+
+export const SpeechTestBox = styled.div`
+  padding: 1vw;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
+  border-radius: 2vmin;
+`;
+
+export const RecordBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .test-recorder {
+    height: 10vh;
   }
 `;

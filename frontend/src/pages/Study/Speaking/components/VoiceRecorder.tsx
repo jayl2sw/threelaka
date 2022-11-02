@@ -26,46 +26,6 @@ const VoiceRecorder = () => {
   } = useAudioRecorder();
 
   const dispatch = useAppDispatch();
-  // //뉴라인만
-  // let dummy1 =
-  //   'Yes of course.\
-  //   I grew up playing football like most children in my country.';
-  // //점만
-  // let dummy2 = 'I go to school. And I am so happy.';
-  // //뉴라인이랑 점 둘다
-  // let dummy3 =
-  //   'Yes of course.\
-  // I grew up playing football like most children in my country. I go to school.';
-
-  // let splittedText = dummy3.split('.');
-
-  // const texts = splittedText.map((item, key) => {
-  //   let trimmed = item.trimStart();
-  //   return trimmed;
-  // });
-
-  // const filteredText = texts.filter((text) => text.length > 0);
-  // console.log('잘필터링되나', filteredText);
-
-  const speechTest = async () => {
-    var data = new FormData();
-    // var reader = new FileReader();
-
-    console.log('애초에 처음에 없는거아님?', audioResult);
-    console.log(typeof audioResult);
-    let blob = new Blob([audioResult], { type: 'audio/wav' });
-    console.log('블랍?', blob);
-    console.log(typeof blob);
-
-    data.append('text', 'apple');
-
-    data.append('user_audio_file', blob);
-    dispatch(studyActions.speechTest(data));
-  };
-
-  // useEffect(() => {
-  //   speechTest();
-  // }, [audioResult]);
 
   return (
     <div>
