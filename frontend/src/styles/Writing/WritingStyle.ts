@@ -51,6 +51,21 @@ export const WordCheckBox = styled.div`
   }
 `;
 
+export const HighlightTextAreaWrapper = styled.div`
+  & mark {
+    border-radius: 4px;
+    padding: 2px;
+    &.blue {
+      background-color: #4a9fff;
+    }
+    &.red {
+      border-radius: 0;
+      background-color: transparent;
+      border-bottom: 2px solid red;
+    }
+  }
+`;
+
 export const WordText = styled.div`
   width: 20vw;
   display: flex;

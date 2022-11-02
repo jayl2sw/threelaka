@@ -176,3 +176,53 @@ export const GradientRoundBtn = styled.button<CommonBtnProps>`
     opacity: 0.5;
   }
 `;
+
+export const MoveToNextRightBtn = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  right: 1vw;
+  top: 55vh;
+  width: 10vmin;
+  height: 10vmin;
+  /* background: blue; */
+  color: black;
+  & p {
+    display: none;
+    color: black;
+  }
+  :hover {
+    color: #4a9fff;
+    & p {
+      display: inline;
+    }
+  }
+`;
+
+export const MoveToNextLeftBtn = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  left: 1vw;
+  top: 55vh;
+  width: 10vmin;
+  height: 10vmin;
+  /* background: blue; */
+  color: black;
+  & p {
+    display: none;
+    color: black;
+  }
+  :hover {
+    color: #4a9fff;
+    & p {
+      display: inline;
+    }
+  }
+`;
