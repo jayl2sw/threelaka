@@ -9,22 +9,17 @@ export const SpeakingPageBlock = styled.div`
   width: 100vw;
   height: 85vh;
   padding: 0 10vw 5vh 10vw;
-  border: 1px solid black;
-`;
-
-export const VideoAudioButtonContainer = styled.div`
-  width: 20vw;
-  height: 5vh;
-  background-color: yellow;
-  border: 1px solid orange;
+  /* border: 1px solid red; */
 `;
 
 export const VideoAudioContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60vw;
-  height: 40vh;
-  background-color: #111111;
+  justify-content: center;
+  align-items: center;
+  width: 32vw;
+  height: 32vh;
+  /* background-color: #111111; */
   /* border-radius: 20px; */
   & Webcam {
     width: 100%;
@@ -36,16 +31,28 @@ export const VideoAudioContainer = styled.div`
   }
 `;
 
-export const VideoOrAudioPick = styled.div`
+export const VideoAudioBtnContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 15vw;
-  height: 5vh;
-  & button {
-    background-color: #4a9fff;
-    color: white;
-  }
+  justify-content: center;
+  width: 24vw;
+  height: 10vh;
+  margin-top: 1vh;
+`;
+
+export const VideoAudioBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 5vw; */
+  height: 6.5vh;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  padding: 0.7vh 0.8vw;
+  color: #ffffff;
+  background-color: #111111;
+  margin: 1vh 0.5vw;
+  cursor: pointer;
 `;
 
 export const ModePickContainer = styled.div`

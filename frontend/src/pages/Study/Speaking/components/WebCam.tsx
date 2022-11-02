@@ -1,12 +1,21 @@
 import React from 'react';
 import { useRef, useState, useCallback, useEffect } from 'react';
 import Webcam from 'react-webcam';
-import { VideoAudioContainer } from '../../../../styles/Speaking/SpeakingStyle';
+
+// style
+import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
+import {
+  VideoAudioContainer,
+  VideoAudioBtnContainer,
+  VideoAudioBtn,
+} from '../../../../styles/Speaking/SpeakingStyle';
+import { BsFillRecordFill, BsFillStopFill } from 'react-icons/bs';
+import { MdDownload, MdCameraswitch } from 'react-icons/md';
 
 const WebCam = () => {
   const webcamRef = useRef<Webcam & HTMLVideoElement>(null) as any;
   const mediaRecorderRef = useRef<any>(null);
-  const [capturing, setCapturing] = useState(false);
+  const [recording, setRecording] = useState<boolean>(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const isInitialMount = useRef(true);
   const [camIsOn, setcamIsOn] = useState<boolean>(true);
@@ -25,7 +34,7 @@ const WebCam = () => {
   // 영상 녹화 시작
   const handleStartCaptureClick = useCallback(() => {
     setRecordedChunks([]);
-    setCapturing(true);
+    setRecording(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: 'video/webm',
     });
@@ -34,7 +43,7 @@ const WebCam = () => {
       handleDataAvailable
     );
     mediaRecorderRef.current.start();
-  }, [webcamRef, setCapturing, mediaRecorderRef]);
+  }, [webcamRef, setRecording, mediaRecorderRef]);
 
   const handleDataAvailable = useCallback(
     ({ data }) => {
@@ -48,8 +57,8 @@ const WebCam = () => {
   // 영상 녹화 정지
   const handleStopCaptureClick = useCallback(() => {
     mediaRecorderRef.current.stop();
-    setCapturing(false);
-  }, [mediaRecorderRef, webcamRef, recordedChunks, setCapturing]);
+    setRecording(false);
+  }, [mediaRecorderRef, webcamRef, recordedChunks, setRecording]);
 
   // 영상 녹화 <=> 녹화 영상
   const turnScreen = useCallback(() => {
@@ -86,7 +95,15 @@ const WebCam = () => {
   }, [recordedChunks]);
 
   return (
-    <div>
+    <FlexTransparentDiv
+      widthSize={'32vw'}
+      heightSize={'42vh'}
+      paddingSize={'4vw'}
+      flexDirection={'column'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      IsBorder={'none'}
+    >
       <VideoAudioContainer>
         <Webcam
           audio={true}
@@ -100,27 +117,29 @@ const WebCam = () => {
           controls
         ></video>
       </VideoAudioContainer>
-
-      {capturing ? (
-        <button onClick={handleStopCaptureClick}>녹화 중지</button>
-      ) : (
-        <button onClick={handleStartCaptureClick}>녹화 시작</button>
-      )}
-
-      {recordedChunks.length > 0 && (
-        <div>
-          <button
-            onClick={() => {
-              turnScreen();
-              setRecordedVideo();
-            }}
-          >
-            화면 전환
-          </button>
-          <button onClick={handleDownload}>영상 다운</button>
-        </div>
-      )}
-    </div>
+      <VideoAudioBtnContainer>
+        <VideoAudioBtn
+          onClick={() => {
+            turnScreen();
+            setRecordedVideo();
+          }}
+        >
+          <MdCameraswitch />
+        </VideoAudioBtn>
+        {recording ? (
+          <VideoAudioBtn onClick={handleStopCaptureClick}>
+            <BsFillStopFill />
+          </VideoAudioBtn>
+        ) : (
+          <VideoAudioBtn onClick={handleStartCaptureClick}>
+            <BsFillRecordFill color="red" />
+          </VideoAudioBtn>
+        )}
+        <VideoAudioBtn onClick={handleDownload}>
+          <MdDownload />
+        </VideoAudioBtn>
+      </VideoAudioBtnContainer>
+    </FlexTransparentDiv>
   );
 };
 

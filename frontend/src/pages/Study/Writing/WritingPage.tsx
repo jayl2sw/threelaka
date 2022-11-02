@@ -1,10 +1,14 @@
-import React from 'react';
+import { WritingPageBlock } from '../../../styles/Writing/WritingStyle';
+import { useParams } from 'react-router-dom';
+import { StudyPageParams } from '../../../models';
+import WordListAndWritingContainerComp from './components/WordListAndWritingContainer';
 
-const WritingPage = () => {
+const WritingPage = ({}) => {
+  const pageParams: StudyPageParams = useParams() as any;
   return (
-    <div>
-      <p>라이팅페이지입니다</p>
-    </div>
+    <WritingPageBlock>
+      <WordListAndWritingContainerComp pageParams={pageParams} />
+    </WritingPageBlock>
   );
 };
 
