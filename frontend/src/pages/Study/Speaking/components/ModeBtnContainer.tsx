@@ -1,12 +1,11 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ModeBtnBox } from '../../../../styles/Speaking/SpeakingStyle';
-import { SpeakingMode } from '../../../../models';
 
-const ModeBtnContainer = (props: SpeakingMode) => {
-  const modeType = props.mode;
+const ModeBtnContainer = () => {
   const navigate = useNavigate();
   const currentPath = useLocation().pathname;
+  const modeCode = useLocation().search.replace('?mode=', '');
 
   const onClickTest = () => {
     navigate({

@@ -31,7 +31,3 @@ export interface WordBook {
   word: string;
   example: string;
 }
-
-export interface SpeakingMode {
-  mode: string;
-}

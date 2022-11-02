@@ -10,7 +10,7 @@ import ModeScreen from './ModeScreen';
 const SpeakingScreen = () => {
   const dispatch = useAppDispatch;
 
-  const modeCode = useLocation().search.replace('?mode=', '');
+  // const modeCode = useLocation().search.replace('?mode=', '');
 
   const SecreenBlock = styled.div`
     background-color: yellowgreen;
@@ -22,8 +22,8 @@ const SpeakingScreen = () => {
   return (
     // 투명 컨테이너로 바꿔두고, row!
     <SecreenBlock>
-      <ModeScreen mode={modeCode} />
-      <ModeBtnContainer mode={modeCode} />
+      <ModeScreen />
+      <ModeBtnContainer />
     </SecreenBlock>
   );
 };

@@ -1,25 +1,25 @@
 import React from 'react';
-import { SpeakingMode } from '../../../../models';
+import { useLocation } from 'react-router-dom';
 import WebCam from '../components/WebCam';
 import VoiceRecorder from '../components/VoiceRecorder';
 import SpeechTest from '../components/SpeechTest';
 
-const ModeScreen = (props: SpeakingMode) => {
-  const modeType = props.mode;
+const ModeScreen = () => {
+  const modeCode = useLocation().search.replace('?mode=', '');
 
-  if (modeType == 'test') {
+  if (modeCode == 'test') {
     return (
       <div>
         <SpeechTest />
       </div>
     );
-  } else if (modeType == 'video') {
+  } else if (modeCode == 'video') {
     return (
       <div>
         <WebCam />
       </div>
     );
-  } else if (modeType === 'audio') {
+  } else if (modeCode === 'audio') {
     return (
       <div>
         <VoiceRecorder />
