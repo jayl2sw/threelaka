@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface VideoData {
   watched: boolean | null;
   video: {
@@ -10,6 +12,7 @@ export interface VideoData {
 
 // VideoData 띄우는 모달의 타입
 export interface VideoDataModalType {
-  // onClickModal: () => void;
+  isOpenModal: boolean;
+  toggle: () => void;
   videoData: VideoData;
 }
