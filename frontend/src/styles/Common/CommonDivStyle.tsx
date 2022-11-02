@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-interface CommonDivProps {
+interface CommonDivProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
   widthSize: string;
   heightSize: string;
   paddingSize: string;
@@ -8,7 +8,8 @@ interface CommonDivProps {
   fontSize: string;
 }
 
-interface TransparentFlexDivProps {
+interface TransparentFlexDivProps
+  extends React.ButtonHTMLAttributes<HTMLDivElement> {
   widthSize: string;
   heightSize: string;
   paddingSize: string;
