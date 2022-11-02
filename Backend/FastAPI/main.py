@@ -5,9 +5,7 @@ from nltk.stem import WordNetLemmatizer
 import requests
 import json
 from properties import spell_checker_key, oxford_appId, oxford_key, speechace_url
-from requests_toolbelt import MultipartEncoder
 
-from preprocess import preprocess
 from models import EssayChecker
 import re
 import nltk
@@ -32,7 +30,22 @@ app.add_middleware(
 
 @app.get("/api/v2/video/script/{video_id}") 
 async def preprocess(video_id): 
-    return preprocess(YouTubeTranscriptApi.get_transcript(video_id))
+    script = YouTubeTranscriptApi.get_transcript(video_id)
+
+    tmp = ""
+    preprocessed_script=[]
+    for line in script:
+        if not tmp:
+            start = line['start']
+            duration = line['duration']
+        no_whitespace_line = line['text'].replace("\n", " ")
+        tmp += no_whitespace_line
+        duration += line['duration']
+        if "." in no_whitespace_line or "?" in no_whitespace_line or "!" in no_whitespace_line:
+            preprocessed_script.append({'text':tmp, "start":round(start, 3), "duration":round(duration, 3)})
+            tmp = ""
+
+    return preprocessed_script
 
 
 @app.post("/api/v2/study/writing/wordcheck") 
