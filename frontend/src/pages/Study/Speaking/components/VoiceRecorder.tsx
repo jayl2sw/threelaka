@@ -9,24 +9,11 @@ import {
   VideoAudioBtn,
 } from '../../../../styles/Speaking/SpeakingStyle';
 import { BsFillRecordFill, BsFillStopFill, BsPauseFill } from 'react-icons/bs';
-import { MdDownload, MdCameraswitch } from 'react-icons/md';
+import { dividerClasses } from '@material-ui/core';
 
 const VoiceRecorder = () => {
   const [recording, setRecording] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState<boolean>(false);
-
-  const handleStartRecording = () => {
-    setRecording(true);
-  };
-
-  const handleStopRecording = () => {
-    setRecording(false);
-  };
-
-  const handlePauseRecording = () => {
-    setIsPaused(true);
-  };
-
   const {
     audioResult,
     timer,
@@ -36,6 +23,33 @@ const VoiceRecorder = () => {
     resumeRecording,
     status,
   } = useAudioRecorder();
+
+  const handleStartRecording = () => {
+    startRecording();
+    setRecording(true);
+    setIsPaused(false);
+  };
+
+  const handleResumeRecording = () => {
+    resumeRecording();
+    setRecording(true);
+    setIsPaused(false);
+    console.log(recording);
+    console.log(isPaused);
+  };
+
+  const handlePauseRecording = () => {
+    setIsPaused(true);
+    setRecording(false);
+    console.log(recording);
+    console.log(isPaused);
+  };
+
+  const handleStopRecording = () => {
+    setRecording(false);
+    setIsPaused(false);
+  };
+
   return (
     <FlexTransparentDiv
       widthSize={'32vw'}
@@ -54,17 +68,23 @@ const VoiceRecorder = () => {
       <div style={{ border: '1px solid green' }}>
         <p>{new Date(timer * 1000).toISOString().substr(11, 8)}</p>
         <VideoAudioBtnContainer>
-          <VideoAudioBtn onClick={pauseRecording}>
-            <BsPauseFill />
-          </VideoAudioBtn>
-          <VideoAudioBtn
-            onClick={() => {
-              startRecording();
-              handleStartRecording();
-            }}
-          >
-            <BsFillRecordFill color={'red'} />
-          </VideoAudioBtn>
+          {recording ? (
+            <VideoAudioBtn
+              onClick={() => {
+                pauseRecording();
+                handlePauseRecording();
+              }}
+            >
+              <BsPauseFill />
+            </VideoAudioBtn>
+          ) : (
+            <VideoAudioBtn
+              onClick={isPaused ? handleResumeRecording : handleStartRecording}
+            >
+              <BsFillRecordFill color={'red'} />
+            </VideoAudioBtn>
+          )}
+
           <VideoAudioBtn
             onClick={() => {
               stopRecording();
@@ -73,8 +93,6 @@ const VoiceRecorder = () => {
           >
             <BsFillStopFill />
           </VideoAudioBtn>
-
-          <VideoAudioBtn onClick={resumeRecording}>계속 진행</VideoAudioBtn>
         </VideoAudioBtnContainer>
       </div>
     </FlexTransparentDiv>
