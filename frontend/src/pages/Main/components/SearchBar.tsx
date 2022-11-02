@@ -25,10 +25,7 @@ const SearchBar = () => {
   const videoData = useAppSelector((state) => state.video.videoData);
   // 영상 정보 조회
   const handlerGetVideoData = (videoUrl: string) => {
-    console.log('handlerGetVideoData실행함');
-    console.log(videoData);
     dispatch(videoActions.getVideoData(videoUrl));
-    console.log(videoData);
   };
 
   // 모달 사용하기

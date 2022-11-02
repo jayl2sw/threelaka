@@ -2040,6 +2040,11 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz#8be36a1f66f3265389e90b5f9c9962146758f728"
   integrity sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==
 
+"@sarafhbk/react-audio-recorder@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@sarafhbk/react-audio-recorder/-/react-audio-recorder-1.1.2.tgz#e847c05c40ef2afbcdca2a2656fc86977d96ccd6"
+  integrity sha512-PcTqJE81PZq8Z76aXgAZT32EW6m9Orj2mzKCymq2Qoe4iQVQLqu5mOu3x94E3IeSuriiT0jaY4jpN4i6DcQRBA==
+
 "@sinclair/typebox@^0.24.1":
   version "0.24.47"
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.47.tgz#530b67163714356f93e82bdb871e7db4b7bc564e"
@@ -2494,6 +2499,13 @@
   integrity sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==
   dependencies:
     "@types/react" "*"
+
+"@types/react-webcam@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-webcam/-/react-webcam-3.0.0.tgz#c91cd50bb6dbd4e938ea0ec4629a9a1dc17326d2"
+  integrity sha512-iX4G+V0HEvZhfMuk5qUp4ZJUpV6M9ZW4mxjmDxmXrIN1fDSUajX4wtGYX+9yh6KShFlEXOjGyOc24j7wJagG6w==
+  dependencies:
+    react-webcam "*"
 
 "@types/react@*":
   version "18.0.21"
@@ -8131,6 +8143,11 @@ react-transition-group@^4.4.0, react-transition-group@^4.4.5:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-webcam@*, react-webcam@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/react-webcam/-/react-webcam-7.0.1.tgz#8249e1d621eb4bba7e3f52135f562439d0528df3"
+  integrity sha512-8E/Eb/7ksKwn5QdLn67tOR7+TdP9BZdu6E5/DSt20v8yfW/s0VGBigE6VA7R4278mBuBUowovAB3DkCfVmSPvA==
 
 react-youtube@9.0.3:
   version "9.0.3"

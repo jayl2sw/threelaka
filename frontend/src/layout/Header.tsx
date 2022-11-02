@@ -43,7 +43,7 @@ const Header = () => {
           //   onClickChangeStage(0);
           // }}
           >
-            R/L
+            Reading&Listening
           </ProgressBarItem>
           <ProgressBarItem
           // onClick={() => {

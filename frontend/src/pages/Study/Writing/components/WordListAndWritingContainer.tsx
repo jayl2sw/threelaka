@@ -61,7 +61,7 @@ const WordListAndWritingContainerComp = ({
         heightSize={'70vh'}
         paddingSize={'0'}
         flexDirection={'column'}
-        justifyCotent={'start'}
+        justifyContent={'start'}
         alignItems={'start'}
         IsBorder={'none'}
       >
@@ -70,7 +70,7 @@ const WordListAndWritingContainerComp = ({
           heightSize={'5vh'}
           paddingSize={'0'}
           flexDirection={'row'}
-          justifyCotent={'start'}
+          justifyContent={'start'}
           alignItems={'end'}
           IsBorder={'none'}
         >
@@ -99,7 +99,7 @@ const WordListAndWritingContainerComp = ({
           heightSize={'65vh'}
           paddingSize={'0'}
           flexDirection={'column'}
-          justifyCotent={'start'}
+          justifyContent={'start'}
           alignItems={'start'}
           IsBorder={'none'}
         >
@@ -145,7 +145,7 @@ const WordListAndWritingContainerComp = ({
         heightSize={'70vh'}
         paddingSize={'0'}
         flexDirection={'column'}
-        justifyCotent={'start'}
+        justifyContent={'start'}
         alignItems={'start'}
         IsBorder={'none'}
       ></FlexTransparentDiv>
@@ -154,7 +154,7 @@ const WordListAndWritingContainerComp = ({
         heightSize={'70vh'}
         paddingSize={'0'}
         flexDirection={'column'}
-        justifyCotent={'start'}
+        justifyContent={'start'}
         alignItems={'start'}
         IsBorder={'none'}
       >
@@ -163,7 +163,7 @@ const WordListAndWritingContainerComp = ({
           heightSize={'5vh'}
           paddingSize={'0'}
           flexDirection={'row'}
-          justifyCotent={'end'}
+          justifyContent={'end'}
           alignItems={'end'}
           IsBorder={'none'}
         >
@@ -206,7 +206,7 @@ const WordListAndWritingContainerComp = ({
           heightSize={'65vh'}
           paddingSize={'0'}
           flexDirection={'column'}
-          justifyCotent={'start'}
+          justifyContent={'start'}
           alignItems={'start'}
           IsBorder={'none'}
         >
