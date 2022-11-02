@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import YouTube, { YouTubePlayer } from 'react-youtube';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useOutletContext } from 'react-router-dom';
 import { readActions } from '../../../features/Read/read-slice';
 import { studyActions } from '../../../features/study/study-slice';
 import {
@@ -15,19 +15,25 @@ import {
   DictResult,
   AutoScrollBtn,
   AutoScrollText,
-  MoveToSpeakingBtn,
 } from '../../../styles/Read/ReadStyle';
 import {
   FlexTransparentDiv,
   MainBox,
   BackBlurBox,
 } from '../../../styles/Common/CommonDivStyle';
-import { GradientRoundBtn } from '../../../styles/Common/CommonBtnStyle';
+import {
+  GradientRoundBtn,
+  MoveToNextRightBtn,
+} from '../../../styles/Common/CommonBtnStyle';
 import { StudyPageParams, TedScript, WordMeaning } from '../../../models';
+import { IheaderProps } from '../../../layout/Header';
+import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 
 let videoElement: YouTubePlayer = null;
 
 const ReadPage = () => {
+  const { customMoveToNext } = useOutletContext<IheaderProps>();
+  const moveToNext = customMoveToNext;
   const pageParams: StudyPageParams = useParams() as any;
   const [nowPlayedIdx, setNowPlayedIdx] = useState<number>(10);
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -104,19 +110,6 @@ const ReadPage = () => {
       word: wordMeaning.wordId,
     };
     dispatch(readActions.postAddWordToWordBookStart(wordInfo));
-  };
-
-  const moveToSpeaking = (e: React.MouseEvent<HTMLSpanElement>) => {
-    // 1. 스테이지 업데이트 액션 dispatch
-    const stageInfo = {
-      learningRecordId: pageParams.learningRecordId,
-      stage: pageParams.stage,
-    };
-    dispatch(studyActions.UpdateStudyStageStart(stageInfo));
-    // 2. 라이팅 페이지로 이동
-    navigate(
-      `/study/writing/${pageParams.learningRecordId}/WRITING/${pageParams.videoId}`
-    );
   };
 
   const opts = {
@@ -231,9 +224,12 @@ const ReadPage = () => {
   return (
     <>
       <ReadPageBlock>
-        <MoveToSpeakingBtn onClick={(e) => moveToSpeaking(e)}>
-          스피킹가기
-        </MoveToSpeakingBtn>
+        <MoveToNextRightBtn
+          onClick={(e) => moveToNext(e, 'WRITING', pageParams)}
+        >
+          <AiOutlineRight size={30} />
+          <p>writing</p>
+        </MoveToNextRightBtn>
         <FlexTransparentDiv
           widthSize={'40vw'}
           heightSize={'80vh'}

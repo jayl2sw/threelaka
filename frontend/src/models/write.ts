@@ -22,5 +22,5 @@ export interface FlggedToken {
 
 export interface SpellCheckRes {
   _type: string;
-  flaggedtokens: FlggedToken[];
+  flaggedTokens: FlggedToken[];
 }

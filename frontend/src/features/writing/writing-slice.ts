@@ -12,7 +12,7 @@ let initialState: WritingState = {
   checkedWordList: [],
   spellCheckLst: {
     _type: '',
-    flaggedtokens: [],
+    flaggedTokens: [],
   },
 };
 

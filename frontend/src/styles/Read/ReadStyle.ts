@@ -179,14 +179,3 @@ export const AutoScrollText = styled.div`
     margin: 0;
   }
 `;
-
-export const MoveToSpeakingBtn = styled.div`
-  cursor: pointer;
-  position: absolute;
-  right: 1vw;
-  top: 50vh;
-  width: 10vw;
-  height: 10vh;
-  background: blue;
-  color: white;
-`;
