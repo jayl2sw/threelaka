@@ -13,7 +13,7 @@ const MainHeader = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const handleLogout = () => {
-    console.log("이거디나")
+
     dispatch(authActions.logout())
     navigate('/auth/login')
   }

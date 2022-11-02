@@ -10,12 +10,22 @@ import {
   ProgressBarItem,
 } from '../styles/Layout/HeaderStyle';
 import { Link } from 'react-router-dom';
-
+import { LogoutIcon } from '../styles/Layout/HeaderStyle';
+import { useAppDispatch } from '../utils/hooks';
+import { useNavigate } from 'react-router-dom';
+import { authActions } from '../features/auth/authSlice';
 const Header = () => {
   const [stageNum, setStageNum] = useState<number>(0);
   const onClickChangeStage = (nextStage: number) => {
     setStageNum(nextStage);
   };
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const handleLogout = () => {
+ 
+    dispatch(authActions.logout())
+    navigate('/auth/login')
+  }
   return (
     <HeaderBlock>
       <HeaderMenuRegion>
@@ -30,7 +40,7 @@ const Header = () => {
           <Link to="/auth/dashboard/1">대시보드</Link>
         </LinkWrapper>
         <LinkWrapper bgColor="black" widthSize="10vw">
-          <button >로그아웃</button>
+          <LogoutIcon onClick={handleLogout}></LogoutIcon>
         </LinkWrapper>
       </HeaderMenuRegion>
       <StudyProgressRegion>

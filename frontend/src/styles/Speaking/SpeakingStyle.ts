@@ -65,8 +65,27 @@ export const ModePickContainer = styled.div`
 // 에세이 스크립트 스타일
 export const EssayContainer = styled.div`
   display: flex;
+  flex-direction: column;
   width: 60vw;
   height: 20vh;
   background-color: skyblue;
   border-radius: 20px;
+  overflow: scroll;
+`;
+
+export const TextBox = styled.div`
+  width: 20rem;
+  height: 10rem;
+  margin: 5rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  background-color: #febf00;
+  transition: 0.4s;
+  &.active {
+    width: 20rem;
+    background: #f03d3d;
+    color: #fff;
+  }
 `;
