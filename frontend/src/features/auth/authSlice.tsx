@@ -51,7 +51,6 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.loading = false;
       console.log(action.payload);
-      
     },
     loginFailed(state, action: PayloadAction<string>) {
       state.loading = false;
@@ -60,16 +59,16 @@ const authSlice = createSlice({
       state.loading = true;
     },
     fetchUserSuccess(state, action: PayloadAction<User>) {
-      console.log(action.payload)
+      console.log(action.payload);
       state.loading = false;
-      state.currentUser = action.payload
+      state.currentUser = action.payload;
     },
     fetchUserFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
     logout(state) {
       state.isLoggedIn = false;
-      state.currentUser = undefined; 
+      state.currentUser = undefined;
       // Object.assign(state, initialState)
     },
   },

@@ -3,9 +3,13 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, takeLatest } from 'redux-saga/effects';
 import { SignupPayload, LoginPayload, authActions } from './authSlice';
 import { ILoginResponse } from '../../services/userApi';
-import { createUserApi, loginApi,userInfoApi,logoutApi  } from '../../services/userApi';
+import {
+  createUserApi,
+  loginApi,
+  userInfoApi,
+  logoutApi,
+} from '../../services/userApi';
 import { User } from '../../models/user';
-
 
 function* createUser(action: PayloadAction<SignupPayload>) {
   const { fetchUser } = authActions;
@@ -14,7 +18,7 @@ function* createUser(action: PayloadAction<SignupPayload>) {
     //string이 타입
     // const {username,password} = action.payload
     yield put(authActions.signupSuccess(response));
-    yield put(fetchUser())
+    yield put(fetchUser());
     // console.log(username,password)
     //바로로그인 기능 일단 off
     // yield put(login({username,password}))
@@ -36,7 +40,6 @@ function* login(action: PayloadAction<LoginPayload>) {
 
     yield put(authActions.loginSuccess(response));
     yield put(authActions.fetchUser());
-
   } catch (error) {
     console.log(`로그인실패`, error);
   }
@@ -46,27 +49,25 @@ function* watchLoginFlow() {
 }
 
 function* fetchUser() {
-  console.log("어디서멈춤")
+  console.log('어디서멈춤');
   try {
     // console.log(action.payload);
-    console.log("여긴오나")
+    console.log('여긴오나');
     const response: User = yield call(userInfoApi);
-    console.log(response)
-    yield put(authActions.fetchUserSuccess(response))
+    console.log(response);
+    yield put(authActions.fetchUserSuccess(response));
   } catch (error) {}
 }
 function* watchfetchUserFlow() {
   yield takeLatest(authActions.fetchUser.type, fetchUser);
 }
 
-
-
 function* logout() {
   try {
     const response: string = yield call(logoutApi);
-    console.log("로그아웃성공",response)
+    console.log('로그아웃성공', response);
     localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');  
+    localStorage.removeItem('refreshToken');
   } catch (error) {
     console.log(`로그아웃실패`, error);
   }
@@ -74,7 +75,6 @@ function* logout() {
 function* watchLogoutFlow() {
   yield takeLatest(authActions.logout.type, logout);
 }
-
 
 export const authSagas = [
   fork(watchSignupFlow),

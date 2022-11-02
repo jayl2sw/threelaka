@@ -8,6 +8,22 @@ interface CommonDivProps {
   fontSize: string;
 }
 
+interface TransparentFlexDivProps {
+  widthSize: string;
+  heightSize: string;
+  paddingSize: string;
+  justifyCotent:
+    | 'start'
+    | 'center'
+    | 'end'
+    | 'space-between'
+    | 'space-around'
+    | 'space-evenly';
+  alignItems: 'stretch' | 'center' | 'start' | 'end';
+  flexDirection: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+  IsBorder: 'none' | 'is';
+}
+
 export const MainBox = styled.div<CommonDivProps>`
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
@@ -43,8 +59,7 @@ export const MainPaleBox = styled.div<CommonDivProps>`
       : props.fontColor === 'blue'
       ? '#4a9fff'
       : '#111111'};
-  background: #ffffff;
-  opacity: 0.35;
+  background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
   border-radius: 2vmin;
   /* border-image: linear-gradient(
@@ -125,6 +140,19 @@ export const SentenceBox = styled.div<CommonDivProps>`
       ? '#4a9fff'
       : '#111111'};
   background: rgba(192, 215, 240, 0.2);
+`;
+
+export const FlexTransparentDiv = styled.div<TransparentFlexDivProps>`
+  width: ${(props) => props.widthSize};
+  height: ${(props) => props.heightSize};
+  padding: ${(props) => props.paddingSize};
+  display: flex;
+  flex-direction: ${(props) => props.flexDirection};
+  justify-content: ${(props) => props.justifyCotent};
+  align-items: ${(props) => props.alignItems};
+  background-color: transparent;
+  border: ${(props) =>
+    props.IsBorder === 'none' ? 'none' : '1px solid black'};
 `;
 
 // export const GradientIconBox = styled.div<CommonDivProps>`
