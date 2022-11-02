@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { studyActions } from '../../../../features/study/study-slice';
 import { useAppSelector, useAppDispatch } from '../../../../utils/hooks';
 import {
@@ -16,6 +16,7 @@ import {
 import { TopBtn } from '../../../../styles/Common/CommonBtnStyle';
 import { StudyPageParams, WordCheckPayload } from '../../../../models';
 import { writingActions } from '../../../../features/writing/writing-slice';
+import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
 
 interface IworlListAndWrtingProps {
   pageParams: StudyPageParams;
@@ -24,20 +25,29 @@ interface IworlListAndWrtingProps {
 const WordListAndWritingContainerComp = ({
   pageParams,
 }: IworlListAndWrtingProps) => {
-  // const learningRecordId = useAppSelector(
-  //   (state) => state.study.studyState.learningRecordId
-  // );
   const wordBookList = useAppSelector((state) => state.study.wordBookList);
+  const checkedWordList = useAppSelector(
+    (state) => state.wrtie.checkedWordList
+  );
+  const [filterTarget, setFilterTarget] = useState<string[]>([]);
+  const [textAreaValue, setTextAreaValue] = useState('');
+  const onChange = (value: string) => setTextAreaValue(value);
+  const textAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     dispatch(studyActions.getWordBookStart(pageParams.learningRecordId));
-    // if (learningRecordId !== 0) {
-    //   // dispatch(studyActions.getWordBookStart(learningRecordId));
-    //   dispatch(studyActions.getWordBookStart(54));
-    // }
   }, []);
 
+  useEffect(() => {
+    const result = checkedWordList.map((checkWord: any) => {
+      return checkWord[0];
+    });
+    console.warn(result);
+    setFilterTarget(result);
+  }, [checkedWordList]);
+
   const dispatch = useAppDispatch();
+  // word list 문제 해결해야함
 
   // 1분 마다 단어 썼는지 체크해줌
   useEffect(() => {
@@ -45,17 +55,30 @@ const WordListAndWritingContainerComp = ({
       const wordList: string[] = wordBookList.map((oneWord) => oneWord.word);
       const wordCheckPayload: WordCheckPayload = {
         word_list: wordList,
-        essay: 'I am scary',
+        essay: textAreaRef.current!.innerText,
       };
-      dispatch(writingActions.postCheckWordStart(wordCheckPayload));
-      console.log(wordCheckPayload);
-    }, 1000);
+      if (textAreaRef.current!.innerText.length !== 0) {
+        console.log('발동');
+        dispatch(writingActions.postCheckWordStart(wordCheckPayload));
+      }
+    }, 3000);
     //60000
     return () => clearInterval(wordChecker);
   }, []);
 
+  // 스펠링 체크 온클릭
+  const onClickSpellCheck = () => {
+    dispatch(writingActions.spellCheckStart(textAreaRef.current!.innerText));
+  };
+
   return (
     <WordListAndWritingContainer>
+      <div
+        style={{ width: '0', height: '0', display: 'none' }}
+        ref={textAreaRef}
+      >
+        {textAreaValue}
+      </div>
       <FlexTransparentDiv
         widthSize={'28vw'}
         heightSize={'70vh'}
@@ -81,18 +104,22 @@ const WordListAndWritingContainerComp = ({
             fontColor={'black'}
             fontSize={'2vmin'}
             backgroundColor={'blue'}
-            style={{ marginRight: '1vw' }}
+            style={{ marginRight: '1vw', marginLeft: '1vw' }}
           >
             단어장
           </TopBtn>
-          {/* <TopBtn
+          <TopBtn
             widthSize={'7vw'}
             heightSize={'4vh'}
             paddingSize={'0'}
-            fontColor={'blue'}
+            fontColor={'black'}
             fontSize={'2vmin'}
             backgroundColor={'blue'}
-          ></TopBtn> */}
+            style={{ marginRight: '1vw' }}
+            onClick={onClickSpellCheck}
+          >
+            문법검사
+          </TopBtn>
         </FlexTransparentDiv>
         <FlexTransparentDiv
           widthSize={'28vw'}
@@ -176,17 +203,6 @@ const WordListAndWritingContainerComp = ({
             backgroundColor={'blue'}
             style={{ marginRight: '1vw' }}
           >
-            문법검사
-          </TopBtn>
-          <TopBtn
-            widthSize={'7vw'}
-            heightSize={'4vh'}
-            paddingSize={'0'}
-            fontColor={'black'}
-            fontSize={'2vmin'}
-            backgroundColor={'blue'}
-            style={{ marginRight: '1vw' }}
-          >
             파일 저장
           </TopBtn>
           <TopBtn
@@ -218,7 +234,11 @@ const WordListAndWritingContainerComp = ({
             fontSize={'2vmin'}
             style={{ display: 'flex', flexDirection: 'column' }}
           >
-            <WritingTextArea></WritingTextArea>
+            <HighlightWithinTextarea
+              value={textAreaValue}
+              highlight={filterTarget}
+              onChange={onChange}
+            ></HighlightWithinTextarea>
           </MainBox>
         </FlexTransparentDiv>
       </FlexTransparentDiv>

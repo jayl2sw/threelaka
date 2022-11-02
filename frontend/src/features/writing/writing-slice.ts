@@ -1,14 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CheckedWord, WordCheckPayload } from '../../models';
+import { CheckedWord, WordCheckPayload, SpellCheckRes } from '../../models';
 
 type WritingState = {
   loading: boolean;
   checkedWordList: CheckedWord[];
+  spellCheckLst: SpellCheckRes;
 };
 
 let initialState: WritingState = {
   loading: false,
   checkedWordList: [],
+  spellCheckLst: {
+    _type: '',
+    flaggedtokens: [],
+  },
 };
 
 const writingSlice = createSlice({
@@ -27,6 +32,22 @@ const writingSlice = createSlice({
     },
     // 에세이에 해당 단어 사용했는지 체크 :: 실패
     postCheckWordFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+      console.log(action);
+    },
+
+    // 스펠링 체크 시작
+    spellCheckStart(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+    // 스펠링 체크 시작 :: 성공
+    spellCheckStartSuccess(state, action: PayloadAction<SpellCheckRes>) {
+      console.log(action.payload);
+      state.loading = false;
+      state.spellCheckLst = action.payload;
+    },
+    // 스펠링 체크 시작 :: 실패
+    spellCheckStartFailed(state, action: PayloadAction<string>) {
       state.loading = false;
       console.log(action);
     },

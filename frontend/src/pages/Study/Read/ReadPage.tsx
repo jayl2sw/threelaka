@@ -6,17 +6,11 @@ import { readActions } from '../../../features/Read/read-slice';
 import { studyActions } from '../../../features/study/study-slice';
 import {
   ReadPageBlock,
-  YoutubeAndDictContainer,
-  DictRegion,
-  ScriptContainer,
   ScriptItemBox,
-  ButtonRegion,
   ScriptTimeStamp,
   ScriptText,
   ScriptWordSpan,
   DictInput,
-  DictInputAndBtnBox,
-  DictBtn,
   WordBookAddReqBtn,
   DictResult,
   AutoScrollBtn,

@@ -1,8 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
 import { writingActions } from './writing-slice';
-import { CheckedWord, WordCheckPayload } from '../../models';
-import { postCheckWordApi } from '../../services/writeApi';
+import { CheckedWord, WordCheckPayload, SpellCheckRes } from '../../models';
+import { postCheckWordApi, spellCheckApi } from '../../services/writeApi';
 
 // 해당 learning record의 단어장 가져오기 SAGA
 function* onPostCheckWordAsync(action: PayloadAction<WordCheckPayload>) {
@@ -18,6 +18,17 @@ function* onPostCheckWordAsync(action: PayloadAction<WordCheckPayload>) {
   }
 }
 
+// 스펠링 체크 SAGA
+function* onWatchSpellCheckAsync(action: PayloadAction<string>) {
+  try {
+    const response: SpellCheckRes = yield call(spellCheckApi, action.payload);
+    yield put(writingActions.spellCheckStartSuccess(response));
+  } catch (error: any) {
+    console.log(`Failed to fetch spellcheck`, error);
+    yield put(writingActions.spellCheckStartFailed(error.data));
+  }
+}
+
 // 단어장 불러오기 watch
 export function* watchPostCheckWordAsync() {
   yield takeLatest(
@@ -26,4 +37,12 @@ export function* watchPostCheckWordAsync() {
   );
 }
 
-export const writeSagas = [fork(watchPostCheckWordAsync)];
+// 스펠링 체크 watch
+export function* watchSpellCheckAsync() {
+  yield takeLatest(writingActions.spellCheckStart.type, onWatchSpellCheckAsync);
+}
+
+export const writeSagas = [
+  fork(watchPostCheckWordAsync),
+  fork(watchSpellCheckAsync),
+];
