@@ -87,19 +87,26 @@ async def oxford(word):
     url = "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word.lower()
     response = requests.get(url, headers=headers).json()
 
-    senses = response["results"][0]["lexicalEntries"][0]['entries'][0]['senses'][0]
-    wordDefinition = senses['definitions'][0]
-    wordExample = ''
-    try:
-        wordExample = senses['examples'][0]['text']
-    except:
-        wordExample = 'example does not exist'
-    lexicalCategory = response['results'][0]['lexicalEntries'][0]['lexicalCategory']['text']
+    results = response["results"]
+    data = []
+    for result in results:
+        senses = result["lexicalEntries"][0]['entries'][0]['senses'][0]
+        wordDefinition = senses['definitions'][0]
+        wordExample = ''
+        try:
+            wordExample = senses['examples'][0]['text']
+        except:
+            wordExample = 'example does not exist'
+        lexicalCategory = response['results'][0]['lexicalEntries'][0]['lexicalCategory']['text']
+        data.append({
+            "wordDefinition": wordDefinition,
+            "wordExample": wordExample,
+            "lexicalCategory": lexicalCategory
+        })
+        
     response = {
         "wordId": word,
-        "wordDefinition": wordDefinition,
-        "wordExample": wordExample,
-        "lexicalCategory": lexicalCategory,
+        "results":data,
     }
 
     return response
