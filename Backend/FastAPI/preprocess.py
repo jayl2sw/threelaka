@@ -5,7 +5,7 @@ def process(script):
         if not tmp:
             start = line['start']
             duration = line['duration']
-        no_whitespace_line = line['text'].replace("\n", "")
+        no_whitespace_line = line['text'].replace("\n", " ")
         tmp += no_whitespace_line + " "
         duration += line['duration']
         if "." in no_whitespace_line or "?" in no_whitespace_line or "!" in no_whitespace_line:
