@@ -32,10 +32,15 @@ app.add_middleware(
 
 
 @app.get("/api/v2/video/script/{video_id}") 
-async def preprocess(video_id): 
-    script = YouTubeTranscriptApi.get_transcript(video_id)
-    return process(script)
-    
+async def getScript(video_id): 
+    return process(YouTubeTranscriptApi.get_transcript(video_id))
+
+@app.get("/api/v2/video/script/ko/{video_id}") 
+async def getKorScript(video_id):
+    try:
+        return process(YouTubeTranscriptApi.get_transcript(video_id,  languages=('ko',)))
+    except:
+        return None
 
 
 @app.post("/api/v2/study/writing/wordcheck") 
