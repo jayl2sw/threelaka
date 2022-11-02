@@ -19,9 +19,7 @@ let initialState: StudyState = {
   },
   wordMeaning: {
     wordId: '',
-    wordDefinition: '',
-    wordExample: '',
-    lexicalCategory: '',
+    wordList: [],
   },
   wordBookList: [],
 };

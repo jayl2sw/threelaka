@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-interface CommonBtnProps {
+interface CommonBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   widthSize: string;
   heightSize: string;
   paddingSize: string;
@@ -9,7 +9,10 @@ interface CommonBtnProps {
   backgroundColor: 'blue' | 'gradient' | 'black';
 }
 
-export const TopBtn = styled.div<CommonBtnProps>`
+export const TopBtn = styled.button<CommonBtnProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
@@ -35,6 +38,7 @@ export const TopBtn = styled.div<CommonBtnProps>`
       : '#4a9fff'};
   border-top-left-radius: 2vmin;
   border-top-right-radius: 2vmin;
+  border: none;
   &.pale {
     opacity: 0.5;
     :hover {
@@ -49,7 +53,10 @@ export const TopBtn = styled.div<CommonBtnProps>`
   }
 `;
 
-export const RightBtn = styled.div<CommonBtnProps>`
+export const RightBtn = styled.button<CommonBtnProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
@@ -75,6 +82,7 @@ export const RightBtn = styled.div<CommonBtnProps>`
       : '#4a9fff'};
   border-top-right-radius: 2vmin;
   border-bottom-right-radius: 2vmin;
+  border: none;
   &.pale {
     opacity: 0.5;
     :hover {
@@ -89,7 +97,10 @@ export const RightBtn = styled.div<CommonBtnProps>`
   }
 `;
 
-export const MainBtn = styled.div<CommonBtnProps>`
+export const MainBtn = styled.button<CommonBtnProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
@@ -114,6 +125,7 @@ export const MainBtn = styled.div<CommonBtnProps>`
       ? '#111111'
       : '#4a9fff'};
   border-radius: 2vmin;
+  border: none;
   &.pale {
     opacity: 0.5;
     :hover {
@@ -128,7 +140,10 @@ export const MainBtn = styled.div<CommonBtnProps>`
   }
 `;
 
-export const GradientRoundBtn = styled.div<CommonBtnProps>`
+export const GradientRoundBtn = styled.button<CommonBtnProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
@@ -153,6 +168,7 @@ export const GradientRoundBtn = styled.div<CommonBtnProps>`
       ? '#111111'
       : '#4a9fff'};
   border-radius: 5vmin;
+  border: none;
   :hover {
     opacity: 0.9;
   }
