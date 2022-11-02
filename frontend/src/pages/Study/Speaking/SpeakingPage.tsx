@@ -18,7 +18,6 @@ const SpeakingPage = () => {
 
   return (
     <SpeakingPageBlock>
-      <p>-------------스크린--------------</p>
       <SpeakingScreen />
       <p>-----------스피치테스트-----------</p>
       {/* <EssayScript /> */}
