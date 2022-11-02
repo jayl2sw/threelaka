@@ -126,6 +126,7 @@ export const MainBtn = styled.button<CommonBtnProps>`
       : '#4a9fff'};
   border-radius: 2vmin;
   border: none;
+  transition: background-color 1s linear;
   &.pale {
     opacity: 0.5;
     :hover {

@@ -92,7 +92,7 @@ export const SearchButton = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  & button {
+  /* & button {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -103,10 +103,11 @@ export const SearchButton = styled.div`
     color: #ffffff;
     border-radius: 5px;
     padding: 2.5vh 1vw;
-  }
-  & button:hover {
-    background-color: #4a9fff;
-    transition: 0.2s;
+  } */
+  /* & button:hover { */
+  :hover{
+    /* background-color: #4a9fff; */
+    /* transition: 0.2s; */
     /* background: linear-gradient(80deg, #4a9fff, #b0ff91); */
     /* animation: animate 2s linear; */
   }

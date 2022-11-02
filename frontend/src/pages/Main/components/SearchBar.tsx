@@ -9,6 +9,9 @@ import {
   SearchButton,
 } from '../../../styles/Main/MainSearchStyle';
 import useModal from '../../../utils/useModal';
+import {
+  MainBtn
+} from '../../../styles/Common/CommonBtnStyle';
 
 const SearchBar = () => {
   const dispatch = useAppDispatch();
@@ -56,14 +59,21 @@ const SearchBar = () => {
         <i></i>
       </SearchBarInput>
       <SearchButton>
-        <button
+        <MainBtn
+          widthSize={'10vw'}
+          heightSize={'5vh'}
+          paddingSize={'1vw'}
+          fontSize={'2vmin'}
+          fontColor={'white'}
+          backgroundColor={'black'}
           onClick={() => {
             handlerGetVideoData(videoUrl);
             onClickModal();
           }}
+
         >
           비디오 정보 받기
-        </button>
+        </MainBtn>
         {isOpenModal && (
           <VideoDataModal
             isOpenModal={isOpenModal}
