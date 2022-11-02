@@ -7,6 +7,7 @@ interface LinkMenuProps {
 }
 
 export const HeaderBlock = styled.div`
+  /* z-index: 5; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,6 +38,7 @@ export const HeaderMenuRegion = styled.div`
 
 export const StudyProgressRegion = styled.div`
   display: flex;
+  z-index: 5;
   justify-content: center;
   align-items: center;
   width: 100vw;
