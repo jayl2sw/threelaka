@@ -5,7 +5,10 @@ import { useLocation } from 'react-router-dom';
 import ModeScreen from './ModeScreen';
 
 // style
-import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
+import {
+  FlexTransparentDiv,
+  MainBox,
+} from '../../../../styles/Common/CommonDivStyle';
 
 const SpeakingScreen = () => {
   const dispatch = useAppDispatch;

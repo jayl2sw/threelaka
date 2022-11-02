@@ -2,6 +2,7 @@ import React from 'react';
 import { useRef, useState, useCallback, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import { VideoAudioContainer } from '../../../../styles/Speaking/SpeakingStyle';
+import { MainBox } from '../../../../styles/Common/CommonDivStyle';
 
 const WebCam = () => {
   const webcamRef = useRef<Webcam & HTMLVideoElement>(null) as any;

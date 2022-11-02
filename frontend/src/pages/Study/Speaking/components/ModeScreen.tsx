@@ -3,30 +3,69 @@ import { useLocation } from 'react-router-dom';
 import WebCam from '../components/WebCam';
 import VoiceRecorder from '../components/VoiceRecorder';
 import SpeechTest from '../components/SpeechTest';
+//style
+import { MainBox } from '../../../../styles/Common/CommonDivStyle';
 
 const ModeScreen = () => {
   const modeCode = useLocation().search.replace('?mode=', '');
 
   if (modeCode == 'test') {
     return (
-      <div>
+      <MainBox
+        widthSize={'40vw'}
+        heightSize={'50vh'}
+        paddingSize={'2vw'}
+        fontSize={'1rem'}
+        color={'white'}
+        fontColor={'black'}
+      >
         <SpeechTest />
-      </div>
+      </MainBox>
     );
   } else if (modeCode == 'video') {
     return (
-      <div>
+      <MainBox
+        widthSize={'40vw'}
+        heightSize={'50vh'}
+        paddingSize={'2vw'}
+        fontSize={'1rem'}
+        color={'white'}
+        fontColor={'black'}
+        style={{ display: 'flex', justifyContent: 'center' }}
+      >
         <WebCam />
-      </div>
+      </MainBox>
     );
   } else if (modeCode === 'audio') {
     return (
-      <div>
+      <MainBox
+        widthSize={'40vw'}
+        heightSize={'50vh'}
+        paddingSize={'2vw'}
+        fontSize={'1rem'}
+        color={'white'}
+        fontColor={'black'}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <VoiceRecorder />
-      </div>
+      </MainBox>
     );
   } else {
-    return <div></div>;
+    return (
+      <MainBox
+        widthSize={'40vw'}
+        heightSize={'50vh'}
+        paddingSize={'2vw'}
+        fontSize={'1rem'}
+        color={'white'}
+        fontColor={'black'}
+      ></MainBox>
+    );
   }
 };
 

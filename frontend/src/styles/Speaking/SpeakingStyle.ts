@@ -9,7 +9,7 @@ export const SpeakingPageBlock = styled.div`
   width: 100vw;
   height: 85vh;
   padding: 0 10vw 5vh 10vw;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 export const VideoAudioButtonContainer = styled.div`
@@ -22,7 +22,7 @@ export const VideoAudioButtonContainer = styled.div`
 export const VideoAudioContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60vw;
+  width: 30vw;
   height: 40vh;
   background-color: #111111;
   /* border-radius: 20px; */
