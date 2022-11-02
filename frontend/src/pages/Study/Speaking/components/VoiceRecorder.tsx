@@ -5,6 +5,15 @@ import { useState, useEffect } from 'react';
 import { useAppDispatch } from '../../../../utils/hooks';
 import { studyActions } from '../../../../features/study/study-slice';
 
+// style
+import {
+  VideoAudioContainer,
+  VideoAudioBtnContainer,
+  VideoAudioBtn,
+} from '../../../../styles/Speaking/SpeakingStyle';
+import { BsFillRecordFill, BsFillStopFill } from 'react-icons/bs';
+import { MdDownload, MdCameraswitch } from 'react-icons/md';
+
 const VoiceRecorder = () => {
   const {
     audioResult,
@@ -14,7 +23,6 @@ const VoiceRecorder = () => {
     pauseRecording,
     resumeRecording,
     status,
-    errorMessage,
   } = useAudioRecorder();
 
   const dispatch = useAppDispatch();
@@ -66,18 +74,17 @@ const VoiceRecorder = () => {
       <p>{status}</p>
       <div>
         <p>{new Date(timer * 1000).toISOString().substr(11, 8)}</p>
-        <div>
-          <button onClick={startRecording}>녹음 시작</button>
-          <button
-            onClick={() => {
-              stopRecording();
-            }}
-          >
-            녹음 정지
-          </button>
-          <button onClick={pauseRecording}>일시 정지</button>
-          <button onClick={resumeRecording}>계속 진행</button>
-        </div>
+
+        <VideoAudioBtnContainer>
+          <VideoAudioBtn onClick={startRecording}>
+            <BsFillRecordFill color={'red'} />
+          </VideoAudioBtn>
+          <VideoAudioBtn onClick={stopRecording}>
+            <BsFillStopFill />
+          </VideoAudioBtn>
+          <VideoAudioBtn onClick={pauseRecording}>일시 정지</VideoAudioBtn>
+          <VideoAudioBtn onClick={resumeRecording}>계속 진행</VideoAudioBtn>
+        </VideoAudioBtnContainer>
       </div>
     </div>
   );

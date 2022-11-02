@@ -245,7 +245,7 @@ const ReadPage = () => {
           heightSize={'80vh'}
           paddingSize={'0'}
           flexDirection={'column'}
-          justifyCotent={'center'}
+          justifyContent={'center'}
           alignItems={'center'}
           IsBorder={'none'}
         >
@@ -273,7 +273,7 @@ const ReadPage = () => {
               heightSize={'5vh'}
               paddingSize={'0'}
               flexDirection={'row'}
-              justifyCotent={'space-between'}
+              justifyContent={'space-between'}
               alignItems={'center'}
               IsBorder={'none'}
             >
@@ -295,7 +295,7 @@ const ReadPage = () => {
               heightSize={'33vh'}
               paddingSize={'0'}
               flexDirection={'column'}
-              justifyCotent={'start'}
+              justifyContent={'start'}
               alignItems={'center'}
               IsBorder={'none'}
               style={{
@@ -312,7 +312,7 @@ const ReadPage = () => {
                       heightSize={'8vh'}
                       paddingSize={'1vw'}
                       flexDirection={'row'}
-                      justifyCotent={'start'}
+                      justifyContent={'start'}
                       alignItems={'center'}
                       IsBorder={'none'}
                     >
@@ -321,7 +321,7 @@ const ReadPage = () => {
                         heightSize={'8vh'}
                         paddingSize={'1vw'}
                         flexDirection={'column'}
-                        justifyCotent={'center'}
+                        justifyContent={'center'}
                         alignItems={'start'}
                         IsBorder={'none'}
                       >
@@ -352,7 +352,7 @@ const ReadPage = () => {
                       heightSize={'8vh'}
                       paddingSize={'1vw'}
                       flexDirection={'row'}
-                      justifyCotent={'start'}
+                      justifyContent={'start'}
                       alignItems={'center'}
                       IsBorder={'none'}
                     >
@@ -361,7 +361,7 @@ const ReadPage = () => {
                         heightSize={'8vh'}
                         paddingSize={'1vw'}
                         flexDirection={'column'}
-                        justifyCotent={'center'}
+                        justifyContent={'center'}
                         alignItems={'start'}
                         IsBorder={'none'}
                       >
@@ -392,7 +392,7 @@ const ReadPage = () => {
           heightSize={'80vh'}
           paddingSize={'0'}
           flexDirection={'column'}
-          justifyCotent={'start'}
+          justifyContent={'start'}
           alignItems={'center'}
           IsBorder={'none'}
         ></FlexTransparentDiv>

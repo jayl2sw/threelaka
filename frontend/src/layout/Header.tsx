@@ -69,8 +69,12 @@ const Header = () => {
             // onClick={() => {
             //   onClickChangeStage(1);
             // }}
+
+            // onClick={() => {
+            //   onClickChangeStage(1);
+            // }}
           >
-            Speaking
+            Writing
           </ProgressBarItem>
           <ProgressBarItem
           // onClick={() => {

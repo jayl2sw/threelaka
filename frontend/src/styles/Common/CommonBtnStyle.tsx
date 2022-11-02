@@ -80,8 +80,8 @@ export const RightBtn = styled.button<CommonBtnProps>`
       : props.backgroundColor === 'black'
       ? '#111111'
       : '#4a9fff'};
-  border-top-right-radius: 2vmin;
-  border-bottom-right-radius: 2vmin;
+  border-top-right-radius: 1vmin;
+  border-bottom-right-radius: 1vmin;
   border: none;
   &.pale {
     opacity: 0.5;

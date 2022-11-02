@@ -35,10 +35,3 @@ export interface WordBook {
   word: string;
   example: string;
 }
-
-export interface SpeakingMode {
-  pronunciationTest: boolean;
-  webcamMode: boolean;
-  voiceMode: boolean;
-  scriptOn: boolean;
-}
