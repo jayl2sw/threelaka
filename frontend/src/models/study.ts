@@ -12,17 +12,21 @@ export interface StudyStage extends StudyPageParams {
   userId: number;
 }
 
-export interface WordMeaning {
-  wordId: string;
+export interface AwordMeaning {
   wordDefinition: string;
   wordExample: string;
   lexicalCategory: string;
 }
 
+export interface WordMeaning {
+  wordId: string;
+  wordList: AwordMeaning[];
+}
+
 export interface WordInfo {
   definition: string;
   example: string;
-  videoId: string;
+  lrId: number;
   word: string;
 }
 

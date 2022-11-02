@@ -23,6 +23,12 @@ import {
   AutoScrollText,
   MoveToSpeakingBtn,
 } from '../../../styles/Read/ReadStyle';
+import {
+  FlexTransparentDiv,
+  MainBox,
+  BackBlurBox,
+} from '../../../styles/Common/CommonDivStyle';
+import { GradientRoundBtn } from '../../../styles/Common/CommonBtnStyle';
 import { StudyPageParams, TedScript, WordMeaning } from '../../../models';
 
 let videoElement: YouTubePlayer = null;
@@ -98,9 +104,9 @@ const ReadPage = () => {
   const AddWordToWordbook = (e: React.MouseEvent<HTMLSpanElement>) => {
     const selectedSentence = tedScriptList[selectedSentenceIdx!].text;
     const wordInfo = {
-      definition: wordMeaning.wordDefinition,
+      definition: '',
       example: selectedSentence,
-      videoId: pageParams.videoId,
+      lrId: pageParams.learningRecordId,
       word: wordMeaning.wordId,
     };
     dispatch(readActions.postAddWordToWordBookStart(wordInfo));
@@ -115,7 +121,7 @@ const ReadPage = () => {
     dispatch(studyActions.UpdateStudyStageStart(stageInfo));
     // 2. 라이팅 페이지로 이동
     navigate(
-      `/study/writing/${pageParams.learningRecordId}/Writing/${pageParams.videoId}`
+      `/study/writing/${pageParams.learningRecordId}/WRITING/${pageParams.videoId}`
     );
   };
 
@@ -234,7 +240,15 @@ const ReadPage = () => {
         <MoveToSpeakingBtn onClick={(e) => moveToSpeaking(e)}>
           스피킹가기
         </MoveToSpeakingBtn>
-        <YoutubeAndDictContainer>
+        <FlexTransparentDiv
+          widthSize={'40vw'}
+          heightSize={'80vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyCotent={'center'}
+          alignItems={'center'}
+          IsBorder={'none'}
+        >
           {pageParams.videoId !== '' ? (
             <YouTube
               style={{ width: `${FRAME_WIDTH}vw`, height: `${FRAME_HEIGHT}vh` }}
@@ -246,24 +260,151 @@ const ReadPage = () => {
             ''
           )}
           {/* 사전 */}
-          <DictRegion>
-            <DictInputAndBtnBox>
+          <MainBox
+            widthSize={'40vw'}
+            heightSize={'43vh'}
+            paddingSize={'2vw'}
+            fontColor={'black'}
+            fontSize={'1.5vmin'}
+            style={{ marginTop: '2vh', paddingTop: '4vh' }}
+          >
+            <FlexTransparentDiv
+              widthSize={'36vw'}
+              heightSize={'5vh'}
+              paddingSize={'0'}
+              flexDirection={'row'}
+              justifyCotent={'space-between'}
+              alignItems={'center'}
+              IsBorder={'none'}
+            >
               <DictInput value={dictInputValue} onChange={dictInputChange} />
-              <DictBtn onClick={(e) => WordSearchHandler(e, dictInputValue)}>
+              <GradientRoundBtn
+                widthSize={'10vw'}
+                heightSize={'5vh'}
+                paddingSize={'0'}
+                fontColor={'black'}
+                fontSize={'2vmin'}
+                backgroundColor={'gradient'}
+                onClick={(e) => WordSearchHandler(e, dictInputValue)}
+              >
                 검색
-              </DictBtn>
-            </DictInputAndBtnBox>
-            <DictResult>
-              <p>뜻: {wordMeaning.wordDefinition}</p>
-              <p>예문: {wordMeaning.wordExample}</p>
-              <p>품사: {wordMeaning.lexicalCategory}</p>
-            </DictResult>
+              </GradientRoundBtn>
+            </FlexTransparentDiv>
+            <FlexTransparentDiv
+              widthSize={'36vw'}
+              heightSize={'33vh'}
+              paddingSize={'0'}
+              flexDirection={'column'}
+              justifyCotent={'start'}
+              alignItems={'center'}
+              IsBorder={'none'}
+              style={{
+                overflowY: 'scroll',
+                overflowX: 'hidden',
+                paddingTop: '1vh',
+              }}
+            >
+              {wordMeaning.wordList.map((aWord) => {
+                return (
+                  <DictResult>
+                    <FlexTransparentDiv
+                      widthSize={'34vw'}
+                      heightSize={'8vh'}
+                      paddingSize={'1vw'}
+                      flexDirection={'row'}
+                      justifyCotent={'start'}
+                      alignItems={'center'}
+                      IsBorder={'none'}
+                    >
+                      <FlexTransparentDiv
+                        widthSize={'80%'}
+                        heightSize={'8vh'}
+                        paddingSize={'1vw'}
+                        flexDirection={'column'}
+                        justifyCotent={'center'}
+                        alignItems={'start'}
+                        IsBorder={'none'}
+                      >
+                        <div
+                          style={{
+                            color: '#4a9fff',
+                          }}
+                        >
+                          definition
+                        </div>
+                        <div>{aWord.wordDefinition}</div>
+                        {/* <p style={{ width: '80%', padding: '0 1vw' }}>
+                          definition: {aWord.wordDefinition}
+                        </p> */}
+                      </FlexTransparentDiv>
+                      <div
+                        style={{
+                          width: '20%',
+                          padding: '0 1vw',
+                          color: '#4a9fff',
+                        }}
+                      >
+                        {aWord.lexicalCategory}
+                      </div>
+                    </FlexTransparentDiv>
+                    <FlexTransparentDiv
+                      widthSize={'34vw'}
+                      heightSize={'8vh'}
+                      paddingSize={'1vw'}
+                      flexDirection={'row'}
+                      justifyCotent={'start'}
+                      alignItems={'center'}
+                      IsBorder={'none'}
+                    >
+                      <FlexTransparentDiv
+                        widthSize={'80%'}
+                        heightSize={'8vh'}
+                        paddingSize={'1vw'}
+                        flexDirection={'column'}
+                        justifyCotent={'center'}
+                        alignItems={'start'}
+                        IsBorder={'none'}
+                      >
+                        <div
+                          style={{
+                            color: 'red',
+                          }}
+                        >
+                          example
+                        </div>
+                        <div>{aWord.wordExample}</div>
+                        {/* <p style={{ width: '80%', padding: '0 1vw' }}>
+                          definition: {aWord.wordDefinition}
+                        </p> */}
+                      </FlexTransparentDiv>
+                    </FlexTransparentDiv>
+                  </DictResult>
+                );
+              })}
+            </FlexTransparentDiv>
             <WordBookAddReqBtn onClick={(e) => AddWordToWordbook(e)}>
               +
             </WordBookAddReqBtn>
-          </DictRegion>
-        </YoutubeAndDictContainer>
-        <ScriptContainer onWheel={checkHumanWheel}>
+          </MainBox>
+        </FlexTransparentDiv>
+        <FlexTransparentDiv
+          widthSize={'2vw'}
+          heightSize={'80vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyCotent={'start'}
+          alignItems={'center'}
+          IsBorder={'none'}
+        ></FlexTransparentDiv>
+        <MainBox
+          widthSize={'43vw'}
+          heightSize={'80vh'}
+          paddingSize={'0'}
+          fontColor={'black'}
+          fontSize={'2vmin'}
+          style={{ overflowY: 'scroll', overflowX: 'hidden' }}
+          onWheel={checkHumanWheel}
+        >
           {tedScriptList.length !== 0
             ? tedScriptList.map((script: TedScript, idx: number) => (
                 <ScriptItemBox
@@ -287,33 +428,93 @@ const ReadPage = () => {
                       {script.text
                         .split(/\r?\n| /)
                         .map((word: string, wordIdx: number) => {
-                          if (idx === selectedSentenceIdx) {
-                            return (
-                              <ScriptWordSpan
-                                key={`script-${idx}-word-${wordIdx}`}
-                                onClick={(e) =>
-                                  wordClickHandler(e, idx, wordIdx)
-                                }
-                                className={`${
-                                  selectedWordIdxArr.includes(wordIdx)
-                                    ? 'word-selected'
-                                    : ''
-                                }`}
-                              >
-                                {word}
-                              </ScriptWordSpan>
-                            );
+                          if (
+                            word.includes(',') ||
+                            word.includes('.') ||
+                            word.includes('!') ||
+                            word.includes('?')
+                          ) {
+                            if (idx === selectedSentenceIdx) {
+                              return (
+                                <>
+                                  <ScriptWordSpan
+                                    key={`script-${idx}-word-${wordIdx}`}
+                                    onClick={(e) =>
+                                      wordClickHandler(e, idx, wordIdx)
+                                    }
+                                    className={`${
+                                      selectedWordIdxArr.includes(wordIdx)
+                                        ? 'word-selected'
+                                        : ''
+                                    }`}
+                                  >
+                                    {word.slice(0, -1)}
+                                  </ScriptWordSpan>
+                                  <ScriptWordSpan
+                                    key={`script-${idx}-word-${wordIdx}-dummy`}
+                                    className={'dummy'}
+                                  >
+                                    {word.slice(-1)}
+                                  </ScriptWordSpan>
+                                  <span>&nbsp;</span>
+                                </>
+                              );
+                            } else {
+                              return (
+                                <>
+                                  <ScriptWordSpan
+                                    key={`script-${idx}-word-${wordIdx}`}
+                                    onClick={(e) =>
+                                      wordClickHandler(e, idx, wordIdx)
+                                    }
+                                  >
+                                    {word.slice(0, -1)}
+                                  </ScriptWordSpan>
+                                  <ScriptWordSpan
+                                    key={`script-${idx}-word-${wordIdx}-dummy`}
+                                    className={'dummy'}
+                                  >
+                                    {word.slice(-1)}
+                                  </ScriptWordSpan>
+                                  <span>&nbsp;</span>
+                                </>
+                              );
+                            }
                           } else {
-                            return (
-                              <ScriptWordSpan
-                                key={`script-${idx}-word-${wordIdx}`}
-                                onClick={(e) =>
-                                  wordClickHandler(e, idx, wordIdx)
-                                }
-                              >
-                                {word}
-                              </ScriptWordSpan>
-                            );
+                            if (idx === selectedSentenceIdx) {
+                              return (
+                                <>
+                                  <ScriptWordSpan
+                                    key={`script-${idx}-word-${wordIdx}`}
+                                    onClick={(e) =>
+                                      wordClickHandler(e, idx, wordIdx)
+                                    }
+                                    className={`${
+                                      selectedWordIdxArr.includes(wordIdx)
+                                        ? 'word-selected'
+                                        : ''
+                                    }`}
+                                  >
+                                    {word}
+                                  </ScriptWordSpan>
+                                  <span>&nbsp;</span>
+                                </>
+                              );
+                            } else {
+                              return (
+                                <>
+                                  <ScriptWordSpan
+                                    key={`script-${idx}-word-${wordIdx}`}
+                                    onClick={(e) =>
+                                      wordClickHandler(e, idx, wordIdx)
+                                    }
+                                  >
+                                    {word}
+                                  </ScriptWordSpan>
+                                  <span>&nbsp;</span>
+                                </>
+                              );
+                            }
                           }
                         })}
                     </p>
@@ -321,7 +522,7 @@ const ReadPage = () => {
                 </ScriptItemBox>
               ))
             : ''}
-        </ScriptContainer>
+        </MainBox>
         <AutoScrollText>
           <p>{isAutoScroll ? '자동 스크롤' : '수동 스크롤'}</p>
         </AutoScrollText>

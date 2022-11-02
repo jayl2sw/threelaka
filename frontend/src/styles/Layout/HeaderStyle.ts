@@ -7,6 +7,7 @@ interface LinkMenuProps {
 }
 
 export const HeaderBlock = styled.div`
+  /* z-index: 5; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,6 +38,7 @@ export const HeaderMenuRegion = styled.div`
 
 export const StudyProgressRegion = styled.div`
   display: flex;
+  z-index: 5;
   justify-content: center;
   align-items: center;
   width: 100vw;
@@ -71,15 +73,15 @@ export const ProgressBarIndicator = styled.div`
     rgba(176, 255, 145, 1) 100%
   );
   border-radius: 15px;
-  &.indicator-0 {
+  &.indicator-READING {
     width: 33%;
     transition: width 1s ease-in-out;
   }
-  &.indicator-1 {
+  &.indicator-WRITING {
     width: 66%;
     transition: width 1s ease-in-out;
   }
-  &.indicator-2 {
+  &.indicator-SPEAKING {
     width: 100%;
     transition: width 1s ease-in-out;
   }

@@ -10,13 +10,13 @@ import { useAppDispatch } from '../utils/hooks';
 import { authActions } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 const MainHeader = () => {
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleLogout = () => {
+    dispatch(authActions.logout());
+    navigate('/auth/login');
+  };
 
-    dispatch(authActions.logout())
-    navigate('/auth/login')
-  }
   return (
     <HeaderMenuRegion>
       <LinkWrapper bgColor="black" widthSize="10vw">
