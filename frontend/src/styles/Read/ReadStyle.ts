@@ -11,29 +11,6 @@ export const ReadPageBlock = styled.div`
   /* border: 1px solid black; */
 `;
 
-export const YoutubeAndDictContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 40vw;
-  height: 80vh;
-  /* border: 1px solid blue; */
-`;
-
-export const DictRegion = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
-  width: 40vw;
-  height: 45vh;
-  border: 1px solid yellow;
-  padding-top: 5vh;
-  /* border: 1px solid yellow; */
-`;
-
 export const WordBookAddReqBtn = styled.div`
   cursor: pointer;
   position: absolute;
@@ -49,26 +26,6 @@ export const WordBookAddReqBtn = styled.div`
   padding-top: 0.5vmin;
   background-color: black;
   color: white;
-`;
-
-export const DictInputAndBtnBox = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  width: 40vw;
-  height: 5vh;
-`;
-
-export const DictBtn = styled.div`
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 7vw;
-  height: 5vh;
-  background-color: green;
-  color: white;
-  font-size: 2vmin;
 `;
 
 export const DictInput = styled.input`
@@ -94,19 +51,6 @@ export const DictResult = styled.div`
   border-bottom: black 2px solid;
   background-color: white;
   color: black;
-`;
-
-export const ScriptContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 5vw;
-  width: 45vw;
-  height: 80vh;
-  /* padding: 4vh 4vw; */
-  overflow-y: scroll;
-  overflow-x: hidden;
-  background-color: #d1edf2;
-  border: 1px solid green;
 `;
 
 export const ScriptItemBox = styled.div`
@@ -157,16 +101,6 @@ export const ScriptText = styled.div`
   color: black;
   font-size: 2vmin;
   /* border: 1px solid green; */
-`;
-
-export const ButtonRegion = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 80vw;
-  height: 5vh;
-  border: 1px solid green;
 `;
 
 export const ScriptWordSpan = styled.span`
@@ -244,15 +178,4 @@ export const AutoScrollText = styled.div`
   & p {
     margin: 0;
   }
-`;
-
-export const MoveToSpeakingBtn = styled.div`
-  cursor: pointer;
-  position: absolute;
-  right: 1vw;
-  top: 50vh;
-  width: 10vw;
-  height: 10vh;
-  background: blue;
-  color: white;
 `;

@@ -9,16 +9,43 @@ import {
   ProgressBarIndicator,
   ProgressBarItem,
 } from '../styles/Layout/HeaderStyle';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { StudyPageParams } from '../models';
 import { Link } from 'react-router-dom';
+import { studyActions } from '../features/study/study-slice';
+import { useAppDispatch } from '../utils/hooks';
 
-const Header = () => {
+export interface IheaderProps {
+  customMoveToNext: (
+    e: React.MouseEvent<HTMLSpanElement>,
+    nextStep: string,
+    pageParams: StudyPageParams
+  ) => void;
+}
+
+const Header = ({ customMoveToNext }: IheaderProps) => {
   const pageParams: StudyPageParams = useParams() as any;
-  const [stageNum, setStageNum] = useState<number>(0);
-  const onClickChangeStage = (nextStage: number) => {
-    setStageNum(nextStage);
-  };
+  const moveToNext = customMoveToNext;
+
+  // const moveToNext = (
+  //   e: React.MouseEvent<HTMLSpanElement>,
+  //   nextStep: string
+  // ) => {
+  //   // 1. 스테이지 업데이트 액션 dispatch
+
+  //   const stageInfo = {
+  //     learningRecordId: pageParams.learningRecordId,
+  //     stage: nextStep,
+  //   };
+  //   dispatch(studyActions.UpdateStudyStageStart(stageInfo));
+  //   // 2. 라이팅 페이지로 이동
+  //   navigate(
+  //     `/study/${nextStep.toLocaleLowerCase()}/${
+  //       pageParams.learningRecordId
+  //     }/${nextStep}/${pageParams.videoId}`
+  //   );
+  // };
+
   return (
     <HeaderBlock>
       <HeaderMenuRegion>
@@ -39,23 +66,23 @@ const Header = () => {
       <StudyProgressRegion>
         <ProgressBarContainer>
           <ProgressBarItem
-          // onClick={() => {
-          //   onClickChangeStage(0);
-          // }}
+            onClick={(e) => {
+              moveToNext(e, 'READING', pageParams);
+            }}
           >
             Reading&Listening
           </ProgressBarItem>
           <ProgressBarItem
-          // onClick={() => {
-          //   onClickChangeStage(1);
-          // }}
+            onClick={(e) => {
+              moveToNext(e, 'WRITING', pageParams);
+            }}
           >
             Writing
           </ProgressBarItem>
           <ProgressBarItem
-          // onClick={() => {
-          //   onClickChangeStage(2);
-          // }}
+            onClick={(e) => {
+              moveToNext(e, 'SPEAKING', pageParams);
+            }}
           >
             Speaking
           </ProgressBarItem>
