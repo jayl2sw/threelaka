@@ -24,6 +24,7 @@ import {
   WordBook,
   WordCheckPayload,
   FlggedToken,
+  SaveEssayPayload,
 } from '../../../../models';
 import { writingActions } from '../../../../features/writing/writing-slice';
 import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
@@ -48,6 +49,7 @@ const WordListAndWritingContainerComp = ({
     (state) => state.write.checkedWordList
   );
   const spellCheckLst = useAppSelector((state) => state.write.spellCheckLst);
+  const userEssay = useAppSelector((state) => state.write.essay);
 
   // state
   const [filterTarget, setFilterTarget] = useState<string[]>([]);
@@ -59,31 +61,34 @@ const WordListAndWritingContainerComp = ({
 
   // handler
   const onChange = (value: string) => setTextAreaValue(value);
+  const essaySave = () => {
+    const temp: SaveEssayPayload = {
+      content: textAreaRef.current!.innerText,
+      learningRecordId: pageParams.learningRecordId,
+    };
+    dispatch(writingActions.postSaveEssayStart(temp));
+  };
   // 스펠링 체크 온클릭
   const onClickSpellCheck = () => {
     dispatch(writingActions.spellCheckStart(textAreaRef.current!.innerText));
   };
-  // 스테이지 이동
-  const moveToStage = (e: React.MouseEvent<HTMLSpanElement>) => {
-    // 1. 스테이지 업데이트 액션 dispatch
-    const stageInfo = {
-      learningRecordId: pageParams.learningRecordId,
-      stage: 'WRITING',
-    };
-    dispatch(studyActions.UpdateStudyStageStart(stageInfo));
-    // 2. 라이팅 페이지로 이동
-    // navigate(
-    //   `/study/writing/${pageParams.learningRecordId}/WRITING/${pageParams.videoId}`
-    // );
-  };
-  // 스테이지 이동
-
   // ref
   const textAreaRef = useRef<HTMLDivElement>(null);
 
+  // 처음에 단어장, 에세이 가져옴
+  // 나갈 때 에세이 저장해달라고 함
   useEffect(() => {
     dispatch(studyActions.getWordBookStart(pageParams.learningRecordId));
+    dispatch(writingActions.getEssayStart(pageParams.learningRecordId));
   }, []);
+
+  useEffect(() => {
+    if (userEssay === null) {
+      setTextAreaValue('');
+    } else {
+      setTextAreaValue(userEssay);
+    }
+  }, [userEssay]);
 
   useEffect(() => {
     const result = checkedWordList.map((checkWord: any) => {
@@ -137,12 +142,20 @@ const WordListAndWritingContainerComp = ({
 
   return (
     <WordListAndWritingContainer>
-      <MoveToNextLeftBtn onClick={(e) => moveToNext(e, 'READING', pageParams)}>
+      <MoveToNextLeftBtn
+        onClick={(e) => {
+          essaySave();
+          moveToNext(e, 'READING', pageParams);
+        }}
+      >
         <AiOutlineLeft size={30} />
         <p>reading</p>
       </MoveToNextLeftBtn>
       <MoveToNextRightBtn
-        onClick={(e) => moveToNext(e, 'SPEAKING', pageParams)}
+        onClick={(e) => {
+          essaySave();
+          moveToNext(e, 'SPEAKING', pageParams);
+        }}
       >
         <AiOutlineRight size={30} />
         <p>speaking</p>
@@ -333,7 +346,7 @@ const WordListAndWritingContainerComp = ({
           >
             파일 저장
           </TopBtn> */}
-          {/* <TopBtn
+          <TopBtn
             widthSize={'7vw'}
             heightSize={'4vh'}
             paddingSize={'0'}
@@ -341,9 +354,10 @@ const WordListAndWritingContainerComp = ({
             fontSize={'2vmin'}
             backgroundColor={'blue'}
             style={{ marginRight: '2vw' }}
+            onClick={essaySave}
           >
             저장
-          </TopBtn> */}
+          </TopBtn>
         </FlexTransparentDiv>
         <FlexTransparentDiv
           widthSize={'60vw'}

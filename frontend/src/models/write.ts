@@ -24,3 +24,8 @@ export interface SpellCheckRes {
   _type: string;
   flaggedTokens: FlggedToken[];
 }
+
+export interface SaveEssayPayload {
+  content: string;
+  learningRecordId: number;
+}

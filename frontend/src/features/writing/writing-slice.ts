@@ -1,10 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CheckedWord, WordCheckPayload, SpellCheckRes } from '../../models';
+import {
+  CheckedWord,
+  WordCheckPayload,
+  SpellCheckRes,
+  SaveEssayPayload,
+} from '../../models';
 
 type WritingState = {
   loading: boolean;
   checkedWordList: CheckedWord[];
   spellCheckLst: SpellCheckRes;
+  essay: string;
 };
 
 let initialState: WritingState = {
@@ -14,6 +20,7 @@ let initialState: WritingState = {
     _type: '',
     flaggedTokens: [],
   },
+  essay: '',
 };
 
 const writingSlice = createSlice({
@@ -48,6 +55,37 @@ const writingSlice = createSlice({
     },
     // 스펠링 체크 시작 :: 실패
     spellCheckStartFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+      console.log(action);
+    },
+
+    // 에세이 저장 :: 시작
+    postSaveEssayStart(state, action: PayloadAction<SaveEssayPayload>) {
+      state.loading = true;
+    },
+    // 에세이 저장 :: 성공
+    postSaveEssaySuccess(state, action: PayloadAction<string>) {
+      console.log(action.payload);
+      state.loading = false;
+    },
+    // 에세이 저장 :: 실패
+    postSaveEssayFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+      console.log(action);
+    },
+
+    // 에세이 불러오기 :: 시작
+    getEssayStart(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 에세이 불러오기 :: 성공
+    getEssaySuccess(state, action: PayloadAction<string>) {
+      console.log(action.payload);
+      state.loading = false;
+      state.essay = action.payload;
+    },
+    // 에세이 불러오기 :: 실패
+    getEssayFailed(state, action: PayloadAction<string>) {
       state.loading = false;
       console.log(action);
     },
