@@ -86,13 +86,14 @@ export const DictResult = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 34vw;
-  height: 5vh;
-  padding: 1vh 1vw;
+  height: 16vh;
+  padding: 0 1vw;
   /* font-size: 3vmin; */
-  border: black 2px solid;
-  background-color: grey;
-  color: white;
+  border-bottom: black 2px solid;
+  background-color: white;
+  color: black;
 `;
 
 export const ScriptContainer = styled.div`
@@ -122,7 +123,7 @@ export const ScriptItemBox = styled.div`
 export const ScriptTimeStamp = styled.div`
   cursor: pointer;
   min-height: 5vh;
-  background-color: white;
+  background-color: #83bdff;
   width: 8vw;
   margin-left: 2vw;
   border-radius: 10px;
@@ -169,7 +170,7 @@ export const ButtonRegion = styled.div`
 `;
 
 export const ScriptWordSpan = styled.span`
-  margin-right: 0.7vmin;
+  /* margin-right: 0.7vmin; */
   border-radius: 5px;
   cursor: pointer;
   :hover {
@@ -179,6 +180,12 @@ export const ScriptWordSpan = styled.span`
   &.word-selected {
     background-color: #1c2e4a;
     color: white;
+  }
+  &.dummy {
+    pointer-events: none;
+  }
+  &.dummy :hover {
+    background-color: white;
   }
 `;
 
