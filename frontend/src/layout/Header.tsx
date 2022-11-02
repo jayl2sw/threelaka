@@ -9,9 +9,12 @@ import {
   ProgressBarIndicator,
   ProgressBarItem,
 } from '../styles/Layout/HeaderStyle';
+import { useParams } from 'react-router-dom';
+import { StudyPageParams } from '../models';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+  const pageParams: StudyPageParams = useParams() as any;
   const [stageNum, setStageNum] = useState<number>(0);
   const onClickChangeStage = (nextStage: number) => {
     setStageNum(nextStage);
@@ -27,34 +30,37 @@ const Header = () => {
         </LinkWrapper>
         <TitleRegion>THREELAKA</TitleRegion>
         <LinkWrapper bgColor="black" widthSize="10vw">
-          <Link to="/dashboard/profile">프로필</Link>
+          <Link to="/auth/dashboard/1">대시보드</Link>
+        </LinkWrapper>
+        <LinkWrapper bgColor="black" widthSize="10vw">
+          <button>로그아웃</button>
         </LinkWrapper>
       </HeaderMenuRegion>
       <StudyProgressRegion>
         <ProgressBarContainer>
           <ProgressBarItem
-            onClick={() => {
-              onClickChangeStage(0);
-            }}
+          // onClick={() => {
+          //   onClickChangeStage(0);
+          // }}
           >
-            R/L
+            Reading&Listening
           </ProgressBarItem>
           <ProgressBarItem
-            onClick={() => {
-              onClickChangeStage(1);
-            }}
-          >
-            Speaking
-          </ProgressBarItem>
-          <ProgressBarItem
-            onClick={() => {
-              onClickChangeStage(2);
-            }}
+          // onClick={() => {
+          //   onClickChangeStage(1);
+          // }}
           >
             Writing
           </ProgressBarItem>
+          <ProgressBarItem
+          // onClick={() => {
+          //   onClickChangeStage(2);
+          // }}
+          >
+            Speaking
+          </ProgressBarItem>
           <ProgressBarIndicator
-            className={'indicator-' + stageNum}
+            className={'indicator-' + pageParams.stage}
           ></ProgressBarIndicator>
         </ProgressBarContainer>
       </StudyProgressRegion>

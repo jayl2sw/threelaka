@@ -1,87 +1,24 @@
-import styled from "styled-components";
-
-interface ContentBoxProps {
-  bgColor: string;
-  widthSize: string;
-  heightSize: string;
-}
-
-interface ContentBoxTagProps {
-  topShift: string;
-  leftShift: string; 
-  bgColor: string;
-  fontColor: string;
-}
+import styled from 'styled-components';
 
 export const WritingPageBlock = styled.div`
   display: flex;
   /* justify-content: center; */
   /* align-items: center; */
   flex-direction: column;
-  width: 80vw;
+  width: 100vw;
   height: 85vh;
-  margin: 0 10vw;
   /* border: 1px solid black; */
 `;
 
 export const WordListAndWritingContainer = styled.div`
   display: flex;
-  width: 80vw;
-  height: 70vh;  
-  /* border: 1px solid blue; */
-  margin-bottom: 2vw;
-`;
-
-export const WordListRegion = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;  
-  background-color: #daedf2;
-  border-radius: 25px;  
-  width: 17vw;
+  width: 90vw;
   height: 70vh;
-  margin-right: 3vw;
-  padding-top: 5vh;
-  /* border: 1px solid green; */
-`;
-
-export const ContentBox = styled.div<ContentBoxProps>`
-  display: flex;
-  position: relative;
-  background-color: ${(props) => props.bgColor};
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;  
-  width: ${props => props.widthSize};
-  height: ${props => props.heightSize};  
-  /* border: 1px solid green; */
-`;
-
-export const ContentBoxTag = styled.div<ContentBoxTagProps>`  
-  position: absolute;
-  top:${(props) => props.topShift};   
-  left:${(props) => props.leftShift};  
-  display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  width: 5vw;
-  height: 4vh;
-  background-color: ${(props) => props.bgColor};;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  font-size: 2vmin;
-  color: ${(props) => props.fontColor};
-  /* border: 1px solid green; */
-`;
-
-export const WritingRegion = styled.div`
-  display: flex;
-  background-color: #daedf2;
-  border-radius: 25px;
-  width: 60vw;
-  height: 70vh; 
-  padding: 2vmin;
-  /* border: 1px solid yellow; */
+  /* border: 1px solid blue; */
+  margin-left: 5vw;
+  margin-right: 5vw;
 `;
 
 export const WritingTextArea = styled.textarea`
@@ -96,25 +33,34 @@ export const WritingTextArea = styled.textarea`
   resize: none;
 `;
 
-export const BtnsRegion = styled.div`
-  position: absolute;
-  top: 88vh;
+export const WordCheckBox = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 20vw;
-  margin-left: 60vw;
-  height: 5vh;  
-  /* border: 1px solid darkcyan; */
-`
+  width: 3vmin;
+  height: 3vmin;
+  background-color: #9897a9;
+  margin-right: 1vw;
+  border-radius: 1vmin;
+  &.checked {
+    background: linear-gradient(
+      106.62deg,
+      #83bdff 8.18%,
+      rgba(136, 192, 255, 0.90051) 49.26%,
+      #8dc2ff 69.16%,
+      #c1ffa9 92.42%
+    );
+  }
+`;
 
-export const SaveBtn = styled.div`
+export const WordText = styled.div`
+  width: 20vw;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 9vw;  
-  height: 5vh;  
-  font-size: 2.5vmin;
-  border-radius: 10px;
-  background-color: navy;
-  color: white;
-`
+  & p.back {
+    display: none;
+  }
+  &:hover p.front {
+    display: none;
+  }
+  &:hover p.back {
+    display: inline;
+  }
+`;

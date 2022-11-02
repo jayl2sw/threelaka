@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PickSpeakingMode from './components/ModeBtnContainer';
+import EssayScript from './components/EssayScript';
+import { SpeakingPageBlock } from '../../../styles/Speaking/SpeakingStyle';
+import { useLocation } from 'react-router-dom';
+import SpeakingScreen from './components/SpeakingScreen';
 
 const SpeakingPage = () => {
+  // 발음 테스트 클릭
+  const onClickProTest = () => {};
+
+  const modeCode = useLocation().search.replace('?mode=', '');
+
+  // 실전녹화 선택
+
   return (
-    <div>
-      스피킹페이지임
-    </div>
+    <SpeakingPageBlock>
+      <SpeakingScreen />
+      <EssayScript />
+    </SpeakingPageBlock>
   );
 };
 

@@ -3,58 +3,225 @@ import { studyActions } from '../../../../features/study/study-slice';
 import { useAppSelector, useAppDispatch } from '../../../../utils/hooks';
 import {
   WordListAndWritingContainer,
-  WordListRegion,
-  WritingRegion,
   WritingTextArea,
-  ContentBox,
-  ContentBoxTag,
-  BtnsRegion,
-  SaveBtn,
+  WordCheckBox,
+  WordText,
 } from '../../../../styles/Writing/WritingStyle';
+import {
+  MainPaleBox,
+  FlexTransparentDiv,
+  BackBlurBox,
+  MainBox,
+} from '../../../../styles/Common/CommonDivStyle';
+import { TopBtn } from '../../../../styles/Common/CommonBtnStyle';
+import { StudyPageParams, WordCheckPayload } from '../../../../models';
+import { writingActions } from '../../../../features/writing/writing-slice';
 
-const WordListAndWritingContainerComp = () => {
-  const learningRecordId = useAppSelector((state) => state.study.studyState.learningRecordId);
+interface IworlListAndWrtingProps {
+  pageParams: StudyPageParams;
+}
+
+const WordListAndWritingContainerComp = ({
+  pageParams,
+}: IworlListAndWrtingProps) => {
+  // const learningRecordId = useAppSelector(
+  //   (state) => state.study.studyState.learningRecordId
+  // );
   const wordBookList = useAppSelector((state) => state.study.wordBookList);
 
-useEffect(() => {
-    dispatch(studyActions.getWordBookStart(54));
-    if (learningRecordId !== 0) {
-      // dispatch(studyActions.getWordBookStart(learningRecordId));
-      dispatch(studyActions.getWordBookStart(54));
-    }
-}, [])
+  useEffect(() => {
+    dispatch(studyActions.getWordBookStart(pageParams.learningRecordId));
+    // if (learningRecordId !== 0) {
+    //   // dispatch(studyActions.getWordBookStart(learningRecordId));
+    //   dispatch(studyActions.getWordBookStart(54));
+    // }
+  }, []);
 
   const dispatch = useAppDispatch();
 
+  // 1분 마다 단어 썼는지 체크해줌
+  useEffect(() => {
+    const wordChecker = setInterval(() => {
+      const wordList: string[] = wordBookList.map((oneWord) => oneWord.word);
+      const wordCheckPayload: WordCheckPayload = {
+        word_list: wordList,
+        essay: 'I am scary',
+      };
+      dispatch(writingActions.postCheckWordStart(wordCheckPayload));
+      console.log(wordCheckPayload);
+    }, 1000);
+    //60000
+    return () => clearInterval(wordChecker);
+  }, []);
 
   return (
     <WordListAndWritingContainer>
-      <WordListRegion>
-        <ContentBox bgColor="white" widthSize="15vw" heightSize="64vh">
-          <ContentBoxTag
-            topShift="-4vh"
-            leftShift="0vw"
-            bgColor="white"
-            fontColor="#005e76"
-          >단어장
-          </ContentBoxTag>
-          {wordBookList.map((aWord) => {
-              return <p>{aWord.word}, {aWord.example}</p>
+      <FlexTransparentDiv
+        widthSize={'28vw'}
+        heightSize={'70vh'}
+        paddingSize={'0'}
+        flexDirection={'column'}
+        justifyContent={'start'}
+        alignItems={'start'}
+        IsBorder={'none'}
+      >
+        <FlexTransparentDiv
+          widthSize={'28vw'}
+          heightSize={'5vh'}
+          paddingSize={'0'}
+          flexDirection={'row'}
+          justifyContent={'start'}
+          alignItems={'end'}
+          IsBorder={'none'}
+        >
+          <TopBtn
+            widthSize={'7vw'}
+            heightSize={'4vh'}
+            paddingSize={'0'}
+            fontColor={'black'}
+            fontSize={'2vmin'}
+            backgroundColor={'blue'}
+            style={{ marginRight: '1vw' }}
+          >
+            단어장
+          </TopBtn>
+          {/* <TopBtn
+            widthSize={'7vw'}
+            heightSize={'4vh'}
+            paddingSize={'0'}
+            fontColor={'blue'}
+            fontSize={'2vmin'}
+            backgroundColor={'blue'}
+          ></TopBtn> */}
+        </FlexTransparentDiv>
+        <FlexTransparentDiv
+          widthSize={'28vw'}
+          heightSize={'65vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={'start'}
+          alignItems={'start'}
+          IsBorder={'none'}
+        >
+          <MainPaleBox
+            widthSize={'28vw'}
+            heightSize={'70vh'}
+            paddingSize={'1vw'}
+            fontColor={'black'}
+            fontSize={'2vmin'}
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
+            {wordBookList.map((aWord) => {
+              return (
+                <BackBlurBox
+                  widthSize={'26vw'}
+                  heightSize={'5vh'}
+                  paddingSize={'1vw'}
+                  fontColor={'black'}
+                  fontSize={'1vmin'}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'start',
+                    alignItems: 'center',
+                    marginBottom: '1vh',
+                  }}
+                >
+                  <WordCheckBox className="checked" />
+                  <WordText>
+                    <p className="front" style={{ fontSize: '2.5vmin' }}>
+                      {aWord.word}
+                    </p>
+                    <p className="back">{aWord.example}</p>
+                  </WordText>
+                  {/* {aWord.example} */}
+                </BackBlurBox>
+              );
             })}
-        </ContentBox>
-        {/* <ContentBox bgColor="#005e76" widthSize="15vw" heightSize='25vh'>
-          <ContentBoxTag topShift='-4vh' leftShift='0vw' bgColor="#005e76" fontColor='white'>사전</ContentBoxTag>  
-        </ContentBox>           */}
-      </WordListRegion>
-      {/* <Preview id={'jsx-template'} > */}
-      <WritingRegion>
-        <WritingTextArea></WritingTextArea>
-      </WritingRegion>
-      {/* </Preview> */}
-      <BtnsRegion>
-        <SaveBtn>파일로 저장</SaveBtn>
-        <SaveBtn>저장</SaveBtn>
-      </BtnsRegion>
+          </MainPaleBox>
+        </FlexTransparentDiv>
+      </FlexTransparentDiv>
+      <FlexTransparentDiv
+        widthSize={'2vw'}
+        heightSize={'70vh'}
+        paddingSize={'0'}
+        flexDirection={'column'}
+        justifyContent={'start'}
+        alignItems={'start'}
+        IsBorder={'none'}
+      ></FlexTransparentDiv>
+      <FlexTransparentDiv
+        widthSize={'60vw'}
+        heightSize={'70vh'}
+        paddingSize={'0'}
+        flexDirection={'column'}
+        justifyContent={'start'}
+        alignItems={'start'}
+        IsBorder={'none'}
+      >
+        <FlexTransparentDiv
+          widthSize={'60vw'}
+          heightSize={'5vh'}
+          paddingSize={'0'}
+          flexDirection={'row'}
+          justifyContent={'end'}
+          alignItems={'end'}
+          IsBorder={'none'}
+        >
+          <TopBtn
+            widthSize={'7vw'}
+            heightSize={'4vh'}
+            paddingSize={'0'}
+            fontColor={'black'}
+            fontSize={'2vmin'}
+            backgroundColor={'blue'}
+            style={{ marginRight: '1vw' }}
+          >
+            문법검사
+          </TopBtn>
+          <TopBtn
+            widthSize={'7vw'}
+            heightSize={'4vh'}
+            paddingSize={'0'}
+            fontColor={'black'}
+            fontSize={'2vmin'}
+            backgroundColor={'blue'}
+            style={{ marginRight: '1vw' }}
+          >
+            파일 저장
+          </TopBtn>
+          <TopBtn
+            widthSize={'7vw'}
+            heightSize={'4vh'}
+            paddingSize={'0'}
+            fontColor={'black'}
+            fontSize={'2vmin'}
+            backgroundColor={'blue'}
+            style={{ marginRight: '2vw' }}
+          >
+            저장
+          </TopBtn>
+        </FlexTransparentDiv>
+        <FlexTransparentDiv
+          widthSize={'60vw'}
+          heightSize={'65vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={'start'}
+          alignItems={'start'}
+          IsBorder={'none'}
+        >
+          <MainBox
+            widthSize={'60vw'}
+            heightSize={'70vh'}
+            paddingSize={'1vw'}
+            fontColor={'black'}
+            fontSize={'2vmin'}
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
+            <WritingTextArea></WritingTextArea>
+          </MainBox>
+        </FlexTransparentDiv>
+      </FlexTransparentDiv>
     </WordListAndWritingContainer>
   );
 };
