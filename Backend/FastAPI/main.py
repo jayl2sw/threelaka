@@ -90,19 +90,28 @@ async def oxford(word):
     results = response["results"]
     data = []
     for result in results:
-        senses = result["lexicalEntries"][0]['entries'][0]['senses'][0]
-        wordDefinition = senses['definitions'][0]
-        wordExample = ''
-        try:
-            wordExample = senses['examples'][0]['text']
-        except:
-            wordExample = 'example does not exist'
-        lexicalCategory = response['results'][0]['lexicalEntries'][0]['lexicalCategory']['text']
-        data.append({
-            "wordDefinition": wordDefinition,
-            "wordExample": wordExample,
-            "lexicalCategory": lexicalCategory
-        })
+        lexicalEntries = result["lexicalEntries"]
+        for lexicalEntry in lexicalEntries:
+            entries = lexicalEntry['entries']
+            lexicalCategory = lexicalEntry['lexicalCategory']['text']
+            for entry in entries:
+                senses = entry['senses']
+                for sense in senses:
+                    try:
+                        wordDefinition = sense['definitions'][0]
+                        wordExample = ''
+                        try:
+                            wordExample = sense['examples'][0]['text']
+                        except:
+                            wordExample = 'example does not exist'
+                        
+                        data.append({
+                            "wordDefinition": wordDefinition,
+                            "wordExample": wordExample,
+                            "lexicalCategory": lexicalCategory
+                        })
+                    except:
+                        continue
         
     response = {
         "wordId": word,
