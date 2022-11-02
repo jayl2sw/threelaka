@@ -15,7 +15,11 @@ import {
 import { BsFillRecordFill, BsFillStopFill } from 'react-icons/bs';
 import { MdDownload, MdCameraswitch } from 'react-icons/md';
 
-const VoiceRecorder = () => {
+interface IRecorderProps {
+  selectedText: string;
+}
+
+const VoiceRecorder = ({ selectedText }: IRecorderProps) => {
   const {
     audioResult,
     timer,
@@ -57,22 +61,22 @@ const VoiceRecorder = () => {
     let blob = new Blob([audioResult], { type: 'audio/wav' });
     console.log('블랍?', blob);
     console.log(typeof blob);
-
-    data.append('text', 'apple');
+    console.log(selectedText, blob);
+    data.append('text', selectedText);
 
     data.append('user_audio_file', blob);
     dispatch(studyActions.speechTest(data));
   };
 
-  // useEffect(() => {
-  //   speechTest();
-  // }, [audioResult]);
+  useEffect(() => {
+    speechTest();
+  }, [audioResult]);
 
   return (
     <div>
-      {/* null일때 */}
-      {/* <p>테스트하고 싶은 문장을 클릭해보세요!</p> */}
-      <p>{new Date(timer * 1000).toISOString().substr(11, 8)}</p>
+      <p style={{ textAlign: 'center', fontSize: '2vmin' }}>
+        {new Date(timer * 1000).toISOString().substr(11, 8)}
+      </p>
       {/* idle => 빨간 점, recordeing: REC 로고 */}
       {/* <p>{status}</p> */}
 

@@ -26,19 +26,21 @@ const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
   const textBoxRef = useRef<HTMLDivElement[]>([]);
   const [script, setScript] = useState<string[]>([]);
   const userEssay = useAppSelector((state) => state.write.essay);
+
+  const sentenceClickHandler = (
+    e: React.MouseEvent<HTMLDivElement>,
+    idx: number
+  ) => {
+    const pickedSentence = (e.target as HTMLDivElement).innerText;
+    console.log('얍얍', pickedSentence);
+    setSelectedText(pickedSentence);
+  };
+
   useEffect(() => {
     //내가 쓴 에세이 불러오는거
     dispatch(writingActions.getEssayStart(pageParams.learningRecordId));
   }, []);
 
-  // useEffect(() => {
-  //   if (userEssay === null) {
-  //     setTextAreaValue('아직 작성된 에세이가 없어요😂');
-  //   } else {
-  //     setTextAreaValue(userEssay);
-  //   }
-  // }, [userEssay]);
-  //뉴라인만
   const FilterScript = () => {
     console.log('얘는뭘까', { isOnScreen });
     let dummy1 =
@@ -73,25 +75,27 @@ const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
     dispatch(FilterScript);
   }, [userEssay]);
 
-  const options = {
-    root: null, // viewport
-    rootMargin: '0px',
-    threshold: 1.0, // 50%가 viewport에 들어와 있어야 callback 실행
-  };
+  useEffect(() => {
+    const options = {
+      root: null, // viewport
+      rootMargin: '0px',
+      threshold: 1.0, // 50%가 viewport에 들어와 있어야 callback 실행
+    };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      } else {
-        entry.target.classList.remove('active');
-      }
-    });
-  }, options);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        } else {
+          entry.target.classList.remove('active');
+        }
+      });
+    }, options);
 
-  const boxList = textBoxRef.current;
+    const boxList = textBoxRef.current;
 
-  boxList.forEach((el) => observer.observe(el));
+    boxList.forEach((el) => observer.observe(el));
+  });
 
   return (
     <EssayContainer>
@@ -113,6 +117,7 @@ const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
                   textBoxRef.current[idx] = el;
                 }
               }}
+              onClick={(e) => sentenceClickHandler(e, idx)}
             >
               {item}
             </TextBox>

@@ -40,7 +40,7 @@ export const speechaceApi = async (data: FormData): Promise<any> => {
     },
   };
 
-  const res = await axios.post('api', data, config);
+  const res = await customAxios.post('api/v2/study/speechace', data, config);
   console.log(res);
   return res;
 };
