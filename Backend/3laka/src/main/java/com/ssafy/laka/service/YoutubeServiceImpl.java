@@ -10,6 +10,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.ssafy.laka.domain.Script;
+import com.ssafy.laka.domain.ScriptKor;
+import com.ssafy.laka.repository.ScriptKorRepository;
 import com.ssafy.laka.repository.ScriptRepository;
 import com.ssafy.laka.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +46,7 @@ public class YoutubeServiceImpl implements YoutubeService {
     private String urlString = "http://3laka.com:8081/api/v2/video/script/";
     private final VideoRepository videoRepository;
     private final ScriptRepository scriptRepository;
+    private final ScriptKorRepository scriptKorRepository;
     @Override
     public com.ssafy.laka.domain.Video get(String videoId) {
         try {
@@ -62,12 +65,22 @@ public class YoutubeServiceImpl implements YoutubeService {
             if (videoList != null) {
                 Video video = videoList.get(0);
                 com.ssafy.laka.domain.Video v = com.ssafy.laka.domain.Video.from(video);
-                videoRepository.save(v);
+
                 log.info("try to get script for video with videoId: " + video.getId());
                 Script script = Script.builder()
                         .videoId(v.getVideoId())
-                        .scripts(getScript(video.getId()))
+                        .scripts(getScript("en", video.getId()))
                         .build();
+                String kor = getScript("ko", video.getId());
+                if (kor!=null) {
+                    ScriptKor scriptKor = ScriptKor.builder()
+                            .videoId(v.getVideoId())
+                            .korScript(kor)
+                            .build();
+                    v.setKorScript();
+                    scriptKorRepository.save(scriptKor);
+                }
+                videoRepository.save(v);
                 scriptRepository.save(script);
                 log.info(" to get script for video with videoId: " + video.getId());
                 return v;
@@ -84,8 +97,14 @@ public class YoutubeServiceImpl implements YoutubeService {
         return null;
     }
 
-    private String getScript(String id) throws IOException {
-        URL url = new URL(urlString+id);
+    private String getScript(String language, String id) throws IOException {
+        if (language == "en"){
+            urlString = "http://3laka.com:8081/api/v2/video/script/" + id;
+        } else {
+            urlString = "http://3laka.com:8081/api/v2/video/script/ko/" + id;
+        }
+        System.out.println(urlString);
+        URL url = new URL(urlString);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setDoOutput(true);
         con.setDoInput(true);
@@ -106,5 +125,4 @@ public class YoutubeServiceImpl implements YoutubeService {
 
         return response;
     }
-
 }
