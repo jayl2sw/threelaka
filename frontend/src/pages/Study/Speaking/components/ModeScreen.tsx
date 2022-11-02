@@ -4,14 +4,14 @@ import WebCam from '../components/WebCam';
 import VoiceRecorder from '../components/VoiceRecorder';
 import SpeechTest from '../components/SpeechTest';
 //style
-import { MainBox } from '../../../../styles/Common/CommonDivStyle';
+import { MainPaleBox } from '../../../../styles/Common/CommonDivStyle';
 
 const ModeScreen = () => {
   const modeCode = useLocation().search.replace('?mode=', '');
 
   if (modeCode == 'test') {
     return (
-      <MainBox
+      <MainPaleBox
         widthSize={'40vw'}
         heightSize={'50vh'}
         paddingSize={'2vw'}
@@ -20,11 +20,11 @@ const ModeScreen = () => {
         fontColor={'black'}
       >
         <SpeechTest />
-      </MainBox>
+      </MainPaleBox>
     );
   } else if (modeCode == 'video') {
     return (
-      <MainBox
+      <MainPaleBox
         widthSize={'40vw'}
         heightSize={'50vh'}
         paddingSize={'2vw'}
@@ -34,11 +34,11 @@ const ModeScreen = () => {
         style={{ display: 'flex', justifyContent: 'center' }}
       >
         <WebCam />
-      </MainBox>
+      </MainPaleBox>
     );
   } else if (modeCode === 'audio') {
     return (
-      <MainBox
+      <MainPaleBox
         widthSize={'40vw'}
         heightSize={'50vh'}
         paddingSize={'2vw'}
@@ -53,18 +53,18 @@ const ModeScreen = () => {
         }}
       >
         <VoiceRecorder />
-      </MainBox>
+      </MainPaleBox>
     );
   } else {
     return (
-      <MainBox
+      <MainPaleBox
         widthSize={'40vw'}
         heightSize={'50vh'}
         paddingSize={'2vw'}
         fontSize={'1rem'}
         color={'white'}
         fontColor={'black'}
-      ></MainBox>
+      ></MainPaleBox>
     );
   }
 };

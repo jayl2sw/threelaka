@@ -20,7 +20,7 @@ const SpeakingScreen = () => {
     <FlexTransparentDiv
       widthSize={'50vw'}
       heightSize={'50vh'}
-      paddingSize={'0'}
+      paddingSize={'2vh'}
       flexDirection={'row'}
       justifyContent={'center'}
       alignItems={'center'}

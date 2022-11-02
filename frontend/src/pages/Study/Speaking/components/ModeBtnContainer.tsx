@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ModeBtnBox } from '../../../../styles/Speaking/SpeakingStyle';
 // style
 import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
 import { RightBtn } from '../../../../styles/Common/CommonBtnStyle';

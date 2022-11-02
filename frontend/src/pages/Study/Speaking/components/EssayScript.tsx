@@ -7,10 +7,6 @@ import {
 const EssayScript = () => {
   return (
     <div>
-      <ModePickContainer>
-        <button>연습</button>
-        <button>실전</button>
-      </ModePickContainer>
       <EssayContainer>
         <div></div>
       </EssayContainer>

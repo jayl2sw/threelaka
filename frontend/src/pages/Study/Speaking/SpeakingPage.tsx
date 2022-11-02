@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import PickSpeakingMode from './components/ModeBtnContainer';
 import EssayScript from './components/EssayScript';
-import {
-  SpeakingPageBlock,
-  VideoAudioButtonContainer,
-} from '../../../styles/Speaking/SpeakingStyle';
+import { SpeakingPageBlock } from '../../../styles/Speaking/SpeakingStyle';
 import { useLocation } from 'react-router-dom';
 import SpeakingScreen from './components/SpeakingScreen';
 
@@ -19,8 +16,7 @@ const SpeakingPage = () => {
   return (
     <SpeakingPageBlock>
       <SpeakingScreen />
-      <p>-----------스피치테스트-----------</p>
-      {/* <EssayScript /> */}
+      <EssayScript />
     </SpeakingPageBlock>
   );
 };
