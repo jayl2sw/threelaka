@@ -21,9 +21,6 @@ public interface StudyService {
 
     List<WordbookResponseDto> getWordbooksById(int lrId);
 
-    void addEssay(EssayRequestDto essay);
-
-
     void addLearningTime(UpdateLearningRequestDto data);
 
     void memorizeWord(int wordbook_id);
@@ -42,5 +39,7 @@ public interface StudyService {
 
     List<VideoResponseDto> getRecommends();
 
+    void addEssay(EssayRequestDto essay);
 
+    EssayResponseDto findEssay(int learningRecordId);
 }

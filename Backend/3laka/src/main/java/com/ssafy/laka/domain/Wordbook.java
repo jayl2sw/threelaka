@@ -37,8 +37,6 @@ public class Wordbook {
     @Column(name = "is_memorized")
     private boolean isMemorized;
 
-    @OneToMany(mappedBy = "wordbook", cascade = CascadeType.ALL)
-    private List<Essay> essays;
 
     public void setMemorized(){this.isMemorized = true;}
 }

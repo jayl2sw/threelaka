@@ -168,7 +168,7 @@ public class StudyController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @GetMapping("/essay")
+    @PostMapping("/essay")
     @ApiOperation(value = "에세이 저장", notes = "특정 회원 / 특정 강의의 에세이를 저장한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
@@ -181,14 +181,16 @@ public class StudyController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @GetMapping("/essay/download")
-    @ApiOperation(value = "에세이 다운로드", notes = "특정 회원 / 특정 강의의 에세이를 저장한다")
+    @GetMapping("/essay/{learningRecordId}")
+    @ApiOperation(value = "에세이 다운로드", notes = "특정 회원 / 특정 강의의 에세이를 조회한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> downloadEssay(){
+    public ResponseEntity<?> findEssay(
+            @PathVariable int learningRecordId
+    ){
         // 에세이 저장
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(studyService.findEssay(learningRecordId), HttpStatus.OK);
     }
 
 

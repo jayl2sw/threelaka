@@ -141,19 +141,6 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public void addEssay(EssayRequestDto data) {
-        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        Wordbook wordbook = wordbookRepository.findById(data.getWordbookId()).orElseThrow(NotInWordbookException::new);
-        try {
-            Essay essay = Essay.builder().user(user).wordbook(wordbook).content(data.getContent()).build();
-            essayRepository.save(essay);
-        } catch (Exception e) {
-            log.debug("failed to save essay: " + e);
-            throw e;
-        }
-    }
-
-    @Override
     public LearningRecordResponseDto updateCompletedStage(UpdateStageRequestDto data) {
         LearningRecord lr = learningRecordRepository.findById(data.getLearningRecordId()).orElseThrow(LearningRecordNotExistException::new);
         if (SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new).equals(lr.getUser())) {
@@ -233,5 +220,18 @@ public class StudyServiceImpl implements StudyService{
     @Override
     public List<VideoResponseDto> getRecommends() {
         return videoRepository.findFourVideos();
+    }
+
+    @Override
+    public void addEssay(EssayRequestDto essay) {
+        LearningRecord lr = learningRecordRepository.findById(essay.getLearningRecordId()).orElseThrow(LearningRecordNotFoundException::new);
+        lr.setEssay(essay.getContent());
+    }
+
+    @Override
+    public EssayResponseDto findEssay(int learningRecordId) {
+        LearningRecord lr = learningRecordRepository.findById(learningRecordId).orElseThrow(LearningRecordNotFoundException::new);
+        return EssayResponseDto.from(lr);
+
     }
 }
