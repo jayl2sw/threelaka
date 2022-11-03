@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { useState, useEffect, useCallback, RefObject } from 'react';
-import { StyledForm,Heading,InputWrap } from '../../../styles/User/UserStyle';
+import { StyledForm, Heading, InputWrap } from '../../../styles/User/UserStyle';
 import { useAppDispatch } from '../../../utils/hooks';
 import { authActions } from '../../../features/auth/authSlice';
 
@@ -26,10 +26,8 @@ interface ILoginFormProps {
   FormBlockRef: RefObject<HTMLDivElement>;
   setMoveCarousel: React.Dispatch<React.SetStateAction<string>>;
   moveCarousel: string;
-  handleToggle: ()=>void
+  handleToggle: () => void;
 }
-
-
 
 const LoginForm = ({
   handleToggle,
@@ -43,14 +41,21 @@ const LoginForm = ({
   // const [errMsg, setErrMsg] = useState('');
 
   const dispatch = useAppDispatch();
-  
+
   const schema = yup.object().shape({
+    // username: yup
+    //   .string()
+    //   .required('아이디를 입력해주세요')
+    //   .matches(
+    //     /^[a-z0-9]{4,16}$/,
+    //     '4자 이상, 16자 이하의 영문 혹은 숫자로 입력해주세요.'
+    //   ),
     username: yup
       .string()
-      .required('아이디를 입력해주세요')
+      .required('이메일을 입력해주세요')
       .matches(
-        /^[a-z0-9]{4,16}$/,
-        '4자 이상, 16자 이하의 영문 혹은 숫자로 입력해주세요.'
+        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+        '이메일 형태로 입력해주세요'
       ),
     password: yup
       .string()
@@ -88,13 +93,20 @@ const LoginForm = ({
       className="login-form"
     >
       <Heading>
-        <h6>회원가입함해봐랑</h6>
-        <a href="#" onClick={handleToggle} className="toggle">
-          다시로그인해야징
-        </a>
+        <h1>
+          Yes,
+          <br />
+          It's time to ThreeLaka!
+        </h1>
+        <p>
+          Not Registered Yet?&nbsp;
+          <a href="#" onClick={handleToggle} className="toggle">
+            Sign Up
+          </a>
+        </p>
       </Heading>
       <InputWrap>
-        <InputField name="username" control={control} label="아이디" />
+        <InputField name="username" control={control} label="이메일" />
         <InputField
           name="password"
           control={control}

@@ -6,4 +6,9 @@ RUN mkdir ./build
 COPY ./build ./build
 
 ENTRYPOINT ["serve", "-s", "build"]
+
+FROM nginx:stable-alpine as production-stage
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
