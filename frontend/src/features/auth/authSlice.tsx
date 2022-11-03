@@ -11,7 +11,6 @@ export interface LoginPayload {
 
 export interface SignupPayload {
   username: string;
-  email: string;
   password: string;
   gender: 'male' | 'female' | 'secret';
   age: number;
