@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { videoActions } from '../../../features/video/video-slice';
@@ -25,24 +25,23 @@ const SearchBar = () => {
   const videoData = useAppSelector((state) => state.video.videoData);
   // 영상 정보 조회
   const handlerGetVideoData = (videoUrl: string) => {
-    console.log('handlerGetVideoData실행함');
-    console.log(videoData);
     dispatch(videoActions.getVideoData(videoUrl));
-    console.log(videoData);
   };
 
   // 모달 사용하기
   const { isOpenModal, onClickModal } = useModal();
 
   // 현재 영상 stage 확인
-  const stage = useAppSelector((state) => state.study.studyState.stage);
+  const studyState = useAppSelector((state) => state.study.studyState);
   // stage 변경 시 해당 스테이지로 이동
   useEffect(() => {
-    if (stage !== '') {
+    if (studyState.stage !== '') {
       // navigate(`/study/${stage}`);
-      navigate(`/study/reading`);
+      navigate(
+        `/study/reading/${studyState.learningRecordId}/${studyState.stage}/${studyState.videoId}`
+      );
     }
-  }, [stage]);
+  }, [studyState]);
 
   return (
     <SearchBarContainer>
@@ -53,7 +52,6 @@ const SearchBar = () => {
         <span>공부하려는 영상의 유튜브 링크를 넣어주세요</span>
         <i></i>
       </SearchBarInput>
-      <p>입력한 값: {videoUrl}</p>
       <SearchButton>
         <button
           onClick={() => {

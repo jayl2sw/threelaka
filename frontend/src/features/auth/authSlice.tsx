@@ -11,7 +11,6 @@ export interface LoginPayload {
 
 export interface SignupPayload {
   username: string;
-  email: string;
   password: string;
   gender: 'male' | 'female' | 'secret';
   age: number;
@@ -55,7 +54,22 @@ const authSlice = createSlice({
     loginFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
-    test(state) {},
+    fetchUser(state) {
+      state.loading = true;
+    },
+    fetchUserSuccess(state, action: PayloadAction<User>) {
+      console.log(action.payload);
+      state.loading = false;
+      state.currentUser = action.payload;
+    },
+    fetchUserFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    logout(state) {
+      state.isLoggedIn = false;
+      state.currentUser = undefined;
+      // Object.assign(state, initialState)
+    },
   },
 });
 

@@ -43,11 +43,11 @@ export const loginApi = async (data: LoginPayload) => {
 // };
 
 //아이디중복검사
-export const idCheckApi = async (id: string) => {
-  console.log("중복검사",id)
-  const res = await customAxios.get(`api/v1/user/auth/check/username/${id}`);
-  return res.data;
-};
+// export const idCheckApi = async (id: string) => {
+//   console.log("중복검사",id)
+//   const res = await customAxios.get(`api/v1/user/auth/check/username/${id}`);
+//   return res.data;
+// };
 //닉네임중복검사
 export const nicknameCheckApi = async (nickname: string) => {
   const res = await customAxios.get(
@@ -61,8 +61,15 @@ export const emailCheckApi = async (email: string) => {
   return res.data;
 };
 
-//리프레쉬토큰테스트
+//유저정보로드
 export const userInfoApi = async () => {
-  const res = await customAxios.get('api/v1/dashboard/profile');
-  return res;
+  const res = await customAxios.get('api/v1/user/info');
+  console.log("어디서막히나",res.data)
+  return res.data;
 };
+
+
+export const logoutApi = async () => {
+  const res = await customAxios.put('api/v1/user/logout')
+  return res
+}

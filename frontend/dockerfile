@@ -1,0 +1,16 @@
+FROM node:16.14.0
+
+WORKDIR /app
+RUN mkdir ./build
+ADD ./build ./build
+COPY package*.json ./
+RUN yarn install
+RUN yarn global add serve
+COPY . .
+ENTRYPOINT ["serve", "-s", "build"]
+
+FROM nginx:stable-alpine as production-stage
+COPY /build /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
