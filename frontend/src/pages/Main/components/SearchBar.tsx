@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { videoActions } from '../../../features/video/video-slice';
@@ -29,10 +29,7 @@ const SearchBar = () => {
   const videoData = useAppSelector((state) => state.video.videoData);
   // 영상 정보 조회
   const handlerGetVideoData = (videoUrl: string) => {
-    console.log('handlerGetVideoData실행함');
-    console.log(videoData);
     dispatch(videoActions.getVideoData(videoUrl));
-    console.log(videoData);
   };
 
   // 모달 사용하기

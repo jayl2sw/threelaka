@@ -100,6 +100,15 @@ export const SubTagContainer = styled.div`
 
 export const SubTag = styled.button`
   border-radius: 10px;
-  padding: 0.5vh 0.5vw;
-  margin: 0.5vw 0.5vw 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 4.5vw;
+  height: 3vh;
+  font-size: 0.9vw;
+  color: 'white';
+  background-color: 'blue';
+  margin-top: 1vh;
+  margin-right: 0.5vw;
 `;

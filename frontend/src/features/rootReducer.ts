@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   video: videoReducer,
   study: studyReducer,
-  wrtie: writingReducer,
+  write: writingReducer,
 });
 
 export default rootReducer;

@@ -6,11 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { authActions } from '../../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 //api
-import {
-  idCheckApi,
-  nicknameCheckApi,
-  emailCheckApi,
-} from '../../../services/userApi';
+import { nicknameCheckApi, emailCheckApi } from '../../../services/userApi';
 
 //form 관리 라이브러리
 import { useForm } from 'react-hook-form';
@@ -24,7 +20,6 @@ import { StyledForm, Heading, InputWrap } from '../../../styles/User/UserStyle';
 
 interface IAuthForm {
   username: string;
-  email: string;
   password: string;
   passwordConfirm: string;
   gender: 'male' | 'female' | 'secret';
@@ -39,7 +34,7 @@ interface ISignupFormProps {
   FormBlockRef: RefObject<HTMLDivElement>;
   setMoveCarousel: React.Dispatch<React.SetStateAction<string>>;
   moveCarousel: string;
-  handleToggle: ()=>void
+  handleToggle: () => void;
 }
 
 const SignupForm = ({
@@ -49,7 +44,7 @@ const SignupForm = ({
   FormBlockRef,
   setMoveCarousel,
   moveCarousel,
-  handleToggle
+  handleToggle,
 }: ISignupFormProps) => {
   // const [errMsg, setErrMsg] = useState('');
 
@@ -58,13 +53,13 @@ const SignupForm = ({
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   const schema = yup.object().shape({
-    username: yup
-      .string()
-      .required('아이디를 입력해주세요')
-      .matches(
-        /^[a-z0-9]{4,16}$/,
-        '4자 이상, 16자 이하의 영문 혹은 숫자로 입력해주세요.'
-      ),
+    // username: yup
+    //   .string()
+    //   .required('아이디를 입력해주세요')
+    //   .matches(
+    //     /^[a-z0-9]{4,16}$/,
+    //     '4자 이상, 16자 이하의 영문 혹은 숫자로 입력해주세요.'
+    //   ),
     password: yup
       .string()
       .required('비밀번호를 입력해주세요')
@@ -72,7 +67,7 @@ const SignupForm = ({
         /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,16}$/,
         '4자 이상, 16자 이하의 영문, 숫자 조합으로 입력해주세요.'
       ),
-    email: yup
+    username: yup
       .string()
       .required('이메일을 입력해주세요')
       .matches(
@@ -109,9 +104,8 @@ const SignupForm = ({
       onValid?.(formValues);
 
       //회원가입
-      let { email, username, password, nickname, age, gender } = formValues;
+      let { username, password, nickname, age, gender } = formValues;
       const signupInfo = {
-        email: email,
         username: username,
         password: password,
         age: parseInt(age),
@@ -129,34 +123,26 @@ const SignupForm = ({
 
   //유효검사 - 비밀번호 일치 및 아이디, 이메일, 닉네임 중복확인
   const onValid = useCallback(async (data: IAuthForm) => {
-    const { username, nickname, email } = data;
+    const { username, nickname } = data;
 
-    const idCheckRes = await idCheckApi(username);
+    const emailCheckRes = await emailCheckApi(username);
     const nicknameCheckRes = await nicknameCheckApi(nickname);
-    const emailCheckRes = await emailCheckApi(email);
     if (data.password !== data.passwordConfirm) {
       setError(
         'passwordConfirm', // 에러 핸들링할 input요소 name
         { message: '비밀번호가 일치하지 않습니다.' }, // 에러 메세지
         { shouldFocus: true } // 에러가 발생한 input으로 focus 이동
       );
-    } else if (idCheckRes) {
-      console.log('뭐냐고', idCheckRes);
+    } else if (emailCheckRes) {
       setError(
         'username',
-        { message: '아이디가중복이에여' },
+        { message: '이메일이중복이에여' },
         { shouldFocus: true }
       );
     } else if (nicknameCheckRes) {
       setError(
         'nickname',
         { message: '닉네임이중복이에여' },
-        { shouldFocus: true }
-      );
-    } else if (emailCheckRes) {
-      setError(
-        'email',
-        { message: '이메일이중복이에여' },
         { shouldFocus: true }
       );
     }
@@ -174,13 +160,20 @@ const SignupForm = ({
       className="sign-up-form"
     >
       <Heading>
-        <h6>회원가입함해봐랑</h6>
-        <a href="#" onClick={handleToggle} className="toggle">
-          다시로그인해야징
-        </a>
+        <h1>
+          Hello,
+          <br />
+          Welcome to ThreeLaka!
+        </h1>
+        <p>
+          Already Have an Account?&nbsp;
+          <a href="#" onClick={handleToggle} className="toggle">
+            Sign In
+          </a>
+        </p>
       </Heading>
       <InputWrap>
-        <InputField name="username" control={control} label="아이디" />
+        <InputField name="username" control={control} label="이메일" />
         <InputField
           name="password"
           control={control}
@@ -194,27 +187,35 @@ const SignupForm = ({
           type="password"
         />
         <InputField name="nickname" control={control} label="닉네임" />
-        <InputField name="email" control={control} label="이메일" />
-        <InputField name="age" control={control} label="나이" type="number" />
-        <RadioField
-          name="gender"
-          control={control}
-          label="성별"
-          options={[
-            {
-              label: '남성',
-              value: '0',
-            },
-            {
-              label: '여성',
-              value: '1',
-            },
-            {
-              label: '쉿,비밀이야',
-              value: '2',
-            },
-          ]}
-        />
+        <div className="short">
+          <div className="age">
+            <InputField
+              name="age"
+              control={control}
+              label="나이"
+              type="number"
+            />
+          </div>
+          <RadioField
+            name="gender"
+            control={control}
+            label="성별"
+            options={[
+              {
+                label: '남성',
+                value: '0',
+              },
+              {
+                label: '여성',
+                value: '1',
+              },
+              {
+                label: '비공개',
+                value: '2',
+              },
+            ]}
+          />
+        </div>
       </InputWrap>
       <button>제출</button>
     </StyledForm>

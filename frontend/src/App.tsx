@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch } from './utils/hooks';
 import { authActions } from './features/auth/authSlice';
@@ -29,8 +29,6 @@ import Counter from './pages/Counter/Counter';
 import { ProtectedRoute } from './pages/private/ProtectedRoute';
 
 function App() {
-  const dispatch = useAppDispatch();
-
   return (
     <div className="App">
       <Routes>

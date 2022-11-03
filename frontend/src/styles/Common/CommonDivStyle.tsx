@@ -13,7 +13,7 @@ interface TransparentFlexDivProps
   widthSize: string;
   heightSize: string;
   paddingSize: string;
-  justifyCotent:
+  justifyContent:
     | 'start'
     | 'center'
     | 'end'
@@ -149,7 +149,7 @@ export const FlexTransparentDiv = styled.div<TransparentFlexDivProps>`
   padding: ${(props) => props.paddingSize};
   display: flex;
   flex-direction: ${(props) => props.flexDirection};
-  justify-content: ${(props) => props.justifyCotent};
+  justify-content: ${(props) => props.justifyContent};
   align-items: ${(props) => props.alignItems};
   background-color: transparent;
   border: ${(props) =>

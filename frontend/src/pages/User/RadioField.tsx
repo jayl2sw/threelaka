@@ -47,10 +47,12 @@ export const RadioField = ({
       <FormLabel component="legend">{label}</FormLabel>
 
       <RadioGroup
+        row
         name={name}
         value={value || ''}
         onChange={onChange}
         onBlur={onBlur}
+        defaultValue="0"
       >
         {options.map((option) => (
           <FormControlLabel
