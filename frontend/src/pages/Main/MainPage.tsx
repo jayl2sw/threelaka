@@ -5,6 +5,10 @@ import {
   MainPageBlock,
   RecentVideo,
   RecommendVideos,
+  RecentVideoContainer,
+  SearchBarBlock,
+  LogoBlock,
+  FirstpageBlock
 } from '../../styles/Main/MainStyle';
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import VideoCard from './components/VideoCard';
@@ -73,12 +77,20 @@ const recommendDummy2 = [
 const MainPage = () => {
   return (
     <MainPageBlock>
-      <NewVideo>
-        <SearchBar />
-      </NewVideo>
+      <FirstpageBlock>
+        <SearchBarBlock>
+        <LogoBlock></LogoBlock>
+        <NewVideo>
+          <SearchBar />
+        </NewVideo>
+        </SearchBarBlock>
+      </FirstpageBlock>
+      
+      <RecentVideoContainer>
       <RecentVideo>
         <div>최근 학습한 영상</div>
       </RecentVideo>
+      </RecentVideoContainer>
       <RecommendVideos>
         {recommendDummy1.map((videoData, i) => {
           return <VideoCard data={videoData} key={i} />;

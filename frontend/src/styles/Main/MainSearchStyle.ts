@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 // 메인페이지 검색
 export const NewVideo = styled.div`
   /* border: 1px solid green; */

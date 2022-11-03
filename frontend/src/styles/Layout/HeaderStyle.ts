@@ -27,13 +27,17 @@ export const HeaderBlock = styled.div`
 
 export const HeaderMenuRegion = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   width: 100vw;
   height: 8vh;
-  background-color: black;
+  background-color: white;
+  opacity: 0.8;
   font-size: 3rem;
-  color: white;
+  color: black;
+  position: fixed;
+  top: 0;
+  padding-right: 5.5vw;
 `;
 
 export const StudyProgressRegion = styled.div`
@@ -109,14 +113,14 @@ export const LinkWrapper = styled.div<LinkMenuProps>`
   align-items: center;
   height: 8vh;
   font-size: 1.2rem;
-  color: white;
+  color: black;
   a {
     text-decoration: none;
-    color: white;
+    color: black;
   }
   a:hover {
     text-decoration: underline;
-    color: white;
+    color: black;
   }
 `;
 

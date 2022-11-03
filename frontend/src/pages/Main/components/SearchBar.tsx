@@ -53,6 +53,7 @@ const SearchBar = () => {
     <SearchBarContainer>
       {/* 새로운 학습 시작 */}
 
+
       <SearchBarInput>
         <input type="text" onChange={onChange} value={videoUrl} required />
         <span>공부하려는 영상의 유튜브 링크를 넣어주세요</span>
@@ -62,7 +63,7 @@ const SearchBar = () => {
         <MainBtn
           widthSize={'10vw'}
           heightSize={'5vh'}
-          paddingSize={'1vw'}
+          paddingSize={'1vh 1vw 1vh 1vw'}
           fontSize={'2vmin'}
           fontColor={'white'}
           backgroundColor={'black'}
@@ -70,9 +71,11 @@ const SearchBar = () => {
             handlerGetVideoData(videoUrl);
             onClickModal();
           }}
+          style={{margin:'4vh'}}
+    
 
         >
-          비디오 정보 받기
+          Search
         </MainBtn>
         {isOpenModal && (
           <VideoDataModal

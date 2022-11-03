@@ -12,7 +12,7 @@ export const ModalContainer = styled.div`
   border-radius: 1rem;
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
   box-sizing: border-box;
-  background-color: linear-gradient(106.62deg, #83BDFF 8.18%, rgba(136, 192, 255, 0.90051) 49.26%, #8DC2FF 69.16%, #C1FFA9 92.42%);
+  background: linear-gradient(106.62deg, #83BDFF 8.18%, rgba(136, 192, 255, 0.90051) 49.26%, #8DC2FF 69.16%, #C1FFA9 92.42%);
   /* opacity: 0.5; */
   z-index: 10000;
 `;
@@ -33,6 +33,7 @@ export const VideoTitle = styled.p`
   text-align: center;
   /* font-weight: bold; */
   font-size: 4vmin;
+  font-weight: light;
 `;
 
 export const VideoThumbnail = styled.img`

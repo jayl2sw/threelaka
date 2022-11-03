@@ -51,7 +51,7 @@ const VideoDataModal = (props: VideoDataModalType) => {
           paddingSize={'1vw'}
           fontSize={'2vmin'}
           fontColor={'white'}
-          backgroundColor={'black'}
+          backgroundColor={'gradient'}
           onClick={() => {
             console.log(video.videoId);
             handlerPostStartStudy(video.videoId);
