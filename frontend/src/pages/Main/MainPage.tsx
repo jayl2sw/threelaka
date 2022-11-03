@@ -90,7 +90,7 @@ const MainPage = () => {
         </NewVideo>
         <YoutubeLink>
         <IconContext.Provider value={{ color: "red", size:"3rem"}}>
-          <RiYoutubeFill /> 
+          <RiYoutubeFill />
         </IconContext.Provider>
         
          to TED</YoutubeLink>

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import {
-  HeaderMenuRegion,
-  LinkWrapper,
   TitleRegion,
 } from '../styles/Layout/HeaderStyle';
+import {
+  MainHeaderMenuRegion,
+  MainLinkWrapper
+} from '../styles/Layout/MainHeaderStyle';
 import { Link } from 'react-router-dom';
 import { LogoutIcon } from '../styles/Layout/HeaderStyle';
 import { useAppDispatch } from '../utils/hooks';
@@ -18,21 +20,21 @@ const MainHeader = () => {
     navigate('/auth/login');
   };
   return (
-    <HeaderMenuRegion>
-      <LinkWrapper bgColor="transparent" widthSize="10vw" style={{ color: "black"}}>
+    <MainHeaderMenuRegion>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw" style={{ color: "black"}}>
         <Link to="/">Home</Link>
-      </LinkWrapper>
-      <LinkWrapper bgColor="transparent" widthSize="10vw">
+      </MainLinkWrapper>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/videos">Videos</Link>
-      </LinkWrapper>
+      </MainLinkWrapper>
       {/* <TitleRegion>THREELAKA</TitleRegion> */}
-      <LinkWrapper bgColor="transparent" widthSize="10vw">
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/auth/dashboard/1">dashboard</Link>
-      </LinkWrapper>
-      <LinkWrapper bgColor="transparent" widthSize="10vw">
+      </MainLinkWrapper>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <LogoutIcon onClick={handleLogout}></LogoutIcon>
-      </LinkWrapper>
-    </HeaderMenuRegion>
+      </MainLinkWrapper>
+    </MainHeaderMenuRegion>
   );
 };
 
