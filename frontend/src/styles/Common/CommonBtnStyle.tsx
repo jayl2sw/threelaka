@@ -14,6 +14,7 @@ export const TopBtn = styled.button<CommonBtnProps>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  font-family: PretendardBold;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
   padding: ${(props) => props.paddingSize};
