@@ -8,17 +8,16 @@ import com.ssafy.laka.dto.user.*;
 
 public interface UserService {
 
-    boolean checkEmail(String email);
     boolean checkUsername(String username);
     boolean checkNickName(String nickname);
     boolean checkPW(int id, String nowPW);
-    boolean checkSameUser(String email, String username);
+    boolean checkSameUser(String nickname, String username);
     TokenDto doLogin(LoginRequestDto requestDto);
     void doSignUp(SignUpRequestDto requestDto);
     //UserResponseDto getUserInfo(int id);
     //void updateUser(int id, UpdateUserRequestDto requestDto);
     void deleteUser(int id);
-    void changePW(String email, String newPW);
+    void changePW(String username, String newPW);
     void changePW(int id, String newPW);
     void setNickname(String nickname);
     UserResponseDto getMyInfo();
