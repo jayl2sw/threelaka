@@ -7,7 +7,10 @@ import { useParams } from 'react-router-dom';
 import { TextBox } from '../../../../styles/Speaking/SpeakingStyle';
 const SpeechTest = () => {
   const pageParams: StudyPageParams = useParams() as any;
-  const [selectedText, setSelectedText] = useState<string>('I go to school');
+  const [selectedText, setSelectedText] = useState<string>('');
+  // const [selectedText, setSelectedText] = useState<HTMLDivElement>(null);
+  const [splittedText, setSplittedText] = useState<HTMLDivElement | null>(null);
+
   return (
     <div>
       {selectedText ? (
@@ -20,6 +23,7 @@ const SpeechTest = () => {
       <VoiceRecorderForTest selectedText={selectedText}></VoiceRecorderForTest>
       <EssayScript
         setSelectedText={setSelectedText}
+        setSplittedText={setSplittedText}
         pageParams={pageParams}
       ></EssayScript>
     </div>

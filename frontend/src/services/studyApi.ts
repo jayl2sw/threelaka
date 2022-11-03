@@ -46,6 +46,6 @@ export const speechaceApi = async (payload: any): Promise<any> => {
     payloadData,
     config
   );
-  console.log(res);
-  return res;
+  console.log(res.data);
+  return res.data;
 };

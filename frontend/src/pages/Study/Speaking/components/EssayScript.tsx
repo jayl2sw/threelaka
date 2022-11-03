@@ -15,11 +15,16 @@ import { writingActions } from '../../../../features/writing/writing-slice';
 import { StudyPageParams } from '../../../../models';
 
 interface IEssayProps {
+  setSplittedText: React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
   setSelectedText: React.Dispatch<React.SetStateAction<string>>;
   pageParams: StudyPageParams;
 }
 
-const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
+const EssayScript = ({
+  setSelectedText,
+  pageParams,
+  setSplittedText,
+}: IEssayProps) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const isOnScreen = useOnScreen(elementRef);
   const dispatch = useAppDispatch();
@@ -34,7 +39,22 @@ const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
     const pickedSentence = (e.target as HTMLDivElement).innerText;
     console.log('얍얍', pickedSentence);
     setSelectedText(pickedSentence);
+    const splittedSentence = e.target as HTMLDivElement;
+    let words = splittedSentence.innerText.split(/( )/g);
   };
+  // const sentenceClickHandler = (
+  //   e: React.MouseEvent<HTMLDivElement>,
+  //   idx: number
+  // ) => {
+  //   const pickedSentence = e.target as HTMLDivElement;
+  //   let words = pickedSentence.innerText.split(/( )/g);
+  //   console.log(words);
+  //   pickedSentence.innerHTML = words
+  //     .map((word) => `<span>${word}</span>`)
+  //     .join('');
+  //   console.log(pickedSentence);
+  //   setSelectedText(pickedSentence);
+  // };
 
   useEffect(() => {
     //내가 쓴 에세이 불러오는거
@@ -42,22 +62,6 @@ const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
   }, []);
 
   const FilterScript = () => {
-    console.log('얘는뭘까', { isOnScreen });
-    let dummy1 =
-      'Yes of course.\
-      I grew up playing football like most children in my country.';
-    //점만
-    let dummy2 = 'I go to school. And I am so happy.';
-    //뉴라인이랑 점 둘다
-    let dummy3 =
-      'Yes of course.\
-    I grew up playing football like most children in my country. I go to school.\
-    I want to eat lunch.\
-    I am so hungry. very very hungry.\
-    Please, give me a delicious food.\
-    I love you so much.\
-    I need delicious food.';
-
     let splittedText = userEssay.split('.');
 
     const texts = splittedText.map((item, key) => {
