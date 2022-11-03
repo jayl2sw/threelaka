@@ -46,7 +46,6 @@ const SearchBar = () => {
   return (
     <SearchBarContainer>
       {/* 새로운 학습 시작 */}
-
       <SearchBarInput>
         <input type="text" onChange={onChange} value={videoUrl} required />
         <span>공부하려는 영상의 유튜브 링크를 넣어주세요</span>

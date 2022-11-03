@@ -29,29 +29,29 @@ const VideoCard = ({ data }: VideoCardProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { isOpenModal, onClickModal } = useModal();
   const [videoUrl, setVideoUrl] = useState<string>('');
+
+  // 모달에 띄워줄 비디오 정보
+  const videoData = useAppSelector((state) => state.video.videoData);
+  // 영상 정보 조회
+  const handlerGetVideoData = (videoId: string) => {
+    const videoUrl = `https://youtu.be/${videoId}`;
+    dispatch(videoActions.getVideoData(videoUrl));
+  };
+
+  // 모달 사용하기
+  const { isOpenModal, onClickModal } = useModal();
 
   // 현재 영상 stage 확인
   const studyState = useAppSelector((state) => state.study.studyState);
   // stage 변경 시 해당 스테이지로 이동
   useEffect(() => {
     if (studyState.stage !== '') {
-      // navigate(`/study/${stage}`);
       navigate(
         `/study/reading/${studyState.learningRecordId}/${studyState.stage}/${studyState.videoId}`
       );
     }
   }, [studyState]);
-
-  // 모달에 띄워줄 비디오 정보
-  const videoData = useAppSelector((state) => state.video.videoData);
-  // 영상 정보 조회
-  const handlerGetVideoData = (videoUrl: string) => {
-    console.log(videoUrl);
-    dispatch(videoActions.getVideoData(videoUrl));
-    console.log(videoUrl);
-  };
 
   return (
     <VideoCardBlock>

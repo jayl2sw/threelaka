@@ -10,68 +10,6 @@ import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import VideoCard from './components/VideoCard';
 import RecommendVideoList from './components/RecommendVideoList';
 
-const recommendDummy1 = [
-  {
-    videoId: '9E1SLTvngEw',
-    title: 'Lasting Conservation, Led by Indigenous Heritage',
-    description: '없음',
-    script: true,
-    script_kor: false,
-  },
-  {
-    videoId: '9E1SLTvngEw',
-    title: 'Lasting Conservation, Led by Indigenous Heritage',
-    description: '없음',
-    script: true,
-    script_kor: false,
-  },
-  {
-    videoId: '9E1SLTvngEw',
-    title: 'Lasting Conservation, Led by Indigenous Heritage',
-    description: '없음',
-    script: true,
-    script_kor: false,
-  },
-  {
-    videoId: '9E1SLTvngEw',
-    title: 'Lasting Conservation, Led by Indigenous Heritage',
-    description: '없음',
-    script: true,
-    script_kor: false,
-  },
-];
-
-// const recommendDummy2 = [
-//   {
-//     videoId: 'Ks-_Mh1QhMc',
-//     title: 'Your body language may shape who you are',
-//     description: '없음',
-//     script: true,
-//     script_kor: true,
-//   },
-//   {
-//     videoId: 'Ks-_Mh1QhMc',
-//     title: 'Your body language may shape who you are',
-//     description: '없음',
-//     script: true,
-//     script_kor: true,
-//   },
-//   {
-//     videoId: 'Ks-_Mh1QhMc',
-//     title: 'Your body language may shape who you are',
-//     description: '없음',
-//     script: true,
-//     script_kor: true,
-//   },
-//   {
-//     videoId: 'Ks-_Mh1QhMc',
-//     title: 'Your body language may shape who you are',
-//     description: '없음',
-//     script: true,
-//     script_kor: true,
-//   },
-// ];
-
 const MainPage = () => {
   return (
     <MainPageBlock>
