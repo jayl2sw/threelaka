@@ -8,7 +8,8 @@ import {
   RecentVideoContainer,
   SearchBarBlock,
   LogoBlock,
-  FirstpageBlock
+  FirstpageBlock,
+  YoutubeLink
 } from '../../styles/Main/MainStyle';
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import VideoCard from './components/VideoCard';
@@ -80,6 +81,7 @@ const MainPage = () => {
       <FirstpageBlock>
         <SearchBarBlock>
         <LogoBlock></LogoBlock>
+        <YoutubeLink></YoutubeLink>
         <NewVideo>
           <SearchBar />
         </NewVideo>

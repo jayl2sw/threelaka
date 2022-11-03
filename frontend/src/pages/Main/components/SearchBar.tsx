@@ -7,11 +7,12 @@ import {
   SearchBarContainer,
   SearchBarInput,
   SearchButton,
+  SearchIconBtn
 } from '../../../styles/Main/MainSearchStyle';
 import useModal from '../../../utils/useModal';
-import {
-  MainBtn
-} from '../../../styles/Common/CommonBtnStyle';
+import { GoSearch } from "react-icons/go";
+import { IconContext } from "react-icons";
+
 
 const SearchBar = () => {
   const dispatch = useAppDispatch();
@@ -60,23 +61,16 @@ const SearchBar = () => {
         <i></i>
       </SearchBarInput>
       <SearchButton>
-        <MainBtn
-          widthSize={'10vw'}
-          heightSize={'5vh'}
-          paddingSize={'1vh 1vw 1vh 1vw'}
-          fontSize={'2vmin'}
-          fontColor={'white'}
-          backgroundColor={'black'}
+      <SearchIconBtn
           onClick={() => {
             handlerGetVideoData(videoUrl);
             onClickModal();
           }}
-          style={{margin:'4vh'}}
-    
-
         >
-          Search
-        </MainBtn>
+        <IconContext.Provider value={{ color: "4a9fff", className: "global-class-name", size: "2rem" }}>
+          <GoSearch></GoSearch>
+        </IconContext.Provider>
+        </SearchIconBtn>
         {isOpenModal && (
           <VideoDataModal
             isOpenModal={isOpenModal}

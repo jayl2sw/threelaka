@@ -32,7 +32,7 @@ export const SearchBarBlock = styled.div`
   align-items: center;
   width: 50vw;
   height: 55vh;
-  border: solid green 3px;
+  border: solid purple 3px;
   flex-direction: column;
 `
 export const LogoBlock = styled.div`
@@ -40,8 +40,11 @@ width: 30vw;
 height: 15vh;
 background: url(${logoImg});
 background-size: 30vw 15vh;
-border: 3px purple solid;
+border: 3px pink solid;
 margin-bottom: 3vw;
+`
+
+export const YoutubeLink = styled.div`
 `
 
 // 메인페이지 최근 학습
