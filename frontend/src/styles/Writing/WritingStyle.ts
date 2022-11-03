@@ -16,21 +16,10 @@ export const WordListAndWritingContainer = styled.div`
   height: 70vh;
   justify-content: center;
   align-items: center;
+  font-family: PretendardRegular;
   /* border: 1px solid blue; */
   margin-left: 5vw;
   margin-right: 5vw;
-`;
-
-export const WritingTextArea = styled.textarea`
-  display: flex;
-  background-color: white;
-  border-radius: 25px;
-  width: 100%;
-  height: 100%;
-  padding: 2vmin 3vmin;
-  font-size: 3vmin;
-  border: none;
-  resize: none;
 `;
 
 export const WordCheckBox = styled.div`
@@ -78,4 +67,26 @@ export const WordText = styled.div`
   &:hover p.back {
     display: inline;
   }
+  & p.checked {
+    text-decoration: black line-through;
+  }
+`;
+
+export const ArcodianBox = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 1vh;
+  width: 25.3vw;
+  height: 5vh;
+  padding: 1vw;
+  font-size: 1vmin;
+  color: black;
+  background: #ffffff;
+  box-shadow: 10px 10px 80px rgba(63, 39, 102, 0.1);
+  border-radius: 2vmin;
+  &:hover {
+    height: 40vh;
+  }
+  transition: height ease-in-out 0.8s;
 `;
