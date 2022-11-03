@@ -18,6 +18,6 @@ public interface VideoRepository extends JpaRepository<Video, String> {
             nativeQuery = true)
     Page<Video> findByKeyword(String keyword, Pageable pageable);
 
-    @Query(value="select * from Video limit 4", nativeQuery = true)
-    List<VideoResponseDto> findFourVideos();
+    @Query(value="select * from Videos limit 4", nativeQuery = true)
+    List<Video> findFourVideos();
 }
