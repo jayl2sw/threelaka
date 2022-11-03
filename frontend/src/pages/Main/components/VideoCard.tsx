@@ -29,14 +29,8 @@ const VideoCard = ({ data }: VideoCardProps) => {
       <VideoImg src={`https://img.youtube.com/vi/${data.videoId}/0.jpg`} />
       <p className="video-title">{data.title}</p>
       <SubTagContainer>
-        <SubTag>
-          <p>영어자막</p>
-        </SubTag>
-        {data.korScript && (
-          <SubTag>
-            <p>한글자막</p>
-          </SubTag>
-        )}
+        <SubTag>영어자막</SubTag>
+        {data.korScript && <SubTag>한글자막</SubTag>}
       </SubTagContainer>
     </VideoCardBlock>
   );

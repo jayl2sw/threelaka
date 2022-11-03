@@ -68,8 +68,9 @@ export const SubTag = styled.button`
   width: 4.5vw;
   height: 3vh;
   font-size: 0.9vw;
-  color: 'white';
-  background-color: 'blue';
+  color: #ffffff;
+  background: #4a9fff;
   margin-top: 1vh;
   margin-right: 0.5vw;
+  border: none;
 `;
