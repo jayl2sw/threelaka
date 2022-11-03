@@ -108,15 +108,22 @@ public class StudyServiceImpl implements StudyService{
     public void addWord(WordRequestDto data) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         LearningRecord lr = learningRecordRepository.findById(data.getLrId()).orElseThrow(LearningRecordNotFoundException::new);
+        System.out.println(data.getWord());
+        System.out.println(lr.getLearningRecordId());
+        Optional<Wordbook> wb = wordbookRepository.findByLearningRecordAndWord(lr, data.getWord());
 
-        Wordbook wordbook = Wordbook.builder()
-                .user(user)
-                .learningRecord(lr)
-                .word(data.getWord())
-                .example(data.getExample())
-                .build();
+        if (wb.isPresent()) {
+            throw new WordAlreadyExistException();
+        } else {
+            Wordbook wordbook = Wordbook.builder()
+                    .user(user)
+                    .learningRecord(lr)
+                    .word(data.getWord())
+                    .example(data.getExample())
+                    .build();
 
-        wordbookRepository.save(wordbook);
+            wordbookRepository.save(wordbook);
+        }
     }
 
 

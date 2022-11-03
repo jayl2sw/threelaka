@@ -21,4 +21,6 @@ public interface WordbookRepository extends JpaRepository<Wordbook, Integer> {
     int countByUser(User user);
 
     List<Wordbook> findWordbooksByLearningRecord(LearningRecord learningRecord);
+
+    Optional<Wordbook> findByLearningRecordAndWord(LearningRecord lr, String word);
 }
