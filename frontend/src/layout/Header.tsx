@@ -12,8 +12,6 @@ import {
 import { useParams, useNavigate } from 'react-router-dom';
 import { StudyPageParams } from '../models';
 import { Link } from 'react-router-dom';
-import { studyActions } from '../features/study/study-slice';
-import { useAppDispatch } from '../utils/hooks';
 
 export interface IheaderProps {
   customMoveToNext: (
