@@ -173,7 +173,7 @@ export const GradientRoundBtn = styled.button<CommonBtnProps>`
   border-radius: 5vmin;
   border: none;
   :hover {
-    opacity: 0.9;
+    opacity: 0.8;
   }
   :active {
     opacity: 0.5;

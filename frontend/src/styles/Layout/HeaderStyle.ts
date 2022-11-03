@@ -7,7 +7,8 @@ interface LinkMenuProps {
 }
 
 export const HeaderBlock = styled.div`
-  /* z-index: 5; */
+  position: relative;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,6 +22,7 @@ export const HeaderBlock = styled.div`
   transition: transform 1s ease-in-out;
   :hover {
     transform: translateY(0vh);
+    /* z-index: 5; */
     transition: transform 1.5s ease-in-out;
   }
 `;

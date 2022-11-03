@@ -14,7 +14,7 @@ export const WordListAndWritingContainer = styled.div`
   display: flex;
   width: 90vw;
   height: 70vh;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   /* border: 1px solid blue; */
   margin-left: 5vw;
