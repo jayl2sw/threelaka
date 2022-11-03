@@ -102,7 +102,7 @@ const studySlice = createSlice({
       // console.log(action);
     },
     //발음 테스트
-    speechTest(state, action: PayloadAction<FormData>) {
+    speechTest(state, action: PayloadAction<any>) {
       state.loading = true;
     },
   },

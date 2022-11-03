@@ -56,16 +56,19 @@ const VoiceRecorder = ({ selectedText }: IRecorderProps) => {
     var data = new FormData();
     // var reader = new FileReader();
 
-    console.log('애초에 처음에 없는거아님?', audioResult);
-    console.log(typeof audioResult);
+    // console.log('애초에 처음에 없는거아님?', audioResult);
+    console.log('원래타입', typeof audioResult);
     let blob = new Blob([audioResult], { type: 'audio/wav' });
-    console.log('블랍?', blob);
+    // console.log('블랍?', blob);
     console.log(typeof blob);
-    console.log(selectedText, blob);
-    data.append('text', selectedText);
-
-    data.append('user_audio_file', blob);
-    dispatch(studyActions.speechTest(data));
+    // console.log(selectedText, blob);
+    // data.append('text', selectedText);
+    // data.append('text', 'I go to school');
+    //text
+    data.append('file', blob);
+    dispatch(
+      studyActions.speechTest({ payloadData: data, payloadText: selectedText })
+    );
   };
 
   useEffect(() => {

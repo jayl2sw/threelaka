@@ -33,14 +33,19 @@ export const getWordBookApi = async (learningId: number): Promise<any> => {
 };
 
 //발음검사 API
-export const speechaceApi = async (data: FormData): Promise<any> => {
+export const speechaceApi = async (payload: any): Promise<any> => {
+  const { payloadData, payloadText } = payload;
   const config = {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   };
 
-  const res = await customAxios.post('api/v2/study/speechace', data, config);
+  const res = await customAxios.post(
+    `api/v2/study/speechace?text=${payloadText}`,
+    payloadData,
+    config
+  );
   console.log(res);
   return res;
 };

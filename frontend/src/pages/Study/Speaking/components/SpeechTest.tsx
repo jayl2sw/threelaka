@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { TextBox } from '../../../../styles/Speaking/SpeakingStyle';
 const SpeechTest = () => {
   const pageParams: StudyPageParams = useParams() as any;
-  const [selectedText, setSelectedText] = useState<string>('');
+  const [selectedText, setSelectedText] = useState<string>('I go to school');
   return (
     <div>
       {selectedText ? (

@@ -92,7 +92,7 @@ export function* watchGetWordBookAsync() {
 }
 
 //발음검사
-function* onPostSpeechTestInfo(action: PayloadAction<FormData>) {
+function* onPostSpeechTestInfo(action: PayloadAction<any>) {
   try {
     const response: string = yield call(speechaceApi, action.payload);
   } catch (error) {
