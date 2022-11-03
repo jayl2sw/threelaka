@@ -11,7 +11,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   control: Control<any>;
   label?: string;
-  type?:string
+  type?: string;
 }
 
 export const InputField = ({
@@ -19,6 +19,7 @@ export const InputField = ({
   control,
   label,
   type,
+  className,
 
   ...inputProps
 }: InputFieldProps) => {
@@ -38,10 +39,6 @@ export const InputField = ({
   //     inputTagRef.current
   //   }}
 
-
-
-  
-
   const AddActive = () => {
     if (inputTagRef?.current !== null && labelTagRef?.current !== null) {
       inputTagRef?.current.classList.add('active');
@@ -50,19 +47,21 @@ export const InputField = ({
   };
 
   const RemoveActive = () => {
-    if (inputTagRef?.current !== null && labelTagRef?.current !== null) {
+    if (
+      inputTagRef?.current !== null &&
+      labelTagRef?.current !== null &&
+      inputTagRef?.current.value == ''
+    ) {
       inputTagRef?.current.classList.remove('active');
       labelTagRef?.current.classList.remove('active');
     }
   };
 
-
-
-
   return (
     <>
-      
-      <StyledLabel ref={labelTagRef} className="label">{label}</StyledLabel>
+      <StyledLabel ref={labelTagRef} className="label">
+        {label}
+      </StyledLabel>
       <StyledInput
         value={value || ''}
         onChange={onChange}
@@ -72,11 +71,10 @@ export const InputField = ({
         onFocus={AddActive}
         ref={inputTagRef}
         type={type}
-        className={value?.length >= 1 ? "yes-input" : ""}
+        className={value?.length >= 1 ? 'yes-input' : ''}
       ></StyledInput>
 
       {error?.message && <ErrorText>{error?.message}</ErrorText>}
-      
     </>
   );
 };
