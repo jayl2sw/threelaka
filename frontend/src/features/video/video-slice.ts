@@ -50,7 +50,7 @@ const videoSlice = createSlice({
     },
     // 추천 비디오 4개 정보 받아오기 성공
     getRecommendVideosSuccess(state, action: PayloadAction<RecommendVideos[]>) {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.loading = false;
       state.recommendVideoList = action.payload;
     },
