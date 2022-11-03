@@ -31,8 +31,8 @@ export const HeaderMenuRegion = styled.div`
   align-items: center;
   width: 100vw;
   height: 8vh;
-  background-color: white;
-  opacity: 0.8;
+  background-color: transparent;
+  opacity: 1;
   font-size: 3rem;
   color: black;
   position: fixed;

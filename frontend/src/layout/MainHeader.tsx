@@ -19,17 +19,17 @@ const MainHeader = () => {
   };
   return (
     <HeaderMenuRegion>
-      <LinkWrapper bgColor="white" widthSize="10vw" style={{ color: "black"}}>
+      <LinkWrapper bgColor="transparent" widthSize="10vw" style={{ color: "black"}}>
         <Link to="/">Home</Link>
       </LinkWrapper>
-      <LinkWrapper bgColor="white" widthSize="10vw">
+      <LinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/videos">Videos</Link>
       </LinkWrapper>
       {/* <TitleRegion>THREELAKA</TitleRegion> */}
-      <LinkWrapper bgColor="white" widthSize="10vw">
+      <LinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/auth/dashboard/1">dashboard</Link>
       </LinkWrapper>
-      <LinkWrapper bgColor="white" widthSize="10vw">
+      <LinkWrapper bgColor="transparent" widthSize="10vw">
         <LogoutIcon onClick={handleLogout}></LogoutIcon>
       </LinkWrapper>
     </HeaderMenuRegion>

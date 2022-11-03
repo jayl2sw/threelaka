@@ -16,7 +16,7 @@ export const MainPageBlock = styled.div`
   & .video-title {
   }
 `;
-// search bar 전체 감싸는 block 
+
 export const FirstpageBlock = styled.div`
   display: flex;
   justify-content: center;
@@ -26,25 +26,36 @@ export const FirstpageBlock = styled.div`
   border: solid green 3px;
   flex-direction: column;`
 
+// search bar 전체 감싸는 block 
 export const SearchBarBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50vw;
-  height: 55vh;
-  border: solid purple 3px;
+  height: 70vh;
+  /* border: solid purple 3px; */
   flex-direction: column;
+  margin-top: 5vh;
 `
 export const LogoBlock = styled.div`
 width: 30vw;
 height: 15vh;
 background: url(${logoImg});
 background-size: 30vw 15vh;
-border: 3px pink solid;
+/* border: 3px pink solid; */
 margin-bottom: 3vw;
 `
 
 export const YoutubeLink = styled.div`
+width: 10vw;
+height: 8vh;
+align-items: center;
+justify-content: center;
+font-size: 2rem;
+margin-top: 10vh;
+display: flex;
+
+cursor: pointer;
 `
 
 // 메인페이지 최근 학습

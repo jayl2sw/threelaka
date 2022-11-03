@@ -14,6 +14,8 @@ import {
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import VideoCard from './components/VideoCard';
 import RecommendVideoList from './components/RecommendVideoList';
+import { RiYoutubeFill } from 'react-icons/ri';
+import { IconContext } from "react-icons";
 
 const recommendDummy1 = [
   {
@@ -83,10 +85,15 @@ const MainPage = () => {
       <FirstpageBlock>
         <SearchBarBlock>
         <LogoBlock></LogoBlock>
-        <YoutubeLink></YoutubeLink>
         <NewVideo>
           <SearchBar />
         </NewVideo>
+        <YoutubeLink>
+        <IconContext.Provider value={{ color: "red", size:"3rem"}}>
+          <RiYoutubeFill /> 
+        </IconContext.Provider>
+        
+         to TED</YoutubeLink>
         </SearchBarBlock>
       </FirstpageBlock>
       
