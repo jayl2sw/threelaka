@@ -8,6 +8,7 @@ import {
 } from '../../styles/Main/MainStyle';
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import VideoCard from './components/VideoCard';
+import RecommendVideoList from './components/RecommendVideoList';
 
 const recommendDummy1 = [
   {
@@ -40,36 +41,37 @@ const recommendDummy1 = [
   },
 ];
 
-const recommendDummy2 = [
-  {
-    videoId: 'Ks-_Mh1QhMc',
-    title: 'Your body language may shape who you are',
-    description: '없음',
-    script: true,
-    script_kor: true,
-  },
-  {
-    videoId: 'Ks-_Mh1QhMc',
-    title: 'Your body language may shape who you are',
-    description: '없음',
-    script: true,
-    script_kor: true,
-  },
-  {
-    videoId: 'Ks-_Mh1QhMc',
-    title: 'Your body language may shape who you are',
-    description: '없음',
-    script: true,
-    script_kor: true,
-  },
-  {
-    videoId: 'Ks-_Mh1QhMc',
-    title: 'Your body language may shape who you are',
-    description: '없음',
-    script: true,
-    script_kor: true,
-  },
-];
+// const recommendDummy2 = [
+//   {
+//     videoId: 'Ks-_Mh1QhMc',
+//     title: 'Your body language may shape who you are',
+//     description: '없음',
+//     script: true,
+//     script_kor: true,
+//   },
+//   {
+//     videoId: 'Ks-_Mh1QhMc',
+//     title: 'Your body language may shape who you are',
+//     description: '없음',
+//     script: true,
+//     script_kor: true,
+//   },
+//   {
+//     videoId: 'Ks-_Mh1QhMc',
+//     title: 'Your body language may shape who you are',
+//     description: '없음',
+//     script: true,
+//     script_kor: true,
+//   },
+//   {
+//     videoId: 'Ks-_Mh1QhMc',
+//     title: 'Your body language may shape who you are',
+//     description: '없음',
+//     script: true,
+//     script_kor: true,
+//   },
+// ];
+
 const MainPage = () => {
   return (
     <MainPageBlock>
@@ -79,17 +81,12 @@ const MainPage = () => {
       <RecentVideo>
         <div>최근 학습한 영상</div>
       </RecentVideo>
-      <RecommendVideos>
+      {/* <RecommendVideos>
         {recommendDummy1.map((videoData, i) => {
           return <VideoCard data={videoData} key={i} />;
         })}
-      </RecommendVideos>
-
-      <RecommendVideos>
-        {recommendDummy2.map((videoData, i) => {
-          return <VideoCard data={videoData} key={i} />;
-        })}
-      </RecommendVideos>
+      </RecommendVideos> */}
+      <RecommendVideoList />
     </MainPageBlock>
   );
 };
