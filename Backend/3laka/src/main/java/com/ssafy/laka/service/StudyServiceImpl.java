@@ -219,7 +219,7 @@ public class StudyServiceImpl implements StudyService{
 
     @Override
     public List<VideoResponseDto> getRecommends() {
-        return videoRepository.findFourVideos();
+        return videoRepository.findFourVideos().stream().map(v -> VideoResponseDto.from(v)).collect(Collectors.toList());
     }
 
     @Override
