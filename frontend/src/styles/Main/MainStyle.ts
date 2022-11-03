@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import logoImg from '../../media/images/logo.png';
+// import logoImg from '../../media/images/logo.png';
 
 // 메인페이지 전체
 export const MainPageBlock = styled.div`
@@ -46,7 +46,7 @@ export const SearchBarBlock = styled.div`
 export const LogoBlock = styled.div`
   width: 30vw;
   height: 15vh;
-  background: url(${logoImg});
+  /* background: url(logoImg});*/
   background-size: 30vw 15vh;
   /* border: 3px pink solid; */
   margin-bottom: 3vw;
@@ -65,19 +65,20 @@ export const YoutubeLink = styled.div`
 `;
 
 // 메인페이지 최근 학습
-export const RecentVideo = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-top: 10vh;
-  margin-bottom: 10vh;
-`;
+// export const RecentVideo = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   margin-top: 10vh;
+//   margin-bottom: 10vh;
+// `;
 
 export const RecentVideoContainer = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
   width: 100vw;
-  height: 25vh;
-  border: solid yellow 3px;
+  height: 50vh;
+  // border: solid yellow 3px;
 `;
 
 // 메인페이지 추천 영상

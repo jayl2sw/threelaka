@@ -1,9 +1,16 @@
 import customAxios from './customAxios';
 import { VideoData, RecommendVideos } from '../models';
 
+// 비디오 조회
 export const getVideoDataApi = async (url: string) => {
   const res = await customAxios.post(`api/v1/study/video`, { url });
   return res.data;
+};
+
+// 가장 최근에 공부한 영상 조회
+export const getRecentVideoDataApi = async (url: string) => {
+  const res = await customAxios.post(`/api/v1/study/video/latest`, { url });
+  return res;
 };
 
 // 학습 영상 기반 추천

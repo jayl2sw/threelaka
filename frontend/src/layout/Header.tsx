@@ -12,13 +12,10 @@ import {
 import { useParams, useNavigate } from 'react-router-dom';
 import { StudyPageParams } from '../models';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-=======
 import { studyActions } from '../features/study/study-slice';
 import { useAppDispatch } from '../utils/hooks';
 import { LogoutIcon } from '../styles/Layout/HeaderStyle';
 import { authActions } from '../features/auth/authSlice';
->>>>>>> 0c310cde1de7e08d4a8be5aec985d864a81c5c20
 
 export interface IheaderProps {
   customMoveToNext: (
@@ -31,8 +28,8 @@ export interface IheaderProps {
 const Header = ({ customMoveToNext }: IheaderProps) => {
   const pageParams: StudyPageParams = useParams() as any;
   const moveToNext = customMoveToNext;
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(authActions.logout());
     navigate('/auth/login');

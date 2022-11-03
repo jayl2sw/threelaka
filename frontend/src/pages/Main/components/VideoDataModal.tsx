@@ -12,7 +12,6 @@ import { useAppDispatch } from '../../../utils/hooks';
 
 import { SubTagContainer, SubTag } from '../../../styles/Main/MainStyle';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
-import { MainPaleBox } from '../../../styles/Common/CommonDivStyle';
 
 const VideoDataModal = (props: VideoDataModalType) => {
   const dispatch = useAppDispatch();
@@ -26,8 +25,7 @@ const VideoDataModal = (props: VideoDataModalType) => {
   };
 
   return (
-    <ModalContainer 
-    onClick={onClickModal}>
+    <ModalContainer onClick={onClickModal}>
       <VideoDataContainer>
         <VideoTitle>{video.title}</VideoTitle>
         <VideoThumbnail
@@ -56,7 +54,7 @@ const VideoDataModal = (props: VideoDataModalType) => {
             console.log(video.videoId);
             handlerPostStartStudy(video.videoId);
           }}
-          style={{margin:'3vh'}}
+          style={{ margin: '3vh' }}
         >
           START
         </MainBtn>
