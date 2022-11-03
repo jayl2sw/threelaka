@@ -222,6 +222,10 @@ const WordListAndWritingContainerComp = ({
           justifyContent={'start'}
           alignItems={'start'}
           IsBorder={'none'}
+          style={{
+            overflowY: 'scroll',
+            overflowX: 'hidden',
+          }}
         >
           {modeValue == 1 ? (
             /* 문법검사 */
@@ -318,7 +322,7 @@ const WordListAndWritingContainerComp = ({
         IsBorder={'none'}
       ></FlexTransparentDiv>
       <FlexTransparentDiv
-        widthSize={'60vw'}
+        widthSize={'50vw'}
         heightSize={'70vh'}
         paddingSize={'0'}
         flexDirection={'column'}
@@ -327,7 +331,7 @@ const WordListAndWritingContainerComp = ({
         IsBorder={'none'}
       >
         <FlexTransparentDiv
-          widthSize={'60vw'}
+          widthSize={'50vw'}
           heightSize={'5vh'}
           paddingSize={'0'}
           flexDirection={'row'}
@@ -360,7 +364,7 @@ const WordListAndWritingContainerComp = ({
           </TopBtn>
         </FlexTransparentDiv>
         <FlexTransparentDiv
-          widthSize={'60vw'}
+          widthSize={'50vw'}
           heightSize={'65vh'}
           paddingSize={'0'}
           flexDirection={'column'}
@@ -369,7 +373,7 @@ const WordListAndWritingContainerComp = ({
           IsBorder={'none'}
         >
           <MainBox
-            widthSize={'60vw'}
+            widthSize={'50vw'}
             heightSize={'70vh'}
             paddingSize={'1vw'}
             fontColor={'black'}
