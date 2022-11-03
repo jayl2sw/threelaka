@@ -14,6 +14,10 @@ export const ModalContainer = styled.div`
   box-sizing: border-box;
   background-color: white;
   z-index: 10000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const VideoDataContainer = styled.div`

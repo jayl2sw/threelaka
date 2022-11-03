@@ -81,11 +81,6 @@ const MainPage = () => {
       <RecentVideo>
         <div>최근 학습한 영상</div>
       </RecentVideo>
-      {/* <RecommendVideos>
-        {recommendDummy1.map((videoData, i) => {
-          return <VideoCard data={videoData} key={i} />;
-        })}
-      </RecommendVideos> */}
       <RecommendVideoList />
     </MainPageBlock>
   );

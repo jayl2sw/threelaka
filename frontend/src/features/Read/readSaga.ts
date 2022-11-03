@@ -1,4 +1,7 @@
-import { getTedScriptApi, postAddWordToWordBookApi } from '../../services/readApi';
+import {
+  getTedScriptApi,
+  postAddWordToWordBookApi,
+} from '../../services/readApi';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { TedScript, WordInfo } from '../../models';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
@@ -9,7 +12,7 @@ function* onGetScriptsAsync(action: PayloadAction<string>) {
     const response: TedScript[] = yield call(getTedScriptApi, action.payload);
     yield put(readActions.getScriptsSuccess(response));
   } catch (error) {
-    console.log(`Failed to fetch TedSript`, error);
+    console.log(`Failed to fetch TedScript`, error);
     // yield put(readActions.getScriptsFailed(error.message));
   }
 }
@@ -17,10 +20,13 @@ function* onGetScriptsAsync(action: PayloadAction<string>) {
 // 단어장에 단어 추가 SAGA
 function* onPostAddWordToWordBookAsync(action: PayloadAction<WordInfo>) {
   try {
-    const response: string = yield call(postAddWordToWordBookApi, action.payload);
+    const response: string = yield call(
+      postAddWordToWordBookApi,
+      action.payload
+    );
     yield put(readActions.postAddWordToWordBookSuccess(response));
   } catch (error) {
-    console.log(`Failed to fetch TedSript`, error);
+    console.log(`Failed to fetch TedScript`, error);
     // yield put(readActions.getScriptsFailed(error.message));
   }
 }
@@ -32,9 +38,13 @@ export function* watchGetScriptsAsync() {
 
 // 단어장에 단어 추가 watch
 export function* watchAddWordToWordBookAsync() {
-  yield takeLatest(readActions.postAddWordToWordBookStart.type, onPostAddWordToWordBookAsync);
+  yield takeLatest(
+    readActions.postAddWordToWordBookStart.type,
+    onPostAddWordToWordBookAsync
+  );
 }
 
-
-export const readSagas = [fork(watchGetScriptsAsync), fork(watchAddWordToWordBookAsync)];
-
+export const readSagas = [
+  fork(watchGetScriptsAsync),
+  fork(watchAddWordToWordBookAsync),
+];

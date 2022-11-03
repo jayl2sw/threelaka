@@ -14,7 +14,7 @@ function* onGetVideoDataAsync(action: PayloadAction<string>) {
     // console.log(response);
     yield put(videoActions.getVideoDataSuccess(response));
   } catch (error) {
-    console.log(`Failed to fetch TedSript`, error);
+    console.log(`Failed to fetch VideoData`, error);
     // yield put(videoActions.getVideoDataFailed(error.message));
   }
 }
