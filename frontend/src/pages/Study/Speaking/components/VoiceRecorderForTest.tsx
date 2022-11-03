@@ -20,6 +20,7 @@ interface IRecorderProps {
 }
 
 const VoiceRecorder = ({ selectedText }: IRecorderProps) => {
+  const [audioFile, setAudioFile] = useState<any>('');
   const {
     audioResult,
     timer,
@@ -54,18 +55,27 @@ const VoiceRecorder = ({ selectedText }: IRecorderProps) => {
 
   const speechTest = async () => {
     var data = new FormData();
-    // var reader = new FileReader();
+    var reader = new FileReader();
 
     // console.log('애초에 처음에 없는거아님?', audioResult);
     console.log('원래타입', typeof audioResult);
     let blob = new Blob([audioResult], { type: 'audio/wav' });
+    console.log(audioResult);
     // console.log('블랍?', blob);
     console.log(typeof blob);
-    // console.log(selectedText, blob);
-    // data.append('text', selectedText);
-    // data.append('text', 'I go to school');
-    //text
-    data.append('file', blob);
+    const audioBlob = await fetch(audioResult).then((r) => r.blob());
+    const audioFile = new File([audioBlob], 'voice.wav', { type: 'audio/wav' });
+
+    reader.readAsDataURL(blob);
+    reader.onloadend = function () {
+      var base64data = reader.result;
+      console.log('블랍?', blob);
+      console.log(typeof blob);
+      console.log('64데이터', base64data);
+      setAudioFile(base64data);
+    };
+
+    data.append('file', audioFile);
     dispatch(
       studyActions.speechTest({ payloadData: data, payloadText: selectedText })
     );
