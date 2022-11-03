@@ -11,6 +11,8 @@ import { studyActions } from '../../../features/study/study-slice';
 import { useAppDispatch } from '../../../utils/hooks';
 
 import { SubTagContainer, SubTag } from '../../../styles/Main/MainStyle';
+import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
+import { MainPaleBox } from '../../../styles/Common/CommonDivStyle';
 
 const VideoDataModal = (props: VideoDataModalType) => {
   const dispatch = useAppDispatch();
@@ -24,7 +26,8 @@ const VideoDataModal = (props: VideoDataModalType) => {
   };
 
   return (
-    <ModalContainer onClick={onClickModal}>
+    <ModalContainer 
+    onClick={onClickModal}>
       <VideoDataContainer>
         <VideoTitle>{video.title}</VideoTitle>
         <VideoThumbnail
@@ -42,14 +45,21 @@ const VideoDataModal = (props: VideoDataModalType) => {
             </SubTag>
           )}
         </SubTagContainer>
-        <button
+        <MainBtn
+          widthSize={'10vw'}
+          heightSize={'5vh'}
+          paddingSize={'1vw'}
+          fontSize={'2vmin'}
+          fontColor={'white'}
+          backgroundColor={'gradient'}
           onClick={() => {
             console.log(video.videoId);
             handlerPostStartStudy(video.videoId);
           }}
+          style={{margin:'3vh'}}
         >
-          학습 시작하기
-        </button>
+          START
+        </MainBtn>
       </VideoDataContainer>
       {/* <Backdrop
         onClick={(e: MouseEvent) => {

@@ -10,13 +10,12 @@ export const HeaderBlock = styled.div`
   position: relative;
   z-index: 5;
   display: flex;
-  font-family: Fredoka;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 15vh;
-  background-color: red;
+  /* background-color: red; */
   font-size: 3rem;
   color: white;
   transform: translateY(-8vh);
@@ -28,16 +27,20 @@ export const HeaderBlock = styled.div`
   }
 `;
 
-export const HeaderMenuRegion = styled.div`
+export const MainHeaderMenuRegion = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   width: 100vw;
   height: 8vh;
-  font-family: Fredoka;
-  background-color: black;
+  background-color: transparent;
+  opacity: 1;
   font-size: 3rem;
-  color: white;
+  color: black;
+  position: fixed;
+  font-family: Fredoka;
+  top: 0;
+  padding-right: 5.5vw;
 `;
 
 export const StudyProgressRegion = styled.div`
@@ -105,7 +108,7 @@ export const ProgressBarItem = styled.div`
   font-weight: 600;
 `;
 
-export const LinkWrapper = styled.div<LinkMenuProps>`
+export const MainLinkWrapper = styled.div<LinkMenuProps>`
   background-color: ${(props) => props.bgColor};
   width: ${(props) => props.widthSize};
   display: flex;
@@ -113,14 +116,14 @@ export const LinkWrapper = styled.div<LinkMenuProps>`
   align-items: center;
   height: 8vh;
   font-size: 1.2rem;
-  color: white;
+  color: black;
   a {
     text-decoration: none;
-    color: white;
+    color: black;
   }
   a:hover {
     text-decoration: underline;
-    color: white;
+    color: black;
   }
 `;
 
