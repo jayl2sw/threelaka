@@ -36,7 +36,6 @@ public class UserResponseDto {
         return UserResponseDto.builder()
                 .userId(entity.getUserId())
                 .username(entity.getUsername())
-                .email(entity.getEmail())
                 .nickname(entity.getNickname())
                 .role(entity.getRole())
                 .age(entity.getAge())

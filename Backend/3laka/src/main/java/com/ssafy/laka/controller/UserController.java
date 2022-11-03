@@ -44,24 +44,6 @@ public class UserController {
         return new ResponseEntity<>(userService.checkNickName(nickname), HttpStatus.OK);
     }
 
-    @GetMapping("/auth/check/username/{username}")
-    @ApiOperation(value = "아이디 중복 검사", notes = "해당 아이디가 중복인지 확인하여 중복이면 true, 중복이 아니면 false를 반환한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Boolean.class)
-    })
-    public ResponseEntity<Boolean> checkUsername(@PathVariable String username){
-        return new ResponseEntity<>(userService.checkUsername(username), HttpStatus.OK);
-    }
-
-    @GetMapping("/auth/check/email/{email}")
-    @ApiOperation(value = "이메일 중복 검사", notes = "해당 이메일이 중복인지 확인하여 중복이면 true, 중복이 아니면 false를 반환한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Boolean.class)
-    })
-    public ResponseEntity<Boolean> checkEmail(@PathVariable String email){
-        return new ResponseEntity<>(userService.checkEmail(email), HttpStatus.OK);
-    }
-
     @PostMapping("/auth/signup")
     @ApiOperation(value = "회원 가입", notes = "회원 정보를 통해 회원을 추가한다")
     @ApiResponses({
@@ -74,8 +56,6 @@ public class UserController {
             throw new DuplicateUsernameException();
         } else if (userService.checkNickName(requestDto.getNickname())) {
             throw new DuplicateNicknameException();
-        } else if (userService.checkEmail(requestDto.getEmail())) {
-            throw new DuplicateEmailException();
         }
         userService.doSignUp(requestDto);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
@@ -143,21 +123,14 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success", response = String.class)
     })
     public ResponseEntity<String> findPW(@RequestBody FindPasswordDto dto){
-        String email = dto.getEmail();
+        String nickname = dto.getNickname();
         String username = dto.getUsername();
-
         try {
-            if(!userService.checkEmail(email)){
-                throw new UserNotFoundException();
+            if(!userService.checkSameUser(nickname, username)){
+                throw new RuntimeException("이메일과 닉네임이 일치하지 않습니다.");
             }
-
-            if(!userService.checkSameUser(email, username)){
-                throw new RuntimeException("이메일과 아이디가 일치하지 않습니다.");
-            }
-
-            String newPW = mailService.sendSimpleMessage(email);
-            userService.changePW(email, passwordEncoder.encode(newPW));
-
+            String newPW = mailService.sendSimpleMessage(username);
+            userService.changePW(username, passwordEncoder.encode(newPW));
             return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         }catch(UserNotFoundException e){
             throw new UserNotFoundException();

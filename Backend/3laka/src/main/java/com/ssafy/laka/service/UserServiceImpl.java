@@ -31,15 +31,6 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-
-    @Override
-    public boolean checkEmail(String email) {
-        // 이미 있으면 true, 없으면 false
-        Optional<User> entity = userRepository.findByEmail(email);
-
-        return entity.isPresent();
-    }
-
     @Override
     public boolean checkUsername(String username){
         Optional<User> entity = userRepository.findByUsername(username);
@@ -70,11 +61,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean checkSameUser(String email, String username){
-        int emailId = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new).getUserId();
+    public boolean checkSameUser(String nickname, String username){
+        int nicknameId = userRepository.findByNickname(nickname).orElseThrow(UserNotFoundException::new).getUserId();
         int nameId = userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new).getUserId();
-
-        return emailId == nameId;
+        return nicknameId == nameId;
     }
 
     @Override
@@ -109,7 +99,6 @@ public class UserServiceImpl implements UserService{
     public void doSignUp(SignUpRequestDto requestDto) {
         User user = User.builder()
                 .username(requestDto.getUsername())
-                .email(requestDto.getEmail())
                 .nickname(requestDto.getNickname())
                 .password(passwordEncoder.encode(requestDto.getPassword()))
                 .age(requestDto.getAge())
@@ -173,8 +162,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void changePW(String email, String newPW) {
-        Optional<User> entity = userRepository.findByEmail(email);
+    public void changePW(String username, String newPW) {
+        Optional<User> entity = userRepository.findByUsername(username);
 
         if(entity.isPresent()){
             entity.get().changePW(newPW);
