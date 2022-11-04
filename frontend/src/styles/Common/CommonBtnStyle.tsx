@@ -127,6 +127,7 @@ export const MainBtn = styled.button<CommonBtnProps>`
       : '#4a9fff'};
   border-radius: 2vmin;
   border: none;
+  transition: background-color 2s linear;
   &.pale {
     opacity: 0.5;
     :hover {
@@ -134,7 +135,9 @@ export const MainBtn = styled.button<CommonBtnProps>`
     }
   }
   :hover {
-    opacity: 0.9;
+    opacity: 0.5;
+    /* background: linear-gradient(106.62deg, #83BDFF 8.18%, rgba(136, 192, 255, 0.90051) 49.26%, #8DC2FF 69.16%, #C1FFA9 92.42%); */
+    /* color: black; */
   }
   :active {
     opacity: 0.5;

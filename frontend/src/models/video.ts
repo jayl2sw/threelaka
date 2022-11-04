@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+// 영상 정보
 export interface VideoData {
   watched: boolean | null;
   video: {
@@ -8,6 +9,14 @@ export interface VideoData {
     description: string;
     script: string;
   };
+}
+
+// 최근 영상 정보
+export interface RecentVideoData {
+  videoId: string;
+  title: string;
+  description: string;
+  script: string;
 }
 
 // 추천 영상 리스트

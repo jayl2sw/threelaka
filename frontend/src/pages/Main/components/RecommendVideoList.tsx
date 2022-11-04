@@ -3,46 +3,18 @@ import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import VideoCard from './VideoCard';
 import { videoActions } from '../../../features/video/video-slice';
 
-const recommendDummy1 = [
-  {
-    videoId: '9E1SLTvngEw',
-    title: 'Lasting Conservation, Led by Indigenous Heritage',
-    description: '없음',
-    script: true,
-    script_kor: false,
-  },
-  {
-    videoId: '9E1SLTvngEw',
-    title: 'Lasting Conservation, Led by Indigenous Heritage',
-    description: '없음',
-    script: true,
-    script_kor: false,
-  },
-  {
-    videoId: '9E1SLTvngEw',
-    title: 'Lasting Conservation, Led by Indigenous Heritage',
-    description: '없음',
-    script: true,
-    script_kor: false,
-  },
-  {
-    videoId: '9E1SLTvngEw',
-    title: 'Lasting Conservation, Led by Indigenous Heritage',
-    description: '없음',
-    script: true,
-    script_kor: false,
-  },
-];
-
 const RecommendVideoList = () => {
   const dispatch = useAppDispatch();
-  const recommendVideoList = useAppSelector(
-    (state) => state.video.recommendVideoList
-  );
 
+  // 페이지 렌더링 하기 전에 추천 영상 요청하기
   useEffect(() => {
     dispatch(videoActions.getRecommendVideos());
   }, []);
+
+  // (저장 되어 있는) 추천 영상 가져오기
+  const recommendVideoList = useAppSelector(
+    (state) => state.video.recommendVideoList
+  );
 
   return (
     <div style={{ display: 'flex' }}>
