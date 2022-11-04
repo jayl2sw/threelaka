@@ -58,10 +58,10 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
     <HeaderBlock>
       <HeaderMenuRegion>
         <LinkWrapper bgColor="black" widthSize="10vw">
-          <Link to="/">home</Link>
+          {/* <Link to="/">home</Link> */}
         </LinkWrapper>
         <LinkWrapper bgColor="black" widthSize="10vw">
-          <Link to="/videos">videos</Link>
+          {/* <Link to="/videos">videos</Link> */}
         </LinkWrapper>
         <TitleRegion>THREELAKA</TitleRegion>
         <LinkWrapper bgColor="black" widthSize="10vw">

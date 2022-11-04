@@ -13,10 +13,19 @@ export interface VideoData {
 
 // 최근 영상 정보
 export interface RecentVideoData {
-  videoId: string;
-  title: string;
-  description: string;
-  script: string;
+  learningRecord: {
+    date: string;
+    learningRecordId: number;
+    stage: string;
+    userId: number;
+    videoId: string;
+  };
+  video: {
+    title: string;
+    videoId: string;
+    description: string;
+    korScript: boolean;
+  };
 }
 
 // 추천 영상 리스트
