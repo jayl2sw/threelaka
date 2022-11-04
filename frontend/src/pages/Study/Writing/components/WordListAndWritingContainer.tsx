@@ -3,10 +3,10 @@ import { studyActions } from '../../../../features/study/study-slice';
 import { useAppSelector, useAppDispatch } from '../../../../utils/hooks';
 import {
   WordListAndWritingContainer,
-  WritingTextArea,
   WordCheckBox,
   WordText,
   HighlightTextAreaWrapper,
+  ArcodianBox,
 } from '../../../../styles/Writing/WritingStyle';
 import {
   MainPaleBox,
@@ -213,12 +213,12 @@ const WordListAndWritingContainerComp = ({
             }}
             className={modeValue ? '' : 'pale'}
           >
-            문법검사
+            오타검사
           </TopBtn>
         </FlexTransparentDiv>
         <FlexTransparentDiv
           widthSize={'28vw'}
-          heightSize={'65vh'}
+          heightSize={'70vh'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'start'}
@@ -253,11 +253,22 @@ const WordListAndWritingContainerComp = ({
                     key={`spell-word-${idx}`}
                   >
                     <WordText>
-                      <p className="front" style={{ fontSize: '2.5vmin' }}>
-                        {spellWord.token} {'=>'}{' '}
-                        {spellWord.suggestions[0].suggestion}
-                      </p>
-                      <p className="back">{spellWord.type}</p>
+                      {spellWord.type === 'UnknownToken' ? (
+                        <p style={{ fontSize: '2.5vmin' }}>
+                          <span>수정&nbsp;&nbsp;</span>
+                          <span style={{ color: 'red' }}>
+                            {spellWord.token}
+                          </span>{' '}
+                          {'=>'} {spellWord.suggestions[0].suggestion}
+                        </p>
+                      ) : (
+                        <p style={{ fontSize: '2.5vmin' }}>
+                          <span>반복&nbsp;&nbsp;</span>
+                          <span style={{ color: 'red' }}>
+                            {spellWord.token}
+                          </span>
+                        </p>
+                      )}
                     </WordText>
                     {/* {aWord.example} */}
                   </BackBlurBox>
@@ -273,39 +284,63 @@ const WordListAndWritingContainerComp = ({
               paddingSize={'1vw'}
               fontColor={'black'}
               fontSize={'2vmin'}
-              style={{ display: 'flex', flexDirection: 'column' }}
             >
-              {wordBookList.map((aWord: WordBook, idx) => {
-                return (
-                  <BackBlurBox
-                    widthSize={'26vw'}
-                    heightSize={'5vh'}
-                    paddingSize={'1vw'}
-                    fontColor={'black'}
-                    fontSize={'1vmin'}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'start',
-                      alignItems: 'center',
-                      marginBottom: '1vh',
-                    }}
-                    key={`word-${idx}`}
-                  >
-                    <WordCheckBox
-                      className={
-                        filterTarget.includes(aWord.word) ? 'checked' : ''
-                      }
-                    />
-                    <WordText>
-                      <p className="front" style={{ fontSize: '2.5vmin' }}>
-                        {aWord.word}
-                      </p>
-                      <p className="back">{aWord.example}</p>
-                    </WordText>
-                    {/* {aWord.example} */}
-                  </BackBlurBox>
-                );
-              })}
+              <FlexTransparentDiv
+                widthSize={'26.5vw'}
+                heightSize={'65vh'}
+                paddingSize={'0'}
+                flexDirection={'column'}
+                justifyContent={'start'}
+                alignItems={'start'}
+                IsBorder={'none'}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflowY: 'scroll',
+                  overflowX: 'hidden',
+                }}
+              >
+                {wordBookList.map((aWord: WordBook, idx) => {
+                  return (
+                    <ArcodianBox key={`word-${idx}`}>
+                      <WordCheckBox
+                        className={
+                          filterTarget.includes(aWord.word) ? 'checked' : ''
+                        }
+                      />
+                      <WordText>
+                        <p
+                          className={`${
+                            filterTarget.includes(aWord.word) ? 'checked' : ''
+                          } front`}
+                          style={{ fontSize: '2.5vmin' }}
+                        >
+                          {aWord.word}
+                        </p>
+                        <p className="back">
+                          <span
+                            style={{
+                              fontSize: '2.5vmin',
+                            }}
+                          >
+                            {aWord.word}
+                          </span>
+                          <br />
+                          <br />
+                          <span style={{ fontSize: '2vmin', color: '#4a9fff' }}>
+                            {'example'}
+                          </span>
+                          <br style={{ marginBottom: '5vmin' }} />
+                          <span style={{ fontSize: '2vmin' }}>
+                            &nbsp;&nbsp;{aWord.example}
+                          </span>
+                        </p>
+                      </WordText>
+                      {/* {aWord.example} */}
+                    </ArcodianBox>
+                  );
+                })}
+              </FlexTransparentDiv>
             </MainPaleBox>
           )}
         </FlexTransparentDiv>
@@ -320,7 +355,7 @@ const WordListAndWritingContainerComp = ({
         IsBorder={'none'}
       ></FlexTransparentDiv>
       <FlexTransparentDiv
-        widthSize={'60vw'}
+        widthSize={'50vw'}
         heightSize={'70vh'}
         paddingSize={'0'}
         flexDirection={'column'}
@@ -329,7 +364,7 @@ const WordListAndWritingContainerComp = ({
         IsBorder={'none'}
       >
         <FlexTransparentDiv
-          widthSize={'60vw'}
+          widthSize={'50vw'}
           heightSize={'5vh'}
           paddingSize={'0'}
           flexDirection={'row'}
@@ -362,8 +397,8 @@ const WordListAndWritingContainerComp = ({
           </TopBtn>
         </FlexTransparentDiv>
         <FlexTransparentDiv
-          widthSize={'60vw'}
-          heightSize={'65vh'}
+          widthSize={'50vw'}
+          heightSize={'70vh'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'start'}
@@ -371,11 +406,11 @@ const WordListAndWritingContainerComp = ({
           IsBorder={'none'}
         >
           <MainBox
-            widthSize={'60vw'}
+            widthSize={'50vw'}
             heightSize={'70vh'}
             paddingSize={'1vw'}
             fontColor={'black'}
-            fontSize={'2vmin'}
+            fontSize={'3vmin'}
             style={{ display: 'flex', flexDirection: 'column' }}
           >
             <HighlightTextAreaWrapper>

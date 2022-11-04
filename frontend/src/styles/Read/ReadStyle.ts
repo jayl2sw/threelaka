@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ReadPageBlock = styled.div`
+  font-family: PretendardRegular;
   display: flex;
   justify-content: center;
   /* align-items: center; */
@@ -18,7 +19,7 @@ export const WordBookAddReqBtn = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  top: 50vh;
+  top: 55vh;
   left: 43vw;
   width: 5vmin;
   height: 5vmin;
@@ -31,12 +32,17 @@ export const WordBookAddReqBtn = styled.div`
 export const DictInput = styled.input`
   width: 25vw;
   height: 5vh;
-  font-size: 2vmin;
+  font-family: PretendardBold;
+  font-size: 3vmin;
+  padding-left: 1vw;
   color: black;
-  background: #9897a9;
-  box-shadow: 10px 10px 80px rgba(63, 39, 102, 0.1);
+  background: transparent;
+  /* box-shadow: 10px 10px 80px rgba(63, 39, 102, 0.1); */
   border-radius: 2vmin;
-  border: none;
+  border: 0;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const DictResult = styled.div`
@@ -45,16 +51,16 @@ export const DictResult = styled.div`
   align-items: center;
   flex-direction: column;
   width: 34vw;
-  height: 16vh;
+  height: 32vh;
   padding: 0 1vw;
-  /* font-size: 3vmin; */
+  font-size: 3vmin;
   border-bottom: black 2px solid;
   background-color: white;
   color: black;
 `;
 
 export const ScriptItemBox = styled.div`
-  min-height: 20vh;
+  min-height: 19.5vh;
   width: 45vw;
   display: flex;
   /* justify-content: flex-start; */
@@ -68,14 +74,14 @@ export const ScriptTimeStamp = styled.div`
   cursor: pointer;
   min-height: 5vh;
   background-color: #83bdff;
-  width: 8vw;
+  width: 5vw;
   margin-left: 2vw;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: black;
-  font-size: 3vmin;
+  font-size: 2.5vmin;
   /* border: 1px solid green; */
   &.now-played {
     background-color: #1c2e4a;
@@ -92,8 +98,8 @@ export const ScriptTimeStamp = styled.div`
 `;
 
 export const ScriptText = styled.div`
-  min-height: 20vh;
-  width: 30vw;
+  min-height: 19.5vh;
+  width: 33vw;
   padding: 0vh 2vw;
   display: flex;
   /* justify-content: center; */
@@ -105,15 +111,20 @@ export const ScriptText = styled.div`
 
 export const ScriptWordSpan = styled.span`
   /* margin-right: 0.7vmin; */
+  display: inline-block;
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
   border-radius: 5px;
   cursor: pointer;
   :hover {
-    background-color: grey;
+    background-color: #b5fe89;
+    border-radius: 0;
     padding: 0.5vmin 0;
   }
   &.word-selected {
-    background-color: #1c2e4a;
-    color: white;
+    background-color: rgba(176, 255, 145, 0.8);
+    /* background-color: #1c2e4a; */
+    color: black;
   }
   &.dummy {
     pointer-events: none;
@@ -126,8 +137,9 @@ export const ScriptWordSpan = styled.span`
 export const AutoScrollBtn = styled.div`
   cursor: pointer;
   position: absolute;
+  z-index: 1;
   top: 10vh;
-  right: 6vw;
+  right: 8.5vw;
   width: 5vw;
   height: 3vh;
   border-radius: 10px;
@@ -165,13 +177,12 @@ export const AutoScrollBtn = styled.div`
 `;
 
 export const AutoScrollText = styled.div`
-  z-index: -1;
   font-size: 2vmin;
   display: flex;
   position: absolute;
   align-items: center;
   justify-content: center;
-  top: 10.1vh;
+  top: 10.2vh;
   right: 11vw;
   width: 10vw;
   height: 3vh;
