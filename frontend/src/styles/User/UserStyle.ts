@@ -48,7 +48,7 @@ export const AuthBlock = styled.div`
   }
   .toggle-carousel {
     left: 0%;
-    background: url('${loginImg}') center no-repeat;
+    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/loginimageleft.png') center no-repeat;
     background-size: cover;
   }
 `;
@@ -116,7 +116,7 @@ export const Carousel = styled.div`
   height: 90%;
   left: 60%;
   width: 40%;
-  background: url('${loginImg2}') center no-repeat;
+  background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/loginimageright.png') center no-repeat;
   background-size: cover;
   top: 0;
   transition: 0.8s ease-in-out;
