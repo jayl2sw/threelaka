@@ -95,21 +95,33 @@ const ReadPage = () => {
     e: React.MouseEvent<HTMLSpanElement>,
     targetWord: string
   ) => {
-    const trimmedWord = targetWord.replace(/\s/g, '').toLowerCase();
+    const trimmedWord = targetWord.replace(/\s+$/, '').toLowerCase();
 
     dispatch(studyActions.SearchDictStart(trimmedWord));
+    setDictInputvalue('');
+  };
 
-    // const selectedSentence = tedScriptList[selectedSentenceIdx!].text;
-    // console.log(trimmedWord, selectedSentence);
+  const WordSearchEnterHandler = (
+    e: React.KeyboardEvent<HTMLSpanElement>,
+    targetWord: string
+  ) => {
+    if (e.key === 'Enter') {
+      const trimmedWord = targetWord.replace(/\s+$/, '').toLowerCase();
+      dispatch(studyActions.SearchDictStart(trimmedWord));
+      setDictInputvalue('');
+    }
   };
 
   const AddWordToWordbook = (e: React.MouseEvent<HTMLSpanElement>) => {
     const selectedSentence = tedScriptList[selectedSentenceIdx!].text;
+    console.log(dictInputValue);
+    const trimmedWord = dictInputValue.replace(/\s+$/, '').toLowerCase();
+    console.log(trimmedWord);
     const wordInfo = {
       definition: '',
       example: selectedSentence,
       lrId: pageParams.learningRecordId,
-      word: wordMeaning.wordId,
+      word: trimmedWord,
     };
     dispatch(readActions.postAddWordToWordBookStart(wordInfo));
   };
@@ -318,7 +330,11 @@ const ReadPage = () => {
                   <TiStarOutline size={40} color={'#2e4a9e'} />
                 )}
               </GradientRoundBtn>
-              <DictInput value={dictInputValue} onChange={dictInputChange} />
+              <DictInput
+                value={dictInputValue}
+                onChange={dictInputChange}
+                onKeyDown={(e) => WordSearchEnterHandler(e, dictInputValue)}
+              />
               <GradientRoundBtn
                 widthSize={'5vmin'}
                 heightSize={'5vmin'}
@@ -353,104 +369,119 @@ const ReadPage = () => {
                   style={{ marginTop: '2vh' }}
                 />
               ) : (
-                wordMeaning.wordList.map((aWord) => {
-                  return (
-                    <DictResult>
-                      <FlexTransparentDiv
-                        widthSize={'37.5vw'}
-                        heightSize={'14vh'}
-                        paddingSize={'1vw'}
-                        flexDirection={'row'}
-                        justifyContent={'start'}
-                        alignItems={'center'}
-                        IsBorder={'none'}
-                      >
+                <>
+                  <div
+                    style={{
+                      width: '34vw',
+                      minHeight: '10vh',
+                      display: 'flex',
+                      justifyContent: 'start',
+                      alignItems: 'center',
+                      fontSize: '5vmin',
+                      fontFamily: 'PretendardBold',
+                    }}
+                  >
+                    {wordMeaning.wordId}
+                  </div>
+                  {wordMeaning.wordList.map((aWord) => {
+                    return (
+                      <DictResult>
                         <FlexTransparentDiv
-                          widthSize={'80%'}
+                          widthSize={'37.5vw'}
                           heightSize={'14vh'}
                           paddingSize={'1vw'}
-                          flexDirection={'column'}
-                          justifyContent={'center'}
-                          alignItems={'start'}
+                          flexDirection={'row'}
+                          justifyContent={'start'}
+                          alignItems={'center'}
                           IsBorder={'none'}
                         >
-                          <div
-                            style={{
-                              color: '#4a9fff',
-                              fontWeight: 'bold',
-                            }}
+                          <FlexTransparentDiv
+                            widthSize={'80%'}
+                            heightSize={'14vh'}
+                            paddingSize={'1vw'}
+                            flexDirection={'column'}
+                            justifyContent={'center'}
+                            alignItems={'start'}
+                            IsBorder={'none'}
                           >
-                            definition
-                          </div>
-                          <div
-                            style={{
-                              paddingLeft: '0.5vw',
-                              fontSize: '2.5vmin',
-                            }}
-                          >
-                            {aWord.wordDefinition}
-                          </div>
-                          {/* <p style={{ width: '80%', padding: '0 1vw' }}>
+                            <div
+                              style={{
+                                color: '#4a9fff',
+                                fontWeight: 'bold',
+                              }}
+                            >
+                              definition
+                            </div>
+                            <div
+                              style={{
+                                paddingLeft: '0.5vw',
+                                fontSize: '2.5vmin',
+                              }}
+                            >
+                              {aWord.wordDefinition}
+                            </div>
+                            {/* <p style={{ width: '80%', padding: '0 1vw' }}>
                           definition: {aWord.wordDefinition}
                         </p> */}
+                          </FlexTransparentDiv>
+                          <div
+                            style={{
+                              width: '20%',
+                              padding: '0 1vw',
+                              color: 'red',
+                              fontSize: '2.5vmin',
+                              fontWeight: 'bold',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}
+                          >
+                            {aWord.lexicalCategory}
+                          </div>
                         </FlexTransparentDiv>
-                        <div
-                          style={{
-                            width: '20%',
-                            padding: '0 1vw',
-                            color: 'red',
-                            fontSize: '2.5vmin',
-                            fontWeight: 'bold',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                          }}
-                        >
-                          {aWord.lexicalCategory}
-                        </div>
-                      </FlexTransparentDiv>
-                      <FlexTransparentDiv
-                        widthSize={'37.5vw'}
-                        heightSize={'14vh'}
-                        paddingSize={'1vw'}
-                        flexDirection={'row'}
-                        justifyContent={'start'}
-                        alignItems={'center'}
-                        IsBorder={'none'}
-                      >
                         <FlexTransparentDiv
-                          widthSize={'80%'}
+                          widthSize={'37.5vw'}
                           heightSize={'14vh'}
                           paddingSize={'1vw'}
-                          flexDirection={'column'}
-                          justifyContent={'center'}
-                          alignItems={'start'}
+                          flexDirection={'row'}
+                          justifyContent={'start'}
+                          alignItems={'center'}
                           IsBorder={'none'}
                         >
-                          <div
-                            style={{
-                              color: '#4a9fff',
-                              fontWeight: 'bold',
-                            }}
+                          <FlexTransparentDiv
+                            widthSize={'80%'}
+                            heightSize={'14vh'}
+                            paddingSize={'1vw'}
+                            flexDirection={'column'}
+                            justifyContent={'center'}
+                            alignItems={'start'}
+                            IsBorder={'none'}
                           >
-                            example
-                          </div>
-                          <div
-                            style={{
-                              paddingLeft: '0.5vw',
-                              fontSize: '2.5vmin',
-                            }}
-                          >
-                            {aWord.wordExample}
-                          </div>
-                          {/* <p style={{ width: '80%', padding: '0 1vw' }}>
+                            <div
+                              style={{
+                                color: '#4a9fff',
+                                fontWeight: 'bold',
+                              }}
+                            >
+                              example
+                            </div>
+                            <div
+                              style={{
+                                paddingLeft: '0.5vw',
+                                fontSize: '2.5vmin',
+                              }}
+                            >
+                              {aWord.wordExample}
+                            </div>
+                            {/* <p style={{ width: '80%', padding: '0 1vw' }}>
                           definition: {aWord.wordDefinition}
                         </p> */}
+                          </FlexTransparentDiv>
                         </FlexTransparentDiv>
-                      </FlexTransparentDiv>
-                    </DictResult>
-                  );
-                })
+                      </DictResult>
+                    );
+                  })}
+                </>
               )}
             </FlexTransparentDiv>
           </MainBox>
