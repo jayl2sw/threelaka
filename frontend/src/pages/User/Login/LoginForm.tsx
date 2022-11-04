@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
 import { useState, useEffect, useCallback, RefObject } from 'react';
-import { StyledForm, Heading, InputWrap } from '../../../styles/User/UserStyle';
+import {
+  StyledForm,
+  Heading,
+  InputWrap,
+  SubmitBtnWrap,
+} from '../../../styles/User/UserStyle';
 import { useAppDispatch } from '../../../utils/hooks';
 import { authActions } from '../../../features/auth/authSlice';
 
@@ -13,6 +18,8 @@ import { RadioField } from '../RadioField';
 //유효성평가 라이브러리
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+
+import { GradientRoundBtn } from '../../../styles/Common/CommonBtnStyle';
 
 interface IAuthForm {
   username: string;
@@ -98,12 +105,6 @@ const LoginForm = ({
           <br />
           It's time to ThreeLaka!
         </h1>
-        <p>
-          Not Registered Yet?&nbsp;
-          <a href="#" onClick={handleToggle} className="toggle">
-            Sign Up
-          </a>
-        </p>
       </Heading>
       <InputWrap>
         <InputField name="username" control={control} label="이메일" />
@@ -114,8 +115,23 @@ const LoginForm = ({
           type="password"
         />
       </InputWrap>
-
-      <button>제출</button>
+      <SubmitBtnWrap>
+        <GradientRoundBtn
+          widthSize={'80%'}
+          heightSize={'5vh'}
+          paddingSize={'0'}
+          fontColor={'black'}
+          fontSize={'2vmin'}
+          backgroundColor={'gradient'}
+          style={{ margin: '0 auto' }}
+        >
+          L O G I N
+        </GradientRoundBtn>
+        <p>Not Registered Yet?</p>
+        <a href="#" onClick={handleToggle} className="toggle">
+          Sign Up&nbsp;&nbsp;&gt;&gt;
+        </a>
+      </SubmitBtnWrap>
     </StyledForm>
   );
 };
