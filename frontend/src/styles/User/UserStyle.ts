@@ -48,7 +48,8 @@ export const AuthBlock = styled.div`
   }
   .toggle-carousel {
     left: 0%;
-    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/loginimageleft.png') center no-repeat;
+    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/loginimageleft.png')
+      center no-repeat;
     background-size: cover;
   }
 `;
@@ -60,7 +61,7 @@ export const AuthContainer = styled.div`
   max-width: 1020px;
   height: 80vh;
   border-radius: 3.3rem;
-  border: solid red 2px;
+  /* border: solid red 2px; */
   box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
 `;
 
@@ -116,7 +117,8 @@ export const Carousel = styled.div`
   height: 90%;
   left: 60%;
   width: 40%;
-  background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/loginimageright.png') center no-repeat;
+  background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/loginimageright.png')
+    center no-repeat;
   background-size: cover;
   top: 0;
   transition: 0.8s ease-in-out;
@@ -311,6 +313,5 @@ export const SubmitBtnWrap = styled.div`
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    }
-  
+  }
 `;

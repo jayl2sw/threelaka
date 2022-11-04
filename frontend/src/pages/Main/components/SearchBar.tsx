@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { videoActions } from '../../../features/video/video-slice';
 import VideoDataModal from './VideoDataModal';
+import useModal from '../../../utils/useModal';
+
+// style
 import {
   SearchBarContainer,
   SearchBarInput,
@@ -11,10 +14,7 @@ import {
 } from '../../../styles/Main/MainSearchStyle';
 import { RiYoutubeFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
-import {
-  YoutubeLink
-} from '../../../styles/Main/MainStyle';
-import useModal from '../../../utils/useModal';
+import { YoutubeLink } from '../../../styles/Main/MainStyle';
 import { GoSearch } from 'react-icons/go';
 
 const SearchBar = () => {
@@ -30,7 +30,7 @@ const SearchBar = () => {
 
   // 모달에 띄워줄 비디오 정보
   const videoData = useAppSelector((state) => state.video.videoData);
-  // 영상 정보 조회
+  // 버튼 클릭으로 영상 정보 조회
   const handlerGetVideoData = (videoUrl: string) => {
     dispatch(videoActions.getVideoData(videoUrl));
   };
@@ -52,16 +52,27 @@ const SearchBar = () => {
 
   return (
     <SearchBarContainer>
-                <YoutubeLink>
-            <IconContext.Provider value={{ color: 'red', size: '5vmin' }}>
-              <RiYoutubeFill />
-            </IconContext.Provider>
-            TED
-          </YoutubeLink>
+      <YoutubeLink>
+        <IconContext.Provider value={{ color: 'red', size: '5vmin' }}>
+          <RiYoutubeFill />
+        </IconContext.Provider>
+        TED
+      </YoutubeLink>
 
       <SearchBarInput>
-        <input type="text" onChange={onChange} value={videoUrl} required />
-        <span>왼쪽 버튼을 눌러 TED 영상의 링크를 가져오세요</span>
+        <input
+          type="text"
+          onChange={onChange}
+          value={videoUrl}
+          onKeyPress={(e) => {
+            if (e.key == 'Enter') {
+              handlerGetVideoData(videoUrl);
+              onClickModal();
+            }
+          }}
+          required
+        />
+        <span>공부하려는 영상의 유튜브 링크를 넣어주세요</span>
         <i></i>
       </SearchBarInput>
       <SearchButton>
@@ -78,7 +89,7 @@ const SearchBar = () => {
               size: '2rem',
             }}
           >
-            <GoSearch style={{paddingBottom:'0.5vw'}}></GoSearch>
+            <GoSearch style={{ paddingBottom: '0.5vw' }}></GoSearch>
           </IconContext.Provider>
         </SearchIconBtn>
         {isOpenModal && (

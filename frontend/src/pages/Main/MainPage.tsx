@@ -12,27 +12,26 @@ import {
   RecommendVideoContainer,
   ListInfo,
   PageDownButton,
-  FirstCenterBar
-
+  FirstCenterBar,
 } from '../../styles/Main/MainStyle';
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import RecommendVideoList from './components/RecommendVideoList';
-
 
 const MainPage = () => {
   return (
     <MainPageBlock>
       <FirstpageBlock>
         <SearchBarBlock>
-          <LogoBlock></LogoBlock>
+          <LogoBlock />
           <NewVideo>
             {/* <FirstCenterBar> */}
-
             <SearchBar />
             {/* </FirstCenterBar> */}
           </NewVideo>
         </SearchBarBlock>
-        <PageDownButton className="toggle" style={{rotate:'270deg'}}>《</PageDownButton>
+        <PageDownButton className="toggle" style={{ rotate: '270deg' }}>
+          《
+        </PageDownButton>
       </FirstpageBlock>
       <RecentVideoContainer>
         <RecentVideo />
