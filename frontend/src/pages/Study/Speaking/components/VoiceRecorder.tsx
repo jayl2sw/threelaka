@@ -64,15 +64,17 @@ const VoiceRecorder = () => {
       flexDirection={'column'}
       justifyContent={'center'}
       alignItems={'center'}
-      IsBorder={'is'}
+      IsBorder={'none'}
     >
       <VideoAudioContainer>
         <audio controls src={audioResult} />
       </VideoAudioContainer>
       {/* idle => 빨간 점, recordeing: REC 로고 */}
-      <p>{status}</p>
-      <div style={{ border: '1px solid green' }}>
-        <p>{new Date(timer * 1000).toISOString().substr(11, 8)}</p>
+      <p style={{ textAlign: 'center' }}>{status}</p>
+      <div>
+        <p style={{ textAlign: 'center' }}>
+          {new Date(timer * 1000).toISOString().substr(11, 8)}
+        </p>
 
         <VideoAudioBtnContainer>
           {recording ? (
