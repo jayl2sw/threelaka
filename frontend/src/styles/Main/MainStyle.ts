@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import logoImg from '../../media/images/lakalogo.png';
+// import logoImg from '../../media/images/lakalogo.png';
 
 // 메인페이지 전체
 export const MainPageBlock = styled.div`
@@ -46,7 +46,7 @@ export const SearchBarBlock = styled.div`
 export const LogoBlock = styled.div`
   width: 30vw;
   height: 13vh;
-  background: url(${logoImg});
+  /* background: url(logoImg); */
   background-size: 30vw 13vh;
   /* border: 3px pink solid; */
   /* margin-bottom: 3vw; */
@@ -128,8 +128,8 @@ export const RecentVideoStageContainer = styled.div`
 `;
 
 export const RecentVideoImg = styled.img`
-  width: 18vw;
-  height: 22vh;
+  width: 17vw;
+  height: 21vh;
   object-fit: cover;
 `;
 

@@ -11,7 +11,7 @@ import {
   FirstpageBlock,
   YoutubeLink,
   RecommendVideoContainer,
-  ListInfo
+  ListInfo,
 } from '../../styles/Main/MainStyle';
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import RecommendVideoList from './components/RecommendVideoList';
@@ -24,12 +24,6 @@ const MainPage = () => {
       <FirstpageBlock>
         <SearchBarBlock>
           <LogoBlock></LogoBlock>
-          <YoutubeLink>
-            <IconContext.Provider value={{ color: 'red', size: '5vmin' }}>
-              <RiYoutubeFill />
-            </IconContext.Provider>
-            TED 보러가기
-          </YoutubeLink>
           <NewVideo>
             <SearchBar />
           </NewVideo>

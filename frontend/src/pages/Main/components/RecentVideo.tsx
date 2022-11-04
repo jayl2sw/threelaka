@@ -6,6 +6,7 @@ import { videoActions } from '../../../features/video/video-slice';
 import { studyActions } from '../../../features/study/study-slice';
 
 // style
+import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
 import {
   RecentVideoTitle,
@@ -74,9 +75,25 @@ const RecentVideo = () => {
         >
           <RecentVideoTitle>{video.title}</RecentVideoTitle>
           <RecentVideoStageContainer>
-            <RecentVideoImg
-              src={`https://img.youtube.com/vi/${video.videoId}/0.jpg`}
-            />
+            <FlexTransparentDiv
+              widthSize={'19vw'}
+              heightSize={'22.5vh'}
+              paddingSize={'0'}
+              flexDirection={'column'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              IsBorder={'none'}
+              style={{
+                borderTop: '10px solid black',
+                borderBottom: '10px solid black',
+                borderRadius: '10px',
+                background: 'black',
+              }}
+            >
+              <RecentVideoImg
+                src={`https://img.youtube.com/vi/${video.videoId}/0.jpg`}
+              />
+            </FlexTransparentDiv>
             <RecentVideoStageDataContainer>
               <div>
                 <p>
