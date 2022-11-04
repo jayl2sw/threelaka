@@ -165,8 +165,8 @@ const SignupForm = ({
       onSubmit={handleSubmit(handleFormSubmit)}
       className="sign-up-form"
     >
-      <Heading>
-        <h1>
+      <Heading style={{marginBottom:"3vh"}}>
+        <h1 >
           Hello,
           <br />
           Welcome to ThreeLaka!
@@ -214,13 +214,13 @@ const SignupForm = ({
                 value: '2',
               },
             ]}
-          />
+            />
         </div>
       </InputWrap>
       <SubmitBtnWrap>
         <GradientRoundBtn
           widthSize={'80%'}
-          heightSize={'4vh'}
+          heightSize={'5vh'}
           paddingSize={'0'}
           fontColor={'black'}
           fontSize={'2vmin'}
@@ -229,8 +229,8 @@ const SignupForm = ({
         >
           J O I N
         </GradientRoundBtn>
-        <p>Already Have an Account?</p>
-        <a href="#" onClick={handleToggle} className="toggle">
+        <p style={{fontFamily:'Fredoka'}}>Already Have an Account?</p>
+        <a href="#" onClick={handleToggle} className="toggle" style={{fontFamily:'Fredoka', fontWeight:'bold'}}>
           &lt;&lt;&nbsp;&nbsp;Sign In
         </a>
       </SubmitBtnWrap>

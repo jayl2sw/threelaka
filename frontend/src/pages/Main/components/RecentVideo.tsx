@@ -98,7 +98,7 @@ const RecentVideo = () => {
                   paddingSize={'0'}
                   fontSize={'1vw'}
                   fontColor={'white'}
-                  backgroundColor={'black'}
+                  backgroundColor={'blue'}
                   style={{ marginRight: '0.5vw' }}
                   onClick={() => {
                     handlerPostStartStudy(video.videoId);
@@ -112,7 +112,7 @@ const RecentVideo = () => {
                   paddingSize={'0'}
                   fontSize={'1vw'}
                   fontColor={'white'}
-                  backgroundColor={'blue'}
+                  backgroundColor={'black'}
                   style={{ marginLeft: '0.5vw' }}
                   onClick={() => {
                     handlerResumeStudy(
