@@ -4,12 +4,11 @@ import styled from 'styled-components';
 // ToolTip prop type 지정
 interface ToolTipType {
   message: string;
-  styling: {
-    paddingSize: string;
-    fontSize: string;
-    fontColor: 'white' | 'grey' | 'black' | 'blue';
-    backgroundColor: 'blue' | 'gradient' | 'black';
-  };
+  paddingSize: string;
+  fontSize: string;
+  fontColor: 'white' | 'grey' | 'black' | 'blue';
+  backgroundColor: 'blue' | 'gradient' | 'black';
+  // theDirection: 'top' | 'right' | 'bottom' | 'left';
 }
 
 // ToolTip Styling을 위한 type 지정
@@ -25,14 +24,17 @@ interface ToolTipStyleProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
 const ToolTip = ({
   children,
   message,
-  styling,
+  paddingSize,
+  fontSize,
+  fontColor,
+  backgroundColor,
 }: PropsWithChildren<ToolTipType>) => {
   return (
     <ToolTipContainer
-      paddingSize={styling.paddingSize}
-      fontSize={styling.fontSize}
-      fontColor={styling.fontColor}
-      backgroundColor={styling.backgroundColor}
+      paddingSize={paddingSize}
+      fontSize={fontSize}
+      fontColor={fontColor}
+      backgroundColor={backgroundColor}
     >
       {children}
       <ToolTipContent className="tooltip">{message}</ToolTipContent>
@@ -64,8 +66,9 @@ const ToolTipContainer = styled.div<ToolTipStyleProps>`
       ? '#9897a9'
       : '#4a9fff'};
   position: relative;
-  width: fit-content;
+  width: 5vw;
   height: fit-conttent;
+  border-radius: 1vmin;
 
   :hover > .tooltip,
   :active > .tooltip {
