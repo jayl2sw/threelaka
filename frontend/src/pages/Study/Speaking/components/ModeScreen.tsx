@@ -55,14 +55,9 @@ const ModeScreen = () => {
     );
   } else {
     return (
-      <MainPaleBox
-        widthSize={'40vw'}
-        heightSize={'50vh'}
-        paddingSize={'2vw'}
-        fontSize={'1rem'}
-        color={'white'}
-        fontColor={'black'}
-      ></MainPaleBox>
+      <SpeechTestBox>
+        <SpeechTest />
+      </SpeechTestBox>
     );
   }
 };

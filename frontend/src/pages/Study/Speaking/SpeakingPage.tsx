@@ -7,8 +7,22 @@ import SpeakingScreen from './components/SpeakingScreen';
 import { useRef, useEffect } from 'react';
 import { useAppDispatch } from '../../../utils/hooks';
 import { studyActions } from '../../../features/study/study-slice';
+import {
+  MoveToNextLeftBtn,
+  MoveToNextRightBtn,
+} from '../../../styles/Common/CommonBtnStyle';
+import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
+import { RiBearSmileLine } from 'react-icons/ri';
+import { useOutletContext } from 'react-router-dom';
+import { IworlListAndWrtingProps } from '../Writing/components/WordListAndWritingContainer';
+import { IheaderProps } from '../../../layout/Header';
+import { StudyPageParams } from '../../../models';
+import { useParams } from 'react-router-dom';
 const SpeakingPage = () => {
+  const { customMoveToNext } = useOutletContext<IheaderProps>();
+  const moveToNext = customMoveToNext;
   // 발음 테스트 클릭
+  const pageParams: StudyPageParams = useParams() as any;
   const onClickProTest = () => {};
 
   const modeCode = useLocation().search.replace('?mode=', '');
@@ -32,8 +46,19 @@ const SpeakingPage = () => {
 
   return (
     <SpeakingPageBlock>
+      <MoveToNextLeftBtn
+        onClick={(e) => {
+          moveToNext(e, 'WRITING', pageParams);
+        }}
+      >
+        <AiOutlineLeft size={30} />
+        <p>writing</p>
+      </MoveToNextLeftBtn>
       <SpeakingScreen />
-      {/* <EssayScript /> */}
+      <MoveToNextRightBtn>
+        <RiBearSmileLine size={30} />
+        <p>complete!</p>
+      </MoveToNextRightBtn>
     </SpeakingPageBlock>
   );
 };

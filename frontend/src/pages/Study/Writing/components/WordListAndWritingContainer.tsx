@@ -33,7 +33,7 @@ import { useOutletContext } from 'react-router-dom';
 import { IheaderProps } from '../../../../layout/Header';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 
-interface IworlListAndWrtingProps {
+export interface IworlListAndWrtingProps {
   pageParams: StudyPageParams;
 }
 
