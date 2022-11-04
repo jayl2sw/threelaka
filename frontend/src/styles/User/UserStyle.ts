@@ -1,6 +1,7 @@
 import { Radio } from '@material-ui/core';
 import styled from 'styled-components';
-import loginImg from '../../media/images/loginimage3.png';
+import loginImg from '../../media/images/loginimageleft.png';
+import loginImg2 from '../../media/images/loginimageright.png';
 
 export const StyledForm = styled.form`
   max-width: 400px;
@@ -47,6 +48,8 @@ export const AuthBlock = styled.div`
   }
   .toggle-carousel {
     left: 0%;
+    background: url('${loginImg}') center no-repeat;
+    background-size: cover;
   }
 `;
 
@@ -112,14 +115,7 @@ export const Carousel = styled.div`
   height: 90%;
   left: 60%;
   width: 40%;
-  background: url('${loginImg}') center no-repeat;
-  /* background-color: linear-gradient(
-    106.62deg,
-    #83bdff 8.18%,
-    rgba(136, 192, 255, 0.90051) 49.26%,
-    #8dc2ff 69.16%,
-    #c1ffa9 92.42%
-  ); */
+  background: url('${loginImg2}') center no-repeat;
   background-size: cover;
   top: 0;
   transition: 0.8s ease-in-out;
