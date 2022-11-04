@@ -25,12 +25,14 @@ const MainPage = () => {
           <NewVideo>
             <SearchBar />
           </NewVideo>
-          <YoutubeLink>
-            <IconContext.Provider value={{ color: 'red', size: '3rem' }}>
-              <RiYoutubeFill />
-            </IconContext.Provider>
-            테드 유튜브 채널로 가세요
-          </YoutubeLink>
+          <a href="https://www.youtube.com/c/TED">
+            <YoutubeLink>
+              <IconContext.Provider value={{ color: 'red', size: '3rem' }}>
+                <RiYoutubeFill />
+              </IconContext.Provider>
+              TED 채널 바로가기
+            </YoutubeLink>
+          </a>
         </SearchBarBlock>
       </FirstpageBlock>
       <RecentVideoContainer>

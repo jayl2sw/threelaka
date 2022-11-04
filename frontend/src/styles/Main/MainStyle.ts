@@ -10,7 +10,7 @@ export const MainPageBlock = styled.div`
   width: 100vw;
   height: 200vh;
   padding: 0 10vw 5vh 10vw;
-  border: solid red 1px;
+  /* border: solid red 1px; */
   background: linear-gradient(
     106.56deg,
     rgba(132, 176, 226, 0.1) 7.3%,
@@ -53,24 +53,20 @@ export const LogoBlock = styled.div`
 `;
 
 export const YoutubeLink = styled.div`
-  width: 10vw;
+  width: 11.5vw;
   height: 8vh;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  margin-top: 10vh;
   display: flex;
-
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1vw;
+  margin-top: 10vh;
   cursor: pointer;
-`;
 
-// 메인페이지 최근 학습
-// export const RecentVideo = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   margin-top: 10vh;
-//   margin-bottom: 10vh;
-// `;
+  & a {
+    margin: 0;
+  }
+`;
 
 export const RecentVideoContainer = styled.div`
   display: flex;
@@ -84,7 +80,52 @@ export const RecentVideoContainer = styled.div`
 // 메인페이지 추천 영상
 export const RecommendVideos = styled.div`
   display: flex;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
+`;
+
+export const RecentVideoTitle = styled.div`
+  width: 38vw;
+  height: 9vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 3vh;
+`;
+
+export const RecentVideoStageContainer = styled.div`
+  width: 38vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const RecentVideoImg = styled.img`
+  width: 18vw;
+  height: 22vh;
+  object-fit: cover;
+`;
+
+export const RecentVideoStageDataContainer = styled.div`
+  width: 20vw;
+  height: 22vh;
+  margin-left: 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid red; */
+`;
+
+export const RecentVideoStageBtnContainer = styled.div`
+  width: 20vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 2vh;
+  padding: 0 1vw;
+  /* border: 1px solid red; */
 `;
 
 export const VideoCardBlock = styled.div`
