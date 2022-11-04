@@ -17,9 +17,10 @@ import { MdDownload, MdCameraswitch } from 'react-icons/md';
 
 interface IRecorderProps {
   selectedText: string;
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const VoiceRecorder = ({ selectedText }: IRecorderProps) => {
+const VoiceRecorderForTest = ({ selectedText, setFlag }: IRecorderProps) => {
   const [audioFile, setAudioFile] = useState<any>('');
   const {
     audioResult,
@@ -32,26 +33,6 @@ const VoiceRecorder = ({ selectedText }: IRecorderProps) => {
   } = useAudioRecorder();
 
   const dispatch = useAppDispatch();
-  // //뉴라인만
-  // let dummy1 =
-  //   'Yes of course.\
-  //   I grew up playing football like most children in my country.';
-  // //점만
-  // let dummy2 = 'I go to school. And I am so happy.';
-  // //뉴라인이랑 점 둘다
-  // let dummy3 =
-  //   'Yes of course.\
-  // I grew up playing football like most children in my country. I go to school.';
-
-  // let splittedText = dummy3.split('.');
-
-  // const texts = splittedText.map((item, key) => {
-  //   let trimmed = item.trimStart();
-  //   return trimmed;
-  // });
-
-  // const filteredText = texts.filter((text) => text.length > 0);
-  // console.log('잘필터링되나', filteredText);
 
   const speechTest = async () => {
     var data = new FormData();
@@ -65,6 +46,7 @@ const VoiceRecorder = ({ selectedText }: IRecorderProps) => {
 
   useEffect(() => {
     speechTest();
+    setFlag(true);
   }, [audioResult]);
 
   return (
@@ -92,4 +74,4 @@ const VoiceRecorder = ({ selectedText }: IRecorderProps) => {
   );
 };
 
-export default VoiceRecorder;
+export default VoiceRecorderForTest;

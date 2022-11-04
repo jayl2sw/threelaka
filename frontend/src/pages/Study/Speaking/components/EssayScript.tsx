@@ -13,18 +13,14 @@ import { useAppDispatch, useAppSelector } from '../../../../utils/hooks';
 import { useCallback } from 'react';
 import { writingActions } from '../../../../features/writing/writing-slice';
 import { StudyPageParams } from '../../../../models';
-
+import { studyActions } from '../../../../features/study/study-slice';
 interface IEssayProps {
-  setSplittedText: React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
   setSelectedText: React.Dispatch<React.SetStateAction<string>>;
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>;
   pageParams: StudyPageParams;
 }
 
-const EssayScript = ({
-  setSelectedText,
-  pageParams,
-  setSplittedText,
-}: IEssayProps) => {
+const EssayScript = ({ setSelectedText, pageParams, setFlag }: IEssayProps) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const isOnScreen = useOnScreen(elementRef);
   const dispatch = useAppDispatch();
@@ -37,24 +33,13 @@ const EssayScript = ({
     idx: number
   ) => {
     const pickedSentence = (e.target as HTMLDivElement).innerText;
-    console.log('얍얍', pickedSentence);
+    console.log('찍히나', pickedSentence);
+    dispatch(studyActions.resetSpeechScore());
+
     setSelectedText(pickedSentence);
-    const splittedSentence = e.target as HTMLDivElement;
-    let words = splittedSentence.innerText.split(/( )/g);
+
+    setFlag(false);
   };
-  // const sentenceClickHandler = (
-  //   e: React.MouseEvent<HTMLDivElement>,
-  //   idx: number
-  // ) => {
-  //   const pickedSentence = e.target as HTMLDivElement;
-  //   let words = pickedSentence.innerText.split(/( )/g);
-  //   console.log(words);
-  //   pickedSentence.innerHTML = words
-  //     .map((word) => `<span>${word}</span>`)
-  //     .join('');
-  //   console.log(pickedSentence);
-  //   setSelectedText(pickedSentence);
-  // };
 
   useEffect(() => {
     //내가 쓴 에세이 불러오는거
@@ -70,7 +55,7 @@ const EssayScript = ({
     });
 
     const filteredText = texts.filter((text) => text.length > 0);
-    console.log('잘필터링되나', filteredText);
+
     setScript(filteredText);
     console.log(script);
   };
@@ -107,10 +92,6 @@ const EssayScript = ({
         <p ref={elementRef} className="trigger">
           에세이에요
         </p>
-        {/* <ModePickContainer>
-          <button>연습</button>
-          <button>실전</button>
-        </ModePickContainer> */}
 
         {script ? (
           script.map((item, idx) => (

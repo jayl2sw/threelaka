@@ -23,6 +23,12 @@ export interface WordMeaning {
   wordList: AwordMeaning[];
 }
 
+export interface SpeechTest {
+  text: string;
+  total_score: number;
+  scores: SpeechScores[];
+}
+
 export interface WordInfo {
   definition: string;
   example: string;
@@ -34,4 +40,9 @@ export interface WordBook {
   wordbookId: number;
   word: string;
   example: string;
+}
+
+export interface SpeechScores {
+  word: string;
+  score: number;
 }

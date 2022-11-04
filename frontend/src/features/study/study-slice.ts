@@ -1,15 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { string } from 'yup';
-import { StudyStage, WordMeaning, StageInfo, WordBook } from '../../models';
+import {
+  StudyStage,
+  WordMeaning,
+  StageInfo,
+  WordBook,
+  SpeechScores,
+} from '../../models';
 
 type StudyState = {
   loading: boolean;
   studyState: StudyStage;
   wordMeaning: WordMeaning;
   wordBookList: WordBook[];
+  speechScores: SpeechScores[];
+  totalScore: number;
 };
 
 let initialState: StudyState = {
+  speechScores: [],
+  totalScore: 0,
   loading: false,
   studyState: {
     learningRecordId: 0,
@@ -104,6 +114,20 @@ const studySlice = createSlice({
     //발음 테스트
     speechTest(state, action: PayloadAction<any>) {
       state.loading = true;
+    },
+    speechTestSuccess(state, action: PayloadAction<any>) {
+      state.loading = false;
+      console.log(action.payload);
+      state.speechScores = action.payload.scores;
+      state.totalScore = action.payload.total_score;
+    },
+    speechTestFail(state) {
+      state.loading = false;
+    },
+    //발음점수리셋
+    resetSpeechScore(state) {
+      state.speechScores = [];
+      state.totalScore = 0;
     },
   },
 });

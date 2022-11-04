@@ -8,7 +8,13 @@ import {
 import { getFindWordApi } from '../../services/readApi';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
-import { StudyStage, WordMeaning, StageInfo, WordBook } from '../../models';
+import {
+  StudyStage,
+  WordMeaning,
+  StageInfo,
+  WordBook,
+  SpeechTest,
+} from '../../models';
 import { studyActions } from './study-slice';
 // 공부 시작 SAGA
 function* onPostStartStudyAsync(action: PayloadAction<string>) {
@@ -94,7 +100,10 @@ export function* watchGetWordBookAsync() {
 //발음검사
 function* onPostSpeechTestInfo(action: PayloadAction<any>) {
   try {
-    const response: string = yield call(speechaceApi, action.payload);
+    console.log('왜안됨');
+    const response: SpeechTest = yield call(speechaceApi, action.payload);
+    console.log(response);
+    yield put(studyActions.speechTestSuccess(response));
   } catch (error) {
     console.log(error);
   }
