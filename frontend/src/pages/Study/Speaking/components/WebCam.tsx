@@ -15,7 +15,7 @@ import { MdDownload, MdCameraswitch } from 'react-icons/md';
 const WebCam = () => {
   const webcamRef = useRef<Webcam & HTMLVideoElement>(null) as any;
   const mediaRecorderRef = useRef<any>(null);
-  const [capturing, setCapturing] = useState(false);
+  const [recording, setRecording] = useState<boolean>(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const isInitialMount = useRef(true);
   const [camIsOn, setcamIsOn] = useState<boolean>(true);
@@ -34,7 +34,7 @@ const WebCam = () => {
   // 영상 녹화 시작
   const handleStartCaptureClick = useCallback(() => {
     setRecordedChunks([]);
-    setCapturing(true);
+    setRecording(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: 'video/webm',
     });
@@ -43,7 +43,7 @@ const WebCam = () => {
       handleDataAvailable
     );
     mediaRecorderRef.current.start();
-  }, [webcamRef, setCapturing, mediaRecorderRef]);
+  }, [webcamRef, setRecording, mediaRecorderRef]);
 
   const handleDataAvailable = useCallback(
     ({ data }) => {
@@ -57,8 +57,8 @@ const WebCam = () => {
   // 영상 녹화 정지
   const handleStopCaptureClick = useCallback(() => {
     mediaRecorderRef.current.stop();
-    setCapturing(false);
-  }, [mediaRecorderRef, webcamRef, recordedChunks, setCapturing]);
+    setRecording(false);
+  }, [mediaRecorderRef, webcamRef, recordedChunks, setRecording]);
 
   // 영상 녹화 <=> 녹화 영상
   const turnScreen = useCallback(() => {
@@ -126,7 +126,7 @@ const WebCam = () => {
         >
           <MdCameraswitch />
         </VideoAudioBtn>
-        {capturing ? (
+        {recording ? (
           <VideoAudioBtn onClick={handleStopCaptureClick}>
             <BsFillStopFill />
           </VideoAudioBtn>

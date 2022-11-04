@@ -9,33 +9,29 @@ import {
   SearchBarBlock,
   LogoBlock,
   FirstpageBlock,
-  YoutubeLink,
   RecommendVideoContainer,
   ListInfo,
+  PageDownButton,
+  FirstCenterBar,
 } from '../../styles/Main/MainStyle';
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import RecommendVideoList from './components/RecommendVideoList';
-import { RiYoutubeFill } from 'react-icons/ri';
-import { IconContext } from 'react-icons';
 
 const MainPage = () => {
   return (
     <MainPageBlock>
       <FirstpageBlock>
         <SearchBarBlock>
-          <LogoBlock></LogoBlock>
+          <LogoBlock />
           <NewVideo>
+            {/* <FirstCenterBar> */}
             <SearchBar />
+            {/* </FirstCenterBar> */}
           </NewVideo>
-          <a href="https://www.youtube.com/c/TED" target="_blank">
-            <YoutubeLink>
-              <IconContext.Provider value={{ color: 'red', size: '3rem' }}>
-                <RiYoutubeFill />
-              </IconContext.Provider>
-              TED 채널 바로가기
-            </YoutubeLink>
-          </a>
         </SearchBarBlock>
+        <PageDownButton className="toggle" style={{ rotate: '270deg' }}>
+          《
+        </PageDownButton>
       </FirstpageBlock>
       <RecentVideoContainer>
         <RecentVideo />

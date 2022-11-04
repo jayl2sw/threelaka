@@ -3,15 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { videoActions } from '../../../features/video/video-slice';
 import VideoDataModal from './VideoDataModal';
+import useModal from '../../../utils/useModal';
+
+// style
 import {
   SearchBarContainer,
   SearchBarInput,
   SearchButton,
   SearchIconBtn,
 } from '../../../styles/Main/MainSearchStyle';
-import useModal from '../../../utils/useModal';
-import { GoSearch } from 'react-icons/go';
+import { RiYoutubeFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
+import { YoutubeLink } from '../../../styles/Main/MainStyle';
+import { GoSearch } from 'react-icons/go';
 
 const SearchBar = () => {
   const dispatch = useAppDispatch();
@@ -48,6 +52,13 @@ const SearchBar = () => {
 
   return (
     <SearchBarContainer>
+      <YoutubeLink>
+        <IconContext.Provider value={{ color: 'red', size: '5vmin' }}>
+          <RiYoutubeFill />
+        </IconContext.Provider>
+        TED
+      </YoutubeLink>
+
       <SearchBarInput>
         <input
           type="text"
@@ -78,7 +89,7 @@ const SearchBar = () => {
               size: '2rem',
             }}
           >
-            <GoSearch></GoSearch>
+            <GoSearch style={{ paddingBottom: '0.5vw' }}></GoSearch>
           </IconContext.Provider>
         </SearchIconBtn>
         {isOpenModal && (

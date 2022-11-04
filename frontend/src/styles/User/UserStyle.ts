@@ -1,5 +1,8 @@
 import { Radio } from '@material-ui/core';
 import styled from 'styled-components';
+import loginImg from '../../media/images/loginimageleft.png';
+import loginImg2 from '../../media/images/loginimageright.png';
+
 export const StyledForm = styled.form`
   max-width: 400px;
   width: 100%;
@@ -45,16 +48,20 @@ export const AuthBlock = styled.div`
   }
   .toggle-carousel {
     left: 0%;
+    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/loginimageleft.png')
+      center no-repeat;
+    background-size: cover;
   }
 `;
 
 export const AuthContainer = styled.div`
   position: relative;
   background-color: white;
-  width: 100%;
+  width: 60vw;
   max-width: 1020px;
-  height: 700px;
+  height: 80vh;
   border-radius: 3.3rem;
+  /* border: solid red 2px; */
   box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
 `;
 
@@ -62,10 +69,11 @@ export const InnerBox = styled.div`
   /* padding: 2rem; */
   /* margin: 2rem; */
   position: absolute;
-  width: 100%;
+  width: 90%;
   /* width: calc(100%-4.1rem); */
   height: 100%;
   top: 5%;
+  transform: translateX(5%);
   /* left:10%; */
   /* transform: translate(-50%,-50%); */
   /* background-color: black; */
@@ -105,19 +113,23 @@ export const FormsWrap = styled.div`
 
 export const Carousel = styled.div`
   position: absolute;
+  top: 2.5%;
   height: 90%;
   left: 60%;
   width: 40%;
-  /* background-color: beige; */
-  background-color: blue;
+  background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/loginimageright.png')
+    center no-repeat;
+  background-size: cover;
   top: 0;
   transition: 0.8s ease-in-out;
+  border-radius: 5vmin;
 `;
 
 export const Heading = styled.div`
   font-family: Fredoka;
   h1 {
     display: inline;
+    font-size: 4vmin;
   }
 `;
 export const InputWrap = styled.div`
@@ -301,6 +313,5 @@ export const SubmitBtnWrap = styled.div`
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    }
   }
 `;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// import logoImg from '../../media/images/lakalogo.png';
 
 // 메인페이지 전체
 export const MainPageBlock = styled.div`
@@ -11,13 +10,13 @@ export const MainPageBlock = styled.div`
   height: 200vh;
   padding: 0 10vw 5vh 10vw;
   /* border: solid red 1px; */
-  background: linear-gradient(
+  /* background: linear-gradient(
     106.56deg,
     rgba(132, 176, 226, 0.1) 7.3%,
     rgba(88, 172, 240, 0.23) 77.68%,
     rgba(174, 243, 147, 0.5) 99.32%
-  );
-  /* background: white; */
+  ); */
+  background: white;
   & .video-title {
   }
 `;
@@ -28,7 +27,7 @@ export const FirstpageBlock = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  // border: solid green 3px;
+  /* border: solid green 3px; */
   flex-direction: column;
 `;
 
@@ -44,34 +43,80 @@ export const SearchBarBlock = styled.div`
   margin-top: 5vh;
 `;
 export const LogoBlock = styled.div`
-  width: 30vw;
-  height: 13vh;
-  /* background: url(logoImg); */
-  background-size: 30vw 13vh;
+  width: 40vw;
+  height: 12vh;
+  background-size: 25vw 12vh;
+  background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/logo.png')
+    center no-repeat;
   /* border: 3px pink solid; */
   /* margin-bottom: 3vw; */
 `;
 
 export const YoutubeLink = styled.div`
-  width: 11.5vw;
-  height: 8vh;
+  /* position: absolute; */
+  /* display: inline; */
+  width: 8vw;
+  height: 6vh;
+  margin-top: -5vh;
+  margin-right: 1vw;
+  /* border: 2px solid green; */
+  /* background: linear-gradient(110.64deg, #4A9FFF 5.65%, rgba(88, 172, 240, 0.861458) 45.15%, #B0FF91 84.64%); */
+  background: #b7d9ff;
+  /* opacity: 0.4; */
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 3vmin;
+  color: black;
+  font-weight: bold;
+  margin-bottom: -2vh;
+  font-family: Fredoka;
+  display: flex;
+  :hover {
+    transform: scale(1.05);
+  }
+
+  cursor: pointer;
+`;
+export const FirstCenterBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  font-size: 1vw;
-  margin-top: 10vh;
-  /* width: 30vw;
-  height: 8vh;
-  align-items: center;
   justify-content: center;
-  font-size: 3.5vmin;
-  margin-bottom: -2vh;
-  font-family: Fredoka;
-  display: flex; */
-  /* padding-bottom: 1vw; */
+`;
 
+export const PageDownButton = styled.div`
+  /* transform: ; */
+  font-size: 6.5vmin;
+  background: linear-gradient(
+    110.64deg,
+    #4a9fff 1.5%,
+    rgba(88, 172, 240, 1) 25%,
+    #b0ff91 70%,
+    rgba(88, 172, 240, 1) 85%,
+    #4a9fff 90%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 2s linear infinite, boomboom 0.5s alternate infinite;
   cursor: pointer;
+  @keyframes shine {
+    to {
+      background-position: 200% center;
+    }
+  }
+
+  @keyframes boomboom {
+    from {
+      transform: translateX(-10%);
+    }
+    to {
+      transform: translateX(10%);
+    }
+  }
+
+  /* font-weight: bold; */
 
   & a {
     margin: 0;
@@ -85,7 +130,7 @@ export const RecentVideoContainer = styled.div`
   justify-content: center;
   width: 100vw;
   height: 60vh;
-  // border: solid yellow 3px;
+  /* border: solid yellow 3px; */
 `;
 
 export const RecentVideoBox = styled.div`
@@ -98,7 +143,8 @@ export const RecentVideoBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
+  background-color: rgba(79, 159, 255, 0.5);
+  // background-color: #b7d9ff';
   border-radius: 2vmin;
 `;
 
@@ -109,7 +155,7 @@ export const RecommendVideoContainer = styled.div`
   align-items: center;
   width: 100vw;
   height: 40vh;
-  // border: solid gray 3px;
+  /* border: solid gray 3px; */
   flex-direction: column;
 `;
 
@@ -117,7 +163,7 @@ export const RecommendVideoContainer = styled.div`
 export const RecommendVideos = styled.div`
   display: flex;
   border: 1px solid blue;
-  border: solid red 2px;
+  /* border: solid red 2px; */
   width: 20vw;
   height: 50vh;
   /* border: 1px solid blue; */
@@ -232,12 +278,11 @@ export const SubTag = styled.button`
   height: 3vh;
   font-weight: bold;
   font-size: 0.9vw;
-  color: black;
-
+  color: white;
   /* background: #111111; */
-  background: white;
-  /* opacity: 0.8; */
-  margin-top: 1vh;
+  background: black;
+  opacity: 0.8;
+  margin-top: 0.5vh;
   margin-right: 0.5vw;
   border: solid 3px black;
   font-family: fredoka;

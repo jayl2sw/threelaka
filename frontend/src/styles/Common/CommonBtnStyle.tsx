@@ -191,7 +191,7 @@ export const MoveToNextRightBtn = styled.div`
   right: 1vw;
   top: 55vh;
   width: 10vmin;
-  height: 10vmin;
+  min-height: 5vh;
   /* background: blue; */
   color: black;
   & p {
@@ -216,7 +216,7 @@ export const MoveToNextLeftBtn = styled.div`
   left: 1vw;
   top: 55vh;
   width: 10vmin;
-  height: 10vmin;
+  min-height: 5vh;
   /* background: blue; */
   color: black;
   & p {
