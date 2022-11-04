@@ -5,6 +5,7 @@ import {
   WordListAndWritingContainer,
   WordCheckBox,
   WordText,
+  SpellText,
   HighlightTextAreaWrapper,
   ArcodianBox,
 } from '../../../../styles/Writing/WritingStyle';
@@ -252,7 +253,7 @@ const WordListAndWritingContainerComp = ({
                     }}
                     key={`spell-word-${idx}`}
                   >
-                    <WordText>
+                    <SpellText>
                       {spellWord.type === 'UnknownToken' ? (
                         <p style={{ fontSize: '2.5vmin' }}>
                           <span>수정&nbsp;&nbsp;</span>
@@ -269,7 +270,7 @@ const WordListAndWritingContainerComp = ({
                           </span>
                         </p>
                       )}
-                    </WordText>
+                    </SpellText>
                     {/* {aWord.example} */}
                   </BackBlurBox>
                 );

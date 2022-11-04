@@ -74,6 +74,23 @@ export const WordText = styled.div`
   }
 `;
 
+export const SpellText = styled.div`
+  width: 20vw;
+  display: flex;
+  & p.back {
+    display: none;
+  }
+  &:hover p.front {
+    display: none;
+  }
+  &:hover p.back {
+    display: inline;
+  }
+  & p.checked {
+    text-decoration: black line-through;
+  }
+`;
+
 export const ArcodianBox = styled.div`
   position: relative;
   display: flex;
