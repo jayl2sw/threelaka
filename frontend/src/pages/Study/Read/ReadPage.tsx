@@ -45,7 +45,8 @@ const ReadPage = () => {
   const navigate = useNavigate();
   const tedScriptList = useAppSelector((state) => state.read.TedScriptList);
   const wordLoading = useAppSelector((state) => state.study.loading);
-  const wordAddLoading = useAppSelector((state) => state.read.loading);
+  const [addSuccessModal, setAddSuccessModal] = useState<boolean>(false);
+  const isAddSuccess = useAppSelector((state) => state.read.isAddSuccess);
   const scriptContainerRef = useRef<HTMLDivElement[]>([]);
   const [dictInputValue, setDictInputvalue] = useState<string>('');
   const [selectedWordIdxArr, setSelectedWordIdxArr] = useState<number[]>([]);
@@ -117,13 +118,23 @@ const ReadPage = () => {
     console.log(dictInputValue);
     const trimmedWord = dictInputValue.replace(/\s+$/, '').toLowerCase();
     console.log(trimmedWord);
-    const wordInfo = {
-      definition: '',
-      example: selectedSentence,
-      lrId: pageParams.learningRecordId,
-      word: trimmedWord,
-    };
-    dispatch(readActions.postAddWordToWordBookStart(wordInfo));
+    if (trimmedWord === '') {
+      const wordInfo = {
+        definition: '',
+        example: selectedSentence,
+        lrId: pageParams.learningRecordId,
+        word: wordMeaning.wordId,
+      };
+      dispatch(readActions.postAddWordToWordBookStart(wordInfo));
+    } else {
+      const wordInfo = {
+        definition: '',
+        example: selectedSentence,
+        lrId: pageParams.learningRecordId,
+        word: dictInputValue,
+      };
+      dispatch(readActions.postAddWordToWordBookStart(wordInfo));
+    }
   };
 
   const opts = {
@@ -133,6 +144,15 @@ const ReadPage = () => {
       autoplay: 0,
     },
   };
+
+  useEffect(() => {
+    console.warn(isAddSuccess);
+    if (isAddSuccess) {
+      setTimeout(() => {
+        setAddSuccessModal(false);
+      }, 1000);
+    }
+  }, [isAddSuccess]);
 
   useEffect(() => {
     if (videoElement) {
@@ -316,6 +336,7 @@ const ReadPage = () => {
                 backgroundColor={'gradient'}
                 onClick={(e) => {
                   AddWordToWordbook(e);
+                  setAddSuccessModal(true);
                 }}
                 style={{
                   background: 'transparent',
@@ -324,11 +345,16 @@ const ReadPage = () => {
                   left: '9vw',
                 }}
               >
-                {wordAddLoading ? (
-                  <TiStarFullOutline size={40} color={'#2e4a9e'} />
+                {addSuccessModal ? (
+                  <div>{isAddSuccess}</div>
                 ) : (
                   <TiStarOutline size={40} color={'#2e4a9e'} />
                 )}
+                {/* {wordAddLoading ? (
+                  <TiStarFullOutline size={40} color={'#2e4a9e'} />
+                ) : (
+                  
+                )} */}
               </GradientRoundBtn>
               <DictInput
                 value={dictInputValue}
