@@ -134,21 +134,24 @@ async def speechace(text, file: bytes = File()):
     }
     session = requests.Session()
     r = session.post(speechace_url, data=data, files=files).json()
-    text = r["text_score"]["text"]
-    total_score = r["text_score"]["quality_score"]
-    scores = []
+    try:
+        text = r["text_score"]["text"]
+        total_score = r["text_score"]["quality_score"]
+        scores = []
 
-    for word_score in r["text_score"]["word_score_list"]:
-        tmp = {
-            "word" :word_score["word"],
-            "score" :word_score["quality_score"]
+        for word_score in r["text_score"]["word_score_list"]:
+            tmp = {
+                "word" :word_score["word"],
+                "score" :word_score["quality_score"]
+            }
+            scores.append(tmp)
+
+        response = {
+            "text": text,
+            "total_score": total_score,
+            "scores": scores
         }
-        scores.append(tmp)
 
-    response = {
-        "text": text,
-        "total_score": total_score,
-        "scores": scores
-    }
-
-    return response
+        return response
+    except:
+        return r
