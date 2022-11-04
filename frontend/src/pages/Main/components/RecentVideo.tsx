@@ -14,6 +14,7 @@ import {
   RecentVideoImg,
   RecentVideoStageDataContainer,
   RecentVideoStageBtnContainer,
+  RecentVideoBox,
 } from '../../../styles/Main/MainStyle';
 
 const RecentVideo = () => {
@@ -60,19 +61,7 @@ const RecentVideo = () => {
   return (
     <div>
       {isReady && (
-        <MainPaleBox
-          widthSize={'45vw'}
-          heightSize={'45vh'}
-          paddingSize={'1.5vw'}
-          fontSize={'1.2vw'}
-          fontColor={'black'}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <RecentVideoBox>
           <RecentVideoTitle>{video.title}</RecentVideoTitle>
           <RecentVideoStageContainer>
             <FlexTransparentDiv
@@ -138,7 +127,7 @@ const RecentVideo = () => {
               </RecentVideoStageBtnContainer>
             </RecentVideoStageDataContainer>
           </RecentVideoStageContainer>
-        </MainPaleBox>
+        </RecentVideoBox>
       )}
     </div>
   );

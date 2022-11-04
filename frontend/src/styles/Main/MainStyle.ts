@@ -88,6 +88,20 @@ export const RecentVideoContainer = styled.div`
   border: solid yellow 3px;
 `;
 
+export const RecentVideoBox = styled.div`
+  width: 45vw;
+  height: 45vh;
+  padding: 1.5vw;
+  font-size: 1.2vw;
+  color: #111111;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 2vmin;
+`;
+
 export const RecommendVideoContainer = styled.div`
   display: flex;
   /* flex-direction: row; */
