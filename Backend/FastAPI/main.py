@@ -48,15 +48,15 @@ async def checkWords(essay_checker: EssayChecker):
     essay = essay_checker.essay
     essay = essay.replace(',', ' ')
     lines = list(map(lambda x: x.strip(), re.split('[.?!\n]',essay)))
-    words = list(map(lambda x: lemmatizer.lemmatize(x, 'v'), essay_checker.word_list))
+    words = list(map(lambda x: (x, (lemmatizer.lemmatize(x, 'v'), x)), essay_checker.word_list))
     result = []
     
     for line in lines:
         line2 = line.replace(',', ' ,')
         line3 = list(map(lambda x: lemmatizer.lemmatize(x, 'v'), line2.split()))
         print(line3)
-        for word in words:    
-            if word in line3:
+        for word, lemmatized in words:    
+            if lemmatized in line3:
                 result.append((word, line))
     
     return result
@@ -123,6 +123,7 @@ async def oxford(word):
 
 @app.post("/api/v2/study/speechace") 
 async def speechace(text, file: bytes = File()):
+    
     data= {
         "text": text,
         "question_info": 'u1/q1',
