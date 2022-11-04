@@ -27,7 +27,9 @@ function* onPostAddWordToWordBookAsync(action: PayloadAction<WordInfo>) {
     yield put(readActions.postAddWordToWordBookSuccess(response));
   } catch (error) {
     console.log(`Failed to fetch TedScript`, error);
-    // yield put(readActions.getScriptsFailed(error.message));
+    if (error instanceof Error) {
+      yield put(readActions.postAddWordToWordBookFailed('Failed'));
+    }
   }
 }
 
