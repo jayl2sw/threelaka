@@ -18,6 +18,7 @@ const MainHeader = () => {
     dispatch(authActions.logout());
     navigate('/auth/login');
   };
+
   return (
     <MainHeaderMenuRegion>
       <MainLinkWrapper bgColor="transparent" widthSize="10vw" style={{ color: "black"}}>

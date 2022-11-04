@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { useAudioRecorder } from '@sarafhbk/react-audio-recorder';
+import * as fs from 'fs';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../../../utils/hooks';
+import { studyActions } from '../../../../features/study/study-slice';
 
 // style
 import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
@@ -24,6 +28,8 @@ const VoiceRecorder = () => {
     resumeRecording,
     status,
   } = useAudioRecorder();
+
+  const dispatch = useAppDispatch();
 
   const handleStartRecording = () => {
     startRecording();

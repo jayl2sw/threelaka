@@ -23,9 +23,6 @@ import DashBoardPage from './pages/Dashboard/DashBoardPage';
 import PageNotFound from './layout/PageNotFound';
 
 // Private
-
-import Counter from './pages/Counter/Counter';
-
 import { ProtectedRoute } from './pages/private/ProtectedRoute';
 
 function App() {
@@ -73,8 +70,6 @@ function App() {
 
         {/* Not Found */}
         <Route path="*" element={<PageNotFound />}></Route>
-        {/* Dummy */}
-        <Route path="dummy" element={<Counter />}></Route>
       </Routes>
     </div>
   );

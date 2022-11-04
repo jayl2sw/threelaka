@@ -1,5 +1,6 @@
 import customAxios from './customAxios';
 import { StudyStage, StageInfo } from '../models';
+import axios from 'axios';
 
 // 해당 videoID를 통한 공부를 시작함을 알림
 export const postStartStudyApi = async (videoId: string) => {
@@ -22,12 +23,29 @@ export const updateStudyStageApi = async (
   const res = await customAxios.put(`api/v1/study/complete/stage`, stageInfo);
   console.log(res.data);
   return res.data;
-}
+};
 
 // 단어장 가져오기 API
-export const getWordBookApi =async (learningId: number): Promise<any> => {
+export const getWordBookApi = async (learningId: number): Promise<any> => {
   const res = await customAxios.get(`api/v1/study/word/${learningId}`);
   console.log(res.data);
   return res.data;
-}
+};
 
+//발음검사 API
+export const speechaceApi = async (payload: any): Promise<any> => {
+  const { payloadData, payloadText } = payload;
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  const res = await customAxios.post(
+    `api/v2/study/speechace?text=${payloadText}`,
+    payloadData,
+    config
+  );
+  console.log(res.data);
+  return res.data;
+};

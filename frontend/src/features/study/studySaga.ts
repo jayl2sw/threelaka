@@ -1,8 +1,20 @@
-import { postStartStudyApi, putStopStudyApi, updateStudyStageApi, getWordBookApi } from '../../services/studyApi';
+import {
+  postStartStudyApi,
+  putStopStudyApi,
+  updateStudyStageApi,
+  getWordBookApi,
+  speechaceApi,
+} from '../../services/studyApi';
 import { getFindWordApi } from '../../services/readApi';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
-import { StudyStage, WordMeaning, StageInfo, WordBook} from '../../models';
+import {
+  StudyStage,
+  WordMeaning,
+  StageInfo,
+  WordBook,
+  SpeechTest,
+} from '../../models';
 import { studyActions } from './study-slice';
 // 공부 시작 SAGA
 function* onPostStartStudyAsync(action: PayloadAction<string>) {
@@ -85,10 +97,27 @@ export function* watchGetWordBookAsync() {
   yield takeLatest(studyActions.getWordBookStart.type, onGetWordBookAsync);
 }
 
+//발음검사
+function* onPostSpeechTestInfo(action: PayloadAction<any>) {
+  try {
+    console.log('왜안됨');
+    const response: SpeechTest = yield call(speechaceApi, action.payload);
+    console.log(response);
+    yield put(studyActions.speechTestSuccess(response));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* watchonPostSpeechTestInfo() {
+  yield takeLatest(studyActions.speechTest.type, onPostSpeechTestInfo);
+}
+
 export const studySagas = [
   fork(watchPostStartStudyAsync),
   fork(watchPutStopStudyAsync),
   fork(watchgetSearchDictAsync),
   fork(watchUpdateStudyStageAsync),
   fork(watchGetWordBookAsync),
+  fork(watchonPostSpeechTestInfo),
 ];
