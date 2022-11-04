@@ -14,10 +14,12 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "RecentLearningRecordResponseDto", description = "최근 Learning record 정보 응답 Dto")
 public class RecentLearningRecordResponseDto {
     private LearningRecordResponseDto learningRecord;
+    private VideoResponseDto video;
 
     public static RecentLearningRecordResponseDto from(LearningRecord entity){
         return RecentLearningRecordResponseDto.builder()
                 .learningRecord(LearningRecordResponseDto.from(entity))
+                .video(VideoResponseDto.from(entity.getVideo()))
                 .build();
     }
 }
