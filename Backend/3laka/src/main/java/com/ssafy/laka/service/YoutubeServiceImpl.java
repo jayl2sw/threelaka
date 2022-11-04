@@ -11,6 +11,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.ssafy.laka.domain.Script;
 import com.ssafy.laka.domain.ScriptKor;
+import com.ssafy.laka.dto.exception.study.NotTedException;
 import com.ssafy.laka.repository.ScriptKorRepository;
 import com.ssafy.laka.repository.ScriptRepository;
 import com.ssafy.laka.repository.VideoRepository;
@@ -42,6 +43,8 @@ public class YoutubeServiceImpl implements YoutubeService {
     @Value("${youtube.apiKey}")
     private String apiKey;
 
+    public static NotTedException tedException = new NotTedException();
+
 //    @Value("${fastApi.url}")
     private String urlString = "http://3laka.com:8081/api/v2/video/script/";
     private final VideoRepository videoRepository;
@@ -64,27 +67,33 @@ public class YoutubeServiceImpl implements YoutubeService {
 
             if (videoList != null) {
                 Video video = videoList.get(0);
-                com.ssafy.laka.domain.Video v = com.ssafy.laka.domain.Video.from(video);
+                if (video.getSnippet().getChannelTitle().contains("TED")) {
+                    com.ssafy.laka.domain.Video v = com.ssafy.laka.domain.Video.from(video);
 
-                log.info("try to get script for video with videoId: " + video.getId());
-                Script script = Script.builder()
-                        .videoId(v.getVideoId())
-                        .scripts(getScript("en", video.getId()))
-                        .build();
-                String kor = getScript("ko", video.getId());
-                if (kor!=null) {
-                    ScriptKor scriptKor = ScriptKor.builder()
+                    log.info("try to get script for video with videoId: " + video.getId());
+                    Script script = Script.builder()
                             .videoId(v.getVideoId())
-                            .korScript(kor)
+                            .scripts(getScript("en", video.getId()))
                             .build();
-                    v.setKorScript();
-                    scriptKorRepository.save(scriptKor);
+                    String kor = getScript("ko", video.getId());
+                    if (kor != null) {
+                        ScriptKor scriptKor = ScriptKor.builder()
+                                .videoId(v.getVideoId())
+                                .korScript(kor)
+                                .build();
+                        v.setKorScript();
+                        scriptKorRepository.save(scriptKor);
+                    }
+                    videoRepository.save(v);
+                    scriptRepository.save(script);
+                    log.info(" to get script for video with videoId: " + video.getId());
+                    return v;
+                } else {
+                    throw tedException;
                 }
-                videoRepository.save(v);
-                scriptRepository.save(script);
-                log.info(" to get script for video with videoId: " + video.getId());
-                return v;
             }
+        } catch (NotTedException e) {
+            throw tedException;
         } catch (GoogleJsonResponseException e) {
             System.err.println("There was a service error: " + e.getDetails().getCode() + " : "
                     + e.getDetails().getMessage());

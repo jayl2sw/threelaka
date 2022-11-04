@@ -15,16 +15,18 @@ import lombok.NoArgsConstructor;
 public class LearningRecordResponseDto {
     private int learningRecordId;
     private int userId;
-    private String VideoId;
+    private String videoId;
     private String stage;
+    private String date;
 
 
     public static LearningRecordResponseDto from(LearningRecord entity) {
         return LearningRecordResponseDto.builder()
                 .learningRecordId(entity.getLearningRecordId())
                 .userId(entity.getUser().getUserId())
-                .VideoId(entity.getVideo().getVideoId())
+                .videoId(entity.getVideo().getVideoId())
                 .stage(entity.getStage().toString())
+                .date(entity.getModifiedDate().toString())
                 .build();
     }
 }

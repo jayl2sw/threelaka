@@ -36,10 +36,11 @@ public class StudyController {
 
         VideoResponseDto video = studyService.getVideo(data.getUrl());
         response.put("video", video);
-        if (studyService.getLearningRecordByVideo(video.getVideoId()) == null) {
-            response.put("watched", true);
+        LearningRecordResponseDto lr = studyService.getLearningRecordByVideo(video.getVideoId());
+        if (lr == null) {
+            response.put("learning_record", null);
         } else {
-            response.put("watched", false);
+            response.put("learning_record", lr);
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
