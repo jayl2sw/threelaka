@@ -120,7 +120,7 @@ export const PageDownButton = styled.div`
 
   /* font-weight: bold; */
 
-`
+
 
   & a {
     margin: 0;
