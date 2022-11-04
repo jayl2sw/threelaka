@@ -28,7 +28,7 @@ export const FirstpageBlock = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  border: solid green 3px;
+  // border: solid green 3px;
   flex-direction: column;
 `;
 
@@ -85,7 +85,7 @@ export const RecentVideoContainer = styled.div`
   justify-content: center;
   width: 100vw;
   height: 60vh;
-  border: solid yellow 3px;
+  // border: solid yellow 3px;
 `;
 
 export const RecentVideoBox = styled.div`
@@ -109,7 +109,7 @@ export const RecommendVideoContainer = styled.div`
   align-items: center;
   width: 100vw;
   height: 40vh;
-  border: solid gray 3px;
+  // border: solid gray 3px;
   flex-direction: column;
 `;
 

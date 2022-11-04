@@ -27,7 +27,7 @@ const MainPage = () => {
           <NewVideo>
             <SearchBar />
           </NewVideo>
-          <a href="https://www.youtube.com/c/TED">
+          <a href="https://www.youtube.com/c/TED" target="_blank">
             <YoutubeLink>
               <IconContext.Provider value={{ color: 'red', size: '3rem' }}>
                 <RiYoutubeFill />
