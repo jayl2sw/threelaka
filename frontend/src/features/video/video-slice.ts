@@ -23,10 +23,19 @@ let initialState: VideoState = {
     },
   },
   recentVideoData: {
-    videoId: '',
-    title: '',
-    description: '',
-    script: '',
+    learningRecord: {
+      date: 'string',
+      learningRecordId: 0,
+      stage: '',
+      userId: 0,
+      videoId: '',
+    },
+    video: {
+      title: '',
+      videoId: '',
+      description: '',
+      korScript: false,
+    },
   },
   recommendVideoList: [],
 };

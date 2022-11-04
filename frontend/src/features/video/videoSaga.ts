@@ -67,4 +67,5 @@ export function* watchGetRecommendVideoAsync() {
 export const videoSagas = [
   fork(watchGetVideoDataAsync),
   fork(watchGetRecommendVideoAsync),
+  fork(watchGetRecentVideoDataAsync),
 ];

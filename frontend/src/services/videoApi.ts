@@ -9,8 +9,11 @@ export const getVideoDataApi = async (url: string) => {
 
 // 가장 최근에 공부한 영상 조회
 export const getRecentVideoDataApi = async (url: string) => {
-  const res = await customAxios.post(`/api/v1/study/video/latest`, { url });
-  return res;
+  console.log('--------------요청보냅니다----------------');
+  const res = await customAxios.get(`/api/v1/study/video/latest`);
+  console.log('response를 출력해볼게요----------------------');
+  console.log(res.data);
+  return res.data;
 };
 
 // 학습 영상 기반 추천

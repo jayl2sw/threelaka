@@ -17,7 +17,7 @@ const RecommendVideoList = () => {
   );
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex'}}>
       {recommendVideoList &&
         recommendVideoList.map((videoData, i) => {
           return <VideoCard data={videoData} key={i} />;
