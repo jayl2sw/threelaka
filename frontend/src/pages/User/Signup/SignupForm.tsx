@@ -16,7 +16,13 @@ import { RadioField } from '../RadioField';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { StyledForm, Heading, InputWrap } from '../../../styles/User/UserStyle';
+import {
+  StyledForm,
+  Heading,
+  InputWrap,
+  SubmitBtnWrap,
+} from '../../../styles/User/UserStyle';
+import { GradientRoundBtn } from '../../../styles/Common/CommonBtnStyle';
 
 interface IAuthForm {
   username: string;
@@ -165,12 +171,6 @@ const SignupForm = ({
           <br />
           Welcome to ThreeLaka!
         </h1>
-        <p>
-          Already Have an Account?&nbsp;
-          <a href="#" onClick={handleToggle} className="toggle">
-            Sign In
-          </a>
-        </p>
       </Heading>
       <InputWrap>
         <InputField name="username" control={control} label="이메일" />
@@ -217,7 +217,23 @@ const SignupForm = ({
           />
         </div>
       </InputWrap>
-      <button>제출</button>
+      <SubmitBtnWrap>
+        <GradientRoundBtn
+          widthSize={'80%'}
+          heightSize={'4vh'}
+          paddingSize={'0'}
+          fontColor={'black'}
+          fontSize={'2vmin'}
+          backgroundColor={'gradient'}
+          style={{ margin: '0 auto' }}
+        >
+          J O I N
+        </GradientRoundBtn>
+        <p>Already Have an Account?</p>
+        <a href="#" onClick={handleToggle} className="toggle">
+          &lt;&lt;&nbsp;&nbsp;Sign In
+        </a>
+      </SubmitBtnWrap>
     </StyledForm>
   );
 };

@@ -53,7 +53,7 @@ export const AuthContainer = styled.div`
   background-color: white;
   width: 100%;
   max-width: 1020px;
-  height: 640px;
+  height: 700px;
   border-radius: 3.3rem;
   box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
 `;
@@ -115,20 +115,9 @@ export const Carousel = styled.div`
 `;
 
 export const Heading = styled.div`
+  font-family: Fredoka;
   h1 {
     display: inline;
-  }
-  p {
-    color: #aaa;
-  }
-  .toggle {
-    text-decoration: none;
-    font-size: 2vmin;
-    font-weight: bold;
-    transition: 0.3s;
-  }
-  .toggle:hover {
-    color: black;
   }
 `;
 export const InputWrap = styled.div`
@@ -216,6 +205,7 @@ export const InputWrap = styled.div`
 // `;
 
 export const StyledInput = styled.input`
+  font-family: Fredoka;
   width: 100%;
   height: 50%;
   background: none;
@@ -235,23 +225,82 @@ export const StyledInput = styled.input`
 `;
 
 export const ErrorText = styled.div`
+  font-family: Fredoka;
   font-size: 1.3vmin;
   color: red;
   margin-top: 3px;
 `;
 
 export const StyledLabel = styled.div`
+  font-family: Fredoka;
   position: none;
   left: 0;
   top: 50%;
   transform: translateY(100%);
-  font-size: 2vmin;
-  color: #bbb;
+  font-size: 2.3vmin;
+  color: gray;
   pointer-events: none;
   transition: 0.4s;
   &.active {
-    font-size: 1vmin;
+    font-size: 1.3vmin;
     transform: translateY(50%);
     top: -2px;
+  }
+`;
+
+export const SubmitBtnWrap = styled.div`
+  p {
+    color: #aaa;
+    text-align: center;
+    margin-top: 30px;
+  }
+  .toggle {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 3vmin;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(
+      110.64deg,
+      #4a9fff 1.5%,
+      rgba(88, 172, 240, 0.861458) 25%,
+      #b0ff91 70%,
+      rgba(88, 172, 240, 0.861458) 85%,
+      #4a9fff 90%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 2s linear infinite, boomboom 0.5s alternate infinite;
+    @keyframes shine {
+      to {
+        background-position: 200% center;
+      }
+    }
+    @keyframes boomboom {
+      from {
+        transform: translateX(-5%);
+      }
+      to {
+        transform: translateX(5%);
+      }
+    }
+  }
+  .toggle-right {
+    /* position: absolute; */
+    /* right: 5px; */
+    text-decoration: none;
+    font-size: 3vmin;
+    font-weight: bold;
+    background: linear-gradient(
+      110.64deg,
+      #4a9fff 5.65%,
+      rgba(88, 172, 240, 0.861458) 45.15%,
+      #b0ff91 84.64%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    }
   }
 `;
