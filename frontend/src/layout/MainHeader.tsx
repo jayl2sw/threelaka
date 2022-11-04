@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import {
-  HeaderMenuRegion,
-  LinkWrapper,
   TitleRegion,
 } from '../styles/Layout/HeaderStyle';
+import {
+  MainHeaderMenuRegion,
+  MainLinkWrapper
+} from '../styles/Layout/MainHeaderStyle';
 import { Link } from 'react-router-dom';
 import { LogoutIcon } from '../styles/Layout/HeaderStyle';
 import { useAppDispatch } from '../utils/hooks';
@@ -13,26 +15,25 @@ const MainHeader = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
-    console.log('이거디나');
     dispatch(authActions.logout());
     navigate('/auth/login');
   };
   return (
-    <HeaderMenuRegion>
-      <LinkWrapper bgColor="black" widthSize="10vw">
-        <Link to="/">Home</Link>
-      </LinkWrapper>
-      <LinkWrapper bgColor="black" widthSize="10vw">
-        <Link to="/videos">Videos</Link>
-      </LinkWrapper>
-      <TitleRegion>THREELAKA</TitleRegion>
-      <LinkWrapper bgColor="black" widthSize="10vw">
-        <Link to="/auth/dashboard/1">대시보드</Link>
-      </LinkWrapper>
-      <LinkWrapper bgColor="black" widthSize="10vw">
-        <LogoutIcon onClick={handleLogout}></LogoutIcon>
-      </LinkWrapper>
-    </HeaderMenuRegion>
+    <MainHeaderMenuRegion>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw" style={{ color: "black"}}>
+        {/* <Link to="/">Home</Link> */}
+      </MainLinkWrapper>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
+        {/* <Link to="/videos">Videos</Link> */}
+      </MainLinkWrapper>
+      {/* <TitleRegion>THREELAKA</TitleRegion> */}
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
+        {/* <Link to="/auth/dashboard/1">dashboard</Link> */}
+      </MainLinkWrapper>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw" style={{ fontSize: "2.5vmin"}}>
+        logout<LogoutIcon onClick={handleLogout} style={{width: "15vw"}}></LogoutIcon>
+      </MainLinkWrapper>
+    </MainHeaderMenuRegion>
   );
 };
 

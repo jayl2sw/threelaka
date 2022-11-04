@@ -28,6 +28,9 @@ import {
 import { StudyPageParams, TedScript, WordMeaning } from '../../../models';
 import { IheaderProps } from '../../../layout/Header';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
+import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti';
+import { GoSearch } from 'react-icons/go';
+import { LoadingSpinner } from '../../../styles/Common/LoadingSpinner';
 
 let videoElement: YouTubePlayer = null;
 
@@ -41,6 +44,8 @@ const ReadPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const tedScriptList = useAppSelector((state) => state.read.TedScriptList);
+  const wordLoading = useAppSelector((state) => state.study.loading);
+  const wordAddLoading = useAppSelector((state) => state.read.loading);
   const scriptContainerRef = useRef<HTMLDivElement[]>([]);
   const [dictInputValue, setDictInputvalue] = useState<string>('');
   const [selectedWordIdxArr, setSelectedWordIdxArr] = useState<number[]>([]);
@@ -48,10 +53,7 @@ const ReadPage = () => {
     null
   );
   const [isAutoScroll, setIsAutoScroll] = useState<boolean>(true);
-  // const videoId = useAppSelector(
-  //   (state) => state.video.videoData.video.videoId
-  // );
-  // const studyState = useAppSelector((state) => state.study.studyState);
+
   const wordMeaning: WordMeaning = useAppSelector(
     (state) => state.study.wordMeaning
   );
@@ -240,49 +242,98 @@ const ReadPage = () => {
           IsBorder={'none'}
         >
           {pageParams.videoId !== '' ? (
-            <YouTube
-              style={{ width: `${FRAME_WIDTH}vw`, height: `${FRAME_HEIGHT}vh` }}
-              videoId={pageParams.videoId}
-              opts={opts}
-              onReady={_onReady}
-            />
+            <FlexTransparentDiv
+              widthSize={'40vw'}
+              heightSize={'40vh'}
+              paddingSize={'0'}
+              flexDirection={'column'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              IsBorder={'none'}
+              style={{
+                borderTop: '10px solid black',
+                borderBottom: '10px solid black',
+                borderRadius: '10px',
+                background: 'black',
+              }}
+            >
+              <YouTube
+                style={{
+                  width: `${FRAME_WIDTH}vw`,
+                  height: `${FRAME_HEIGHT}vh`,
+                }}
+                videoId={pageParams.videoId}
+                opts={opts}
+                onReady={_onReady}
+              />
+            </FlexTransparentDiv>
           ) : (
             ''
           )}
           {/* 사전 */}
           <MainBox
             widthSize={'40vw'}
-            heightSize={'43vh'}
-            paddingSize={'2vw'}
+            heightSize={'38vh'}
+            paddingSize={'4vh 0 2vh 2vw'}
             fontColor={'black'}
             fontSize={'1.5vmin'}
-            style={{ marginTop: '2vh', paddingTop: '4vh' }}
+            style={{ marginTop: '2vh' }}
           >
             <FlexTransparentDiv
-              widthSize={'36vw'}
+              widthSize={'30vw'}
               heightSize={'5vh'}
               paddingSize={'0'}
               flexDirection={'row'}
               justifyContent={'space-between'}
               alignItems={'center'}
               IsBorder={'none'}
+              style={{
+                // border: '2px solid pink',
+                background: 'rgba(152, 151, 169, 0.5)',
+                borderRadius: '5vmin',
+                marginLeft: '5vw',
+                // opacity: '0.7',
+              }}
             >
+              <GradientRoundBtn
+                widthSize={'10vmin'}
+                heightSize={'10vmin'}
+                paddingSize={'0'}
+                fontColor={'black'}
+                fontSize={'2vmin'}
+                backgroundColor={'gradient'}
+                onClick={(e) => {
+                  AddWordToWordbook(e);
+                }}
+                style={{
+                  background: 'transparent',
+                  position: 'absolute',
+                  top: '58.5vh',
+                  left: '9vw',
+                }}
+              >
+                {wordAddLoading ? (
+                  <TiStarFullOutline size={40} color={'#2e4a9e'} />
+                ) : (
+                  <TiStarOutline size={40} color={'#2e4a9e'} />
+                )}
+              </GradientRoundBtn>
               <DictInput value={dictInputValue} onChange={dictInputChange} />
               <GradientRoundBtn
-                widthSize={'10vw'}
-                heightSize={'5vh'}
+                widthSize={'5vmin'}
+                heightSize={'5vmin'}
                 paddingSize={'0'}
                 fontColor={'black'}
                 fontSize={'2vmin'}
                 backgroundColor={'gradient'}
                 onClick={(e) => WordSearchHandler(e, dictInputValue)}
               >
-                검색
+                <GoSearch size={20} />
               </GradientRoundBtn>
             </FlexTransparentDiv>
             <FlexTransparentDiv
-              widthSize={'36vw'}
-              heightSize={'33vh'}
+              widthSize={'37.5vw'}
+              heightSize={'28vh'}
               paddingSize={'0'}
               flexDirection={'column'}
               justifyContent={'start'}
@@ -294,87 +345,114 @@ const ReadPage = () => {
                 paddingTop: '1vh',
               }}
             >
-              {wordMeaning.wordList.map((aWord) => {
-                return (
-                  <DictResult>
-                    <FlexTransparentDiv
-                      widthSize={'34vw'}
-                      heightSize={'8vh'}
-                      paddingSize={'1vw'}
-                      flexDirection={'row'}
-                      justifyContent={'start'}
-                      alignItems={'center'}
-                      IsBorder={'none'}
-                    >
+              {/* {wordLoading ? '로딩중' : '로딩완료'} */}
+              {wordLoading ? (
+                <LoadingSpinner
+                  widthSize="20vmin"
+                  heightSize="20vmin"
+                  style={{ marginTop: '2vh' }}
+                />
+              ) : (
+                wordMeaning.wordList.map((aWord) => {
+                  return (
+                    <DictResult>
                       <FlexTransparentDiv
-                        widthSize={'80%'}
-                        heightSize={'8vh'}
+                        widthSize={'37.5vw'}
+                        heightSize={'14vh'}
                         paddingSize={'1vw'}
-                        flexDirection={'column'}
-                        justifyContent={'center'}
-                        alignItems={'start'}
+                        flexDirection={'row'}
+                        justifyContent={'start'}
+                        alignItems={'center'}
                         IsBorder={'none'}
                       >
-                        <div
-                          style={{
-                            color: '#4a9fff',
-                          }}
+                        <FlexTransparentDiv
+                          widthSize={'80%'}
+                          heightSize={'14vh'}
+                          paddingSize={'1vw'}
+                          flexDirection={'column'}
+                          justifyContent={'center'}
+                          alignItems={'start'}
+                          IsBorder={'none'}
                         >
-                          definition
-                        </div>
-                        <div>{aWord.wordDefinition}</div>
-                        {/* <p style={{ width: '80%', padding: '0 1vw' }}>
+                          <div
+                            style={{
+                              color: '#4a9fff',
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            definition
+                          </div>
+                          <div
+                            style={{
+                              paddingLeft: '0.5vw',
+                              fontSize: '2.5vmin',
+                            }}
+                          >
+                            {aWord.wordDefinition}
+                          </div>
+                          {/* <p style={{ width: '80%', padding: '0 1vw' }}>
                           definition: {aWord.wordDefinition}
                         </p> */}
-                      </FlexTransparentDiv>
-                      <div
-                        style={{
-                          width: '20%',
-                          padding: '0 1vw',
-                          color: '#4a9fff',
-                        }}
-                      >
-                        {aWord.lexicalCategory}
-                      </div>
-                    </FlexTransparentDiv>
-                    <FlexTransparentDiv
-                      widthSize={'34vw'}
-                      heightSize={'8vh'}
-                      paddingSize={'1vw'}
-                      flexDirection={'row'}
-                      justifyContent={'start'}
-                      alignItems={'center'}
-                      IsBorder={'none'}
-                    >
-                      <FlexTransparentDiv
-                        widthSize={'80%'}
-                        heightSize={'8vh'}
-                        paddingSize={'1vw'}
-                        flexDirection={'column'}
-                        justifyContent={'center'}
-                        alignItems={'start'}
-                        IsBorder={'none'}
-                      >
+                        </FlexTransparentDiv>
                         <div
                           style={{
+                            width: '20%',
+                            padding: '0 1vw',
                             color: 'red',
+                            fontSize: '2.5vmin',
+                            fontWeight: 'bold',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
                           }}
                         >
-                          example
+                          {aWord.lexicalCategory}
                         </div>
-                        <div>{aWord.wordExample}</div>
-                        {/* <p style={{ width: '80%', padding: '0 1vw' }}>
+                      </FlexTransparentDiv>
+                      <FlexTransparentDiv
+                        widthSize={'37.5vw'}
+                        heightSize={'14vh'}
+                        paddingSize={'1vw'}
+                        flexDirection={'row'}
+                        justifyContent={'start'}
+                        alignItems={'center'}
+                        IsBorder={'none'}
+                      >
+                        <FlexTransparentDiv
+                          widthSize={'80%'}
+                          heightSize={'14vh'}
+                          paddingSize={'1vw'}
+                          flexDirection={'column'}
+                          justifyContent={'center'}
+                          alignItems={'start'}
+                          IsBorder={'none'}
+                        >
+                          <div
+                            style={{
+                              color: '#4a9fff',
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            example
+                          </div>
+                          <div
+                            style={{
+                              paddingLeft: '0.5vw',
+                              fontSize: '2.5vmin',
+                            }}
+                          >
+                            {aWord.wordExample}
+                          </div>
+                          {/* <p style={{ width: '80%', padding: '0 1vw' }}>
                           definition: {aWord.wordDefinition}
                         </p> */}
+                        </FlexTransparentDiv>
                       </FlexTransparentDiv>
-                    </FlexTransparentDiv>
-                  </DictResult>
-                );
-              })}
+                    </DictResult>
+                  );
+                })
+              )}
             </FlexTransparentDiv>
-            <WordBookAddReqBtn onClick={(e) => AddWordToWordbook(e)}>
-              +
-            </WordBookAddReqBtn>
           </MainBox>
         </FlexTransparentDiv>
         <FlexTransparentDiv
@@ -392,129 +470,139 @@ const ReadPage = () => {
           paddingSize={'0'}
           fontColor={'black'}
           fontSize={'2vmin'}
-          style={{ overflowY: 'scroll', overflowX: 'hidden' }}
-          onWheel={checkHumanWheel}
+          style={{ paddingTop: '1vh', paddingBottom: '1vh' }}
         >
-          {tedScriptList.length !== 0
-            ? tedScriptList.map((script: TedScript, idx: number) => (
-                <ScriptItemBox
-                  key={`script-${idx}`}
-                  ref={(el) => {
-                    if (null != el) {
-                      scriptContainerRef.current[idx] = el;
-                    }
-                  }}
-                >
-                  <ScriptTimeStamp
-                    className={idx === nowPlayedIdx ? 'now-played' : ''}
-                    onClick={() => moveToTimeStamp(idx)}
+          <div
+            style={{
+              width: '42.5vw',
+              height: '78vh',
+              overflowY: 'scroll',
+              overflowX: 'hidden',
+            }}
+            onWheel={checkHumanWheel}
+          >
+            {tedScriptList.length !== 0
+              ? tedScriptList.map((script: TedScript, idx: number) => (
+                  <ScriptItemBox
+                    key={`script-${idx}`}
+                    ref={(el) => {
+                      if (null != el) {
+                        scriptContainerRef.current[idx] = el;
+                      }
+                    }}
                   >
-                    {`${Math.floor(script.start / 60)}: ${String(
-                      Math.floor(script.start % 60)
-                    ).padStart(2, '0')}`}
-                  </ScriptTimeStamp>
-                  <ScriptText>
-                    <p style={{ wordBreak: `break-all` }}>
-                      {script.text
-                        .split(/\r?\n| /)
-                        .map((word: string, wordIdx: number) => {
-                          if (
-                            word.includes(',') ||
-                            word.includes('.') ||
-                            word.includes('!') ||
-                            word.includes('?')
-                          ) {
-                            if (idx === selectedSentenceIdx) {
-                              return (
-                                <>
-                                  <ScriptWordSpan
-                                    key={`script-${idx}-word-${wordIdx}`}
-                                    onClick={(e) =>
-                                      wordClickHandler(e, idx, wordIdx)
-                                    }
-                                    className={`${
-                                      selectedWordIdxArr.includes(wordIdx)
-                                        ? 'word-selected'
-                                        : ''
-                                    }`}
-                                  >
-                                    {word.slice(0, -1)}
-                                  </ScriptWordSpan>
-                                  <ScriptWordSpan
-                                    key={`script-${idx}-word-${wordIdx}-dummy`}
-                                    className={'dummy'}
-                                  >
-                                    {word.slice(-1)}
-                                  </ScriptWordSpan>
-                                  <span>&nbsp;</span>
-                                </>
-                              );
+                    <ScriptTimeStamp
+                      className={idx === nowPlayedIdx ? 'now-played' : ''}
+                      onClick={() => moveToTimeStamp(idx)}
+                    >
+                      {`${Math.floor(script.start / 60)}: ${String(
+                        Math.floor(script.start % 60)
+                      ).padStart(2, '0')}`}
+                    </ScriptTimeStamp>
+                    <ScriptText>
+                      <p style={{ wordBreak: `break-all` }}>
+                        {script.text
+                          .split(/\r?\n| /)
+                          .map((word: string, wordIdx: number) => {
+                            if (
+                              word.includes(',') ||
+                              word.includes('.') ||
+                              word.includes('!') ||
+                              word.includes('?')
+                            ) {
+                              if (idx === selectedSentenceIdx) {
+                                return (
+                                  <>
+                                    <ScriptWordSpan
+                                      key={`script-${idx}-word-${wordIdx}`}
+                                      onClick={(e) => {
+                                        wordClickHandler(e, idx, wordIdx);
+                                      }}
+                                      className={`${
+                                        selectedWordIdxArr.includes(wordIdx)
+                                          ? 'word-selected'
+                                          : ''
+                                      }`}
+                                    >
+                                      {word.slice(0, -1)}
+                                    </ScriptWordSpan>
+                                    <ScriptWordSpan
+                                      key={`script-${idx}-word-${wordIdx}-dummy`}
+                                      className={'dummy'}
+                                    >
+                                      {word.slice(-1)}
+                                    </ScriptWordSpan>
+                                    <span>&nbsp;</span>
+                                  </>
+                                );
+                              } else {
+                                return (
+                                  <>
+                                    <ScriptWordSpan
+                                      key={`script-${idx}-word-${wordIdx}`}
+                                      onClick={(e) => {
+                                        wordClickHandler(e, idx, wordIdx);
+                                      }}
+                                    >
+                                      {word.slice(0, -1)}
+                                    </ScriptWordSpan>
+                                    <ScriptWordSpan
+                                      key={`script-${idx}-word-${wordIdx}-dummy`}
+                                      className={'dummy'}
+                                    >
+                                      {word.slice(-1)}
+                                    </ScriptWordSpan>
+                                    <span>&nbsp;</span>
+                                  </>
+                                );
+                              }
                             } else {
-                              return (
-                                <>
-                                  <ScriptWordSpan
-                                    key={`script-${idx}-word-${wordIdx}`}
-                                    onClick={(e) =>
-                                      wordClickHandler(e, idx, wordIdx)
-                                    }
-                                  >
-                                    {word.slice(0, -1)}
-                                  </ScriptWordSpan>
-                                  <ScriptWordSpan
-                                    key={`script-${idx}-word-${wordIdx}-dummy`}
-                                    className={'dummy'}
-                                  >
-                                    {word.slice(-1)}
-                                  </ScriptWordSpan>
-                                  <span>&nbsp;</span>
-                                </>
-                              );
+                              if (idx === selectedSentenceIdx) {
+                                return (
+                                  <>
+                                    <ScriptWordSpan
+                                      key={`script-${idx}-word-${wordIdx}`}
+                                      onClick={(e) => {
+                                        wordClickHandler(e, idx, wordIdx);
+                                      }}
+                                      className={`${
+                                        selectedWordIdxArr.includes(wordIdx)
+                                          ? 'word-selected'
+                                          : ''
+                                      }`}
+                                    >
+                                      {word}
+                                    </ScriptWordSpan>
+                                    <span>&nbsp;</span>
+                                  </>
+                                );
+                              } else {
+                                return (
+                                  <>
+                                    <ScriptWordSpan
+                                      key={`script-${idx}-word-${wordIdx}`}
+                                      onClick={(e) => {
+                                        wordClickHandler(e, idx, wordIdx);
+                                      }}
+                                    >
+                                      {word}
+                                    </ScriptWordSpan>
+                                    <span>&nbsp;</span>
+                                  </>
+                                );
+                              }
                             }
-                          } else {
-                            if (idx === selectedSentenceIdx) {
-                              return (
-                                <>
-                                  <ScriptWordSpan
-                                    key={`script-${idx}-word-${wordIdx}`}
-                                    onClick={(e) =>
-                                      wordClickHandler(e, idx, wordIdx)
-                                    }
-                                    className={`${
-                                      selectedWordIdxArr.includes(wordIdx)
-                                        ? 'word-selected'
-                                        : ''
-                                    }`}
-                                  >
-                                    {word}
-                                  </ScriptWordSpan>
-                                  <span>&nbsp;</span>
-                                </>
-                              );
-                            } else {
-                              return (
-                                <>
-                                  <ScriptWordSpan
-                                    key={`script-${idx}-word-${wordIdx}`}
-                                    onClick={(e) =>
-                                      wordClickHandler(e, idx, wordIdx)
-                                    }
-                                  >
-                                    {word}
-                                  </ScriptWordSpan>
-                                  <span>&nbsp;</span>
-                                </>
-                              );
-                            }
-                          }
-                        })}
-                    </p>
-                  </ScriptText>
-                </ScriptItemBox>
-              ))
-            : ''}
+                          })}
+                      </p>
+                    </ScriptText>
+                  </ScriptItemBox>
+                ))
+              : ''}
+          </div>
         </MainBox>
+
         <AutoScrollText>
-          <p>{isAutoScroll ? '자동 스크롤' : '수동 스크롤'}</p>
+          <p>{isAutoScroll ? 'AUTO' : 'MANUAL'}</p>
         </AutoScrollText>
         <AutoScrollBtn
           onClick={() => setIsAutoScroll(!isAutoScroll)}

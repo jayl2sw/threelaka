@@ -3,17 +3,22 @@ import styled from 'styled-components';
 
 export const ModalContainer = styled.div`
   width: 50vw;
-  height: 70vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2vh 2vw;
+  padding: 2vmin 2vmin;
   border: none;
-  border-radius: 10px;
+  border-radius: 1rem;
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
   box-sizing: border-box;
-  background-color: white;
+  background: linear-gradient(106.62deg, #83BDFF 8.18%, rgba(136, 192, 255, 0.90051) 49.26%, #8DC2FF 69.16%, #C1FFA9 92.42%);
+  /* opacity: 0.5; */
   z-index: 10000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const VideoDataContainer = styled.div`
@@ -28,14 +33,17 @@ export const VideoDataContainer = styled.div`
 `;
 
 export const VideoTitle = styled.p`
-  margin: 2vh 0;
+  margin: 4vh 0;
   text-align: center;
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-size: 4vmin;
+  font-weight: light;
 `;
 
 export const VideoThumbnail = styled.img`
-  width: 80%;
-  height: 60%;
+  width: 65%;
+  height: 65%;
+  border-radius: 1rem;
 `;
 
 export const VideoSubtitleBox = styled.div`

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 // 메인페이지 검색
 export const NewVideo = styled.div`
   /* border: 1px solid green; */
@@ -13,7 +14,9 @@ export const NewVideo = styled.div`
 export const SearchBarContainer = styled.div`
   /* border: 1px solid red; */
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   width: 40vw;
   height: 10vh;
 `;
@@ -24,7 +27,7 @@ export const SearchBarInput = styled.div`
   margin-bottom: 2vh;
 
   & input {
-    width: 100%;
+    width: 30vw;
     /* height: 10vh; */
     padding: 1vh 0.5vw;
     background: transparent;
@@ -92,7 +95,7 @@ export const SearchButton = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  & button {
+  /* & button {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -103,10 +106,11 @@ export const SearchButton = styled.div`
     color: #ffffff;
     border-radius: 5px;
     padding: 2.5vh 1vw;
-  }
-  & button:hover {
-    background-color: #4a9fff;
-    transition: 0.2s;
+  } */
+  /* & button:hover { */
+  :hover{
+    /* background-color: #4a9fff; */
+    /* transition: 0.2s; */
     /* background: linear-gradient(80deg, #4a9fff, #b0ff91); */
     /* animation: animate 2s linear; */
   }
@@ -119,3 +123,9 @@ export const SearchButton = styled.div`
     }
   } */
 `;
+
+export const SearchIconBtn = styled.div`
+width: 5vmin;
+height: 5vmin;
+/* background-color: blue; */
+`

@@ -14,6 +14,8 @@ import { StudyPageParams } from '../models';
 import { Link } from 'react-router-dom';
 import { studyActions } from '../features/study/study-slice';
 import { useAppDispatch } from '../utils/hooks';
+import { LogoutIcon } from '../styles/Layout/HeaderStyle';
+import { authActions } from '../features/auth/authSlice';
 
 export interface IheaderProps {
   customMoveToNext: (
@@ -26,6 +28,12 @@ export interface IheaderProps {
 const Header = ({ customMoveToNext }: IheaderProps) => {
   const pageParams: StudyPageParams = useParams() as any;
   const moveToNext = customMoveToNext;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+    navigate('/auth/login');
+  };
 
   // const moveToNext = (
   //   e: React.MouseEvent<HTMLSpanElement>,
@@ -50,17 +58,17 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
     <HeaderBlock>
       <HeaderMenuRegion>
         <LinkWrapper bgColor="black" widthSize="10vw">
-          <Link to="/">홈</Link>
+          {/* <Link to="/">home</Link> */}
         </LinkWrapper>
         <LinkWrapper bgColor="black" widthSize="10vw">
-          <Link to="/videos">비디오스</Link>
+          {/* <Link to="/videos">videos</Link> */}
         </LinkWrapper>
         <TitleRegion>THREELAKA</TitleRegion>
         <LinkWrapper bgColor="black" widthSize="10vw">
-          <Link to="/auth/dashboard/1">대시보드</Link>
+          {/* <Link to="/auth/dashboard/1">dashboard</Link> */}
         </LinkWrapper>
         <LinkWrapper bgColor="black" widthSize="10vw">
-          <button>로그아웃</button>
+          <LogoutIcon onClick={handleLogout}></LogoutIcon>
         </LinkWrapper>
       </HeaderMenuRegion>
       <StudyProgressRegion>
@@ -70,7 +78,7 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
               moveToNext(e, 'READING', pageParams);
             }}
           >
-            Reading&Listening
+            Reading & Listening
           </ProgressBarItem>
           <ProgressBarItem
             onClick={(e) => {
