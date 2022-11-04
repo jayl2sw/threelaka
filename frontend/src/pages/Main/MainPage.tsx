@@ -9,14 +9,15 @@ import {
   SearchBarBlock,
   LogoBlock,
   FirstpageBlock,
-  YoutubeLink,
   RecommendVideoContainer,
-  ListInfo
+  ListInfo,
+  PageDownButton,
+  FirstCenterBar
+
 } from '../../styles/Main/MainStyle';
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import RecommendVideoList from './components/RecommendVideoList';
-import { RiYoutubeFill } from 'react-icons/ri';
-import { IconContext } from 'react-icons';
+
 
 const MainPage = () => {
   return (
@@ -24,17 +25,14 @@ const MainPage = () => {
       <FirstpageBlock>
         <SearchBarBlock>
           <LogoBlock></LogoBlock>
-          <YoutubeLink>
-            <IconContext.Provider value={{ color: 'red', size: '5vmin' }}>
-              <RiYoutubeFill />
-            </IconContext.Provider>
-            TED 보러가기
-          </YoutubeLink>
           <NewVideo>
-            <SearchBar />
-          </NewVideo>
+            {/* <FirstCenterBar> */}
 
+            <SearchBar />
+            {/* </FirstCenterBar> */}
+          </NewVideo>
         </SearchBarBlock>
+        <PageDownButton className="toggle" style={{rotate:'270deg'}}>《</PageDownButton>
       </FirstpageBlock>
       <RecentVideoContainer>
         <RecentVideo />

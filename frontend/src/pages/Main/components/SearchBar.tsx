@@ -9,9 +9,13 @@ import {
   SearchButton,
   SearchIconBtn,
 } from '../../../styles/Main/MainSearchStyle';
+import { RiYoutubeFill } from 'react-icons/ri';
+import { IconContext } from 'react-icons';
+import {
+  YoutubeLink
+} from '../../../styles/Main/MainStyle';
 import useModal from '../../../utils/useModal';
 import { GoSearch } from 'react-icons/go';
-import { IconContext } from 'react-icons';
 
 const SearchBar = () => {
   const dispatch = useAppDispatch();
@@ -48,9 +52,16 @@ const SearchBar = () => {
 
   return (
     <SearchBarContainer>
+                <YoutubeLink>
+            <IconContext.Provider value={{ color: 'red', size: '5vmin' }}>
+              <RiYoutubeFill />
+            </IconContext.Provider>
+            TED
+          </YoutubeLink>
+
       <SearchBarInput>
         <input type="text" onChange={onChange} value={videoUrl} required />
-        <span>공부하려는 영상의 유튜브 링크를 넣어주세요</span>
+        <span>왼쪽 버튼을 눌러 TED 영상의 링크를 가져오세요</span>
         <i></i>
       </SearchBarInput>
       <SearchButton>
@@ -67,7 +78,7 @@ const SearchBar = () => {
               size: '2rem',
             }}
           >
-            <GoSearch></GoSearch>
+            <GoSearch style={{paddingBottom:'0.5vw'}}></GoSearch>
           </IconContext.Provider>
         </SearchIconBtn>
         {isOpenModal && (
