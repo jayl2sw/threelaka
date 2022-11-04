@@ -16,10 +16,10 @@ const RecentVideo = () => {
 
   return (
     <MainPaleBox
-      widthSize={'45vw'}
-      heightSize={'45vh'}
+      widthSize={'10vw'}
+      heightSize={'10vh'}
       paddingSize={'0'}
-      fontSize={'4vw'}
+      fontSize={'1rem'}
       fontColor={'black'}
       style={{ border: '5px solid blue' }}
     >
