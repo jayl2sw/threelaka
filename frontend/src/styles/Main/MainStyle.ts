@@ -122,13 +122,10 @@ export const PageDownButton = styled.div`
 
 `
 
-// 메인페이지 최근 학습
-// export const RecentVideo = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   margin-top: 10vh;
-//   margin-bottom: 10vh;
-// `;
+  & a {
+    margin: 0;
+  }
+`;
 
 export const RecentVideoContainer = styled.div`
   display: flex;
@@ -140,6 +137,20 @@ export const RecentVideoContainer = styled.div`
   /* border: solid yellow 3px; */
 `;
 
+export const RecentVideoBox = styled.div`
+  width: 45vw;
+  height: 45vh;
+  padding: 1.5vw;
+  font-size: 1.2vw;
+  color: #111111;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 2vmin;
+`;
+
 export const RecommendVideoContainer = styled.div`
   display: flex;
   /* flex-direction: row; */
@@ -149,8 +160,7 @@ export const RecommendVideoContainer = styled.div`
   height: 40vh;
   /* border: solid gray 3px; */
   flex-direction: column;
-
-`
+`;
 
 // 메인페이지 추천 영상
 export const RecommendVideos = styled.div`
@@ -159,6 +169,52 @@ export const RecommendVideos = styled.div`
   /* border: solid red 2px; */
   width: 20vw;
   height: 50vh;
+  /* border: 1px solid blue; */
+`;
+
+export const RecentVideoTitle = styled.div`
+  width: 38vw;
+  height: 9vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 3vh;
+`;
+
+export const RecentVideoStageContainer = styled.div`
+  width: 38vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const RecentVideoImg = styled.img`
+  width: 17vw;
+  height: 21vh;
+  object-fit: cover;
+`;
+
+export const RecentVideoStageDataContainer = styled.div`
+  width: 20vw;
+  height: 22vh;
+  margin-left: 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid red; */
+`;
+
+export const RecentVideoStageBtnContainer = styled.div`
+  width: 20vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 2vh;
+  padding: 0 1vw;
+  /* border: 1px solid red; */
 `;
 
 export const VideoCardBlock = styled.div`
@@ -167,7 +223,6 @@ export const VideoCardBlock = styled.div`
   width: 20vw;
   height: 40vh;
   padding: 1vw;
-
 `;
 
 export const VideoDataBox = styled.div`
@@ -190,7 +245,7 @@ export const ListInfo = styled.div`
   margin-right: 57vw;
   font-size: 3.2vmin;
   font-weight: bold;
-`
+`;
 
 export const VideoImg = styled.img`
   width: 18vw;
@@ -227,7 +282,7 @@ export const SubTag = styled.button`
   font-weight: bold;
   font-size: 0.9vw;
   color: black;
-  
+
   /* background: #111111; */
   background: white;
   /* opacity: 0.8; */
