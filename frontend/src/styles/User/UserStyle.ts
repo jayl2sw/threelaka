@@ -56,10 +56,11 @@ export const AuthBlock = styled.div`
 export const AuthContainer = styled.div`
   position: relative;
   background-color: white;
-  width: 100%;
+  width: 60vw;
   max-width: 1020px;
-  height: 700px;
+  height: 80vh;
   border-radius: 3.3rem;
+  border: solid red 2px;
   box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
 `;
 
@@ -126,6 +127,7 @@ export const Heading = styled.div`
   font-family: Fredoka;
   h1 {
     display: inline;
+    font-size: 4vmin;
   }
 `;
 export const InputWrap = styled.div`
@@ -310,5 +312,5 @@ export const SubmitBtnWrap = styled.div`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     }
-  }
+  
 `;

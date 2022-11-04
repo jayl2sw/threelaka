@@ -127,8 +127,8 @@ const LoginForm = ({
         >
           L O G I N
         </GradientRoundBtn>
-        <p>Not Registered Yet?</p>
-        <a href="#" onClick={handleToggle} className="toggle">
+        <p style={{fontFamily:'Fredoka'}}>Not Registered Yet?</p>
+        <a href="#" onClick={handleToggle} className="toggle" style={{fontFamily:'Fredoka', fontWeight:'bold'}}>
           Sign Up&nbsp;&nbsp;&gt;&gt;
         </a>
       </SubmitBtnWrap>
