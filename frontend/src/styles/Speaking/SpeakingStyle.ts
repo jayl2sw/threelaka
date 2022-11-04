@@ -15,9 +15,11 @@ export const SpeakingPageBlock = styled.div`
 export const VideoAudioContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 32vw;
   height: 32vh;
-  background-color: #111111;
+  /* background-color: #111111; */
   /* border-radius: 20px; */
   & Webcam {
     width: 100%;
@@ -34,7 +36,7 @@ export const VideoAudioBtnContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   width: 24vw;
-  height: 20vh;
+  height: 10vh;
   margin-top: 1vh;
 `;
 

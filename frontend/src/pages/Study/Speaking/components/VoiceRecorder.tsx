@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAudioRecorder } from '@sarafhbk/react-audio-recorder';
 
 // style
+import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
 import {
   VideoAudioContainer,
   VideoAudioBtnContainer,
   VideoAudioBtn,
 } from '../../../../styles/Speaking/SpeakingStyle';
-import { BsFillRecordFill, BsFillStopFill } from 'react-icons/bs';
-import { MdDownload, MdCameraswitch } from 'react-icons/md';
+import { BsFillRecordFill, BsFillStopFill, BsPauseFill } from 'react-icons/bs';
+import { dividerClasses } from '@material-ui/core';
 
 const VoiceRecorder = () => {
+  const [recording, setRecording] = useState<boolean>(false);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
   const {
     audioResult,
     timer,
@@ -20,25 +23,79 @@ const VoiceRecorder = () => {
     resumeRecording,
     status,
   } = useAudioRecorder();
+
+  const handleStartRecording = () => {
+    startRecording();
+    setRecording(true);
+    setIsPaused(false);
+  };
+
+  const handleResumeRecording = () => {
+    resumeRecording();
+    setRecording(true);
+    setIsPaused(false);
+    console.log(recording);
+    console.log(isPaused);
+  };
+
+  const handlePauseRecording = () => {
+    setIsPaused(true);
+    setRecording(false);
+    console.log(recording);
+    console.log(isPaused);
+  };
+
+  const handleStopRecording = () => {
+    setRecording(false);
+    setIsPaused(false);
+  };
+
   return (
-    <div>
-      <audio controls src={audioResult} />
+    <FlexTransparentDiv
+      widthSize={'32vw'}
+      heightSize={'42vh'}
+      paddingSize={'4vw'}
+      flexDirection={'column'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      IsBorder={'is'}
+    >
+      <VideoAudioContainer>
+        <audio controls src={audioResult} />
+      </VideoAudioContainer>
       {/* idle => 빨간 점, recordeing: REC 로고 */}
       <p>{status}</p>
-      <div>
+      <div style={{ border: '1px solid green' }}>
         <p>{new Date(timer * 1000).toISOString().substr(11, 8)}</p>
         <VideoAudioBtnContainer>
-          <VideoAudioBtn onClick={startRecording}>
-            <BsFillRecordFill color={'red'} />
-          </VideoAudioBtn>
-          <VideoAudioBtn onClick={stopRecording}>
+          {recording ? (
+            <VideoAudioBtn
+              onClick={() => {
+                pauseRecording();
+                handlePauseRecording();
+              }}
+            >
+              <BsPauseFill />
+            </VideoAudioBtn>
+          ) : (
+            <VideoAudioBtn
+              onClick={isPaused ? handleResumeRecording : handleStartRecording}
+            >
+              <BsFillRecordFill color={'red'} />
+            </VideoAudioBtn>
+          )}
+
+          <VideoAudioBtn
+            onClick={() => {
+              stopRecording();
+              handleStopRecording();
+            }}
+          >
             <BsFillStopFill />
           </VideoAudioBtn>
-          <VideoAudioBtn onClick={pauseRecording}>일시 정지</VideoAudioBtn>
-          <VideoAudioBtn onClick={resumeRecording}>계속 진행</VideoAudioBtn>
         </VideoAudioBtnContainer>
       </div>
-    </div>
+    </FlexTransparentDiv>
   );
 };
 
