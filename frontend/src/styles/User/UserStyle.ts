@@ -1,7 +1,5 @@
 import { Radio } from '@material-ui/core';
 import styled from 'styled-components';
-import loginImg from '../../media/images/loginimageleft.png';
-import loginImg2 from '../../media/images/loginimageright.png';
 
 export const StyledForm = styled.form`
   max-width: 400px;

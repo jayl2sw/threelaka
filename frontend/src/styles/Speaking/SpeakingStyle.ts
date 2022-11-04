@@ -29,14 +29,18 @@ export const VideoAudioContainer = styled.div`
     width: 100%;
     height: 100%;
   }
+  & p {
+    margin-top: 4vh;
+  }
 `;
 
 export const VideoAudioBtnContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   width: 24vw;
-  height: 10vh;
+  height: 8vh;
   margin-top: 1vh;
 `;
 
