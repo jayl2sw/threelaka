@@ -14,6 +14,7 @@ import {
 } from '../../../../styles/Speaking/SpeakingStyle';
 import { BsFillRecordFill, BsFillStopFill, BsPauseFill } from 'react-icons/bs';
 import { dividerClasses } from '@material-ui/core';
+import ToolTip from '../../../../utils/ToolTip';
 
 const VoiceRecorder = () => {
   const [recording, setRecording] = useState<boolean>(false);
@@ -68,14 +69,9 @@ const VoiceRecorder = () => {
     >
       <VideoAudioContainer>
         <audio controls src={audioResult} />
-      </VideoAudioContainer>
-      {/* idle => 빨간 점, recordeing: REC 로고 */}
-      <p style={{ textAlign: 'center' }}>{status}</p>
-      <div>
-        <p style={{ textAlign: 'center' }}>
-          {new Date(timer * 1000).toISOString().substr(11, 8)}
-        </p>
-
+        {/* idle => 빨간 점, recordeing: REC 로고 */}
+        {/* <p>{status}</p> */}
+        <p>{new Date(timer * 1000).toISOString().substr(11, 8)}</p>
         <VideoAudioBtnContainer>
           {recording ? (
             <VideoAudioBtn
@@ -83,12 +79,14 @@ const VoiceRecorder = () => {
                 pauseRecording();
                 handlePauseRecording();
               }}
+              title="일시 중지"
             >
               <BsPauseFill />
             </VideoAudioBtn>
           ) : (
             <VideoAudioBtn
               onClick={isPaused ? handleResumeRecording : handleStartRecording}
+              title="녹음 시작"
             >
               <BsFillRecordFill color={'red'} />
             </VideoAudioBtn>
@@ -99,11 +97,12 @@ const VoiceRecorder = () => {
               stopRecording();
               handleStopRecording();
             }}
+            title="녹음 중지"
           >
             <BsFillStopFill />
           </VideoAudioBtn>
         </VideoAudioBtnContainer>
-      </div>
+      </VideoAudioContainer>
     </FlexTransparentDiv>
   );
 };

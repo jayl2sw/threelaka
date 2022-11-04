@@ -123,19 +123,20 @@ const WebCam = () => {
             turnScreen();
             setRecordedVideo();
           }}
+          title="화면 전환"
         >
           <MdCameraswitch />
         </VideoAudioBtn>
         {recording ? (
-          <VideoAudioBtn onClick={handleStopCaptureClick}>
+          <VideoAudioBtn onClick={handleStopCaptureClick} title="녹화 중지">
             <BsFillStopFill />
           </VideoAudioBtn>
         ) : (
-          <VideoAudioBtn onClick={handleStartCaptureClick}>
+          <VideoAudioBtn onClick={handleStartCaptureClick} title="녹화 시작">
             <BsFillRecordFill color="red" />
           </VideoAudioBtn>
         )}
-        <VideoAudioBtn onClick={handleDownload}>
+        <VideoAudioBtn onClick={handleDownload} title="영상 다운">
           <MdDownload />
         </VideoAudioBtn>
       </VideoAudioBtnContainer>

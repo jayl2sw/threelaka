@@ -162,8 +162,6 @@ export const RecommendVideoContainer = styled.div`
 // 메인페이지 추천 영상
 export const RecommendVideos = styled.div`
   display: flex;
-  border: 1px solid blue;
-  /* border: solid red 2px; */
   width: 20vw;
   height: 50vh;
   /* border: 1px solid blue; */
