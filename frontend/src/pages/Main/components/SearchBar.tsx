@@ -26,7 +26,7 @@ const SearchBar = () => {
 
   // 모달에 띄워줄 비디오 정보
   const videoData = useAppSelector((state) => state.video.videoData);
-  // 영상 정보 조회
+  // 버튼 클릭으로 영상 정보 조회
   const handlerGetVideoData = (videoUrl: string) => {
     dispatch(videoActions.getVideoData(videoUrl));
   };
@@ -49,7 +49,18 @@ const SearchBar = () => {
   return (
     <SearchBarContainer>
       <SearchBarInput>
-        <input type="text" onChange={onChange} value={videoUrl} required />
+        <input
+          type="text"
+          onChange={onChange}
+          value={videoUrl}
+          onKeyPress={(e) => {
+            if (e.key == 'Enter') {
+              handlerGetVideoData(videoUrl);
+              onClickModal();
+            }
+          }}
+          required
+        />
         <span>공부하려는 영상의 유튜브 링크를 넣어주세요</span>
         <i></i>
       </SearchBarInput>
