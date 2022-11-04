@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,7 +60,9 @@ public class StudyServiceImpl implements StudyService{
 
     private String parseVideoId(String url) throws VideoNotFoundException {
         if ( url.contains("watch")){
-            return url.replace("https://www.youtube.com/watch?v=","");
+            String url2 = url.replace("https://www.youtube.com/watch?v=","");
+            String[] splits = url2.split("&");
+            return new ArrayList<String>(Arrays.asList(splits)).get(0);
         } else if (url.contains(".be/")) {
             String[] parts = url.split("be/");
             return parts[1];
@@ -68,11 +72,11 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public VideoResponseDto getRecentVideo() {
+    public RecentLearningRecordResponseDto getRecentVideo() {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         List<LearningRecord> learningRecords = learningRecordRepository.findLearningRecordsByUserOrderByModifiedDateDesc(user);
         if (learningRecords.size() > 1) {
-            return VideoResponseDto.from(learningRecords.get(0).getVideo());
+            return RecentLearningRecordResponseDto.from(learningRecords.get(0));
         } else {
             return null;
         }

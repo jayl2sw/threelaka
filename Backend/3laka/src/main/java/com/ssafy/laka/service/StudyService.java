@@ -10,7 +10,7 @@ public interface StudyService {
 
     VideoResponseDto getVideo(String url);
 
-    VideoResponseDto getRecentVideo();
+    RecentLearningRecordResponseDto getRecentVideo();
 
     void addWish(String video_id);
     void deleteWish(int like_video_id);

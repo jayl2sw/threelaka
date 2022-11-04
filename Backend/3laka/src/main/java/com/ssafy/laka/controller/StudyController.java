@@ -69,12 +69,12 @@ public class StudyController {
         return new ResponseEntity<>(studyService.getRecommends(), HttpStatus.OK);
     }
 
-    @PostMapping("/video/latest")
+    @GetMapping("/video/latest")
     @ApiOperation(value = "가장 최근에 공부한 영상 조회", notes = "가장 최근에 공부한 영상 VideoResponseDto 반환")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<VideoResponseDto> getRecentVideo(){
+    public ResponseEntity<RecentLearningRecordResponseDto> getRecentVideo(){
 
         return new ResponseEntity<>(studyService.getRecentVideo(), HttpStatus.OK);
     }
