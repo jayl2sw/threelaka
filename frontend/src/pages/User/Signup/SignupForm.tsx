@@ -87,7 +87,7 @@ const SignupForm = ({
         /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/,
         '닉네임은 2-10자리의 한글, 영문, 숫자만 가능합니다'
       ),
-    gender: yup.string(),
+    gender: yup.string().required('성별을 선택해주세요'),
     age: yup
       .number()
       .default(1)
@@ -142,13 +142,13 @@ const SignupForm = ({
     } else if (emailCheckRes) {
       setError(
         'username',
-        { message: '이메일이중복이에여' },
+        { message: '이메일이 중복입니다' },
         { shouldFocus: true }
       );
     } else if (nicknameCheckRes) {
       setError(
         'nickname',
-        { message: '닉네임이중복이에여' },
+        { message: '닉네임이 중복입니다' },
         { shouldFocus: true }
       );
     }
@@ -165,8 +165,8 @@ const SignupForm = ({
       onSubmit={handleSubmit(handleFormSubmit)}
       className="sign-up-form"
     >
-      <Heading style={{marginBottom:"3vh"}}>
-        <h1 >
+      <Heading style={{ marginBottom: '3vh' }}>
+        <h1>
           Hello,
           <br />
           Welcome to ThreeLaka!
@@ -214,7 +214,7 @@ const SignupForm = ({
                 value: '2',
               },
             ]}
-            />
+          />
         </div>
       </InputWrap>
       <SubmitBtnWrap>
@@ -229,8 +229,13 @@ const SignupForm = ({
         >
           J O I N
         </GradientRoundBtn>
-        <p style={{fontFamily:'Fredoka'}}>Already Have an Account?</p>
-        <a href="#" onClick={handleToggle} className="toggle" style={{fontFamily:'Fredoka', fontWeight:'bold'}}>
+        <p style={{ fontFamily: 'Fredoka' }}>Already Have an Account?</p>
+        <a
+          href="#"
+          onClick={handleToggle}
+          className="toggle"
+          style={{ fontFamily: 'Fredoka', fontWeight: 'bold' }}
+        >
           &lt;&lt;&nbsp;&nbsp;Sign In
         </a>
       </SubmitBtnWrap>
