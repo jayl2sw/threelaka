@@ -245,4 +245,10 @@ public class StudyServiceImpl implements StudyService{
         return EssayResponseDto.from(lr);
 
     }
+
+    @Override
+    public void setSurvey(SurveyRequestDto data) {
+        LearningRecord lr = learningRecordRepository.findById(data.getLearningRecordId()).orElseThrow(LearningRecordNotFoundException::new);
+        lr.setSurvey(data.getSurvey());
+    }
 }

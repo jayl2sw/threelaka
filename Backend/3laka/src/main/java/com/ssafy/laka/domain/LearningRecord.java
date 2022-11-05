@@ -39,7 +39,10 @@ public class LearningRecord extends BaseTime {
     @OneToMany(mappedBy = "learningRecord", cascade = CascadeType.ALL)
     private List<Wordbook> wordbooks;
 
+    private int survey;
+
     private String essay;
     public void setStage (Stage stage) { this.stage = stage; }
     public void setEssay (String content) { this.essay = content; }
+    public void setSurvey (int result) { this.survey = result; }
 }

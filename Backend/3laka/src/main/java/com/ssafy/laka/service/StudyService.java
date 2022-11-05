@@ -42,4 +42,6 @@ public interface StudyService {
     void addEssay(EssayRequestDto essay);
 
     EssayResponseDto findEssay(int learningRecordId);
+
+    void setSurvey(SurveyRequestDto data);
 }

@@ -248,4 +248,16 @@ public class StudyController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PostMapping("/survey")
+    @ApiOperation(value = "해당 영상에 대한 만족도 조사", notes = "해당 영상에 대한 만족도 조사")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> setSurvey(
+            @RequestBody SurveyRequestDto data
+    ) {
+        studyService.setSurvey(data);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
 }
