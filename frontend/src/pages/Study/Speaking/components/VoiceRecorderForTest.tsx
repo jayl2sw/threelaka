@@ -20,10 +20,15 @@ import { margin } from '@material-ui/system';
 
 interface IRecorderProps {
   selectedText: string;
-  setFlag: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsTestStart: React.Dispatch<React.SetStateAction<boolean>>;
+  isTestStart: boolean;
 }
 
-const VoiceRecorderForTest = ({ selectedText, setFlag }: IRecorderProps) => {
+const VoiceRecorderForTest = ({
+  selectedText,
+  setIsTestStart,
+  isTestStart,
+}: IRecorderProps) => {
   const [audioFile, setAudioFile] = useState<any>('');
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const {
@@ -52,6 +57,10 @@ const VoiceRecorderForTest = ({ selectedText, setFlag }: IRecorderProps) => {
     speechTest();
   }, [audioResult]);
 
+  const toggleTestStart = () => {
+    setIsTestStart(true);
+  };
+
   const toggleIsRecording = () => {
     setIsRecording(!isRecording);
   };
@@ -73,11 +82,23 @@ const VoiceRecorderForTest = ({ selectedText, setFlag }: IRecorderProps) => {
               style={{ display: 'absolute', left: '3.7vw' }}
             ></LoadingSpinner>
           ) : null}
-          <VideoAudioBtn onClick={startRecording} style={{ zIndex: '1' }}>
-            <BsFillRecordFill onClick={toggleIsRecording} color={'red'} />
+          <VideoAudioBtn
+            onClick={() => {
+              startRecording();
+              toggleTestStart();
+              toggleIsRecording();
+            }}
+            style={{ zIndex: '1' }}
+          >
+            <BsFillRecordFill color={'red'} />
           </VideoAudioBtn>
-          <VideoAudioBtn onClick={stopRecording}>
-            <BsFillStopFill onClick={toggleIsRecording} />
+          <VideoAudioBtn
+            onClick={() => {
+              stopRecording();
+              toggleIsRecording();
+            }}
+          >
+            <BsFillStopFill />
           </VideoAudioBtn>
           <VideoAudioBtn onClick={pauseRecording}>일시 정지</VideoAudioBtn>
           <VideoAudioBtn onClick={resumeRecording}>계속 진행</VideoAudioBtn>

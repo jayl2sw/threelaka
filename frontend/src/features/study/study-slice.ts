@@ -131,6 +131,7 @@ const studySlice = createSlice({
     resetSpeechScore(state) {
       state.speechScores = [];
       state.totalScore = 0;
+      state.speechTestError = '';
     },
   },
 });
