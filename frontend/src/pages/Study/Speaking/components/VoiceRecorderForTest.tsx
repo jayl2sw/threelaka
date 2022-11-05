@@ -15,6 +15,9 @@ import {
 import { BsFillRecordFill, BsFillStopFill } from 'react-icons/bs';
 import { MdDownload, MdCameraswitch } from 'react-icons/md';
 
+import { LoadingSpinner } from '../../../../styles/Common/LoadingSpinner';
+import { margin } from '@material-ui/system';
+
 interface IRecorderProps {
   selectedText: string;
   setFlag: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,6 +25,7 @@ interface IRecorderProps {
 
 const VoiceRecorderForTest = ({ selectedText, setFlag }: IRecorderProps) => {
   const [audioFile, setAudioFile] = useState<any>('');
+  const [isRecording, setIsRecording] = useState<boolean>(false);
   const {
     audioResult,
     timer,
@@ -46,8 +50,11 @@ const VoiceRecorderForTest = ({ selectedText, setFlag }: IRecorderProps) => {
 
   useEffect(() => {
     speechTest();
-    setFlag(true);
   }, [audioResult]);
+
+  const toggleIsRecording = () => {
+    setIsRecording(!isRecording);
+  };
 
   return (
     <div>
@@ -59,11 +66,18 @@ const VoiceRecorderForTest = ({ selectedText, setFlag }: IRecorderProps) => {
 
       <RecordBox>
         <VideoAudioBtnContainer className="test-recorder">
-          <VideoAudioBtn onClick={startRecording}>
-            <BsFillRecordFill color={'red'} />
+          {isRecording ? (
+            <LoadingSpinner
+              widthSize="7vmin"
+              heightSize="10vmin"
+              style={{ display: 'absolute', left: '3.7vw' }}
+            ></LoadingSpinner>
+          ) : null}
+          <VideoAudioBtn onClick={startRecording} style={{ zIndex: '1' }}>
+            <BsFillRecordFill onClick={toggleIsRecording} color={'red'} />
           </VideoAudioBtn>
           <VideoAudioBtn onClick={stopRecording}>
-            <BsFillStopFill />
+            <BsFillStopFill onClick={toggleIsRecording} />
           </VideoAudioBtn>
           <VideoAudioBtn onClick={pauseRecording}>일시 정지</VideoAudioBtn>
           <VideoAudioBtn onClick={resumeRecording}>계속 진행</VideoAudioBtn>

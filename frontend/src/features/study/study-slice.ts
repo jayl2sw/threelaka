@@ -15,9 +15,11 @@ type StudyState = {
   wordBookList: WordBook[];
   speechScores: SpeechScores[];
   totalScore: number;
+  speechTestError: String;
 };
 
 let initialState: StudyState = {
+  speechTestError: '',
   speechScores: [],
   totalScore: 0,
   loading: false,
@@ -120,6 +122,7 @@ const studySlice = createSlice({
       console.log(action.payload);
       state.speechScores = action.payload.scores;
       state.totalScore = action.payload.total_score;
+      state.speechTestError = action.payload.short_message;
     },
     speechTestFail(state) {
       state.loading = false;

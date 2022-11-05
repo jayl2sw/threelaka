@@ -29,11 +29,15 @@ const MainPage = () => {
             {/* </FirstCenterBar> */}
           </NewVideo>
         </SearchBarBlock>
-        <PageDownButton className="toggle" style={{ rotate: '270deg' }}>
+        <PageDownButton
+          className="toggle"
+          style={{ rotate: '270deg' }}
+          href="#recentVideoContainer"
+        >
           《
         </PageDownButton>
       </FirstpageBlock>
-      <RecentVideoContainer>
+      <RecentVideoContainer id="recentVideoContainer">
         <RecentVideo />
       </RecentVideoContainer>
       <RecommendVideoContainer>
