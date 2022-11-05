@@ -129,6 +129,18 @@ const studySlice = createSlice({
       state.speechScores = [];
       state.totalScore = 0;
     },
+    // 공부 후 만족도 조사 시작
+    postStudySatisfactionStart(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 공부 후 만족도 조사 성공
+    postStudySatisfactionSuccess(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 공부 후 만족도 조사 실패
+    postStudySatisfactionFailed(state) {
+      state.loading = false;
+    },
   },
 });
 

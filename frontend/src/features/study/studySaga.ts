@@ -4,6 +4,7 @@ import {
   updateStudyStageApi,
   getWordBookApi,
   speechaceApi,
+  postStudySatisfactionApi,
 } from '../../services/studyApi';
 import { getFindWordApi } from '../../services/readApi';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -73,6 +74,19 @@ function* onGetWordBookAsync(action: PayloadAction<number>) {
   }
 }
 
+// 공부 후 만족도 검사 SAGA
+function* onPostStudySatisfactionAsync(action: PayloadAction<number>) {
+  try {
+    const response: string = yield call(
+      postStudySatisfactionApi,
+      action.payload
+    );
+    yield put(studyActions.postStudySatisfactionSuccess(response));
+  } catch (error: any) {
+    yield put(studyActions.postStudySatisfactionFailed());
+  }
+}
+
 // 공부 시작 watch
 export function* watchPostStartStudyAsync() {
   yield takeLatest(studyActions.postStartStudy.type, onPostStartStudyAsync);
@@ -95,6 +109,14 @@ export function* watchUpdateStudyStageAsync() {
 // 단어장 불러오기 watch
 export function* watchGetWordBookAsync() {
   yield takeLatest(studyActions.getWordBookStart.type, onGetWordBookAsync);
+}
+
+// 학습후 만족도 검사 watch
+export function* watchPostStudySatisfactionAsync() {
+  yield takeLatest(
+    studyActions.postStudySatisfactionStart.type,
+    onPostStudySatisfactionAsync
+  );
 }
 
 //발음검사
@@ -120,4 +142,5 @@ export const studySagas = [
   fork(watchUpdateStudyStageAsync),
   fork(watchGetWordBookAsync),
   fork(watchonPostSpeechTestInfo),
+  fork(watchPostStudySatisfactionAsync),
 ];

@@ -49,3 +49,12 @@ export const speechaceApi = async (payload: any): Promise<any> => {
   console.log(res.data);
   return res.data;
 };
+
+// 공부 후 만족도 검사 API
+export const postStudySatisfactionApi = async (
+  isLike: number
+): Promise<any> => {
+  const res = await customAxios.post(`api/v1/study/survey/`, isLike);
+  console.log(res.data);
+  return res.data;
+};
