@@ -49,12 +49,12 @@ const RecentVideo = () => {
     learingRecordId: number,
     videoId: string
   ) => {
-    if (stage == 'READING') {
-      navigate(`study/reading/${learingRecordId}/${stage}/${videoId}`);
-    } else if (stage == 'WRITING') {
-      navigate(`study/writing/${learingRecordId}/${stage}/${videoId}`);
-    } else if (stage == 'SPEAKING') {
-      navigate(`study/speaking/${learingRecordId}/${stage}/${videoId}`);
+    if (stage === 'READING') {
+      navigate(`/study/reading/${learingRecordId}/${stage}/${videoId}`);
+    } else if (stage === 'WRITING') {
+      navigate(`/study/writing/${learingRecordId}/${stage}/${videoId}`);
+    } else if (stage === 'SPEAKING') {
+      navigate(`/study/speaking/${learingRecordId}/${stage}/${videoId}`);
     } else navigate(`/`);
   };
 

@@ -78,15 +78,15 @@ export const ProgressBarIndicator = styled.div`
   );
   border-radius: 15px;
   &.indicator-READING {
-    width: 33%;
+    width: 30%;
     transition: width 1s ease-in-out;
   }
   &.indicator-WRITING {
-    width: 66%;
+    width: 63%;
     transition: width 1s ease-in-out;
   }
   &.indicator-SPEAKING {
-    width: 100%;
+    width: 93%;
     transition: width 1s ease-in-out;
   }
 `;

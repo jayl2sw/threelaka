@@ -32,9 +32,9 @@ function App() {
         {/* Main */}
         <Route element={<ProtectedRoute />}>
           <Route path="" element={<MainLayout />}>
-            <Route path="home" element={<MainPage />} />
-            <Route path="videos" element={<VideosPage />} />
             <Route path="" element={<MainPage />} />
+            <Route path="videos" element={<VideosPage />} />
+            {/* <Route path="" element={<MainPage />} /> */}
             {/* 뒤에 라우트 주소가 비었을 때에도 무조건 메인으로 */}
           </Route>
         </Route>
