@@ -103,6 +103,7 @@ export const ProgressBarItem = styled.div`
   color: white;
   font-size: 1.2rem;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 export const LinkWrapper = styled.div<LinkMenuProps>`
@@ -134,6 +135,7 @@ export const TitleRegion = styled.div`
   font-size: 3rem;
   color: white;
   margin-right: 10vw;
+  cursor: pointer;
 `;
 
 export const ProgressTest = styled.progress``;

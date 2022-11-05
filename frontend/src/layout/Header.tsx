@@ -53,6 +53,9 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
   //     }/${nextStep}/${pageParams.videoId}`
   //   );
   // };
+  const goToHome = () => {
+    navigate('/');
+  };
 
   return (
     <HeaderBlock>
@@ -63,7 +66,8 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
         <LinkWrapper bgColor="black" widthSize="10vw">
           {/* <Link to="/videos">videos</Link> */}
         </LinkWrapper>
-        <TitleRegion>THREELAKA</TitleRegion>
+
+        <TitleRegion onClick={goToHome}>THREELAKA</TitleRegion>
         <LinkWrapper bgColor="black" widthSize="10vw">
           {/* <Link to="/auth/dashboard/1">dashboard</Link> */}
         </LinkWrapper>

@@ -281,3 +281,15 @@ export const ScoreIcon = styled(BsCircleFill)`
 export const Score = styled.div`
   margin-left: 0.3vw;
 `;
+
+export const ErrorBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 24vh;
+`;
+export const ErrorText = styled.div`
+  font-size: 3vmin;
+  margin: 0.5vw;
+`;

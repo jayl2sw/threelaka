@@ -85,7 +85,7 @@ export const FirstCenterBar = styled.div`
   justify-content: center;
 `;
 
-export const PageDownButton = styled.div`
+export const PageDownButton = styled.a`
   /* transform: ; */
   font-size: 6.5vmin;
   background: linear-gradient(

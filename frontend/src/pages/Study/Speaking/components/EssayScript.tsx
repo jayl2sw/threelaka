@@ -47,7 +47,7 @@ const EssayScript = ({ setSelectedText, pageParams, setFlag }: IEssayProps) => {
   }, []);
 
   const FilterScript = () => {
-    let splittedText = userEssay.split('.');
+    let splittedText = userEssay.split(/[.?!]/);
 
     const texts = splittedText.map((item, key) => {
       let trimmed = item.trimStart();
