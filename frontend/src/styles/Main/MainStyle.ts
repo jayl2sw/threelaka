@@ -46,32 +46,30 @@ export const LogoBlock = styled.div`
   width: 40vw;
   height: 12vh;
   background-size: 25vw 12vh;
-  background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FVTnIU%2FbtrQsDtfDK9%2FOwvJaECvpUn04gMQqnCN0K%2Fimg.png')
-    center no-repeat;
-  /* border: 3px pink solid; */
-  /* margin-bottom: 3vw; */
+  /* background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FVTnIU%2FbtrQsDtfDK9%2FOwvJaECvpUn04gMQqnCN0K%2Fimg.png')
+    center no-repeat; */
+  & img {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 export const YoutubeLink = styled.div`
-  /* position: absolute; */
-  /* display: inline; */
   width: 8vw;
   height: 6vh;
   margin-top: -5vh;
   margin-right: 1vw;
-  /* border: 2px solid green; */
-  /* background: linear-gradient(110.64deg, #4A9FFF 5.65%, rgba(88, 172, 240, 0.861458) 45.15%, #B0FF91 84.64%); */
-  background: #b7d9ff;
-  /* opacity: 0.4; */
-  border-radius: 10px;
-  align-items: center;
-  justify-content: center;
-  font-size: 3vmin;
-  color: black;
-  font-weight: bold;
   margin-bottom: -2vh;
-  font-family: Fredoka;
+  background: #b7d9ff;
+  border-radius: 10px;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 2vmin;
+  font-weight: bold;
+  font-family: Fredoka;
+  padding: 0 1vw;
   :hover {
     transform: scale(1.05);
   }
@@ -220,7 +218,7 @@ export const NoRecentVideoYet = styled.div`
   justify-content: center;
   align-items: center;
   margin: 7vh 0;
-  padding: 20vh;
+  // padding: 20vh;
 
   & p {
     margin-bottom: 0.5vh;
