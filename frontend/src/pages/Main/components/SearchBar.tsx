@@ -55,12 +55,14 @@ const SearchBar = () => {
 
   return (
     <SearchBarContainer>
-      <YoutubeLink>
-        <IconContext.Provider value={{ color: 'red', size: '5vmin' }}>
-          <RiYoutubeFill />
-        </IconContext.Provider>
-        TED
-      </YoutubeLink>
+      <a href="https://www.youtube.com/c/TED" target="_blank">
+        <YoutubeLink>
+          <IconContext.Provider value={{ color: 'red', size: '5vmin' }}>
+            <RiYoutubeFill />
+          </IconContext.Provider>
+          TED
+        </YoutubeLink>
+      </a>
 
       <SearchBarInput>
         <input
