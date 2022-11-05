@@ -18,6 +18,8 @@ import { IworlListAndWrtingProps } from '../Writing/components/WordListAndWritin
 import { IheaderProps } from '../../../layout/Header';
 import { StudyPageParams } from '../../../models';
 import { useParams } from 'react-router-dom';
+import useModal from '../../../utils/useModal';
+import Survey from '../Survey';
 const SpeakingPage = () => {
   const { customMoveToNext } = useOutletContext<IheaderProps>();
   const moveToNext = customMoveToNext;
@@ -42,6 +44,8 @@ const SpeakingPage = () => {
       console.warn(studyDuration);
     };
   }, []);
+
+  const { isOpenModal, onClickModal } = useModal();
   // 실전녹화 선택
 
   return (
@@ -55,7 +59,14 @@ const SpeakingPage = () => {
         <p>writing</p>
       </MoveToNextLeftBtn>
       <SpeakingScreen />
-      <MoveToNextRightBtn>
+      {isOpenModal && (
+        <Survey isOpenModal={isOpenModal} toggle={onClickModal} />
+      )}
+      <MoveToNextRightBtn
+        onClick={(e) => {
+          onClickModal();
+        }}
+      >
         <RiBearSmileLine size={30} />
         <p>complete!</p>
       </MoveToNextRightBtn>

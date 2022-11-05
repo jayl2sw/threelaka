@@ -268,7 +268,7 @@ export const ScoreIcon = styled(BsCircleFill)`
     color: #a8dadc;
   }
   &.well {
-    color: #a8dadc;
+    color: #4a9fff;
   }
   &.good {
     color: cadetblue;
