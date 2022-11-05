@@ -2,8 +2,11 @@ import React from 'react';
 import { ModalContainer } from '../../styles/Main/VideoModalStyle';
 import { MainBox } from '../../styles/Common/CommonDivStyle';
 import { AiOutlineDislike, AiOutlineLike } from 'react-icons/ai';
-import { width } from '@material-ui/system';
+import { LikeHateBox } from '../../styles/Common/EtcStyle';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../utils/hooks';
+import { studyActions } from '../../features/study/study-slice';
+
 interface ISurveyProps {
   isOpenModal: boolean;
   toggle: () => void;
@@ -12,9 +15,20 @@ interface ISurveyProps {
 const Survey = ({ isOpenModal, toggle }: ISurveyProps) => {
   const onClickModal = toggle;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const goToHome = () => {
     navigate('/');
   };
+  const onClickStudySatisfaction = (
+    e: React.MouseEvent<HTMLDivElement>,
+    isLike: number
+  ) => {
+    dispatch(studyActions.postStudySatisfactionStart(isLike));
+    setTimeout(() => {
+      goToHome();
+    }, 1000);
+  };
+
   return (
     <ModalContainer
       onClick={onClickModal}
@@ -41,26 +55,22 @@ const Survey = ({ isOpenModal, toggle }: ISurveyProps) => {
             marginTop: '5vh',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+          <LikeHateBox
+            onClick={(e) => {
+              onClickStudySatisfaction(e, 1);
             }}
           >
             <div>Like</div>
             <AiOutlineLike />
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+          </LikeHateBox>
+          <LikeHateBox
+            onClick={(e) => {
+              onClickStudySatisfaction(e, 2);
             }}
           >
             <div>Hate</div>
             <AiOutlineDislike />
-          </div>
+          </LikeHateBox>
         </div>
       </MainBox>
       <div
