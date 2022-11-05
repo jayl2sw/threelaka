@@ -46,7 +46,7 @@ export const LogoBlock = styled.div`
   width: 40vw;
   height: 12vh;
   background-size: 25vw 12vh;
-  background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/logo.png')
+  background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FVTnIU%2FbtrQsDtfDK9%2FOwvJaECvpUn04gMQqnCN0K%2Fimg.png')
     center no-repeat;
   /* border: 3px pink solid; */
   /* margin-bottom: 3vw; */
@@ -129,7 +129,7 @@ export const RecentVideoContainer = styled.div`
   align-items: end;
   justify-content: center;
   width: 100vw;
-  height: 60vh;
+  height: fit-content;
   /* border: solid yellow 3px; */
 `;
 
@@ -212,6 +212,26 @@ export const RecentVideoStageBtnContainer = styled.div`
   /* border: 1px solid red; */
 `;
 
+export const NoRecentVideoYet = styled.div`
+  width: 100vw;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 7vh 0;
+  padding: 20vh;
+
+  & p {
+    margin-bottom: 0.5vh;
+  }
+
+  & img {
+    width: 15vw;
+    height: 20vh;
+  }
+`;
+
 export const VideoCardBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -236,7 +256,7 @@ export const ListInfo = styled.div`
   width: 20vw;
   height: 4vh;
   margin-top: 6.2vh;
-  margin-bottom: -1vh;
+  // margin-bottom: -1vh;
   margin-right: 57vw;
   font-size: 3.2vmin;
   font-weight: bold;
