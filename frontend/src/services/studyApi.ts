@@ -1,5 +1,5 @@
 import customAxios from './customAxios';
-import { StudyStage, StageInfo } from '../models';
+import { StudyStage, StageInfo, SatisfactionSurvey } from '../models';
 import axios from 'axios';
 
 // 해당 videoID를 통한 공부를 시작함을 알림
@@ -52,9 +52,9 @@ export const speechaceApi = async (payload: any): Promise<any> => {
 
 // 공부 후 만족도 검사 API
 export const postStudySatisfactionApi = async (
-  isLike: number
+  payload: SatisfactionSurvey
 ): Promise<any> => {
-  const res = await customAxios.post(`api/v1/study/survey/`, isLike);
+  const res = await customAxios.post(`api/v1/study/survey/`, payload);
   console.log(res.data);
   return res.data;
 };

@@ -46,3 +46,8 @@ export interface SpeechScores {
   word: string;
   score: number;
 }
+
+export interface SatisfactionSurvey {
+  learningRecordId: number;
+  survey: number;
+}
