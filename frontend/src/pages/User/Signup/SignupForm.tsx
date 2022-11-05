@@ -218,7 +218,8 @@ const SignupForm = ({
         </div>
       </InputWrap>
       <SubmitBtnWrap>
-        <GradientRoundBtn
+        <p>현재 베타테스트 기간으로 개별 가입이 불가능합니다</p>
+        {/* <GradientRoundBtn
           widthSize={'80%'}
           heightSize={'5vh'}
           paddingSize={'0'}
@@ -237,7 +238,7 @@ const SignupForm = ({
           style={{ fontFamily: 'Fredoka', fontWeight: 'bold' }}
         >
           &lt;&lt;&nbsp;&nbsp;Sign In
-        </a>
+        </a> */}
       </SubmitBtnWrap>
     </StyledForm>
   );
