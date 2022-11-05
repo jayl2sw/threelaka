@@ -5,7 +5,7 @@ import { SpeakingPageBlock } from '../../../styles/Speaking/SpeakingStyle';
 import { useLocation } from 'react-router-dom';
 import SpeakingScreen from './components/SpeakingScreen';
 import { useRef, useEffect } from 'react';
-import { useAppDispatch } from '../../../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { studyActions } from '../../../features/study/study-slice';
 import {
   MoveToNextLeftBtn,
@@ -20,18 +20,20 @@ import { StudyPageParams } from '../../../models';
 import { useParams } from 'react-router-dom';
 import useModal from '../../../utils/useModal';
 import Survey from '../Survey';
+import { useNavigate } from 'react-router-dom';
 const SpeakingPage = () => {
   const { customMoveToNext } = useOutletContext<IheaderProps>();
   const moveToNext = customMoveToNext;
   // 발음 테스트 클릭
   const pageParams: StudyPageParams = useParams() as any;
   const onClickProTest = () => {};
+  const navigate = useNavigate();
 
   const modeCode = useLocation().search.replace('?mode=', '');
 
   const studyDuration = useRef<number>(0);
   const dispatch = useAppDispatch();
-
+  const resetToggle = useAppSelector((state) => state.study.resetToggle);
   //get current time and video status in real time
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -44,6 +46,13 @@ const SpeakingPage = () => {
       console.warn(studyDuration);
     };
   }, []);
+
+  // useEffect(() => {
+  //   console.warn('나나나나', resetToggle);
+  //   if (resetToggle === true) {
+  //     navigate('/');
+  //   }
+  // }, [resetToggle]);
 
   const { isOpenModal, onClickModal } = useModal();
   // 실전녹화 선택

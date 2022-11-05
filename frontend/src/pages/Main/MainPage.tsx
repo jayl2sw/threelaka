@@ -38,6 +38,7 @@ const MainPage = () => {
       observer.observe(recentVideoContainer.current);
     }
   }
+  console.warn('찍고오나');
   return (
     <MainPageBlock>
       <FirstpageBlock ref={firstpageBlock}>

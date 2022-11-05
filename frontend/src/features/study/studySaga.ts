@@ -15,6 +15,7 @@ import {
   StageInfo,
   WordBook,
   SpeechTest,
+  SatisfactionSurvey,
 } from '../../models';
 import { studyActions } from './study-slice';
 // 공부 시작 SAGA
@@ -74,8 +75,22 @@ function* onGetWordBookAsync(action: PayloadAction<number>) {
   }
 }
 
+//발음검사
+function* onPostSpeechTestInfo(action: PayloadAction<any>) {
+  try {
+    console.log('왜안됨');
+    const response: SpeechTest = yield call(speechaceApi, action.payload);
+    console.log(response);
+    yield put(studyActions.speechTestSuccess(response));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // 공부 후 만족도 검사 SAGA
-function* onPostStudySatisfactionAsync(action: PayloadAction<number>) {
+function* onPostStudySatisfactionAsync(
+  action: PayloadAction<SatisfactionSurvey>
+) {
   try {
     const response: string = yield call(
       postStudySatisfactionApi,
@@ -117,18 +132,6 @@ export function* watchPostStudySatisfactionAsync() {
     studyActions.postStudySatisfactionStart.type,
     onPostStudySatisfactionAsync
   );
-}
-
-//발음검사
-function* onPostSpeechTestInfo(action: PayloadAction<any>) {
-  try {
-    console.log('왜안됨');
-    const response: SpeechTest = yield call(speechaceApi, action.payload);
-    console.log(response);
-    yield put(studyActions.speechTestSuccess(response));
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 export function* watchonPostSpeechTestInfo() {

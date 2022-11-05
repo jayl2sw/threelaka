@@ -6,6 +6,7 @@ import {
   StageInfo,
   WordBook,
   SpeechScores,
+  SatisfactionSurvey,
 } from '../../models';
 
 type StudyState = {
@@ -16,6 +17,7 @@ type StudyState = {
   speechScores: SpeechScores[];
   totalScore: number;
   speechTestError: String;
+  resetToggle: boolean;
 };
 
 let initialState: StudyState = {
@@ -34,6 +36,7 @@ let initialState: StudyState = {
     wordList: [],
   },
   wordBookList: [],
+  resetToggle: false,
 };
 
 const studySlice = createSlice({
@@ -49,11 +52,23 @@ const studySlice = createSlice({
       console.log(action.payload);
       state.loading = false;
       state.studyState = action.payload;
+      state.resetToggle = false;
     },
     // 새로운 공부 시작 :: 요청 실패
     postStartStudyFailed(state, action: PayloadAction<string>) {
       state.loading = false;
       console.log(action);
+    },
+
+    // 학습 state RESET
+    resetStudystate(state) {
+      state.studyState = {
+        learningRecordId: 0,
+        stage: '',
+        userId: 0,
+        videoId: '',
+      };
+      state.resetToggle = true;
     },
 
     // 공부 중 종료(나가기, 뒤로가기 등)
@@ -92,7 +107,9 @@ const studySlice = createSlice({
     // 학습상황 업데이트 시작 성공
     UpdateStudyStageStartSuccess(state, action: PayloadAction<StudyStage>) {
       state.loading = false;
-      state.studyState = action.payload;
+      if (action.payload.stage !== 'COMPLETE') {
+        state.studyState = action.payload;
+      }
     },
     // 학습상황 업데이트 시작 실패
     UpdateStudyStageStartFailed(state) {
@@ -134,7 +151,10 @@ const studySlice = createSlice({
       state.speechTestError = '';
     },
     // 공부 후 만족도 조사 시작
-    postStudySatisfactionStart(state, action: PayloadAction<number>) {
+    postStudySatisfactionStart(
+      state,
+      action: PayloadAction<SatisfactionSurvey>
+    ) {
       state.loading = true;
     },
     // 공부 후 만족도 조사 성공

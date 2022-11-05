@@ -9,7 +9,7 @@ import {
   ProgressBarIndicator,
   ProgressBarItem,
 } from '../styles/Layout/HeaderStyle';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, redirect } from 'react-router-dom';
 import { StudyPageParams } from '../models';
 import { Link } from 'react-router-dom';
 import { studyActions } from '../features/study/study-slice';
@@ -54,6 +54,7 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
   //   );
   // };
   const goToHome = () => {
+    dispatch(studyActions.resetStudystate());
     navigate('/');
   };
 

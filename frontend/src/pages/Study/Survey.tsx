@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ModalContainer } from '../../styles/Main/VideoModalStyle';
 import { MainBox } from '../../styles/Common/CommonDivStyle';
 import { AiOutlineDislike, AiOutlineLike } from 'react-icons/ai';
 import { LikeHateBox } from '../../styles/Common/EtcStyle';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { studyActions } from '../../features/study/study-slice';
+import { useParams, useOutletContext } from 'react-router-dom';
+import { StudyPageParams, SatisfactionSurvey } from '../../models';
+import { IheaderProps } from '../../layout/Header';
 
 interface ISurveyProps {
   isOpenModal: boolean;
@@ -13,20 +16,30 @@ interface ISurveyProps {
 }
 
 const Survey = ({ isOpenModal, toggle }: ISurveyProps) => {
+  const { customMoveToNext } = useOutletContext<IheaderProps>();
+  const pageParams: StudyPageParams = useParams() as any;
+  const moveToNext = customMoveToNext;
   const onClickModal = toggle;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const goToHome = () => {
+    dispatch(studyActions.resetStudystate());
     navigate('/');
   };
+
   const onClickStudySatisfaction = (
     e: React.MouseEvent<HTMLDivElement>,
     isLike: number
   ) => {
-    dispatch(studyActions.postStudySatisfactionStart(isLike));
-    setTimeout(() => {
-      goToHome();
-    }, 1000);
+    dispatch(
+      studyActions.postStudySatisfactionStart({
+        learningRecordId: pageParams.learningRecordId,
+        survey: isLike,
+      })
+    );
+    dispatch(studyActions.resetStudystate());
+    navigate('/');
+    moveToNext(e, 'COMPLETE', pageParams);
   };
 
   return (
