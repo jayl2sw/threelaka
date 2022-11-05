@@ -28,16 +28,17 @@ const RecentVideo = () => {
   }, []);
 
   // 보여줄 최근 영상 정보
-  const video = useAppSelector((state) => state.video.recentVideoData.video);
-  const record = useAppSelector(
-    (state) => state.video.recentVideoData.learningRecord
+  const recentVideoData = useAppSelector(
+    (state) => state.video.recentVideoData
   );
+  const video = recentVideoData.video;
+  const record = recentVideoData.learningRecord;
 
   // 영상 정보 왔나요
-  const [studied, setStudied] = useState<boolean>();
+  const [studied, setStudied] = useState<boolean>(false);
 
   useEffect(() => {
-    if (video != undefined) {
+    if (recentVideoData != undefined || recentVideoData == '') {
       setStudied(true);
     }
   }, [video]);
@@ -64,7 +65,7 @@ const RecentVideo = () => {
 
   return (
     <div>
-      {studied ? (
+      {/* {studied ? (
         <RecentVideoBox>
           <RecentVideoTitle>{video.title}</RecentVideoTitle>
           <RecentVideoStageContainer>
@@ -140,7 +141,8 @@ const RecentVideo = () => {
           />
           <p>최근 학습한 영상이 없어요</p>
         </NoRecentVideoYet>
-      )}
+      )} */}
+      <NoRecentVideoYet />
     </div>
   );
 };

@@ -43,7 +43,12 @@ const MainPage = () => {
     <MainPageBlock>
       <FirstpageBlock ref={firstpageBlock}>
         <SearchBarBlock>
-          <LogoBlock />
+          <LogoBlock>
+            <img
+              src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FVTnIU%2FbtrQsDtfDK9%2FOwvJaECvpUn04gMQqnCN0K%2Fimg.png"
+              alt=""
+            />
+          </LogoBlock>
           <NewVideo>
             {/* <FirstCenterBar> */}
             <SearchBar />
