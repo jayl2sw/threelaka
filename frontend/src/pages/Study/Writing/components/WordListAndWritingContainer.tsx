@@ -54,6 +54,7 @@ const WordListAndWritingContainerComp = ({
 
   // state
   const [filterTarget, setFilterTarget] = useState<string[]>([]);
+  const [filterEssayTarget, setFilterEssayTarget] = useState<string[]>([]);
   const [textAreaValue, setTextAreaValue] = useState('');
   const [spellCheckResult, setSpellCheckResult] = useState<FlggedToken[]>([]);
   const [spellFilterTarget, setSpellFilterTarget] = useState<string[]>([]);
@@ -94,11 +95,15 @@ const WordListAndWritingContainerComp = ({
   }, [userEssay]);
 
   useEffect(() => {
+    const nextFilterTarget: string[] = [];
+    const nextFilterEssayTarget: string[] = [];
     const result = checkedWordList.map((checkWord: any) => {
-      return checkWord[0];
+      nextFilterTarget.push(checkWord.dict_word);
+      nextFilterEssayTarget.push(checkWord.essay_word);
     });
     // console.warn(result);
-    setFilterTarget(result);
+    setFilterEssayTarget(nextFilterEssayTarget);
+    setFilterTarget(nextFilterTarget);
   }, [checkedWordList]);
 
   // 1분 마다 단어 썼는지 체크해줌
@@ -418,7 +423,7 @@ const WordListAndWritingContainerComp = ({
               <HighlightWithinTextarea
                 value={textAreaValue}
                 highlight={{
-                  highlight: modeValue ? spellFilterTarget : filterTarget,
+                  highlight: modeValue ? spellFilterTarget : filterEssayTarget,
                   className: modeValue ? 'red' : 'blue',
                 }}
                 onChange={onChange}
