@@ -23,16 +23,12 @@
 //   return <Route {...props} />;
 // };
 
-
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-
 
 export const ProtectedRoute = ({ redirectPath = '/auth/login' }) => {
   const accessToken = 'Bearer ' + localStorage.getItem('accessToken');
   if (accessToken === 'Bearer null') {
-    console.log(accessToken)
-
     return <Navigate to={redirectPath} replace />;
   }
   // console.log()

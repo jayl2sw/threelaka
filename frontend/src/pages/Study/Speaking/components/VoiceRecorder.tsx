@@ -41,15 +41,11 @@ const VoiceRecorder = () => {
     resumeRecording();
     setRecording(true);
     setIsPaused(false);
-    console.log(recording);
-    console.log(isPaused);
   };
 
   const handlePauseRecording = () => {
     setIsPaused(true);
     setRecording(false);
-    console.log(recording);
-    console.log(isPaused);
   };
 
   const handleStopRecording = () => {

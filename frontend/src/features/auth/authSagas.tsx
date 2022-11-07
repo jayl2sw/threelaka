@@ -22,9 +22,7 @@ function* createUser(action: PayloadAction<SignupPayload>) {
     // console.log(username,password)
     //바로로그인 기능 일단 off
     // yield put(login({username,password}))
-  } catch (error) {
-    console.log(`유저생성실패`, error);
-  }
+  } catch (error) {}
 }
 function* watchSignupFlow() {
   yield takeLatest(authActions.signup.type, createUser);
@@ -40,9 +38,7 @@ function* login(action: PayloadAction<LoginPayload>) {
 
     yield put(authActions.loginSuccess(response));
     yield put(authActions.fetchUser());
-  } catch (error) {
-    console.log(`로그인실패`, error);
-  }
+  } catch (error) {}
 }
 function* watchLoginFlow() {
   yield takeLatest(authActions.login.type, login);
@@ -52,9 +48,9 @@ function* fetchUser() {
   console.log('어디서멈춤');
   try {
     // console.log(action.payload);
-    console.log('여긴오나');
+
     const response: User = yield call(userInfoApi);
-    console.log(response);
+
     yield put(authActions.fetchUserSuccess(response));
   } catch (error) {}
 }
@@ -65,12 +61,10 @@ function* watchfetchUserFlow() {
 function* logout() {
   try {
     const response: string = yield call(logoutApi);
-    console.log('로그아웃성공', response);
+
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-  } catch (error) {
-    console.log(`로그아웃실패`, error);
-  }
+  } catch (error) {}
 }
 function* watchLogoutFlow() {
   yield takeLatest(authActions.logout.type, logout);

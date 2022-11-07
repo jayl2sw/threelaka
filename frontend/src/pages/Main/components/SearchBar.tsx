@@ -42,7 +42,6 @@ const SearchBar = () => {
   const studyState = useAppSelector((state) => state.study.studyState);
   // stage 변경 시 해당 스테이지로 이동
   useEffect(() => {
-    console.warn('얍얍얍', studyState);
     if (studyState.stage !== '') {
       // navigate(`/study/${stage}`);
       if (studyState.learningRecordId !== 0) {

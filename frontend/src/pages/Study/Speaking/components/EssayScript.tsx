@@ -33,7 +33,7 @@ const EssayScript = ({ setSelectedText, pageParams, setFlag }: IEssayProps) => {
     idx: number
   ) => {
     const pickedSentence = (e.target as HTMLDivElement).innerText;
-    console.log('찍히나', pickedSentence);
+
     dispatch(studyActions.resetSpeechScore());
 
     setSelectedText(pickedSentence);
@@ -57,7 +57,6 @@ const EssayScript = ({ setSelectedText, pageParams, setFlag }: IEssayProps) => {
     const filteredText = texts.filter((text) => text.length > 0);
 
     setScript(filteredText);
-    console.log(script);
   };
 
   useEffect(() => {

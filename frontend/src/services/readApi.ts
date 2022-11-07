@@ -12,7 +12,7 @@ export const getTedScriptApi = async (videoId: string): Promise<any> => {
 
 export const getFindWordApi = async (word: string) => {
   const res = await customAxios.post(`api/v2/study/dictionary?word=${word}`);
-  console.log(res);
+
   const response: WordMeaning = {
     wordId: res.data.wordId,
     wordList: res.data.results,

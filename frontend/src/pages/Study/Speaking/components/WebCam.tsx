@@ -25,7 +25,6 @@ const WebCam = () => {
       isInitialMount.current = false;
     } else {
       if (!recordedChunks) {
-        console.log('running handleDownload');
         handleDownload();
       }
     }
@@ -67,14 +66,13 @@ const WebCam = () => {
 
   // 녹화된 영상 세팅
   const setRecordedVideo = useCallback(() => {
-    console.log(recordedChunks);
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: 'video/webm',
       });
       const url = URL.createObjectURL(blob);
       const video = document.getElementById('video-replay') as HTMLVideoElement;
-      console.log(video, camIsOn);
+
       video.src = url;
     }
   }, [recordedChunks]);
