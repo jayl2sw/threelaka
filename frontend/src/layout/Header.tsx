@@ -68,7 +68,12 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
           {/* <Link to="/videos">videos</Link> */}
         </LinkWrapper>
 
-        <TitleRegion onClick={goToHome}>THREELAKA</TitleRegion>
+        <TitleRegion onClick={goToHome}>
+          <img
+            src="https://threelaka.s3.ap-northeast-2.amazonaws.com/mainlogo.png"
+            alt="스리라까 로고"
+          />
+        </TitleRegion>
         <LinkWrapper bgColor="black" widthSize="10vw">
           {/* <Link to="/auth/dashboard/1">dashboard</Link> */}
         </LinkWrapper>

@@ -136,6 +136,11 @@ export const TitleRegion = styled.div`
   color: white;
   margin-right: 10vw;
   cursor: pointer;
+  & img {
+    width: 30%;
+    margin-top: 1vh;
+    /* height: 100%; */
+  }
 `;
 
 export const ProgressTest = styled.progress``;
