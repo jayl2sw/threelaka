@@ -1,6 +1,7 @@
 export interface CheckedWord {
-  checkWord: string;
-  checkExample: string;
+  dict_word: string;
+  essay_word: string;
+  sentence: string;
 }
 
 export interface WordCheckPayload {

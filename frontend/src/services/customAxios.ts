@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const customAxios = axios.create({
-  // baseURL: 'http://localhost:8080/',
+  // baseURL: 'http://localhost:8000/',
   // nginx가 안달려있을 땐 port번호를 적어줘야 제대로감
   baseURL: 'https://3laka.com/',
   headers: {

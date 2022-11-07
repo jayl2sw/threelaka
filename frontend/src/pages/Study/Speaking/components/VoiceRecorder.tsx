@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useAudioRecorder } from '@sarafhbk/react-audio-recorder';
-
+import * as fs from 'fs';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../../../utils/hooks';
+import { studyActions } from '../../../../features/study/study-slice';
+import { LoadingSpinner } from '../../../../styles/Common/LoadingSpinner';
 // style
 import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
 import {
@@ -10,6 +14,7 @@ import {
 } from '../../../../styles/Speaking/SpeakingStyle';
 import { BsFillRecordFill, BsFillStopFill, BsPauseFill } from 'react-icons/bs';
 import { dividerClasses } from '@material-ui/core';
+import ToolTip from '../../../../utils/ToolTip';
 
 const VoiceRecorder = () => {
   const [recording, setRecording] = useState<boolean>(false);
@@ -23,6 +28,8 @@ const VoiceRecorder = () => {
     resumeRecording,
     status,
   } = useAudioRecorder();
+
+  const dispatch = useAppDispatch();
 
   const handleStartRecording = () => {
     startRecording();
@@ -58,14 +65,12 @@ const VoiceRecorder = () => {
       flexDirection={'column'}
       justifyContent={'center'}
       alignItems={'center'}
-      IsBorder={'is'}
+      IsBorder={'none'}
     >
       <VideoAudioContainer>
         <audio controls src={audioResult} />
-      </VideoAudioContainer>
-      {/* idle => 빨간 점, recordeing: REC 로고 */}
-      <p>{status}</p>
-      <div style={{ border: '1px solid green' }}>
+        {/* idle => 빨간 점, recordeing: REC 로고 */}
+        {/* <p>{status}</p> */}
         <p>{new Date(timer * 1000).toISOString().substr(11, 8)}</p>
         <VideoAudioBtnContainer>
           {recording ? (
@@ -74,12 +79,14 @@ const VoiceRecorder = () => {
                 pauseRecording();
                 handlePauseRecording();
               }}
+              title="일시 중지"
             >
               <BsPauseFill />
             </VideoAudioBtn>
           ) : (
             <VideoAudioBtn
               onClick={isPaused ? handleResumeRecording : handleStartRecording}
+              title="녹음 시작"
             >
               <BsFillRecordFill color={'red'} />
             </VideoAudioBtn>
@@ -90,11 +97,12 @@ const VoiceRecorder = () => {
               stopRecording();
               handleStopRecording();
             }}
+            title="녹음 중지"
           >
             <BsFillStopFill />
           </VideoAudioBtn>
         </VideoAudioBtnContainer>
-      </div>
+      </VideoAudioContainer>
     </FlexTransparentDiv>
   );
 };

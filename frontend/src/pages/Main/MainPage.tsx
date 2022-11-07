@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import MainHeader from '../../layout/MainHeader';
 import SearchBar from './components/SearchBar';
 import RecentVideo from './components/RecentVideo';
@@ -9,35 +9,64 @@ import {
   SearchBarBlock,
   LogoBlock,
   FirstpageBlock,
-  YoutubeLink,
   RecommendVideoContainer,
   ListInfo,
+  PageDownButton,
+  FirstCenterBar,
 } from '../../styles/Main/MainStyle';
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import RecommendVideoList from './components/RecommendVideoList';
-import { RiYoutubeFill } from 'react-icons/ri';
-import { IconContext } from 'react-icons';
+import { useScrollDirection } from 'react-use-scroll-direction';
 
 const MainPage = () => {
+  let observer = new IntersectionObserver((e) => {
+    console.log('observer start', e);
+    if (e[0].isIntersecting) {
+      console.log('intersect');
+      console.log(e[0].target);
+      window.scrollBy(0, e[0].boundingClientRect.top);
+    }
+    return;
+  });
+  const firstpageBlock = useRef<HTMLDivElement>(null);
+  const recentVideoContainer = useRef<HTMLDivElement>(null);
+  const { isScrolling, isScrollingUp, isScrollingDown } = useScrollDirection();
+  if (isScrolling) {
+    if (isScrollingUp && firstpageBlock.current != null) {
+      observer.observe(firstpageBlock.current);
+    } else if (isScrollingDown && recentVideoContainer.current != null) {
+      observer.observe(recentVideoContainer.current);
+    }
+  }
+  // console.warn('찍고오나');
   return (
     <MainPageBlock>
-      <FirstpageBlock>
+      <FirstpageBlock ref={firstpageBlock}>
         <SearchBarBlock>
-          <LogoBlock></LogoBlock>
+          <LogoBlock>
+            <img
+              src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FVTnIU%2FbtrQsDtfDK9%2FOwvJaECvpUn04gMQqnCN0K%2Fimg.png"
+              alt=""
+            />
+          </LogoBlock>
           <NewVideo>
+            {/* <FirstCenterBar> */}
             <SearchBar />
+            {/* </FirstCenterBar> */}
           </NewVideo>
-          <a href="https://www.youtube.com/c/TED">
-            <YoutubeLink>
-              <IconContext.Provider value={{ color: 'red', size: '3rem' }}>
-                <RiYoutubeFill />
-              </IconContext.Provider>
-              TED 채널 바로가기
-            </YoutubeLink>
-          </a>
         </SearchBarBlock>
+        <PageDownButton
+          className="toggle"
+          style={{ rotate: '270deg' }}
+          href="#recentVideoContainer"
+        >
+          《
+        </PageDownButton>
       </FirstpageBlock>
-      <RecentVideoContainer>
+      <RecentVideoContainer
+        id="recentVideoContainer"
+        ref={recentVideoContainer}
+      >
         <RecentVideo />
       </RecentVideoContainer>
       <RecommendVideoContainer>

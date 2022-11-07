@@ -9,7 +9,7 @@ import {
   ProgressBarIndicator,
   ProgressBarItem,
 } from '../styles/Layout/HeaderStyle';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, redirect } from 'react-router-dom';
 import { StudyPageParams } from '../models';
 import { Link } from 'react-router-dom';
 import { studyActions } from '../features/study/study-slice';
@@ -53,6 +53,10 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
   //     }/${nextStep}/${pageParams.videoId}`
   //   );
   // };
+  const goToHome = () => {
+    dispatch(studyActions.resetStudystate());
+    navigate('/');
+  };
 
   return (
     <HeaderBlock>
@@ -63,7 +67,8 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
         <LinkWrapper bgColor="black" widthSize="10vw">
           {/* <Link to="/videos">videos</Link> */}
         </LinkWrapper>
-        <TitleRegion>THREELAKA</TitleRegion>
+
+        <TitleRegion onClick={goToHome}>THREELAKA</TitleRegion>
         <LinkWrapper bgColor="black" widthSize="10vw">
           {/* <Link to="/auth/dashboard/1">dashboard</Link> */}
         </LinkWrapper>

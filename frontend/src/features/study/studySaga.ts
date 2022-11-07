@@ -1,8 +1,22 @@
-import { postStartStudyApi, putStopStudyApi, updateStudyStageApi, getWordBookApi } from '../../services/studyApi';
+import {
+  postStartStudyApi,
+  putStopStudyApi,
+  updateStudyStageApi,
+  getWordBookApi,
+  speechaceApi,
+  postStudySatisfactionApi,
+} from '../../services/studyApi';
 import { getFindWordApi } from '../../services/readApi';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
-import { StudyStage, WordMeaning, StageInfo, WordBook} from '../../models';
+import {
+  StudyStage,
+  WordMeaning,
+  StageInfo,
+  WordBook,
+  SpeechTest,
+  SatisfactionSurvey,
+} from '../../models';
 import { studyActions } from './study-slice';
 // 공부 시작 SAGA
 function* onPostStartStudyAsync(action: PayloadAction<string>) {
@@ -61,6 +75,33 @@ function* onGetWordBookAsync(action: PayloadAction<number>) {
   }
 }
 
+//발음검사
+function* onPostSpeechTestInfo(action: PayloadAction<any>) {
+  try {
+    console.log('왜안됨');
+    const response: SpeechTest = yield call(speechaceApi, action.payload);
+    console.log(response);
+    yield put(studyActions.speechTestSuccess(response));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// 공부 후 만족도 검사 SAGA
+function* onPostStudySatisfactionAsync(
+  action: PayloadAction<SatisfactionSurvey>
+) {
+  try {
+    const response: string = yield call(
+      postStudySatisfactionApi,
+      action.payload
+    );
+    yield put(studyActions.postStudySatisfactionSuccess(response));
+  } catch (error: any) {
+    yield put(studyActions.postStudySatisfactionFailed());
+  }
+}
+
 // 공부 시작 watch
 export function* watchPostStartStudyAsync() {
   yield takeLatest(studyActions.postStartStudy.type, onPostStartStudyAsync);
@@ -85,10 +126,24 @@ export function* watchGetWordBookAsync() {
   yield takeLatest(studyActions.getWordBookStart.type, onGetWordBookAsync);
 }
 
+// 학습후 만족도 검사 watch
+export function* watchPostStudySatisfactionAsync() {
+  yield takeLatest(
+    studyActions.postStudySatisfactionStart.type,
+    onPostStudySatisfactionAsync
+  );
+}
+
+export function* watchonPostSpeechTestInfo() {
+  yield takeLatest(studyActions.speechTest.type, onPostSpeechTestInfo);
+}
+
 export const studySagas = [
   fork(watchPostStartStudyAsync),
   fork(watchPutStopStudyAsync),
   fork(watchgetSearchDictAsync),
   fork(watchUpdateStudyStageAsync),
   fork(watchGetWordBookAsync),
+  fork(watchonPostSpeechTestInfo),
+  fork(watchPostStudySatisfactionAsync),
 ];

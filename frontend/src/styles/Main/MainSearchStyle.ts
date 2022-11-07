@@ -25,7 +25,8 @@ export const SearchBarContainer = styled.div`
 export const SearchBarInput = styled.div`
   position: relative;
   margin-bottom: 2vh;
-
+  font-family: fredoka;
+  
   & input {
     width: 30vw;
     /* height: 10vh; */
@@ -36,6 +37,7 @@ export const SearchBarInput = styled.div`
     outline: none;
     box-shadow: none;
     font-size: 1em;
+
     /* letter-spacing: 0.1em; */
   }
 
@@ -127,5 +129,8 @@ export const SearchButton = styled.div`
 export const SearchIconBtn = styled.div`
 width: 5vmin;
 height: 5vmin;
+:hover{
+  transform: scale(1.05);
+}
 /* background-color: blue; */
 `

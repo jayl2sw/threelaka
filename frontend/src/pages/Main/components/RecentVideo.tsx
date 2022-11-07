@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { MainPaleBox } from '../../../styles/Common/CommonDivStyle';
 import { videoActions } from '../../../features/video/video-slice';
 import { studyActions } from '../../../features/study/study-slice';
-
 // style
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
@@ -15,6 +14,8 @@ import {
   RecentVideoStageDataContainer,
   RecentVideoStageBtnContainer,
   RecentVideoBox,
+  NoRecentVideoYet,
+  PageDownButton,
 } from '../../../styles/Main/MainStyle';
 
 const RecentVideo = () => {
@@ -27,15 +28,19 @@ const RecentVideo = () => {
   }, []);
 
   // 보여줄 최근 영상 정보
-  const video = useAppSelector((state) => state.video.recentVideoData.video);
-  const record = useAppSelector(
-    (state) => state.video.recentVideoData.learningRecord
+  const recentVideoData = useAppSelector(
+    (state) => state.video.recentVideoData
   );
+  const video = recentVideoData.video;
+  const record = recentVideoData.learningRecord;
 
   // 영상 정보 왔나요
-  const [isReady, setIsReady] = useState<boolean>();
+  const [studied, setStudied] = useState<boolean>(false);
+
   useEffect(() => {
-    setIsReady(true);
+    if (recentVideoData != undefined || recentVideoData == '') {
+      setStudied(true);
+    }
   }, [video]);
 
   // 공부 새로 시작
@@ -49,18 +54,18 @@ const RecentVideo = () => {
     learingRecordId: number,
     videoId: string
   ) => {
-    if (stage == 'READING') {
-      navigate(`study/reading/${learingRecordId}/${stage}/${videoId}`);
-    } else if (stage == 'WRITING') {
-      navigate(`study/writing/${learingRecordId}/${stage}/${videoId}`);
-    } else if (stage == 'SPEAKING') {
-      navigate(`study/speaking/${learingRecordId}/${stage}/${videoId}`);
+    if (stage === 'READING') {
+      navigate(`/study/reading/${learingRecordId}/${stage}/${videoId}`);
+    } else if (stage === 'WRITING') {
+      navigate(`/study/writing/${learingRecordId}/${stage}/${videoId}`);
+    } else if (stage === 'SPEAKING') {
+      navigate(`/study/speaking/${learingRecordId}/${stage}/${videoId}`);
     } else navigate(`/`);
   };
 
   return (
     <div>
-      {isReady && (
+      {/* {studied ? (
         <RecentVideoBox>
           <RecentVideoTitle>{video.title}</RecentVideoTitle>
           <RecentVideoStageContainer>
@@ -98,7 +103,7 @@ const RecentVideo = () => {
                   paddingSize={'0'}
                   fontSize={'1vw'}
                   fontColor={'white'}
-                  backgroundColor={'black'}
+                  backgroundColor={'blue'}
                   style={{ marginRight: '0.5vw' }}
                   onClick={() => {
                     handlerPostStartStudy(video.videoId);
@@ -112,7 +117,7 @@ const RecentVideo = () => {
                   paddingSize={'0'}
                   fontSize={'1vw'}
                   fontColor={'white'}
-                  backgroundColor={'blue'}
+                  backgroundColor={'black'}
                   style={{ marginLeft: '0.5vw' }}
                   onClick={() => {
                     handlerResumeStudy(
@@ -128,7 +133,16 @@ const RecentVideo = () => {
             </RecentVideoStageDataContainer>
           </RecentVideoStageContainer>
         </RecentVideoBox>
-      )}
+      ) : (
+        <NoRecentVideoYet>
+          <img
+            src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2Fb26ISo%2FbtrQrujyoK5%2FrQpbto7PFVQZD5ASul9H40%2Fimg.png"
+            alt=""
+          />
+          <p>최근 학습한 영상이 없어요</p>
+        </NoRecentVideoYet>
+      )} */}
+      <NoRecentVideoYet />
     </div>
   );
 };

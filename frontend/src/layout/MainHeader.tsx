@@ -18,6 +18,7 @@ const MainHeader = () => {
     dispatch(authActions.logout());
     navigate('/auth/login');
   };
+
   return (
     <MainHeaderMenuRegion>
       <MainLinkWrapper bgColor="transparent" widthSize="10vw" style={{ color: "black"}}>
@@ -31,7 +32,7 @@ const MainHeader = () => {
         {/* <Link to="/auth/dashboard/1">dashboard</Link> */}
       </MainLinkWrapper>
       <MainLinkWrapper bgColor="transparent" widthSize="10vw" style={{ fontSize: "2.5vmin"}}>
-        logout<LogoutIcon onClick={handleLogout} style={{width: "15vw"}}></LogoutIcon>
+      logout<LogoutIcon onClick={handleLogout} style={{width: "15vw"}}></LogoutIcon>
       </MainLinkWrapper>
     </MainHeaderMenuRegion>
   );

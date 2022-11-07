@@ -3,15 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { videoActions } from '../../../features/video/video-slice';
 import VideoDataModal from './VideoDataModal';
+import useModal from '../../../utils/useModal';
+
+// style
 import {
   SearchBarContainer,
   SearchBarInput,
   SearchButton,
   SearchIconBtn,
 } from '../../../styles/Main/MainSearchStyle';
-import useModal from '../../../utils/useModal';
-import { GoSearch } from 'react-icons/go';
+import { RiYoutubeFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
+import { YoutubeLink } from '../../../styles/Main/MainStyle';
+import { GoSearch } from 'react-icons/go';
 
 const SearchBar = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +30,7 @@ const SearchBar = () => {
 
   // 모달에 띄워줄 비디오 정보
   const videoData = useAppSelector((state) => state.video.videoData);
-  // 영상 정보 조회
+  // 버튼 클릭으로 영상 정보 조회
   const handlerGetVideoData = (videoUrl: string) => {
     dispatch(videoActions.getVideoData(videoUrl));
   };
@@ -38,18 +42,41 @@ const SearchBar = () => {
   const studyState = useAppSelector((state) => state.study.studyState);
   // stage 변경 시 해당 스테이지로 이동
   useEffect(() => {
+    console.warn('얍얍얍', studyState);
     if (studyState.stage !== '') {
       // navigate(`/study/${stage}`);
-      navigate(
-        `/study/reading/${studyState.learningRecordId}/${studyState.stage}/${studyState.videoId}`
-      );
+      if (studyState.learningRecordId !== 0) {
+        navigate(
+          `/study/reading/${studyState.learningRecordId}/${studyState.stage}/${studyState.videoId}`
+        );
+      }
     }
   }, [studyState]);
 
   return (
     <SearchBarContainer>
+      <a href="https://www.youtube.com/c/TED" target="_blank">
+        <YoutubeLink>
+          <IconContext.Provider value={{ color: 'red', size: '5vmin' }}>
+            <RiYoutubeFill />
+          </IconContext.Provider>
+          TED
+        </YoutubeLink>
+      </a>
+
       <SearchBarInput>
-        <input type="text" onChange={onChange} value={videoUrl} required />
+        <input
+          type="text"
+          onChange={onChange}
+          value={videoUrl}
+          onKeyPress={(e) => {
+            if (e.key == 'Enter') {
+              handlerGetVideoData(videoUrl);
+              onClickModal();
+            }
+          }}
+          required
+        />
         <span>공부하려는 영상의 유튜브 링크를 넣어주세요</span>
         <i></i>
       </SearchBarInput>
@@ -67,7 +94,7 @@ const SearchBar = () => {
               size: '2rem',
             }}
           >
-            <GoSearch></GoSearch>
+            <GoSearch style={{ paddingBottom: '0.5vw' }}></GoSearch>
           </IconContext.Provider>
         </SearchIconBtn>
         {isOpenModal && (

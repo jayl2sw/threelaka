@@ -33,7 +33,7 @@ import { useOutletContext } from 'react-router-dom';
 import { IheaderProps } from '../../../../layout/Header';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 
-interface IworlListAndWrtingProps {
+export interface IworlListAndWrtingProps {
   pageParams: StudyPageParams;
 }
 
@@ -54,6 +54,7 @@ const WordListAndWritingContainerComp = ({
 
   // state
   const [filterTarget, setFilterTarget] = useState<string[]>([]);
+  const [filterEssayTarget, setFilterEssayTarget] = useState<string[]>([]);
   const [textAreaValue, setTextAreaValue] = useState('');
   const [spellCheckResult, setSpellCheckResult] = useState<FlggedToken[]>([]);
   const [spellFilterTarget, setSpellFilterTarget] = useState<string[]>([]);
@@ -65,7 +66,7 @@ const WordListAndWritingContainerComp = ({
   const essaySave = () => {
     const temp: SaveEssayPayload = {
       content: textAreaRef.current!.innerText,
-      learningRecordId: pageParams.learningRecordId,
+      learningRecordId: Number(pageParams.learningRecordId),
     };
     dispatch(writingActions.postSaveEssayStart(temp));
   };
@@ -80,6 +81,8 @@ const WordListAndWritingContainerComp = ({
   // 나갈 때 에세이 저장해달라고 함
   useEffect(() => {
     dispatch(studyActions.getWordBookStart(pageParams.learningRecordId));
+
+    //내가 쓴 에세이 불러오는거
     dispatch(writingActions.getEssayStart(pageParams.learningRecordId));
   }, []);
 
@@ -92,11 +95,15 @@ const WordListAndWritingContainerComp = ({
   }, [userEssay]);
 
   useEffect(() => {
+    const nextFilterTarget: string[] = [];
+    const nextFilterEssayTarget: string[] = [];
     const result = checkedWordList.map((checkWord: any) => {
-      return checkWord[0];
+      nextFilterTarget.push(checkWord.dict_word);
+      nextFilterEssayTarget.push(checkWord.essay_word);
     });
     // console.warn(result);
-    setFilterTarget(result);
+    setFilterEssayTarget(nextFilterEssayTarget);
+    setFilterTarget(nextFilterTarget);
   }, [checkedWordList]);
 
   // 1분 마다 단어 썼는지 체크해줌
@@ -416,7 +423,7 @@ const WordListAndWritingContainerComp = ({
               <HighlightWithinTextarea
                 value={textAreaValue}
                 highlight={{
-                  highlight: modeValue ? spellFilterTarget : filterTarget,
+                  highlight: modeValue ? spellFilterTarget : filterEssayTarget,
                   className: modeValue ? 'red' : 'blue',
                 }}
                 onChange={onChange}

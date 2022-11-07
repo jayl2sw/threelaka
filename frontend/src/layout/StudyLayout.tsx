@@ -28,13 +28,20 @@ const StudyLayout = () => {
       learningRecordId: pageParams.learningRecordId,
       stage: nextStep,
     };
-    dispatch(studyActions.UpdateStudyStageStart(stageInfo));
-    // 2. 라이팅 페이지로 이동
-    navigate(
-      `/study/${nextStep.toLocaleLowerCase()}/${
-        pageParams.learningRecordId
-      }/${nextStep}/${pageParams.videoId}`
-    );
+    console.warn('얍', nextStep);
+    if (nextStep === 'COMPLETE') {
+      console.warn('얍얍얍 들어와썽요');
+      dispatch(studyActions.UpdateStudyStageStart(stageInfo));
+      // dispatch(studyActions.resetStudystate());
+    } else {
+      // 2. 라이팅 페이지로 이동
+      dispatch(studyActions.UpdateStudyStageStart(stageInfo));
+      navigate(
+        `/study/${nextStep.toLocaleLowerCase()}/${
+          pageParams.learningRecordId
+        }/${nextStep}/${pageParams.videoId}`
+      );
+    }
   };
 
   return (

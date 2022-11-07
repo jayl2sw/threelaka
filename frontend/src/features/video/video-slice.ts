@@ -67,8 +67,8 @@ const videoSlice = createSlice({
     },
     // 최근 공부한 영상 1개 정보 받아오기 성공
     getRecentVideoDataSuccess(state, action: PayloadAction<RecentVideoData>) {
-      console.log('정보 받아오기 성공! video-slice에서 주석처리해주세요');
-      console.log(action.payload);
+      // console.log('정보 받아오기 성공! video-slice에서 주석처리해주세요');
+      // console.log(action.payload);
       state.loading = false;
       state.recentVideoData = action.payload;
     },

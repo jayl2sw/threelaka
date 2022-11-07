@@ -23,9 +23,6 @@ import DashBoardPage from './pages/Dashboard/DashBoardPage';
 import PageNotFound from './layout/PageNotFound';
 
 // Private
-
-import Counter from './pages/Counter/Counter';
-
 import { ProtectedRoute } from './pages/private/ProtectedRoute';
 
 function App() {
@@ -35,9 +32,9 @@ function App() {
         {/* Main */}
         <Route element={<ProtectedRoute />}>
           <Route path="" element={<MainLayout />}>
-            <Route path="home" element={<MainPage />} />
-            <Route path="videos" element={<VideosPage />} />
             <Route path="" element={<MainPage />} />
+            <Route path="videos" element={<VideosPage />} />
+            {/* <Route path="" element={<MainPage />} /> */}
             {/* 뒤에 라우트 주소가 비었을 때에도 무조건 메인으로 */}
           </Route>
         </Route>
@@ -73,8 +70,6 @@ function App() {
 
         {/* Not Found */}
         <Route path="*" element={<PageNotFound />}></Route>
-        {/* Dummy */}
-        <Route path="dummy" element={<Counter />}></Route>
       </Routes>
     </div>
   );
