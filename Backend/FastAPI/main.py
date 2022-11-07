@@ -48,17 +48,18 @@ async def checkWords(essay_checker: EssayChecker):
     essay = essay_checker.essay
     essay = essay.replace(',', ' ')
     lines = list(map(lambda x: x.strip(), re.split('[.?!\n]',essay)))
-    words = list(map(lambda x: (x, (lemmatizer.lemmatize(x, 'v'), x)), essay_checker.word_list))
+    words = list(map(lambda x: (x, (lemmatizer.lemmatize(x, 'v'))), essay_checker.word_list))
     result = []
     
     for line in lines:
         line2 = line.replace(',', ' ,')
-        line3 = list(map(lambda x: lemmatizer.lemmatize(x, 'v'), line2.split()))
-        print(line3)
+        line3 = list(line2.split())
+        line4 = list(map(lambda x: (lemmatizer.lemmatize(x, 'v')), line3))
+        
         for word, lemmatized in words:    
-            if lemmatized in line3:
-                result.append((word, line))
-    
+            for i in range(len(line3)):
+                if lemmatized == line4[i]:
+                    result.append({ "dict_word": word, "essay_word": line3[i], "sentence" :line})
     return result
     
 @app.post("/api/v2/study/writing/spellcheck") 
