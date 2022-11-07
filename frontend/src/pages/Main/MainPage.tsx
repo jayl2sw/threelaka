@@ -20,10 +20,7 @@ import { useScrollDirection } from 'react-use-scroll-direction';
 
 const MainPage = () => {
   let observer = new IntersectionObserver((e) => {
-    console.log('observer start', e);
     if (e[0].isIntersecting) {
-      console.log('intersect');
-      console.log(e[0].target);
       window.scrollBy(0, e[0].boundingClientRect.top);
     }
     return;

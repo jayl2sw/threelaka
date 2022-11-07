@@ -15,7 +15,6 @@ function* onGetVideoDataAsync(action: PayloadAction<string>) {
     // console.log(response);
     yield put(videoActions.getVideoDataSuccess(response));
   } catch (error) {
-    console.log(`Failed to fetch VideoData`, error);
     // yield put(videoActions.getVideoDataFailed(error.message));
   }
 }
@@ -42,7 +41,6 @@ function* onGetRecommendVideosAsync(action: PayloadAction<any>) {
     );
     yield put(videoActions.getRecommendVideosSuccess(response));
   } catch (error: any) {
-    console.log('Failed to fetch recommendVideos', error);
     yield put(videoActions.getRecommendVideosFailed(error.data));
   }
 }

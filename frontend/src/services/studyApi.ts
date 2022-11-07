@@ -21,14 +21,14 @@ export const updateStudyStageApi = async (
   stageInfo: StageInfo
 ): Promise<any> => {
   const res = await customAxios.put(`api/v1/study/complete/stage`, stageInfo);
-  console.log(res.data);
+
   return res.data;
 };
 
 // 단어장 가져오기 API
 export const getWordBookApi = async (learningId: number): Promise<any> => {
   const res = await customAxios.get(`api/v1/study/word/${learningId}`);
-  console.log(res.data);
+
   return res.data;
 };
 
@@ -46,7 +46,7 @@ export const speechaceApi = async (payload: any): Promise<any> => {
     payloadData,
     config
   );
-  console.log(res.data);
+
   return res.data;
 };
 
@@ -55,6 +55,6 @@ export const postStudySatisfactionApi = async (
   payload: SatisfactionSurvey
 ): Promise<any> => {
   const res = await customAxios.post(`api/v1/study/survey/`, payload);
-  console.log(res.data);
+
   return res.data;
 };

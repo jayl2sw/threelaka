@@ -79,15 +79,12 @@ const VoiceRecorderForTest = ({
     setRecording(true);
     setIsPaused(false);
     setIsRecording(!isRecording);
-    console.log(recording);
-    console.log(isPaused);
   };
 
   const handlePauseRecording = () => {
     setIsPaused(true);
     setRecording(false);
-    console.log(recording);
-    console.log(isPaused);
+
     setIsRecording(!isRecording);
   };
 

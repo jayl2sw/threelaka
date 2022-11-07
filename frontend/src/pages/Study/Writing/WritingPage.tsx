@@ -20,7 +20,6 @@ const WritingPage = ({}) => {
     return () => {
       clearInterval(interval);
       dispatch(studyActions.putStopStudyStart(studyDuration.current));
-      console.warn(studyDuration);
     };
   }, []);
 

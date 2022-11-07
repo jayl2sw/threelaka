@@ -28,9 +28,8 @@ const StudyLayout = () => {
       learningRecordId: pageParams.learningRecordId,
       stage: nextStep,
     };
-    console.warn('얍', nextStep);
+
     if (nextStep === 'COMPLETE') {
-      console.warn('얍얍얍 들어와썽요');
       dispatch(studyActions.UpdateStudyStageStart(stageInfo));
       // dispatch(studyActions.resetStudystate());
     } else {

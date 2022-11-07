@@ -115,9 +115,9 @@ const ReadPage = () => {
 
   const AddWordToWordbook = (e: React.MouseEvent<HTMLSpanElement>) => {
     const selectedSentence = tedScriptList[selectedSentenceIdx!].text;
-    console.log(dictInputValue);
+
     const trimmedWord = dictInputValue.replace(/\s+$/, '').toLowerCase();
-    console.log(trimmedWord);
+
     if (trimmedWord === '') {
       const wordInfo = {
         definition: '',
@@ -146,7 +146,6 @@ const ReadPage = () => {
   };
 
   useEffect(() => {
-    console.warn(isAddSuccess);
     if (isAddSuccess) {
       setTimeout(() => {
         setAddSuccessModal(false);
@@ -177,7 +176,6 @@ const ReadPage = () => {
     return () => {
       clearInterval(interval);
       dispatch(studyActions.putStopStudyStart(studyDuration.current));
-      console.warn(studyDuration);
     };
   }, []);
 
@@ -196,7 +194,6 @@ const ReadPage = () => {
     // console.log("얍얍얍",tedScriptList[tempCurrentIdx].start)
     if (currentTime > tedScriptList[tempCurrentIdx].start) {
       while (currentTime > tedScriptList[tempCurrentIdx].start) {
-        console.log(tempCurrentIdx);
         if (tempCurrentIdx > tedScriptList.length - 2) {
           break;
         }
@@ -208,7 +205,6 @@ const ReadPage = () => {
         currentTime < tedScriptList[tempCurrentIdx].start &&
         tempCurrentIdx > 0
       ) {
-        console.log(tempCurrentIdx);
         tempCurrentIdx--;
       }
     }
