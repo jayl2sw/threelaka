@@ -19,13 +19,12 @@ export const spellCheckApi = async (
     spellCheckPayload
   );
   const tempRes: SpellCheckRes = res.data;
-  console.log(tempRes);
+
   return tempRes;
 };
 
 // 에세이 저장 API
 export const postSaveEssayApi = async (SaveEssayPayload: SaveEssayPayload) => {
-  console.log('얍얍', SaveEssayPayload);
   const res = await customAxios.post(`api/v1/study/essay`, SaveEssayPayload);
   return res.data;
 };

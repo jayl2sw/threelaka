@@ -9,7 +9,6 @@ export interface ILoginResponse {
 
 //회원가입
 export const createUserApi = async (data: SignupPayload) => {
-  console.log('data는 잘 받아지는지 확인', data);
   const res = await customAxios.post(
     'api/v1/user/auth/signup',
     JSON.stringify(data)
@@ -19,12 +18,11 @@ export const createUserApi = async (data: SignupPayload) => {
 
 //로그인
 export const loginApi = async (data: LoginPayload) => {
-  console.log('data는 잘 받아지는지 확인', data);
   const res = await customAxios.post(
     'api/v1/user/auth/login',
     JSON.stringify(data)
   );
-  console.log('여기에는토큰있어요', res);
+
   return res.data;
 };
 
@@ -64,12 +62,11 @@ export const emailCheckApi = async (email: string) => {
 //유저정보로드
 export const userInfoApi = async () => {
   const res = await customAxios.get('api/v1/user/info');
-  console.log("어디서막히나",res.data)
+
   return res.data;
 };
 
-
 export const logoutApi = async () => {
-  const res = await customAxios.put('api/v1/user/logout')
-  return res
-}
+  const res = await customAxios.put('api/v1/user/logout');
+  return res;
+};

@@ -51,7 +51,6 @@ const VideoDataModal = (props: VideoDataModalType) => {
           fontColor={'white'}
           backgroundColor={'gradient'}
           onClick={() => {
-            console.log(video.videoId);
             handlerPostStartStudy(video.videoId);
           }}
           style={{ margin: '3vh' }}

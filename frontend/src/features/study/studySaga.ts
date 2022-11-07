@@ -24,7 +24,6 @@ function* onPostStartStudyAsync(action: PayloadAction<string>) {
     const response: StudyStage = yield call(postStartStudyApi, action.payload);
     yield put(studyActions.postStartStudySuccess(response));
   } catch (error: any) {
-    console.log(`Failed to fetch StartStudy`, error);
     yield put(studyActions.postStartStudyFailed(error.message));
   }
 }
@@ -44,7 +43,6 @@ function* onGetSearchDictAsync(action: PayloadAction<string>) {
     const response: WordMeaning = yield call(getFindWordApi, action.payload);
     yield put(studyActions.SearchDictSuccess(response));
   } catch (error: any) {
-    console.log(`Failed to fetch StartStudy`, error);
     yield put(studyActions.SearchDictFailed());
   }
 }
@@ -56,10 +54,9 @@ function* onUpdateStudyStageAsync(action: PayloadAction<StageInfo>) {
       updateStudyStageApi,
       action.payload
     );
-    // console.warn(response);    // **이 사이에 state를 업데이트 시켜야 할 것 같음**
+    // **이 사이에 state를 업데이트 시켜야 할 것 같음**
     yield put(studyActions.UpdateStudyStageStartSuccess(response));
   } catch (error: any) {
-    console.log(`Failed to fetch StartStudy`, error);
     yield put(studyActions.SearchDictFailed());
   }
 }
@@ -70,7 +67,6 @@ function* onGetWordBookAsync(action: PayloadAction<number>) {
     const response: WordBook[] = yield call(getWordBookApi, action.payload);
     yield put(studyActions.getWordBookSuccess(response));
   } catch (error: any) {
-    console.log(`Failed to fetch StartStudy`, error);
     yield put(studyActions.getWordBookFailed());
   }
 }
@@ -78,13 +74,10 @@ function* onGetWordBookAsync(action: PayloadAction<number>) {
 //발음검사
 function* onPostSpeechTestInfo(action: PayloadAction<any>) {
   try {
-    console.log('왜안됨');
     const response: SpeechTest = yield call(speechaceApi, action.payload);
-    console.log(response);
+
     yield put(studyActions.speechTestSuccess(response));
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 // 공부 후 만족도 검사 SAGA

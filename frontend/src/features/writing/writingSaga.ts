@@ -23,7 +23,6 @@ function* onPostCheckWordAsync(action: PayloadAction<WordCheckPayload>) {
     );
     yield put(writingActions.postCheckWordSuccess(response));
   } catch (error: any) {
-    console.log(`Failed to fetch checkdword`, error);
     yield put(writingActions.postCheckWordFailed(error.data));
   }
 }
@@ -34,7 +33,6 @@ function* onWatchSpellCheckAsync(action: PayloadAction<string>) {
     const response: SpellCheckRes = yield call(spellCheckApi, action.payload);
     yield put(writingActions.spellCheckStartSuccess(response));
   } catch (error: any) {
-    console.log(`Failed to fetch spellcheck`, error);
     yield put(writingActions.spellCheckStartFailed(error.data));
   }
 }
@@ -45,7 +43,6 @@ function* onPostSaveEssayAsync(action: PayloadAction<SaveEssayPayload>) {
     const response: string = yield call(postSaveEssayApi, action.payload);
     yield put(writingActions.postSaveEssaySuccess(response));
   } catch (error: any) {
-    console.log(`Failed to fetch spellcheck`, error);
     yield put(writingActions.postSaveEssayFailed(error.data));
   }
 }
@@ -56,7 +53,6 @@ function* onGetEssayAsync(action: PayloadAction<number>) {
     const response: string = yield call(getEssayApi, action.payload);
     yield put(writingActions.getEssaySuccess(response));
   } catch (error: any) {
-    console.log(`Failed to fetch spellcheck`, error);
     yield put(writingActions.getEssayFailed(error.data));
   }
 }

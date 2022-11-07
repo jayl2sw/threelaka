@@ -49,7 +49,6 @@ const studySlice = createSlice({
     },
     // 새로운 공부 시작 :: 요청 성공
     postStartStudySuccess(state, action: PayloadAction<StudyStage>) {
-      console.log(action.payload);
       state.loading = false;
       state.studyState = action.payload;
       state.resetToggle = false;
@@ -57,7 +56,6 @@ const studySlice = createSlice({
     // 새로운 공부 시작 :: 요청 실패
     postStartStudyFailed(state, action: PayloadAction<string>) {
       state.loading = false;
-      console.log(action);
     },
 
     // 학습 state RESET
@@ -136,7 +134,7 @@ const studySlice = createSlice({
     },
     speechTestSuccess(state, action: PayloadAction<any>) {
       state.loading = false;
-      console.log(action.payload);
+
       state.speechScores = action.payload.scores;
       state.totalScore = action.payload.total_score;
       state.speechTestError = action.payload.short_message;
