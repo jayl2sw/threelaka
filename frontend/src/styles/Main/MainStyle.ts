@@ -44,13 +44,10 @@ export const SearchBarBlock = styled.div`
 `;
 export const LogoBlock = styled.div`
   width: 40vw;
-  height: 12vh;
-  background-size: 25vw 12vh;
-  /* background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FVTnIU%2FbtrQsDtfDK9%2FOwvJaECvpUn04gMQqnCN0K%2Fimg.png')
-    center no-repeat; */
+  height: 18vh;
   & img {
     width: 100%;
-    height: auto;
+    height: 100%;
   }
 `;
 
@@ -128,7 +125,7 @@ export const RecentVideoContainer = styled.div`
   justify-content: center;
   width: 100vw;
   height: fit-content;
-  /* border: solid yellow 3px; */
+  margin-top: 10vh;
 `;
 
 export const RecentVideoBox = styled.div`

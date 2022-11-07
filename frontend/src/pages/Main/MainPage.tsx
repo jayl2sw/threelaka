@@ -45,8 +45,8 @@ const MainPage = () => {
         <SearchBarBlock>
           <LogoBlock>
             <img
-              src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FVTnIU%2FbtrQsDtfDK9%2FOwvJaECvpUn04gMQqnCN0K%2Fimg.png"
-              alt=""
+              src="https://threelaka.s3.ap-northeast-2.amazonaws.com/mainlogo.png"
+              alt="스리라까 로고"
             />
           </LogoBlock>
           <NewVideo>
