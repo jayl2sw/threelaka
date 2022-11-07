@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ModalContainer = styled.div`
   width: 50vw;
-  height: 80vh;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,19 +35,20 @@ export const VideoDataContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const VideoTitle = styled.p`
   margin: 4vh 0;
   text-align: center;
-  /* font-weight: bold; */
-  font-size: 4vmin;
+  font-size: 3.5vmin;
   font-weight: light;
+  font-family: 'PretendardBold';
 `;
 
 export const VideoThumbnail = styled.img`
   width: 65%;
-  height: 65%;
+  height: 50%;
   border-radius: 1rem;
 `;
 

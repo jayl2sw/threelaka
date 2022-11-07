@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 // 메인페이지 검색
 export const NewVideo = styled.div`
   /* border: 1px solid green; */
@@ -26,7 +25,7 @@ export const SearchBarInput = styled.div`
   position: relative;
   margin-bottom: 2vh;
   font-family: fredoka;
-  
+
   & input {
     width: 30vw;
     /* height: 10vh; */
@@ -45,10 +44,10 @@ export const SearchBarInput = styled.div`
   & span {
     position: absolute;
     left: 0;
-    /* padding: 2vh; */
+    margin-left: 0.5vw;
     color: rgba(0, 0, 0, 0.4);
-    /* text-align: center; */
     pointer-events: none;
+    font-family: 'PretendardRegular';
   }
   & input:valid ~ span,
   input:focus ~ span {
@@ -110,7 +109,7 @@ export const SearchButton = styled.div`
     padding: 2.5vh 1vw;
   } */
   /* & button:hover { */
-  :hover{
+  :hover {
     /* background-color: #4a9fff; */
     /* transition: 0.2s; */
     /* background: linear-gradient(80deg, #4a9fff, #b0ff91); */
@@ -127,10 +126,10 @@ export const SearchButton = styled.div`
 `;
 
 export const SearchIconBtn = styled.div`
-width: 5vmin;
-height: 5vmin;
-:hover{
-  transform: scale(1.05);
-}
-/* background-color: blue; */
-`
+  width: 5vmin;
+  height: 5vmin;
+  :hover {
+    transform: scale(1.05);
+  }
+  /* background-color: blue; */
+`;

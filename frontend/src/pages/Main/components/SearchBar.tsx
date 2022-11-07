@@ -58,9 +58,9 @@ const SearchBar = () => {
       <a href="https://www.youtube.com/c/TED" target="_blank">
         <YoutubeLink>
           <IconContext.Provider value={{ color: 'red', size: '5vmin' }}>
-            <RiYoutubeFill />
-          </IconContext.Provider>
-          TED
+            <RiYoutubeFill style={{ marginRight: '1vw' }} />
+          </IconContext.Provider>{' '}
+          <p>TED</p>
         </YoutubeLink>
       </a>
 
@@ -89,7 +89,7 @@ const SearchBar = () => {
         >
           <IconContext.Provider
             value={{
-              color: '4a9fff',
+              color: '111111',
               className: 'global-class-name',
               size: '2rem',
             }}

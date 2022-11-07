@@ -20,10 +20,10 @@ import { useScrollDirection } from 'react-use-scroll-direction';
 
 const MainPage = () => {
   let observer = new IntersectionObserver((e) => {
-    console.log('observer start', e);
+    // console.log('observer start', e);
     if (e[0].isIntersecting) {
-      console.log('intersect');
-      console.log(e[0].target);
+      // console.log('intersect');
+      // console.log(e[0].target);
       window.scrollBy(0, e[0].boundingClientRect.top);
     }
     return;
@@ -42,7 +42,7 @@ const MainPage = () => {
   return (
     <MainPageBlock>
       <FirstpageBlock ref={firstpageBlock}>
-        <SearchBarBlock>
+        <SearchBarBlock id="searchBarBlock">
           <LogoBlock>
             <img
               src="https://threelaka.s3.ap-northeast-2.amazonaws.com/mainlogo.png"
@@ -67,6 +67,13 @@ const MainPage = () => {
         id="recentVideoContainer"
         ref={recentVideoContainer}
       >
+        <PageDownButton
+          className="toggle"
+          style={{ rotate: '90deg' }}
+          href="#searchBarBlock"
+        >
+          《
+        </PageDownButton>
         <RecentVideo />
       </RecentVideoContainer>
       <RecommendVideoContainer>
