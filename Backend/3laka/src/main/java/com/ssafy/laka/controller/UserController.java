@@ -44,6 +44,15 @@ public class UserController {
         return new ResponseEntity<>(userService.checkNickName(nickname), HttpStatus.OK);
     }
 
+    @GetMapping("/auth/check/email/{email}")
+    @ApiOperation(value = "이메일 중복 검사", notes = "해당 이메일이 중복인지 확인하여 중복이면 true, 중복이 아니면 false를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Boolean.class)
+    })
+    public ResponseEntity<Boolean> checkEmail(@PathVariable String email){
+        return new ResponseEntity<>(userService.checkUsername(email), HttpStatus.OK);
+    }
+
     @PostMapping("/auth/signup")
     @ApiOperation(value = "회원 가입", notes = "회원 정보를 통해 회원을 추가한다")
     @ApiResponses({
