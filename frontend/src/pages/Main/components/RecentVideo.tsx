@@ -37,11 +37,11 @@ const RecentVideo = () => {
   // 영상 정보 왔나요
   const [studied, setStudied] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (recentVideoData != undefined || recentVideoData == '') {
-      setStudied(true);
-    }
-  }, [video]);
+  // useEffect(() => {
+  //   if (Boolean(recentVideoData) !== false && record.learningRecordId !== 0) {
+  //     setStudied(true);
+  //   }
+  // }, [video]);
 
   // 공부 새로 시작
   const handlerPostStartStudy = (videoId: string) => {
@@ -65,7 +65,7 @@ const RecentVideo = () => {
 
   return (
     <div>
-      {/* {studied ? (
+      {Boolean(recentVideoData) !== false && record.learningRecordId !== 0 ? (
         <RecentVideoBox>
           <RecentVideoTitle>{video.title}</RecentVideoTitle>
           <RecentVideoStageContainer>
@@ -141,8 +141,8 @@ const RecentVideo = () => {
           />
           <p>최근 학습한 영상이 없어요</p>
         </NoRecentVideoYet>
-      )} */}
-      <NoRecentVideoYet />
+      )}
+      {/* <NoRecentVideoYet /> */}
     </div>
   );
 };

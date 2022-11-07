@@ -53,7 +53,7 @@ const VideoDataModal = (props: VideoDataModalType) => {
           onClick={() => {
             handlerPostStartStudy(video.videoId);
           }}
-          style={{ margin: '3vh' }}
+          style={{ margin: '3vh', fontFamily: 'PretendardBold' }}
         >
           START
         </MainBtn>
