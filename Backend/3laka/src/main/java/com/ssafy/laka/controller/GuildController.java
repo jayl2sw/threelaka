@@ -135,26 +135,19 @@ public class GuildController {
     @ApiOperation(value = "상위 랭킹 길드 조회")
     public ResponseEntity<?> getRankGuild(){
         // 상위 3위 길드 조회 (반환값 형식 미정)
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
-    @GetMapping("/info/{guild_id}")
-    @ApiOperation(value = "길드 상세 정보 조회")
-    public ResponseEntity<?> getGuildInfo(@PathVariable int guild_id){
-        // 길드 아이디를 통해 길드 상세 정보 조회
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(guildService.getRankGuild(), HttpStatus.OK);
     }
 
     @GetMapping("/request")
     @ApiOperation(value = "나의 길드 요청 목록 조회")
     public ResponseEntity<?> getMyRequests(){
         // 로그인한 유저가 가입 요청한 길드의 리스트 조회
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(guildService.getMyRequests(), HttpStatus.OK);
     }
 
     @GetMapping("/search")
     @ApiOperation(value = "조건에 맞는 길드 검색")
-    public ResponseEntity<?> searchGuild(){
+    public ResponseEntity<?> searchGuild(@RequestParam GuildSearchDto condition){
         // 키워드, 요일, 시작시각, 시간 등의 조건을 받아 해당 조건을 만족하는 길드 리스트 조회
         return new ResponseEntity<>(null, HttpStatus.OK);
     }

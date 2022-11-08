@@ -26,6 +26,7 @@ public class Guild {
 
     private String description;
     private String notice;
+    private Integer exp;
 
     @OneToMany(mappedBy = "guild")
     private List<User> members;
@@ -37,6 +38,7 @@ public class Guild {
     @PrePersist
     public void prePersist(){
         this.members = new ArrayList<User>();
+        this.exp = 0;
     }
 
     public void setNotice(String notice){this.notice = notice;}

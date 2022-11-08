@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -318,5 +319,23 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
         myGuild.setMaster(userId);
 
 
+    }
+
+    @Override
+    public List<Guild> getRankGuild() {
+        return guildRepository.findTop3ByOrderByExp();
+    }
+
+    @Override
+    public List<Guild> getMyRequests() {
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        return joinRequestRepository.findAllBySenderAndState(me, State.pending)
+                .stream().map(s -> s.getGuild()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Guild> searchGuilds(GuildSearchDto guildSearchDto) {
+
+        return null;
     }
 }
