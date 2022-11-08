@@ -1,5 +1,6 @@
 package com.ssafy.laka.service;
 
+import com.ssafy.laka.domain.Assignment;
 import com.ssafy.laka.domain.Guild;
 import com.ssafy.laka.dto.guild.*;
 import com.ssafy.laka.dto.user.UserResponseDto;
@@ -48,6 +49,9 @@ List<JoinRequestDto> getJoinReqList(int guildId);
     List<Guild> getRankGuild();
     List<Guild> getMyRequests();
     List<Guild> searchGuilds(GuildSearchDto guildSearchDto);
+    List<Assignment> getAssignments(int status);
+
+    List<?> getProgress(int assignmentId);
 }
 
 

@@ -1,21 +1,22 @@
 package com.ssafy.laka.service;
 
-import com.ssafy.laka.domain.Guild;
-import com.ssafy.laka.domain.JoinRequest;
-import com.ssafy.laka.domain.User;
+import com.ssafy.laka.domain.*;
 import com.ssafy.laka.domain.enums.State;
 import com.ssafy.laka.dto.exception.guild.*;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.dto.guild.*;
 import com.ssafy.laka.dto.user.UserResponseDto;
-import com.ssafy.laka.repository.GuildRepository;
-import com.ssafy.laka.repository.JoinRequestRepository;
-import com.ssafy.laka.repository.UserRepository;
+import com.ssafy.laka.repository.*;
 import com.ssafy.laka.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.engine.spi.SessionFactoryDelegatingImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +28,9 @@ public class GuildServiceImpl implements GuildService{
     private final UserRepository userRepository;
     private final GuildRepository guildRepository;
     private final JoinRequestRepository joinRequestRepository;
+    private final AssignmentRepository assignmentRepository;
+    private final LearningRecordRepository learningRecordRepository;
+    private final ScheduleRepository scheduleRepository;
 
     @Override
 //    길드 가입 요청
@@ -335,7 +339,38 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
 
     @Override
     public List<Guild> searchGuilds(GuildSearchDto guildSearchDto) {
+        // 쿼리 장인 도움 필요
 
+        return null;
+    }
+
+    @Override
+    public List<Assignment> getAssignments(int status) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        String today = formatter.format(date);
+        switch (status) {
+            case 0:
+                return assignmentRepository.findAllByStartDateAfter(today);
+            case 1:
+                return assignmentRepository.findAllByStartDateBeforeAndEndDateAfter(today, today);
+            case 2:
+                return assignmentRepository.findAllByEndDateBefore(today);
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public List<?> getProgress(int assignmentId) {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date date = new Date();
+//        String today = formatter.format(date);
+//        Assignment assignment = assignmentRepository.findById(assignmentId).orElseThrow();
+//        List<User> members = assignment.getGuild().getMembers();
+//        for (int i = 0; i < members.size(); i++) {
+//            learningRecordRepository.findTop1ByVideoAndAndUserAndModifiedDateAfterOrderByModifiedDateDesc(assignment.getVideo(), members.get(i), today);
+//        }
         return null;
     }
 }

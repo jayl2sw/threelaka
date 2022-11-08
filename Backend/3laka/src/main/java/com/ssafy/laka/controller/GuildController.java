@@ -131,6 +131,7 @@ public class GuildController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
+    // 여기서부터 전부 반환값 협의 필요 =====================================================================================
     @GetMapping("/ranking")
     @ApiOperation(value = "상위 랭킹 길드 조회")
     public ResponseEntity<?> getRankGuild(){
@@ -145,6 +146,7 @@ public class GuildController {
         return new ResponseEntity<>(guildService.getMyRequests(), HttpStatus.OK);
     }
 
+    // 수정 필요 ========================================================================================================
     @GetMapping("/search")
     @ApiOperation(value = "조건에 맞는 길드 검색")
     public ResponseEntity<?> searchGuild(@RequestParam GuildSearchDto condition){
@@ -156,8 +158,7 @@ public class GuildController {
     @ApiOperation(value = "공통 과제 목록 조회")
     public ResponseEntity<?> getAssignments(int status){
         // 예정(0) / 진행중(1) / 완료된(2) 공통 과제 조회
-        // status 숫자는 맘대로 해도 됨
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(guildService.getAssignments(status), HttpStatus.OK);
     }
 
     @GetMapping("/{assignment_id}/progress")
