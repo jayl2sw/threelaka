@@ -75,7 +75,10 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
           />
         </TitleRegion>
         <LinkWrapper bgColor="black" widthSize="10vw">
-          {/* <Link to="/auth/dashboard/1">dashboard</Link> */}
+          <Link to="/auth/dashboard/1">dashboard</Link>
+        </LinkWrapper>
+        <LinkWrapper bgColor="black" widthSize="10vw">
+          <Link to="/auth/guild/1">guild</Link>
         </LinkWrapper>
         <LinkWrapper bgColor="black" widthSize="10vw">
           <LogoutIcon onClick={handleLogout}></LogoutIcon>

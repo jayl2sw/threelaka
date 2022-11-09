@@ -12,7 +12,7 @@ export const SideBarBlock = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 15%;
-  height: 100%;
+  height: 100vh;
   background-color: #fff;
   padding-top: 1rem;
   padding-right: 1rem;
@@ -20,6 +20,7 @@ export const SideBarBlock = styled.div`
   margin-left: 2rem;
   border-radius: 1rem;
   box-shadow: 3px 3px 5px 3px #00000038;
+  border: solid blue 1px;
 `;
 
 export const DashBoardBox = styled.div`
@@ -28,4 +29,5 @@ export const DashBoardBox = styled.div`
   margin: 3vh auto;
   padding: 3vh;
   width: 75vw;
+  border: solid red 1px;
 `

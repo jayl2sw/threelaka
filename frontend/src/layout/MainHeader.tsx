@@ -29,7 +29,10 @@ const MainHeader = () => {
       </MainLinkWrapper>
       {/* <TitleRegion>THREELAKA</TitleRegion> */}
       <MainLinkWrapper bgColor="transparent" widthSize="10vw">
-        {/* <Link to="/auth/dashboard/1">dashboard</Link> */}
+        <Link to="/auth/dashboard/1">dashboard</Link>
+      </MainLinkWrapper>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
+        <Link to="/auth/guild/1">guild</Link>
       </MainLinkWrapper>
       <MainLinkWrapper bgColor="transparent" widthSize="10vw" style={{ fontSize: "2.5vmin"}}>
       logout<LogoutIcon onClick={handleLogout} style={{width: "15vw"}}></LogoutIcon>
