@@ -47,6 +47,10 @@ const ReadPage = () => {
   const wordLoading = useAppSelector((state) => state.study.loading);
   const [addSuccessModal, setAddSuccessModal] = useState<boolean>(false);
   const isAddSuccess = useAppSelector((state) => state.read.isAddSuccess);
+  const wordBookLst = useAppSelector((state) => state.study.wordBookList);
+  const searchDictError = useAppSelector(
+    (state) => state.study.searchDictError
+  );
   const scriptContainerRef = useRef<HTMLDivElement[]>([]);
   const [dictInputValue, setDictInputvalue] = useState<string>('');
   const [selectedWordIdxArr, setSelectedWordIdxArr] = useState<number[]>([]);
@@ -343,14 +347,13 @@ const ReadPage = () => {
               >
                 {addSuccessModal ? (
                   <div>{isAddSuccess}</div>
-                ) : (
+                ) : wordBookLst.find(
+                    (wordbook) => wordbook.word === wordMeaning.wordId
+                  ) === undefined ? (
                   <TiStarOutline size={40} color={'#2e4a9e'} />
-                )}
-                {/* {wordAddLoading ? (
-                  <TiStarFullOutline size={40} color={'#2e4a9e'} />
                 ) : (
-                  
-                )} */}
+                  <TiStarFullOutline size={40} color={'#2e4a9e'} />
+                )}
               </GradientRoundBtn>
               <DictInput
                 value={dictInputValue}
@@ -405,104 +408,108 @@ const ReadPage = () => {
                   >
                     {wordMeaning.wordId}
                   </div>
-                  {wordMeaning.wordList.map((aWord) => {
-                    return (
-                      <DictResult>
-                        <FlexTransparentDiv
-                          widthSize={'37.5vw'}
-                          heightSize={'14vh'}
-                          paddingSize={'1vw'}
-                          flexDirection={'row'}
-                          justifyContent={'start'}
-                          alignItems={'center'}
-                          IsBorder={'none'}
-                        >
+                  {searchDictError === '' ? (
+                    wordMeaning.wordList.map((aWord) => {
+                      return (
+                        <DictResult>
                           <FlexTransparentDiv
-                            widthSize={'80%'}
+                            widthSize={'37.5vw'}
                             heightSize={'14vh'}
                             paddingSize={'1vw'}
-                            flexDirection={'column'}
-                            justifyContent={'center'}
-                            alignItems={'start'}
+                            flexDirection={'row'}
+                            justifyContent={'start'}
+                            alignItems={'center'}
                             IsBorder={'none'}
                           >
-                            <div
-                              style={{
-                                color: '#4a9fff',
-                                fontWeight: 'bold',
-                              }}
+                            <FlexTransparentDiv
+                              widthSize={'80%'}
+                              heightSize={'14vh'}
+                              paddingSize={'1vw'}
+                              flexDirection={'column'}
+                              justifyContent={'center'}
+                              alignItems={'start'}
+                              IsBorder={'none'}
                             >
-                              definition
-                            </div>
-                            <div
-                              style={{
-                                paddingLeft: '0.5vw',
-                                fontSize: '2.5vmin',
-                              }}
-                            >
-                              {aWord.wordDefinition}
-                            </div>
-                            {/* <p style={{ width: '80%', padding: '0 1vw' }}>
+                              <div
+                                style={{
+                                  color: '#4a9fff',
+                                  fontWeight: 'bold',
+                                }}
+                              >
+                                definition
+                              </div>
+                              <div
+                                style={{
+                                  paddingLeft: '0.5vw',
+                                  fontSize: '2.5vmin',
+                                }}
+                              >
+                                {aWord.wordDefinition}
+                              </div>
+                              {/* <p style={{ width: '80%', padding: '0 1vw' }}>
                           definition: {aWord.wordDefinition}
                         </p> */}
+                            </FlexTransparentDiv>
+                            <div
+                              style={{
+                                width: '20%',
+                                padding: '0 1vw',
+                                color: 'red',
+                                fontSize: '2.5vmin',
+                                fontWeight: 'bold',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                              }}
+                            >
+                              {aWord.lexicalCategory}
+                            </div>
                           </FlexTransparentDiv>
-                          <div
-                            style={{
-                              width: '20%',
-                              padding: '0 1vw',
-                              color: 'red',
-                              fontSize: '2.5vmin',
-                              fontWeight: 'bold',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                            }}
-                          >
-                            {aWord.lexicalCategory}
-                          </div>
-                        </FlexTransparentDiv>
-                        <FlexTransparentDiv
-                          widthSize={'37.5vw'}
-                          heightSize={'14vh'}
-                          paddingSize={'1vw'}
-                          flexDirection={'row'}
-                          justifyContent={'start'}
-                          alignItems={'center'}
-                          IsBorder={'none'}
-                        >
                           <FlexTransparentDiv
-                            widthSize={'80%'}
+                            widthSize={'37.5vw'}
                             heightSize={'14vh'}
                             paddingSize={'1vw'}
-                            flexDirection={'column'}
-                            justifyContent={'center'}
-                            alignItems={'start'}
+                            flexDirection={'row'}
+                            justifyContent={'start'}
+                            alignItems={'center'}
                             IsBorder={'none'}
                           >
-                            <div
-                              style={{
-                                color: '#4a9fff',
-                                fontWeight: 'bold',
-                              }}
+                            <FlexTransparentDiv
+                              widthSize={'80%'}
+                              heightSize={'14vh'}
+                              paddingSize={'1vw'}
+                              flexDirection={'column'}
+                              justifyContent={'center'}
+                              alignItems={'start'}
+                              IsBorder={'none'}
                             >
-                              example
-                            </div>
-                            <div
-                              style={{
-                                paddingLeft: '0.5vw',
-                                fontSize: '2.5vmin',
-                              }}
-                            >
-                              {aWord.wordExample}
-                            </div>
-                            {/* <p style={{ width: '80%', padding: '0 1vw' }}>
+                              <div
+                                style={{
+                                  color: '#4a9fff',
+                                  fontWeight: 'bold',
+                                }}
+                              >
+                                example
+                              </div>
+                              <div
+                                style={{
+                                  paddingLeft: '0.5vw',
+                                  fontSize: '2.5vmin',
+                                }}
+                              >
+                                {aWord.wordExample}
+                              </div>
+                              {/* <p style={{ width: '80%', padding: '0 1vw' }}>
                           definition: {aWord.wordDefinition}
                         </p> */}
+                            </FlexTransparentDiv>
                           </FlexTransparentDiv>
-                        </FlexTransparentDiv>
-                      </DictResult>
-                    );
-                  })}
+                        </DictResult>
+                      );
+                    })
+                  ) : (
+                    <p style={{ fontSize: '2vmin' }}>{searchDictError}</p>
+                  )}
                 </>
               )}
             </FlexTransparentDiv>

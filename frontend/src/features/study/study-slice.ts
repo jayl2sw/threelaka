@@ -18,6 +18,7 @@ type StudyState = {
   totalScore: number;
   speechTestError: String;
   resetToggle: boolean;
+  searchDictError: string;
 };
 
 let initialState: StudyState = {
@@ -25,6 +26,7 @@ let initialState: StudyState = {
   speechScores: [],
   totalScore: 0,
   loading: false,
+  searchDictError: '',
   studyState: {
     learningRecordId: 0,
     stage: '',
@@ -86,6 +88,7 @@ const studySlice = createSlice({
     // 사전 검색 시작
     SearchDictStart(state, action: PayloadAction<string>) {
       state.loading = true;
+      state.searchDictError = '';
     },
     // 사전 검색 성공
     SearchDictSuccess(state, action: PayloadAction<WordMeaning>) {
@@ -95,6 +98,7 @@ const studySlice = createSlice({
     // 사전 검색 실패
     SearchDictFailed(state) {
       state.loading = false;
+      state.searchDictError = '찾으시는 단어에 대한 정보가 없습니다.';
       // console.log(action);
     },
 
