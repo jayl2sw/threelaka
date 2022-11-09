@@ -52,6 +52,8 @@ List<JoinRequestDto> getJoinReqList(int guildId);
     List<Assignment> getAssignments(int status);
 
     List<?> getProgress(int assignmentId);
+
+
 }
 
 

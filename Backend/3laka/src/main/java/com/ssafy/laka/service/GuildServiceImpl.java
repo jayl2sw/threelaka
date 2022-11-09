@@ -9,12 +9,9 @@ import com.ssafy.laka.dto.user.UserResponseDto;
 import com.ssafy.laka.repository.*;
 import com.ssafy.laka.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.engine.spi.SessionFactoryDelegatingImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +27,7 @@ public class GuildServiceImpl implements GuildService{
     private final JoinRequestRepository joinRequestRepository;
     private final AssignmentRepository assignmentRepository;
     private final LearningRecordRepository learningRecordRepository;
-    private final ScheduleRepository scheduleRepository;
+    private final GuildRepositorySupport guildRepositorySupport;
 
     @Override
 //    길드 가입 요청
@@ -327,7 +324,7 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
 
     @Override
     public List<Guild> getRankGuild() {
-        return guildRepository.findTop3ByOrderByExp();
+        return guildRepository.findRankingGuilds();
     }
 
     @Override
@@ -340,8 +337,7 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
     @Override
     public List<Guild> searchGuilds(GuildSearchDto guildSearchDto) {
         // 쿼리 장인 도움 필요
-
-        return null;
+        return guildRepositorySupport.findGuildsByConditions(guildSearchDto);
     }
 
     @Override

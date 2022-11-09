@@ -55,10 +55,7 @@ public class DashboardController {
 
     @GetMapping("/playing")
     @ApiOperation(value = "현재 공부 중인 영상 조회", notes = "회원이 현재 공부를 완료하지 못한 영상 리스트를 반환한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = PlayingVideoDto.class)
-    })
-    public ResponseEntity<PlayingVideoDto> getPlayingList(){
+    public ResponseEntity<List<PlayingVideoDto>> getPlayingList(){
         // 현재 공부중인 영상 리스트 반환
         return new ResponseEntity<>(dashboardService.getPlayingList(), HttpStatus.OK);
     }

@@ -1,5 +1,9 @@
 package com.ssafy.laka.controller;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ssafy.laka.dto.exception.guild.RequestListEmptyException;
 import com.ssafy.laka.dto.exception.guild.RequestNotFoundException;
 import com.ssafy.laka.dto.guild.*;
@@ -7,12 +11,18 @@ import com.ssafy.laka.dto.user.UserResponseDto;
 import com.ssafy.laka.service.GuildService;
 import com.ssafy.laka.service.UserService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -21,6 +31,10 @@ import java.util.List;
 public class GuildController {
     private final GuildService guildService;
     private final UserService userService;
+    private final AmazonS3Client amazonS3Client;
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucketName;
+
     @PostMapping("")
     @ApiOperation(value = "길드 생성")
     public ResponseEntity<GuildResponseDto> createGuild(@RequestBody GuildCreateDto data){
@@ -149,9 +163,13 @@ public class GuildController {
     // 수정 필요 ========================================================================================================
     @GetMapping("/search")
     @ApiOperation(value = "조건에 맞는 길드 검색")
-    public ResponseEntity<?> searchGuild(@RequestParam GuildSearchDto condition){
+    public ResponseEntity<?> searchGuild(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) Integer yoil,
+            @RequestParam(required = false) Integer startTime,
+            @RequestParam(required = false) Integer time){
         // 키워드, 요일, 시작시각, 시간 등의 조건을 받아 해당 조건을 만족하는 길드 리스트 조회
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(guildService.searchGuilds(new GuildSearchDto(keyword, yoil, startTime, time)), HttpStatus.OK);
     }
 
     @GetMapping("/assignment/{status}")
@@ -209,6 +227,27 @@ public class GuildController {
     public ResponseEntity<?> updateGuildInfo(){
         // 길드 정보 수정 (길드 설명, 길드 스케줄, 길드명 등)
         return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @PutMapping("/profile/{guild_id}")
+    @ApiOperation(value = "프로필 사진 수정", notes = "길드의 프로필 사진을 수정한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
+    public ResponseEntity<?> changeProfile(@PathVariable int guild_id, @RequestPart MultipartFile file) {
+        // 프로필 사진 수정
+        if(file.isEmpty()){
+            throw new RuntimeException("이미지가 없습니다.");
+        }
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentType(file.getContentType());
+        try(InputStream inputStream = file.getInputStream()){
+            amazonS3Client.putObject(new PutObjectRequest(bucketName, "guild" + guild_id, inputStream, objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+        } catch (IOException e){
+            throw new RuntimeException("이미지 업로드 실패");
+        }
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
 

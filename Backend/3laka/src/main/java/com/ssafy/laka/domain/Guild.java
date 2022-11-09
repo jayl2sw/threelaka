@@ -34,6 +34,12 @@ public class Guild {
     @OneToMany(mappedBy = "guild", cascade = CascadeType.ALL)
     private List<JoinRequest> JoinRequests;
 
+    @OneToMany(mappedBy = "guild", cascade = CascadeType.ALL)
+    private List<Assignment> assignments;
+
+    @OneToMany(mappedBy = "guild", cascade = CascadeType.ALL)
+    private List<Schedule> schedules;
+
     public void setDescription(String description){this.description = description;}
     @PrePersist
     public void prePersist(){

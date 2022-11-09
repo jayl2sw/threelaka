@@ -7,7 +7,7 @@ import java.util.List;
 public interface DashboardService {
 
     List<TodayWordDto> getRandomWords();
-    PlayingVideoDto getPlayingList();
+    List<PlayingVideoDto> getPlayingList();
     HistoryNumDto getHistory();
     CalendarDto getCalendar();
     List<VideoDto> getLikeVideos();
