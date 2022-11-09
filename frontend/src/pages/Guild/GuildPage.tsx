@@ -9,7 +9,6 @@ import MyGuild from '../Guild/MyGuildPage';
 import MasterSetting from '../Guild/MasterSettingPage';
 import {
   DashBoardBlock,
-  DashBoardBox,
 } from '../../styles/DashBoard/DashBoardStyle';
 import { GuildBoardBox } from '../../styles/Guild/GuildStyle';
 import { MainPaleBox } from '../../styles/Common/CommonDivStyle';
@@ -40,17 +39,18 @@ const GuildPage = () => {
           handleSwitchPage={handleSwitchPage}
           handleSwitchGuildPage={handleSwitchGuildPage}
         ></SideBar>
-        <DashBoardBox>
+        <GuildBoardBox>
           {pageNum === '1' && <DailyBoard />}
           {pageNum === '2' && <HistoryBoard />}
           {pageNum === '3' && <Profile />}
           {guildPageNum === '1' && <GuildMain />}
           {guildPageNum === '2' && <MyGuild />}
           {guildPageNum === '3' && <MasterSetting />}
-        </DashBoardBox>
+        </GuildBoardBox>
       </MainPaleBox>
     </DashBoardBlock>
   );
 };
 
 export default GuildPage;
+
