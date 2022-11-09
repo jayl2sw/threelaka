@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 export const VideoBlock = styled.div`
   display: flex;
+  flex-direction: column;
   width: 60vw;
-  height: 40vh;
+  height: 60vh;
   border: 1px solid black;
   /* overflow: scroll; */
 `;

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
 
-import VideoCardInDashboard from './VideoCardInDashboard';
+import RecentVideoCard from './RecentVideoCard';
 const RecentVideos = () => {
   const dispatch = useAppDispatch();
   // 현재 공부중인 영상 리스트
@@ -21,11 +21,11 @@ const RecentVideos = () => {
       {recentVideoList.length !== 0 ? (
         recentVideoList.length > 3 ? (
           recentVideoList.slice(0, 3).map((data, i) => {
-            return <VideoCardInDashboard data={data} key={i} />;
+            return <RecentVideoCard data={data} key={i} />;
           })
         ) : (
           recentVideoList.map((data, i) => {
-            return <VideoCardInDashboard data={data} key={i} />;
+            return <RecentVideoCard data={data} key={i} />;
           })
         )
       ) : (

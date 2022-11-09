@@ -27,7 +27,7 @@ type VideoCardProps = {
   };
 };
 
-const VideoCardInDashboard = ({ data }: VideoCardProps) => {
+const RecentVideoCard = ({ data }: VideoCardProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -97,4 +97,4 @@ const VideoCardInDashboard = ({ data }: VideoCardProps) => {
   );
 };
 
-export default VideoCardInDashboard;
+export default RecentVideoCard;
