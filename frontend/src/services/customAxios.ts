@@ -27,12 +27,12 @@ customAxios.interceptors.request.use(
 );
 
 function getLocalAccessToken() {
-  const accessToken = window.localStorage.getItem('accessToken');
+  const accessToken = window.sessionStorage.getItem('accessToken');
   return accessToken;
 }
 
 function getLocalRefreshToken() {
-  const refreshToken = window.localStorage.getItem('refreshToken');
+  const refreshToken = window.sessionStorage.getItem('refreshToken');
   return refreshToken;
 }
 
@@ -59,7 +59,7 @@ customAxios.interceptors.response.use(
           const rs = await refreshToken();
 
           const { accessToken } = rs.data;
-          window.localStorage.setItem('accessToken', accessToken);
+          window.sessionStorage.setItem('accessToken', accessToken);
 
           //갱신된 토큰이 들어간상태로 바로 요청이 안감
           customAxios.defaults.headers.common[

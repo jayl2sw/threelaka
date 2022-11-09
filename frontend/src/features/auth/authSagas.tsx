@@ -33,8 +33,8 @@ function* login(action: PayloadAction<LoginPayload>) {
     console.log(action.payload);
     const response: ILoginResponse = yield call(loginApi, action.payload);
 
-    localStorage.setItem('refreshToken', response.refreshToken);
-    localStorage.setItem('accessToken', response.accessToken);
+    sessionStorage.setItem('refreshToken', response.refreshToken);
+    sessionStorage.setItem('accessToken', response.accessToken);
 
     yield put(authActions.loginSuccess(response));
     yield put(authActions.fetchUser());
@@ -62,8 +62,8 @@ function* logout() {
   try {
     const response: string = yield call(logoutApi);
 
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('refreshToken');
   } catch (error) {}
 }
 function* watchLogoutFlow() {
