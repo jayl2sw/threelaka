@@ -1,7 +1,9 @@
 package com.ssafy.laka.repository;
 
 import com.ssafy.laka.domain.Guild;
+import com.ssafy.laka.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,5 +16,11 @@ public interface GuildRepository extends JpaRepository<Guild, Integer> {
 
     Optional<Guild> findByGuildName(String guildName);
     List<Guild> findTop3ByOrderByExp();
+
+    @Query(nativeQuery = true,
+            value = "SELECT a.id, a.description, a.guild_name, a.master, a.notice, a.exp " +
+                    "FROM (SELECT u.user_id, g.*, sum(time) times FROM guild g, users u, study s WHERE u.guild_id = g.id AND u.user_id = s.user_user_id GROUP BY u.user_id) a " +
+                    "GROUP BY a.id ORDER BY sum(a.times) DESC limit 3;")
+    List<Guild> findRankingGuilds();
 
 }

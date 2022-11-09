@@ -13,8 +13,9 @@ public interface LearningRecordRepository extends JpaRepository<LearningRecord, 
 
     List<LearningRecord> findLearningRecordsByUserOrderByModifiedDateDesc(User user);
     Optional<LearningRecord> findTop1ByUserOrderByModifiedDateDesc(User user);
-    Optional<LearningRecord> findTop1ByUserAndStageLessThanOrderByModifiedDateDesc(User user, Stage stage);
+    List<LearningRecord> findAllByUserAndStageLessThanOrderByModifiedDateDesc(User user, Stage stage);
     Integer countByUserAndStage(User user, Stage stage);
     List<LearningRecord> findAllByUserAndStage(User user, Stage stage);
     List<LearningRecord> findByUserAndVideoOrderByModifiedDateDesc(User user, Video video);
+    Optional<LearningRecord> findTop1ByVideoAndAndUserAndModifiedDateAfterOrderByModifiedDateDesc(Video video, User user, String start);
 }
