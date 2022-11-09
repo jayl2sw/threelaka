@@ -46,8 +46,8 @@ List<JoinRequestDto> getJoinReqList(int guildId);
     NoticeResponseDto UpdateNotice(int guildId, String notice);
     void changeMaster(int userId);
 
-    List<Guild> getRankGuild();
-    List<Guild> getMyRequests();
+    List<GuildRankDto> getRankGuild();
+    List<GuildRequestDto> getMyRequests();
     List<Guild> searchGuilds(GuildSearchDto guildSearchDto);
     List<Assignment> getAssignments(int status);
 
