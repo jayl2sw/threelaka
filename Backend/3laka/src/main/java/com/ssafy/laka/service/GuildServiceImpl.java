@@ -323,15 +323,15 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
     }
 
     @Override
-    public List<Guild> getRankGuild() {
-        return guildRepository.findRankingGuilds();
+    public List<GuildRankDto> getRankGuild() {
+        return guildRepository.findRankingGuilds().stream().map(s -> GuildRankDto.from(s)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Guild> getMyRequests() {
+    public List<GuildRequestDto> getMyRequests() {
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        return joinRequestRepository.findAllBySenderAndState(me, State.pending)
-                .stream().map(s -> s.getGuild()).collect(Collectors.toList());
+        return joinRequestRepository.findAllBySenderAndStateNot(me, State.accepted)
+                .stream().map(s -> new GuildRequestDto(s.getGuild().getGuildName(), s.getState())).collect(Collectors.toList());
     }
 
     @Override

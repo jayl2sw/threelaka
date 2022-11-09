@@ -148,14 +148,13 @@ public class GuildController {
     // 여기서부터 전부 반환값 협의 필요 =====================================================================================
     @GetMapping("/ranking")
     @ApiOperation(value = "상위 랭킹 길드 조회")
-    public ResponseEntity<?> getRankGuild(){
-        // 상위 3위 길드 조회 (반환값 형식 미정)
+    public ResponseEntity<List<GuildRankDto>> getRankGuild(){
         return new ResponseEntity<>(guildService.getRankGuild(), HttpStatus.OK);
     }
 
     @GetMapping("/request")
     @ApiOperation(value = "나의 길드 요청 목록 조회")
-    public ResponseEntity<?> getMyRequests(){
+    public ResponseEntity<List<GuildRequestDto>> getMyRequests(){
         // 로그인한 유저가 가입 요청한 길드의 리스트 조회
         return new ResponseEntity<>(guildService.getMyRequests(), HttpStatus.OK);
     }
