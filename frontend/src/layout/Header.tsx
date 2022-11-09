@@ -74,12 +74,12 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
             alt="스리라까 로고"
           />
         </TitleRegion>
-        <LinkWrapper bgColor="black" widthSize="10vw">
+        {/* <LinkWrapper bgColor="black" widthSize="10vw">
           <Link to="/auth/dashboard/1">dashboard</Link>
         </LinkWrapper>
         <LinkWrapper bgColor="black" widthSize="10vw">
           <Link to="/auth/guild/1">guild</Link>
-        </LinkWrapper>
+        </LinkWrapper> */}
         <LinkWrapper bgColor="black" widthSize="10vw">
           <LogoutIcon onClick={handleLogout}></LogoutIcon>
         </LinkWrapper>
