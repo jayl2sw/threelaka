@@ -23,29 +23,22 @@ const MainHeader = () => {
         bgColor="transparent"
         widthSize="10vw"
         style={{ color: 'black' }}
-      >
-        {/* <Link to="/">Home</Link> */}
-      </MainLinkWrapper>
-      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
-        {/* <Link to="/videos">Videos</Link> */}
-      </MainLinkWrapper>
-      {/* <TitleRegion>THREELAKA</TitleRegion> */}
+      ></MainLinkWrapper>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw"></MainLinkWrapper>
       <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/auth/dashboard/1">dashboard</Link>
       </MainLinkWrapper>
       <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/auth/guild/1">guild</Link>
       </MainLinkWrapper>
-      <MainLinkWrapper
-        bgColor="transparent"
-        widthSize="10vw"
-        style={{ fontSize: '2.5vmin' }}
-      >
-        logout
-        <LogoutIcon
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
+        <Link to="/auth/login" onClick={handleLogout}>
+          logout
+        </Link>
+        {/* <LogoutIcon
           onClick={handleLogout}
           style={{ width: '15vw' }}
-        ></LogoutIcon>
+        ></LogoutIcon> */}
       </MainLinkWrapper>
     </MainHeaderMenuRegion>
   );
