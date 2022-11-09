@@ -43,6 +43,7 @@ export const WordCheckBox = styled.div`
 `;
 
 export const HighlightTextAreaWrapper = styled.div`
+  overflow-y: scroll;
   & mark {
     border-radius: 4px;
     padding: 2px;
