@@ -5,7 +5,7 @@ from nltk.stem import WordNetLemmatizer
 import requests
 import urllib
 import json
-from properties import spell_checker_key, oxford_appId, oxford_key, speechace_url
+from properties import spell_checker_key, oxford_appId, oxford_key, speechace_url, naver_id, naver_secret
 from preprocess import process
 
 from models import EssayChecker, NaverRequest
@@ -162,13 +162,11 @@ async def speechace(text, file: bytes = File()):
     
 @app.post("/api/v2/study/papago") 
 async def papago(naver_request: NaverRequest):
-    client_id = "uVKZNmB9lCbY64eRDZBn"  # 개발자센터에서 발급받은 Client ID 값
-    client_secret = "iout3Ypr_0"  # 개발자센터에서 발급받은 Client Secret 값
 
     url = "https://openapi.naver.com/v1/papago/n2mt"
     headers = {
-        "X-Naver-Client-Id": client_id,
-        "X-Naver-Client-Secret": client_secret
+        "X-Naver-Client-Id": naver_id,
+        "X-Naver-Client-Secret": naver_secret
     }
     
     response = dict()
