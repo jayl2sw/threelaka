@@ -10,7 +10,12 @@ import MasterSetting from '../Guild/MasterSettingPage';
 import {
   DashBoardBlock,
   DashBoardBox,
+  DashBoardContainer,
 } from '../../styles/DashBoard/DashBoardStyle';
+
+import { MainPaleBox } from '../../styles/Common/CommonDivStyle';
+import { display } from '@material-ui/system';
+
 const DashBoardPage = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -26,17 +31,28 @@ const DashBoardPage = () => {
 
   return (
     <DashBoardBlock>
-      <SideBar handleSwitchPage={handleSwitchPage} handleSwitchGuildPage={handleSwitchGuildPage}></SideBar>
+      <MainPaleBox
+        widthSize={'80vw'}
+        heightSize={'90vh'}
+        paddingSize={'0'}
+        fontColor={'black'}
+        fontSize={'2vmin'}
+        style={{ display: 'flex' }}
+      >
+        <SideBar
+          handleSwitchPage={handleSwitchPage}
+          handleSwitchGuildPage={handleSwitchGuildPage}
+        ></SideBar>
 
-      <DashBoardBox>
-        {pageNum === '1' && <DailyBoard />}
-        {pageNum === '2' && <HistoryBoard />}
-        {pageNum === '3' && <Profile />}
-        {guildpageNum === '1' && <GuildMain />}
-        {guildpageNum === '2' && <MyGuild />}
-        {guildpageNum === '3' && <MasterSetting />}
-
-      </DashBoardBox>
+        <DashBoardBox>
+          {pageNum === '1' && <DailyBoard />}
+          {pageNum === '2' && <HistoryBoard />}
+          {pageNum === '3' && <Profile />}
+          {guildpageNum === '1' && <GuildMain />}
+          {guildpageNum === '2' && <MyGuild />}
+          {guildpageNum === '3' && <MasterSetting />}
+        </DashBoardBox>
+      </MainPaleBox>
     </DashBoardBlock>
   );
 };

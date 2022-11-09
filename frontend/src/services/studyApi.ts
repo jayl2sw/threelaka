@@ -40,7 +40,7 @@ export const speechaceApi = async (payload: any): Promise<any> => {
       'Content-Type': 'multipart/form-data',
     },
   };
-
+  //쿼리url
   const res = await customAxios.post(
     `api/v2/study/speechace?text=${payloadText}`,
     payloadData,

@@ -1,9 +1,9 @@
 import React from 'react';
-
+import VideoContainer from './VideoContainer';
 const DailyBoard = () => {
   return (
     <div>
-      <p>난 기본 데일리보드</p>
+      <VideoContainer></VideoContainer>
     </div>
   );
 };
