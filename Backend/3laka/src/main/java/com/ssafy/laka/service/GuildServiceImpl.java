@@ -324,7 +324,7 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
 
     @Override
     public List<GuildRankDto> getRankGuild() {
-        return guildRepository.findRankingGuilds().stream().map(s -> GuildRankDto.from(s)).collect(Collectors.toList());
+        return guildRepository.findRanking3Guilds().stream().map(s -> GuildRankDto.from(s)).collect(Collectors.toList());
     }
 
     @Override
@@ -341,17 +341,20 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
     }
 
     @Override
-    public List<Assignment> getAssignments(int status) {
+    public List<String> getAssignments(int status) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         String today = formatter.format(date);
         switch (status) {
             case 0:
-                return assignmentRepository.findAllByStartDateAfter(today);
+                return assignmentRepository.findAllByStartDateAfterOrderByEndDateDesc(today)
+                        .stream().map(s -> s.getVideo().getVideoId()).collect(Collectors.toList());
             case 1:
-                return assignmentRepository.findAllByStartDateBeforeAndEndDateAfter(today, today);
+                return assignmentRepository.findAllByStartDateBeforeAndEndDateAfterOrderByEndDateDesc(today, today)
+                        .stream().map(s -> s.getVideo().getVideoId()).collect(Collectors.toList());
             case 2:
-                return assignmentRepository.findAllByEndDateBefore(today);
+                return assignmentRepository.findAllByEndDateBeforeOrderByEndDateDesc(today)
+                        .stream().map(s -> s.getVideo().getVideoId()).collect(Collectors.toList());
             default:
                 return null;
         }
@@ -367,6 +370,26 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
 //        for (int i = 0; i < members.size(); i++) {
 //            learningRecordRepository.findTop1ByVideoAndAndUserAndModifiedDateAfterOrderByModifiedDateDesc(assignment.getVideo(), members.get(i), today);
 //        }
+        return null;
+    }
+
+    @Override
+    public List<GuildOrderResponseDto> getGuildOrderActivity() {
+        return guildRepository.findRankingGuilds().stream().map(s -> GuildOrderResponseDto.from(s, userRepository.findById(s.getMaster()).orElseThrow(UserNotFoundException::new).getNickname())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GuildOrderResponseDto> getGuildOrderName() {
+        return guildRepository.findAllByOrderByGuildName().stream().map(s -> GuildOrderResponseDto.from(s, userRepository.findById(s.getMaster()).orElseThrow(UserNotFoundException::new).getNickname())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GuildOrderResponseDto> getGuildOrderSize() {
+        return guildRepository.findAllByOrderByGuildSize().stream().map(s -> GuildOrderResponseDto.from(s, userRepository.findById(s.getMaster()).orElseThrow(UserNotFoundException::new).getNickname())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GoodMemberDto> getGoodMembers(int guildId) {
         return null;
     }
 }

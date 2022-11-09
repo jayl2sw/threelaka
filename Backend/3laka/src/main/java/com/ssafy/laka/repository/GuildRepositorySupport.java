@@ -3,6 +3,7 @@ package com.ssafy.laka.repository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.laka.domain.*;
+import com.ssafy.laka.dto.guild.GoodMemberDto;
 import com.ssafy.laka.dto.guild.GuildSearchDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

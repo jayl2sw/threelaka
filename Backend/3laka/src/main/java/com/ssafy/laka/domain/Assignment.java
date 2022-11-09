@@ -29,6 +29,5 @@ public class Assignment {
     // 시작일, 종료일, 미팅 날짜 및 시간
     private String startDate;
     private String endDate;
-    private String meetingTime;
 
 }

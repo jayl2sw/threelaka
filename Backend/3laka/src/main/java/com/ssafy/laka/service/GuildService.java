@@ -49,9 +49,13 @@ List<JoinRequestDto> getJoinReqList(int guildId);
     List<GuildRankDto> getRankGuild();
     List<GuildRequestDto> getMyRequests();
     List<Guild> searchGuilds(GuildSearchDto guildSearchDto);
-    List<Assignment> getAssignments(int status);
+    List<String> getAssignments(int status);
 
     List<?> getProgress(int assignmentId);
+    List<GuildOrderResponseDto> getGuildOrderActivity();
+    List<GuildOrderResponseDto> getGuildOrderName();
+    List<GuildOrderResponseDto> getGuildOrderSize();
+    List<GoodMemberDto> getGoodMembers(int guildId);
 
 
 }

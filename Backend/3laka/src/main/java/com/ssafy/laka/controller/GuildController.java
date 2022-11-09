@@ -192,6 +192,30 @@ public class GuildController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    @GetMapping("/activity")
+    @ApiOperation(value = "길드 활동량 순 정렬 조회")
+    public ResponseEntity<List<GuildOrderResponseDto>> getGuildOrderActivity(){
+        return new ResponseEntity<>(guildService.getGuildOrderActivity(), HttpStatus.OK);
+    }
+
+    @GetMapping("/name")
+    @ApiOperation(value = "길드 이름 순 정렬 조회")
+    public ResponseEntity<List<GuildOrderResponseDto>> getGuildOrderName(){
+        return new ResponseEntity<>(guildService.getGuildOrderName(), HttpStatus.OK);
+    }
+
+    @GetMapping("/size")
+    @ApiOperation(value = "길드 인원 순 정렬 조회")
+    public ResponseEntity<List<GuildOrderResponseDto>> getGuildOrderSize(){
+        return new ResponseEntity<>(guildService.getGuildOrderSize(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{guild_id}/member")
+    @ApiOperation(value = "길드원 학습량순 조회")
+    public ResponseEntity<?> getGoodMembers(){
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
     // 길드 마스터 권한 한정 기능 ==========================================================================================
     @GetMapping("/auth/member")
     @ApiOperation(value = "길드원 목록 조회")
