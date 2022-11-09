@@ -16,6 +16,7 @@ import { RiYoutubeFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import { YoutubeLink } from '../../../styles/Main/MainStyle';
 import { GoSearch } from 'react-icons/go';
+import { boolean } from 'yup';
 
 const SearchBar = () => {
   const dispatch = useAppDispatch();
@@ -30,9 +31,17 @@ const SearchBar = () => {
 
   // 모달에 띄워줄 비디오 정보
   const videoData = useAppSelector((state) => state.video.videoData);
+  // 제대로 된 링크가 맞는지, 영상 정보가 있는 건지 확인
+  const [isCorrectUrl, setIsCorrectUrl] = useState<boolean>(false);
+
   // 버튼 클릭으로 영상 정보 조회
   const handlerGetVideoData = (videoUrl: string) => {
     dispatch(videoActions.getVideoData(videoUrl));
+    if (videoData.watched !== null) {
+      onClickModal();
+    } else {
+      alert('유튜브 링크를 입력해주세요');
+    }
   };
 
   // 모달 사용하기
@@ -71,7 +80,7 @@ const SearchBar = () => {
           onKeyPress={(e) => {
             if (e.key == 'Enter') {
               handlerGetVideoData(videoUrl);
-              onClickModal();
+              // onClickModal();
             }
           }}
           required
@@ -83,7 +92,7 @@ const SearchBar = () => {
         <SearchIconBtn
           onClick={() => {
             handlerGetVideoData(videoUrl);
-            onClickModal();
+            // onClickModal();
           }}
         >
           <IconContext.Provider

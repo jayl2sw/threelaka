@@ -35,9 +35,8 @@ export const SearchBarInput = styled.div`
     border: none;
     outline: none;
     box-shadow: none;
-    font-size: 1em;
-
-    /* letter-spacing: 0.1em; */
+    font-size: 1vw;
+    font-family: 'PretendardRegular';
   }
 
   // input 박스 내 안내문
@@ -49,11 +48,13 @@ export const SearchBarInput = styled.div`
     pointer-events: none;
     font-family: 'PretendardRegular';
   }
+  // 인풋 박스 입력 시작 시
   & input:valid ~ span,
   input:focus ~ span {
-    color: #111111;
+    display: none;
+    /* color: #111111;
     transform: translateY(-3vh);
-    font-size: 0.8rem;
+    font-size: 0.8rem; */
   }
 
   // input 아래 그라데이션 효과
