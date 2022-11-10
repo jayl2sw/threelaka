@@ -58,7 +58,9 @@ List<JoinRequestDto> getJoinReqList(int guildId);
     List<GuildOrderResponseDto> getGuildOrderSize();
     List<GoodMemberInterface> getGoodMembers(int guildId);
     List<EssayDto> getEssayForVideo(String videoId);
-
+    String createAssignment(AssignmentRequestDto info);
+    String updateAssignment(AssignmentUpdateRequestDto info);
+    String deleteAssignment(int assignmentId);
 
 }
 

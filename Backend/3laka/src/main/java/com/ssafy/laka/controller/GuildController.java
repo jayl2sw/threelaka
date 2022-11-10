@@ -223,32 +223,25 @@ public class GuildController {
     }
 
     // 길드 마스터 권한 한정 기능 ==========================================================================================
-    @GetMapping("/auth/member")
-    @ApiOperation(value = "길드원 목록 조회")
-    public ResponseEntity<?> getMembers(){
-        // 최근 학습일을 포함해야함
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
     @PostMapping("/auth/assignment")
     @ApiOperation(value = "공통 과제 생성")
-    public ResponseEntity<?> createAssignment(){
+    public ResponseEntity<String> createAssignment(@RequestBody AssignmentRequestDto info){
         // 공통 과제를 생성
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(guildService.createAssignment(info), HttpStatus.OK);
     }
 
     @PutMapping("/auth/assignment")
     @ApiOperation(value = "공통 과제 수정")
-    public ResponseEntity<?> updateAssignment(){
+    public ResponseEntity<String> updateAssignment(@RequestBody AssignmentUpdateRequestDto info){
         // 공통 과제 수정
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(guildService.updateAssignment(info), HttpStatus.OK);
     }
 
     @DeleteMapping("/auth/assignment/{assignment_id}")
     @ApiOperation(value = "공통 과제 삭제")
-    public ResponseEntity<?> deleteAssignment(@PathVariable int assignment_id){
+    public ResponseEntity<String> deleteAssignment(@PathVariable int assignment_id){
         // 공통 과제 삭제
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(guildService.deleteAssignment(assignment_id), HttpStatus.OK);
     }
 
     @PutMapping("/auth/info")

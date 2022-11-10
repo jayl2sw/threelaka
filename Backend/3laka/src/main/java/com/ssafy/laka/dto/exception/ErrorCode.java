@@ -40,7 +40,8 @@ public enum ErrorCode {
 
     SAME_GUILDNAME_EXISTS(400, "G011", "이미 존재하는 길드명입니다"),
 
-    MASTER_CANNOT_QUIT(400, "G012", "마스터는 길드를 탈퇴할 수 없습니다");
+    MASTER_CANNOT_QUIT(400, "G012", "마스터는 길드를 탈퇴할 수 없습니다"),
+    ASSIGNMENT_NOT_FOUND(400, "G013", "해당하는 공통 과제를 찾을 수 없습니다");
 
 
 

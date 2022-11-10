@@ -402,4 +402,37 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
         return learningRecordRepository.findAllByUserAndVideoOrderByModifiedDateDesc(me, video)
                 .stream().map(s -> EssayDto.from(s)).collect(Collectors.toList());
     }
+
+    @Override
+    public String createAssignment(AssignmentRequestDto info) {
+        Assignment assignment = Assignment.builder()
+                .video(videoRepository.findById(info.getVideoId()).orElseThrow(VideoNotFoundException::new))
+                .guild(guildRepository.findById(info.getGuildId()).orElseThrow(GuildNotFoundException::new))
+                .startDate(info.getStartDate())
+                .endDate(info.getEndDate())
+                .build();
+        assignmentRepository.save(assignment);
+        return "SUCCESS";
+    }
+
+    @Override
+    public String updateAssignment(AssignmentUpdateRequestDto info) {
+        Assignment assignment = assignmentRepository.findById(info.getAssignmentId()).orElseThrow(AssignmentNotFoundException::new);
+        Assignment newAssignment = Assignment.builder()
+                .assignmentId(assignment.getAssignmentId())
+                .video(videoRepository.findById(info.getVideoId()).orElseThrow(VideoNotFoundException::new))
+                .guild(guildRepository.findById(info.getGuildId()).orElseThrow(GuildNotFoundException::new))
+                .startDate(info.getStartDate())
+                .endDate(info.getEndDate())
+                .build();
+        assignmentRepository.save(newAssignment);
+        return "SUCCESS";
+    }
+
+    @Override
+    public String deleteAssignment(int assignmentId) {
+        Assignment assignment = assignmentRepository.findById(assignmentId).orElseThrow(AssignmentNotFoundException::new);
+        assignmentRepository.delete(assignment);
+        return "SUCCESS";
+    }
 }
