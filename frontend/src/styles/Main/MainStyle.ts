@@ -120,6 +120,7 @@ export const PageDownButton = styled.a`
   }
 `;
 
+// 최근 학습 영상 전체 컨테이너(MainPage)
 export const RecentVideoContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -130,29 +131,13 @@ export const RecentVideoContainer = styled.div`
   margin-top: 10vh;
 `;
 
-export const RecentVideoBox = styled.div`
-  width: 45vw;
-  height: 45vh;
-  padding: 1.5vw;
-  font-size: 1.2vw;
-  color: #111111;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(79, 159, 255, 0.5);
-  // background-color: #b7d9ff';
-  border-radius: 2vmin;
-`;
-
+// 추천 영상 관련 스타일링
 export const RecommendVideoContainer = styled.div`
   display: flex;
-  /* flex-direction: row; */
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 40vh;
-  /* border: solid gray 3px; */
   flex-direction: column;
 `;
 
@@ -162,74 +147,6 @@ export const RecommendVideos = styled.div`
   width: 20vw;
   height: 50vh;
   /* border: 1px solid blue; */
-`;
-
-export const RecentVideoTitle = styled.div`
-  width: 38vw;
-  height: 9vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  margin-bottom: 3vh;
-  font-family: 'PretendardBold';
-  font-size: 1.5vw;
-`;
-
-export const RecentVideoStageContainer = styled.div`
-  width: 38vw;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'PretendardRegular';
-`;
-
-export const RecentVideoImg = styled.img`
-  width: 17vw;
-  height: 21vh;
-  object-fit: cover;
-`;
-
-export const RecentVideoStageDataContainer = styled.div`
-  width: 20vw;
-  height: 22vh;
-  margin-left: 1vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  /* border: 1px solid red; */
-`;
-
-export const RecentVideoStageBtnContainer = styled.div`
-  width: 20vw;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-bottom: 2vh;
-  padding: 0 1vw;
-
-  /* border: 1px solid red; */
-`;
-
-export const NoRecentVideoYet = styled.div`
-  width: 100vw;
-  height: 20vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 7vh 0 1vh 0;
-  & p {
-    margin-bottom: 0.5vh;
-    font-family: 'PretendardRegular';
-  }
-
-  & img {
-    width: 15vw;
-    height: 20vh;
-  }
 `;
 
 export const VideoCardBlock = styled.div`
@@ -313,7 +230,6 @@ export const VideoTitle = styled.div`
   width: 18vw;
   height: 10vh;
   padding-left: 0.3vw;
-  font-size: 2.4vmin;
+  font-size: 2.2vmin;
   font-family: 'PretendardRegular';
-  font-weight: bold;
 `;

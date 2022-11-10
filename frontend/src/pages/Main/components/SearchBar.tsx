@@ -107,7 +107,7 @@ const SearchBar = () => {
             value={{
               color: '111111',
               className: 'global-class-name',
-              size: '2rem',
+              size: '2.2vw',
             }}
           >
             <GoSearch style={{ paddingBottom: '0.5vw' }}></GoSearch>
