@@ -1,3 +1,4 @@
+import { useAppSelector } from './../../utils/hooks';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { videoActions } from './video-slice';
 import {
@@ -14,9 +15,8 @@ function* onGetVideoDataAsync(action: PayloadAction<string>) {
     const response: VideoData = yield call(getVideoDataApi, action.payload);
     // console.log(response);
     yield put(videoActions.getVideoDataSuccess(response));
-  } catch (error) {
-    console.log(`Failed to fetch VideoData`, error);
-    // yield put(videoActions.getVideoDataFailed(error.message));
+  } catch (error: any) {
+    yield put(videoActions.getVideoDataFailed(error.message));
   }
 }
 
@@ -42,7 +42,6 @@ function* onGetRecommendVideosAsync(action: PayloadAction<any>) {
     );
     yield put(videoActions.getRecommendVideosSuccess(response));
   } catch (error: any) {
-    console.log('Failed to fetch recommendVideos', error);
     yield put(videoActions.getRecommendVideosFailed(error.data));
   }
 }

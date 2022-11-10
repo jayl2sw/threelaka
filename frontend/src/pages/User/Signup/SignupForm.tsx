@@ -122,7 +122,6 @@ const SignupForm = ({
       dispatch(authActions.signup(signupInfo));
       // await onSubmit?.(formValues);
     } catch (error) {
-      console.log('에러가뭘까용', error);
       // setError(error.message);
     }
   };
@@ -156,7 +155,6 @@ const SignupForm = ({
 
   useEffect(() => {
     if (isLoggedIn) {
-      console.log('회원가입 성공');
       navigate('/');
     }
   }, [isLoggedIn]);

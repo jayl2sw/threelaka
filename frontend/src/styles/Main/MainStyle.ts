@@ -44,32 +44,31 @@ export const SearchBarBlock = styled.div`
 `;
 export const LogoBlock = styled.div`
   width: 40vw;
-  height: 12vh;
-  background-size: 25vw 12vh;
-  /* background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FVTnIU%2FbtrQsDtfDK9%2FOwvJaECvpUn04gMQqnCN0K%2Fimg.png')
-    center no-repeat; */
+  height: 18vh;
   & img {
     width: 100%;
-    height: auto;
   }
 `;
 
 export const YoutubeLink = styled.div`
-  width: 8vw;
+  width: 8.5vw;
   height: 6vh;
   margin-top: -5vh;
   margin-right: 1vw;
   margin-bottom: -2vh;
-  background: #b7d9ff;
+  background: #111111;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black;
-  font-size: 2vmin;
-  font-weight: bold;
-  font-family: Fredoka;
   padding: 0 1vw;
+  & p {
+    color: #ffffff;
+    font-size: 2.7vmin;
+    font-weight: bold;
+    font-family: 'PretendardSemiBold';
+    margin-bottom: 2.8vh;
+  }
   :hover {
     transform: scale(1.05);
   }
@@ -123,12 +122,12 @@ export const PageDownButton = styled.a`
 
 export const RecentVideoContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: end;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   width: 100vw;
-  height: fit-content;
-  /* border: solid yellow 3px; */
+  height: 60vh;
+  margin-top: 10vh;
 `;
 
 export const RecentVideoBox = styled.div`
@@ -173,6 +172,8 @@ export const RecentVideoTitle = styled.div`
   justify-content: center;
   align-items: flex-start;
   margin-bottom: 3vh;
+  font-family: 'PretendardBold';
+  font-size: 1.5vw;
 `;
 
 export const RecentVideoStageContainer = styled.div`
@@ -181,6 +182,7 @@ export const RecentVideoStageContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  font-family: 'PretendardRegular';
 `;
 
 export const RecentVideoImg = styled.img`
@@ -207,6 +209,7 @@ export const RecentVideoStageBtnContainer = styled.div`
   justify-content: center;
   margin-bottom: 2vh;
   padding: 0 1vw;
+
   /* border: 1px solid red; */
 `;
 
@@ -217,11 +220,10 @@ export const NoRecentVideoYet = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 7vh 0;
-  // padding: 20vh;
-
+  margin: 7vh 0 1vh 0;
   & p {
     margin-bottom: 0.5vh;
+    font-family: 'PretendardRegular';
   }
 
   & img {
@@ -301,7 +303,7 @@ export const SubTag = styled.button`
   margin-top: 0.5vh;
   margin-right: 0.5vw;
   border: solid 3px black;
-  font-family: fredoka;
+  font-family: 'PretendardLight';
   z-index: 1;
 `;
 
@@ -312,6 +314,6 @@ export const VideoTitle = styled.div`
   height: 10vh;
   padding-left: 0.3vw;
   font-size: 2.4vmin;
-  font-family: fredoka;
+  font-family: 'PretendardRegular';
   font-weight: bold;
 `;

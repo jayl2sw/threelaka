@@ -39,7 +39,7 @@ export const VideoAudioBtnContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 24vw;
+  /* width: 24vw; */
   height: 8vh;
   margin-top: 1vh;
 `;
@@ -48,8 +48,8 @@ export const VideoAudioBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* width: 5vw; */
-  height: 6.5vh;
+  width: 6.5vmin;
+  height: 6.5vmin;
   font-size: 1.2rem;
   border-radius: 50%;
   padding: 0.7vh 0.8vw;

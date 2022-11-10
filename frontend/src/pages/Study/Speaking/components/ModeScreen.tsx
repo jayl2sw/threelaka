@@ -14,11 +14,9 @@ const ModeScreen = () => {
 
   if (modeCode == 'test') {
     return (
-      // <SpeechTestContainer className="speechtest">
       <SpeechTestBox>
         <SpeechTest />
       </SpeechTestBox>
-      // </SpeechTestContainer>
     );
   } else if (modeCode == 'video') {
     return (

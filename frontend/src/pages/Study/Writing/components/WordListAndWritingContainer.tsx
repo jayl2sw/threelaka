@@ -118,7 +118,6 @@ const WordListAndWritingContainerComp = ({
         essay: textAreaRef.current!.innerText,
       };
       if (textAreaRef.current!.innerText.length !== 0) {
-        console.log('발동');
         dispatch(writingActions.postCheckWordStart(wordCheckPayload));
       }
     }, 10000);
@@ -128,7 +127,6 @@ const WordListAndWritingContainerComp = ({
 
   // 문법 체크 시 전처리
   useEffect(() => {
-    console.log(spellCheckLst);
     if (spellCheckLst.flaggedTokens === undefined) {
       return;
     }
@@ -143,7 +141,7 @@ const WordListAndWritingContainerComp = ({
       tempFilterTarget.push(spell.token);
       return resTemp;
     });
-    console.log(temp);
+
     setSpellCheckResult(temp);
     setSpellFilterTarget(tempFilterTarget);
   }, [spellCheckLst]);

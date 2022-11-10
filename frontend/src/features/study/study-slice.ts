@@ -18,6 +18,7 @@ type StudyState = {
   totalScore: number;
   speechTestError: String;
   resetToggle: boolean;
+  searchDictError: string;
 };
 
 let initialState: StudyState = {
@@ -25,6 +26,7 @@ let initialState: StudyState = {
   speechScores: [],
   totalScore: 0,
   loading: false,
+  searchDictError: '',
   studyState: {
     learningRecordId: 0,
     stage: '',
@@ -49,7 +51,6 @@ const studySlice = createSlice({
     },
     // 새로운 공부 시작 :: 요청 성공
     postStartStudySuccess(state, action: PayloadAction<StudyStage>) {
-      console.log(action.payload);
       state.loading = false;
       state.studyState = action.payload;
       state.resetToggle = false;
@@ -57,7 +58,6 @@ const studySlice = createSlice({
     // 새로운 공부 시작 :: 요청 실패
     postStartStudyFailed(state, action: PayloadAction<string>) {
       state.loading = false;
-      console.log(action);
     },
 
     // 학습 state RESET
@@ -88,6 +88,7 @@ const studySlice = createSlice({
     // 사전 검색 시작
     SearchDictStart(state, action: PayloadAction<string>) {
       state.loading = true;
+      state.searchDictError = '';
     },
     // 사전 검색 성공
     SearchDictSuccess(state, action: PayloadAction<WordMeaning>) {
@@ -97,6 +98,7 @@ const studySlice = createSlice({
     // 사전 검색 실패
     SearchDictFailed(state) {
       state.loading = false;
+      state.searchDictError = '찾으시는 단어에 대한 정보가 없습니다.';
       // console.log(action);
     },
 
@@ -136,7 +138,7 @@ const studySlice = createSlice({
     },
     speechTestSuccess(state, action: PayloadAction<any>) {
       state.loading = false;
-      console.log(action.payload);
+
       state.speechScores = action.payload.scores;
       state.totalScore = action.payload.total_score;
       state.speechTestError = action.payload.short_message;

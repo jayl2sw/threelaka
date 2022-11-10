@@ -29,7 +29,6 @@ const readSlice = createSlice({
     // 자막 가져오기 실패
     getScriptsFailed(state, action: PayloadAction<string>) {
       state.loading = false;
-      console.log(action);
     },
     // 단어장에 단어 추가
     postAddWordToWordBookStart(state, action: PayloadAction<WordInfo>) {

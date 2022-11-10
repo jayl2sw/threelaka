@@ -43,7 +43,6 @@ const SpeakingPage = () => {
     return () => {
       clearInterval(interval);
       dispatch(studyActions.putStopStudyStart(studyDuration.current));
-      console.warn(studyDuration);
     };
   }, []);
 

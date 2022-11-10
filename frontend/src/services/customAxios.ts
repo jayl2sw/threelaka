@@ -3,7 +3,9 @@ import axios from 'axios';
 const customAxios = axios.create({
   // baseURL: 'http://localhost:8000/',
   // nginx가 안달려있을 땐 port번호를 적어줘야 제대로감
-  baseURL: 'https://3laka.com/',
+  // https://k7e2021.p.ssafy.io/
+  // baseURL: 'https://3laka.com/',
+  baseURL: 'https://k7e2021.p.ssafy.io',
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     // 'Access-Control-Allow-Origin': '*',
@@ -14,7 +16,7 @@ const customAxios = axios.create({
 customAxios.interceptors.request.use(
   (config) => {
     const token = getLocalAccessToken();
-    console.log('토큰이 있나', token);
+
     if (config.headers && token)
       config.headers.Authorization = `Bearer ${token}`;
     return config;
@@ -25,12 +27,12 @@ customAxios.interceptors.request.use(
 );
 
 function getLocalAccessToken() {
-  const accessToken = window.localStorage.getItem('accessToken');
+  const accessToken = window.sessionStorage.getItem('accessToken');
   return accessToken;
 }
 
 function getLocalRefreshToken() {
-  const refreshToken = window.localStorage.getItem('refreshToken');
+  const refreshToken = window.sessionStorage.getItem('refreshToken');
   return refreshToken;
 }
 
@@ -55,11 +57,10 @@ customAxios.interceptors.response.use(
 
         try {
           const rs = await refreshToken();
-          console.log(rs);
-          const { accessToken } = rs.data;
-          window.localStorage.setItem('accessToken', accessToken);
 
-          console.log(customAxios.defaults.headers);
+          const { accessToken } = rs.data;
+          window.sessionStorage.setItem('accessToken', accessToken);
+
           //갱신된 토큰이 들어간상태로 바로 요청이 안감
           customAxios.defaults.headers.common[
             'Authorization'

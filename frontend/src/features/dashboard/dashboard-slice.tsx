@@ -1,22 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { VideoData, RecommendVideos, RecentVideoData } from '../../models';
+import { VideoData, RecentVideoData } from '../../models/video';
+import { RecentVideos } from '../../models/dashboard';
 
-type VideoState = {
-  // VideoState loading 상태
+type DashboardState = {
   loading: boolean;
-  // VideoUrl 체크
-  correctUrl: boolean | null;
   // 비디오 1개
   videoData: VideoData;
   // 최근 공부한 영상 1개
   recentVideoData: RecentVideoData;
-  // 추천 비디오 4개
-  recommendVideoList: RecommendVideos[];
+  // 현재 공부중인 영상 비디오 4개
+  recentVideoList: RecentVideos[];
 };
 
-let initialState: VideoState = {
+let initialState: DashboardState = {
   loading: false,
-  correctUrl: null,
   videoData: {
     watched: null,
     video: {
@@ -41,29 +38,26 @@ let initialState: VideoState = {
       korScript: false,
     },
   },
-  recommendVideoList: [],
+  recentVideoList: [],
 };
 
 // Slice
-const videoSlice = createSlice({
-  name: 'video',
+const dashboardSlice = createSlice({
+  name: 'dashboard',
   initialState,
   reducers: {
     // 비디오 1개 정보 받아오기 요청
     getVideoData(state, action: PayloadAction<string>) {
       state.loading = true;
-      state.correctUrl = null;
     },
     // 비디오 1개 정보 받아오기 성공
     getVideoDataSuccess(state, action: PayloadAction<VideoData>) {
       state.loading = false;
-      state.correctUrl = true;
       state.videoData = action.payload;
     },
     // 비디오 1개 정보 받아오기 실패
     getVideoDataFailed(state, action: PayloadAction<string>) {
       state.loading = false;
-      state.correctUrl = false;
     },
 
     // 최근 공부한 영상 1개 정보 받아오기 요칭
@@ -82,26 +76,26 @@ const videoSlice = createSlice({
       state.loading = false;
     },
 
-    // 추천 비디오 4개 정보 받아오기 요청
-    getRecommendVideos(state) {
+    // 현재 공부중인 영상 정보 받아오기 요청
+    getRecentVideos(state) {
       state.loading = true;
     },
-    // 추천 비디오 4개 정보 받아오기 성공
-    getRecommendVideosSuccess(state, action: PayloadAction<RecommendVideos[]>) {
+    // 현재 공부중인 영상 정보 받아오기 성공
+    getRecentVideosSuccess(state, action: PayloadAction<RecentVideos[]>) {
       // console.log(action.payload);
       state.loading = false;
-      state.recommendVideoList = action.payload;
+      state.recentVideoList = action.payload;
     },
-    // 추천 비디오 4개 정보 받아오기 실패
-    getRecommendVideosFailed(state, action: PayloadAction<string>) {
+    // 현재 공부중인 영상 정보 받아오기 요청 실패
+    getRecentVideosFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
   },
 });
 
 // Actions
-export const videoActions = videoSlice.actions;
+export const dashboardActions = dashboardSlice.actions;
 
 // Reducers
-const videoReducer = videoSlice.reducer;
-export default videoReducer;
+const dashboardReducer = dashboardSlice.reducer;
+export default dashboardReducer;

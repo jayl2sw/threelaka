@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import useModal from '../../../utils/useModal';
-import VideoDataModal from './VideoDataModal';
+
+import VideoDataModal from '../../Main/components/VideoDataModal';
 import { videoActions } from '../../../features/video/video-slice';
 
 // style
@@ -19,14 +20,14 @@ import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 // video별 갖고 있는 정보들
 type VideoCardProps = {
   data: {
-    videoId: string;
+    continueTime: string;
+    stage: string;
     title: string;
-    description: string;
-    korScript: boolean;
+    videoId: string;
   };
 };
 
-const VideoCard = ({ data }: VideoCardProps) => {
+const VideoCardInDashboard = ({ data }: VideoCardProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -82,7 +83,7 @@ const VideoCard = ({ data }: VideoCardProps) => {
         >
           <VideoImg src={`https://img.youtube.com/vi/${data.videoId}/0.jpg`} />
           <SubTagContainer>
-            {data.korScript && <SubTag>한글</SubTag>}
+            {/* {data.korScript && <SubTag>한글</SubTag>} */}
             <SubTag>ENG</SubTag>
           </SubTagContainer>
         </FlexTransparentDiv>
@@ -100,4 +101,4 @@ const VideoCard = ({ data }: VideoCardProps) => {
   );
 };
 
-export default VideoCard;
+export default VideoCardInDashboard;
