@@ -4,8 +4,10 @@ export const VideoBlock = styled.div`
   display: flex;
   flex-direction: column;
   width: 60vw;
-  height: 60vh;
+  height: 45vh;
   border: 1px solid black;
+  overflow-x: scroll;
+
   /* overflow: scroll; */
 `;
 
@@ -54,4 +56,35 @@ export const DashBoardBox = styled.div`
   height: 80vh;
   margin-top: 5vh;
   margin-left: 2.5vw;
+`;
+
+export const RecentVideoContainer = styled.div`
+  &.recentVideo {
+    animation: smoothAppear 1s;
+  }
+  @keyframes smoothAppear {
+    from {
+      opacity: 0;
+      transform: translateY(-5%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+export const CompletedVideoContainer = styled.div`
+  &.completedVideo {
+    animation: smoothAppear 1s;
+  }
+  @keyframes smoothAppear {
+    from {
+      opacity: 0;
+      transform: translateY(-5%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 `;

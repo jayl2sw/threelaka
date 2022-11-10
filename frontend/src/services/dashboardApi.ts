@@ -18,3 +18,11 @@ export const getCompletedVideosApi = async (
   const response: CompletedVideos[] = res.data;
   return response;
 };
+
+export const getDailyStudyTimeApi = async (
+  dailyStudyTime: Array<object>
+): Promise<any> => {
+  const res = await customAxios.get('/api/v1/dashboard/data');
+  const response: [] = res.data;
+  return response;
+};

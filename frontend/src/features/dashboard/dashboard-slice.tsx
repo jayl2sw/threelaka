@@ -9,6 +9,7 @@ type DashboardState = {
   recentVideoList: RecentVideos[];
   // 공부완료영상
   completedVideoList: CompletedVideos[];
+  dailyStudyTime: Array<Object>;
 };
 
 let initialState: DashboardState = {
@@ -16,6 +17,7 @@ let initialState: DashboardState = {
 
   recentVideoList: [],
   completedVideoList: [],
+  dailyStudyTime: [],
 };
 
 // Slice
@@ -49,6 +51,19 @@ const dashboardSlice = createSlice({
     },
     // 현재 공부중인 영상 정보 받아오기 요청 실패
     getRecentVideosFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    getDailyStudyTime(state) {
+      state.loading = true;
+    },
+    // 데일리 공부 시간 받아오기 성공
+    getDailyStudyTimeSuccess(state, action: PayloadAction<[]>) {
+      state.loading = false;
+      state.dailyStudyTime = action.payload;
+    },
+
+    getDailyStudyTimeFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
   },

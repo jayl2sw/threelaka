@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import DailyBoard from '../Dashboard/DailyBoard/DailyBoard';
 import HistoryBoard from '../Dashboard/HistoryBoard/HistoryBoard';
 import Profile from '../Dashboard/Profile/Profile';
-import GuildMain from '../Guild/GuildMainPage';
+import GuildMain from './GuildMainPage';
 import MyGuild from '../Guild/MyGuildPage';
 import MasterSetting from '../Guild/MasterSettingPage';
 import {
