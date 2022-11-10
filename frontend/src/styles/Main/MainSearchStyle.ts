@@ -47,6 +47,7 @@ export const SearchBarInput = styled.div`
     color: rgba(0, 0, 0, 0.4);
     pointer-events: none;
     font-family: 'PretendardRegular';
+    font-size: 1vw;
   }
   // 인풋 박스 입력 시작 시
   & input:valid ~ span,
@@ -131,6 +132,7 @@ export const SearchIconBtn = styled.div`
   height: 5vmin;
   :hover {
     transform: scale(1.05);
+    cursor: pointer;
   }
   /* background-color: blue; */
 `;

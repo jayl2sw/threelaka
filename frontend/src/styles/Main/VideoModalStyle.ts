@@ -11,13 +11,14 @@ export const ModalContainer = styled.div`
   border-radius: 1rem;
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
   box-sizing: border-box;
-  background: linear-gradient(
+  padding: 2vh 2vw;
+  /* background: linear-gradient(
     106.62deg,
     #83bdff 8.18%,
     rgba(136, 192, 255, 0.90051) 49.26%,
     #8dc2ff 69.16%,
     #c1ffa9 92.42%
-  );
+  ); */
   /* opacity: 0.5; */
   z-index: 10000;
   position: fixed;
@@ -41,7 +42,7 @@ export const VideoDataContainer = styled.div`
 export const VideoTitle = styled.p`
   margin: 4vh 0;
   text-align: center;
-  font-size: 3.5vmin;
+  font-size: 3vmin;
   font-weight: light;
   font-family: 'PretendardBold';
 `;

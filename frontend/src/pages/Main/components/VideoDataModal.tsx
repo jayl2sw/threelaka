@@ -66,7 +66,7 @@ const VideoDataModal = (props: VideoDataModalType) => {
             props.toggle();
           }
         }}
-      ></Backdrop> */}
+      /> */}
     </ModalContainer>
   );
 };

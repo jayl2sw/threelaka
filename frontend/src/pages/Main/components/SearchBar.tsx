@@ -31,21 +31,27 @@ const SearchBar = () => {
 
   // 모달에 띄워줄 비디오 정보
   const videoData = useAppSelector((state) => state.video.videoData);
-  // 제대로 된 링크가 맞는지, 영상 정보가 있는 건지 확인
-  const [isCorrectUrl, setIsCorrectUrl] = useState<boolean>(false);
 
   // 버튼 클릭으로 영상 정보 조회
   const handlerGetVideoData = (videoUrl: string) => {
     dispatch(videoActions.getVideoData(videoUrl));
-    if (videoData.watched !== null) {
-      onClickModal();
-    } else {
-      alert('유튜브 링크를 입력해주세요');
-    }
   };
 
   // 모달 사용하기
   const { isOpenModal, onClickModal } = useModal();
+
+  // url 관련 안내문
+  const [urlAlert, setUrlAlert] = useState('');
+
+  // 정확한 url인지 확인하기
+  const correctUrl = useAppSelector((state) => state.video.correctUrl);
+  useEffect(() => {
+    if (correctUrl === true) {
+      onClickModal();
+    } else if (correctUrl == false) {
+      alert('정확한 URL을 입력해주세요');
+    }
+  }, [correctUrl]);
 
   // 현재 영상 stage 확인
   const studyState = useAppSelector((state) => state.study.studyState);
@@ -80,7 +86,6 @@ const SearchBar = () => {
           onKeyPress={(e) => {
             if (e.key == 'Enter') {
               handlerGetVideoData(videoUrl);
-              // onClickModal();
             }
           }}
           required
@@ -92,7 +97,6 @@ const SearchBar = () => {
         <SearchIconBtn
           onClick={() => {
             handlerGetVideoData(videoUrl);
-            // onClickModal();
           }}
         >
           <IconContext.Provider
@@ -105,6 +109,7 @@ const SearchBar = () => {
             <GoSearch style={{ paddingBottom: '0.5vw' }}></GoSearch>
           </IconContext.Provider>
         </SearchIconBtn>
+
         {isOpenModal && (
           <VideoDataModal
             isOpenModal={isOpenModal}

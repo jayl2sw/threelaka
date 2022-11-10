@@ -35,12 +35,11 @@ export const MainHeaderMenuRegion = styled.div`
   height: 8vh;
   background-color: transparent;
   opacity: 1;
-  font-size: 3rem;
-  color: black;
   position: fixed;
-  font-family: Fredoka;
   top: 0;
   padding-right: 5.5vw;
+  font-family: 'PretendardRegular';
+  color: black;
 `;
 
 export const StudyProgressRegion = styled.div`
