@@ -142,4 +142,11 @@ export const AutoScrollBtn = styled.div`
   }
 `;
 
-export const CircularMenu = styled.div``;
+export const CircularMenu = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4vmin;
+  height: 4vmin;
+  background-color: white;
+`;

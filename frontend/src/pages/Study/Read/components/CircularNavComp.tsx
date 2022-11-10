@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
+import { CircularMenu } from '../../../../styles/Read/ReadStyle';
 
 interface ICircularNavCompProps {
   layoutMode: number;
@@ -24,7 +25,11 @@ const CicularNavComp = ({
         bottom: '2vh',
         backgroundColor: ' grey',
       }}
-    ></FlexTransparentDiv>
+    >
+      <CircularMenu>sadad</CircularMenu>
+      <CircularMenu>saasdasd</CircularMenu>
+      <CircularMenu>asdad</CircularMenu>
+    </FlexTransparentDiv>
   );
 };
 

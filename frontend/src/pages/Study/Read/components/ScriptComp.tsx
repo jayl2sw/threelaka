@@ -3,7 +3,7 @@ import {
   MainBox,
 } from '../../../../styles/Common/CommonDivStyle';
 import { useState, useEffect, useRef } from 'react';
-import { StudyPageParams, TedScript, WordMeaning } from '../../../../models';
+import { TedScript } from '../../../../models';
 import {
   ScriptTimeStamp,
   ScriptWordSpan,
