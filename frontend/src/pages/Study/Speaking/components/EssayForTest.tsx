@@ -1,26 +1,28 @@
 import React, { useEffect, useRef } from 'react';
 import useOnScreen from '../UseOnScreen';
-import { MainBox } from '../../../../styles/Common/CommonDivStyle';
+import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
 import {
-  ModePickContainer,
-  EssayContainer,
   TextBox,
   TextContainer,
 } from '../../../../styles/Speaking/SpeakingStyle';
 import { useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../../utils/hooks';
-import { useCallback } from 'react';
 import { writingActions } from '../../../../features/writing/writing-slice';
 import { StudyPageParams } from '../../../../models';
 import { studyActions } from '../../../../features/study/study-slice';
+
 interface IEssayProps {
   setSelectedText: React.Dispatch<React.SetStateAction<string>>;
   setFlag: React.Dispatch<React.SetStateAction<boolean>>;
   pageParams: StudyPageParams;
 }
 
-const EssayScript = ({ setSelectedText, pageParams, setFlag }: IEssayProps) => {
+const EssayForTest = ({
+  setSelectedText,
+  pageParams,
+  setFlag,
+}: IEssayProps) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const isOnScreen = useOnScreen(elementRef);
   const dispatch = useAppDispatch();
@@ -86,10 +88,18 @@ const EssayScript = ({ setSelectedText, pageParams, setFlag }: IEssayProps) => {
   });
 
   return (
-    <EssayContainer>
+    <FlexTransparentDiv
+      widthSize={'48vw'}
+      heightSize={'28vh'}
+      paddingSize={'0'}
+      flexDirection={'row'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      IsBorder={'none'}
+    >
       <TextContainer>
         <p ref={elementRef} className="trigger">
-          에세이에요
+          {/* 에세이에요 */}
         </p>
 
         {script ? (
@@ -110,8 +120,8 @@ const EssayScript = ({ setSelectedText, pageParams, setFlag }: IEssayProps) => {
           <p>아직 작성된 에세이가 없어요😂</p>
         )}
       </TextContainer>
-    </EssayContainer>
+    </FlexTransparentDiv>
   );
 };
 
-export default EssayScript;
+export default EssayForTest;

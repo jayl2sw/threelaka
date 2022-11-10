@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import PickSpeakingMode from './components/ModeBtnContainer';
-import EssayScript from './components/EssayScript';
+import PickSpeakingMode from './components/ModeButtons';
+import EssayScript from './components/EssayForTest';
 import { SpeakingPageBlock } from '../../../styles/Speaking/SpeakingStyle';
 import { useLocation } from 'react-router-dom';
 import SpeakingScreen from './components/SpeakingScreen';
@@ -29,8 +29,6 @@ const SpeakingPage = () => {
   const onClickProTest = () => {};
   const navigate = useNavigate();
 
-  const modeCode = useLocation().search.replace('?mode=', '');
-
   const studyDuration = useRef<number>(0);
   const dispatch = useAppDispatch();
   const resetToggle = useAppSelector((state) => state.study.resetToggle);
@@ -45,13 +43,6 @@ const SpeakingPage = () => {
       dispatch(studyActions.putStopStudyStart(studyDuration.current));
     };
   }, []);
-
-  // useEffect(() => {
-  //   console.warn('나나나나', resetToggle);
-  //   if (resetToggle === true) {
-  //     navigate('/');
-  //   }
-  // }, [resetToggle]);
 
   const { isOpenModal, onClickModal } = useModal();
   // 실전녹화 선택

@@ -71,24 +71,24 @@ export const ModePickContainer = styled.div`
   }
 `;
 
-// 비디오 녹화 스타일
+export const EssayScreenContainer = styled.div`
+  width: 50vw;
+  height: 30vh;
+`;
 
 // 에세이 스크립트 스타일
 export const EssayContainer = styled.div`
-  height: 33vh;
-  padding: 1vw;
-  /* font-size: 1.5vmin; */
-  width: auto;
+  /* width: 50vw;
+  height: 30vh;
   background: #ffffff;
   box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
   border-radius: 2vmin;
   display: flex;
   flex-direction: column;
-
   overflow: scroll;
   .trigger {
     display: none;
-  }
+  } */
 `;
 
 export const TextContainer = styled.div`
@@ -96,16 +96,13 @@ export const TextContainer = styled.div`
 `;
 export const TextBox = styled.div`
   width: 50vw;
-  /* height: 10rem; */
-  /* padding-top: 5vh; */
   margin: 5rem auto;
-  /* margin-bottom: 1vh; */
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3.8vmin;
+  font-size: 3vmin;
+  font-family: 'PretendardRegular';
   color: #9897a9;
-  /* background-color: #febf00; */
   transition: 0.4s;
   &.active {
     font-size: 3.8vmin;
@@ -116,24 +113,25 @@ export const TextBox = styled.div`
 `;
 
 export const SpeechTestContainer = styled.div`
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  padding-top: 3vh;
-  height: 80vh;
+  height: 82vh;
 `;
 
 export const SpeechTestBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1vw;
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
-  border-radius: 2vmin;
+  height: 50vh;
+  border: 1px solid green;
 `;
+
+// export const SpeechTestBox = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 1vw;
+//   background-color: rgba(255, 255, 255, 0.5);
+//   box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
+//   border-radius: 2vmin;
+//   border: 1px solid green;
+// `;
 
 export const RecordBox = styled.div`
   display: flex;
