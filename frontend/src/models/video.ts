@@ -41,4 +41,11 @@ export interface VideoDataModalType {
   isOpenModal: boolean;
   toggle: () => void;
   videoData: VideoData;
+  learningRecord: {
+    date: string;
+    learningRecordId: number;
+    stage: string;
+    userId: number;
+    videoId: string;
+  };
 }

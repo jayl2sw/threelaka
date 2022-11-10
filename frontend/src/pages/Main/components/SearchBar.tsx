@@ -16,6 +16,7 @@ import { RiYoutubeFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import { YoutubeLink } from '../../../styles/Main/MainStyle';
 import { GoSearch } from 'react-icons/go';
+import { boolean } from 'yup';
 
 const SearchBar = () => {
   const dispatch = useAppDispatch();
@@ -27,16 +28,34 @@ const SearchBar = () => {
   const onChange = (e: any) => {
     setVideoUrl(e.target.value);
   };
-
   // 모달에 띄워줄 비디오 정보
   const videoData = useAppSelector((state) => state.video.videoData);
+  const learningRecord = useAppSelector(
+    (state) => state.video.recentVideoData.learningRecord
+  );
+
   // 버튼 클릭으로 영상 정보 조회
   const handlerGetVideoData = (videoUrl: string) => {
     dispatch(videoActions.getVideoData(videoUrl));
+    // 이전에 본 적 있는지도 확인하자
+    dispatch(videoActions.getRecentVideoData());
   };
 
   // 모달 사용하기
   const { isOpenModal, onClickModal } = useModal();
+
+  // url 관련 안내문
+  const [urlAlert, setUrlAlert] = useState('');
+
+  // 정확한 url인지 확인하기
+  const correctUrl = useAppSelector((state) => state.video.correctUrl);
+  useEffect(() => {
+    if (correctUrl === true) {
+      onClickModal();
+    } else if (correctUrl == false) {
+      alert('정확한 URL을 입력해주세요');
+    }
+  }, [correctUrl]);
 
   // 현재 영상 stage 확인
   const studyState = useAppSelector((state) => state.study.studyState);
@@ -71,7 +90,6 @@ const SearchBar = () => {
           onKeyPress={(e) => {
             if (e.key == 'Enter') {
               handlerGetVideoData(videoUrl);
-              onClickModal();
             }
           }}
           required
@@ -83,7 +101,6 @@ const SearchBar = () => {
         <SearchIconBtn
           onClick={() => {
             handlerGetVideoData(videoUrl);
-            onClickModal();
           }}
         >
           <IconContext.Provider
@@ -96,11 +113,13 @@ const SearchBar = () => {
             <GoSearch style={{ paddingBottom: '0.5vw' }}></GoSearch>
           </IconContext.Provider>
         </SearchIconBtn>
+
         {isOpenModal && (
           <VideoDataModal
             isOpenModal={isOpenModal}
             toggle={onClickModal}
             videoData={videoData}
+            learningRecord={learningRecord}
           />
         )}
       </SearchButton>
