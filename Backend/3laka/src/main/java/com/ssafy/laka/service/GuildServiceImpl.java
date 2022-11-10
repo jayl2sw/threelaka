@@ -37,13 +37,12 @@ public class GuildServiceImpl implements GuildService{
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
         Optional<JoinRequest> joinRequest = joinRequestRepository.findByGuildAndSenderAndState(guild, me, State.pending);
-
         if (me.getGuild() != null){
             throw new AlreadyInGuildException();
-        }
-
-        else if (joinRequest.isPresent()){
+        } else if (joinRequest.isPresent()){
             throw new DuplicateRequestException();
+        } else if (guild.getMembers().size() > 20) {
+            throw new GuildExcessException();
         }
         joinRequestRepository.save(JoinRequest.builder().sender(me).guild(guild).state(State.pending).build());
 
@@ -77,12 +76,12 @@ public class GuildServiceImpl implements GuildService{
     public void acceptGuild(int requestId) {
         JoinRequest joinRequest = joinRequestRepository.findById(requestId).orElseThrow(RequestNotFoundException::new);
         System.out.println("joinRequest" + joinRequest);
-
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         int masterId = joinRequest.getGuild().getMaster();
-
         if (me.getUserId() != masterId) {
             throw new NotMasterException();
+        } else if (joinRequest.getGuild().getMembers().size() > 20) {
+            throw new GuildExcessException();
         }
         joinRequest.setState(State.accepted);
         Guild guild = guildRepository.findByMaster(masterId).orElseThrow(GuildNotFoundException::new);
