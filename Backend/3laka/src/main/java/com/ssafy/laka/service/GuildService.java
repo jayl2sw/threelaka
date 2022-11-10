@@ -50,7 +50,7 @@ List<JoinRequestDto> getJoinReqList(int guildId);
     List<GuildRankDto> getRankGuild();
     List<GuildRequestDto> getMyRequests();
     List<Guild> searchGuilds(GuildSearchDto guildSearchDto);
-    List<String> getAssignments(int status);
+    List<AssignmentRequestDto> getAssignments(int status);
 
     List<?> getProgress(int assignmentId);
     List<GuildOrderResponseDto> getGuildOrderActivity();

@@ -342,20 +342,20 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
     }
 
     @Override
-    public List<String> getAssignments(int status) {
+    public List<AssignmentRequestDto> getAssignments(int status) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         String today = formatter.format(date);
         switch (status) {
             case 0:
                 return assignmentRepository.findAllByStartDateAfterOrderByEndDateDesc(today)
-                        .stream().map(s -> s.getVideo().getVideoId()).collect(Collectors.toList());
+                        .stream().map(s -> AssignmentRequestDto.from(s)).collect(Collectors.toList());
             case 1:
                 return assignmentRepository.findAllByStartDateBeforeAndEndDateAfterOrderByEndDateDesc(today, today)
-                        .stream().map(s -> s.getVideo().getVideoId()).collect(Collectors.toList());
+                        .stream().map(s -> AssignmentRequestDto.from(s)).collect(Collectors.toList());
             case 2:
                 return assignmentRepository.findAllByEndDateBeforeOrderByEndDateDesc(today)
-                        .stream().map(s -> s.getVideo().getVideoId()).collect(Collectors.toList());
+                        .stream().map(s -> AssignmentRequestDto.from(s)).collect(Collectors.toList());
             default:
                 return null;
         }
