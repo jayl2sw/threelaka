@@ -30,7 +30,6 @@ import java.util.List;
 @RequestMapping("/api/v1/user/guild")
 public class GuildController {
     private final GuildService guildService;
-    private final UserService userService;
     private final AmazonS3Client amazonS3Client;
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
@@ -177,6 +176,7 @@ public class GuildController {
         return new ResponseEntity<>(guildService.getAssignments(status), HttpStatus.OK);
     }
 
+    // 수정 필요 ========================================================================================================
     @GetMapping("/{assignment_id}/progress")
     @ApiOperation(value = "해당 공통과제의 모든 길드원 진행도 조회")
     public ResponseEntity<?> getProgress(@PathVariable int assignment_id){
@@ -184,6 +184,7 @@ public class GuildController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    // 수정 필요 ========================================================================================================
     @GetMapping("/{assignment_id}/essay")
     @ApiOperation(value = "해당 공통과제의 모든 길드원 에세이 조회")
     public ResponseEntity<?> getEssay(@PathVariable int assignment_id){
@@ -213,6 +214,12 @@ public class GuildController {
     @ApiOperation(value = "길드원 학습량순 조회")
     public ResponseEntity<List<GoodMemberInterface>> getGoodMembers(@PathVariable int guild_id){
         return new ResponseEntity<>(guildService.getGoodMembers(guild_id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{video_id}/essay/list")
+    @ApiOperation(value = "유저의 특정 비디오 에세이 목록 조회")
+    public ResponseEntity<List<EssayDto>> getEssayForVideo(@PathVariable String video_id){
+        return new ResponseEntity<>(guildService.getEssayForVideo(video_id), HttpStatus.OK);
     }
 
     // 길드 마스터 권한 한정 기능 ==========================================================================================

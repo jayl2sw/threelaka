@@ -1,6 +1,7 @@
 package com.ssafy.laka.service;
 
 import com.ssafy.laka.domain.Assignment;
+import com.ssafy.laka.domain.Essay;
 import com.ssafy.laka.domain.Guild;
 import com.ssafy.laka.dto.guild.*;
 import com.ssafy.laka.dto.user.UserResponseDto;
@@ -56,6 +57,7 @@ List<JoinRequestDto> getJoinReqList(int guildId);
     List<GuildOrderResponseDto> getGuildOrderName();
     List<GuildOrderResponseDto> getGuildOrderSize();
     List<GoodMemberInterface> getGoodMembers(int guildId);
+    List<EssayDto> getEssayForVideo(String videoId);
 
 
 }

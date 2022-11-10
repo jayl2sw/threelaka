@@ -3,6 +3,7 @@ package com.ssafy.laka.service;
 import com.ssafy.laka.domain.*;
 import com.ssafy.laka.domain.enums.State;
 import com.ssafy.laka.dto.exception.guild.*;
+import com.ssafy.laka.dto.exception.study.VideoNotFoundException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.dto.guild.*;
 import com.ssafy.laka.dto.user.UserResponseDto;
@@ -28,6 +29,7 @@ public class GuildServiceImpl implements GuildService{
     private final AssignmentRepository assignmentRepository;
     private final LearningRecordRepository learningRecordRepository;
     private final GuildRepositorySupport guildRepositorySupport;
+    private final VideoRepository videoRepository;
 
     @Override
 //    길드 가입 요청
@@ -391,5 +393,13 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
     @Override
     public List<GoodMemberInterface> getGoodMembers(int guildId) {
         return userRepository.findGoodMembers(guildId);
+    }
+
+    @Override
+    public List<EssayDto> getEssayForVideo(String videoId) {
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        Video video = videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new);
+        return learningRecordRepository.findAllByUserAndVideoOrderByModifiedDateDesc(me, video)
+                .stream().map(s -> EssayDto.from(s)).collect(Collectors.toList());
     }
 }
