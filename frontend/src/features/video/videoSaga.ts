@@ -12,13 +12,10 @@ import { call, put, takeLatest, fork } from 'redux-saga/effects';
 // 비디오 1개 정보 받아오기 SAGA
 function* onGetVideoDataAsync(action: PayloadAction<string>) {
   try {
-    console.log('일단 try~');
     const response: VideoData = yield call(getVideoDataApi, action.payload);
     // console.log(response);
     yield put(videoActions.getVideoDataSuccess(response));
-    console.log('요청 성공');
   } catch (error: any) {
-    console.log('요청 실패~');
     yield put(videoActions.getVideoDataFailed(error.message));
   }
 }

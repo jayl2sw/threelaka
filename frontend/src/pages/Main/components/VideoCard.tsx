@@ -34,6 +34,9 @@ const VideoCard = ({ data }: VideoCardProps) => {
 
   // 모달에 띄워줄 비디오 정보
   const videoData = useAppSelector((state) => state.video.videoData);
+  const learningRecord = useAppSelector(
+    (state) => state.video.recentVideoData.learningRecord
+  );
   // 영상 정보 조회
   const handlerGetVideoData = (videoId: string) => {
     const videoUrl = `https://youtu.be/${videoId}`;
@@ -63,32 +66,33 @@ const VideoCard = ({ data }: VideoCardProps) => {
         }}
       >
         <FlexTransparentDiv
-              widthSize={'19vw'}
-              heightSize={'22.5vh'}
-              paddingSize={'0'}
-              flexDirection={'column'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              IsBorder={'none'}
-              style={{
-                borderTop: '10px solid black',
-                borderBottom: '10px solid black',
-                borderRadius: '10px',
-                background: 'black'}}
+          widthSize={'19vw'}
+          heightSize={'22.5vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          IsBorder={'none'}
+          style={{
+            borderTop: '10px solid black',
+            borderBottom: '10px solid black',
+            borderRadius: '10px',
+            background: 'black',
+          }}
         >
           <VideoImg src={`https://img.youtube.com/vi/${data.videoId}/0.jpg`} />
           <SubTagContainer>
-          {data.korScript && <SubTag>한글</SubTag>}
-          <SubTag>ENG</SubTag>
-        </SubTagContainer>
+            {data.korScript && <SubTag>한글</SubTag>}
+            <SubTag>ENG</SubTag>
+          </SubTagContainer>
         </FlexTransparentDiv>
-
       </VideoDataBox>
       {isOpenModal && (
         <VideoDataModal
           isOpenModal={isOpenModal}
           toggle={onClickModal}
           videoData={videoData}
+          learningRecord={learningRecord}
         />
       )}
       <VideoTitle>{data.title}</VideoTitle>

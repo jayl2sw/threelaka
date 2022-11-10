@@ -28,13 +28,17 @@ const SearchBar = () => {
   const onChange = (e: any) => {
     setVideoUrl(e.target.value);
   };
-
   // 모달에 띄워줄 비디오 정보
   const videoData = useAppSelector((state) => state.video.videoData);
+  const learningRecord = useAppSelector(
+    (state) => state.video.recentVideoData.learningRecord
+  );
 
   // 버튼 클릭으로 영상 정보 조회
   const handlerGetVideoData = (videoUrl: string) => {
     dispatch(videoActions.getVideoData(videoUrl));
+    // 이전에 본 적 있는지도 확인하자
+    dispatch(videoActions.getRecentVideoData());
   };
 
   // 모달 사용하기
@@ -115,6 +119,7 @@ const SearchBar = () => {
             isOpenModal={isOpenModal}
             toggle={onClickModal}
             videoData={videoData}
+            learningRecord={learningRecord}
           />
         )}
       </SearchButton>
