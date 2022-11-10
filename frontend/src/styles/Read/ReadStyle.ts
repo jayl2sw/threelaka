@@ -1,17 +1,5 @@
 import styled from 'styled-components';
 
-export const ReadPageBlock = styled.div`
-  font-family: PretendardRegular;
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
-  flex-direction: row;
-  width: 100vw;
-  height: 85vh;
-  padding: 0vh 5vw 0vh 5vw;
-  /* border: 1px solid black; */
-`;
-
 export const WordBookAddReqBtn = styled.div`
   cursor: pointer;
   position: absolute;
@@ -59,17 +47,6 @@ export const DictResult = styled.div`
   color: black;
 `;
 
-export const ScriptItemBox = styled.div`
-  min-height: 19.5vh;
-  width: 45vw;
-  display: flex;
-  /* justify-content: flex-start; */
-  align-items: center;
-  color: black;
-  font-size: 2vmin;
-  /* border: 1px solid green; */
-`;
-
 export const ScriptTimeStamp = styled.div`
   cursor: pointer;
   min-height: 5vh;
@@ -95,18 +72,6 @@ export const ScriptTimeStamp = styled.div`
       rgba(176, 255, 145, 1) 100%
     );
   }
-`;
-
-export const ScriptText = styled.div`
-  min-height: 19.5vh;
-  width: 33vw;
-  padding: 0vh 2vw;
-  display: flex;
-  /* justify-content: center; */
-  align-items: center;
-  color: black;
-  font-size: 2vmin;
-  /* border: 1px solid green; */
 `;
 
 export const ScriptWordSpan = styled.span`
@@ -136,10 +101,11 @@ export const ScriptWordSpan = styled.span`
 
 export const AutoScrollBtn = styled.div`
   cursor: pointer;
-  position: absolute;
+  /* position: absolute; */
+  position: relative;
   z-index: 1;
-  top: 10vh;
-  right: 8.5vw;
+  /* top: 10vh; */
+  /* right: 8.5vw; */
   width: 5vw;
   height: 3vh;
   border-radius: 10px;
@@ -176,17 +142,4 @@ export const AutoScrollBtn = styled.div`
   }
 `;
 
-export const AutoScrollText = styled.div`
-  font-size: 2vmin;
-  display: flex;
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-  top: 10.2vh;
-  right: 11vw;
-  width: 10vw;
-  height: 3vh;
-  & p {
-    margin: 0;
-  }
-`;
+export const CircularMenu = styled.div``;

@@ -20,16 +20,16 @@ import { LoadingSpinner } from '../../../../styles/Common/LoadingSpinner';
 interface IdictCompProps {
   selectedSentenceProp: string;
   pageParams: StudyPageParams;
-  wordMeaning: WordMeaning;
   dictInputValue: string;
-  setDictInputvalue: (dictInputValue: string) => void;
+  setDictInputvalue: (newInputValue: string) => void;
+  layoutMode: number;
 }
 const DictionaryComp = ({
   selectedSentenceProp,
   pageParams,
-  wordMeaning,
   dictInputValue,
   setDictInputvalue,
+  layoutMode,
 }: IdictCompProps) => {
   const dispatch = useAppDispatch();
   // state 선언
@@ -40,6 +40,9 @@ const DictionaryComp = ({
   const wordLoading = useAppSelector((state) => state.study.loading);
   const searchDictError = useAppSelector(
     (state) => state.study.searchDictError
+  );
+  const wordMeaning: WordMeaning = useAppSelector(
+    (state) => state.study.wordMeaning
   );
 
   // func
@@ -104,28 +107,41 @@ const DictionaryComp = ({
 
   return (
     <MainBox
-      widthSize={'40vw'}
-      heightSize={'38vh'}
+      widthSize={layoutMode === 2 ? '30vw' : '40vw'}
+      // 38 / 40 / 60
+      heightSize={
+        layoutMode === 0 ? '38vh' : layoutMode === 1 ? '40vh' : '60vh'
+      }
       paddingSize={'4vh 0 2vh 2vw'}
       fontColor={'black'}
       fontSize={'1.5vmin'}
-      style={{ marginTop: '2vh' }}
+      style={layoutMode === 0 ? { marginTop: '2vh' } : { marginTop: '0' }}
     >
       <FlexTransparentDiv
-        widthSize={'30vw'}
+        widthSize={layoutMode === 2 ? '24vw' : '30vw'}
         heightSize={'5vh'}
         paddingSize={'0'}
         flexDirection={'row'}
         justifyContent={'space-between'}
         alignItems={'center'}
         IsBorder={'none'}
-        style={{
-          // border: '2px solid pink',
-          background: 'rgba(152, 151, 169, 0.5)',
-          borderRadius: '5vmin',
-          marginLeft: '5vw',
-          // opacity: '0.7',
-        }}
+        style={
+          layoutMode === 2
+            ? {
+                // border: '2px solid pink',
+                background: 'rgba(152, 151, 169, 0.5)',
+                borderRadius: '5vmin',
+                marginLeft: '3vw',
+                // opacity: '0.7',
+              }
+            : {
+                // border: '2px solid pink',
+                background: 'rgba(152, 151, 169, 0.5)',
+                borderRadius: '5vmin',
+                marginLeft: '5vw',
+                // opacity: '0.7',
+              }
+        }
       >
         <GradientRoundBtn
           widthSize={'10vmin'}
@@ -138,12 +154,28 @@ const DictionaryComp = ({
             AddWordToWordbook(e);
             setAddSuccessModal(true);
           }}
-          style={{
-            background: 'transparent',
-            position: 'absolute',
-            top: '58.5vh',
-            left: '9vw',
-          }}
+          style={
+            layoutMode === 0
+              ? {
+                  background: 'transparent',
+                  position: 'absolute',
+                  top: '60.8vh',
+                  left: '9vw',
+                }
+              : layoutMode === 1
+              ? {
+                  background: 'transparent',
+                  position: 'absolute',
+                  top: '18.2vh',
+                  right: '43vw',
+                }
+              : {
+                  background: 'transparent',
+                  position: 'absolute',
+                  top: '18vh',
+                  right: '34vw',
+                }
+          }
         >
           {addSuccessModal ? (
             <div>{isAddSuccess}</div>
@@ -159,6 +191,7 @@ const DictionaryComp = ({
           value={dictInputValue}
           onChange={dictInputChange}
           onKeyDown={(e) => WordSearchEnterHandler(e, dictInputValue)}
+          style={layoutMode === 2 ? { width: '21vw' } : {}}
         />
         <GradientRoundBtn
           widthSize={'5vmin'}
@@ -173,8 +206,8 @@ const DictionaryComp = ({
         </GradientRoundBtn>
       </FlexTransparentDiv>
       <FlexTransparentDiv
-        widthSize={'37.5vw'}
-        heightSize={'28vh'}
+        widthSize={layoutMode === 2 ? '27.5vw' : '37.5vw'}
+        heightSize={layoutMode === 2 ? '48vh' : '28vh'}
         paddingSize={'0'}
         flexDirection={'column'}
         justifyContent={'start'}
@@ -189,44 +222,72 @@ const DictionaryComp = ({
         {/* {wordLoading ? '로딩중' : '로딩완료'} */}
         {wordLoading ? (
           <LoadingSpinner
-            widthSize="20vmin"
-            heightSize="20vmin"
-            style={{ marginTop: '2vh' }}
+            widthSize={layoutMode === 2 ? '15vmin' : '20vmin'}
+            heightSize={layoutMode === 2 ? '15vmin' : '20vmin'}
+            style={
+              layoutMode === 2 ? { marginTop: '10vh' } : { marginTop: '2vh' }
+            }
           />
         ) : (
           <>
             <div
-              style={{
-                width: '34vw',
-                minHeight: '10vh',
-                display: 'flex',
-                justifyContent: 'start',
-                alignItems: 'center',
-                fontSize: '5vmin',
-                fontFamily: 'PretendardBold',
-              }}
+              style={
+                layoutMode === 2
+                  ? {
+                      width: '27vw',
+                      minHeight: '7vh',
+                      display: 'flex',
+                      justifyContent: 'start',
+                      alignItems: 'center',
+                      fontSize: '5vmin',
+                      fontFamily: 'PretendardBold',
+                    }
+                  : {
+                      width: '34vw',
+                      minHeight: '10vh',
+                      display: 'flex',
+                      justifyContent: 'start',
+                      alignItems: 'center',
+                      fontSize: '5vmin',
+                      fontFamily: 'PretendardBold',
+                    }
+              }
             >
               {wordMeaning.wordId}
             </div>
             {searchDictError === '' ? (
               wordMeaning.wordList.map((aWord) => {
                 return (
-                  <DictResult>
+                  <FlexTransparentDiv
+                    widthSize={layoutMode === 2 ? '27.5vw' : '34vw'}
+                    heightSize={layoutMode === 2 ? '25vh' : '32vh'}
+                    paddingSize={'0 1vw'}
+                    flexDirection={'column'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    IsBorder={'none'}
+                    style={{
+                      borderBottom: 'black 2px solid',
+                      backgroundColor: 'white',
+                      fontSize: '3vmin',
+                      // border: 'blue 2px solid',
+                    }}
+                  >
                     <FlexTransparentDiv
-                      widthSize={'37.5vw'}
-                      heightSize={'14vh'}
-                      paddingSize={'1vw'}
+                      widthSize={layoutMode === 2 ? '27.5vw' : '37.5vw'}
+                      heightSize={layoutMode === 2 ? '15vh' : '14vh'}
+                      paddingSize={'1vw 2vw 1vw 1vw'}
                       flexDirection={'row'}
                       justifyContent={'start'}
-                      alignItems={'center'}
+                      alignItems={'start'}
                       IsBorder={'none'}
                     >
                       <FlexTransparentDiv
                         widthSize={'80%'}
-                        heightSize={'14vh'}
-                        paddingSize={'1vw'}
+                        heightSize={layoutMode === 2 ? '15vh' : '14vh'}
+                        paddingSize={layoutMode === 2 ? '0vw' : '1vw'}
                         flexDirection={'column'}
-                        justifyContent={'center'}
+                        justifyContent={'start'}
                         alignItems={'start'}
                         IsBorder={'none'}
                       >
@@ -241,7 +302,10 @@ const DictionaryComp = ({
                         <div
                           style={{
                             paddingLeft: '0.5vw',
-                            fontSize: '2.5vmin',
+                            fontSize:
+                              aWord.wordDefinition.length > 100
+                                ? '2vmin'
+                                : '2.5vmin',
                           }}
                         >
                           {aWord.wordDefinition}
@@ -266,16 +330,16 @@ const DictionaryComp = ({
                       </div>
                     </FlexTransparentDiv>
                     <FlexTransparentDiv
-                      widthSize={'37.5vw'}
-                      heightSize={'14vh'}
-                      paddingSize={'1vw'}
+                      widthSize={layoutMode === 2 ? '27.5vw' : '37.5vw'}
+                      heightSize={layoutMode === 2 ? '10vh' : '14vh'}
+                      paddingSize={layoutMode === 2 ? '0vw 0vw 1vw 0vw' : '1vw'}
                       flexDirection={'row'}
                       justifyContent={'start'}
                       alignItems={'center'}
                       IsBorder={'none'}
                     >
                       <FlexTransparentDiv
-                        widthSize={'80%'}
+                        widthSize={layoutMode === 2 ? '100%' : '80%'}
                         heightSize={'14vh'}
                         paddingSize={'1vw'}
                         flexDirection={'column'}
@@ -304,7 +368,7 @@ const DictionaryComp = ({
                 </p> */}
                       </FlexTransparentDiv>
                     </FlexTransparentDiv>
-                  </DictResult>
+                  </FlexTransparentDiv>
                 );
               })
             ) : (
