@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -106,8 +107,8 @@ public class DashboardServiceImpl implements DashboardService{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for (int i = 0; i < study.size(); i++) {
             String date = study.get(i).getDate();
-            LocalDateTime ldt = LocalDateTime.parse(date, formatter);
-            week[ldt.getDayOfWeek().getValue()] = study.get(i).getTime();
+            LocalDate ld = LocalDate.parse(date, formatter);
+            week[ld.getDayOfWeek().getValue()] = study.get(i).getTime();
         }
         return week;
     }
