@@ -171,7 +171,7 @@ public class GuildController {
 
     @GetMapping("/assignment/{status}")
     @ApiOperation(value = "공통 과제 목록 조회")
-    public ResponseEntity<List<AssignmentRequestDto>> getAssignments(int status){
+    public ResponseEntity<List<AssignmentRequestDto>> getAssignments(@PathVariable int status){
         // 예정(0) / 진행중(1) / 완료된(2) 공통 과제 조회
         return new ResponseEntity<>(guildService.getAssignments(status), HttpStatus.OK);
     }
