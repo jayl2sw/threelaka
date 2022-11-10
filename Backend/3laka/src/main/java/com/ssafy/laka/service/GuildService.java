@@ -55,7 +55,7 @@ List<JoinRequestDto> getJoinReqList(int guildId);
     List<GuildOrderResponseDto> getGuildOrderActivity();
     List<GuildOrderResponseDto> getGuildOrderName();
     List<GuildOrderResponseDto> getGuildOrderSize();
-    List<GoodMemberDto> getGoodMembers(int guildId);
+    List<GoodMemberInterface> getGoodMembers(int guildId);
 
 
 }

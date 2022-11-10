@@ -389,7 +389,7 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
     }
 
     @Override
-    public List<GoodMemberDto> getGoodMembers(int guildId) {
-        return null;
+    public List<GoodMemberInterface> getGoodMembers(int guildId) {
+        return userRepository.findGoodMembers(guildId);
     }
 }

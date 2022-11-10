@@ -159,7 +159,6 @@ public class GuildController {
         return new ResponseEntity<>(guildService.getMyRequests(), HttpStatus.OK);
     }
 
-    // 수정 필요 ========================================================================================================
     @GetMapping("/search")
     @ApiOperation(value = "조건에 맞는 길드 검색")
     public ResponseEntity<?> searchGuild(
@@ -212,8 +211,8 @@ public class GuildController {
 
     @GetMapping("/{guild_id}/member")
     @ApiOperation(value = "길드원 학습량순 조회")
-    public ResponseEntity<?> getGoodMembers(){
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<List<GoodMemberInterface>> getGoodMembers(@PathVariable int guild_id){
+        return new ResponseEntity<>(guildService.getGoodMembers(guild_id), HttpStatus.OK);
     }
 
     // 길드 마스터 권한 한정 기능 ==========================================================================================
