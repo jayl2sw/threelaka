@@ -11,6 +11,7 @@ export interface GuildNotice {
 export interface Member {
   nickname: string;
   userId: number;
+  lastLearningDay: number;
 }
 
 // 길드 멤버 정보 조회

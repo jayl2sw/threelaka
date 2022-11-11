@@ -1,6 +1,10 @@
+import { height } from '@material-ui/system';
 import React, { useEffect } from 'react';
 import { guildActions } from '../../features/guild/guild-slice';
-import { MainBox } from '../../styles/Common/CommonDivStyle';
+import {
+  MainBox,
+  FlexTransparentDiv,
+} from '../../styles/Common/CommonDivStyle';
 import { GreetingText } from '../../styles/Guild/GuildStyle';
 import {
   GuildSettingLeftBox,
@@ -18,7 +22,11 @@ const MasterSetting = () => {
   // 길드의 예정된 과제 장보 가져오기
   const upcomingTask = useAppSelector((state) => state.guild.upcomingTaskList);
 
-  //
+  // 길드 멤버 정보 가져오기
+  const guildMemberList = useAppSelector(
+    (state) => state.guild.gulidMemberList
+  );
+
   const dispatch = useAppDispatch();
   const guildId = currentUser?.guildId;
 
@@ -26,6 +34,7 @@ const MasterSetting = () => {
   useEffect(() => {
     if (guildId !== undefined) {
       dispatch(guildActions.getGuildNotice(guildId));
+      dispatch(guildActions.getGuildMember(guildId));
     }
   }, [guildId]);
 
@@ -108,13 +117,73 @@ const MasterSetting = () => {
           >
             <div> VIDEOS</div>
 
-            <div>
-              진행중인, 예정된 영상 정보들이 옵니다
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: 'solid red 1px',
+              }}
+            >
+              {/* 진행중인 정보들이 옵니다 */}
               {inProgressTask.map((task, idx) => {
                 return (
-                  <img
-                    src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
-                  ></img>
+                  <FlexTransparentDiv
+                    widthSize={'15vw'}
+                    heightSize={'22vh'}
+                    paddingSize={'0'}
+                    flexDirection={'row'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    IsBorder={'none'}
+                    style={{
+                      borderTop: '10px solid black',
+                      borderBottom: '10px solid black',
+                      borderRadius: '10px',
+                      background: 'black',
+                      margin: '0.5vw',
+                    }}
+                  >
+                    <img
+                      style={{
+                        width: '14.5vw',
+                        height: '21.8vh',
+                      }}
+                      src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
+                    ></img>
+                  </FlexTransparentDiv>
+                );
+                // return <p key={`task-${idx}`}>{task.videoId}</p>;
+              })}
+
+              {/* 예정된 정보들이 옵니다 */}
+              {upcomingTask.map((task, idx) => {
+                return (
+                  <FlexTransparentDiv
+                    widthSize={'15vw'}
+                    heightSize={'22vh'}
+                    paddingSize={'0'}
+                    flexDirection={'row'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    IsBorder={'none'}
+                    style={{
+                      borderTop: '10px solid black',
+                      borderBottom: '10px solid black',
+                      borderRadius: '10px',
+                      background: 'black',
+                      margin: '0.5vw',
+                    }}
+                  >
+                    <img
+                      style={{
+                        width: '14.5vw',
+                        height: '21.8vh',
+                      }}
+                      src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
+                    ></img>
+                  </FlexTransparentDiv>
                 );
                 // return <p key={`task-${idx}`}>{task.videoId}</p>;
               })}
@@ -135,7 +204,15 @@ const MasterSetting = () => {
             }}
           >
             <p> MEMBERS</p>
-            <p>멤버들 정보가 옵니다</p>
+            {guildMemberList.members.map((member, idx) => {
+              return (
+                <div key={idx}>
+                  {member.nickname}
+                  {member.lastLearningDay}일 전
+                </div>
+              );
+            })}
+            {/* <p>멤버들 정보가 옵니다</p> */}
           </MainBox>
         </GuildSettingRightBox>
       </div>

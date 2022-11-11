@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { VideoData, RecentVideoData } from '../../models/video';
 import { RecentVideos } from '../../models/dashboard';
-import { GuildNotice, GuildMemberList, VideoInfo } from '../../models/guild';
+import { GuildNotice, VideoInfo, GuildMemberList } from '../../models/guild';
 import { string } from 'yup';
 
 type GuildState = {
@@ -64,6 +64,42 @@ const guildSlice = createSlice({
     // 진행중인 과제 받아오기 실패
     getProgressTaskFailed(state, action: PayloadAction<string>) {
       console.log('진행중인 과제 받아오기 실패');
+      state.loading = false;
+    },
+
+    // 예정된 과제 받아오기 요청
+    getUpcomingTask(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+
+    // 예정된 과제 받아오기 성공
+    getUpcomingTaskSuccess(state, action: PayloadAction<VideoInfo[]>) {
+      console.log('진행중인 과제 받아오기 성공');
+      state.loading = false;
+      state.upcomingTaskList = action.payload;
+    },
+
+    // 예정된 과제 받아오기 실패
+    getUpcomingTaskFailed(state, action: PayloadAction<string>) {
+      console.log('진행중인 과제 받아오기 실패');
+      state.loading = false;
+    },
+
+    // 길드 멤버 정보 받아오기 요청
+    getGuildMember(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+
+    // 길드 멤버 정보 받아오기 성공
+    getGuildMemberSuccess(state, action: PayloadAction<GuildMemberList>) {
+      console.log('길드 멤버 정보 받아오기 성공');
+      state.loading = false;
+      state.gulidMemberList = action.payload;
+    },
+
+    // 길드 멤버 정보 받아오기 실패
+    getGuildMemberFailed(state, action: PayloadAction<string>) {
+      console.log('길드 멤버 정보 받아오기 실패');
       state.loading = false;
     },
   },
