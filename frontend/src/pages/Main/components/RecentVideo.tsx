@@ -8,15 +8,16 @@ import { studyActions } from '../../../features/study/study-slice';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
 import {
-  RecentVideoTitle,
-  RecentVideoStageContainer,
+  RecentVideoTextContainer,
   RecentVideoImg,
-  RecentVideoStageDataContainer,
-  RecentVideoStageBtnContainer,
+  RecentVideoDataContainer,
+  RecentVideoBtnContainer,
   RecentVideoBox,
   NoRecentVideoYet,
-  PageDownButton,
-} from '../../../styles/Main/MainStyle';
+  StudyProgressRegion,
+  ProgressBarIndicator,
+  RecentData,
+} from '../../../styles/Main/RecentVideoStyle';
 
 const RecentVideo = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +34,10 @@ const RecentVideo = () => {
   );
   const video = recentVideoData.video;
   const record = recentVideoData.learningRecord;
+
+  // 영상 제목 정제하기
+  const cutIndex = video.title.indexOf('|');
+  const videoTitle = video.title.substr(0, cutIndex);
 
   // 영상 정보 왔나요
   const [studied, setStudied] = useState<boolean>(false);
@@ -61,71 +66,61 @@ const RecentVideo = () => {
     <div>
       {Boolean(recentVideoData) !== false && record.learningRecordId !== 0 ? (
         <RecentVideoBox>
-          <RecentVideoTitle>{video.title}</RecentVideoTitle>
-          <RecentVideoStageContainer>
-            <FlexTransparentDiv
-              widthSize={'19vw'}
-              heightSize={'22.5vh'}
-              paddingSize={'0'}
-              flexDirection={'column'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              IsBorder={'none'}
-              style={{
-                borderTop: '10px solid black',
-                borderBottom: '10px solid black',
-                borderRadius: '10px',
-                background: 'black',
-              }}
-            >
-              <RecentVideoImg
-                src={`https://img.youtube.com/vi/${video.videoId}/0.jpg`}
-              />
-            </FlexTransparentDiv>
-            <RecentVideoStageDataContainer>
-              <div>
+          {/* 비디오 썸네일 div */}
+
+          <RecentVideoImg
+            src={`https://img.youtube.com/vi/${video.videoId}/0.jpg`}
+          />
+          {/* 비디오 정보 div(container) */}
+          <RecentVideoDataContainer>
+            <RecentVideoTextContainer>
+              <p className="video-title">{videoTitle}</p>
+              <StudyProgressRegion>
+                <ProgressBarIndicator className={'indicator-' + record.stage} />
+              </StudyProgressRegion>
+              <RecentData>
+                <div className="data-title">최근 학습일</div>
                 <p>
-                  최근 학습 날짜 : {record.date.substr(0, 4)}년{' '}
-                  {record.date.substr(5, 2)}월 {record.date.substr(8, 2)}일
+                  {record.date.substr(0, 4)}년 {record.date.substr(5, 2)}월{' '}
+                  {record.date.substr(8, 2)}일
                 </p>
-                <p>마지막 학습 단계 : {record.stage}</p>
-              </div>
-              <RecentVideoStageBtnContainer>
-                <MainBtn
-                  widthSize={'8.5vw'}
-                  heightSize={'4vh'}
-                  paddingSize={'0'}
-                  fontSize={'1vw'}
-                  fontColor={'white'}
-                  backgroundColor={'blue'}
-                  style={{ marginRight: '0.5vw' }}
-                  onClick={() => {
-                    handlerPostStartStudy(video.videoId);
-                  }}
-                >
-                  새로 학습하기
-                </MainBtn>
-                <MainBtn
-                  widthSize={'8.5vw'}
-                  heightSize={'4vh'}
-                  paddingSize={'0'}
-                  fontSize={'1vw'}
-                  fontColor={'white'}
-                  backgroundColor={'black'}
-                  style={{ marginLeft: '0.5vw' }}
-                  onClick={() => {
-                    handlerResumeStudy(
-                      record.stage,
-                      record.learningRecordId,
-                      video.videoId
-                    );
-                  }}
-                >
-                  이어서 학습하기
-                </MainBtn>
-              </RecentVideoStageBtnContainer>
-            </RecentVideoStageDataContainer>
-          </RecentVideoStageContainer>
+              </RecentData>
+            </RecentVideoTextContainer>
+            <RecentVideoBtnContainer>
+              <MainBtn
+                widthSize={'8.5vw'}
+                heightSize={'4vh'}
+                paddingSize={'0'}
+                fontSize={'1vw'}
+                fontColor={'white'}
+                backgroundColor={'blue'}
+                style={{ marginRight: '0.5vw' }}
+                onClick={() => {
+                  handlerPostStartStudy(video.videoId);
+                }}
+              >
+                새로 학습하기
+              </MainBtn>
+              <MainBtn
+                widthSize={'8.5vw'}
+                heightSize={'4vh'}
+                paddingSize={'0'}
+                fontSize={'1vw'}
+                fontColor={'white'}
+                backgroundColor={'blue'}
+                style={{ marginLeft: '0.5vw' }}
+                onClick={() => {
+                  handlerResumeStudy(
+                    record.stage,
+                    record.learningRecordId,
+                    video.videoId
+                  );
+                }}
+              >
+                이어서 학습하기
+              </MainBtn>
+            </RecentVideoBtnContainer>
+          </RecentVideoDataContainer>
         </RecentVideoBox>
       ) : (
         <NoRecentVideoYet>

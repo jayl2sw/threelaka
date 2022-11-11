@@ -37,6 +37,11 @@ const VideoCard = ({ data }: VideoCardProps) => {
   const learningRecord = useAppSelector(
     (state) => state.video.recentVideoData.learningRecord
   );
+
+  // 영상 제목 정제하기
+  const cutIndex = data.title.indexOf('|');
+  const videoTitle = data.title.substr(0, cutIndex);
+
   // 영상 정보 조회
   const handlerGetVideoData = (videoId: string) => {
     const videoUrl = `https://youtu.be/${videoId}`;
@@ -95,7 +100,7 @@ const VideoCard = ({ data }: VideoCardProps) => {
           learningRecord={learningRecord}
         />
       )}
-      <VideoTitle>{data.title}</VideoTitle>
+      <VideoTitle>{videoTitle}</VideoTitle>
     </VideoCardBlock>
   );
 };
