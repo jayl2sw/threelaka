@@ -28,3 +28,10 @@ export interface VideoInfo {
   startDate: string;
   endDate: string;
 }
+
+// 길드 공지 모달 타입
+export interface NoticeModalType {
+  isOpenModal: Boolean;
+  toggle: () => void;
+  notice: string;
+}

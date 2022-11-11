@@ -1,5 +1,3 @@
-import { grey } from '@material-ui/core/colors';
-import { height } from '@material-ui/system';
 import React, { useEffect } from 'react';
 import { PassThrough } from 'stream';
 import { guildActions } from '../../features/guild/guild-slice';
@@ -14,6 +12,9 @@ import {
 } from '../../styles/Guild/MasterSetting';
 import { RightBtn } from '../../styles/Common/CommonBtnStyle';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import useModal from '../../utils/useModal';
+import GuildNoticeModal from '../Main/components/GuildNoticeModal';
+
 const MasterSetting = () => {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
   // 길드의 공지 가져오기
@@ -29,6 +30,8 @@ const MasterSetting = () => {
   const guildMemberList = useAppSelector(
     (state) => state.guild.gulidMemberList
   );
+  // 모달 사용하기
+  const { isOpenModal, onClickModal } = useModal();
 
   const dispatch = useAppDispatch();
   const guildId = currentUser?.guildId;
@@ -72,7 +75,7 @@ const MasterSetting = () => {
               <div> NOTICE</div>
               <div>{guildNotice.notice}</div>
             </div>
-            {/* <RightBtn
+            <RightBtn
               widthSize={'6vw'}
               heightSize={'5vh'}
               paddingSize={'2'}
@@ -80,10 +83,21 @@ const MasterSetting = () => {
               fontColor={'white'}
               backgroundColor={'blue'}
               style={{ marginTop: '1rem' }}
-              onClick={}
+              onClick={() => {
+                onClickModal();
+              }}
             >
               생성
-            </RightBtn> */}
+            </RightBtn>
+            {isOpenModal && (
+              <GuildNoticeModal
+                isOpenModal={isOpenModal}
+                toggle={onClickModal}
+                notice={guildNotice.notice}
+              ></GuildNoticeModal>
+            )}
+            <button>수정</button>
+            <button>삭제</button>
 
             {/* <RightBtn
       widthSize={'6vw'}
@@ -121,7 +135,8 @@ const MasterSetting = () => {
             }}
           >
             <div> VIDEOS</div>
-
+            이미지 호버하면 남은 시간과 영상 제목 보이게
+            <button>검색</button>
             <div
               style={{
                 display: 'flex',
@@ -157,6 +172,7 @@ const MasterSetting = () => {
                       }}
                       src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
                     ></img>
+                    <button>삭제</button>
                   </FlexTransparentDiv>
                 );
                 // return <p key={`task-${idx}`}>{task.videoId}</p>;
@@ -188,6 +204,7 @@ const MasterSetting = () => {
                       }}
                       src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
                     ></img>
+                    <button>삭제</button>
                   </FlexTransparentDiv>
                 );
                 // return <p key={`task-${idx}`}>{task.videoId}</p>;
@@ -243,7 +260,7 @@ const MasterSetting = () => {
                       >
                         {member.lastLearningDay}일 전
                       </div>
-                      <button>길마</button>
+                      <button>길마 (길마 넘기기버튼 누르면 보여야 함)</button>
                       <button>강퇴</button>
                     </div>
                   </MainBox>
