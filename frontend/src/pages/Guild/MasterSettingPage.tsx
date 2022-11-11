@@ -1,5 +1,7 @@
+import { grey } from '@material-ui/core/colors';
 import { height } from '@material-ui/system';
 import React, { useEffect } from 'react';
+import { PassThrough } from 'stream';
 import { guildActions } from '../../features/guild/guild-slice';
 import {
   MainBox,
@@ -10,6 +12,7 @@ import {
   GuildSettingLeftBox,
   GuildSettingRightBox,
 } from '../../styles/Guild/MasterSetting';
+import { RightBtn } from '../../styles/Common/CommonBtnStyle';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 const MasterSetting = () => {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
@@ -70,17 +73,19 @@ const MasterSetting = () => {
               <div>{guildNotice.notice}</div>
             </div>
             {/* <RightBtn
-      widthSize={'6vw'}
-        heightSize={'5vh'}
-        paddingSize={'2'}
-        fontSize={'1rem'}
-        fontColor={'white'}
-        backgroundColor={'blue'}
-        style={{ marginTop: '1rem' }}
-        onClick={}> 생성
-      </RightBtn>
+              widthSize={'6vw'}
+              heightSize={'5vh'}
+              paddingSize={'2'}
+              fontSize={'1rem'}
+              fontColor={'white'}
+              backgroundColor={'blue'}
+              style={{ marginTop: '1rem' }}
+              onClick={}
+            >
+              생성
+            </RightBtn> */}
 
-      <RightBtn
+            {/* <RightBtn
       widthSize={'6vw'}
         heightSize={'5vh'}
         paddingSize={'2'}
@@ -204,15 +209,47 @@ const MasterSetting = () => {
             }}
           >
             <p> MEMBERS</p>
+            <button>길마 넘기기</button>
             {guildMemberList.members.map((member, idx) => {
-              return (
-                <div key={idx}>
-                  {member.nickname}
-                  {member.lastLearningDay}일 전
-                </div>
-              );
+              if (member.nickname !== currentUser?.nickname) {
+                return (
+                  <MainBox
+                    widthSize={'20vw'}
+                    heightSize={'8vh'}
+                    paddingSize={'2vw 1vw'}
+                    fontColor={'black'}
+                    fontSize={'2.5vmin'}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'start',
+                      justifyContent: 'center',
+                      margin: '0.5vh',
+                      background: '#A2D0FC',
+                    }}
+                  >
+                    <div key={idx}>
+                      {member.nickname}
+                      <div
+                        style={{
+                          justifyContent: 'center',
+                          margin: '0.5vh',
+                          background: '#A2D0FC',
+                          display: 'inline',
+                          fontSize: '1.8vmin',
+                          color: 'grey',
+                          width: '4vw',
+                        }}
+                      >
+                        {member.lastLearningDay}일 전
+                      </div>
+                      <button>길마</button>
+                      <button>강퇴</button>
+                    </div>
+                  </MainBox>
+                );
+              }
             })}
-            {/* <p>멤버들 정보가 옵니다</p> */}
           </MainBox>
         </GuildSettingRightBox>
       </div>
