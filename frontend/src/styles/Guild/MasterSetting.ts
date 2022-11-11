@@ -1,10 +1,20 @@
 import styled from 'styled-components';
-
-export const MasterSettingBox = styled.div`
+export const GuildSettingLeftBox = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  width: 35vw;
+  height: 75vh;
   flex-direction: column;
-  margin: 3vh auto;
-  padding: 3vh;
-  width: 75vw;
-  /* border: solid 3px purple; */
-`
+`;
+
+export const GuildSettingRightBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid blue;
+  width: 25vw;
+  height: 75vh;
+  flex-direction: column;
+`;
