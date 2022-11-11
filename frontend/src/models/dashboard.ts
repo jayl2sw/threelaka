@@ -4,3 +4,12 @@ export interface RecentVideos {
   title: string;
   videoId: string;
 }
+export interface CompletedVideos {
+  title: string;
+  videoId: string;
+}
+
+export interface TestGraph {
+  label: string;
+  value: number;
+}
