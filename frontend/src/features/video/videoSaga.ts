@@ -1,3 +1,4 @@
+import { useAppSelector } from './../../utils/hooks';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { videoActions } from './video-slice';
 import {
@@ -14,8 +15,8 @@ function* onGetVideoDataAsync(action: PayloadAction<string>) {
     const response: VideoData = yield call(getVideoDataApi, action.payload);
     // console.log(response);
     yield put(videoActions.getVideoDataSuccess(response));
-  } catch (error) {
-    // yield put(videoActions.getVideoDataFailed(error.message));
+  } catch (error: any) {
+    yield put(videoActions.getVideoDataFailed(error.message));
   }
 }
 

@@ -35,6 +35,9 @@ const RecentVideoCard = ({ data }: VideoCardProps) => {
 
   // 모달에 띄워줄 비디오 정보
   const videoData = useAppSelector((state) => state.video.videoData);
+  const learningRecord = useAppSelector(
+    (state) => state.video.recentVideoData.learningRecord
+  );
   // 영상 정보 조회
   const handlerGetVideoData = (videoId: string) => {
     const videoUrl = `https://youtu.be/${videoId}`;
@@ -90,6 +93,7 @@ const RecentVideoCard = ({ data }: VideoCardProps) => {
           isOpenModal={isOpenModal}
           toggle={onClickModal}
           videoData={videoData}
+          learningRecord={learningRecord}
         />
       )}
       <VideoTitle>{data.title}</VideoTitle>
