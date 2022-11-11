@@ -5,17 +5,26 @@ import {
   getMonth,
   getYear,
 } from '../../../utils/moment';
+import { useState } from 'react';
 
 import { getDatesInMonthDisplay } from '../../../utils/date';
 import { getMonthSet } from '../../../utils/moment';
 
 import { DateIndicatorContainer } from '../../../styles/DashBoard/DashBoardStyle';
+
+import { useAppSelector } from '../../../utils/hooks';
 export interface IDateIndicatorProps {
   selectDate: Date;
   setSelectDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
 const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
+  const [hourMonthStudyTime, setHourMonthStudyTime] = useState<Array<object>>(
+    []
+  );
+  const monthStudyTime = useAppSelector(
+    (state) => state.dashboard.monthStudyTime
+  );
   const datesInMonth = getDatesInMonthDisplay(
     getMonth(selectDate) + 1,
     getYear(selectDate)
@@ -23,6 +32,9 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
   const changeDate = (e: React.MouseEvent<HTMLDivElement>, nextDate: Date) => {
     // const target = e.target as HTMLDivElement;
     setSelectDate(nextDate);
+  };
+  const handleStudyTime = (studyTime: Array<object>) => {
+    return;
   };
   return (
     <DateIndicatorContainer>

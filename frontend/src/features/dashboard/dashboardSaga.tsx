@@ -1,11 +1,13 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import { VideoData, RecommendVideos, RecentVideoData } from '../../models';
+import { MonthStudyTime } from '../../models/dashboard';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
 import {
   getRecentVideosApi,
   getCompletedVideosApi,
   getDailyStudyTimeApi,
+  getMonthStudyTimeApi,
 } from '../../services/dashboardApi';
 import { dashboardActions } from './dashboard-slice';
 import { RecentVideos, CompletedVideos } from '../../models/dashboard';
@@ -45,6 +47,19 @@ function* onDailyStudyTimeAsync(action: PayloadAction<[]>) {
   }
 }
 
+//한달공부시간 불러오기 SAGA
+function* onMonthStudyTimeAsync(action: PayloadAction<MonthStudyTime>) {
+  try {
+    const response: MonthStudyTime = yield call(
+      getMonthStudyTimeApi,
+      action.payload
+    );
+    yield put(dashboardActions.getMonthStudyTimeSuccess(response));
+  } catch (error: any) {
+    yield put(dashboardActions.getMonthStudyTimeFailed(error.data));
+  }
+}
+
 // 현재공부중인영상
 export function* watchGetRecentVideoAsync() {
   yield takeLatest(
@@ -61,6 +76,7 @@ export function* watchGetCompletedVideoAsync() {
   );
 }
 
+//일주일 공부시간
 export function* watchGetDailyStudyTimeAsync() {
   yield takeLatest(
     dashboardActions.getDailyStudyTime.type,
@@ -68,8 +84,16 @@ export function* watchGetDailyStudyTimeAsync() {
   );
 }
 
+//한달 공부시간
+export function* watchGetMonthStudyTimeAsync() {
+  yield takeLatest(
+    dashboardActions.getMonthStudyTime.type,
+    onMonthStudyTimeAsync
+  );
+}
 export const dashboardSagas = [
   fork(watchGetRecentVideoAsync),
   fork(watchGetCompletedVideoAsync),
   fork(watchGetDailyStudyTimeAsync),
+  fork(watchGetMonthStudyTimeAsync),
 ];

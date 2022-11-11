@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { VideoData, RecentVideoData } from '../../models/video';
-import { RecentVideos, CompletedVideos } from '../../models/dashboard';
+import {
+  RecentVideos,
+  CompletedVideos,
+  MonthStudyTime,
+} from '../../models/dashboard';
+import moment from 'moment';
 
 type DashboardState = {
   loading: boolean;
@@ -10,6 +15,8 @@ type DashboardState = {
   // 공부완료영상
   completedVideoList: CompletedVideos[];
   dailyStudyTime: Array<Object>;
+  monthStudyTime: Array<Object>;
+  seqDays: number;
 };
 
 let initialState: DashboardState = {
@@ -18,6 +25,8 @@ let initialState: DashboardState = {
   recentVideoList: [],
   completedVideoList: [],
   dailyStudyTime: [],
+  monthStudyTime: [],
+  seqDays: 0,
 };
 
 // Slice
@@ -53,7 +62,7 @@ const dashboardSlice = createSlice({
     getRecentVideosFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
-
+    // 데일리 공부 시간 받아오기
     getDailyStudyTime(state) {
       state.loading = true;
     },
@@ -64,6 +73,27 @@ const dashboardSlice = createSlice({
     },
 
     getDailyStudyTimeFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 한달 공부 시간 받아오기
+    getMonthStudyTime(state) {
+      state.loading = true;
+    },
+    // 데일리 공부 시간 받아오기 성공
+    getMonthStudyTimeSuccess(state, action: PayloadAction<MonthStudyTime>) {
+      state.loading = false;
+      const ProcessedTime = action.payload.time.map((item, idx) => {
+        let newitem = moment.duration(item, 'milliseconds');
+        let hours = Math.floor(newitem.asHours());
+        let mins = Math.floor(newitem.asMinutes()) - hours * 60;
+        return hours + '시간' + mins + '분';
+      });
+      console.log('얍얍', ProcessedTime);
+      state.monthStudyTime = action.payload.time;
+      state.seqDays = action.payload.seqDays;
+    },
+
+    getMonthStudyTimeFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
   },
