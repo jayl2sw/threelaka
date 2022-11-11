@@ -123,6 +123,26 @@ export const DateIndicatorContainer = styled.div`
     /* margin-left: 1vw; */
     /* cursor: pointer; */
   }
+  .verybad {
+    background: #b9ddd3;
+    border-radius: 1vw;
+  }
+  .bad {
+    background: #97cdbd;
+    border-radius: 1vw;
+  }
+  .well {
+    background: #74bca6;
+    border-radius: 1vw;
+  }
+  .good {
+    background: #52aa90;
+    border-radius: 1vw;
+  }
+  .verygood {
+    background: #4c9d85;
+    border-radius: 1vw;
+  }
 `;
 
 export const MonthIndicatorContainer = styled.div`

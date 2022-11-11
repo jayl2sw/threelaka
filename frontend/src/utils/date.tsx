@@ -58,11 +58,28 @@ export const getDatesInMonthDisplay = (month: number, year: number) => {
   }
 
   // Add current month's dates
+  // for (let i = 1; i <= daysInMonth; i++) {
+  //   result.push({
+  //     date: moment(`${month}-${i}-${year}`, 'MM-DD-YYYY').toDate(),
+  //     currentMonth: true,
+  //   });
+  // }
+  //Add current month's dates
   for (let i = 1; i <= daysInMonth; i++) {
-    result.push({
-      date: moment(`${month}-${i}-${year}`, 'MM-DD-YYYY').toDate(),
-      currentMonth: true,
-    });
+    const today = new Date();
+    if (moment(`${month}-${i}-${year}`, 'MM-DD-YYYY').toDate() <= today) {
+      result.push({
+        date: moment(`${month}-${i}-${year}`, 'MM-DD-YYYY').toDate(),
+        beforeToday: true,
+        currentMonth: true,
+      });
+    } else {
+      result.push({
+        date: moment(`${month}-${i}-${year}`, 'MM-DD-YYYY').toDate(),
+        beforeToday: false,
+        currentMonth: true,
+      });
+    }
   }
 
   // Overflow dates for next month to meet 42 days per month display   requirement
@@ -77,6 +94,16 @@ export const getDatesInMonthDisplay = (month: number, year: number) => {
       });
     }
   }
+  // Add current month's dates
+  // for (let i = 1; i <= daysInMonth; i++) {
+  //   const today = new Date();
+  //   if (moment(`${month}-${i}-${year}`, 'MM-DD-YYYY').toDate() <= today) {
+  //     result.push({
+  //       date: moment(`${month}-${i}-${year}`, 'MM-DD-YYYY').toDate(),
+  //       beforeToday: true,
+  //     });
+  //   }
+  // }
 
   return result;
 };
