@@ -31,7 +31,7 @@ const ReadPage = () => {
   const [selectedSentenceIdx, setSelectedSentenceIdx] = useState<number | null>(
     null
   );
-  const [layoutMode, setLayoutMode] = useState<number>(2);
+  const [layoutMode, setLayoutMode] = useState<number>(0);
   // USEREF
   const studyDuration = useRef<number>(0);
 

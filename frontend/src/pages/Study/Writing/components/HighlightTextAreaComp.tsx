@@ -1,9 +1,6 @@
 import { MainBox } from '../../../../styles/Common/CommonDivStyle';
 import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
-import {
-  WordListAndWritingContainer,
-  HighlightTextAreaWrapper,
-} from '../../../../styles/Writing/WritingStyle';
+import { HighlightTextAreaWrapper } from '../../../../styles/Writing/WritingStyle';
 
 // 필요한 props interface
 interface IHighlightTextAreaProps {
@@ -12,6 +9,8 @@ interface IHighlightTextAreaProps {
   spellFilterTarget: string[];
   filterEssayTarget: string[];
   onChangeText: (value: string) => void;
+  foldLayoutMode: number;
+  layoutMode: number;
 }
 
 const HighlightTextAreaComp = ({
@@ -20,11 +19,15 @@ const HighlightTextAreaComp = ({
   spellFilterTarget,
   filterEssayTarget,
   onChangeText,
+  foldLayoutMode,
+  layoutMode,
 }: IHighlightTextAreaProps) => {
   return (
     <MainBox
-      widthSize={'50vw'}
-      heightSize={'70vh'}
+      widthSize={layoutMode === 0 ? (foldLayoutMode ? '75vw' : '50vw') : '80vw'}
+      heightSize={
+        layoutMode === 0 ? '70vh' : foldLayoutMode === 0 ? '40vh' : '63vh'
+      }
       paddingSize={'1vw'}
       fontColor={'black'}
       fontSize={'3vmin'}

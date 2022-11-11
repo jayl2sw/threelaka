@@ -8,13 +8,17 @@ import {
 // 필요한 props interface
 interface ITypoCorretionProps {
   spellCheckResult: FlggedToken[];
+  layoutMode: number;
 }
 
-const TypoCorrectionComp = ({ spellCheckResult }: ITypoCorretionProps) => {
+const TypoCorrectionComp = ({
+  spellCheckResult,
+  layoutMode,
+}: ITypoCorretionProps) => {
   return (
     <MainPaleBox
-      widthSize={'28vw'}
-      heightSize={'70vh'}
+      widthSize={layoutMode === 0 ? '28vw' : '80vw'}
+      heightSize={layoutMode === 0 ? '70vh' : '25vh'}
       paddingSize={'1vw'}
       fontColor={'black'}
       fontSize={'2vmin'}
@@ -29,7 +33,7 @@ const TypoCorrectionComp = ({ spellCheckResult }: ITypoCorretionProps) => {
         // console.log('얍', spellWord);
         return (
           <BackBlurBox
-            widthSize={'26vw'}
+            widthSize={layoutMode === 0 ? '26vw' : '77vw'}
             heightSize={'5vh'}
             paddingSize={'1vw'}
             fontColor={'black'}
