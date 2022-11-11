@@ -31,9 +31,9 @@ import { ProtectedRoute } from './pages/private/ProtectedRoute';
 
 function App() {
   const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   dispatch(authActions.fetchUser());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(authActions.fetchUser());
+  }, [dispatch]);
   return (
     <div className="App">
       <Routes>

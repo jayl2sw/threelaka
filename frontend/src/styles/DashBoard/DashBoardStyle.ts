@@ -88,3 +88,63 @@ export const CompletedVideoContainer = styled.div`
     }
   }
 `;
+
+export const WeekdayIndocatorContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0vw, 3vw)); //여기 찾아봐야할듯
+  /* grid-template-rows: 1; */
+  .weekday-indicator-icon {
+    height: 1vh;
+    width: 3vw;
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    /* padding: 1vw; */
+    font-weight: bold;
+    /* cursor: pointer; */
+  }
+`;
+
+export const DateIndicatorContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0vw, 2vw));
+  grid-template-rows: repeat(6, minmax(0vh, 3vh)); //달력세로
+  grid-gap: 1vw;
+  /* padding: 0 1vw; */
+  .date-icon {
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    height: 2vh;
+    width: 2vw;
+    padding: 1vw;
+    /* margin-left: 1vw; */
+    /* cursor: pointer; */
+  }
+`;
+
+export const MonthIndicatorContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
+  height: 2vh;
+  width: 2vw;
+  .month {
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    height: 2vh;
+    width: 2vw;
+    padding: 3vw;
+  }
+`;
+
+export const CalendarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

@@ -22,3 +22,22 @@ export const getReadableMonthDate = (date: Date) =>
 
 export const getMonthDayYear = (date: Date) =>
   moment(date).format('MM-DD-YYYY');
+
+export const getMonthSet = (selectDate: Date) => {
+  const month = getMonth(selectDate) + 1;
+  const result = {
+    current: selectDate,
+    prev: getSpecificDate(month - 1, 1, getYear(selectDate)),
+    next: getSpecificDate(month + 1, 1, getYear(selectDate)),
+  };
+
+  if (month === 1) {
+    result.prev = getSpecificDate(12, 1, getYear(selectDate) - 1);
+  }
+
+  if (month === 12) {
+    result.next = getSpecificDate(1, 1, getYear(selectDate) + 1);
+  }
+
+  return result;
+};

@@ -80,7 +80,6 @@ export const getDatesInMonthDisplay = (month: number, year: number) => {
 
   return result;
 };
-
 // July 2020
 
 // Note, since we use MomentJs's formatting, we do not index the month. This is getting the first weekday of the month for January 2020. Result is 0-indexed

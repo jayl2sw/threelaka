@@ -7,8 +7,10 @@ import {
 } from '../../../utils/moment';
 
 import { getDatesInMonthDisplay } from '../../../utils/date';
+import { getMonthSet } from '../../../utils/moment';
 
-interface IDateIndicatorProps {
+import { DateIndicatorContainer } from '../../../styles/DashBoard/DashBoardStyle';
+export interface IDateIndicatorProps {
   selectDate: Date;
   setSelectDate: React.Dispatch<React.SetStateAction<Date>>;
 }
@@ -23,11 +25,11 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
     setSelectDate(nextDate);
   };
   return (
-    <>
-      {selectDate && <div>{selectDate.toString()}</div>}
+    <DateIndicatorContainer>
       {datesInMonth.map((item, idx) => {
         return (
           <div
+            className="date-icon"
             date-active-month={item.currentMonth.toString()}
             date-date={item.date.toString()}
             key={`date-${idx}`}
@@ -38,7 +40,7 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
           </div>
         );
       })}
-    </>
+    </DateIndicatorContainer>
   );
 };
 
