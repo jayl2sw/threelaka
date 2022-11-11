@@ -22,6 +22,8 @@ type VideoCardProps = {
   data: {
     title: string;
     videoId: string;
+    continueTime: string;
+    stage: string;
   };
 };
 
@@ -34,6 +36,9 @@ const CompletedVideoCard = ({ data }: VideoCardProps) => {
   // 모달에 띄워줄 비디오 정보
   const videoData = useAppSelector((state) => state.video.videoData);
   // 영상 정보 조회
+  const learningRecord = useAppSelector(
+    (state) => state.video.recentVideoData.learningRecord
+  );
   const handlerGetVideoData = (videoId: string) => {
     const videoUrl = `https://youtu.be/${videoId}`;
     dispatch(videoActions.getVideoData(videoUrl));
@@ -88,6 +93,7 @@ const CompletedVideoCard = ({ data }: VideoCardProps) => {
           isOpenModal={isOpenModal}
           toggle={onClickModal}
           videoData={videoData}
+          learningRecord={learningRecord}
         />
       )}
       <VideoTitle>{data.title}</VideoTitle>
