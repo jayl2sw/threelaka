@@ -1,5 +1,5 @@
 // import React from 'react';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { WordBook } from '../../../../models';
 import {
   WordCheckBox,
@@ -14,7 +14,7 @@ import {
   FlexTransparentDiv,
 } from '../../../../styles/Common/CommonDivStyle';
 import { RiMenuFoldFill, RiMenuUnfoldFill } from 'react-icons/ri';
-// import HorizontalScroll from 'react-horizontal-scrolling';
+import { useHorizontalScroll } from '../../../../utils/useSideScroll';
 
 // 필요한 props interface
 interface IWordBookProps {
@@ -32,6 +32,10 @@ const WordBookComp = ({
   foldLayoutMode,
   setFoldLayoutMode,
 }: IWordBookProps) => {
+  const scrollRef = useHorizontalScroll(
+    foldLayoutMode
+  ) as React.MutableRefObject<HTMLDivElement>;
+
   return (
     <>
       {foldLayoutMode === 0 ? (
@@ -153,7 +157,8 @@ const WordBookComp = ({
               justifyContent={'start'}
               alignItems={'start'}
               IsBorder={'none'}
-              style={{ overflowX: 'hidden', overflowY: 'hidden' }}
+              style={{ overflow: 'auto' }}
+              ref={scrollRef}
             >
               {wordBookList.map((aWord: WordBook, idx) => {
                 return (
@@ -277,6 +282,7 @@ const WordBookComp = ({
               onClick={() => setFoldLayoutMode(0)}
             >
               <RiMenuUnfoldFill size={30}></RiMenuUnfoldFill>
+              <div ref={scrollRef}></div>
             </div>
           )}
         </MainPaleBox>
