@@ -41,7 +41,12 @@ function* onGetCompletedVideosAsync(action: PayloadAction<CompletedVideos[]>) {
 function* onDailyStudyTimeAsync(action: PayloadAction<[]>) {
   try {
     const response: [] = yield call(getDailyStudyTimeApi, action.payload);
-    yield put(dashboardActions.getDailyStudyTimeSuccess(response));
+    // response.map((item, idx) => item / 60);
+    console.log(response);
+    const processedTime: number[] = response
+      .slice(1, 8)
+      .map((item, idx) => item / 60);
+    yield put(dashboardActions.getDailyStudyTimeSuccess(processedTime));
   } catch (error: any) {
     yield put(dashboardActions.getDailyStudyTimeFailed(error.data));
   }

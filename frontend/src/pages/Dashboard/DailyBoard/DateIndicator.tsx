@@ -61,7 +61,7 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
               date-date={item.date.toString()}
               key={`date-${idx}`}
               // date-date를 getattribute하는 대신 i.date 값을 직접 넘겨주기
-              onClick={(e) => changeDate(e, item.date)}
+              // onClick={(e) => changeDate(e, item.date)}
             >
               {getDayOfMonth(item.date)}
             </div>

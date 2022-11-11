@@ -67,7 +67,7 @@ const dashboardSlice = createSlice({
       state.loading = true;
     },
     // 데일리 공부 시간 받아오기 성공
-    getDailyStudyTimeSuccess(state, action: PayloadAction<[]>) {
+    getDailyStudyTimeSuccess(state, action: PayloadAction<number[]>) {
       state.loading = false;
       state.dailyStudyTime = action.payload;
     },

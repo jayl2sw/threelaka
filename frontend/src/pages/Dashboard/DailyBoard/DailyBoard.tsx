@@ -6,8 +6,8 @@ const DailyBoard = () => {
   return (
     <div>
       <VideoContainer></VideoContainer>
-      {/* <GraphContainer></GraphContainer> */}
-      <Calendar></Calendar>
+      <GraphContainer></GraphContainer>
+      {/* <Calendar></Calendar> */}
     </div>
   );
 };

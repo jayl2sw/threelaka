@@ -9,52 +9,38 @@ import { AxisBottom, AxisLeft } from '@vx/axis';
 import { timeParse, timeFormat } from 'd3-time-format';
 import { TestGraph } from '../../../models/dashboard';
 
-import { useAppDispatch } from '../../../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
-export const purple3 = '#a44afe';
+import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 const verticalMargin = 120;
-
-const defaultData1 = [
-  {
-    label: 'Happy',
-    value: 4000,
-  },
-  {
-    label: 'Sad',
-    value: 2000,
-  },
-  {
-    label: 'Angry',
-    value: 3000,
-  },
-  {
-    label: 'Joyful',
-    value: 4500,
-  },
-  {
-    label: 'Anxious',
-    value: 7000,
-  },
-];
-
-// accessors
-const x = (d: TestGraph) => d.label;
-const y = (d: TestGraph) => d.value;
 
 export type BarsProps = {
   width: number;
   height: number;
   events?: boolean;
 };
-
 export default function Example({ width, height, events = false }: BarsProps) {
+  // accessors
+  const x = (d: TestGraph) => d.label;
+  const y = (d: TestGraph) => d.value;
   const dispatch = useAppDispatch();
+  const dailyStudyTime = useAppSelector(
+    (state) => state.dashboard.dailyStudyTime
+  );
   //데일리 공부시간 불러오기
   useEffect(() => {
     dispatch(dashboardActions.getDailyStudyTime());
   }, []);
 
+  console.log(dailyStudyTime);
+  const timeData: Array<TestGraph> = [];
+
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  dailyStudyTime.map((item, idx) => {
+    timeData.push({ label: days[idx], value: Number(item) });
+  });
+  console.log('얍얍', timeData);
   // bounds
   const xMax = width;
   const yMax = height - verticalMargin;
@@ -63,21 +49,21 @@ export default function Example({ width, height, events = false }: BarsProps) {
   const xScale = useMemo(
     () =>
       scaleBand<string>({
-        range: [0, xMax],
+        range: [0, 300],
         round: true,
-        domain: defaultData1.map(x),
+        domain: timeData.map(x),
         padding: 0.4,
       }),
-    [xMax]
+    [timeData, xMax]
   );
   const yScale = useMemo(
     () =>
       scaleLinear<number>({
         range: [0, yMax],
         round: true,
-        domain: [Math.max(...defaultData1.map(y)), 0],
+        domain: [Math.max(...timeData.map(y)), 0],
       }),
-    [yMax]
+    [timeData, yMax]
   );
 
   return width < 10 ? null : (
@@ -85,14 +71,8 @@ export default function Example({ width, height, events = false }: BarsProps) {
       <GradientTealBlue id="teal" />
       <rect width={width} height={height} fill="url(#teal)" rx={14} />
       <Group top={25} left={55}>
-        <AxisLeft left={10} scale={yScale} numTicks={4} label="Times" />
-        {defaultData1.map((d) => {
-          // const letter = getLetter(d);
-          // const barWidth = xScale.bandwidth();
-          // // const barHeight = yMax - yScale(getLetterFrequency(d));
-          // const barHeight = yMax - 3;
-          // const barX = xScale(letter);
-          // const barY = yMax - barHeight;
+        <AxisLeft left={10} scale={yScale} numTicks={4} label="Times(Min)" />
+        {timeData.map((d) => {
           const label = x(d);
           const value = y(d);
           const scaleY: any = yScale(value);
@@ -118,21 +98,9 @@ export default function Example({ width, height, events = false }: BarsProps) {
         })}
         <AxisBottom
           scale={xScale}
-          label="Emotion"
+          label="Study Time in Week"
           labelOffset={15}
           top={yMax}
-          // top={yMax + margin.top}
-
-          // top={verticalMargin / 2}
-          // scale={dateScale}
-          // tickFormat={formatDate}
-          // stroke={purple3}
-          // tickStroke={purple3}
-          // tickLabelProps={() => ({
-          //   fill: purple3,
-          //   fontSize: 11,
-          //   textAnchor: 'middle',
-          // })}
         />
       </Group>
     </svg>

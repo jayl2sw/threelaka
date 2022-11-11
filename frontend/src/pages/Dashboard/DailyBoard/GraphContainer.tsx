@@ -3,7 +3,7 @@ import DailyStudyGraph from '../DailyBoard/DailyStudyGraph';
 const GraphContainer = () => {
   return (
     <>
-      <DailyStudyGraph width={500} height={200} />
+      <DailyStudyGraph width={400} height={200} />
     </>
   );
 };
