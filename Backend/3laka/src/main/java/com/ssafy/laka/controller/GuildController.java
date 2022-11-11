@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,68 +35,30 @@ public class GuildController {
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
 
+
     @PostMapping("")
     @ApiOperation(value = "길드 생성")
     public ResponseEntity<GuildResponseDto> createGuild(@RequestBody GuildCreateDto data){
         return new ResponseEntity<>(guildService.createGuild(data), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{guildId}")
-    @ApiOperation(value = "내가 마스터인 길드 삭제")
-    public ResponseEntity<String> deleteGuild(@PathVariable int guildId){
-        guildService.deleteGuild(guildId);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-    }
-
-    @GetMapping("/request/{guildId}")
-    @ApiOperation(value = "내가 마스터인 길드 가입 요청 조회")
-    public ResponseEntity <List<JoinRequestDto>> getJoinReqList(@PathVariable int guildId) {
-        List RequestLists = guildService.getJoinReqList(guildId);
-        if (RequestLists.size() < 1) {
-            throw new RequestListEmptyException();
-        }
-        return new ResponseEntity<>(guildService.getJoinReqList(guildId), HttpStatus.OK);
-    }
-
     @PostMapping("/request")
     @ApiOperation(value = "길드 가입 요청")
     public ResponseEntity<String> joinGuild(@RequestBody int guildId){
         guildService.joinGuild(guildId);
-    return new ResponseEntity<>("SUCCESS", HttpStatus.OK);}
-
-    @PutMapping("/accept")
-    @ApiOperation(value = "길드 가입 요청 수락")
-    public ResponseEntity<String> acceptGuild(@RequestBody int requestId){
-        guildService.acceptGuild(requestId);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-    }
-
-    @DeleteMapping("/reject")
-    @ApiOperation(value = "길드 가입 요청 거절")
-    public ResponseEntity<String> rejectGuild(@RequestBody int requestId){
-        guildService.rejectGuild(requestId);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-    }
-
-    @GetMapping("/search/{guildId}")
-    @ApiOperation(value = "멤버 정보 제외한 길드 정보 조회")
-    public ResponseEntity<GuildResponseDto> searchGuild(@PathVariable @RequestBody int guildId){
-        return new ResponseEntity<>(guildService.searchGuild(guildId), HttpStatus.OK);
-
     }
 
     @GetMapping("/members/{guildId}")
     @ApiOperation(value = "길드의 멤버들 정보 조회")
     public ResponseEntity<MemberResponseDto> searchMembers(@PathVariable @RequestBody int guildId){
         return new ResponseEntity<>(guildService.searchMembers(guildId), HttpStatus.OK);
-
     }
 
-    @PutMapping("/user/guild")
-    @ApiOperation(value = "내가 마스터인 길드 정보 수정")
-    public ResponseEntity<String> updateGuild(String description, int guildId){
-        guildService.setDescription(description, guildId);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    @GetMapping("/search/{guildId}")
+    @ApiOperation(value = "멤버 정보 제외한 길드 정보 조회")
+    public ResponseEntity<GuildResponseDto> searchGuild(@PathVariable @RequestBody int guildId){
+        return new ResponseEntity<>(guildService.searchGuild(guildId), HttpStatus.OK);
     }
 
     @DeleteMapping("/quit/{guildId}")
@@ -105,43 +68,10 @@ public class GuildController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
-    @DeleteMapping("/remove/{userId}")
-    @ApiOperation(value = "마스터의 멤버 추방")
-    public ResponseEntity<String> deleteMember(@PathVariable int userId){
-        guildService.deleteMember(userId);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-    }
-
-    @PostMapping("/notice/{guildId}")
-    @ApiOperation(value = "내가 마스터인 길드 공지 생성")
-    public ResponseEntity<NoticeResponseDto> createNotice(@PathVariable int guildId, String notice){
-        return new ResponseEntity<>(guildService.createNotice(guildId, notice), HttpStatus.OK);
-    }
-
     @GetMapping("/notice/{guildId}")
     @ApiOperation(value = "길드 멤버의 길드 공지 조회")
     public ResponseEntity<NoticeResponseDto> getNotice(@PathVariable int guildId){
         return new ResponseEntity<>(guildService.getNotice(guildId), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/notice/{guildId}")
-    @ApiOperation(value = "길드 마스터의 길드 공지 삭제")
-    public ResponseEntity<String> deleteNotice(@PathVariable int guildId){
-        guildService.deleteNotice(guildId);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-    }
-
-    @PutMapping("/notice/{guildId}")
-    @ApiOperation(value = "길드 마스터의 길드 공지 수정")
-    public ResponseEntity<NoticeResponseDto> updateNotice(@PathVariable int guildId, String notice){
-        return new ResponseEntity<>(guildService.UpdateNotice(guildId, notice), HttpStatus.OK);
-    }
-
-    @PostMapping("/master/{userId}")
-    @ApiOperation(value = "길드 마스터 변경")
-    public ResponseEntity<String> changeMaster(@PathVariable int userId){
-        guildService.changeMaster(userId);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
     // 여기서부터 전부 반환값 협의 필요 =====================================================================================
@@ -223,6 +153,89 @@ public class GuildController {
     }
 
     // 길드 마스터 권한 한정 기능 ==========================================================================================
+
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @DeleteMapping("")
+    @ApiOperation(value = "내가 마스터인 길드 삭제")
+    public ResponseEntity<String> deleteGuild(@PathVariable int guildId){
+        guildService.deleteGuild();
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @GetMapping("/requests")
+    @ApiOperation(value = "내가 마스터인 길드 가입 요청 조회")
+    public ResponseEntity <List<JoinRequestDto>> getJoinReqList() {
+        List<JoinRequestDto> reqList = guildService.getJoinReqList();
+        if (reqList.size() < 1) {
+            throw new RequestListEmptyException();
+        }
+        return new ResponseEntity<>(reqList, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @PutMapping("/accept")
+    @ApiOperation(value = "길드 가입 요청 수락")
+    public ResponseEntity<String> acceptGuild(@RequestBody int requestId){
+        guildService.acceptGuild(requestId);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @DeleteMapping("/reject")
+    @ApiOperation(value = "길드 가입 요청 거절")
+    public ResponseEntity<String> rejectGuild(@RequestBody int requestId){
+        guildService.rejectGuild(requestId);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @PutMapping("/user/guild")
+    @ApiOperation(value = "내가 마스터인 길드 정보 수정")
+    public ResponseEntity<String> updateGuild(String description){
+        guildService.setDescription(description);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @DeleteMapping("/remove/{userId}")
+    @ApiOperation(value = "마스터의 멤버 추방")
+    public ResponseEntity<String> deleteMember(@PathVariable int userId){
+        guildService.deleteMember(userId);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @PostMapping("/notice")
+    @ApiOperation(value = "내가 마스터인 길드 공지 생성")
+    public ResponseEntity<NoticeResponseDto> createNotice(@RequestBody String notice){
+        return new ResponseEntity<>(guildService.createNotice(notice), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @DeleteMapping("/notice")
+    @ApiOperation(value = "길드 마스터의 길드 공지 삭제")
+    public ResponseEntity<String> deleteNotice(){
+        guildService.deleteNotice();
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @PutMapping("/notice")
+    @ApiOperation(value = "길드 마스터의 길드 공지 수정")
+    public ResponseEntity<NoticeResponseDto> updateNotice(String notice){
+        return new ResponseEntity<>(guildService.updateNotice(notice), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @PostMapping("/master/{userId}")
+    @ApiOperation(value = "길드 마스터 변경")
+    public ResponseEntity<String> changeMaster(@PathVariable int userId){
+        guildService.changeMaster(userId);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
     @PostMapping("/auth/assignment")
     @ApiOperation(value = "공통 과제 생성")
     public ResponseEntity<String> createAssignment(@RequestBody AssignmentRequestDto info){
@@ -230,33 +243,26 @@ public class GuildController {
         return new ResponseEntity<>(guildService.createAssignment(info), HttpStatus.OK);
     }
 
-    @PutMapping("/auth/assignment")
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @PutMapping("/assignment")
     @ApiOperation(value = "공통 과제 수정")
     public ResponseEntity<String> updateAssignment(@RequestBody AssignmentUpdateRequestDto info){
         // 공통 과제 수정
         return new ResponseEntity<>(guildService.updateAssignment(info), HttpStatus.OK);
     }
 
-    @DeleteMapping("/auth/assignment/{assignment_id}")
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
+    @DeleteMapping("/assignment/{assignment_id}")
     @ApiOperation(value = "공통 과제 삭제")
     public ResponseEntity<String> deleteAssignment(@PathVariable int assignment_id){
         // 공통 과제 삭제
         return new ResponseEntity<>(guildService.deleteAssignment(assignment_id), HttpStatus.OK);
     }
 
-    @PutMapping("/auth/info")
-    @ApiOperation(value = "길드 정보 수정")
-    public ResponseEntity<?> updateGuildInfo(){
-        // 길드 정보 수정 (길드 설명, 길드 스케줄, 길드명 등)
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
+    @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
     @PutMapping("/profile/{guild_id}")
     @ApiOperation(value = "프로필 사진 수정", notes = "길드의 프로필 사진을 수정한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = String.class)
-    })
-    public ResponseEntity<?> changeProfile(@PathVariable int guild_id, @RequestPart MultipartFile file) {
+    public ResponseEntity<String> changeProfile(@PathVariable int guild_id, @RequestPart MultipartFile file) {
         // 프로필 사진 수정
         if(file.isEmpty()){
             throw new RuntimeException("이미지가 없습니다.");
@@ -272,5 +278,5 @@ public class GuildController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
-
+    
 }

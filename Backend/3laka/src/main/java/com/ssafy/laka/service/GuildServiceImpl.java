@@ -1,6 +1,7 @@
 package com.ssafy.laka.service;
 
 import com.ssafy.laka.domain.*;
+import com.ssafy.laka.domain.enums.Role;
 import com.ssafy.laka.domain.enums.State;
 import com.ssafy.laka.dto.exception.guild.*;
 import com.ssafy.laka.dto.exception.study.VideoNotFoundException;
@@ -45,37 +46,19 @@ public class GuildServiceImpl implements GuildService{
             throw new GuildExcessException();
         }
         joinRequestRepository.save(JoinRequest.builder().sender(me).guild(guild).state(State.pending).build());
-
-
     }
 
     @Override
-    public List<JoinRequestDto> getJoinReqList(int guildId) {
+    public List<JoinRequestDto> getJoinReqList() {
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        int myId = me.getUserId();
-
-        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
-        int masterId = guild.getMaster();
-
-        if (myId != masterId) {
-            throw new NotMasterException();
-        }
-        else{
-            List<JoinRequestDto> joinReqList = joinRequestRepository.findByGuildIdAndState(guild.getId(), State.pending);
-
-
-            return joinReqList;
-
-        }
-
-
+        List<JoinRequestDto> joinReqList = joinRequestRepository.findByGuildIdAndState(me.getGuild().getId(), State.pending);
+        return joinReqList;
     }
 
     @Override
 //    길드 가입 요청 수락
     public void acceptGuild(int requestId) {
         JoinRequest joinRequest = joinRequestRepository.findById(requestId).orElseThrow(RequestNotFoundException::new);
-        System.out.println("joinRequest" + joinRequest);
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         int masterId = joinRequest.getGuild().getMaster();
         if (me.getUserId() != masterId) {
@@ -85,30 +68,22 @@ public class GuildServiceImpl implements GuildService{
         }
         joinRequest.setState(State.accepted);
         Guild guild = guildRepository.findByMaster(masterId).orElseThrow(GuildNotFoundException::new);
-
-
         User sender = userRepository.findById(joinRequest.getSender().getUserId()).orElseThrow(UserNotFoundException::new);
         sender.joinGuild(guild);
         guild.getMembers().add(joinRequest.getSender());
         guildRepository.flush();
-        System.out.println(guild);
-
     }
 
     @Override
 //    길드 가입 요청 거절
     public void rejectGuild(int requestId) {
         JoinRequest joinRequest = joinRequestRepository.findById(requestId).orElseThrow(RequestNotFoundException::new);
-        System.out.println("joinRequest" + joinRequest);
-
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         int masterId = joinRequest.getGuild().getMaster();
-
         if (me.getUserId() != masterId) {
             throw new NotMasterException();
         }
         joinRequest.setState(State.rejected);
-
     }
 
     @Override
@@ -143,10 +118,6 @@ public class GuildServiceImpl implements GuildService{
     @Override
     public GuildResponseDto createGuild(GuildCreateDto data) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-//이미 소속된 길드가 있다면 에러 반환
-//        System.out.println("================");
-//        System.out.println(user.getGuild().getId());
-//        System.out.println("================");
         if (user.getGuild() != null){
             throw new AlreadyInGuildException();
         }
@@ -160,74 +131,48 @@ public class GuildServiceImpl implements GuildService{
                 .build();
         Guild guild1 = guildRepository.save(guild);
         user.joinGuild(guild1);
+        user.be(Role.ROLE_GUILD_MASTER);
         userRepository.flush();
         guild1.getMembers().add(user);
-        System.out.println(guild1.getId());
-        System.out.println(guild1.getMembers());
         return GuildResponseDto.from(guild1, user.getNickname());
-
-
     }
 
     @Override
-    public void setDescription(String description, int guildId){
+    public void setDescription(String description){
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         int userGuild = user.getUserId();
-        System.out.println("userGuild  " + userGuild);
-
-        if (user.getGuild() == null){
-            throw new NotInGuildException();
-        };
         Guild guild = guildRepository.findById(user.getGuild().getId()).orElseThrow(GuildNotFoundException::new);
-        System.out.println("guildMasterId  " + guild.getMaster());
-
         if (userGuild != guild.getMaster()){
             throw new NotMasterException();
         }
-
         guild.setDescription(description);
         guildRepository.save(guild);
     }
 
     @Override
 //    내가 마스터인 길드 삭제
-    public void deleteGuild(int guild_id) {
+    public void deleteGuild() {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        int userId = user.getUserId();
-        Guild guild = guildRepository.findById(guild_id).orElseThrow(GuildNotFoundException::new);
-        int master = guild.getMaster();
-
-        if (userId != master){
-            throw new NotMasterException();
-        }
-        else if (guild.getMembers().size() > 1){
+        Guild guild = user.getGuild();
+        if (guild.getMembers().size() > 1){
             throw new LeftMemberExistException();
         }
-
         else {
             user.joinGuild(null);
+            user.be(Role.ROLE_USER);
             guildRepository.delete(guild);
         }
-
     }
 
 //  길드에서 멤버 추방
     @Override
     public void deleteMember(int userId) {
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-//        로그인 한 유저의 길드 마스터 ID
-        int myMasterId = me.getGuild().getMaster();
-//        추방하려는 유저의 길드 마스터 ID
         User member = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         int memberMasterId = member.getGuild().getMaster();
-
-        if (me.getUserId() != myMasterId){
-            throw new NotMasterException();
-        }
-        if (myMasterId != memberMasterId){
+        if (me.getUserId() != memberMasterId){
             throw new NotGuildMemberException();
         }
-
         member.joinGuild(null);
     }
     @Override
@@ -250,17 +195,10 @@ public class GuildServiceImpl implements GuildService{
     }
 
     @Override
-    public NoticeResponseDto createNotice(int guildId, String notice) {
-        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
-        guild.setNotice(notice);
-        guildRepository.save(guild);
-        int masterId = guild.getMaster();
-
+    public NoticeResponseDto createNotice(String notice) {
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        if (me.getUserId() != masterId){
-            throw new NotMasterException();
-        };
-
+        Guild guild = me.getGuild();
+        guild.setNotice(notice);
         return NoticeResponseDto.from(guild);
     }
 
@@ -276,38 +214,26 @@ public class GuildServiceImpl implements GuildService{
     }
 
     @Override
-    public void deleteNotice(int guildId) {
-        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
-User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        if (me.getUserId() != guild.getMaster()){
-            throw new NotMasterException();
-        };
-
+    public void deleteNotice() {
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        Guild guild = me.getGuild();
         guild.setNotice(null);
         guildRepository.save(guild);
     }
 
     @Override
-    public NoticeResponseDto UpdateNotice(int guildId, String notice) {
-        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
+    public NoticeResponseDto updateNotice(String notice) {
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        Guild guild = me.getGuild();
         guild.setNotice(notice);
         guildRepository.save(guild);
-        int masterId = guild.getMaster();
-
-        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        if (me.getUserId() != masterId){
-            throw new NotMasterException();
-        };
-
         return NoticeResponseDto.from(guild);
     }
 
     @Override
     public void changeMaster(int userId) {
         User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-
         User member = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-
         Guild myGuild = me.getGuild();
 //        내가 멤버가 속한 길드의 마스터가 아닐 경우
         if (me.getUserId() != member.getGuild().getMaster()){
@@ -317,10 +243,9 @@ User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUserna
         if (!me.getGuild().getMembers().contains(member)){
             throw new NotGuildMemberException();
         }
-
         myGuild.setMaster(userId);
-
-
+        me.be(Role.ROLE_USER);
+        member.be(Role.ROLE_GUILD_MASTER);
     }
 
     @Override
