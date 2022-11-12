@@ -156,6 +156,7 @@ const ReadPage = () => {
               justifyContent={'center'}
               alignItems={'center'}
               IsBorder={'none'}
+              style={{ transition: 'all 0.5s ease-in-out' }}
             >
               <VideoComp
                 pageParams={pageParams}
@@ -184,6 +185,7 @@ const ReadPage = () => {
               justifyContent={'start'}
               alignItems={'center'}
               IsBorder={'none'}
+              style={{ transition: 'all 0.5s ease-in-out' }}
             ></FlexTransparentDiv>
 
             <ScriptComp
@@ -209,6 +211,7 @@ const ReadPage = () => {
               justifyContent={'center'}
               alignItems={'center'}
               IsBorder={'none'}
+              style={{ transition: 'all 0.8s ease-in-out' }}
             >
               <VideoComp
                 pageParams={pageParams}

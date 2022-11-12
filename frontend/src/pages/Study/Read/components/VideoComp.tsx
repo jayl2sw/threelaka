@@ -51,6 +51,7 @@ const VideosComp = ({ pageParams, onReady, layoutMode }: IVideoCompProps) => {
             borderBottom: '10px solid black',
             borderRadius: '10px',
             background: 'black',
+            transition: 'all 0.8s ease-in-out',
           }}
         >
           <YouTube

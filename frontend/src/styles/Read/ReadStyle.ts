@@ -1,4 +1,11 @@
+import React from 'react';
 import styled from 'styled-components';
+
+interface CicularMenuProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
+  transitionTime: string;
+  removeTransitionTime: string;
+  bgColor: string;
+}
 
 export const WordBookAddReqBtn = styled.div`
   cursor: pointer;
@@ -142,11 +149,34 @@ export const AutoScrollBtn = styled.div`
   }
 `;
 
-export const CircularMenu = styled.div`
+export const CircularMenuItem = styled.div<CicularMenuProps>`
   display: flex;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
   width: 4vmin;
   height: 4vmin;
-  background-color: white;
+  background-color: ${(props) => props.bgColor};
+  opacity: 0;
+  transition: opacity ${(props) => props.removeTransitionTime} ease-in-out;
+  visibility: none;
+  border-radius: 50%;
+  &.toggle {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity ${(props) => props.transitionTime} ease-in-out;
+  }
+`;
+
+export const CircularMenu = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 4vmin;
+  height: 4vmin;
+  background-color: #4a9fff;
+  &:active {
+    transform: scale(0.9);
+  }
 `;

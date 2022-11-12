@@ -154,11 +154,16 @@ IScriptCompProps) => {
         fontSize={'2vmin'}
         style={
           layoutMode === 0
-            ? { paddingTop: '1vh', paddingBottom: '1vh' }
+            ? {
+                paddingTop: '1vh',
+                paddingBottom: '1vh',
+                transition: 'height 1s ease-in-out',
+              }
             : {
                 paddingTop: '1vh',
                 paddingBottom: '1vh',
                 marginTop: '2vh',
+                transition: 'height 1s ease-in-out',
               }
         }
       >
@@ -328,9 +333,10 @@ IScriptCompProps) => {
           layoutMode === 0
             ? {
                 position: 'absolute',
-                top: '8vh',
+                top: '16vh',
                 right: '10vw',
                 justifyContent: 'space-between',
+                transition: 'all 0.5s ease-in-out',
               }
             : layoutMode === 1
             ? {
@@ -338,12 +344,14 @@ IScriptCompProps) => {
                 top: '57vh',
                 right: '13vw',
                 justifyContent: 'space-between',
+                transition: 'all 0.5s ease-in-out',
               }
             : {
                 position: 'absolute',
                 top: '77vh',
                 right: '13vw',
                 justifyContent: 'space-between',
+                transition: 'all 0.5s ease-in-out',
               }
         }
       >

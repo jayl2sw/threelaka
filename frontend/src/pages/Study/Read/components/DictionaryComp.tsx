@@ -115,7 +115,11 @@ const DictionaryComp = ({
       paddingSize={'4vh 0 2vh 2vw'}
       fontColor={'black'}
       fontSize={'1.5vmin'}
-      style={layoutMode === 0 ? { marginTop: '2vh' } : { marginTop: '0' }}
+      style={
+        layoutMode === 0
+          ? { marginTop: '2vh', transition: 'all 0.5s ease-in-out' }
+          : { marginTop: '0', transition: 'all 0.5s ease-in-out' }
+      }
     >
       <FlexTransparentDiv
         widthSize={layoutMode === 2 ? '24vw' : '30vw'}
