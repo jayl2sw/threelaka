@@ -150,13 +150,13 @@ export const HorizontalBox = styled.div`
   justify-content: start;
   align-items: center;
   width: 20vw;
-  height: 23vh;
+  height: 21vh;
   border: 1px solid blue;
   flex-direction: column;
 `;
 
 export const HorizontalWordText = styled.div`
-  width: 20vw;
+  width: 19vw;
   height: 20vh;
   display: flex;
   flex-direction: column;

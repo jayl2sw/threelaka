@@ -12,6 +12,7 @@ import {
 import {
   MainPaleBox,
   FlexTransparentDiv,
+  BackBlurBox,
 } from '../../../../styles/Common/CommonDivStyle';
 import { RiMenuFoldFill, RiMenuUnfoldFill } from 'react-icons/ri';
 import { useHorizontalScroll } from '../../../../utils/useSideScroll';
@@ -46,7 +47,11 @@ const WordBookComp = ({
             paddingSize={'1vw'}
             fontColor={'black'}
             fontSize={'2vmin'}
-            style={{ display: 'flex', position: 'relative' }}
+            style={{
+              display: 'flex',
+              position: 'relative',
+              transition: 'all 0.8s ease-in-out',
+            }}
           >
             <FlexTransparentDiv
               widthSize={layoutMode === 0 ? '26.5vw' : '80vw'}
@@ -61,11 +66,15 @@ const WordBookComp = ({
                 flexDirection: 'column',
                 overflowY: 'scroll',
                 overflowX: 'hidden',
+                transition: 'all 0.8s ease-in-out',
               }}
             >
               {wordBookList.map((aWord: WordBook, idx) => {
                 return (
-                  <ArcodianBox key={`word-${idx}`}>
+                  <ArcodianBox
+                    key={`word-${idx}`}
+                    style={{ transition: 'all 0.8s ease-in-out' }}
+                  >
                     <WordCheckBox
                       className={
                         filterTarget.includes(aWord.word) ? 'checked' : ''
@@ -147,24 +156,44 @@ const WordBookComp = ({
             paddingSize={'1vw'}
             fontColor={'black'}
             fontSize={'2vmin'}
-            style={{ display: 'flex', position: 'relative' }}
+            style={{
+              display: 'flex',
+              position: 'relative',
+              transition: 'all 0.8s ease-in-out',
+            }}
           >
             <FlexTransparentDiv
               widthSize={layoutMode === 0 ? '26.5vw' : '80vw'}
-              heightSize={layoutMode === 0 ? '65vh' : '25vh'}
+              heightSize={layoutMode === 0 ? '65vh' : '22.5vh'}
               paddingSize={'0'}
               flexDirection={'row'}
               justifyContent={'start'}
               alignItems={'start'}
               IsBorder={'none'}
-              style={{ overflow: 'auto' }}
+              style={{
+                overflowX: 'auto',
+                overflowY: 'hidden',
+                transition: 'all 0.8s ease-in-out',
+              }}
               ref={scrollRef}
             >
               {wordBookList.map((aWord: WordBook, idx) => {
                 return (
-                  <HorizontalBox key={`word-${idx}`} itemID={`word-${idx}`}>
+                  <BackBlurBox
+                    widthSize="19vw"
+                    heightSize="21vh"
+                    paddingSize="0"
+                    fontSize="2vmin"
+                    fontColor="black"
+                    key={`word-${idx}`}
+                    itemID={`word-${idx}`}
+                    style={{
+                      marginRight: '0.5vw',
+                      transition: 'all 0.8s ease-in-out',
+                    }}
+                  >
                     <FlexTransparentDiv
-                      widthSize={'20vw'}
+                      widthSize={'19vw'}
                       heightSize={'3vh'}
                       paddingSize={'1vh 1vw 1vh 1vw'}
                       flexDirection={'row'}
@@ -199,7 +228,7 @@ const WordBookComp = ({
                       </p>
                     </HorizontalWordText>
                     {/* {aWord.example} */}
-                  </HorizontalBox>
+                  </BackBlurBox>
                 );
               })}
             </FlexTransparentDiv>
@@ -223,11 +252,12 @@ const WordBookComp = ({
             ) : (
               <div
                 style={{
-                  width: '78vw',
+                  width: '2vw',
                   height: '2vh',
                   // border: '3px solid blue',
                   position: 'absolute',
-                  bottom: '-2vh',
+                  bottom: '-1vh',
+                  right: '40vw',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
@@ -247,7 +277,11 @@ const WordBookComp = ({
           paddingSize={'0'}
           fontColor={'black'}
           fontSize={'2vmin'}
-          style={{ display: 'flex', position: 'relative' }}
+          style={{
+            display: 'flex',
+            position: 'relative',
+            transition: 'all 0.8s ease-in-out',
+          }}
         >
           {layoutMode === 0 ? (
             <div
