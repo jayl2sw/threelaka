@@ -78,17 +78,18 @@ export const EssayScreenContainer = styled.div`
 
 // 에세이 스크립트 스타일
 export const EssayContainer = styled.div`
-  /* width: 50vw;
+  width: 50vw;
   height: 30vh;
-  background: #ffffff;
-  box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
+  /* background: #ffffff; */
+  /* box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25); */
   border-radius: 2vmin;
   display: flex;
   flex-direction: column;
+  padding: 0.5vh 0.5vw;
   overflow: scroll;
   .trigger {
     display: none;
-  } */
+  }
 `;
 
 export const TextContainer = styled.div`

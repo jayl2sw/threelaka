@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import useOnScreen from '../UseOnScreen';
 import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
 import {
+  EssayContainer,
   TextBox,
   TextContainer,
 } from '../../../../styles/Speaking/SpeakingStyle';
@@ -88,18 +89,10 @@ const EssayForTest = ({
   });
 
   return (
-    <FlexTransparentDiv
-      widthSize={'48vw'}
-      heightSize={'28vh'}
-      paddingSize={'0'}
-      flexDirection={'row'}
-      justifyContent={'center'}
-      alignItems={'center'}
-      IsBorder={'none'}
-    >
+    <EssayContainer>
       <TextContainer>
         <p ref={elementRef} className="trigger">
-          {/* 에세이에요 */}
+          에세이예요
         </p>
 
         {script ? (
@@ -120,7 +113,7 @@ const EssayForTest = ({
           <p>아직 작성된 에세이가 없어요😂</p>
         )}
       </TextContainer>
-    </FlexTransparentDiv>
+    </EssayContainer>
   );
 };
 

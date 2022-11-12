@@ -26,6 +26,7 @@ const EssayForSpeaking = () => {
       fontSize={'1.5vw'}
       color={'white'}
       fontColor={'black'}
+      style={{ display: 'flex', flexDirection: 'column', overflow: 'scroll' }}
     >
       에세이 띄워주세요ㅠ
     </MainBox>
