@@ -3,10 +3,10 @@ import styled from 'styled-components';
 export const VideoBlock = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60vw;
-  height: 45vh;
+  width: 38vw;
+  height: 40vh;
   border: 1px solid black;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
 
   /* overflow: scroll; */
 `;
@@ -17,7 +17,12 @@ export const DashBoardBlock = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(106.56deg, rgba(132, 176, 226, 0.5) 7.3%, rgba(88, 172, 240, 0.43) 77.68%, rgba(174, 243, 147, 0.5) 99.32%);
+  background: linear-gradient(
+    106.56deg,
+    rgba(132, 176, 226, 0.5) 7.3%,
+    rgba(88, 172, 240, 0.43) 77.68%,
+    rgba(174, 243, 147, 0.5) 99.32%
+  );
 `;
 
 export const DashBoardContainer = styled.div`
