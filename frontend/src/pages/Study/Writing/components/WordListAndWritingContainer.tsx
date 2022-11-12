@@ -1,20 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { studyActions } from '../../../../features/study/study-slice';
 import { useAppSelector, useAppDispatch } from '../../../../utils/hooks';
-import {
-  WordListAndWritingContainer,
-  WordCheckBox,
-  WordText,
-  SpellText,
-  HighlightTextAreaWrapper,
-  ArcodianBox,
-} from '../../../../styles/Writing/WritingStyle';
-import {
-  MainPaleBox,
-  FlexTransparentDiv,
-  BackBlurBox,
-  MainBox,
-} from '../../../../styles/Common/CommonDivStyle';
+import { WordListAndWritingContainer } from '../../../../styles/Writing/WritingStyle';
+import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
 import {
   TopBtn,
   MoveToNextRightBtn,
@@ -22,16 +10,17 @@ import {
 } from '../../../../styles/Common/CommonBtnStyle';
 import {
   StudyPageParams,
-  WordBook,
   WordCheckPayload,
   FlggedToken,
   SaveEssayPayload,
 } from '../../../../models';
 import { writingActions } from '../../../../features/writing/writing-slice';
-import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
 import { useOutletContext } from 'react-router-dom';
 import { IheaderProps } from '../../../../layout/Header';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
+import WordBookComp from './WordBookComp';
+import TypoCorrectionComp from './TypoCorrectionComp';
+import HighlightTextAreaComp from './HighlightTextAreaComp';
 
 export interface IworlListAndWrtingProps {
   pageParams: StudyPageParams;
@@ -40,8 +29,8 @@ export interface IworlListAndWrtingProps {
 const WordListAndWritingContainerComp = ({
   pageParams,
 }: IworlListAndWrtingProps) => {
+  // utils
   const dispatch = useAppDispatch();
-  // word list 문제 해결해야함
   const { customMoveToNext } = useOutletContext<IheaderProps>();
   const moveToNext = customMoveToNext;
   // selector
@@ -51,18 +40,20 @@ const WordListAndWritingContainerComp = ({
   );
   const spellCheckLst = useAppSelector((state) => state.write.spellCheckLst);
   const userEssay = useAppSelector((state) => state.write.essay);
-
   // state
   const [filterTarget, setFilterTarget] = useState<string[]>([]);
   const [filterEssayTarget, setFilterEssayTarget] = useState<string[]>([]);
   const [textAreaValue, setTextAreaValue] = useState('');
   const [spellCheckResult, setSpellCheckResult] = useState<FlggedToken[]>([]);
   const [spellFilterTarget, setSpellFilterTarget] = useState<string[]>([]);
+  const [layoutMode, setLayoutMode] = useState<number>(1);
   // 단어장(0) <-> 문법검사(1)
   const [modeValue, setModeValue] = useState(0);
+  const [foldLayoutMode, setFoldLayoutMode] = useState<number>(0);
 
   // handler
-  const onChange = (value: string) => setTextAreaValue(value);
+  const onChangeText = (value: string) => setTextAreaValue(value);
+  // essay 저장
   const essaySave = () => {
     const temp: SaveEssayPayload = {
       content: textAreaRef.current!.innerText,
@@ -77,15 +68,15 @@ const WordListAndWritingContainerComp = ({
   // ref
   const textAreaRef = useRef<HTMLDivElement>(null);
 
+  // USEEFFECT
   // 처음에 단어장, 에세이 가져옴
-  // 나갈 때 에세이 저장해달라고 함
   useEffect(() => {
     dispatch(studyActions.getWordBookStart(pageParams.learningRecordId));
 
     //내가 쓴 에세이 불러오는거
     dispatch(writingActions.getEssayStart(pageParams.learningRecordId));
   }, []);
-
+  // 에세이 불러오면 textArea에 보여줌
   useEffect(() => {
     if (userEssay === null) {
       setTextAreaValue('');
@@ -93,20 +84,19 @@ const WordListAndWritingContainerComp = ({
       setTextAreaValue(userEssay);
     }
   }, [userEssay]);
-
+  // 에세이에 쓴 단어(단어장에 있는 것 중) state 업데이트
   useEffect(() => {
     const nextFilterTarget: string[] = [];
     const nextFilterEssayTarget: string[] = [];
-    const result = checkedWordList.map((checkWord: any) => {
+    checkedWordList.map((checkWord: any) => {
       nextFilterTarget.push(checkWord.dict_word);
       nextFilterEssayTarget.push(checkWord.essay_word);
     });
-    // console.warn(result);
     setFilterEssayTarget(nextFilterEssayTarget);
     setFilterTarget(nextFilterTarget);
   }, [checkedWordList]);
 
-  // 1분 마다 단어 썼는지 체크해줌
+  // 10초 마다 단어 썼는지 체크해줌
   useEffect(() => {
     if (wordBookList.length == 0) {
       return;
@@ -121,11 +111,10 @@ const WordListAndWritingContainerComp = ({
         dispatch(writingActions.postCheckWordStart(wordCheckPayload));
       }
     }, 10000);
-    //60000
     return () => clearInterval(wordChecker);
   }, [wordBookList]); // wordbooklist가 있을 때 돌아가게 하기 위해
 
-  // 문법 체크 시 전처리
+  // 문법 체크 업데이트
   useEffect(() => {
     if (spellCheckLst.flaggedTokens === undefined) {
       return;
@@ -147,7 +136,13 @@ const WordListAndWritingContainerComp = ({
   }, [spellCheckLst]);
 
   return (
-    <WordListAndWritingContainer>
+    <WordListAndWritingContainer
+      style={
+        layoutMode === 0
+          ? { flexDirection: 'row' }
+          : { flexDirection: 'column' }
+      }
+    >
       <MoveToNextLeftBtn
         onClick={(e) => {
           essaySave();
@@ -166,63 +161,83 @@ const WordListAndWritingContainerComp = ({
         <AiOutlineRight size={30} />
         <p>speaking</p>
       </MoveToNextRightBtn>
+      {/* textAreaValue를 참조하기 위한 컴포넌트 */}
       <div
         style={{ width: '0', height: '0', display: 'none' }}
         ref={textAreaRef}
       >
         {textAreaValue}
       </div>
+
       <FlexTransparentDiv
-        widthSize={'28vw'}
-        heightSize={'70vh'}
+        widthSize={
+          layoutMode === 0 ? (foldLayoutMode === 1 ? '2vw' : '28vw') : '80vw'
+        }
+        heightSize={
+          layoutMode === 0 ? '70vh' : foldLayoutMode === 1 ? '2vh' : '25vh'
+        }
         paddingSize={'0'}
         flexDirection={'column'}
         justifyContent={'start'}
         alignItems={'start'}
         IsBorder={'none'}
       >
-        <FlexTransparentDiv
-          widthSize={'28vw'}
-          heightSize={'5vh'}
-          paddingSize={'0'}
-          flexDirection={'row'}
-          justifyContent={'start'}
-          alignItems={'end'}
-          IsBorder={'none'}
-        >
-          <TopBtn
-            widthSize={'7vw'}
-            heightSize={'4vh'}
+        {foldLayoutMode === 1 ? (
+          <FlexTransparentDiv
+            widthSize={'2vw'}
+            heightSize={'5vh'}
             paddingSize={'0'}
-            fontColor={'black'}
-            fontSize={'2vmin'}
-            backgroundColor={'blue'}
-            style={{ marginRight: '1vw', marginLeft: '1vw' }}
-            onClick={() => setModeValue(0)}
-            className={modeValue ? 'pale' : ''}
-          >
-            단어장
-          </TopBtn>
-          <TopBtn
-            widthSize={'7vw'}
-            heightSize={'4vh'}
+            flexDirection={'row'}
+            justifyContent={'start'}
+            alignItems={'end'}
+            IsBorder={'none'}
+            style={{ minHeight: '4vh' }}
+          />
+        ) : (
+          <FlexTransparentDiv
+            widthSize={layoutMode === 0 ? '28vw' : '80vw'}
+            heightSize={'5vh'}
             paddingSize={'0'}
-            fontColor={'black'}
-            fontSize={'2vmin'}
-            backgroundColor={'blue'}
-            style={{ marginRight: '1vw' }}
-            onClick={() => {
-              setModeValue(1);
-              onClickSpellCheck();
-            }}
-            className={modeValue ? '' : 'pale'}
+            flexDirection={'row'}
+            justifyContent={'start'}
+            alignItems={'end'}
+            IsBorder={'none'}
           >
-            오타검사
-          </TopBtn>
-        </FlexTransparentDiv>
+            <TopBtn
+              widthSize={'7vw'}
+              heightSize={'4vh'}
+              paddingSize={'0'}
+              fontColor={'black'}
+              fontSize={'2vmin'}
+              backgroundColor={'blue'}
+              style={{ marginRight: '1vw', marginLeft: '1vw' }}
+              onClick={() => setModeValue(0)}
+              className={modeValue ? 'pale' : ''}
+            >
+              단어장
+            </TopBtn>
+            <TopBtn
+              widthSize={'7vw'}
+              heightSize={'4vh'}
+              paddingSize={'0'}
+              fontColor={'black'}
+              fontSize={'2vmin'}
+              backgroundColor={'blue'}
+              style={{ marginRight: '1vw' }}
+              onClick={() => {
+                setModeValue(1);
+                onClickSpellCheck();
+              }}
+              className={modeValue ? '' : 'pale'}
+            >
+              오타검사
+            </TopBtn>
+          </FlexTransparentDiv>
+        )}
+
         <FlexTransparentDiv
-          widthSize={'28vw'}
-          heightSize={'70vh'}
+          widthSize={layoutMode === 0 ? '28vw' : '80vw'}
+          heightSize={layoutMode === 0 ? '70vh' : '25vh'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'start'}
@@ -231,127 +246,26 @@ const WordListAndWritingContainerComp = ({
         >
           {modeValue == 1 ? (
             /* 문법검사 */
-            <MainPaleBox
-              widthSize={'28vw'}
-              heightSize={'70vh'}
-              paddingSize={'1vw'}
-              fontColor={'black'}
-              fontSize={'2vmin'}
-              style={{ display: 'flex', flexDirection: 'column' }}
-            >
-              {spellCheckResult.map((spellWord: FlggedToken, idx) => {
-                // console.log('얍', spellWord);
-                return (
-                  <BackBlurBox
-                    widthSize={'26vw'}
-                    heightSize={'5vh'}
-                    paddingSize={'1vw'}
-                    fontColor={'black'}
-                    fontSize={'1vmin'}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'start',
-                      alignItems: 'center',
-                      marginBottom: '1vh',
-                    }}
-                    key={`spell-word-${idx}`}
-                  >
-                    <SpellText>
-                      {spellWord.type === 'UnknownToken' ? (
-                        <p style={{ fontSize: '2.5vmin' }}>
-                          <span>수정&nbsp;&nbsp;</span>
-                          <span style={{ color: 'red' }}>
-                            {spellWord.token}
-                          </span>{' '}
-                          {'=>'} {spellWord.suggestions[0].suggestion}
-                        </p>
-                      ) : (
-                        <p style={{ fontSize: '2.5vmin' }}>
-                          <span>반복&nbsp;&nbsp;</span>
-                          <span style={{ color: 'red' }}>
-                            {spellWord.token}
-                          </span>
-                        </p>
-                      )}
-                    </SpellText>
-                    {/* {aWord.example} */}
-                  </BackBlurBox>
-                );
-              })}
-              {/* <p>{spellCheckResult}</p> */}
-            </MainPaleBox>
+            <TypoCorrectionComp
+              layoutMode={layoutMode}
+              spellCheckResult={spellCheckResult}
+            ></TypoCorrectionComp>
           ) : (
             /* 단어장 */
-            <MainPaleBox
-              widthSize={'28vw'}
-              heightSize={'70vh'}
-              paddingSize={'1vw'}
-              fontColor={'black'}
-              fontSize={'2vmin'}
-            >
-              <FlexTransparentDiv
-                widthSize={'26.5vw'}
-                heightSize={'65vh'}
-                paddingSize={'0'}
-                flexDirection={'column'}
-                justifyContent={'start'}
-                alignItems={'start'}
-                IsBorder={'none'}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  overflowY: 'scroll',
-                  overflowX: 'hidden',
-                }}
-              >
-                {wordBookList.map((aWord: WordBook, idx) => {
-                  return (
-                    <ArcodianBox key={`word-${idx}`}>
-                      <WordCheckBox
-                        className={
-                          filterTarget.includes(aWord.word) ? 'checked' : ''
-                        }
-                      />
-                      <WordText>
-                        <p
-                          className={`${
-                            filterTarget.includes(aWord.word) ? 'checked' : ''
-                          } front`}
-                          style={{ fontSize: '2.5vmin' }}
-                        >
-                          {aWord.word}
-                        </p>
-                        <p className="back">
-                          <span
-                            style={{
-                              fontSize: '2.5vmin',
-                            }}
-                          >
-                            {aWord.word}
-                          </span>
-                          <br />
-                          <br />
-                          <span style={{ fontSize: '2vmin', color: '#4a9fff' }}>
-                            {'example'}
-                          </span>
-                          <br style={{ marginBottom: '5vmin' }} />
-                          <span style={{ fontSize: '2vmin' }}>
-                            &nbsp;&nbsp;{aWord.example}
-                          </span>
-                        </p>
-                      </WordText>
-                      {/* {aWord.example} */}
-                    </ArcodianBox>
-                  );
-                })}
-              </FlexTransparentDiv>
-            </MainPaleBox>
+            <WordBookComp
+              wordBookList={wordBookList}
+              filterTarget={filterTarget}
+              layoutMode={layoutMode}
+              foldLayoutMode={foldLayoutMode}
+              setFoldLayoutMode={setFoldLayoutMode}
+            ></WordBookComp>
           )}
         </FlexTransparentDiv>
       </FlexTransparentDiv>
+      {/* SPACER */}
       <FlexTransparentDiv
-        widthSize={'2vw'}
-        heightSize={'70vh'}
+        widthSize={layoutMode === 0 ? '2vw' : '80vw'}
+        heightSize={layoutMode === 0 ? '70vh' : '5vh'}
         paddingSize={'0'}
         flexDirection={'column'}
         justifyContent={'start'}
@@ -359,8 +273,12 @@ const WordListAndWritingContainerComp = ({
         IsBorder={'none'}
       ></FlexTransparentDiv>
       <FlexTransparentDiv
-        widthSize={'50vw'}
-        heightSize={'70vh'}
+        widthSize={
+          layoutMode === 0 ? (foldLayoutMode === 1 ? '75vw' : '50vw') : '80vw'
+        }
+        heightSize={
+          layoutMode === 0 ? '70vh' : foldLayoutMode === 0 ? '45vh' : '68vh'
+        }
         paddingSize={'0'}
         flexDirection={'column'}
         justifyContent={'start'}
@@ -368,7 +286,9 @@ const WordListAndWritingContainerComp = ({
         IsBorder={'none'}
       >
         <FlexTransparentDiv
-          widthSize={'50vw'}
+          widthSize={
+            layoutMode === 0 ? (foldLayoutMode === 1 ? '75vw' : '50vw') : '80vw'
+          }
           heightSize={'5vh'}
           paddingSize={'0'}
           flexDirection={'row'}
@@ -401,33 +321,27 @@ const WordListAndWritingContainerComp = ({
           </TopBtn>
         </FlexTransparentDiv>
         <FlexTransparentDiv
-          widthSize={'50vw'}
-          heightSize={'70vh'}
+          widthSize={
+            layoutMode === 0 ? (foldLayoutMode === 1 ? '75vw' : '50vw') : '80vw'
+          }
+          heightSize={
+            layoutMode === 0 ? '70vh' : foldLayoutMode === 0 ? '45vh' : '63vh'
+          }
           paddingSize={'0'}
           flexDirection={'column'}
-          justifyContent={'start'}
+          justifyContent={layoutMode === 0 ? 'start' : 'center'}
           alignItems={'start'}
           IsBorder={'none'}
         >
-          <MainBox
-            widthSize={'50vw'}
-            heightSize={'70vh'}
-            paddingSize={'1vw'}
-            fontColor={'black'}
-            fontSize={'3vmin'}
-            style={{ display: 'flex', flexDirection: 'column' }}
-          >
-            <HighlightTextAreaWrapper>
-              <HighlightWithinTextarea
-                value={textAreaValue}
-                highlight={{
-                  highlight: modeValue ? spellFilterTarget : filterEssayTarget,
-                  className: modeValue ? 'red' : 'blue',
-                }}
-                onChange={onChange}
-              ></HighlightWithinTextarea>
-            </HighlightTextAreaWrapper>
-          </MainBox>
+          <HighlightTextAreaComp
+            textAreaValue={textAreaValue}
+            modeValue={modeValue}
+            spellFilterTarget={spellFilterTarget}
+            filterEssayTarget={filterEssayTarget}
+            onChangeText={onChangeText}
+            foldLayoutMode={foldLayoutMode}
+            layoutMode={layoutMode}
+          />
         </FlexTransparentDiv>
       </FlexTransparentDiv>
     </WordListAndWritingContainer>
