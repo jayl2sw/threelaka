@@ -64,7 +64,10 @@ export const DashBoardBox = styled.div`
 
 export const RecentVideoContainer = styled.div`
   &.recentVideo {
-    animation: smoothAppear 1s;
+    animation: smoothAppear 1s ease-in-out;
+  }
+  &.completedVideo {
+    animation: smoothAppearTwo 1s ease-in-out;
   }
   @keyframes smoothAppear {
     from {
@@ -76,12 +79,7 @@ export const RecentVideoContainer = styled.div`
       transform: translateY(0);
     }
   }
-`;
-export const CompletedVideoContainer = styled.div`
-  &.completedVideo {
-    animation: smoothAppear 1s;
-  }
-  @keyframes smoothAppear {
+  @keyframes smoothAppearTwo {
     from {
       opacity: 0;
       transform: translateY(-5%);

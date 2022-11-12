@@ -28,39 +28,43 @@ const DashboardVideos = ({ recentVideoBlock, mode }: IRecentVideosPros) => {
 
   return (
     <>
-      <RecentVideoContainer
-        className="recentVideo"
-        ref={recentVideoBlock}
-        style={{ display: 'flex' }}
-      >
-        {mode === 0 ? (
-          <>
-            {recentVideoList.length !== 0 ? (
-              recentVideoList.length > 3 ? (
-                recentVideoList.slice(0, 2).map((data, i) => {
-                  return <DashboardVideoCard data={data} key={i} />;
-                })
-              ) : (
-                recentVideoList.map((data, i) => {
-                  return <DashboardVideoCard data={data} key={i} />;
-                })
-              )
-            ) : (
-              <div>'아직 공부중인 영상이 없어요'</div>
-            )}
-          </>
-        ) : (
-          <>
-            {completedVideoList.length !== 0 ? (
-              completedVideoList.map((data, i) => {
+      {/* <RecentVideoContainer ref={recentVideoBlock} style={{ display: 'flex' }}> */}
+      {mode === 0 ? (
+        <RecentVideoContainer
+          ref={recentVideoBlock}
+          style={{ display: 'flex' }}
+          className={'recentVideo'}
+        >
+          {recentVideoList.length !== 0 ? (
+            recentVideoList.length > 3 ? (
+              recentVideoList.slice(0, 2).map((data, i) => {
                 return <DashboardVideoCard data={data} key={i} />;
               })
             ) : (
-              <div>'공부 완료한 영상이 없어요'</div>
-            )}
-          </>
-        )}
-      </RecentVideoContainer>
+              recentVideoList.map((data, i) => {
+                return <DashboardVideoCard data={data} key={i} />;
+              })
+            )
+          ) : (
+            <div>'아직 공부중인 영상이 없어요'</div>
+          )}
+        </RecentVideoContainer>
+      ) : (
+        <RecentVideoContainer
+          ref={recentVideoBlock}
+          style={{ display: 'flex' }}
+          className={'completedVideo'}
+        >
+          {completedVideoList.length !== 0 ? (
+            completedVideoList.map((data, i) => {
+              return <DashboardVideoCard data={data} key={i} />;
+            })
+          ) : (
+            <div>'공부 완료한 영상이 없어요'</div>
+          )}
+        </RecentVideoContainer>
+      )}
+      {/* </RecentVideoContainer> */}
     </>
   );
 };
