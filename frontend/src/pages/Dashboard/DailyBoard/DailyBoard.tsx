@@ -2,13 +2,14 @@ import React from 'react';
 import VideoContainer from './VideoContainer';
 import GraphContainer from './GraphContainer';
 import Calendar from './Calendar';
+import { DailyBoardContainer } from '../../../styles/DashBoard/DashBoardStyle';
 const DailyBoard = () => {
   return (
-    <div>
+    <DailyBoardContainer>
       <VideoContainer></VideoContainer>
+      <Calendar></Calendar>
       <GraphContainer></GraphContainer>
-      {/* <Calendar></Calendar> */}
-    </div>
+    </DailyBoardContainer>
   );
 };
 

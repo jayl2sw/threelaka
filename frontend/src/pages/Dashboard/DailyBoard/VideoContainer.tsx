@@ -28,7 +28,7 @@ const VideoContainer = () => {
     <VideoBlock>
       <FlexTransparentDiv
         widthSize={'28vw'}
-        heightSize={'5vh'}
+        heightSize={'4vh'}
         paddingSize={'0'}
         flexDirection={'row'}
         justifyContent={'start'}

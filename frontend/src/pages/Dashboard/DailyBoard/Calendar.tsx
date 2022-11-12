@@ -4,6 +4,7 @@ import { useState } from 'react';
 import CalendarHeader from './CalendarHeader';
 import { useAppDispatch } from '../../../utils/hooks';
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
+import { GradientBorderBox } from '../../../styles/DashBoard/DashBoardStyle';
 const Calendar = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -12,9 +13,9 @@ const Calendar = () => {
   const [selectDate, setSelectDate] = useState(moment().toDate());
 
   return (
-    <div>
+    <GradientBorderBox>
       <CalendarHeader selectDate={selectDate} setSelectDate={setSelectDate} />
-    </div>
+    </GradientBorderBox>
   );
 };
 
