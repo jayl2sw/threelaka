@@ -4,7 +4,7 @@ import { SideBarBlock } from '../styles/DashBoard/DashBoardStyle';
 
 interface IOnClickProps {
   handleSwitchPage: (pageNum: number) => void;
-  handleSwitchGuildPage: (guildPageNum: number) => void;
+  handleSwitchGuildPage: (guildPageType: string) => void;
 }
 const SideBar = ({
   handleSwitchPage,
@@ -35,21 +35,21 @@ const SideBar = ({
       </button>
       <button
         onClick={() => {
-          handleSwitchGuildPage(1);
+          handleSwitchGuildPage('main');
         }}
       >
         길드 메인
       </button>
       <button
         onClick={() => {
-          handleSwitchGuildPage(2);
+          handleSwitchGuildPage('myGuild');
         }}
       >
         내 길드
       </button>
       <button
         onClick={() => {
-          handleSwitchGuildPage(3);
+          handleSwitchGuildPage('admin');
         }}
       >
         길드관리
