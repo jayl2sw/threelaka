@@ -102,6 +102,58 @@ const guildSlice = createSlice({
       console.log('길드 멤버 정보 받아오기 실패');
       state.loading = false;
     },
+
+    // 길드 공지 삭제
+    deleteGuildNoticeStart(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+    // 길드 공지 성공
+    deleteGuildNoticeSuccess(state) {
+      state.loading = false;
+    },
+    // 길드 공지 실패
+    deleteGuildNoticeFailed(state) {
+      state.loading = false;
+    },
+
+    // 길드 공지 생성
+    createGuildNoticeStart(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+    // 길드 공지 생성 성공
+    createGuildNoticeSuccess(state) {
+      state.loading = false;
+    },
+    // 길드 공지 생성 실패
+    createGuildNoticeFailed(state) {
+      state.loading = false;
+    },
+
+    // 길드 공지 수정
+    putGuildNoticeStart(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+    // 길드 공지 수정 성공
+    putGuildNoticeSuccess(state) {
+      state.loading = false;
+    },
+    // 길드 공지 수정 실패
+    putGuildNoticeFailed(state) {
+      state.loading = false;
+    },
+
+    // 길드 마스터 넘기기 시작
+    postGuildHandOverStart(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 길드 마스터 넘기기 성공
+    postGuildHandOverSuccess(state) {
+      state.loading = false;
+    },
+    // 길드 마스터 넘기기 실패
+    postGuildHandOverFailed(state) {
+      state.loading = false;
+    },
   },
 });
 // actions 만들어줘서 saga에서 import 해서 씀

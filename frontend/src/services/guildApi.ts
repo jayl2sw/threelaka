@@ -27,3 +27,35 @@ export const getGuildMemberApi = async (guildId: string): Promise<any> => {
   console.log('길드 멤버 조회', res.data);
   return res.data;
 };
+
+// 길드의 공지 삭제
+export const deleteGuildNoticeApi = async (): Promise<any> => {
+  const res = await customAxios.delete(`/api/v1/user/guild/notice`);
+  return res.data;
+};
+
+// 길드의 공지 생성
+export const createGuildNoticeApi = async (
+  guildNotice: string
+): Promise<any> => {
+  const res = await customAxios.post(`/api/v1/user/guild/notice`, guildNotice);
+  return res.data;
+};
+
+// 길드의 공지 수정
+export const putGuildNoticeApi = async (guildNotice: string): Promise<any> => {
+  const res = await customAxios.put(
+    `/api/v1/user/guild/notice?notice=${guildNotice}`
+  );
+  return res.data;
+};
+
+// 길드의 마스터 변경
+export const postGuildHandOverApi = async (
+  nextGuildMaster: string
+): Promise<any> => {
+  const res = await customAxios.post(
+    `/api/v1/user/guild/master/${nextGuildMaster}`
+  );
+  return res.data;
+};
