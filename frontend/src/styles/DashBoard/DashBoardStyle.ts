@@ -39,14 +39,14 @@ export const SideBarBlock = styled.div`
   justify-content: flex-start;
   min-width: 13vw;
   height: 90vh;
-  background-color: #fff;
+  background-color: transparent;
   /* padding-top: 1rem;
   padding-right: 1rem; */
   /* margin-top: 10vh;
   margin-left: 2rem; */
   border-radius: 1rem;
-  box-shadow: 3px 3px 5px 3px #00000038;
-  border: solid blue 1px;
+  /* box-shadow: 3px 3px 5px 3px #00000038; */
+  /* border: solid blue 1px; */
 `;
 
 export const DashBoardBox = styled.div`
