@@ -4,6 +4,7 @@ import {
   RecentVideos,
   CompletedVideos,
   MonthStudyTime,
+  StudyHistory,
 } from '../../models/dashboard';
 import moment from 'moment';
 
@@ -17,6 +18,9 @@ type DashboardState = {
   dailyStudyTime: Array<Object>;
   monthStudyTime: Array<Object>;
   seqDays: number;
+
+  // 학습히스토리
+  studyHistory: StudyHistory;
 };
 
 let initialState: DashboardState = {
@@ -27,6 +31,11 @@ let initialState: DashboardState = {
   dailyStudyTime: [],
   monthStudyTime: [],
   seqDays: 0,
+  studyHistory: {
+    essays: 0,
+    videos: 0,
+    words: 0,
+  },
 };
 
 // Slice
@@ -79,7 +88,7 @@ const dashboardSlice = createSlice({
     getMonthStudyTime(state) {
       state.loading = true;
     },
-    // 데일리 공부 시간 받아오기 성공
+    // 한달 공부 시간 받아오기 성공
     getMonthStudyTimeSuccess(state, action: PayloadAction<MonthStudyTime>) {
       state.loading = false;
       // console.log('얍얍얍', action.payload.time);
@@ -96,6 +105,19 @@ const dashboardSlice = createSlice({
     },
 
     getMonthStudyTimeFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 학습히스토리 받아오기
+    getStudyHistory(state) {
+      state.loading = true;
+    },
+    // 학습히스토리 받아오기 성공
+    getStudyHistorySuccess(state, action: PayloadAction<StudyHistory>) {
+      state.loading = false;
+      state.studyHistory = action.payload;
+    },
+
+    getStudyHistoryFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
   },

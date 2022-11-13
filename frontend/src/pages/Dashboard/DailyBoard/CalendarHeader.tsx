@@ -18,7 +18,7 @@ const CalendarHeader = ({
 }: ICalendarHeaderProps) => {
   return (
     <CalendarContainer className="innerBox">
-      <h3 style={{ marginTop: '1vh', marginBottom: 0 }}>
+      <h3 style={{ marginTop: '2vh', marginBottom: 0 }}>
         {getYear(selectDate)}
       </h3>
       <MonthIndicator

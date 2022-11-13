@@ -76,7 +76,7 @@ export default function Example({ width, height, events = false }: BarsProps) {
           <svg width={width} height={height}>
             <LinearGradient id="gradient" from="#4A9FFF" to="#B0FF91" />
             <rect width={width} height={height} fill="#fff" rx={14} />
-            <Group top={30} left={100}>
+            <Group top={30} left={80}>
               <AxisLeft
                 stroke="#565656"
                 tickStroke="#565656"

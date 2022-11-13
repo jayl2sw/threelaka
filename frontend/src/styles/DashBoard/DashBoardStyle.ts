@@ -37,7 +37,7 @@ export const SideBarBlock = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 15vw;
+  min-width: 13vw;
   height: 90vh;
   background-color: #fff;
   /* padding-top: 1rem;
@@ -55,7 +55,7 @@ export const DashBoardBox = styled.div`
   /* margin: 3vh auto;
   padding: 3vh; */
 
-  width: 71vw;
+  width: 68vw;
   border: solid red 1px;
   height: 82vh;
   margin-top: 4vh;
@@ -126,6 +126,9 @@ export const DateIndicatorContainer = styled.div`
     /* margin-left: 1vw; */
     /* cursor: pointer; */
   }
+  .noStudy {
+    background: none;
+  }
   .verybad {
     background: #b9ddd3;
     border-radius: 1vw;
@@ -189,7 +192,7 @@ export const GraphBox = styled.div`
     rgba(88, 172, 240, 0.861458) 45.15%,
     #b0ff91 84.64%
   );
-  width: 36.3vw;
+  width: 37vw;
   height: 39.5vh;
   border-radius: 1rem;
   position: relative;
@@ -210,7 +213,7 @@ export const DailyBoardContainer = styled.div`
 
 export const GradientBorderBox = styled.div`
   /* margin-top: 0.5vh; */
-  margin-left: 6.7vw;
+  margin-left: 3.7vw;
   background: linear-gradient(
     110.64deg,
     #4a9fff 5.65%,
@@ -230,4 +233,33 @@ export const GradientBorderBox = styled.div`
     height: 46vh;
     width: 25vw;
   }
+`;
+
+export const Wrapper = styled.div`
+  position: relative;
+  .dynamic-text-shadow {
+    top: -0.4vh;
+    position: absolute;
+    left: 12vw;
+    font-style: italic;
+    margin: 0;
+    font-size: 5vmin;
+    line-height: 2vmin;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.8vmin;
+    font-variant: small-caps;
+
+    color: #457b9d;
+    text-shadow: 0.3vmin 0.3vmin 0 #1d3557;
+  }
+`;
+
+export const Count = styled.div`
+  & span {
+    -webkit-text-stroke: 2px #111111; //텍스트 테두리
+  }
+  color: white;
+  font-size: 5vmin;
 `;

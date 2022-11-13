@@ -46,7 +46,9 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
           return (
             <div
               className={`${
-                monthStudyTime[getDayOfMonth(item.date)] <= 3600
+                monthStudyTime[getDayOfMonth(item.date)] === 0
+                  ? 'noStudy'
+                  : monthStudyTime[getDayOfMonth(item.date)] <= 3600
                   ? `verybad`
                   : monthStudyTime[getDayOfMonth(item.date)] <= 3600 * 2
                   ? 'bad'

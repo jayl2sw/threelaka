@@ -1,16 +1,22 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import { VideoData, RecommendVideos, RecentVideoData } from '../../models';
-import { MonthStudyTime } from '../../models/dashboard';
+
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
 import {
   getRecentVideosApi,
   getCompletedVideosApi,
   getDailyStudyTimeApi,
   getMonthStudyTimeApi,
+  getStudyHistoryApi,
 } from '../../services/dashboardApi';
 import { dashboardActions } from './dashboard-slice';
-import { RecentVideos, CompletedVideos } from '../../models/dashboard';
+import {
+  RecentVideos,
+  CompletedVideos,
+  MonthStudyTime,
+  StudyHistory,
+} from '../../models/dashboard';
 
 // 현재공부중인 영상 불러오기 SAGA
 function* onGetRecentVideosAsync(action: PayloadAction<RecentVideos[]>) {
@@ -65,6 +71,19 @@ function* onMonthStudyTimeAsync(action: PayloadAction<MonthStudyTime>) {
   }
 }
 
+//학습히스토리 불러오기 SAGA
+function* onStudyHistoryAsync(action: PayloadAction<StudyHistory>) {
+  try {
+    const response: StudyHistory = yield call(
+      getStudyHistoryApi,
+      action.payload
+    );
+    yield put(dashboardActions.getStudyHistorySuccess(response));
+  } catch (error: any) {
+    yield put(dashboardActions.getStudyHistoryFailed(error.data));
+  }
+}
+
 // 현재공부중인영상
 export function* watchGetRecentVideoAsync() {
   yield takeLatest(
@@ -96,9 +115,14 @@ export function* watchGetMonthStudyTimeAsync() {
     onMonthStudyTimeAsync
   );
 }
+//학습히스토리
+export function* watchGetStudyHistoryAsync() {
+  yield takeLatest(dashboardActions.getStudyHistory.type, onStudyHistoryAsync);
+}
 export const dashboardSagas = [
   fork(watchGetRecentVideoAsync),
   fork(watchGetCompletedVideoAsync),
   fork(watchGetDailyStudyTimeAsync),
   fork(watchGetMonthStudyTimeAsync),
+  fork(watchGetStudyHistoryAsync),
 ];

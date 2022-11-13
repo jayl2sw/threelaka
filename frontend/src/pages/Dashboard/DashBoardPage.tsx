@@ -32,7 +32,7 @@ const DashBoardPage = () => {
   return (
     <DashBoardBlock>
       <MainPaleBox
-        widthSize={'90vw'}
+        widthSize={'85vw'}
         heightSize={'90vh'}
         paddingSize={'0'}
         fontColor={'black'}
