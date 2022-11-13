@@ -36,6 +36,7 @@ public class User extends BaseTime {
     private Integer age;
     private Gender gender;
     private Integer grade;
+    private String profile;
 
     private int contiuousLearningDate;
 
@@ -79,6 +80,7 @@ public class User extends BaseTime {
         this.gender = this.gender == null ? SECRET : this.gender;
         this.grade = this.grade == null ? 0 : this.grade;
         this.contiuousLearningDate = 0;
+        this.profile = this.profile == null ? "s3url" : this.profile;
     }
 
     public void saveToken(String token) {
@@ -93,5 +95,6 @@ public class User extends BaseTime {
     public void be(Role role) {this.role = role;}
     public void addContinuousLearningDate() { this.contiuousLearningDate += 1; }
     public void resetContinuousLearningDate() { this.contiuousLearningDate = 0; }
+    public void updateProfile(String profile) {this.profile = profile;}
 
 }

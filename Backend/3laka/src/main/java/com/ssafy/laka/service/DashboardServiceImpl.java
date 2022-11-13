@@ -132,4 +132,10 @@ public class DashboardServiceImpl implements DashboardService{
             userTagRepository.save(usertag);
         }
     }
+
+    @Override
+    public void updateProfile(String profile) {
+        User user = getUser();
+        user.updateProfile(profile);
+    }
 }

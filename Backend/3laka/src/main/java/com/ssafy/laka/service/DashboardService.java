@@ -15,5 +15,6 @@ public interface DashboardService {
     int[] getData();
     List<String> getInterestTags();
     void updateInterestTags(int[] interestTags);
+    void updateProfile(String profile);
 
 }

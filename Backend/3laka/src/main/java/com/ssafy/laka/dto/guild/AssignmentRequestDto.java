@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AssignmentRequestDto {
+    private int assignmentId;
     private String videoId;
     private int guildId;
     private String startDate;
@@ -19,6 +20,7 @@ public class AssignmentRequestDto {
 
     public static AssignmentRequestDto from(Assignment entity){
         return AssignmentRequestDto.builder()
+                .assignmentId(entity.getAssignmentId())
                 .videoId(entity.getVideo().getVideoId())
                 .guildId(entity.getGuild().getId())
                 .startDate(entity.getStartDate())

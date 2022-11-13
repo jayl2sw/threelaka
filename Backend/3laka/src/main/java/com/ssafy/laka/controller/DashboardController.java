@@ -30,7 +30,7 @@ public class DashboardController {
     private final UserService userService;
     private final AmazonS3Client amazonS3Client;
     @Value("${cloud.aws.s3.bucket}")
-    private String bucketName;
+    private String s3BaseUrl;
 
     // 아직 안함 =========================================================================================================
     @GetMapping("/profile")
@@ -131,25 +131,14 @@ public class DashboardController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
-    @PutMapping("/profile")
+    @PutMapping("/profile/{profile}")
     @ApiOperation(value = "프로필 사진 수정", notes = "회원의 프로필 사진을 수정한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = String.class)
     })
-    public ResponseEntity<?> changeProfile(@RequestPart MultipartFile file) {
+    public ResponseEntity<?> changeProfile(@PathVariable String profile) {
         // 프로필 사진 수정
-        if(file.isEmpty()){
-            throw new RuntimeException("이미지가 없습니다.");
-        }
-        int userId = userService.getMyInfo().getUserId();
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentType(file.getContentType());
-        try(InputStream inputStream = file.getInputStream()){
-            amazonS3Client.putObject(new PutObjectRequest(bucketName, String.valueOf(userId), inputStream, objectMetadata)
-                    .withCannedAcl(CannedAccessControlList.PublicRead));
-        } catch (IOException e){
-            throw new RuntimeException("이미지 업로드 실패");
-        }
+        dashboardService.updateProfile(s3BaseUrl + "/" + profile + ".png");
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
