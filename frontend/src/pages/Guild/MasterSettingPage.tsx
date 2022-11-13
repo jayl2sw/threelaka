@@ -91,6 +91,9 @@ const MasterSetting = () => {
       navigate(`/auth/guild/myGuild`, { replace: false });
     }, 500);
   };
+  const onClickDeleteMember = (tagetMemberId: number) => {
+    dispatch(guildActions.deleteMemberStart(tagetMemberId));
+  };
   // textArea value change
   const handleTextValChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextareaValue(e.target.value);
@@ -668,13 +671,17 @@ const MasterSetting = () => {
                     {guildHandOver ? (
                       <AiFillCrown
                         size={30}
-                        style={{ marginRight: '1vw' }}
+                        style={{ marginRight: '1vw', cursor: 'pointer' }}
                         onClick={() => onClickHandOverPost(member.userId)}
                       ></AiFillCrown>
                     ) : (
                       ''
                     )}
-                    <ImExit size={25}></ImExit>
+                    <ImExit
+                      style={{ cursor: 'pointer' }}
+                      size={25}
+                      onClick={() => onClickDeleteMember(member.userId)}
+                    ></ImExit>
                   </MainBox>
                 );
               }

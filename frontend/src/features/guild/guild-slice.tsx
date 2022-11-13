@@ -154,6 +154,19 @@ const guildSlice = createSlice({
     postGuildHandOverFailed(state) {
       state.loading = false;
     },
+
+    // 길드원 추방 시작
+    deleteMemberStart(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 길드원 추방 성공
+    deleteMemberSuccess(state) {
+      state.loading = false;
+    },
+    // 길드원 추방 실패
+    deleteMemberFailed(state) {
+      state.loading = false;
+    },
   },
 });
 // actions 만들어줘서 saga에서 import 해서 씀

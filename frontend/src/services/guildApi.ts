@@ -21,7 +21,7 @@ export const getUpcomingTaskApi = async (status: string): Promise<any> => {
   return res.data;
 };
 
-// 길드의 완료된 멤버 조회
+// 길드의 멤버 조회
 export const getGuildMemberApi = async (guildId: string): Promise<any> => {
   const res = await customAxios.get(`/api/v1/user/guild/members/${guildId}`);
   console.log('길드 멤버 조회', res.data);
@@ -56,6 +56,14 @@ export const postGuildHandOverApi = async (
 ): Promise<any> => {
   const res = await customAxios.post(
     `/api/v1/user/guild/master/${nextGuildMaster}`
+  );
+  return res.data;
+};
+
+// 길드원 추방
+export const DeleteMemberApi = async (tagetMemberId: number): Promise<any> => {
+  const res = await customAxios.delete(
+    `/api/v1/user/guild/remove/${tagetMemberId}`
   );
   return res.data;
 };

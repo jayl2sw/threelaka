@@ -11,6 +11,7 @@ import {
   createGuildNoticeApi,
   putGuildNoticeApi,
   postGuildHandOverApi,
+  DeleteMemberApi,
 } from '../../services/guildApi';
 import { guildActions } from './guild-slice';
 
@@ -104,6 +105,18 @@ function* onPostGuildHandOverAsync(action: PayloadAction<string>) {
   }
 }
 
+function* onDeleteMemberAsync(action: PayloadAction<number>) {
+  try {
+    yield call(DeleteMemberApi, action.payload);
+    const guildId: string = yield select(
+      (state) => state.auth.currentUser.guildId
+    );
+    yield put(guildActions.getGuildMember(guildId));
+  } catch (error) {
+    console.error();
+  }
+}
+
 // 길드 공지 받아오기 watch
 export function* watchGetGuildNoticeAsync() {
   yield takeLatest(guildActions.getGuildNotice.type, onGetGuildNoticeAsync);
@@ -149,6 +162,11 @@ export function* watchPostGuildHandOverAsync() {
   );
 }
 
+// 길드원 추방 watch
+export function* watchDeleteMemberAsync() {
+  yield takeLatest(guildActions.deleteMemberStart.type, onDeleteMemberAsync);
+}
+
 export const guildSagas = [
   fork(watchGetGuildNoticeAsync),
   fork(watchGetProgressTaskAsync),
@@ -157,4 +175,5 @@ export const guildSagas = [
   fork(watchCreateGuildNoticeAsync),
   fork(watchPutGuildNoticeAsync),
   fork(watchPostGuildHandOverAsync),
+  fork(watchDeleteMemberAsync),
 ];
