@@ -21,6 +21,7 @@ import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 import WordBookComp from './WordBookComp';
 import TypoCorrectionComp from './TypoCorrectionComp';
 import HighlightTextAreaComp from './HighlightTextAreaComp';
+import WritingCircularNavComp from './WritingCircularNavComp';
 
 export interface IworlListAndWrtingProps {
   pageParams: StudyPageParams;
@@ -191,7 +192,7 @@ const WordListAndWritingContainerComp = ({
             justifyContent={'start'}
             alignItems={'end'}
             IsBorder={'none'}
-            style={{ minHeight: '4vh' }}
+            style={{ minHeight: '4vh', transition: 'all 0.8s ease-in-out' }}
           />
         ) : (
           <FlexTransparentDiv
@@ -202,6 +203,7 @@ const WordListAndWritingContainerComp = ({
             justifyContent={'start'}
             alignItems={'end'}
             IsBorder={'none'}
+            style={{ transition: 'all 0.8s ease-in-out' }}
           >
             <TopBtn
               widthSize={'7vw'}
@@ -243,12 +245,15 @@ const WordListAndWritingContainerComp = ({
           justifyContent={'start'}
           alignItems={'start'}
           IsBorder={'none'}
+          style={{ transition: 'all 0.8s ease-in-out' }}
         >
           {modeValue == 1 ? (
             /* 문법검사 */
             <TypoCorrectionComp
               layoutMode={layoutMode}
               spellCheckResult={spellCheckResult}
+              foldLayoutMode={foldLayoutMode}
+              setFoldLayoutMode={setFoldLayoutMode}
             ></TypoCorrectionComp>
           ) : (
             /* 단어장 */
@@ -271,6 +276,7 @@ const WordListAndWritingContainerComp = ({
         justifyContent={'start'}
         alignItems={'start'}
         IsBorder={'none'}
+        style={{ transition: 'all 0.8s ease-in-out' }}
       ></FlexTransparentDiv>
       <FlexTransparentDiv
         widthSize={
@@ -284,6 +290,7 @@ const WordListAndWritingContainerComp = ({
         justifyContent={'start'}
         alignItems={'start'}
         IsBorder={'none'}
+        style={{ transition: 'all 0.8s ease-in-out' }}
       >
         <FlexTransparentDiv
           widthSize={
@@ -344,6 +351,10 @@ const WordListAndWritingContainerComp = ({
           />
         </FlexTransparentDiv>
       </FlexTransparentDiv>
+      <WritingCircularNavComp
+        layoutMode={layoutMode}
+        setLayoutMode={setLayoutMode}
+      ></WritingCircularNavComp>
     </WordListAndWritingContainer>
   );
 };

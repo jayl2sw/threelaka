@@ -7,4 +7,4 @@ export const MyGuildBox = styled.div`
   padding: 3vh;
   width: 75vw;
   border: solid red 1px;
-  `
+`;

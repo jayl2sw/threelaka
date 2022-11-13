@@ -106,6 +106,10 @@ body, button, input {
 ::-webkit-scrollbar { 
   width: 0.75vw; 
 }
+
+::-webkit-scrollbar:horizontal { 
+  height: 1vh; 
+}
 /* 스크롤바의 width*/
 ::-webkit-scrollbar-track { 
   background-color: transparent;
@@ -126,7 +130,7 @@ body, button, input {
   background: linear-gradient(110.64deg, #4A9FFF 5.65%, rgba(88, 172, 240, 0.861458) 45.15%, #B0FF91 84.64%);
   background-size: 100% 5vh;
 
-  height: 10vh;
+  height: 5vh;
   border-radius: 3px;
 } 
 /* 스크롤바 색 */

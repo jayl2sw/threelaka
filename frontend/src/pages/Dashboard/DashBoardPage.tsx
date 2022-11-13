@@ -24,9 +24,9 @@ const DashBoardPage = () => {
     navigate(`/auth/dashboard/${pageNum}`, { replace: true });
   };
 
-  const guildpageNum = params.guildpageNum ? params.guildpageNum : '0';
-  const handleSwitchGuildPage = (guildPageNum: number) => {
-    navigate(`/auth/guild/${guildPageNum}`, { replace: true });
+  const guildPageType = params.guildPageType ? params.guildPageType : '0';
+  const handleSwitchGuildPage = (guildPageType: string) => {
+    navigate(`/auth/guild/${guildPageType}`, { replace: true });
   };
 
   return (
@@ -48,9 +48,9 @@ const DashBoardPage = () => {
           {pageNum === '1' && <DailyBoard />}
           {pageNum === '2' && <HistoryBoard />}
           {pageNum === '3' && <Profile />}
-          {guildpageNum === '1' && <GuildMain />}
-          {guildpageNum === '2' && <MyGuild />}
-          {guildpageNum === '3' && <MasterSetting />}
+          {guildPageType === 'main' && <GuildMain />}
+          {guildPageType === 'myGuild' && <MyGuild />}
+          {guildPageType === 'admin' && <MasterSetting />}
         </DashBoardBox>
       </MainPaleBox>
     </DashBoardBlock>
