@@ -16,6 +16,7 @@ import {
   VideoTitle,
 } from '../../../styles/Main/MainStyle';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
+import { url } from 'inspector';
 
 // video별 갖고 있는 정보들
 type VideoCardProps = {
@@ -27,7 +28,7 @@ type VideoCardProps = {
   };
 };
 
-const CompletedVideoCard = ({ data }: VideoCardProps) => {
+const DashboardVideoCard = ({ data }: VideoCardProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -59,16 +60,22 @@ const CompletedVideoCard = ({ data }: VideoCardProps) => {
   }, [studyState]);
 
   return (
-    <VideoCardBlock>
-      <VideoDataBox
-        onClick={() => {
-          handlerGetVideoData(data.videoId);
-          onClickModal();
+    <>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          marginRight: '2vw',
         }}
       >
         <FlexTransparentDiv
-          widthSize={'19vw'}
-          heightSize={'22.5vh'}
+          onClick={() => {
+            handlerGetVideoData(data.videoId);
+            onClickModal();
+          }}
+          widthSize={'16vw'}
+          heightSize={'20vh'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'center'}
@@ -79,15 +86,45 @@ const CompletedVideoCard = ({ data }: VideoCardProps) => {
             borderBottom: '10px solid black',
             borderRadius: '10px',
             background: 'black',
+
+            position: 'relative',
+            minWidth: '16vw',
           }}
         >
-          <VideoImg src={`https://img.youtube.com/vi/${data.videoId}/0.jpg`} />
-          <SubTagContainer>
-            {/* {data.korScript && <SubTag>한글</SubTag>} */}
+          <VideoImg
+            style={{
+              width: '15vw',
+              height: '18vh',
+            }}
+            src={`https://img.youtube.com/vi/${data.videoId}/0.jpg`}
+          />
+
+          <FlexTransparentDiv
+            widthSize={'4vw'}
+            heightSize={'5vh'}
+            paddingSize={'0'}
+            flexDirection={'column'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            IsBorder={'none'}
+            style={{ position: 'absolute', top: '-1vh', right: '0.3vw' }}
+          >
             <SubTag>ENG</SubTag>
-          </SubTagContainer>
+          </FlexTransparentDiv>
+          {/* {data.korScript && <SubTag>한글</SubTag>} */}
         </FlexTransparentDiv>
-      </VideoDataBox>
+        <VideoTitle
+          style={{
+            width: '16vw',
+            fontSize: '2vmin',
+            padding: '0',
+            height: 'auto',
+            // marginLeft: '1vw',
+          }}
+        >
+          {data.title}
+        </VideoTitle>
+      </div>
       {isOpenModal && (
         <VideoDataModal
           isOpenModal={isOpenModal}
@@ -96,9 +133,8 @@ const CompletedVideoCard = ({ data }: VideoCardProps) => {
           learningRecord={learningRecord}
         />
       )}
-      <VideoTitle>{data.title}</VideoTitle>
-    </VideoCardBlock>
+    </>
   );
 };
 
-export default CompletedVideoCard;
+export default DashboardVideoCard;

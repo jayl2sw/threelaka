@@ -4,6 +4,7 @@ import {
   RecentVideos,
   CompletedVideos,
   MonthStudyTime,
+  StudyHistory,
 } from '../models/dashboard';
 
 // 최근에 본 영상 리스트
@@ -38,5 +39,14 @@ export const getMonthStudyTimeApi = async (
 ): Promise<any> => {
   const res = await customAxios.get('/api/v1/dashboard/calendar');
   const response: MonthStudyTime = res.data;
+  return response;
+};
+
+//학습히스토리 불러오기
+export const getStudyHistoryApi = async (
+  studyHistory: StudyHistory
+): Promise<any> => {
+  const res = await customAxios.get('/api/v1/dashboard/history');
+  const response: StudyHistory = res.data;
   return response;
 };
