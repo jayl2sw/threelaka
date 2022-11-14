@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.ssafy.laka.dto.exception.common.InvalidParameterException;
 import com.ssafy.laka.dto.exception.guild.RequestListEmptyException;
 import com.ssafy.laka.dto.exception.guild.RequestNotFoundException;
 import com.ssafy.laka.dto.guild.*;
@@ -19,9 +20,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -40,7 +43,10 @@ public class GuildController {
 
     @PostMapping("")
     @ApiOperation(value = "길드 생성")
-    public ResponseEntity<GuildResponseDto> createGuild(@RequestBody GuildCreateDto data){
+    public ResponseEntity<GuildResponseDto> createGuild(@Valid @RequestBody GuildCreateDto data, BindingResult result){
+        if(result.hasErrors()){
+            throw new InvalidParameterException(result);
+        }
         return new ResponseEntity<>(guildService.createGuild(data), HttpStatus.OK);
     }
 

@@ -27,7 +27,7 @@ import java.util.List;
 public class DashboardController {
 
     private final DashboardService dashboardService;
-    
+
     // 아직 안함 =========================================================================================================
     @GetMapping("/profile")
     @ApiOperation(value = "회원 정보 조회", notes = "회원의 프로필 관련 정보를 반환한다")
