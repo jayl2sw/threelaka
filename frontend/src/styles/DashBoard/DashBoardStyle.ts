@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { MdChangeCircle } from 'react-icons/md';
+import { MdOutlineCancel, MdCheckCircleOutline } from 'react-icons/md';
 
 export const VideoBlock = styled.div`
   display: flex;
@@ -284,4 +286,113 @@ export const ProfileContainer = styled.div`
   height: 90vh;
   grid-template-columns: repeat(2, 34vw);
   /* grid-template-rows: repeat(2, 38.5vh); */
+`;
+
+export const ProfileImgBox = styled.div`
+  width: 15vmin;
+  height: 15vmin;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: red; */
+
+  .default {
+    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile1.png')
+      no-repeat center;
+    background-size: 10vmin 10vmin;
+  }
+  .profileImg1 {
+    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile1.png')
+      no-repeat center;
+    background-size: 10vmin 10vmin;
+  }
+  .profileImg2 {
+    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile2.png')
+      no-repeat center;
+    background-size: 10vmin 10vmin;
+  }
+  .profileImg3 {
+    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile3.png')
+      no-repeat center;
+    background-size: 10vmin 10vmin;
+  }
+  .profileImg4 {
+    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile4.png')
+      no-repeat center;
+    background-size: 10vmin 10vmin;
+  }
+`;
+
+export const ProfileCenter = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+export const ModalBackdrop = styled.div`
+  position: absolute;
+  left: -1rem;
+  display: flex;
+  align-items: center;
+  width: 120%;
+  margin-top: 1rem;
+`;
+
+export const ModalView = styled.div.attrs((props) => ({
+  role: 'dialog',
+}))`
+  text-decoration: none;
+
+  padding: 1vw;
+  height: 15vh;
+  display: flex;
+  background: #ffffff;
+  box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
+  border-radius: 2vmin;
+`;
+
+export const RadioBtn = styled.input`
+  display: none;
+
+  :checked + div {
+    width: 10vw;
+    outline: 3px solid #ffc9d0;
+    border-radius: 50%;
+  }
+`;
+
+export const EditBtn = styled(MdChangeCircle)`
+  font-size: 2.5rem;
+  color: #f3ffbf;
+  cursor: pointer;
+
+  &:hover {
+    color: #d6e984;
+  }
+`;
+
+export const BtnDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 2.1rem;
+`;
+
+export const CancelBtn = styled(MdOutlineCancel)`
+  font-size: 2rem;
+  color: #db1d49;
+  cursor: pointer;
+
+  &:hover {
+    font-size: 2.1rem;
+  }
+`;
+
+export const CheckBtn = styled(MdCheckCircleOutline)`
+  font-size: 2rem;
+  color: #00c3a9;
+  cursor: pointer;
+
+  &:hover {
+    font-size: 2.1rem;
+  }
 `;

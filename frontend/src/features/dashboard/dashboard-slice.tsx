@@ -111,6 +111,19 @@ const dashboardSlice = createSlice({
     getStudyHistoryFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
+
+    //프로필수정
+    updateProfile(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+    //프로필 수정 성공
+    updateProfileSuccess(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    updateProfileFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
   },
 });
 
