@@ -67,17 +67,24 @@ const GradientFormLabel = styled.label`
 
 interface IGradientInputProps {
   widthSize: number;
-  onClickHandler: () => void;
+  onClickHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
   placeHolderText: string;
   inputName: string;
+  inputValue: string;
+  setInputValue: (nextVal: string) => void;
 }
 const GradientInput = ({
   widthSize,
   onClickHandler,
   placeHolderText,
   inputName,
+  inputValue,
+  setInputValue,
 }: IGradientInputProps) => {
   const inputSize = `${widthSize - 4}vw`;
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
 
   return (
     <div style={{ position: 'relative', width: inputSize, height: '5vh' }}>
@@ -86,6 +93,7 @@ const GradientInput = ({
         placeholder={placeHolderText}
         name={inputName}
         id={inputName}
+        onChange={(e) => onChangeHandler(e)}
         required
       />
       <GradientFormLabel htmlFor={inputName}>{inputName}</GradientFormLabel>
@@ -97,6 +105,7 @@ const GradientInput = ({
         fontColor={'white'}
         backgroundColor={'gradient'}
         style={{ position: 'absolute', right: '-4vw', top: '-0vh' }}
+        onClick={(e) => onClickHandler(e)}
       >
         안녕
       </MainBtn>

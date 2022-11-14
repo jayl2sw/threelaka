@@ -51,6 +51,7 @@ const MasterSetting = () => {
   const [guildHandOver, setGuildHandOver] = useState<boolean>(false);
   const [textareaValue, setTextareaValue] = useState<string>('');
   const [newTextareaValue, setNewTextareaValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>('');
 
   const guildId = currentUser?.guildId;
 
@@ -446,12 +447,12 @@ const MasterSetting = () => {
               </div>
               {/* 이미지 호버하면 남은 시간과 영상 제목 보이게 */}
               <div style={{ width: '25vw' }}>
-                <GradientInput
+                {/* <GradientInput
                   widthSize={21}
                   onClickHandler={() => 'hi'}
                   placeHolderText="youtube url"
                   inputName="youtube-url"
-                ></GradientInput>
+                ></GradientInput> */}
                 {/* <button>검색</button> */}
               </div>
             </FlexTransparentDiv>

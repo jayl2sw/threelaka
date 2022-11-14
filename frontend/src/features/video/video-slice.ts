@@ -12,6 +12,8 @@ type VideoState = {
   recentVideoData: RecentVideoData;
   // 추천 비디오 4개
   recommendVideoList: RecommendVideos[];
+  // 키워드 검색 결과
+  keywordSearchVideoList: RecommendVideos[];
 };
 
 let initialState: VideoState = {
@@ -42,6 +44,7 @@ let initialState: VideoState = {
     },
   },
   recommendVideoList: [],
+  keywordSearchVideoList: [],
 };
 
 // Slice
@@ -94,6 +97,22 @@ const videoSlice = createSlice({
     },
     // 추천 비디오 4개 정보 받아오기 실패
     getRecommendVideosFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // search keyword video 시작
+    getKeywordSearchVideosStart(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+    // search keyword video 성공
+    getKeywordSearchVideosSuccess(
+      state,
+      action: PayloadAction<RecommendVideos[]>
+    ) {
+      state.loading = false;
+      state.keywordSearchVideoList = action.payload;
+    },
+    // search keyword video 실패
+    getKeywordSearchVideosFailed(state) {
       state.loading = false;
     },
   },
