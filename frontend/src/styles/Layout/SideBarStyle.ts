@@ -10,7 +10,7 @@ export const MenuItems = styled.div`
   background-color: skyblue;
   position: relative;
   &:hover {
-    background-color: #dde9f7;
+    background-color: #dfecf9;
   }
   &:hover::before {
     content: '';
@@ -22,7 +22,7 @@ export const MenuItems = styled.div`
     border-bottom-right-radius: 10px;
     top: -15px;
     right: 0px;
-    box-shadow: 0px 7px 0 0px #dde9f7;
+    box-shadow: 0px 7px 0 0px #dfecf9;
   }
 
   &:hover::after {
@@ -35,6 +35,6 @@ export const MenuItems = styled.div`
     border-top-right-radius: 10px;
     top: 10vh;
     right: 0px;
-    box-shadow: 0px -7px 0 0px #dde9f7;
+    box-shadow: 0px -7px 0 0px #dfecf9;
   }
 `;

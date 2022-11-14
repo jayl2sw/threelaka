@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
 import {
   BackBlurBox,
+  MainBox,
   FlexTransparentDiv,
 } from '../../../styles/Common/CommonDivStyle';
 import { RiBearSmileLine } from 'react-icons/ri';
@@ -30,7 +31,7 @@ const StudyHistoryContainer = () => {
         <h3 style={{ margin: '0' }}>Study History Count</h3>
       </div>
 
-      <BackBlurBox
+      <MainBox
         widthSize={'28vw'}
         heightSize={'30vh'}
         paddingSize={'3vh 1.5vw'}
@@ -45,7 +46,7 @@ const StudyHistoryContainer = () => {
         <HistoryCounter mode={'videos'}></HistoryCounter>
         <HistoryCounter mode={'essays'}></HistoryCounter>
         <HistoryCounter mode={'words'}></HistoryCounter>
-      </BackBlurBox>
+      </MainBox>
     </FlexTransparentDiv>
   );
 };

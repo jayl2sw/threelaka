@@ -6,7 +6,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useRef, useState } from 'react';
 import { TopBtn } from '../../../styles/Common/CommonBtnStyle';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
-import { BackBlurBox } from '../../../styles/Common/CommonDivStyle';
+import { BackBlurBox, MainBox } from '../../../styles/Common/CommonDivStyle';
 import { useHorizontalScroll } from '../../../utils/useSideScroll';
 const VideoContainer = () => {
   const recentVideoBlock = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ const VideoContainer = () => {
           공부 완료한 영상
         </TopBtn>
       </FlexTransparentDiv>
-      <BackBlurBox
+      <MainBox
         widthSize={'36vw'}
         heightSize={'33vh'}
         paddingSize={'2vh 1vw'}
@@ -77,7 +77,7 @@ const VideoContainer = () => {
           mode={mode}
           recentVideoBlock={recentVideoBlock}
         ></DashboardVideos>
-      </BackBlurBox>
+      </MainBox>
     </VideoBlock>
   );
 };

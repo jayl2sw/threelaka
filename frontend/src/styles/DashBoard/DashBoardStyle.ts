@@ -5,10 +5,6 @@ export const VideoBlock = styled.div`
   flex-direction: column;
   width: 38vw;
   height: 38.5vh;
-  border: 1px solid black;
-  /* overflow-x: scroll; */
-
-  /* overflow: scroll; */
 `;
 
 export const DashBoardBlock = styled.div`
@@ -39,14 +35,9 @@ export const SideBarBlock = styled.div`
   justify-content: flex-start;
   min-width: 13vw;
   height: 90vh;
-  background-color: transparent;
-  /* padding-top: 1rem;
-  padding-right: 1rem; */
-  /* margin-top: 10vh;
-  margin-left: 2rem; */
+  background-color: #111111;
+
   border-radius: 1rem;
-  /* box-shadow: 3px 3px 5px 3px #00000038; */
-  /* border: solid blue 1px; */
 `;
 
 export const DashBoardBox = styled.div`
@@ -54,7 +45,6 @@ export const DashBoardBox = styled.div`
   flex-direction: column;
   /* margin: 3vh auto;
   padding: 3vh; */
-
   width: 68vw;
   border: solid red 1px;
   height: 82vh;
@@ -149,6 +139,32 @@ export const DateIndicatorContainer = styled.div`
     background: #4c9d85;
     border-radius: 1vw;
   }
+
+  .streak:hover:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    width: 9vw;
+    padding: 1vh 1vw;
+
+    margin: 10vh 0 0 0;
+
+    background: #ffb200;
+    color: white;
+    border-radius: 3px;
+    font-size: 2vmin;
+    text-align: center;
+  }
+
+  .streak:hover:after {
+    content: '';
+    position: absolute;
+    margin: 2vh 0 0 0.1vw;
+    width: 0;
+    height: 0;
+    border-bottom: 0.4vw solid #ffb200;
+    border-left: 0.4vw solid transparent;
+    border-right: 0.4vw solid transparent;
+  }
 `;
 
 export const MonthIndicatorContainer = styled.div`
@@ -205,10 +221,9 @@ export const GraphBox = styled.div`
 
 export const DailyBoardContainer = styled.div`
   display: grid;
-  /* grid-template-columns: repeat(2, minmax(0vw, 2vw));
-  grid-template-rows: repeat(2, minmax(0vh, 3vh)); //달력세로 */
+
   grid-template-columns: repeat(2, 38vw);
-  grid-template-rows: repeat(2, 38.5vh); //달력세로
+  grid-template-rows: repeat(2, 38.5vh);
 `;
 
 export const GradientBorderBox = styled.div`
@@ -262,4 +277,11 @@ export const Count = styled.div`
   }
   color: white;
   font-size: 5vmin;
+`;
+
+export const ProfileContainer = styled.div`
+  display: grid;
+  height: 90vh;
+  grid-template-columns: repeat(2, 34vw);
+  /* grid-template-rows: repeat(2, 38.5vh); */
 `;

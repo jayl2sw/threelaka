@@ -6,7 +6,6 @@ import {
   MonthStudyTime,
   StudyHistory,
 } from '../../models/dashboard';
-import moment from 'moment';
 
 type DashboardState = {
   loading: boolean;
@@ -91,15 +90,7 @@ const dashboardSlice = createSlice({
     // 한달 공부 시간 받아오기 성공
     getMonthStudyTimeSuccess(state, action: PayloadAction<MonthStudyTime>) {
       state.loading = false;
-      // console.log('얍얍얍', action.payload.time);
-      // const ProcessedTime = action.payload.time.map((item, idx) => {
-      //   let newitem = moment.duration(item, 'milliseconds');
-      //   let hours = Math.floor(newitem.asHours());
-      //   console.log(hours);
-      //   let mins = Math.floor(newitem.asMinutes()) - hours * 60;
-      //   return hours + '시간' + mins + '분';
-      // });
-      // console.log('얍얍', ProcessedTime);
+
       state.monthStudyTime = action.payload.time;
       state.seqDays = action.payload.seqDays;
     },
