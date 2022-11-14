@@ -3,10 +3,10 @@ import styled from 'styled-components';
 export const VideoBlock = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60vw;
-  height: 45vh;
+  width: 38vw;
+  height: 38.5vh;
   border: 1px solid black;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
 
   /* overflow: scroll; */
 `;
@@ -17,7 +17,12 @@ export const DashBoardBlock = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(106.56deg, rgba(132, 176, 226, 0.5) 7.3%, rgba(88, 172, 240, 0.43) 77.68%, rgba(174, 243, 147, 0.5) 99.32%);
+  background: linear-gradient(
+    106.56deg,
+    rgba(132, 176, 226, 0.5) 7.3%,
+    rgba(88, 172, 240, 0.43) 77.68%,
+    rgba(174, 243, 147, 0.5) 99.32%
+  );
 `;
 
 export const DashBoardContainer = styled.div`
@@ -32,7 +37,7 @@ export const SideBarBlock = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 15vw;
+  min-width: 13vw;
   height: 90vh;
   background-color: #fff;
   /* padding-top: 1rem;
@@ -50,16 +55,19 @@ export const DashBoardBox = styled.div`
   /* margin: 3vh auto;
   padding: 3vh; */
 
-  width: 60vw;
+  width: 68vw;
   border: solid red 1px;
-  height: 80vh;
-  margin-top: 5vh;
-  margin-left: 2.5vw;
+  height: 82vh;
+  margin-top: 4vh;
+  margin-left: 2vw;
 `;
 
 export const RecentVideoContainer = styled.div`
   &.recentVideo {
-    animation: smoothAppear 1s;
+    animation: smoothAppear 1s ease-in-out;
+  }
+  &.completedVideo {
+    animation: smoothAppearTwo 1s ease-in-out;
   }
   @keyframes smoothAppear {
     from {
@@ -71,12 +79,7 @@ export const RecentVideoContainer = styled.div`
       transform: translateY(0);
     }
   }
-`;
-export const CompletedVideoContainer = styled.div`
-  &.completedVideo {
-    animation: smoothAppear 1s;
-  }
-  @keyframes smoothAppear {
+  @keyframes smoothAppearTwo {
     from {
       opacity: 0;
       transform: translateY(-5%);
@@ -93,6 +96,7 @@ export const WeekdayIndocatorContainer = styled.div`
   grid-template-columns: repeat(7, minmax(0vw, 3vw)); //여기 찾아봐야할듯
   /* grid-template-rows: 1; */
   .weekday-indicator-icon {
+    color: #4a9fff;
     height: 1vh;
     width: 3vw;
     display: flex;
@@ -122,6 +126,29 @@ export const DateIndicatorContainer = styled.div`
     /* margin-left: 1vw; */
     /* cursor: pointer; */
   }
+  .noStudy {
+    background: none;
+  }
+  .verybad {
+    background: #b9ddd3;
+    border-radius: 1vw;
+  }
+  .bad {
+    background: #97cdbd;
+    border-radius: 1vw;
+  }
+  .well {
+    background: #74bca6;
+    border-radius: 1vw;
+  }
+  .good {
+    background: #52aa90;
+    border-radius: 1vw;
+  }
+  .verygood {
+    background: #4c9d85;
+    border-radius: 1vw;
+  }
 `;
 
 export const MonthIndicatorContainer = styled.div`
@@ -131,6 +158,9 @@ export const MonthIndicatorContainer = styled.div`
   align-items: center;
   height: 2vh;
   width: 2vw;
+  margin-top: 1vh;
+  font-size: 2.2vmin;
+
   .month {
     display: flex;
     justify-content: center;
@@ -146,4 +176,90 @@ export const CalendarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const GraphBox = styled.div`
+  margin-top: 0.5vh;
+  tspan {
+    font-size: 2vmin;
+    font-family: PretendardBold;
+    color: #565656;
+    /* color: #565656 !important; */
+  }
+  background: linear-gradient(
+    110.64deg,
+    #4a9fff 5.65%,
+    rgba(88, 172, 240, 0.861458) 45.15%,
+    #b0ff91 84.64%
+  );
+  width: 37vw;
+  height: 39.5vh;
+  border-radius: 1rem;
+  position: relative;
+  .graph {
+    position: absolute;
+    top: 1vh;
+    left: 0.5vw;
+  }
+`;
+
+export const DailyBoardContainer = styled.div`
+  display: grid;
+  /* grid-template-columns: repeat(2, minmax(0vw, 2vw));
+  grid-template-rows: repeat(2, minmax(0vh, 3vh)); //달력세로 */
+  grid-template-columns: repeat(2, 38vw);
+  grid-template-rows: repeat(2, 38.5vh); //달력세로
+`;
+
+export const GradientBorderBox = styled.div`
+  /* margin-top: 0.5vh; */
+  margin-left: 3.7vw;
+  background: linear-gradient(
+    110.64deg,
+    #4a9fff 5.65%,
+    rgba(88, 172, 240, 0.861458) 45.15%,
+    #b0ff91 84.64%
+  );
+  width: 26vw;
+  height: 48vh;
+  border-radius: 1rem;
+  position: relative;
+  .innerBox {
+    position: absolute;
+    top: 1vh;
+    left: 0.4vw;
+    background: #fff;
+    border-radius: 1rem;
+    height: 46vh;
+    width: 25vw;
+  }
+`;
+
+export const Wrapper = styled.div`
+  position: relative;
+  .dynamic-text-shadow {
+    top: -0.4vh;
+    position: absolute;
+    left: 12vw;
+    font-style: italic;
+    margin: 0;
+    font-size: 5vmin;
+    line-height: 2vmin;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.8vmin;
+    font-variant: small-caps;
+
+    color: #457b9d;
+    text-shadow: 0.3vmin 0.3vmin 0 #1d3557;
+  }
+`;
+
+export const Count = styled.div`
+  & span {
+    -webkit-text-stroke: 2px #111111; //텍스트 테두리
+  }
+  color: white;
+  font-size: 5vmin;
 `;

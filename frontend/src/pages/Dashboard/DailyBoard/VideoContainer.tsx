@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react';
-import RecentVideos from './RecentVideos';
-import CompletedVideos from './CompletedVideos';
+import DashboardVideos from './DashboardVideos';
+import DashboardVideoCard from './DashboardVideoCard';
 import { VideoBlock } from '../../../styles/DashBoard/DashBoardStyle';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useRef, useState } from 'react';
+import { TopBtn } from '../../../styles/Common/CommonBtnStyle';
+import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
+import { BackBlurBox } from '../../../styles/Common/CommonDivStyle';
+import { useHorizontalScroll } from '../../../utils/useSideScroll';
 const VideoContainer = () => {
   const recentVideoBlock = useRef<HTMLDivElement>(null);
   const completedVideoBlock = useRef<HTMLDivElement>(null);
-  const [mode, setMode] = useState<Boolean>(true);
+  const [mode, setMode] = useState(0);
   const AddHide = () => {
     console.log(recentVideoBlock.current);
     if (recentVideoBlock.current !== null) {
@@ -15,34 +19,65 @@ const VideoContainer = () => {
       recentVideoBlock.current.classList.add('hide');
     }
   };
-  //초기값은 true 로서 최근공부한영상
-  const handleMode = () => {
-    setMode(!mode);
-  };
+
+  const scrollRef = useHorizontalScroll(
+    mode
+  ) as React.MutableRefObject<HTMLDivElement>;
 
   return (
     <VideoBlock>
-      <div style={{ display: 'flex' }}>
-        {mode ? <div>최근 공부한 영상</div> : <div>공부 완료한 영상</div>}
-        <div className="arrowBox">
-          <IoIosArrowBack
-            style={{ fontSize: '2vmin', display: 'inline' }}
-            onClick={handleMode}
-          ></IoIosArrowBack>
-          <IoIosArrowForward
-            style={{ fontSize: '2vmin', display: 'inline' }}
-            onClick={handleMode}
-          ></IoIosArrowForward>
-        </div>
-      </div>
-
-      {mode ? (
-        <RecentVideos recentVideoBlock={recentVideoBlock}></RecentVideos>
-      ) : (
-        <CompletedVideos
-          completedVideoBlock={completedVideoBlock}
-        ></CompletedVideos>
-      )}
+      <FlexTransparentDiv
+        widthSize={'28vw'}
+        heightSize={'4vh'}
+        paddingSize={'0'}
+        flexDirection={'row'}
+        justifyContent={'start'}
+        alignItems={'end'}
+        IsBorder={'none'}
+      >
+        <TopBtn
+          widthSize={'7vw'}
+          heightSize={'4vh'}
+          paddingSize={'0'}
+          fontColor={'black'}
+          fontSize={'2vmin'}
+          backgroundColor={'blue'}
+          style={{ marginLeft: '1vw' }}
+          onClick={() => setMode(0)}
+          className={mode ? 'pale' : ''}
+        >
+          최근 공부한 영상
+        </TopBtn>
+        <TopBtn
+          widthSize={'7vw'}
+          heightSize={'4vh'}
+          paddingSize={'0'}
+          fontColor={'black'}
+          fontSize={'2vmin'}
+          backgroundColor={'blue'}
+          style={{ marginRight: '1vw', marginLeft: '1vw' }}
+          onClick={() => {
+            setMode(1);
+          }}
+          className={mode ? '' : 'pale'}
+        >
+          공부 완료한 영상
+        </TopBtn>
+      </FlexTransparentDiv>
+      <BackBlurBox
+        widthSize={'36vw'}
+        heightSize={'33vh'}
+        paddingSize={'2vh 1vw'}
+        fontColor={'black'}
+        fontSize={'1vmin'}
+        style={{ overflowY: 'hidden', overflowX: 'scroll' }}
+        ref={scrollRef}
+      >
+        <DashboardVideos
+          mode={mode}
+          recentVideoBlock={recentVideoBlock}
+        ></DashboardVideos>
+      </BackBlurBox>
     </VideoBlock>
   );
 };

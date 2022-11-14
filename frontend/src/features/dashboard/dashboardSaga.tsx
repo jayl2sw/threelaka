@@ -1,16 +1,22 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import { VideoData, RecommendVideos, RecentVideoData } from '../../models';
-import { MonthStudyTime } from '../../models/dashboard';
+
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
 import {
   getRecentVideosApi,
   getCompletedVideosApi,
   getDailyStudyTimeApi,
   getMonthStudyTimeApi,
+  getStudyHistoryApi,
 } from '../../services/dashboardApi';
 import { dashboardActions } from './dashboard-slice';
-import { RecentVideos, CompletedVideos } from '../../models/dashboard';
+import {
+  RecentVideos,
+  CompletedVideos,
+  MonthStudyTime,
+  StudyHistory,
+} from '../../models/dashboard';
 
 // 현재공부중인 영상 불러오기 SAGA
 function* onGetRecentVideosAsync(action: PayloadAction<RecentVideos[]>) {
@@ -41,7 +47,12 @@ function* onGetCompletedVideosAsync(action: PayloadAction<CompletedVideos[]>) {
 function* onDailyStudyTimeAsync(action: PayloadAction<[]>) {
   try {
     const response: [] = yield call(getDailyStudyTimeApi, action.payload);
-    yield put(dashboardActions.getDailyStudyTimeSuccess(response));
+    // response.map((item, idx) => item / 60);
+    console.log(response);
+    const processedTime: number[] = response
+      .slice(1, 8)
+      .map((item, idx) => item / 60);
+    yield put(dashboardActions.getDailyStudyTimeSuccess(processedTime));
   } catch (error: any) {
     yield put(dashboardActions.getDailyStudyTimeFailed(error.data));
   }
@@ -57,6 +68,19 @@ function* onMonthStudyTimeAsync(action: PayloadAction<MonthStudyTime>) {
     yield put(dashboardActions.getMonthStudyTimeSuccess(response));
   } catch (error: any) {
     yield put(dashboardActions.getMonthStudyTimeFailed(error.data));
+  }
+}
+
+//학습히스토리 불러오기 SAGA
+function* onStudyHistoryAsync(action: PayloadAction<StudyHistory>) {
+  try {
+    const response: StudyHistory = yield call(
+      getStudyHistoryApi,
+      action.payload
+    );
+    yield put(dashboardActions.getStudyHistorySuccess(response));
+  } catch (error: any) {
+    yield put(dashboardActions.getStudyHistoryFailed(error.data));
   }
 }
 
@@ -91,9 +115,14 @@ export function* watchGetMonthStudyTimeAsync() {
     onMonthStudyTimeAsync
   );
 }
+//학습히스토리
+export function* watchGetStudyHistoryAsync() {
+  yield takeLatest(dashboardActions.getStudyHistory.type, onStudyHistoryAsync);
+}
 export const dashboardSagas = [
   fork(watchGetRecentVideoAsync),
   fork(watchGetCompletedVideoAsync),
   fork(watchGetDailyStudyTimeAsync),
   fork(watchGetMonthStudyTimeAsync),
+  fork(watchGetStudyHistoryAsync),
 ];

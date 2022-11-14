@@ -20,3 +20,9 @@ export interface MonthStudyTime {
   time: Array<Object>;
   seqDays: number;
 }
+
+export interface StudyHistory {
+  essays: number;
+  videos: number;
+  words: number;
+}
