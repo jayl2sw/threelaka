@@ -274,6 +274,12 @@ public class StudyServiceImpl implements StudyService{
         LearningRecord lr = learningRecordRepository.findById(data.getLearningRecordId()).orElseThrow(LearningRecordNotFoundException::new);
         lr.setSurvey(data.getSurvey());
     }
+
+    @Override
+    public VideoDescriptionResponseDto findVideoDescription(String videoId) {
+        return VideoDescriptionResponseDto.from(videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new));
+    }
+
     public String translate(String eng) throws JSONException {
 
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";

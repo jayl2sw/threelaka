@@ -107,6 +107,18 @@ public class StudyController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
+    @GetMapping("/video/{videoId}")
+    @ApiOperation(value = "유저 단어장 조회", notes = "특정 회원의 단어 리스트를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<VideoDescriptionResponseDto> getVideoDescription(
+            @PathVariable String videoId
+    ){
+        // 해당 강좌의 단어장 불러오기
+        return new ResponseEntity<>(studyService.findVideoDescription(videoId), HttpStatus.OK);
+    }
+
     @GetMapping("/video/search/{keyword}")
     @ApiOperation(value = "keyword로 영상 검색", notes = "keyword를 이용한 영상 검색")
     @ApiResponses({
@@ -156,7 +168,7 @@ public class StudyController {
     }
 
     @GetMapping("/word/user")
-    @ApiOperation(value = "강의 단어장 조회", notes = "특정 회원의 단어 리스트를 반환한다")
+    @ApiOperation(value = "유저 단어장 조회", notes = "특정 회원의 단어 리스트를 반환한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })

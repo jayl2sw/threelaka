@@ -1,5 +1,6 @@
 package com.ssafy.laka.service;
 
+import com.ssafy.laka.domain.Video;
 import com.ssafy.laka.dto.study.LearningRecordResponseDto;
 import com.ssafy.laka.dto.study.*;
 import org.json.JSONException;
@@ -46,4 +47,6 @@ public interface StudyService {
     EssayResponseDto findEssay(int learningRecordId);
 
     void setSurvey(SurveyRequestDto data);
+
+    VideoDescriptionResponseDto findVideoDescription(String videoId);
 }
