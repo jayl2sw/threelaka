@@ -19,6 +19,10 @@ const VideoDataModal = (props: VideoDataModalType) => {
 
   const video = props.videoData.video;
   const record = props.learningRecord;
+  console.log('----------video------------');
+  console.log(video);
+  console.log('----------record-------------');
+  console.log(record);
 
   const onClickModal = props.toggle;
 
@@ -76,7 +80,7 @@ const VideoDataModal = (props: VideoDataModalType) => {
           >
             새로 학습하기
           </MainBtn>
-          {record.stage && (
+          {record !== undefined && (
             <MainBtn
               widthSize={'8.5vw'}
               heightSize={'4vh'}
