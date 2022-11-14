@@ -154,7 +154,17 @@ public class StudyController {
         // 해당 강좌의 단어장 불러오기
         return new ResponseEntity<>(studyService.getWordbooksById(lr_id), HttpStatus.OK);
     }
-    
+
+    @GetMapping("/word/user")
+    @ApiOperation(value = "강의 단어장 조회", notes = "특정 회원의 단어 리스트를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<List<WordbookResponseDto>> getWordsByUser(){
+        // 해당 강좌의 단어장 불러오기
+        return new ResponseEntity<>(studyService.getWordbooksByUser(), HttpStatus.OK);
+    }
+
 
     @PutMapping("/word/complete")
     @ApiOperation(value = "단어 외움 처리", notes = "학습량을 업데이트 한다.")

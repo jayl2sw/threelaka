@@ -20,6 +20,7 @@ public interface StudyService {
     void deleteWord(int wordbook_id);
 
     List<WordbookResponseDto> getWordbooksById(int lrId);
+    List<WordbookResponseDto> getWordbooksByUser();
 
     void addLearningTime(UpdateLearningRequestDto data);
 

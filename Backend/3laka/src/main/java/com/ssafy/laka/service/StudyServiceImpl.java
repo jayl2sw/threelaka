@@ -152,6 +152,15 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
+    public List<WordbookResponseDto> getWordbooksByUser() {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        return wordbookRepository.findWordbooksByUser(user).stream()
+                .map(w -> WordbookResponseDto.from(w)).collect(Collectors.toList());
+
+    }
+
+
+    @Override
     public LearningRecordResponseDto updateCompletedStage(UpdateStageRequestDto data) {
         LearningRecord lr = learningRecordRepository.findById(data.getLearningRecordId()).orElseThrow(LearningRecordNotExistException::new);
         if (SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new).equals(lr.getUser())) {
