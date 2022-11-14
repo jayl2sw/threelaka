@@ -36,8 +36,8 @@ const RecentVideo = () => {
   const record = recentVideoData.learningRecord;
 
   // 영상 제목 정제하기
-  const cutIndex = video.title.indexOf('|');
-  const videoTitle = video.title.substr(0, cutIndex);
+  const cutIndex = video !== undefined ? video.title.indexOf('|') : 0;
+  const videoTitle = video !== undefined ? video.title.substr(0, cutIndex) : '';
 
   // 영상 정보 왔나요
   const [studied, setStudied] = useState<boolean>(false);
