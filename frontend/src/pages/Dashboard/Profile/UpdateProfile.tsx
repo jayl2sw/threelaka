@@ -25,18 +25,18 @@ const UpdateProfile = () => {
     <div>
       <FlexTransparentDiv
         widthSize={'30vw'}
-        heightSize={'60vh'}
+        heightSize={'90vh'}
         paddingSize={'0'}
         flexDirection={'column'}
         justifyContent={'center'}
         alignItems={'center'}
-        IsBorder={'none'}
+        IsBorder={'is'}
         style={{ position: 'relative' }}
       >
         <ProfileImgBox
           style={{
             width: '14vmin',
-            height: '18vmin',
+            height: '14vmin',
             background: `linear-gradient(
                 110.64deg,
                 #4a9fff 5.65%,
@@ -45,13 +45,16 @@ const UpdateProfile = () => {
               )`,
             borderRadius: '50%',
             border: '4px solid #fff',
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           <ProfileCenter
             className={profile !== '0' ? 'profileImg' + profile : 'default'}
           ></ProfileCenter>
+          <EditBtn onClick={openModalProfle}></EditBtn>
         </ProfileImgBox>
-        <EditBtn onClick={openModalProfle}></EditBtn>
 
         {isOpen ? (
           <SelectProfile
@@ -63,11 +66,11 @@ const UpdateProfile = () => {
 
         <MainBox
           widthSize={'30vw'}
-          heightSize={'60vh'}
+          heightSize={'74vh'}
           paddingSize={'0'}
           fontColor={'black'}
           fontSize={'2vmin'}
-          style={{ display: 'flex' }}
+          style={{ display: 'flex', position: 'absolute', bottom: '8vh' }}
         ></MainBox>
       </FlexTransparentDiv>
     </div>

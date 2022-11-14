@@ -15,6 +15,7 @@ import {
 import customAxios from '../../../services/customAxios';
 import { useAppDispatch } from '../../../utils/hooks';
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
+import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 
 interface ISelectProfile {
   isOpen: boolean;
@@ -48,24 +49,34 @@ const SelectProfile = ({
   return (
     <ModalBackdrop>
       <ModalView>
-        {profileNum.map((item, idx) => {
-          return (
-            <label>
-              <RadioBtn
-                className="1"
-                type="radio"
-                value={item}
-                checked={num === `${item}`}
-                onChange={(e) => handleClickRadioButton(e)}
-              ></RadioBtn>
-              <ProfileImgBox style={{ width: '10vw', height: '10vh' }}>
-                <ProfileCenter
-                  className={'profileImg' + `${item}`}
-                ></ProfileCenter>
-              </ProfileImgBox>
-            </label>
-          );
-        })}
+        <FlexTransparentDiv
+          widthSize={'24vw'}
+          heightSize={'10vh'}
+          paddingSize={'0'}
+          flexDirection={'row'}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+          IsBorder={'none'}
+        >
+          {profileNum.map((item, idx) => {
+            return (
+              <label>
+                <RadioBtn
+                  className="1"
+                  type="radio"
+                  value={item}
+                  checked={num === `${item}`}
+                  onChange={(e) => handleClickRadioButton(e)}
+                ></RadioBtn>
+                <ProfileImgBox style={{ width: '11vmin', height: '11vmin' }}>
+                  <ProfileCenter
+                    className={'profileImg' + `${item}`}
+                  ></ProfileCenter>
+                </ProfileImgBox>
+              </label>
+            );
+          })}
+        </FlexTransparentDiv>
         <BtnDiv>
           <CheckBtn onClick={() => handleProfileChange(num)}>저장</CheckBtn>
           <CancelBtn onClick={closeModalProfile}>취소</CancelBtn>
