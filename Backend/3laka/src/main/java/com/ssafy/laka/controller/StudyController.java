@@ -112,11 +112,10 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> searchVideos(
-            Pageable pageable,
             @PathVariable String keyword
     ){
         // 키워드로 영상 검색
-        return new ResponseEntity<>(studyService.getVideosByKeyword(keyword, pageable), HttpStatus.OK);
+        return new ResponseEntity<>(studyService.getVideosByKeyword(keyword), HttpStatus.OK);
     }
 
     @PostMapping("/word")

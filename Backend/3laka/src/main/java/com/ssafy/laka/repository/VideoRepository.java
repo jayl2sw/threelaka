@@ -13,10 +13,8 @@ import java.util.List;
 
 public interface VideoRepository extends JpaRepository<Video, String> {
 
-    @Query(value = "select * from video where title like keyword",
-            countQuery = "select count(*) from video where title like %keyword%",
-            nativeQuery = true)
-    Page<Video> findByKeyword(String keyword, Pageable pageable);
+
+    List<Video> findByTitleContaining(String keyword);
 
     @Query(value="select * from video limit 4", nativeQuery = true)
 

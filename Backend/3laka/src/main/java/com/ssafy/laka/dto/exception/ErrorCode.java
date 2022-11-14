@@ -23,6 +23,7 @@ public enum ErrorCode {
     NOT_CURRENT_USER(400, "S006", "해당 유저의 항목이 아닙니다."),
     ALREADY_IN_WORDBOOK(400, "S007", "이미 단어장에 추가된 단어입니다."),
     NOT_TED_VIDEO(400, "S008", "테드의 영상이 아닙니다."),
+    TOO_SHORT_TO_SEARCH(400, "S009", "검색 단어가 너무 짧습니다."),
     TAG_NOT_EXIST(400, "D002", "존재하지 않는 태그입니다"),
     GUILD_NOT_FOUND(400, "G001", "해당 길드를 찾을 수 없습니다"),
     REQUEST_NOT_FOUND(400, "G002", "해당 요청을 찾을 수 없습니다."),
