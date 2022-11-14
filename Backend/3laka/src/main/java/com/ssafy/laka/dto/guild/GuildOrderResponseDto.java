@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "GuildResponseDto", description = "길드 정렬 정보 조회")
+@ApiModel(value = "GuildOrderResponseDto", description = "길드 정렬 정보 조회")
 public class GuildOrderResponseDto {
     private int guildId;
     private int masterId;
@@ -22,6 +22,7 @@ public class GuildOrderResponseDto {
     private String guildName;
     private String description;
     private int memberSize;
+    private String profile;
 
     public static GuildOrderResponseDto from(Guild entity, String masterNickname){
         return GuildOrderResponseDto.builder()
@@ -31,6 +32,7 @@ public class GuildOrderResponseDto {
                 .guildName(entity.getGuildName())
                 .description(entity.getDescription())
                 .memberSize(entity.getMembers().size())
+                .profile(entity.getProfile())
                 .build();
     }
 }
