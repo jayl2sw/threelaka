@@ -80,7 +80,7 @@ public class User extends BaseTime {
         this.gender = this.gender == null ? SECRET : this.gender;
         this.grade = this.grade == null ? 0 : this.grade;
         this.contiuousLearningDate = 0;
-        this.profile = this.profile == null ? "s3url" : this.profile;
+        this.profile = this.profile == null ? "https://threelaka.s3.ap-northeast-2.amazonaws.com/0.png" : this.profile;
     }
 
     public void saveToken(String token) {

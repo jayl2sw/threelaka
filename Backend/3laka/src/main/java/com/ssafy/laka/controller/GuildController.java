@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -267,11 +269,15 @@ public class GuildController {
         if(file.isEmpty()){
             throw new RuntimeException("이미지가 없습니다.");
         }
+        Date today = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat( "_yyyyMMddHHmmss");
+        String suffix = sdf.format(today);
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(file.getContentType());
         try(InputStream inputStream = file.getInputStream()){
-            amazonS3Client.putObject(new PutObjectRequest(bucketName, "guild" + guild_id, inputStream, objectMetadata)
+            amazonS3Client.putObject(new PutObjectRequest(bucketName, "guild" + guild_id + suffix, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
+            guildService.updateProfile(guild_id, guild_id + suffix);
         } catch (IOException e){
             throw new RuntimeException("이미지 업로드 실패");
         }

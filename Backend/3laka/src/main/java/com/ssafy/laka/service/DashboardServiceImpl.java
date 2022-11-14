@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,7 +80,7 @@ public class DashboardServiceImpl implements DashboardService{
         List<Study> studies = studyRepository.findStudyDateThisMonth(user.getUserId());
         for (int i = 0; i < studies.size(); i++) {
             int len = studies.get(i).getDate().length();
-            time[Integer.parseInt(studies.get(i).getDate().substring(len - 2, len))] = studies.get(0).getTime();
+            time[Integer.parseInt(studies.get(i).getDate().substring(len - 2, len))] = studies.get(i).getTime();
         }
         int seqDay = user.getContiuousLearningDate();
         return new CalendarDto(time, seqDay);

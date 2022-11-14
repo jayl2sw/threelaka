@@ -359,4 +359,10 @@ public class GuildServiceImpl implements GuildService{
         assignmentRepository.delete(assignment);
         return "SUCCESS";
     }
+
+    @Override
+    public void updateProfile(int guildId, String profileId) {
+        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
+        guild.changeProfile(profileId);
+    }
 }

@@ -61,6 +61,7 @@ public interface GuildService {
     String createAssignment(AssignmentRequestDto info);
     String updateAssignment(AssignmentUpdateRequestDto info);
     String deleteAssignment(int assignmentId);
+    void updateProfile(int guildId, String profileId);
 
 }
 
