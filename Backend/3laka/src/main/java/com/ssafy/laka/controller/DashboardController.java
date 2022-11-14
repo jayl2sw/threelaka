@@ -27,13 +27,7 @@ import java.util.List;
 public class DashboardController {
 
     private final DashboardService dashboardService;
-    private final UserService userService;
-    private final AmazonS3Client amazonS3Client;
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucketName;
-    @Value("${cloud.aws.region.static}")
-    private String region;
-    private String s3BaseUrl = "https://" + bucketName + ".s3." + region + ".amazonaws.com/";
+
     // 아직 안함 =========================================================================================================
     @GetMapping("/profile")
     @ApiOperation(value = "회원 정보 조회", notes = "회원의 프로필 관련 정보를 반환한다")
@@ -140,7 +134,7 @@ public class DashboardController {
     })
     public ResponseEntity<?> changeProfile(@PathVariable String profile) {
         // 프로필 사진 수정
-        dashboardService.updateProfile(s3BaseUrl + profile + ".png");
+        dashboardService.updateProfile(profile);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 

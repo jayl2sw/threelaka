@@ -21,23 +21,24 @@ import java.util.stream.Collectors;
 @ApiModel(value = "GuildResponseDto", description = "멤버 정보 제외한 길드 정보 조회")
 public class GuildResponseDto {
     private int guildId;
+    private String profile;
     private int masterId;
     private String masterNickname;
     private String guildName;
     private String description;
     private String notice;
-    private List<Assignment> assignments;
+    private List<AssignmentRequestDto> assignments;
 
-//    guild를 넣어서 GuildResponseDto를 만들어 내는 함수
     public static GuildResponseDto from(Guild entity, String masterNickname){
         return GuildResponseDto.builder()
                 .guildId(entity.getId())
+                .profile(entity.getProfile())
                 .masterId(entity.getMaster())
                 .masterNickname(masterNickname)
                 .guildName(entity.getGuildName())
                 .description(entity.getDescription())
                 .notice(entity.getNotice())
-                .assignments(entity.getAssignments())
+                .assignments(entity.getAssignments().stream().map(s -> AssignmentRequestDto.from(s)).collect(Collectors.toList()))
                 .build();
     }
 }

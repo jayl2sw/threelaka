@@ -1,10 +1,9 @@
 package com.ssafy.laka.dto.guild;
 
-public interface GoodMemberInterface {
+public interface ProgressInterface {
 
-    Integer getUserId();
     String getNickname();
     String getProfile();
-    Integer getTime();
+    Integer getStage();
 
 }

@@ -3,6 +3,7 @@ package com.ssafy.laka.service;
 import com.ssafy.laka.domain.Assignment;
 import com.ssafy.laka.domain.Essay;
 import com.ssafy.laka.domain.Guild;
+import com.ssafy.laka.domain.LearningRecord;
 import com.ssafy.laka.dto.guild.*;
 import com.ssafy.laka.dto.user.UserResponseDto;
 import org.springframework.stereotype.Component;
@@ -52,7 +53,7 @@ public interface GuildService {
     List<Guild> searchGuilds(GuildSearchDto guildSearchDto);
     List<AssignmentRequestDto> getAssignments(int status);
 
-    List<?> getProgress(int assignmentId);
+    List<ProgressInterface> getProgress(int assignmentId);
     List<GuildOrderResponseDto> getGuildOrderActivity();
     List<GuildOrderResponseDto> getGuildOrderName();
     List<GuildOrderResponseDto> getGuildOrderSize();
