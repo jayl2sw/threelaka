@@ -13,6 +13,7 @@ import { getMonthSet } from '../../../utils/moment';
 import { DateIndicatorContainer } from '../../../styles/DashBoard/DashBoardStyle';
 
 import { useAppSelector } from '../../../utils/hooks';
+import moment from 'moment';
 export interface IDateIndicatorProps {
   selectDate: Date;
   setSelectDate: React.Dispatch<React.SetStateAction<Date>>;
@@ -43,8 +44,13 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
     <DateIndicatorContainer>
       {datesInMonth.map((item, idx) => {
         if (item.currentMonth && item.beforeToday) {
+          const time = (
+            (monthStudyTime[getDayOfMonth(item.date)] as number) / 60
+          ).toFixed(1);
+
           return (
             <div
+              data-tooltip={`Study-Time : ${time}분`}
               className={`${
                 monthStudyTime[getDayOfMonth(item.date)] === 0
                   ? 'noStudy'
@@ -58,7 +64,7 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
                   ? 'good'
                   : `verygood`
               }
-              } date-icon`}
+              } date-icon streak`}
               date-active-month={item.currentMonth.toString()}
               date-date={item.date.toString()}
               key={`date-${idx}`}
