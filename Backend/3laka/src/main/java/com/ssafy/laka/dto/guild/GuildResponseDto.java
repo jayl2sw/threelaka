@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @ApiModel(value = "GuildResponseDto", description = "멤버 정보 제외한 길드 정보 조회")
 public class GuildResponseDto {
     private int guildId;
+    private String profile;
     private int masterId;
     private String masterNickname;
     private String guildName;
@@ -31,6 +32,7 @@ public class GuildResponseDto {
     public static GuildResponseDto from(Guild entity, String masterNickname){
         return GuildResponseDto.builder()
                 .guildId(entity.getId())
+                .profile(entity.getProfile())
                 .masterId(entity.getMaster())
                 .masterNickname(masterNickname)
                 .guildName(entity.getGuildName())
