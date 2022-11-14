@@ -40,8 +40,8 @@ export const GuildBlueArcodianItem = styled.div`
   font-size: 2vmin;
   top: 9vh;
   color: black;
-  background: white;
-  border: 1px solid black;
+  background: transparent;
+  /* border: 1px solid black; */
   visibility: hidden;
   opacity: 0;
 `;

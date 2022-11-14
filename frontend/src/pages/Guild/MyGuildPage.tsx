@@ -1,78 +1,167 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
 import EnglishOnlyZone from './EOZ/EnglishOnlyZone';
-
-// 기본 틀 짜기용 (나중에 옮기기)
-const MyGuildBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 80vh;
-`;
-
-const MyGuildTitle = styled.div`
-  height: 5vh;
-`;
-
-const MyGuildBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 60vw;
-  height: 75vh;
-`;
-
-const MyGuildLeftBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 32vw;
-  border: 1px solid green;
-
-  & .left-top {
-    width: 32vw;
-    border: 1px solid green;
-  }
-
-  & .left-bottom {
-    width: 32vw;
-    border: 1px solid green;
-  }
-`;
-
-const MyGuildRightBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 28vw;
-  border: 1px solid blue;
-  padding: 2vh 2vh;
-
-  & .right-top {
-    width: 24vw;
-    height: 36vh;
-    border: 1px solid blue;
-  }
-
-  & .right-bottom {
-    width: 24vw;
-    height: 33vh;
-    margin-top: 2vh;
-    border: 1px solid blue;
-  }
-`;
-
+import { FlexTransparentDiv } from '../../styles/Common/CommonDivStyle';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { guildActions } from '../../features/guild/guild-slice';
+import { LearnTimeProgressbar } from '../../styles/Guild/MyGuildStyle';
 const MyGuild = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(guildActions.getSearchGuildStart());
+    dispatch(guildActions.getGuildLearnTimeStart());
+  }, []);
+  const myGuildInfo = useAppSelector((state) => state.guild.myGuildInfo);
+  const myguildLearnTime = useAppSelector(
+    (state) => state.guild.myguildLearnTime
+  );
   return (
-    <MyGuildBlock>
-      <MyGuildTitle>길드 인사 페이지</MyGuildTitle>
-      <MyGuildBox>
-        <MyGuildLeftBox>
-          <div className="left-top">왼쪽 상단</div>
-          <div className="left-bottom">왼쪽 하단</div>
-        </MyGuildLeftBox>
-        <MyGuildRightBox>
-          <div className="right-top"></div>
-          <EnglishOnlyZone />
-        </MyGuildRightBox>
-      </MyGuildBox>
-    </MyGuildBlock>
+    <FlexTransparentDiv
+      widthSize={'65vw'}
+      heightSize={'80vh'}
+      paddingSize={'0'}
+      flexDirection={'column'}
+      justifyContent={'start'}
+      alignItems={'start'}
+      IsBorder={'is'}
+    >
+      <FlexTransparentDiv
+        widthSize={'65vw'}
+        heightSize={'10vh'}
+        paddingSize={'0'}
+        flexDirection={'column'}
+        justifyContent={'center'}
+        alignItems={'start'}
+        IsBorder={'is'}
+        style={{ fontSize: '4vmin', fontFamily: 'pretendardBold' }}
+      >
+        WELCOM TO {myGuildInfo.guildName}
+      </FlexTransparentDiv>
+      <FlexTransparentDiv
+        widthSize={'65vw'}
+        heightSize={'70vh'}
+        paddingSize={'0'}
+        flexDirection={'row'}
+        justifyContent={'start'}
+        alignItems={'start'}
+        IsBorder={'is'}
+      >
+        <FlexTransparentDiv
+          widthSize={'33vw'}
+          heightSize={'70vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={'start'}
+          alignItems={'start'}
+          IsBorder={'is'}
+          style={{ marginRight: '2vw' }}
+        >
+          <FlexTransparentDiv
+            widthSize={'33vw'}
+            heightSize={'40vh'}
+            paddingSize={'0'}
+            flexDirection={'column'}
+            justifyContent={'start'}
+            alignItems={'start'}
+            IsBorder={'is'}
+          >
+            <FlexTransparentDiv
+              widthSize={'33vw'}
+              heightSize={'20vh'}
+              paddingSize={'0'}
+              flexDirection={'column'}
+              justifyContent={'start'}
+              alignItems={'start'}
+              IsBorder={'is'}
+            >
+              {`${myguildLearnTime[0].nickname}님이 ${myguildLearnTime[0].time}시간 공부했음`}
+            </FlexTransparentDiv>
+            <FlexTransparentDiv
+              widthSize={'33vw'}
+              heightSize={'20vh'}
+              paddingSize={'0'}
+              flexDirection={'column'}
+              justifyContent={'start'}
+              alignItems={'start'}
+              IsBorder={'is'}
+            >
+              {myGuildInfo.notice}
+            </FlexTransparentDiv>
+          </FlexTransparentDiv>
+          <FlexTransparentDiv
+            widthSize={'33vw'}
+            heightSize={'30vh'}
+            paddingSize={'0'}
+            flexDirection={'column'}
+            justifyContent={'start'}
+            alignItems={'start'}
+            IsBorder={'is'}
+          ></FlexTransparentDiv>
+        </FlexTransparentDiv>
+        <FlexTransparentDiv
+          widthSize={'30vw'}
+          heightSize={'70vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={'start'}
+          alignItems={'start'}
+          IsBorder={'is'}
+        >
+          <FlexTransparentDiv
+            widthSize={'30vw'}
+            heightSize={'40vh'}
+            paddingSize={'1vh 1vw'}
+            flexDirection={'column'}
+            justifyContent={'start'}
+            alignItems={'start'}
+            IsBorder={'is'}
+          >
+            {myguildLearnTime.map((learnRecord, idx) => {
+              const timePercent = (learnRecord.time / 30000) * 100;
+              return (
+                <FlexTransparentDiv
+                  widthSize={'28vw'}
+                  heightSize={'5vh'}
+                  paddingSize={'0'}
+                  flexDirection={'row'}
+                  justifyContent={'start'}
+                  alignItems={'center'}
+                  IsBorder={'none'}
+                >
+                  <FlexTransparentDiv
+                    widthSize={'5vw'}
+                    heightSize={'5vh'}
+                    paddingSize={'0'}
+                    flexDirection={'row'}
+                    justifyContent={'start'}
+                    alignItems={'center'}
+                    IsBorder={'none'}
+                  >
+                    {learnRecord.nickname}
+                  </FlexTransparentDiv>
+                  <LearnTimeProgressbar
+                    widthSize={'23vw'}
+                    heightSize={'2vh'}
+                    progressPercent={timePercent}
+                    style={{ marginBottom: '1vh' }}
+                  />
+                </FlexTransparentDiv>
+              );
+            })}
+          </FlexTransparentDiv>
+          <FlexTransparentDiv
+            widthSize={'30vw'}
+            heightSize={'30vh'}
+            paddingSize={'0'}
+            flexDirection={'column'}
+            justifyContent={'start'}
+            alignItems={'start'}
+            IsBorder={'is'}
+          >
+            <EnglishOnlyZone />
+          </FlexTransparentDiv>
+        </FlexTransparentDiv>
+      </FlexTransparentDiv>
+    </FlexTransparentDiv>
   );
 };
 
