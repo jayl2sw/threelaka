@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -125,7 +126,7 @@ public class StudyController {
     })
     public ResponseEntity<?> addWord(
             @RequestBody WordRequestDto data
-    ){
+    ) throws JSONException {
         // 단어장에 단어 하나 추가해줌
         studyService.addWord(data);
         return new ResponseEntity<>("success", HttpStatus.OK);
