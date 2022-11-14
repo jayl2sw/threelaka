@@ -1,8 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { VideoData, RecentVideoData } from '../../models/video';
 import { RecentVideos } from '../../models/dashboard';
-import { GuildNotice, VideoInfo, GuildMemberList } from '../../models/guild';
-import { string } from 'yup';
+import {
+  GuildNotice,
+  VideoInfo,
+  GuildMemberList,
+  TopThreeGuild,
+  GuildDetailInfo,
+  MyguildInfo,
+} from '../../models/guild';
 
 type GuildState = {
   loading: boolean;
@@ -10,6 +16,9 @@ type GuildState = {
   gulidMemberList: GuildMemberList;
   progressTaskList: VideoInfo[];
   upcomingTaskList: VideoInfo[];
+  topThreeGuildList: TopThreeGuild[];
+  guildSortedList: GuildDetailInfo[];
+  myGuildInfo: MyguildInfo;
 };
 
 let initialState: GuildState = {
@@ -26,6 +35,17 @@ let initialState: GuildState = {
   },
   progressTaskList: [],
   upcomingTaskList: [],
+  topThreeGuildList: [],
+  guildSortedList: [],
+  myGuildInfo: {
+    guildId: 0,
+    masterId: 0,
+    masterNickname: '',
+    guildName: '',
+    description: '',
+    notice: '',
+    assignments: [],
+  },
 };
 
 const guildSlice = createSlice({
@@ -134,8 +154,9 @@ const guildSlice = createSlice({
       state.loading = true;
     },
     // 길드 공지 수정 성공
-    putGuildNoticeSuccess(state) {
+    putGuildNoticeSuccess(state, action: PayloadAction<TopThreeGuild[]>) {
       state.loading = false;
+      state.topThreeGuildList = action.payload;
     },
     // 길드 공지 수정 실패
     putGuildNoticeFailed(state) {
@@ -165,6 +186,48 @@ const guildSlice = createSlice({
     },
     // 길드원 추방 실패
     deleteMemberFailed(state) {
+      state.loading = false;
+    },
+
+    // 우수길드 가져오기 시작
+    getTopThreeGuildStart(state) {
+      state.loading = true;
+    },
+    // 우수길드 가져오기 성공
+    getTopThreeGuildSuccess(state, action: PayloadAction<TopThreeGuild[]>) {
+      state.loading = false;
+      state.topThreeGuildList = action.payload;
+    },
+    // 우수길드 가져오기 실패
+    getTopThreeGuildFailed(state) {
+      state.loading = false;
+    },
+
+    // 정렬된 길드 가져오기
+    getSortedGuildStart(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+    // 정렬된 길드 성공
+    getSortedGuildSuccess(state, action: PayloadAction<GuildDetailInfo[]>) {
+      state.loading = false;
+      state.guildSortedList = action.payload;
+    },
+    // 정렬된 길드 실패
+    getSortedGuildFailed(state) {
+      state.loading = false;
+    },
+
+    // 길드 정보 검색(멤버제외)
+    getSearchGuildStart(state) {
+      state.loading = true;
+    },
+    // 길드 정보 검색(멤버제외) 성공
+    getSearchGuildSuccess(state, action: PayloadAction<MyguildInfo>) {
+      state.loading = false;
+      state.myGuildInfo = action.payload;
+    },
+    // 길드 정보 검색(멤버제외) 실패
+    getSearchGuildFailed(state) {
       state.loading = false;
     },
   },

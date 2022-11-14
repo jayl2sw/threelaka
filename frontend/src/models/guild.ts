@@ -35,3 +35,39 @@ export interface NoticeModalType {
   toggle: () => void;
   notice: string;
 }
+
+// 상위 3개 길드 정보
+export interface TopThreeGuild {
+  guildId: number;
+  guildName: string;
+  profile: string;
+}
+
+export interface GuildDetailInfo {
+  guildId: number;
+  masterId: number;
+  masterNickname: string;
+  guildName: string;
+  description: string;
+  memberSize: number;
+  profile: string;
+}
+
+export interface AssignmentVideo {
+  assignmentId: number;
+  videoId: string;
+  videoTitle: string;
+  guildId: number;
+  startDate: string;
+  endDate: string;
+}
+
+export interface MyguildInfo {
+  guildId: number;
+  masterId: number;
+  masterNickname: string;
+  guildName: string;
+  description: string;
+  notice: string;
+  assignments: AssignmentVideo[];
+}

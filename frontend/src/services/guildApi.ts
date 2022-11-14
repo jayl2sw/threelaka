@@ -67,3 +67,21 @@ export const DeleteMemberApi = async (tagetMemberId: number): Promise<any> => {
   );
   return res.data;
 };
+
+// top3 길드 가져오기
+export const GetTopThreeGuildApi = async (): Promise<any> => {
+  const res = await customAxios.get(`/api/v1/user/guild/ranking`);
+  return res.data;
+};
+
+// 길드 정렬 리스트 가져오기
+export const GetSortedGuildApi = async (basis: string): Promise<any> => {
+  const res = await customAxios.get(`/api/v1/user/guild/${basis}`);
+  return res.data;
+};
+
+// 길드 정보 가져오기
+export const GetSearchGuildApi = async (guildId: string): Promise<any> => {
+  const res = await customAxios.get(`/api/v1/user/guild/search/${guildId}`);
+  return res.data;
+};

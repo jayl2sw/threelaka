@@ -8,8 +8,10 @@ import GuildMain from './GuildMainPage';
 import MyGuild from '../Guild/MyGuildPage';
 import MasterSetting from '../Guild/MasterSettingPage';
 import { DashBoardBlock } from '../../styles/DashBoard/DashBoardStyle';
-import { GuildBoardBox } from '../../styles/Guild/GuildStyle';
-import { MainPaleBox } from '../../styles/Common/CommonDivStyle';
+import {
+  FlexTransparentDiv,
+  MainPaleBox,
+} from '../../styles/Common/CommonDivStyle';
 const GuildPage = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -26,7 +28,7 @@ const GuildPage = () => {
   return (
     <DashBoardBlock>
       <MainPaleBox
-        widthSize={'80vw'}
+        widthSize={'85vw'}
         heightSize={'90vh'}
         paddingSize={'0'}
         fontColor={'black'}
@@ -37,14 +39,28 @@ const GuildPage = () => {
           handleSwitchPage={handleSwitchPage}
           handleSwitchGuildPage={handleSwitchGuildPage}
         ></SideBar>
-        <GuildBoardBox>
+        <FlexTransparentDiv
+          widthSize={'65vw'}
+          heightSize={'80vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={'start'}
+          alignItems={'center'}
+          IsBorder={'none'}
+          style={{
+            marginTop: '5vh',
+            marginLeft: '3.5vw',
+            fontFamily: 'fredoka',
+            border: '2px solid green',
+          }}
+        >
           {pageNum === '1' && <DailyBoard />}
           {pageNum === '2' && <HistoryBoard />}
           {pageNum === '3' && <Profile />}
           {guildPageType === 'main' && <GuildMain />}
           {guildPageType === 'myGuild' && <MyGuild />}
           {guildPageType === 'admin' && <MasterSetting />}
-        </GuildBoardBox>
+        </FlexTransparentDiv>
       </MainPaleBox>
     </DashBoardBlock>
   );

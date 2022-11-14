@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PassThrough } from 'stream';
 import { guildActions } from '../../features/guild/guild-slice';
 import {
@@ -8,15 +8,9 @@ import {
   BackBlurBox,
 } from '../../styles/Common/CommonDivStyle';
 import { useParams, useNavigate } from 'react-router-dom';
-import { GreetingText } from '../../styles/Guild/GuildStyle';
-import {
-  GuildSettingLeftBox,
-  GuildSettingRightBox,
-} from '../../styles/Guild/MasterSetting';
 import { MainBtn } from '../../styles/Common/CommonBtnStyle';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import useModal from '../../utils/useModal';
-import GuildNoticeModal from '../Main/components/GuildNoticeModal';
 import { TbBellRinging } from 'react-icons/tb';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { GrGroup } from 'react-icons/gr';
@@ -574,7 +568,15 @@ const MasterSetting = () => {
             </div>
           </MainBox>
         </FlexTransparentDiv>
-        <GuildSettingRightBox>
+        <FlexTransparentDiv
+          widthSize={'30vw'}
+          heightSize={'75vh'}
+          paddingSize={'0'}
+          flexDirection={'row'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          IsBorder={'is'}
+        >
           <MainBox
             widthSize={'22vw'}
             heightSize={'72vh'}
@@ -688,7 +690,7 @@ const MasterSetting = () => {
               }
             })}
           </MainBox>
-        </GuildSettingRightBox>
+        </FlexTransparentDiv>
       </FlexTransparentDiv>
     </div>
   );

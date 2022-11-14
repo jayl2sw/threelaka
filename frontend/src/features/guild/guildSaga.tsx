@@ -1,7 +1,14 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import { call, put, takeLatest, fork, select } from 'redux-saga/effects';
-import { GuildNotice, VideoInfo, GuildMemberList } from '../../models/guild';
+import {
+  GuildNotice,
+  VideoInfo,
+  GuildMemberList,
+  TopThreeGuild,
+  GuildDetailInfo,
+  MyguildInfo,
+} from '../../models/guild';
 import {
   getGuildNoticeApi,
   getProgressTaskApi,
@@ -12,6 +19,9 @@ import {
   putGuildNoticeApi,
   postGuildHandOverApi,
   DeleteMemberApi,
+  GetTopThreeGuildApi,
+  GetSortedGuildApi,
+  GetSearchGuildApi,
 } from '../../services/guildApi';
 import { guildActions } from './guild-slice';
 
@@ -116,6 +126,44 @@ function* onDeleteMemberAsync(action: PayloadAction<number>) {
     console.error();
   }
 }
+// 우수 길드 가져오기
+function* onGetTopThreeGuildAsync() {
+  try {
+    const reponse: TopThreeGuild[] = yield call(GetTopThreeGuildApi);
+    yield put(guildActions.getTopThreeGuildSuccess(reponse));
+  } catch (error) {
+    console.error();
+  }
+}
+
+// 정렬된 길드 가져오기
+function* onGetSortedGuildAsync(action: PayloadAction<string>) {
+  try {
+    const reponse: GuildDetailInfo[] = yield call(
+      GetSortedGuildApi,
+      action.payload
+    );
+    yield put(guildActions.getSortedGuildSuccess(reponse));
+  } catch (error) {
+    console.error();
+  }
+}
+
+// 길드 정보 검색
+function* onGetSearchGuildAsync() {
+  try {
+    console.warn('들어왔어요');
+    const guildId: string = yield select(
+      (state) => state.auth.currentUser.guildId
+    );
+    if (guildId !== null) {
+      const reponse: MyguildInfo = yield call(GetSearchGuildApi, guildId);
+      yield put(guildActions.getSearchGuildSuccess(reponse));
+    }
+  } catch (error) {
+    console.error();
+  }
+}
 
 // 길드 공지 받아오기 watch
 export function* watchGetGuildNoticeAsync() {
@@ -167,6 +215,30 @@ export function* watchDeleteMemberAsync() {
   yield takeLatest(guildActions.deleteMemberStart.type, onDeleteMemberAsync);
 }
 
+// 우수 길드 가져오기 watch
+export function* watchGetTopThreeGuildAsync() {
+  yield takeLatest(
+    guildActions.getTopThreeGuildStart.type,
+    onGetTopThreeGuildAsync
+  );
+}
+
+// 정렬된 길드 가져오기 watch
+export function* watchGetSortedGuildAsync() {
+  yield takeLatest(
+    guildActions.getSortedGuildStart.type,
+    onGetSortedGuildAsync
+  );
+}
+
+// 길드 정보 검색
+export function* watchGetSearchGuildAsync() {
+  yield takeLatest(
+    guildActions.getSearchGuildStart.type,
+    onGetSearchGuildAsync
+  );
+}
+
 export const guildSagas = [
   fork(watchGetGuildNoticeAsync),
   fork(watchGetProgressTaskAsync),
@@ -176,4 +248,7 @@ export const guildSagas = [
   fork(watchPutGuildNoticeAsync),
   fork(watchPostGuildHandOverAsync),
   fork(watchDeleteMemberAsync),
+  fork(watchGetTopThreeGuildAsync),
+  fork(watchGetSortedGuildAsync),
+  fork(watchGetSearchGuildAsync),
 ];
