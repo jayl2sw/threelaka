@@ -140,7 +140,7 @@ public class DashboardController {
     })
     public ResponseEntity<?> changeProfile(@PathVariable String profile) {
         // 프로필 사진 수정
-        dashboardService.updateProfile(s3BaseUrl + profile + ".png");
+        dashboardService.updateProfile(profile);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
