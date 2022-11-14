@@ -287,16 +287,9 @@ public class GuildServiceImpl implements GuildService{
     }
 
     @Override
-    public List<?> getProgress(int assignmentId) {
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date date = new Date();
-//        String today = formatter.format(date);
-//        Assignment assignment = assignmentRepository.findById(assignmentId).orElseThrow();
-//        List<User> members = assignment.getGuild().getMembers();
-//        for (int i = 0; i < members.size(); i++) {
-//            learningRecordRepository.findTop1ByVideoAndAndUserAndModifiedDateAfterOrderByModifiedDateDesc(assignment.getVideo(), members.get(i), today);
-//        }
-        return null;
+    public List<ProgressInterface> getProgress(int assignmentId) {
+        Assignment assignment = assignmentRepository.findById(assignmentId).orElseThrow(AssignmentNotFoundException::new);
+        return learningRecordRepository.findProgress(assignment.getGuild().getId(), assignment.getVideo().getVideoId(), assignment.getStartDate(), assignment.getEndDate());
     }
 
     @Override

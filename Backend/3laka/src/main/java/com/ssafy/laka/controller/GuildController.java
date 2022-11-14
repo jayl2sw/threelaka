@@ -111,9 +111,9 @@ public class GuildController {
     // 수정 필요 ========================================================================================================
     @GetMapping("/{assignment_id}/progress")
     @ApiOperation(value = "해당 공통과제의 모든 길드원 진행도 조회")
-    public ResponseEntity<?> getProgress(@PathVariable int assignment_id){
+    public ResponseEntity<List<ProgressInterface>> getProgress(@PathVariable int assignment_id){
         // 해당 공통과제의 모든 길드원 진행도 조회 (반환값 형식에 길드원의 일부 유저정보 필요)
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(guildService.getProgress(assignment_id), HttpStatus.OK);
     }
 
     // 수정 필요 ========================================================================================================

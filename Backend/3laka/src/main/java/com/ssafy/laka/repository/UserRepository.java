@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByNickname(String nickname);
 
     @Query(nativeQuery = true,
-            value = "select u.user_id userId, u.nickname, sum(s.time) time from study s, users u " +
+            value = "select u.user_id userId, u.nickname, u.profile, sum(s.time) time from study s, users u " +
                     "where u.guild_id = :guildId and s.user_user_id = u.user_id and date(s.date) " +
                     "between subdate(curdate(), date_format(curdate(), '%w') - 1) " +
                     "and subdate(curdate(), date_format(curdate(), '%w') - 7) group by u.user_id order by sum(s.time) desc;")
