@@ -34,6 +34,9 @@ public class Wordbook {
     @Column(name ="example")
     private String example;
 
+    @Column(name ="example_kor")
+    private String exampleKor;
+
     @Column(name = "is_memorized")
     private boolean isMemorized;
 

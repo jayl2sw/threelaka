@@ -12,17 +12,20 @@ import lombok.RequiredArgsConstructor;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -42,6 +45,13 @@ public class StudyServiceImpl implements StudyService{
     private final YoutubeService youtubeService;
     private final ScriptRepository scriptRepository;
 
+    private TooShortToSearchException tooShortToSearchException = new TooShortToSearchException();
+    private WordAlreadyExistException wordAlreadyExistException = new WordAlreadyExistException();
+
+    @Value("${naver.id}")
+    private String clientId;//애플리케이션 클라이언트 아이디값";
+    @Value("${naver.secret}")
+    private String clientSecret;
     @Override
     public VideoResponseDto getVideo(String url) {
         String videoId = parseVideoId(url);
@@ -103,8 +113,11 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public List<VideoResponseDto> getVideosByKeyword(String keyword, Pageable pageable) {
-        return videoRepository.findByKeyword(keyword, pageable).stream().map(
+    public List<VideoResponseDto> getVideosByKeyword(String keyword) {
+        if (keyword.length() <= 2) {
+            throw tooShortToSearchException;
+        }
+        return videoRepository.findByTitleContaining(keyword).stream().map(
                 v -> VideoResponseDto.from(v)).collect(Collectors.toList());
     }
 
@@ -112,12 +125,10 @@ public class StudyServiceImpl implements StudyService{
     public void addWord(WordRequestDto data) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         LearningRecord lr = learningRecordRepository.findById(data.getLrId()).orElseThrow(LearningRecordNotFoundException::new);
-        System.out.println(data.getWord());
-        System.out.println(lr.getLearningRecordId());
         Optional<Wordbook> wb = wordbookRepository.findByLearningRecordAndWord(lr, data.getWord());
 
         if (wb.isPresent()) {
-            throw new WordAlreadyExistException();
+            throw wordAlreadyExistException;
         } else {
             Wordbook wordbook = Wordbook.builder()
                     .user(user)
@@ -154,6 +165,7 @@ public class StudyServiceImpl implements StudyService{
     @Override
     public List<WordbookResponseDto> getWordbooksByUser() {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        translate("word");
         return wordbookRepository.findWordbooksByUser(user).stream()
                 .map(w -> WordbookResponseDto.from(w)).collect(Collectors.toList());
 
@@ -260,4 +272,5 @@ public class StudyServiceImpl implements StudyService{
         LearningRecord lr = learningRecordRepository.findById(data.getLearningRecordId()).orElseThrow(LearningRecordNotFoundException::new);
         lr.setSurvey(data.getSurvey());
     }
+
 }
