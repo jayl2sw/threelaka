@@ -19,13 +19,13 @@ public interface GuildRepository extends JpaRepository<Guild, Integer> {
     List<Guild> findTop3ByOrderByExp();
 
     @Query(nativeQuery = true,
-            value = "SELECT a.id, a.description, a.guild_name, a.master, a.notice, a.exp " +
+            value = "SELECT a.id, a.description, a.guild_name, a.master, a.notice, a.exp, a.profile " +
                     "FROM (SELECT u.user_id, g.*, sum(time) times FROM guild g, users u, study s WHERE u.guild_id = g.id AND u.user_id = s.user_user_id GROUP BY u.user_id) a " +
                     "GROUP BY a.id ORDER BY sum(a.times) DESC limit 3;")
     List<Guild> findRanking3Guilds();
 
     @Query(nativeQuery = true,
-            value = "SELECT a.id, a.description, a.guild_name, a.master, a.notice, a.exp " +
+            value = "SELECT a.id, a.description, a.guild_name, a.master, a.notice, a.exp, a.profile " +
                     "FROM (SELECT u.user_id, g.*, sum(time) times FROM guild g, users u, study s WHERE u.guild_id = g.id AND u.user_id = s.user_user_id GROUP BY u.user_id) a " +
                     "GROUP BY a.id ORDER BY sum(a.times) DESC;")
     List<Guild> findRankingGuilds();
