@@ -8,6 +8,7 @@ import {
   loginApi,
   userInfoApi,
   logoutApi,
+  modifyUserApi,
 } from '../../services/userApi';
 import { User } from '../../models/user';
 
@@ -70,9 +71,28 @@ function* watchLogoutFlow() {
   yield takeLatest(authActions.logout.type, logout);
 }
 
+function* modifyUser(action: PayloadAction<SignupPayload>) {
+  const { fetchUser } = authActions;
+  try {
+    const response: string = yield call(modifyUserApi, action.payload);
+    //string이 타입
+
+    yield put(authActions.modifyUserInfoSuccess(response));
+
+    yield put(fetchUser());
+  } catch (error: any) {
+    yield put(authActions.modifyUserInfoFailed(error.data));
+  }
+}
+
+function* watchModifyUserFlow() {
+  yield takeLatest(authActions.modifyUserInfo.type, modifyUser);
+}
+
 export const authSagas = [
   fork(watchSignupFlow),
   fork(watchLoginFlow),
   fork(watchLogoutFlow),
   fork(watchfetchUserFlow),
+  fork(watchModifyUserFlow),
 ];

@@ -10,6 +10,7 @@ import {
   EditBtn,
 } from '../../../styles/DashBoard/DashBoardStyle';
 import { useAppSelector } from '../../../utils/hooks';
+import ModifyUserInfo from './ModifyUserInfo';
 import SelectProfile from './SelectProfile';
 
 const UpdateProfile = () => {
@@ -67,11 +68,13 @@ const UpdateProfile = () => {
         <MainBox
           widthSize={'30vw'}
           heightSize={'74vh'}
-          paddingSize={'0'}
+          paddingSize={'2vh 2vw'}
           fontColor={'black'}
           fontSize={'2vmin'}
           style={{ display: 'flex', position: 'absolute', bottom: '8vh' }}
-        ></MainBox>
+        >
+          <ModifyUserInfo></ModifyUserInfo>
+        </MainBox>
       </FlexTransparentDiv>
     </div>
   );
