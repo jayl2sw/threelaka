@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class AssignmentRequestDto {
     private int assignmentId;
     private String videoId;
+    private String videoTitle;
     private int guildId;
     private String startDate;
     private String endDate;
@@ -22,6 +23,7 @@ public class AssignmentRequestDto {
         return AssignmentRequestDto.builder()
                 .assignmentId(entity.getAssignmentId())
                 .videoId(entity.getVideo().getVideoId())
+                .videoTitle(entity.getVideo().getTitle())
                 .guildId(entity.getGuild().getId())
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())

@@ -26,9 +26,8 @@ public class GuildResponseDto {
     private String guildName;
     private String description;
     private String notice;
-    private List<Assignment> assignments;
+    private List<AssignmentRequestDto> assignments;
 
-//    guild를 넣어서 GuildResponseDto를 만들어 내는 함수
     public static GuildResponseDto from(Guild entity, String masterNickname){
         return GuildResponseDto.builder()
                 .guildId(entity.getId())
@@ -37,7 +36,7 @@ public class GuildResponseDto {
                 .guildName(entity.getGuildName())
                 .description(entity.getDescription())
                 .notice(entity.getNotice())
-                .assignments(entity.getAssignments())
+                .assignments(entity.getAssignments().stream().map(s -> AssignmentRequestDto.from(s)).collect(Collectors.toList()))
                 .build();
     }
 }
