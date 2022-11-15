@@ -85,3 +85,9 @@ export const GetSearchGuildApi = async (guildId: string): Promise<any> => {
   const res = await customAxios.get(`/api/v1/user/guild/search/${guildId}`);
   return res.data;
 };
+
+// 길드 학습량 조회
+export const GetGuildLearnTimeApi = async (guildId: string): Promise<any> => {
+  const res = await customAxios.get(`/api/v1/user/guild/${guildId}/member`);
+  return res.data;
+};

@@ -71,3 +71,10 @@ export interface MyguildInfo {
   notice: string;
   assignments: AssignmentVideo[];
 }
+
+export interface MyguildLearnTime {
+  time: number;
+  profile: string;
+  userId: number;
+  nickname: string;
+}

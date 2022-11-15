@@ -8,6 +8,7 @@ import {
   TopThreeGuild,
   GuildDetailInfo,
   MyguildInfo,
+  MyguildLearnTime,
 } from '../../models/guild';
 
 type GuildState = {
@@ -19,6 +20,7 @@ type GuildState = {
   topThreeGuildList: TopThreeGuild[];
   guildSortedList: GuildDetailInfo[];
   myGuildInfo: MyguildInfo;
+  myguildLearnTime: MyguildLearnTime[];
 };
 
 let initialState: GuildState = {
@@ -46,6 +48,7 @@ let initialState: GuildState = {
     notice: '',
     assignments: [],
   },
+  myguildLearnTime: [],
 };
 
 const guildSlice = createSlice({
@@ -228,6 +231,20 @@ const guildSlice = createSlice({
     },
     // 길드 정보 검색(멤버제외) 실패
     getSearchGuildFailed(state) {
+      state.loading = false;
+    },
+
+    // 길드량 학습량순 조회 시작
+    getGuildLearnTimeStart(state) {
+      state.loading = true;
+    },
+    // 길드량 학습량순 조회 성공
+    getGuildLearnTimeSuccess(state, action: PayloadAction<MyguildLearnTime[]>) {
+      state.loading = false;
+      state.myguildLearnTime = action.payload;
+    },
+    // 길드량 학습량순 조회 실패
+    getGuildLearnTimeFailed(state) {
       state.loading = false;
     },
   },

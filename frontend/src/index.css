@@ -8,6 +8,7 @@ body {
   min-height: 100vh;
   min-width: 100vw;
   overflow-x: hidden;
+  font-family: "PretendardRegular";
 }
 
 #root {
@@ -98,7 +99,7 @@ button{
 }
 
 body, button, input {
-  font-family: "NotoSansKR";
+  font-family: "PretendardRegular";
 
 }
 
