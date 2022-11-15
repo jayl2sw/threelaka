@@ -22,4 +22,6 @@ public interface StudyRepository extends JpaRepository<Study, Integer> {
                     "and subdate(curdate(), date_format(curdate(), '%w') - 7)")
     List<Study> findStudyDateThisWeek(int userId);
 
+    List<Study> findByUser(User user);
+
 }

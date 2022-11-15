@@ -7,6 +7,7 @@ import com.ssafy.laka.domain.UserTag;
 import com.ssafy.laka.domain.enums.Stage;
 import com.ssafy.laka.dto.dashboard.*;
 import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
+import com.ssafy.laka.dto.exception.dashboard.StudyNotFoundException;
 import com.ssafy.laka.dto.exception.dashboard.TagNotFoundException;
 import com.ssafy.laka.dto.exception.study.VideoNotFoundException;
 import com.ssafy.laka.dto.exception.user.DuplicateNicknameException;
@@ -76,10 +77,26 @@ public class DashboardServiceImpl implements DashboardService{
     }
 
     @Override
+    public TimeHistoryDto getTimeHistory() {
+        User user = getUser();
+        List<Study> studies = studyRepository.findByUser(user);
+        if (studies.size() < 1){
+            throw new StudyNotFoundException();
+        }
+        int time = 0;
+        for (int i = 0; i < studies.size(); i ++){
+            int thisTime = studies.get(i).getTime();
+            time = thisTime + time;
+        }
+        return new TimeHistoryDto(time);
+    }
+
+    @Override
     public CalendarDto getCalendar() {
         User user = getUser();
         int[] time = new int[32];
         List<Study> studies = studyRepository.findStudyDateThisMonth(user.getUserId());
+
         for (int i = 0; i < studies.size(); i++) {
             int len = studies.get(i).getDate().length();
             time[Integer.parseInt(studies.get(i).getDate().substring(len - 2, len))] = studies.get(i).getTime();

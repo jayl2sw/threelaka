@@ -14,7 +14,7 @@ public enum ErrorCode {
 
     LEARNING_RECORD_NOT_EXIST(400, "D001", "존재하지 않는 학습 기록입니다."),
     WORDBOOK_NOT_FOUND(400, "D002", "해당 유저 해당 강의의 단어장을 찾을 수 없습니다."),
-
+    STUDY_NOT_EXIST(400, "D003", "해당 유저의 공부 기록이 없습니다"),
     VIDEO_NOT_FOUND(404, "S001", "비디오 정보를 찾을 수 없습니다."),
     NOT_LIKED_VIDEO(400, "S002", "존재하지 않는 위시리스트 항목입니다."),
     NOT_IN_DICTIONARY(400, "S003", "사전에 존재하지 않는 항목입니다."),
