@@ -20,13 +20,13 @@ let initialState: VideoState = {
   loading: false,
   correctUrl: null,
   videoData: {
-    watched: null,
     video: {
       videoId: '',
       title: '',
       description: '',
-      script: '',
+      korScript: false,
     },
+    learning_record: [],
   },
   recentVideoData: {
     learningRecord: {
@@ -67,6 +67,10 @@ const videoSlice = createSlice({
     getVideoDataFailed(state, action: PayloadAction<string>) {
       state.loading = false;
       state.correctUrl = false;
+    },
+    // correctUrl 리셋
+    resetCorrectUrl(state) {
+      state.correctUrl = null;
     },
 
     // 최근 공부한 영상 1개 정보 받아오기 요칭

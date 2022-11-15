@@ -36,6 +36,9 @@ const GuildMain = () => {
   const onClickMoveMyGuildPage = () => {
     navigate('/auth/guild/myGuild');
   };
+  const onClickpostGuildRequest = (guildId: number) => {
+    dispatch(guildActions.postGuildRequestStart(guildId));
+  };
 
   return (
     <div>
@@ -364,13 +367,45 @@ const GuildMain = () => {
                   <FlexTransparentDiv
                     widthSize={'32vw'}
                     heightSize={'17vh'}
-                    paddingSize={'0 1vw'}
-                    flexDirection={'row'}
+                    paddingSize={'1vh 1vw'}
+                    flexDirection={'column'}
                     justifyContent={'start'}
-                    alignItems={'center'}
-                    IsBorder={'is'}
+                    alignItems={'start'}
+                    IsBorder={'none'}
                   >
-                    동영상 위치
+                    <BackBlurBox
+                      widthSize={'10vw'}
+                      heightSize={'4vh'}
+                      paddingSize={'0'}
+                      fontSize={'1.5vmin'}
+                      fontColor={'white'}
+                      style={{
+                        backgroundColor: '#5CA9FF',
+                        borderRadius: '10px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginRight: '1vw',
+                      }}
+                    >
+                      공지사항
+                    </BackBlurBox>
+                    <FlexTransparentDiv
+                      widthSize={'30vw'}
+                      heightSize={'12vh'}
+                      paddingSize={'1vh 1vw'}
+                      flexDirection={'column'}
+                      justifyContent={'start'}
+                      alignItems={'start'}
+                      IsBorder={'none'}
+                      style={
+                        myGuildInfo.notice.length > 50
+                          ? { fontSize: '2vmin' }
+                          : { fontSize: '3vmin' }
+                      }
+                    >
+                      {myGuildInfo.notice}
+                    </FlexTransparentDiv>
                   </FlexTransparentDiv>
                 </FlexTransparentDiv>
               </>
@@ -450,7 +485,29 @@ const GuildMain = () => {
             >
               {sortedGuild.map((guild, idx) => {
                 return (
-                  <GuildBlueArcodian key={`guild-${idx}`}>
+                  <GuildBlueArcodian
+                    key={`guild-${idx}`}
+                    style={{ position: 'relative' }}
+                  >
+                    {myGuildInfo.guildId !== 0 ? (
+                      ''
+                    ) : (
+                      <MainBtn
+                        widthSize={'6vw'}
+                        heightSize={'5vh'}
+                        paddingSize={'0'}
+                        fontSize={'2vmin'}
+                        fontColor={'white'}
+                        backgroundColor={'blue'}
+                        style={{ position: 'absolute', right: '1vw' }}
+                        onClick={() => {
+                          onClickpostGuildRequest(guild.guildId);
+                        }}
+                      >
+                        가입신청
+                      </MainBtn>
+                    )}
+
                     <FlexTransparentDiv
                       widthSize={'24vw'}
                       heightSize={'5vh'}
