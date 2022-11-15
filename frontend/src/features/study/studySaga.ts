@@ -57,7 +57,7 @@ function* onUpdateStudyStageAsync(action: PayloadAction<StageInfo>) {
     // **이 사이에 state를 업데이트 시켜야 할 것 같음**
     yield put(studyActions.UpdateStudyStageStartSuccess(response));
   } catch (error: any) {
-    yield put(studyActions.SearchDictFailed());
+    yield put(studyActions.UpdateStudyStageStartFailed());
   }
 }
 

@@ -15,6 +15,11 @@ export const createUserApi = async (data: SignupPayload) => {
   );
   return res.data;
 };
+//회원정보 수정
+export const modifyUserApi = async (data: SignupPayload) => {
+  const res = await customAxios.put('api/v1/user/', JSON.stringify(data));
+  return res.data;
+};
 
 //로그인
 export const loginApi = async (data: LoginPayload) => {

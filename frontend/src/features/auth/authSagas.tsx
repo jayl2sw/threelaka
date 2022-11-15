@@ -8,20 +8,21 @@ import {
   loginApi,
   userInfoApi,
   logoutApi,
+  modifyUserApi,
 } from '../../services/userApi';
 import { User } from '../../models/user';
 
 function* createUser(action: PayloadAction<SignupPayload>) {
-  const { fetchUser } = authActions;
+  const { fetchUser, login } = authActions;
   try {
     const response: string = yield call(createUserApi, action.payload);
     //string이 타입
-    // const {username,password} = action.payload
+    const { username, password } = action.payload;
     yield put(authActions.signupSuccess(response));
+    yield put(login({ username, password }));
     yield put(fetchUser());
     // console.log(username,password)
     //바로로그인 기능 일단 off
-    // yield put(login({username,password}))
   } catch (error) {}
 }
 function* watchSignupFlow() {
@@ -33,8 +34,8 @@ function* login(action: PayloadAction<LoginPayload>) {
     console.log(action.payload);
     const response: ILoginResponse = yield call(loginApi, action.payload);
 
-    localStorage.setItem('refreshToken', response.refreshToken);
-    localStorage.setItem('accessToken', response.accessToken);
+    sessionStorage.setItem('refreshToken', response.refreshToken);
+    sessionStorage.setItem('accessToken', response.accessToken);
 
     yield put(authActions.loginSuccess(response));
     yield put(authActions.fetchUser());
@@ -62,12 +63,30 @@ function* logout() {
   try {
     const response: string = yield call(logoutApi);
 
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('refreshToken');
   } catch (error) {}
 }
 function* watchLogoutFlow() {
   yield takeLatest(authActions.logout.type, logout);
+}
+
+function* modifyUser(action: PayloadAction<SignupPayload>) {
+  const { fetchUser } = authActions;
+  try {
+    const response: string = yield call(modifyUserApi, action.payload);
+    //string이 타입
+
+    yield put(authActions.modifyUserInfoSuccess(response));
+
+    yield put(fetchUser());
+  } catch (error: any) {
+    yield put(authActions.modifyUserInfoFailed(error.data));
+  }
+}
+
+function* watchModifyUserFlow() {
+  yield takeLatest(authActions.modifyUserInfo.type, modifyUser);
 }
 
 export const authSagas = [
@@ -75,4 +94,5 @@ export const authSagas = [
   fork(watchLoginFlow),
   fork(watchLogoutFlow),
   fork(watchfetchUserFlow),
+  fork(watchModifyUserFlow),
 ];

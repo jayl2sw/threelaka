@@ -1,9 +1,11 @@
+import { useAppSelector } from './../../utils/hooks';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { videoActions } from './video-slice';
 import {
   getVideoDataApi,
   getRecentVideoDataApi,
   getRecommendVideosApi,
+  getKeywordSearchVideosApi,
 } from '../../services/videoApi';
 import { VideoData, RecommendVideos, RecentVideoData } from '../../models';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
@@ -14,8 +16,8 @@ function* onGetVideoDataAsync(action: PayloadAction<string>) {
     const response: VideoData = yield call(getVideoDataApi, action.payload);
     // console.log(response);
     yield put(videoActions.getVideoDataSuccess(response));
-  } catch (error) {
-    // yield put(videoActions.getVideoDataFailed(error.message));
+  } catch (error: any) {
+    yield put(videoActions.getVideoDataFailed(error.message));
   }
 }
 
@@ -45,6 +47,19 @@ function* onGetRecommendVideosAsync(action: PayloadAction<any>) {
   }
 }
 
+// 키워드 검색 비디오 SAGA
+function* onGetKeywordSearchVideosAsync(action: PayloadAction<string>) {
+  try {
+    const response: RecommendVideos[] = yield call(
+      getKeywordSearchVideosApi,
+      action.payload
+    );
+    yield put(videoActions.getKeywordSearchVideosSuccess(response));
+  } catch (error: any) {
+    yield put(videoActions.getKeywordSearchVideosFailed());
+  }
+}
+
 // 비디오 1개 정보 받아오기 watch
 export function* watchGetVideoDataAsync() {
   yield takeLatest(videoActions.getVideoData.type, onGetVideoDataAsync);
@@ -62,8 +77,18 @@ export function* watchGetRecommendVideoAsync() {
     onGetRecommendVideosAsync
   );
 }
+
+// 키워드 검색 비디오 watch
+export function* watchGetKeywordSearchVideosAsync() {
+  yield takeLatest(
+    videoActions.getKeywordSearchVideosStart.type,
+    onGetKeywordSearchVideosAsync
+  );
+}
+
 export const videoSagas = [
   fork(watchGetVideoDataAsync),
   fork(watchGetRecommendVideoAsync),
   fork(watchGetRecentVideoDataAsync),
+  fork(watchGetKeywordSearchVideosAsync),
 ];

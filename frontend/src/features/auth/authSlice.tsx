@@ -43,6 +43,18 @@ const authSlice = createSlice({
       state.loading = false;
       console.log(action.payload);
     },
+    //회원정보수정
+    modifyUserInfo(state, action: PayloadAction<SignupPayload>) {
+      state.loading = true;
+    },
+    modifyUserInfoSuccess(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    modifyUserInfoFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+      console.log(action.payload);
+    },
+
     login(state, action: PayloadAction<LoginPayload>) {
       state.loading = true;
     },

@@ -1,10 +1,11 @@
 import React from 'react';
-
+import UpdateProfile from './UpdateProfile';
+import { ProfileContainer } from '../../../styles/DashBoard/DashBoardStyle';
 const Profile = () => {
   return (
-    <div>
-      <p>프로필 페이지</p>
-    </div>
+    <ProfileContainer>
+      <UpdateProfile></UpdateProfile>
+    </ProfileContainer>
   );
 };
 

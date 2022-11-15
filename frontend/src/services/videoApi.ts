@@ -1,3 +1,4 @@
+import { useAppSelector } from './../utils/hooks';
 import customAxios from './customAxios';
 import { VideoData, RecommendVideos } from '../models';
 
@@ -19,6 +20,15 @@ export const getRecommendVideosApi = async (
   recommendVideoList: Array<object>
 ): Promise<any> => {
   const res = await customAxios.get(`api/v1/study/video/recommends`);
+  const response: RecommendVideos[] = res.data;
+  return response;
+};
+
+// 키워드 검색 api
+export const getKeywordSearchVideosApi = async (
+  keyword: string
+): Promise<any> => {
+  const res = await customAxios.get(`api/v1/study/video/search/${keyword}`);
   const response: RecommendVideos[] = res.data;
   return response;
 };

@@ -12,14 +12,14 @@ export const WritingPageBlock = styled.div`
 
 export const WordListAndWritingContainer = styled.div`
   display: flex;
-  width: 90vw;
-  height: 70vh;
-  justify-content: center;
+  width: 80vw;
+  height: 75vh;
+  justify-content: start;
   align-items: center;
   font-family: PretendardRegular;
   /* border: 1px solid blue; */
-  margin-left: 5vw;
-  margin-right: 5vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
 `;
 
 export const WordCheckBox = styled.div`
@@ -43,6 +43,7 @@ export const WordCheckBox = styled.div`
 `;
 
 export const HighlightTextAreaWrapper = styled.div`
+  overflow-y: scroll;
   & mark {
     border-radius: 4px;
     padding: 2px;
@@ -122,4 +123,42 @@ export const ArcodianBox = styled.div`
     transition: 2s;
   }
   transition: 0.8s;
+`;
+
+export const HorizontalWordCheckBox = styled.div`
+  /* display: flex; */
+  width: 3vmin;
+  height: 3vmin;
+  background-color: #9897a9;
+  margin-right: 1vw;
+  border-radius: 1vmin;
+  /* position: absolute; */
+  /* top: 1vh; */
+  &.checked {
+    background: linear-gradient(
+      106.62deg,
+      #83bdff 8.18%,
+      rgba(136, 192, 255, 0.90051) 49.26%,
+      #8dc2ff 69.16%,
+      #c1ffa9 92.42%
+    );
+  }
+`;
+
+export const HorizontalBox = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 20vw;
+  height: 21vh;
+  border: 1px solid blue;
+  flex-direction: column;
+`;
+
+export const HorizontalWordText = styled.div`
+  width: 19vw;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1vw;
 `;

@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-export const MasterSettingBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 3vh auto;
-  padding: 3vh;
-  width: 75vw;
-  /* border: solid 3px purple; */
-`
+export const GuildSettingTextArea = styled.textarea`
+  width: 25vw;
+  height: 5vh;
+  resize: none;
+  padding: 0 0.5vw;
+  border-radius: 5px;
+  border: none;
+  font-size: 2vmin;
+  font-family: PretendardRegular;
+`;

@@ -2,17 +2,23 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { VideoData, RecommendVideos, RecentVideoData } from '../../models';
 
 type VideoState = {
+  // VideoState loading 상태
   loading: boolean;
+  // VideoUrl 체크
+  correctUrl: boolean | null;
   // 비디오 1개
   videoData: VideoData;
   // 최근 공부한 영상 1개
   recentVideoData: RecentVideoData;
   // 추천 비디오 4개
   recommendVideoList: RecommendVideos[];
+  // 키워드 검색 결과
+  keywordSearchVideoList: RecommendVideos[];
 };
 
 let initialState: VideoState = {
   loading: false,
+  correctUrl: null,
   videoData: {
     watched: null,
     video: {
@@ -38,6 +44,7 @@ let initialState: VideoState = {
     },
   },
   recommendVideoList: [],
+  keywordSearchVideoList: [],
 };
 
 // Slice
@@ -48,15 +55,18 @@ const videoSlice = createSlice({
     // 비디오 1개 정보 받아오기 요청
     getVideoData(state, action: PayloadAction<string>) {
       state.loading = true;
+      state.correctUrl = null;
     },
     // 비디오 1개 정보 받아오기 성공
     getVideoDataSuccess(state, action: PayloadAction<VideoData>) {
       state.loading = false;
+      state.correctUrl = true;
       state.videoData = action.payload;
     },
     // 비디오 1개 정보 받아오기 실패
     getVideoDataFailed(state, action: PayloadAction<string>) {
       state.loading = false;
+      state.correctUrl = false;
     },
 
     // 최근 공부한 영상 1개 정보 받아오기 요칭
@@ -87,6 +97,22 @@ const videoSlice = createSlice({
     },
     // 추천 비디오 4개 정보 받아오기 실패
     getRecommendVideosFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // search keyword video 시작
+    getKeywordSearchVideosStart(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+    // search keyword video 성공
+    getKeywordSearchVideosSuccess(
+      state,
+      action: PayloadAction<RecommendVideos[]>
+    ) {
+      state.loading = false;
+      state.keywordSearchVideoList = action.payload;
+    },
+    // search keyword video 실패
+    getKeywordSearchVideosFailed(state) {
       state.loading = false;
     },
   },

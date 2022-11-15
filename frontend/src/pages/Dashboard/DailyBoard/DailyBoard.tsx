@@ -1,10 +1,17 @@
 import React from 'react';
-
+import VideoContainer from './VideoContainer';
+import GraphContainer from './GraphContainer';
+import Calendar from './Calendar';
+import { DailyBoardContainer } from '../../../styles/DashBoard/DashBoardStyle';
+import StudyHistoryContainer from './StudyHistoryContainer';
 const DailyBoard = () => {
   return (
-    <div>
-      <p>난 기본 데일리보드</p>
-    </div>
+    <DailyBoardContainer>
+      <VideoContainer></VideoContainer>
+      <Calendar></Calendar>
+      <GraphContainer></GraphContainer>
+      <StudyHistoryContainer></StudyHistoryContainer>
+    </DailyBoardContainer>
   );
 };
 

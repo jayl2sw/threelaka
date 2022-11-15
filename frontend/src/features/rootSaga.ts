@@ -6,6 +6,9 @@ import { authSagas } from './auth/authSagas';
 import { videoSagas } from './video/videoSaga';
 import { studySagas } from './study/studySaga';
 import { writeSagas } from './writing/writingSaga';
+// import { dashboardSagas } from './dashboard/dashboardSaga';
+import { dashboardSagas } from './dashboard/dashboardSaga';
+import { guildSagas } from './guild/guildSaga';
 
 // rootSaga
 // single entry point to start all Sagas at once
@@ -17,5 +20,7 @@ export default function* rootSaga() {
     ...videoSagas,
     ...studySagas,
     ...writeSagas,
+    ...dashboardSagas,
+    ...guildSagas,
   ]);
 }

@@ -1,3 +1,4 @@
+import { url } from 'inspector';
 import styled from 'styled-components';
 
 interface CommonDivProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
@@ -6,6 +7,15 @@ interface CommonDivProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
   paddingSize: string;
   fontColor: 'white' | 'grey' | 'black' | 'blue';
   fontSize: string;
+}
+
+interface CommonCircleProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
+  widthSize: string;
+  heightSize: string;
+  paddingSize: string;
+  fontColor: 'white' | 'grey' | 'black' | 'blue';
+  fontSize: string;
+  backgroundUrl: string;
 }
 
 interface TransparentFlexDivProps
@@ -154,6 +164,37 @@ export const FlexTransparentDiv = styled.div<TransparentFlexDivProps>`
   background-color: transparent;
   border: ${(props) =>
     props.IsBorder === 'none' ? 'none' : '1px solid black'};
+`;
+
+export const GradientCircleDiv = styled.div<CommonCircleProps>`
+  width: ${(props) => props.widthSize};
+  height: ${(props) => props.heightSize};
+  padding: ${(props) => props.paddingSize};
+  font-size: ${(props) => props.fontSize};
+  border: 5px solid transparent;
+  border-radius: 50%;
+  color: ${(props) =>
+    props.fontColor === 'white'
+      ? '#ffffff'
+      : props.fontColor === 'grey'
+      ? '#9897a9'
+      : props.fontColor === 'black'
+      ? '#111111'
+      : props.fontColor === 'blue'
+      ? '#4a9fff'
+      : '#111111'};
+  background-image: url(${(props) => props.backgroundUrl}),
+    linear-gradient(
+      106.62deg,
+      #83bdff 8.18%,
+      rgba(88, 172, 240, 0.861458) 45.03%,
+      #c1ffa9 92.42%
+    );
+
+  background-size: ${(props) => props.widthSize} ${(props) => props.heightSize};
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  margin: 10px;
 `;
 
 // export const GradientIconBox = styled.div<CommonDivProps>`
