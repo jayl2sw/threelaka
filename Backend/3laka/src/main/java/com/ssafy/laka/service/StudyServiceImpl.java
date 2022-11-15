@@ -12,17 +12,22 @@ import lombok.RequiredArgsConstructor;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -42,6 +47,13 @@ public class StudyServiceImpl implements StudyService{
     private final YoutubeService youtubeService;
     private final ScriptRepository scriptRepository;
 
+    private TooShortToSearchException tooShortToSearchException = new TooShortToSearchException();
+    private WordAlreadyExistException wordAlreadyExistException = new WordAlreadyExistException();
+
+    @Value("${naver.id}")
+    private String clientId;//애플리케이션 클라이언트 아이디값";
+    @Value("${naver.secret}")
+    private String clientSecret;
     @Override
     public VideoResponseDto getVideo(String url) {
         String videoId = parseVideoId(url);
@@ -103,27 +115,29 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public List<VideoResponseDto> getVideosByKeyword(String keyword, Pageable pageable) {
-        return videoRepository.findByKeyword(keyword, pageable).stream().map(
+    public List<VideoResponseDto> getVideosByKeyword(String keyword) {
+        if (keyword.length() <= 2) {
+            throw tooShortToSearchException;
+        }
+        return videoRepository.findByTitleContaining(keyword).stream().map(
                 v -> VideoResponseDto.from(v)).collect(Collectors.toList());
     }
 
     @Override
-    public void addWord(WordRequestDto data) {
+    public void addWord(WordRequestDto data) throws JSONException {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         LearningRecord lr = learningRecordRepository.findById(data.getLrId()).orElseThrow(LearningRecordNotFoundException::new);
-        System.out.println(data.getWord());
-        System.out.println(lr.getLearningRecordId());
         Optional<Wordbook> wb = wordbookRepository.findByLearningRecordAndWord(lr, data.getWord());
-
+        String exampleKor = translate(data.getExample());
         if (wb.isPresent()) {
-            throw new WordAlreadyExistException();
+            throw wordAlreadyExistException;
         } else {
             Wordbook wordbook = Wordbook.builder()
                     .user(user)
                     .learningRecord(lr)
                     .word(data.getWord())
                     .example(data.getExample())
+                    .exampleKor(exampleKor)
                     .build();
 
             wordbookRepository.save(wordbook);
@@ -150,6 +164,15 @@ public class StudyServiceImpl implements StudyService{
                 .map(w -> WordbookResponseDto.from(w)).collect(Collectors.toList());
 
     }
+
+    @Override
+    public List<WordbookResponseDto> getWordbooksByUser() {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        return wordbookRepository.findWordbooksByUser(user).stream()
+                .map(w -> WordbookResponseDto.from(w)).collect(Collectors.toList());
+
+    }
+
 
     @Override
     public LearningRecordResponseDto updateCompletedStage(UpdateStageRequestDto data) {
@@ -250,5 +273,93 @@ public class StudyServiceImpl implements StudyService{
     public void setSurvey(SurveyRequestDto data) {
         LearningRecord lr = learningRecordRepository.findById(data.getLearningRecordId()).orElseThrow(LearningRecordNotFoundException::new);
         lr.setSurvey(data.getSurvey());
+    }
+
+    @Override
+    public VideoDescriptionResponseDto findVideoDescription(String videoId) {
+        return VideoDescriptionResponseDto.from(videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new));
+    }
+
+    public String translate(String eng) throws JSONException {
+
+        String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
+        String text;
+        try {
+            text = URLEncoder.encode(eng, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("인코딩 실패", e);
+        }
+
+        Map<String, String> requestHeaders = new HashMap<>();
+        requestHeaders.put("X-Naver-Client-Id", clientId);
+        requestHeaders.put("X-Naver-Client-Secret", clientSecret);
+
+        String responseBody = post(apiURL, requestHeaders, text);
+        String translatedText = getTranslatedText(responseBody);
+
+
+        return translatedText;
+    }
+    private String post(String apiUrl, Map<String, String> requestHeaders, String text){
+        HttpURLConnection con = connect(apiUrl);
+        String postParams = "source=en&target=ko&text=" + text; //원본언어: 한국어 (ko) -> 목적언어: 영어 (en)
+        try {
+            con.setRequestMethod("POST");
+            for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
+                con.setRequestProperty(header.getKey(), header.getValue());
+            }
+
+            con.setDoOutput(true);
+            try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+                wr.write(postParams.getBytes());
+                wr.flush();
+            }
+
+            int responseCode = con.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 응답
+                return readBody(con.getInputStream());
+            } else {  // 에러 응답
+                return readBody(con.getErrorStream());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("API 요청과 응답 실패", e);
+        } finally {
+            con.disconnect();
+        }
+    }
+
+    private HttpURLConnection connect(String apiUrl){
+        try {
+            URL url = new URL(apiUrl);
+            return (HttpURLConnection)url.openConnection();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("API URL이 잘못되었습니다. : " + apiUrl, e);
+        } catch (IOException e) {
+            throw new RuntimeException("연결이 실패했습니다. : " + apiUrl, e);
+        }
+    }
+    private String readBody(InputStream body){
+        InputStreamReader streamReader = new InputStreamReader(body);
+
+        try (BufferedReader lineReader = new BufferedReader(streamReader)) {
+            StringBuilder responseBody = new StringBuilder();
+
+            String line;
+            while ((line = lineReader.readLine()) != null) {
+                responseBody.append(line);
+            }
+
+            return responseBody.toString();
+        } catch (IOException e) {
+            throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
+        }
+    }
+    private String getTranslatedText(String string) throws JSONException {
+        JSONObject json = new JSONObject(string);
+        JSONObject message = (JSONObject) json.get("message");
+        JSONObject result = (JSONObject) message.get("result");
+        String translatedText = (String) result.get("translatedText");
+
+        return translatedText;
     }
 }

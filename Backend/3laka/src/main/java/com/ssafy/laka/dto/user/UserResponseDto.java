@@ -28,6 +28,8 @@ public class UserResponseDto {
     private int grade;
     private int continuousLearningDate;
     private String createDate;
+    private Integer guildId;
+    private String profile;
 
 
     public static UserResponseDto from(User entity){
@@ -43,6 +45,8 @@ public class UserResponseDto {
                 .grade(entity.getGrade())
                 .continuousLearningDate(entity.getContiuousLearningDate())
                 .createDate(createDate)
+                .guildId(entity.getGuild() == null ? null : entity.getGuild().getId())
+                .profile(entity.getProfile())
                 .build();
     }
 }

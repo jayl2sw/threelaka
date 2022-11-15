@@ -14,8 +14,7 @@ public interface UserService {
     boolean checkSameUser(String nickname, String username);
     TokenDto doLogin(LoginRequestDto requestDto);
     void doSignUp(SignUpRequestDto requestDto);
-    //UserResponseDto getUserInfo(int id);
-    //void updateUser(int id, UpdateUserRequestDto requestDto);
+//    void updateUser(int id, UpdateUserRequestDto requestDto);
     void deleteUser(int id);
     void changePW(String username, String newPW);
     void changePW(int id, String newPW);

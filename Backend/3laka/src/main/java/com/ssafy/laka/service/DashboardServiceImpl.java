@@ -7,9 +7,12 @@ import com.ssafy.laka.domain.UserTag;
 import com.ssafy.laka.domain.enums.Stage;
 import com.ssafy.laka.dto.dashboard.*;
 import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
+import com.ssafy.laka.dto.exception.dashboard.StudyNotFoundException;
 import com.ssafy.laka.dto.exception.dashboard.TagNotFoundException;
 import com.ssafy.laka.dto.exception.study.VideoNotFoundException;
+import com.ssafy.laka.dto.exception.user.DuplicateNicknameException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
+import com.ssafy.laka.dto.user.UpdateUserRequestDto;
 import com.ssafy.laka.repository.*;
 import com.ssafy.laka.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,12 +59,11 @@ public class DashboardServiceImpl implements DashboardService{
     }
 
     @Override
-    public PlayingVideoDto getPlayingList() {
+    public List<PlayingVideoDto> getPlayingList() {
         User user = getUser();
-        LearningRecord learningRecord = learningRecordRepository.findTop1ByUserAndStageLessThanOrderByModifiedDateDesc(user, Stage.COMPLETE)
-                .orElseThrow(LearningRecordNotFoundException::new);
-        return PlayingVideoDto.of(videoRepository.findById(learningRecord.getVideo().getVideoId()).orElseThrow(VideoNotFoundException::new),
-                learningRecord.getContinueTime(), learningRecord.getStage());
+        List<LearningRecord> learningRecord = learningRecordRepository.findAllByUserAndStageLessThanOrderByModifiedDateDesc(user, Stage.COMPLETE);
+        return learningRecord.stream().map(s -> PlayingVideoDto.of(videoRepository.findById(s.getVideo().getVideoId()).orElseThrow(VideoNotFoundException::new),
+                s.getContinueTime(), s.getStage())).collect(Collectors.toList());
     }
 
     @Override
@@ -73,13 +77,29 @@ public class DashboardServiceImpl implements DashboardService{
     }
 
     @Override
+    public TimeHistoryDto getTimeHistory() {
+        User user = getUser();
+        List<Study> studies = studyRepository.findByUser(user);
+        if (studies.size() < 1){
+            throw new StudyNotFoundException();
+        }
+        int time = 0;
+        for (int i = 0; i < studies.size(); i ++){
+            int thisTime = studies.get(i).getTime();
+            time = thisTime + time;
+        }
+        return new TimeHistoryDto(time);
+    }
+
+    @Override
     public CalendarDto getCalendar() {
         User user = getUser();
         int[] time = new int[32];
         List<Study> studies = studyRepository.findStudyDateThisMonth(user.getUserId());
+
         for (int i = 0; i < studies.size(); i++) {
             int len = studies.get(i).getDate().length();
-            time[Integer.parseInt(studies.get(i).getDate().substring(len - 2, len))] = studies.get(0).getTime();
+            time[Integer.parseInt(studies.get(i).getDate().substring(len - 2, len))] = studies.get(i).getTime();
         }
         int seqDay = user.getContiuousLearningDate();
         return new CalendarDto(time, seqDay);
@@ -107,8 +127,8 @@ public class DashboardServiceImpl implements DashboardService{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for (int i = 0; i < study.size(); i++) {
             String date = study.get(i).getDate();
-            LocalDateTime ldt = LocalDateTime.parse(date, formatter);
-            week[ldt.getDayOfWeek().getValue()] = study.get(i).getTime();
+            LocalDate ld = LocalDate.parse(date, formatter);
+            week[ld.getDayOfWeek().getValue()] = study.get(i).getTime();
         }
         return week;
     }
@@ -131,5 +151,23 @@ public class DashboardServiceImpl implements DashboardService{
                     .build();
             userTagRepository.save(usertag);
         }
+    }
+
+    @Override
+    public void updateProfile(String profile) {
+        User user = getUser();
+        user.updateProfile(profile);
+    }
+
+    @Override
+    public void updateUserInfo(UpdateUserRequestDto requestDto){
+        User user = getUser();
+        String MyNickname = requestDto.getNickname();
+        if (userRepository.findByNickname(MyNickname).isPresent()){
+            throw new DuplicateNicknameException();
+
+        }
+        user.updateUserInfo(requestDto);
+
     }
 }

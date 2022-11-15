@@ -79,7 +79,6 @@ public class UserController {
         if(result.hasErrors()){
             throw new InvalidParameterException(result);
         }
-        System.out.println(1);
         TokenDto tokenDto = userService.doLogin(requestDto);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Auth", tokenDto.getAccessToken());
@@ -88,15 +87,7 @@ public class UserController {
 
         return new ResponseEntity<>(tokenDto, headers, HttpStatus.OK);
     }
-    
-    @PutMapping("/")
-    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 입력을 통해 회원 정보를 수정한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
-    })
-    public ResponseEntity<String> updateUser(){
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
+
 
     @PutMapping("/password")
     @ApiOperation(value = "비밀번호 변경", notes = "현재 비밀번호와 비교한 후 비밀번호를 수정한다")
