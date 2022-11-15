@@ -25,11 +25,11 @@ const MainHeader = () => {
           비디오스
         </Link>
       </MainLinkWrapper> */}
-      {/* <MainLinkWrapper bgColor="transparent" widthSize="10vw">
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/auth/dashboard/1" style={{ fontSize: '1.2vw' }}>
           대시보드
         </Link>
-      </MainLinkWrapper> */}
+      </MainLinkWrapper>
       {/* <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/auth/guild/1" style={{ fontSize: '1.2vw' }}>
           길드

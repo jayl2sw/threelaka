@@ -62,14 +62,21 @@ export const ProfileInputField = ({
   let placeHolderVal: string = '';
   if (name === 'username') {
     placeHolderVal = currentUser?.username as string;
+    // label = '';
+    // type = 'hidden';
+    // if document
+    // document.querySelector('#name').disabled = false
   } else if (name === 'age') {
     placeHolderVal = `${currentUser?.age}` as string;
+    type = type;
   } else if (name === 'nickname') {
     placeHolderVal = currentUser?.nickname as string;
+    type = type;
   }
 
   return (
     <>
+      {/* {currentUser?.username} */}
       {/* <StyledLabel ref={labelTagRef} className="label">
         {name}
       </StyledLabel> */}
