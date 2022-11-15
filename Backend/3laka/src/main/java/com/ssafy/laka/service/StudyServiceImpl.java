@@ -79,7 +79,7 @@ public class StudyServiceImpl implements StudyService{
             String[] parts = url.split("be/");
             return parts[1];
         } else {
-            throw new VideoNotFoundException();
+            return url;
         }
     }
 
