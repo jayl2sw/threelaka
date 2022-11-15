@@ -93,7 +93,7 @@ const GuildMain = () => {
                   paddingSize={'0'}
                   fontColor={'black'}
                   fontSize={'2vmin'}
-                  backgroundUrl={topThreeGuild[0].profile}
+                  backgroundUrl={topThreeGuild[0] && topThreeGuild[0].profile}
                   style={{ position: 'relative', marginRight: '2vw' }}
                 >
                   <div
@@ -110,7 +110,8 @@ const GuildMain = () => {
                       // border: '1px solid black',
                     }}
                   >
-                    {topThreeGuild[0].guildName.substring(6, 0)}
+                    {topThreeGuild[0] &&
+                      topThreeGuild[0].guildName.substring(6, 0)}
                   </div>
                 </GradientCircleDiv>
                 <GradientCircleDiv
@@ -119,7 +120,7 @@ const GuildMain = () => {
                   paddingSize={'0'}
                   fontColor={'black'}
                   fontSize={'1vmin'}
-                  backgroundUrl={topThreeGuild[1].profile}
+                  backgroundUrl={topThreeGuild[1] && topThreeGuild[1].profile}
                   style={{ position: 'relative', marginRight: '2vw' }}
                 >
                   <div
@@ -136,7 +137,8 @@ const GuildMain = () => {
                       // border: '1px solid black',
                     }}
                   >
-                    {topThreeGuild[1].guildName.substring(6, 0)}
+                    {topThreeGuild[1] &&
+                      topThreeGuild[1].guildName.substring(6, 0)}
                   </div>
                 </GradientCircleDiv>
                 <GradientCircleDiv
@@ -145,7 +147,7 @@ const GuildMain = () => {
                   paddingSize={'0'}
                   fontColor={'black'}
                   fontSize={'2vmin'}
-                  backgroundUrl={topThreeGuild[2].profile}
+                  backgroundUrl={topThreeGuild[2] && topThreeGuild[2].profile}
                   style={{ position: 'relative', marginRight: '0vw' }}
                 >
                   <div
@@ -162,7 +164,8 @@ const GuildMain = () => {
                       // border: '1px solid black',
                     }}
                   >
-                    {topThreeGuild[2].guildName.substring(6, 0)}
+                    {topThreeGuild[2] &&
+                      topThreeGuild[2].guildName.substring(6, 0)}
                   </div>
                 </GradientCircleDiv>
               </>
@@ -210,7 +213,9 @@ const GuildMain = () => {
                       paddingSize={'0'}
                       fontColor={'black'}
                       fontSize={'2vmin'}
-                      backgroundUrl={topThreeGuild[2].profile}
+                      backgroundUrl={
+                        topThreeGuild[2] && topThreeGuild[2].profile
+                      }
                       style={{ position: 'relative', marginRight: '1vw' }}
                     ></GradientCircleDiv>
                   </FlexTransparentDiv>
