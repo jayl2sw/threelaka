@@ -67,6 +67,16 @@ public class DashboardController {
         return new ResponseEntity<>(dashboardService.getHistory(), HttpStatus.OK);
     }
 
+    @GetMapping("/history/time")
+    @ApiOperation(value = "유저의 누적 학습시간 조회", notes = "회원의 누적된 학습 시간 정보를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = TimeHistoryDto.class)})
+            public ResponseEntity<TimeHistoryDto> getTimeHistory(){
+                //지금까지 공부한 시간 반환
+            return new ResponseEntity<>(dashboardService.getTimeHistory(), HttpStatus.OK);
+            }
+
+
     @GetMapping("/calendar")
     @ApiOperation(value = "캘린더 조회", notes = "회원의 캘린더 관련 정보를 반환한다")
     @ApiResponses({

@@ -10,6 +10,7 @@ public interface DashboardService {
     List<TodayWordDto> getRandomWords();
     List<PlayingVideoDto> getPlayingList();
     HistoryNumDto getHistory();
+    TimeHistoryDto getTimeHistory();
     CalendarDto getCalendar();
     List<VideoDto> getLikeVideos();
     List<VideoDto> getDoneVideos();
@@ -19,5 +20,6 @@ public interface DashboardService {
     void updateProfile(String profile);
 
     void updateUserInfo(UpdateUserRequestDto requestDto);
+
 
 }
