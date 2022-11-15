@@ -230,14 +230,14 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public LearningRecordResponseDto getLearningRecordByVideo(String videoId) {
+    public List<LearningRecordResponseDto> getLearningRecordsByVideo(String videoId) {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         Video video = videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new);
         List<LearningRecord> lrs = learningRecordRepository.findByUserAndVideoOrderByModifiedDateDesc(user, video);
         if (lrs.isEmpty()) {
             return null;
         } else {
-            return LearningRecordResponseDto.from(lrs.get(0));
+            return lrs.stream().map(l -> LearningRecordResponseDto.from(l)).collect(Collectors.toList());
         }
     }
 

@@ -1,10 +1,8 @@
 package com.ssafy.laka.service;
 
-import com.ssafy.laka.domain.Video;
 import com.ssafy.laka.dto.study.LearningRecordResponseDto;
 import com.ssafy.laka.dto.study.*;
 import org.json.JSONException;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -34,7 +32,7 @@ public interface StudyService {
 
     LearningRecordResponseDto startLearning(String videoId);
 
-    LearningRecordResponseDto getLearningRecordByVideo(String videoId);
+    List<LearningRecordResponseDto> getLearningRecordsByVideo(String videoId);
 
     LearningRecordResponseDto findLearningRecordById(int lrId);
 

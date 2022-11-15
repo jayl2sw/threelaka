@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONException;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,11 +36,11 @@ public class StudyController {
 
         VideoResponseDto video = studyService.getVideo(data.getUrl());
         response.put("video", video);
-        LearningRecordResponseDto lr = studyService.getLearningRecordByVideo(video.getVideoId());
-        if (lr == null) {
+        List<LearningRecordResponseDto> lrs = studyService.getLearningRecordsByVideo(video.getVideoId());
+        if (lrs == null) {
             response.put("learning_record", null);
         } else {
-            response.put("learning_record", lr);
+            response.put("learning_record", lrs);
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
