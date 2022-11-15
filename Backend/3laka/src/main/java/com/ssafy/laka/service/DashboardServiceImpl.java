@@ -9,7 +9,9 @@ import com.ssafy.laka.dto.dashboard.*;
 import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
 import com.ssafy.laka.dto.exception.dashboard.TagNotFoundException;
 import com.ssafy.laka.dto.exception.study.VideoNotFoundException;
+import com.ssafy.laka.dto.exception.user.DuplicateNicknameException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
+import com.ssafy.laka.dto.user.UpdateUserRequestDto;
 import com.ssafy.laka.repository.*;
 import com.ssafy.laka.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -138,5 +140,17 @@ public class DashboardServiceImpl implements DashboardService{
     public void updateProfile(String profile) {
         User user = getUser();
         user.updateProfile(profile);
+    }
+
+    @Override
+    public void updateUserInfo(UpdateUserRequestDto requestDto){
+        User user = getUser();
+        String MyNickname = requestDto.getNickname();
+        if (userRepository.findByNickname(MyNickname).isPresent()){
+            throw new DuplicateNicknameException();
+
+        }
+        user.updateUserInfo(requestDto);
+
     }
 }

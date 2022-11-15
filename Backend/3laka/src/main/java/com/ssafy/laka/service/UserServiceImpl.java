@@ -124,16 +124,15 @@ public class UserServiceImpl implements UserService{
         return UserResponseDto.from(userRepository.findById(userId).orElseThrow(UserNotFoundException::new));
     }
 
-//  현재 사용처 없음
-//    @Override
-//    public UserResponseDto getUserInfo(int id){
-//        return UserResponseDto.from(userRepository.findById(id).orElseThrow(UserNotFoundException::new));
-//    }
-
 //    @Override
 //    public void updateUser(int id, UpdateUserRequestDto requestDto){
 //        Optional<User> entity = userRepository.findById(id);
-//
+//        entity.get().update(requestDto);
+//        userRepository.save(entity.get());
+//        return;}
+
+//        throw new
+
 //        if(entity.isPresent()){
 //            if(requestDto.getPassword().equals("")){
 //                entity.get().update(requestDto);
