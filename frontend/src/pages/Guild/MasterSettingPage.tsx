@@ -113,7 +113,7 @@ const MasterSetting = () => {
   return (
     <div>
       <FlexTransparentDiv
-        widthSize={'60vw'}
+        widthSize={'65vw'}
         heightSize={'5vh'}
         paddingSize={'0vh 1vw'}
         flexDirection={'row'}
@@ -125,7 +125,7 @@ const MasterSetting = () => {
         {currentUser?.nickname} 마스터님, 길드를 관리하세요{' '}
       </FlexTransparentDiv>
       <FlexTransparentDiv
-        widthSize={'60vw'}
+        widthSize={'65vw'}
         heightSize={'75vh'}
         paddingSize={'0'}
         flexDirection={'row'}
@@ -165,53 +165,76 @@ const MasterSetting = () => {
               justifyContent={'start'}
               alignItems={'center'}
               IsBorder={'none'}
+              style={{ marginBottom: '1vh' }}
             >
-              <TbBellRinging size={30}></TbBellRinging>
-              &nbsp;NOTICE
-              <MainBtn
-                widthSize={'5vw'}
-                heightSize={'3vh'}
+              <FlexTransparentDiv
+                widthSize={'15vw'}
+                heightSize={'5vh'}
                 paddingSize={'0'}
-                fontSize={'2vmin'}
-                fontColor={'white'}
-                backgroundColor={'black'}
-                style={{ marginLeft: '6vw' }}
-                onClick={() => {
-                  setNoticeToggle(1);
-                }}
+                flexDirection={'row'}
+                justifyContent={'start'}
+                alignItems={'center'}
+                IsBorder={'none'}
               >
-                삭제
-              </MainBtn>
-              {guildNotice.notice === null ? (
-                ''
-              ) : (
+                <TbBellRinging size={30}></TbBellRinging>
+                &nbsp;NOTICE
+              </FlexTransparentDiv>
+              <FlexTransparentDiv
+                widthSize={'16.5vw'}
+                heightSize={'5vh'}
+                paddingSize={'0'}
+                flexDirection={'row'}
+                justifyContent={'end'}
+                alignItems={'center'}
+                IsBorder={'none'}
+              >
                 <MainBtn
                   widthSize={'5vw'}
-                  heightSize={'3vh'}
+                  heightSize={'4vh'}
+                  paddingSize={'0'}
+                  fontSize={'2vmin'}
+                  fontColor={'white'}
+                  backgroundColor={'black'}
+                  style={{ marginRight: '0.5vw' }}
+                  onClick={() => {
+                    setNoticeToggle(1);
+                  }}
+                >
+                  삭제
+                </MainBtn>
+                {guildNotice.notice === null ? (
+                  ''
+                ) : (
+                  <MainBtn
+                    widthSize={'5vw'}
+                    heightSize={'4vh'}
+                    paddingSize={'0'}
+                    fontSize={'2vmin'}
+                    fontColor={'white'}
+                    backgroundColor={'black'}
+                    onClick={() => {
+                      setNoticeToggle(2);
+                    }}
+                    style={{ marginRight: '0.5vw' }}
+                  >
+                    수정
+                  </MainBtn>
+                )}
+                <MainBtn
+                  widthSize={'5vw'}
+                  heightSize={'4vh'}
                   paddingSize={'0'}
                   fontSize={'2vmin'}
                   fontColor={'white'}
                   backgroundColor={'black'}
                   onClick={() => {
-                    setNoticeToggle(2);
+                    setNoticeToggle(3);
                   }}
+                  style={{ marginRight: '0.5vw' }}
                 >
-                  수정
+                  생성
                 </MainBtn>
-              )}
-              <MainBtn
-                widthSize={'5vw'}
-                heightSize={'3vh'}
-                paddingSize={'0'}
-                fontSize={'2vmin'}
-                fontColor={'white'}
-                backgroundColor={'black'}
-                onClick={() => {
-                  setNoticeToggle(3);
-                }}
-              >
-                생성
-              </MainBtn>
+              </FlexTransparentDiv>
             </FlexTransparentDiv>
 
             <FlexTransparentDiv
@@ -576,9 +599,10 @@ const MasterSetting = () => {
           justifyContent={'center'}
           alignItems={'center'}
           IsBorder={'is'}
+          style={{ border: '3px solid pink' }}
         >
           <MainBox
-            widthSize={'22vw'}
+            widthSize={'30vw'}
             heightSize={'72vh'}
             paddingSize={'2vh 1vw'}
             fontColor={'black'}
@@ -591,7 +615,7 @@ const MasterSetting = () => {
             }}
           >
             <FlexTransparentDiv
-              widthSize={'22vw'}
+              widthSize={'26.5vw'}
               heightSize={'5vh'}
               paddingSize={'0'}
               flexDirection={'row'}
@@ -601,10 +625,10 @@ const MasterSetting = () => {
               style={{ marginBottom: '1vh' }}
             >
               <GrGroup size={30}></GrGroup>
-              <div>&nbsp;MEMBERS</div>
+              <div style={{ width: '14.5vw' }}>&nbsp;MEMBERS</div>
               {guildHandOver ? (
                 <MainBtn
-                  widthSize={'7vw'}
+                  widthSize={'5vw'}
                   heightSize={'4vh'}
                   paddingSize={'0'}
                   fontSize={'2vmin'}
@@ -619,7 +643,7 @@ const MasterSetting = () => {
                 </MainBtn>
               ) : (
                 <MainBtn
-                  widthSize={'7vw'}
+                  widthSize={'5vw'}
                   heightSize={'4vh'}
                   paddingSize={'0'}
                   fontSize={'2vmin'}
@@ -639,7 +663,7 @@ const MasterSetting = () => {
               if (member.nickname !== currentUser?.nickname) {
                 return (
                   <MainBox
-                    widthSize={'20vw'}
+                    widthSize={'27vw'}
                     heightSize={'6vh'}
                     paddingSize={'0 1vw'}
                     fontColor={'black'}
@@ -668,7 +692,7 @@ const MasterSetting = () => {
                     </div>
                     <div
                       style={{
-                        minWidth: '2vw',
+                        minWidth: '7vw',
                       }}
                     ></div>
                     {guildHandOver ? (
