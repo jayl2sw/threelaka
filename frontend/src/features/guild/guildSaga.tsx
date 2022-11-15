@@ -8,6 +8,7 @@ import {
   TopThreeGuild,
   GuildDetailInfo,
   MyguildInfo,
+  MyguildLearnTime,
 } from '../../models/guild';
 import {
   getGuildNoticeApi,
@@ -22,6 +23,7 @@ import {
   GetTopThreeGuildApi,
   GetSortedGuildApi,
   GetSearchGuildApi,
+  GetGuildLearnTimeApi,
 } from '../../services/guildApi';
 import { guildActions } from './guild-slice';
 
@@ -165,6 +167,24 @@ function* onGetSearchGuildAsync() {
   }
 }
 
+// 길드 학습량 조회
+function* onGetGuildLearnTimeAsync() {
+  try {
+    const guildId: string = yield select(
+      (state) => state.auth.currentUser.guildId
+    );
+    if (guildId !== null) {
+      const reponse: MyguildLearnTime[] = yield call(
+        GetGuildLearnTimeApi,
+        guildId
+      );
+      yield put(guildActions.getGuildLearnTimeSuccess(reponse));
+    }
+  } catch (error) {
+    console.error();
+  }
+}
+
 // 길드 공지 받아오기 watch
 export function* watchGetGuildNoticeAsync() {
   yield takeLatest(guildActions.getGuildNotice.type, onGetGuildNoticeAsync);
@@ -239,6 +259,14 @@ export function* watchGetSearchGuildAsync() {
   );
 }
 
+// 길드 학습량 watch
+export function* watchgetGuildLearnTimeAsync() {
+  yield takeLatest(
+    guildActions.getGuildLearnTimeStart.type,
+    onGetGuildLearnTimeAsync
+  );
+}
+
 export const guildSagas = [
   fork(watchGetGuildNoticeAsync),
   fork(watchGetProgressTaskAsync),
@@ -251,4 +279,5 @@ export const guildSagas = [
   fork(watchGetTopThreeGuildAsync),
   fork(watchGetSortedGuildAsync),
   fork(watchGetSearchGuildAsync),
+  fork(watchgetGuildLearnTimeAsync),
 ];
