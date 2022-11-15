@@ -309,7 +309,7 @@ const guildSlice = createSlice({
     },
 
     // 길드 가입 요청 시작
-    postGuildRequestStart(state) {
+    postGuildRequestStart(state, action: PayloadAction<number>) {
       state.loading = true;
     },
     // 길드 가입 요청 성공
@@ -322,7 +322,7 @@ const guildSlice = createSlice({
     },
 
     // 길드 탈퇴 시작
-    quitGuildStart(state) {
+    quitGuildStart(state, action: PayloadAction<number>) {
       state.loading = true;
     },
     // 길드 탈퇴 성공

@@ -36,6 +36,9 @@ const GuildMain = () => {
   const onClickMoveMyGuildPage = () => {
     navigate('/auth/guild/myGuild');
   };
+  const onClickpostGuildRequest = (guildId: number) => {
+    dispatch(guildActions.postGuildRequestStart(guildId));
+  };
 
   return (
     <div>
@@ -482,7 +485,29 @@ const GuildMain = () => {
             >
               {sortedGuild.map((guild, idx) => {
                 return (
-                  <GuildBlueArcodian key={`guild-${idx}`}>
+                  <GuildBlueArcodian
+                    key={`guild-${idx}`}
+                    style={{ position: 'relative' }}
+                  >
+                    {myGuildInfo.guildId !== 0 ? (
+                      ''
+                    ) : (
+                      <MainBtn
+                        widthSize={'6vw'}
+                        heightSize={'5vh'}
+                        paddingSize={'0'}
+                        fontSize={'2vmin'}
+                        fontColor={'white'}
+                        backgroundColor={'blue'}
+                        style={{ position: 'absolute', right: '1vw' }}
+                        onClick={() => {
+                          onClickpostGuildRequest(guild.guildId);
+                        }}
+                      >
+                        가입신청
+                      </MainBtn>
+                    )}
+
                     <FlexTransparentDiv
                       widthSize={'24vw'}
                       heightSize={'5vh'}

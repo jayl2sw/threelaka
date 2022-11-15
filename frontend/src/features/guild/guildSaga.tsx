@@ -208,6 +208,7 @@ function* onAccpetGuildRequestAsync(action: PayloadAction<number>) {
   try {
     yield call(AccpetGuildRequestApi, action.payload);
     yield put(guildActions.putAcceptGuildRequestSuccess());
+    yield put(guildActions.getGuildRequestStart());
   } catch (error) {
     console.error();
   }
@@ -218,6 +219,7 @@ function* onRejectGuildRequestAsync(action: PayloadAction<number>) {
   try {
     yield call(RejectGuildRequestApi, action.payload);
     yield put(guildActions.deleteRejectGuildRequestSuccess());
+    yield put(guildActions.getGuildRequestStart());
   } catch (error) {
     console.error();
   }
@@ -248,6 +250,7 @@ function* onQuitGuildAsync(action: PayloadAction<number>) {
   try {
     yield call(QuitGuildApi, action.payload);
     yield put(guildActions.quitGuildSuccess());
+    yield put(guildActions.getGuildRequestStart());
   } catch (error) {
     console.error();
   }

@@ -102,7 +102,7 @@ export const GetGuildRequestsApi = async (): Promise<any> => {
 export const AccpetGuildRequestApi = async (
   requestId: number
 ): Promise<any> => {
-  const res = await customAxios.put(`/api/v1/user/guild/reject`, requestId);
+  const res = await customAxios.put(`/api/v1/user/guild/accept`, requestId);
   return res.data;
 };
 
