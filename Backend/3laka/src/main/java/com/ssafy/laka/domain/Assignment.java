@@ -26,8 +26,9 @@ public class Assignment {
     @JoinColumn(name = "guild_Id")
     private Guild guild;
 
-    // 시작일, 종료일
+    // 시작일, 종료일, 미팅 날짜 및 시간
     private String startDate;
     private String endDate;
+    private String meetingTime;
 
 }

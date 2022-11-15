@@ -1,9 +1,7 @@
 package com.ssafy.laka.service;
 
-import com.ssafy.laka.domain.Video;
 import com.ssafy.laka.dto.study.LearningRecordResponseDto;
 import com.ssafy.laka.dto.study.*;
-import org.json.JSONException;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -16,13 +14,12 @@ public interface StudyService {
 
     void addWish(String video_id);
     void deleteWish(int like_video_id);
-    List<VideoResponseDto> getVideosByKeyword(String keyword);
+    List<VideoResponseDto> getVideosByKeyword(String keyword, Pageable pageable);
 
-    void addWord(WordRequestDto data) throws JSONException;
+    void addWord(WordRequestDto data);
     void deleteWord(int wordbook_id);
 
     List<WordbookResponseDto> getWordbooksById(int lrId);
-    List<WordbookResponseDto> getWordbooksByUser();
 
     void addLearningTime(UpdateLearningRequestDto data);
 
@@ -47,6 +44,4 @@ public interface StudyService {
     EssayResponseDto findEssay(int learningRecordId);
 
     void setSurvey(SurveyRequestDto data);
-
-    VideoDescriptionResponseDto findVideoDescription(String videoId);
 }

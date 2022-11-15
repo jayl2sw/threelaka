@@ -14,7 +14,7 @@ public enum ErrorCode {
 
     LEARNING_RECORD_NOT_EXIST(400, "D001", "존재하지 않는 학습 기록입니다."),
     WORDBOOK_NOT_FOUND(400, "D002", "해당 유저 해당 강의의 단어장을 찾을 수 없습니다."),
-    STUDY_NOT_EXIST(400, "D003", "해당 유저의 공부 기록이 없습니다"),
+
     VIDEO_NOT_FOUND(404, "S001", "비디오 정보를 찾을 수 없습니다."),
     NOT_LIKED_VIDEO(400, "S002", "존재하지 않는 위시리스트 항목입니다."),
     NOT_IN_DICTIONARY(400, "S003", "사전에 존재하지 않는 항목입니다."),
@@ -23,7 +23,6 @@ public enum ErrorCode {
     NOT_CURRENT_USER(400, "S006", "해당 유저의 항목이 아닙니다."),
     ALREADY_IN_WORDBOOK(400, "S007", "이미 단어장에 추가된 단어입니다."),
     NOT_TED_VIDEO(400, "S008", "테드의 영상이 아닙니다."),
-    TOO_SHORT_TO_SEARCH(400, "S009", "검색 단어가 너무 짧습니다."),
     TAG_NOT_EXIST(400, "D002", "존재하지 않는 태그입니다"),
     GUILD_NOT_FOUND(400, "G001", "해당 길드를 찾을 수 없습니다"),
     REQUEST_NOT_FOUND(400, "G002", "해당 요청을 찾을 수 없습니다."),
@@ -41,9 +40,7 @@ public enum ErrorCode {
 
     SAME_GUILDNAME_EXISTS(400, "G011", "이미 존재하는 길드명입니다"),
 
-    MASTER_CANNOT_QUIT(400, "G012", "마스터는 길드를 탈퇴할 수 없습니다"),
-    ASSIGNMENT_NOT_FOUND(400, "G013", "해당하는 공통 과제를 찾을 수 없습니다"),
-    OVER_TWENTY_MEMBERS(400, "G014", "길드 정원을 초과합니다");
+    MASTER_CANNOT_QUIT(400, "G012", "마스터는 길드를 탈퇴할 수 없습니다");
 
 
 

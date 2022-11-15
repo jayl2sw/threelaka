@@ -17,14 +17,12 @@ public class WordbookResponseDto {
     private int wordbookId;
     private String word;
     private String example;
-    private String exampleKor;
 
     public static WordbookResponseDto from(Wordbook entity){
         return WordbookResponseDto.builder()
                 .wordbookId(entity.getWordbookId())
                 .word(entity.getWord())
                 .example(entity.getExample())
-                .exampleKor(entity.getExampleKor())
                 .build();
     }
 }
