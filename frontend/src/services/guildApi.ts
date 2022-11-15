@@ -91,3 +91,45 @@ export const GetGuildLearnTimeApi = async (guildId: string): Promise<any> => {
   const res = await customAxios.get(`/api/v1/user/guild/${guildId}/member`);
   return res.data;
 };
+
+// 내가 마스터인 길드 가입 요청 조회
+export const GetGuildRequestsApi = async (): Promise<any> => {
+  const res = await customAxios.get(`/api/v1/user/guild/requests`);
+  return res.data;
+};
+
+// 길드 가입 승인하기
+export const AccpetGuildRequestApi = async (
+  requestId: number
+): Promise<any> => {
+  const res = await customAxios.put(`/api/v1/user/guild/reject`, requestId);
+  return res.data;
+};
+
+// 길드 가입 거절 하기
+export const RejectGuildRequestApi = async (
+  requestId: number
+): Promise<any> => {
+  const res = await customAxios.delete(`/api/v1/user/guild/reject`, {
+    data: requestId,
+  });
+  return res.data;
+};
+
+// 나의 길드 요청 목록 조회
+export const GetMyRequestApi = async (): Promise<any> => {
+  const res = await customAxios.get(`/api/v1/user/guild/request`);
+  return res.data;
+};
+
+// 길드 가입 요청 하기
+export const PostGuildRequestApi = async (guildId: number): Promise<any> => {
+  const res = await customAxios.post(`/api/v1/user/guild/request`, guildId);
+  return res.data;
+};
+
+// 내가 가입한 길드 탈퇴
+export const QuitGuildApi = async (guildId: number): Promise<any> => {
+  const res = await customAxios.delete(`/api/v1/user/guild/quit/${guildId}`);
+  return res.data;
+};

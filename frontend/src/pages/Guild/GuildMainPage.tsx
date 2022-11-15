@@ -364,13 +364,45 @@ const GuildMain = () => {
                   <FlexTransparentDiv
                     widthSize={'32vw'}
                     heightSize={'17vh'}
-                    paddingSize={'0 1vw'}
-                    flexDirection={'row'}
+                    paddingSize={'1vh 1vw'}
+                    flexDirection={'column'}
                     justifyContent={'start'}
-                    alignItems={'center'}
-                    IsBorder={'is'}
+                    alignItems={'start'}
+                    IsBorder={'none'}
                   >
-                    동영상 위치
+                    <BackBlurBox
+                      widthSize={'10vw'}
+                      heightSize={'4vh'}
+                      paddingSize={'0'}
+                      fontSize={'1.5vmin'}
+                      fontColor={'white'}
+                      style={{
+                        backgroundColor: '#5CA9FF',
+                        borderRadius: '10px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginRight: '1vw',
+                      }}
+                    >
+                      공지사항
+                    </BackBlurBox>
+                    <FlexTransparentDiv
+                      widthSize={'30vw'}
+                      heightSize={'12vh'}
+                      paddingSize={'1vh 1vw'}
+                      flexDirection={'column'}
+                      justifyContent={'start'}
+                      alignItems={'start'}
+                      IsBorder={'none'}
+                      style={
+                        myGuildInfo.notice.length > 50
+                          ? { fontSize: '2vmin' }
+                          : { fontSize: '3vmin' }
+                      }
+                    >
+                      {myGuildInfo.notice}
+                    </FlexTransparentDiv>
                   </FlexTransparentDiv>
                 </FlexTransparentDiv>
               </>
