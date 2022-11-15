@@ -11,4 +11,5 @@ export interface User {
   username: string;
   grade: number;
   guildId: string;
+  profile: string;
 } //아직안씀

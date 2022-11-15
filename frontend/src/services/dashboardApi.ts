@@ -50,3 +50,11 @@ export const getStudyHistoryApi = async (
   const response: StudyHistory = res.data;
   return response;
 };
+
+//프로필 수정
+
+export const updateProfileApi = async (profileNum: string): Promise<any> => {
+  const res = await customAxios.put(`/api/v1/dashboard/profile/${profileNum}`);
+
+  return res.data;
+};

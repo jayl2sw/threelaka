@@ -48,4 +48,6 @@ export interface VideoDataModalType {
     userId: number;
     videoId: string;
   };
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

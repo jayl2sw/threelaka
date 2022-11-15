@@ -8,20 +8,21 @@ import {
   loginApi,
   userInfoApi,
   logoutApi,
+  modifyUserApi,
 } from '../../services/userApi';
 import { User } from '../../models/user';
 
 function* createUser(action: PayloadAction<SignupPayload>) {
-  const { fetchUser } = authActions;
+  const { fetchUser, login } = authActions;
   try {
     const response: string = yield call(createUserApi, action.payload);
     //string이 타입
-    // const {username,password} = action.payload
+    const { username, password } = action.payload;
     yield put(authActions.signupSuccess(response));
+    yield put(login({ username, password }));
     yield put(fetchUser());
     // console.log(username,password)
     //바로로그인 기능 일단 off
-    // yield put(login({username,password}))
   } catch (error) {}
 }
 function* watchSignupFlow() {
@@ -70,9 +71,28 @@ function* watchLogoutFlow() {
   yield takeLatest(authActions.logout.type, logout);
 }
 
+function* modifyUser(action: PayloadAction<SignupPayload>) {
+  const { fetchUser } = authActions;
+  try {
+    const response: string = yield call(modifyUserApi, action.payload);
+    //string이 타입
+
+    yield put(authActions.modifyUserInfoSuccess(response));
+
+    yield put(fetchUser());
+  } catch (error: any) {
+    yield put(authActions.modifyUserInfoFailed(error.data));
+  }
+}
+
+function* watchModifyUserFlow() {
+  yield takeLatest(authActions.modifyUserInfo.type, modifyUser);
+}
+
 export const authSagas = [
   fork(watchSignupFlow),
   fork(watchLoginFlow),
   fork(watchLogoutFlow),
   fork(watchfetchUserFlow),
+  fork(watchModifyUserFlow),
 ];

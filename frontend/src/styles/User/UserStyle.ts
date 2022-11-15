@@ -223,7 +223,7 @@ export const StyledInput = styled.input`
   border: none;
   border-bottom: 1px solid #bbb;
   padding: 0;
-  font-size: 2vmin;
+  font-size: 2.5vmin;
   color: #333333;
   transition: 0.4s;
   &.active {

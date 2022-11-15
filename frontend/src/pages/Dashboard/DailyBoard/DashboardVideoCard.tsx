@@ -59,6 +59,12 @@ const DashboardVideoCard = ({ data }: VideoCardProps) => {
     }
   }, [studyState]);
 
+  //모달보수공사
+  const [isOpen, setIsOpen] = useState(false);
+  const openModalVideo = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
       <div
@@ -72,7 +78,7 @@ const DashboardVideoCard = ({ data }: VideoCardProps) => {
         <FlexTransparentDiv
           onClick={() => {
             handlerGetVideoData(data.videoId);
-            onClickModal();
+            openModalVideo();
           }}
           widthSize={'16vw'}
           heightSize={'20vh'}
@@ -125,14 +131,17 @@ const DashboardVideoCard = ({ data }: VideoCardProps) => {
           {data.title}
         </VideoTitle>
       </div>
-      {isOpenModal && (
+      {isOpen ? (
         <VideoDataModal
           isOpenModal={isOpenModal}
           toggle={onClickModal}
           videoData={videoData}
           learningRecord={learningRecord}
+          //모달보수
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
         />
-      )}
+      ) : null}
     </>
   );
 };

@@ -1,17 +1,21 @@
+import React from 'react';
 import styled from 'styled-components';
 
-import { useEffect, useCallback, RefObject } from 'react';
+import { useEffect, useCallback } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+
 import { authActions } from '../../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 //api
+
 import { nicknameCheckApi, emailCheckApi } from '../../../services/userApi';
 
 //form 관리 라이브러리
 import { useForm } from 'react-hook-form';
-import { InputField } from '../InputField';
-import { RadioField } from '../RadioField';
+import { InputField } from '../../User/InputField';
+import { RadioField } from '../../User/RadioField';
+
 //유효성평가 라이브러리
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -23,6 +27,7 @@ import {
   SubmitBtnWrap,
 } from '../../../styles/User/UserStyle';
 import { GradientRoundBtn } from '../../../styles/Common/CommonBtnStyle';
+import { ProfileInputField } from './ProfileInputField';
 
 interface IAuthForm {
   username: string;
@@ -33,30 +38,16 @@ interface IAuthForm {
   nickname: string;
 }
 
-interface ISignupFormProps {
+interface IModifyUserInfoProps {
   initialValues?: IAuthForm;
   onSubmit?: (formValues: IAuthForm) => void;
-  AuthBlockRef: RefObject<HTMLDivElement>;
-  FormBlockRef: RefObject<HTMLDivElement>;
-  setMoveCarousel: React.Dispatch<React.SetStateAction<string>>;
-  moveCarousel: string;
-  handleToggle: () => void;
 }
 
-const SignupForm = ({
-  initialValues,
-  onSubmit,
-  AuthBlockRef,
-  FormBlockRef,
-  setMoveCarousel,
-  moveCarousel,
-  handleToggle,
-}: ISignupFormProps) => {
+const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
   // const [errMsg, setErrMsg] = useState('');
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   const schema = yup.object().shape({
     // username: yup
@@ -119,7 +110,7 @@ const SignupForm = ({
         nickname: nickname,
       };
 
-      dispatch(authActions.signup(signupInfo));
+      dispatch(authActions.modifyUserInfo(signupInfo));
       // await onSubmit?.(formValues);
     } catch (error) {
       // setError(error.message);
@@ -153,41 +144,29 @@ const SignupForm = ({
     }
   }, []);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('/');
-    }
-  }, [isLoggedIn]);
   return (
     <StyledForm
       onSubmit={handleSubmit(handleFormSubmit)}
       className="sign-up-form"
     >
-      <Heading style={{ marginBottom: '3vh' }}>
-        <h1>
-          Hello,
-          <br />
-          Welcome to ThreeLaka!
-        </h1>
-      </Heading>
-      <InputWrap>
-        <InputField name="username" control={control} label="이메일" />
-        <InputField
+      <InputWrap style={{ top: '20vh', height: '40%' }}>
+        <ProfileInputField name="username" control={control} label="이메일" />
+        <ProfileInputField
           name="password"
           control={control}
           label="비밀번호"
           type="password"
         />
-        <InputField
+        <ProfileInputField
           name="passwordConfirm"
           control={control}
           label="비밀번호 확인"
           type="password"
         />
-        <InputField name="nickname" control={control} label="닉네임" />
+        <ProfileInputField name="nickname" control={control} label="닉네임" />
         <div className="short">
           <div className="age">
-            <InputField
+            <ProfileInputField
               name="age"
               control={control}
               label="나이"
@@ -216,19 +195,7 @@ const SignupForm = ({
         </div>
       </InputWrap>
       <SubmitBtnWrap>
-        <a
-          href="#"
-          onClick={handleToggle}
-          className="toggle"
-          style={{ fontFamily: 'Fredoka', fontWeight: 'bold' }}
-        >
-          <p>
-            &lt;&lt;&nbsp;&nbsp;현재 베타테스트 기간으로 개별 가입이
-            불가능합니다
-          </p>
-        </a>
-
-        {/* <GradientRoundBtn
+        <GradientRoundBtn
           widthSize={'80%'}
           heightSize={'5vh'}
           paddingSize={'0'}
@@ -237,20 +204,11 @@ const SignupForm = ({
           backgroundColor={'gradient'}
           style={{ margin: '0 auto' }}
         >
-          J O I N
+          회원정보수정
         </GradientRoundBtn>
-        <p style={{ fontFamily: 'Fredoka' }}>Already Have an Account?</p>
-        <a
-          href="#"
-          onClick={handleToggle}
-          className="toggle"
-          style={{ fontFamily: 'Fredoka', fontWeight: 'bold' }}
-        >
-          &lt;&lt;&nbsp;&nbsp;Sign In
-        </a> */}
       </SubmitBtnWrap>
     </StyledForm>
   );
 };
 
-export default SignupForm;
+export default ModifyUserInfo;

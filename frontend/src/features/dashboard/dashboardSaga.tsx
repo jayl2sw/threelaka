@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import { VideoData, RecommendVideos, RecentVideoData } from '../../models';
-
+import { authActions } from '../auth/authSlice';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
 import {
   getRecentVideosApi,
@@ -9,6 +9,7 @@ import {
   getDailyStudyTimeApi,
   getMonthStudyTimeApi,
   getStudyHistoryApi,
+  updateProfileApi,
 } from '../../services/dashboardApi';
 import { dashboardActions } from './dashboard-slice';
 import {
@@ -84,6 +85,18 @@ function* onStudyHistoryAsync(action: PayloadAction<StudyHistory>) {
   }
 }
 
+//프로필수정
+function* onUpdateProfileAsync(action: PayloadAction<string>) {
+  const { fetchUser } = authActions;
+  try {
+    const response: string = yield call(updateProfileApi, action.payload);
+    yield put(dashboardActions.updateProfileSuccess(response));
+    yield put(fetchUser());
+  } catch (error: any) {
+    yield put(dashboardActions.updateProfileFailed(error.data));
+  }
+}
+
 // 현재공부중인영상
 export function* watchGetRecentVideoAsync() {
   yield takeLatest(
@@ -119,10 +132,15 @@ export function* watchGetMonthStudyTimeAsync() {
 export function* watchGetStudyHistoryAsync() {
   yield takeLatest(dashboardActions.getStudyHistory.type, onStudyHistoryAsync);
 }
+//프로필변경
+export function* watchUpdateProfileAsync() {
+  yield takeLatest(dashboardActions.updateProfile.type, onUpdateProfileAsync);
+}
 export const dashboardSagas = [
   fork(watchGetRecentVideoAsync),
   fork(watchGetCompletedVideoAsync),
   fork(watchGetDailyStudyTimeAsync),
   fork(watchGetMonthStudyTimeAsync),
   fork(watchGetStudyHistoryAsync),
+  fork(watchUpdateProfileAsync),
 ];

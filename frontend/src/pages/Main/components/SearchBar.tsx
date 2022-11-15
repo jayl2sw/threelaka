@@ -44,6 +44,11 @@ const SearchBar = () => {
   // 모달 사용하기
   const { isOpenModal, onClickModal } = useModal();
 
+  //모달보수공사
+  const [isOpen, setIsOpen] = useState(false);
+  const openModalVideo = () => {
+    setIsOpen(!isOpen);
+  };
   // url 관련 안내문
   const [urlAlert, setUrlAlert] = useState('');
 
@@ -51,7 +56,7 @@ const SearchBar = () => {
   const correctUrl = useAppSelector((state) => state.video.correctUrl);
   useEffect(() => {
     if (correctUrl === true) {
-      onClickModal();
+      openModalVideo();
     } else if (correctUrl == false) {
       alert('정확한 URL을 입력해주세요');
     }
@@ -114,14 +119,17 @@ const SearchBar = () => {
           </IconContext.Provider>
         </SearchIconBtn>
 
-        {isOpenModal && (
+        {isOpen ? (
           <VideoDataModal
             isOpenModal={isOpenModal}
             toggle={onClickModal}
             videoData={videoData}
             learningRecord={learningRecord}
+            //모달보수
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
           />
-        )}
+        ) : null}
       </SearchButton>
     </SearchBarContainer>
   );
