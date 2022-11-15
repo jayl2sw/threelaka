@@ -3,6 +3,7 @@ package com.ssafy.laka.domain;
 import com.ssafy.laka.domain.basetime.BaseTime;
 import com.ssafy.laka.domain.enums.Gender;
 import com.ssafy.laka.domain.enums.Role;
+import com.ssafy.laka.dto.user.UpdateUserRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -91,6 +92,13 @@ public class User extends BaseTime {
     public User joinGuild(Guild guild){
         this.guild = guild;
         return this;
+    }
+
+    public void updateUserInfo(UpdateUserRequestDto requestDto){
+        this.age = requestDto.getAge();
+        this.gender = requestDto.getGender();
+        this.nickname = requestDto.getNickname();
+
     }
     public void be(Role role) {this.role = role;}
     public void addContinuousLearningDate() { this.contiuousLearningDate += 1; }

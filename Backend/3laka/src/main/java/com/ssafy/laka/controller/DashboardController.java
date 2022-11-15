@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ssafy.laka.dto.dashboard.*;
+import com.ssafy.laka.dto.user.UpdateUserRequestDto;
 import com.ssafy.laka.service.DashboardService;
 import com.ssafy.laka.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -29,15 +30,15 @@ public class DashboardController {
     private final DashboardService dashboardService;
 
     // 아직 안함 =========================================================================================================
-    @GetMapping("/profile")
-    @ApiOperation(value = "회원 정보 조회", notes = "회원의 프로필 관련 정보를 반환한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
-    })
-    public ResponseEntity<?> getUserInfo(){
-        // 사용자 프로필 관련 Dto 싹다 보내줌
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
+//    @GetMapping("/profile")
+//    @ApiOperation(value = "회원 정보 조회", notes = "회원의 프로필 관련 정보를 반환한다")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "Success", response = Void.class)
+//    })
+//    public ResponseEntity<?> getUserInfo(){
+//        // 사용자 프로필 관련 Dto 싹다 보내줌
+//        return new ResponseEntity<>(null, HttpStatus.OK);
+//    }
 
     @GetMapping("/dailywords")
     @ApiOperation(value = "오늘의 단어 조회", notes = "회원의 단어장 중 외우지 못한 단어를 랜덤하게 반환한다")
@@ -135,6 +136,17 @@ public class DashboardController {
     public ResponseEntity<?> changeProfile(@PathVariable String profile) {
         // 프로필 사진 수정
         dashboardService.updateProfile(profile);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PutMapping("/profile")
+    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 입력을 통해 회원 정보를 수정한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<String> updateUser(@RequestBody UpdateUserRequestDto requestDto){
+        dashboardService.updateUserInfo(requestDto);
+
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
