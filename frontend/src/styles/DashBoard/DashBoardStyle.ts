@@ -347,7 +347,7 @@ export const ModalBackdrop = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  z-index: 10;
 `;
 
 export const ModalView = styled.div.attrs((props) => ({

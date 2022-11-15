@@ -12,8 +12,14 @@ import { useAppDispatch } from '../../../utils/hooks';
 import { SubTagContainer, SubTag } from '../../../styles/Main/MainStyle';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
 import { useNavigate } from 'react-router-dom';
+import { ModalBackdrop } from '../../../styles/DashBoard/DashBoardStyle';
 
 const VideoDataModal = (props: VideoDataModalType) => {
+  const closeModalVideo = () => {
+    console.log(props.isOpen);
+    console.log('얍얍');
+    props.setIsOpen(false);
+  };
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -28,6 +34,9 @@ const VideoDataModal = (props: VideoDataModalType) => {
 
   // 해당 영상으로 새로운 공부 시작
   const handlerPostStartStudy = (videoId: string) => {
+    setTimeout(() => {
+      closeModalVideo();
+    }, 1000);
     dispatch(studyActions.postStartStudy(videoId));
   };
 
@@ -47,62 +56,64 @@ const VideoDataModal = (props: VideoDataModalType) => {
   };
 
   return (
-    <ModalContainer onClick={onClickModal}>
-      <VideoDataContainer>
-        <VideoTitle>{video.title}</VideoTitle>
-        <VideoThumbnail
-          src={`https://img.youtube.com/vi/${video.videoId}/0.jpg`}
-        />
-        <SubTagContainer>
-          {video.script && (
-            <SubTag>
-              <p>영어 자막</p>
-            </SubTag>
-          )}
-          {video.script && (
-            <SubTag>
-              <p>한글 자막</p>
-            </SubTag>
-          )}
-        </SubTagContainer>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <MainBtn
-            widthSize={'8.5vw'}
-            heightSize={'4vh'}
-            paddingSize={'0'}
-            fontSize={'1vw'}
-            fontColor={'white'}
-            backgroundColor={'blue'}
-            style={{ marginRight: '0.5vw' }}
-            onClick={() => {
-              handlerPostStartStudy(video.videoId);
-            }}
-          >
-            새로 학습하기
-          </MainBtn>
-          {record !== undefined && (
+    <ModalBackdrop onClick={closeModalVideo}>
+      <ModalContainer>
+        <VideoDataContainer>
+          <VideoTitle>{video.title}</VideoTitle>
+          <VideoThumbnail
+            src={`https://img.youtube.com/vi/${video.videoId}/0.jpg`}
+          />
+          <SubTagContainer>
+            {video.script && (
+              <SubTag>
+                <p>영어 자막</p>
+              </SubTag>
+            )}
+            {video.script && (
+              <SubTag>
+                <p>한글 자막</p>
+              </SubTag>
+            )}
+          </SubTagContainer>
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
             <MainBtn
               widthSize={'8.5vw'}
               heightSize={'4vh'}
               paddingSize={'0'}
               fontSize={'1vw'}
               fontColor={'white'}
-              backgroundColor={'black'}
-              style={{ marginLeft: '0.5vw' }}
+              backgroundColor={'blue'}
+              style={{ marginRight: '0.5vw' }}
               onClick={() => {
-                handlerResumeStudy(
-                  record.stage,
-                  record.learningRecordId,
-                  video.videoId
-                );
+                handlerPostStartStudy(video.videoId);
               }}
             >
-              이어서 학습하기
+              새로 학습하기
             </MainBtn>
-          )}
-        </div>
-      </VideoDataContainer>
-    </ModalContainer>
+            {record !== undefined && (
+              <MainBtn
+                widthSize={'8.5vw'}
+                heightSize={'4vh'}
+                paddingSize={'0'}
+                fontSize={'1vw'}
+                fontColor={'white'}
+                backgroundColor={'black'}
+                style={{ marginLeft: '0.5vw' }}
+                onClick={() => {
+                  handlerResumeStudy(
+                    record.stage,
+                    record.learningRecordId,
+                    video.videoId
+                  );
+                }}
+              >
+                이어서 학습하기
+              </MainBtn>
+            )}
+          </div>
+        </VideoDataContainer>
+      </ModalContainer>
+    </ModalBackdrop>
   );
 };
 export default VideoDataModal;

@@ -62,6 +62,12 @@ const VideoCard = ({ data }: VideoCardProps) => {
     }
   }, [studyState]);
 
+  //모달보수공사
+  const [isOpen, setIsOpen] = useState(false);
+  const openModalVideo = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <VideoCardBlock>
       <VideoDataBox
@@ -92,14 +98,17 @@ const VideoCard = ({ data }: VideoCardProps) => {
           </SubTagContainer>
         </FlexTransparentDiv>
       </VideoDataBox>
-      {isOpenModal && (
+      {isOpen ? (
         <VideoDataModal
           isOpenModal={isOpenModal}
           toggle={onClickModal}
           videoData={videoData}
           learningRecord={learningRecord}
+          //모달보수
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
         />
-      )}
+      ) : null}
       <VideoTitle>{videoTitle}</VideoTitle>
     </VideoCardBlock>
   );
