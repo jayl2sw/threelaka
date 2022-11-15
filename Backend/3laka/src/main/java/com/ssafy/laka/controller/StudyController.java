@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.json.JSONException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -107,28 +106,17 @@ public class StudyController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @GetMapping("/video/{videoId}")
-    @ApiOperation(value = "유저 단어장 조회", notes = "특정 회원의 단어 리스트를 반환한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
-    })
-    public ResponseEntity<VideoDescriptionResponseDto> getVideoDescription(
-            @PathVariable String videoId
-    ){
-        // 해당 강좌의 단어장 불러오기
-        return new ResponseEntity<>(studyService.findVideoDescription(videoId), HttpStatus.OK);
-    }
-
     @GetMapping("/video/search/{keyword}")
     @ApiOperation(value = "keyword로 영상 검색", notes = "keyword를 이용한 영상 검색")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> searchVideos(
+            Pageable pageable,
             @PathVariable String keyword
     ){
         // 키워드로 영상 검색
-        return new ResponseEntity<>(studyService.getVideosByKeyword(keyword), HttpStatus.OK);
+        return new ResponseEntity<>(studyService.getVideosByKeyword(keyword, pageable), HttpStatus.OK);
     }
 
     @PostMapping("/word")
@@ -138,7 +126,7 @@ public class StudyController {
     })
     public ResponseEntity<?> addWord(
             @RequestBody WordRequestDto data
-    ) throws JSONException {
+    ){
         // 단어장에 단어 하나 추가해줌
         studyService.addWord(data);
         return new ResponseEntity<>("success", HttpStatus.OK);
@@ -166,17 +154,7 @@ public class StudyController {
         // 해당 강좌의 단어장 불러오기
         return new ResponseEntity<>(studyService.getWordbooksById(lr_id), HttpStatus.OK);
     }
-
-    @GetMapping("/word/user")
-    @ApiOperation(value = "유저 단어장 조회", notes = "특정 회원의 단어 리스트를 반환한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
-    })
-    public ResponseEntity<List<WordbookResponseDto>> getWordsByUser(){
-        // 해당 강좌의 단어장 불러오기
-        return new ResponseEntity<>(studyService.getWordbooksByUser(), HttpStatus.OK);
-    }
-
+    
 
     @PutMapping("/word/complete")
     @ApiOperation(value = "단어 외움 처리", notes = "학습량을 업데이트 한다.")

@@ -1,14 +1,13 @@
-from fastapi import FastAPI, File
+from fastapi import FastAPI, File, UploadFile, Form
 from youtube_transcript_api import YouTubeTranscriptApi
 from fastapi.middleware.cors import CORSMiddleware
 from nltk.stem import WordNetLemmatizer
 import requests
-import urllib
 import json
-from properties import spell_checker_key, oxford_appId, oxford_key, speechace_url, naver_id, naver_secret
+from properties import spell_checker_key, oxford_appId, oxford_key, speechace_url
 from preprocess import process
 
-from models import EssayChecker, NaverRequest
+from models import EssayChecker
 import re
 import nltk
 nltk.download('wordnet')
@@ -136,7 +135,6 @@ async def speechace(text, file: bytes = File()):
     }
     session = requests.Session()
     r = session.post(speechace_url, data=data, files=files).json()
-    
     try:
         text = r["text_score"]["text"]
         total_score = r["text_score"]["quality_score"]
@@ -156,28 +154,5 @@ async def speechace(text, file: bytes = File()):
         }
 
         return response
-    
     except:
         return r
-    
-@app.post("/api/v2/study/papago") 
-async def papago(naver_request: NaverRequest):
-
-    url = "https://openapi.naver.com/v1/papago/n2mt"
-    headers = {
-        "X-Naver-Client-Id": naver_id,
-        "X-Naver-Client-Secret": naver_secret
-    }
-    
-    response = dict()
-    for k, v in naver_request:
-        data = {
-            "source": "en",
-            "target": "ko",
-            "text": v
-        }
-
-        res = requests.post(url, headers=headers, data=data)
-        response[k] = res.json()["message"]["result"]["translatedText"]
-        
-    return response

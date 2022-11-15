@@ -13,15 +13,13 @@ public interface StudyRepository extends JpaRepository<Study, Integer> {
 
     Optional<Study> findByUserAndDate(User user, String date);
     @Query(nativeQuery = true,
-            value = "select * from study s where s.user_user_id = :userId and s.date between date_format(now(), '%Y-%m-01') and date_format(now(), '%Y-%m-%d')")
+            value = "select * from study s where s.user_id = :userId and s.date between date_format(now(), '%Y-%m-01') and date_format(now(), '%Y-%m-%d')")
     List<Study> findStudyDateThisMonth(int userId);
 
     @Query(nativeQuery = true,
-            value = "select * from study s where s.user_user_id = :userId and date(s.date) " +
+            value = "select * from study s where s.user_id = :userId and date(s.date) " +
                     "between subdate(curdate(), date_format(curdate(), '%w') - 1) " +
                     "and subdate(curdate(), date_format(curdate(), '%w') - 7)")
     List<Study> findStudyDateThisWeek(int userId);
-
-    List<Study> findByUser(User user);
 
 }

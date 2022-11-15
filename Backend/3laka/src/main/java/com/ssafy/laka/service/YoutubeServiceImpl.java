@@ -45,7 +45,7 @@ public class YoutubeServiceImpl implements YoutubeService {
 
     public static NotTedException tedException = new NotTedException();
 
-
+//    @Value("${fastApi.url}")
     private String urlString = "http://3laka.com:8081/api/v2/video/script/";
     private final VideoRepository videoRepository;
     private final ScriptRepository scriptRepository;
