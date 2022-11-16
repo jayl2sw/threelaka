@@ -15,6 +15,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { RiBearSmileLine } from 'react-icons/ri';
 import { FaCrown } from 'react-icons/fa';
+import { FcIdea } from 'react-icons/fc';
 
 const GuildMain = () => {
   const dispatch = useAppDispatch();
@@ -242,9 +243,29 @@ const GuildMain = () => {
           >
             {myGuildInfo.guildId === 0 ? (
               <div>
-                아직 가입한 길드가 없어요 :&#40;
-                <br />
-                길드란 어쩌구 저쩌구 길드 설명 와좌좌
+                <img
+                  src="https://threelaka.s3.ap-northeast-2.amazonaws.com/blue.png"
+                  alt="blue bear logo"
+                  style={{
+                    width: '17vmin',
+                    margin: '0 50%',
+                    transform: 'translateX(-50%)',
+                  }}
+                />
+                <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                  아직 가입한 길드가 없어요 :&#40;
+                </p>
+
+                <p style={{ fontSize: '2vmin' }}>
+                  <FcIdea /> 길드란?
+                  <br />
+                  같은 목표를 가진 사람들과{' '}
+                  <span style={{ fontWeight: 'bold' }}>함께</span> 영어 공부를
+                  할 수 있는 기능입니다.
+                  <br />
+                  다양한 사람들과 화상미팅을 통해 에세이와 스피킹을 공유하며{' '}
+                  <span style={{ fontWeight: 'bold' }}>성장</span>해보세요!
+                </p>
               </div>
             ) : (
               <>
@@ -301,7 +322,7 @@ const GuildMain = () => {
                         heightSize={'7vh'}
                         paddingSize={'0'}
                         flexDirection={'row'}
-                        justifyContent={'center'}
+                        justifyContent={'start'}
                         alignItems={'center'}
                         IsBorder={'none'}
                         style={{ fontFamily: 'pretendardBold' }}
@@ -324,7 +345,7 @@ const GuildMain = () => {
                           fontSize={'2vmin'}
                           fontColor={'white'}
                           backgroundColor={'black'}
-                          style={{ borderRadius: '5px' }}
+                          style={{ borderRadius: '10px', marginRight: '3vmin' }}
                           onClick={onClickMoveMyGuildPage}
                         >
                           내 길드가기
@@ -366,7 +387,9 @@ const GuildMain = () => {
                         >
                           마스터
                         </BackBlurBox>
-                        {myGuildInfo.masterNickname}
+                        <span style={{ fontSize: '2vmin' }}>
+                          {myGuildInfo.masterNickname}
+                        </span>
                       </FlexTransparentDiv>
                       <FlexTransparentDiv
                         widthSize={'22vw'}
@@ -394,7 +417,9 @@ const GuildMain = () => {
                         >
                           소개
                         </BackBlurBox>
-                        {myGuildInfo.description}
+                        <span style={{ fontSize: '2vmin' }}>
+                          {myGuildInfo.description}
+                        </span>
                       </FlexTransparentDiv>
                     </FlexTransparentDiv>
                   </FlexTransparentDiv>
@@ -460,7 +485,9 @@ const GuildMain = () => {
                           : { fontSize: '3vmin' }
                       }
                     >
-                      {myGuildInfo.notice}
+                      <span style={{ fontSize: '2vmin' }}>
+                        {myGuildInfo.notice}
+                      </span>
                     </FlexTransparentDiv>
                   </FlexTransparentDiv>
                 </FlexTransparentDiv>
