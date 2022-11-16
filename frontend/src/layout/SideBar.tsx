@@ -116,7 +116,7 @@ const SideBar = ({
             <span className="title">Profile</span>
           </NavLink>
         </MenuItems>
-        <MenuItems>
+        {/* <MenuItems>
           <NavLink
             to="/auth/guild/main"
             className={({ isActive }) => (isActive ? 'clicked' : 'not')}
@@ -142,59 +142,18 @@ const SideBar = ({
             <RiBearSmileLine className="icon" size={20} />
             <span className="title">GuildAdmin</span>
           </NavLink>
-        </MenuItems>
-
-        {/* <MenuItems
-        // onClick={() => {
-        //   handleSwitchPage(1);
-        //   onClickMenu(1);
-        // }}
-        // className={selectedItem === 1 ? 'clicked' : ''}
-        >
-          <RiBearSmileLine className="icon" size={20} />
-
-          <span className="title">DailyBoard</span>
-        </MenuItems>
-        <MenuItems
-          onClick={() => {
-            handleSwitchPage(3);
-            onClickMenu(2);
-          }}
-          className={selectedItem === 2 ? 'clicked' : ''}
-        >
-          <span className="icon"></span>
-          <span className="title">Profile</span>
-        </MenuItems>
-        <MenuItems
-          onClick={() => {
-            handleSwitchGuildPage('main');
-            onClickMenu(3);
-          }}
-          className={selectedItem === 3 ? 'clicked' : ''}
-        >
-          <span className="icon"></span>
-          <span className="title">Guild</span>
-        </MenuItems>
-        <MenuItems
-          onClick={() => {
-            handleSwitchGuildPage('myGuild');
-            onClickMenu(4);
-          }}
-          className={selectedItem === 4 ? 'clicked' : ''}
-        >
-          <span className="icon"></span>
-          <span className="title">MyGuild</span>
-        </MenuItems>
-        <MenuItems
-          onClick={() => {
-            handleSwitchGuildPage('admin');
-            onClickMenu(5);
-          }}
-          className={selectedItem === 5 ? 'clicked' : ''}
-        >
-          <span className="icon"></span>
-          <span className="title">GuildAdmin</span>
         </MenuItems> */}
+        <FlexTransparentDiv
+          widthSize={'100vw'}
+          heightSize={'30vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          IsBorder={'none'}
+        >
+          Spacer
+        </FlexTransparentDiv>
       </FlexTransparentDiv>
     </SideBarBlock>
   );

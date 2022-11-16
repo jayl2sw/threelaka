@@ -122,7 +122,7 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
       flexDirection={'column'}
       justifyContent={'center'}
       alignItems={'center'}
-      IsBorder={'is'}
+      IsBorder={'none'}
     >
       <StyledForm
         onSubmit={handleSubmit(handleFormSubmit)}

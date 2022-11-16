@@ -80,9 +80,9 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
         {/* <LinkWrapper bgColor="black" widthSize="10vw">
           <Link to="/auth/guild/1">guild</Link>
         </LinkWrapper> */}
-        <LinkWrapper bgColor="black" widthSize="10vw">
+        {/* <LinkWrapper bgColor="black" widthSize="10vw">
           <LogoutIcon onClick={handleLogout}></LogoutIcon>
-        </LinkWrapper>
+        </LinkWrapper> */}
       </HeaderMenuRegion>
       <StudyProgressRegion>
         <ProgressBarContainer>

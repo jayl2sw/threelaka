@@ -43,12 +43,13 @@ export const SideBarBlock = styled.div`
 `;
 
 export const DashBoardBox = styled.div`
+  //빨간선
   display: flex;
   flex-direction: column;
   /* margin: 3vh auto;
   padding: 3vh; */
   width: 68vw;
-  border: solid red 1px;
+  /* border: solid red 1px; */
   height: 82vh;
   margin-top: 4vh;
   margin-left: 2vw;
