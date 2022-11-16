@@ -25,6 +25,7 @@ public enum ErrorCode {
     NOT_TED_VIDEO(400, "S008", "테드의 영상이 아닙니다."),
     TOO_SHORT_TO_SEARCH(400, "S009", "검색 단어가 너무 짧습니다."),
     TAG_NOT_EXIST(400, "D002", "존재하지 않는 태그입니다"),
+    TOO_MANY_TAGS(400, "D003", "관심 태그가 너무 많습니다"),
     GUILD_NOT_FOUND(400, "G001", "해당 길드를 찾을 수 없습니다"),
     REQUEST_NOT_FOUND(400, "G002", "해당 요청을 찾을 수 없습니다."),
     SAME_REQUEST_EXISTS(400, "G003", "해당 요청이 이미 존재합니다."),
