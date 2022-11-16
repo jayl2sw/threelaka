@@ -72,6 +72,21 @@ public class GuildServiceImpl implements GuildService{
         sender.joinGuild(guild);
         guild.getMembers().add(joinRequest.getSender());
         guildRepository.flush();
+
+//        해당 유저가 보낸 모든 가입 요청들 삭제
+        List<JoinRequest> AllRequests = joinRequestRepository.findAllBySender(sender);
+        for (int i = 0; i < AllRequests.size(); i ++){
+            if (AllRequests.get(i).getRequestId() == joinRequest.getRequestId()){
+                continue;
+            }
+            else {
+                joinRequestRepository.delete(AllRequests.get(i));
+                joinRequestRepository.flush();
+            }
+
+        }
+
+//        해당 유저에게 alert 보냄
     }
 
     @Override

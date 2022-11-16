@@ -71,10 +71,17 @@ public class User extends BaseTime {
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     private List<JoinRequest> JoinRequests;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Alert> alerts;
+
 
     @ManyToOne(targetEntity = Guild.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "guild_id")
     private Guild guild;
+
+
+
+
     @PrePersist
     public void prePersist(){
         this.age = this.age == null ? 0 : this.age;

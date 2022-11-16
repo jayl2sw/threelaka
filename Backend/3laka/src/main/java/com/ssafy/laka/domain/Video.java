@@ -35,6 +35,7 @@ public class Video {
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
     private List<Assignment> assignments;
 
+
     public void setKorScript() { this.korScript = true; }
     public static Video from(com.google.api.services.youtube.model.Video entity) {
         return Video.builder()

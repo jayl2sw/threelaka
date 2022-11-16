@@ -4,6 +4,7 @@ import com.ssafy.laka.domain.enums.State;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -25,6 +26,9 @@ public class Assignment {
     @ManyToOne(targetEntity = Guild.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "guild_Id")
     private Guild guild;
+
+    @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL)
+    private List<Alert> alerts;
 
     // 시작일, 종료일
     private String startDate;
