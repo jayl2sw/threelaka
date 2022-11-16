@@ -18,6 +18,7 @@ public class JoinRequestDto {
     private int requstId;
     private int guildId;
     private int userId;
+    private String nickName;
     private State state;
 
     public static JoinRequestDto from(JoinRequest entity){
@@ -25,6 +26,7 @@ public class JoinRequestDto {
                 .requstId(entity.getRequestId())
                 .guildId(entity.getGuild().getId())
                 .userId(entity.getSender().getUserId())
+                .nickName(entity.getSender().getNickname())
                 .state(entity.getState())
                 .build();
     }
