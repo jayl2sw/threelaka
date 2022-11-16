@@ -44,47 +44,20 @@ const MainHeader = () => {
       )}
 
       <MainLinkWrapper bgColor="transparent" widthSize="10vw"></MainLinkWrapper>
-      {/* 테스트용 */}
+
       <MainLinkWrapper bgColor="transparent" widthSize="10vw">
-        <Link
-          to=""
-          style={{ fontSize: '1.2vw' }}
-          onClick={() => alert('열심히 준비중입니다. 조금만 기다려주세요!')}
-        >
-          비디오스
-        </Link>
-      </MainLinkWrapper>
-      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
-        <Link
-          to=""
-          style={{ fontSize: '1.2vw' }}
-          onClick={() => alert('열심히 준비중입니다. 조금만 기다려주세요!')}
-        >
-          대시보드
-        </Link>
-      </MainLinkWrapper>
-      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
-        <Link
-          to=""
-          style={{ fontSize: '1.2vw' }}
-          onClick={() => alert('열심히 준비중입니다. 조금만 기다려주세요!')}
-        >
-          길드
-        </Link>
-      </MainLinkWrapper>
-      {/* <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/videos" style={{ fontSize: '1.2vw' }}>
           VIDEOS
         </Link>
-      </MainLinkWrapper> */}
+      </MainLinkWrapper>
 
-      <MainLinkWrapper
+      {/* <MainLinkWrapper
         bgColor="transparent"
         widthSize="10vw"
         onClick={activeToast}
       >
         VIDEOS
-      </MainLinkWrapper>
+      </MainLinkWrapper> */}
 
       <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/auth/dashboard/1" style={{ fontSize: '1.2vw' }}>
@@ -92,18 +65,18 @@ const MainHeader = () => {
         </Link>
       </MainLinkWrapper>
 
-      {/* <MainLinkWrapper bgColor="transparent" widthSize="10vw">
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/auth/guild/1" style={{ fontSize: '1.2vw' }}>
           GUILD
         </Link>
-      </MainLinkWrapper> */}
-      <MainLinkWrapper
+      </MainLinkWrapper>
+      {/* <MainLinkWrapper
         bgColor="transparent"
         widthSize="10vw"
         onClick={activeToast}
       >
         GUILD
-      </MainLinkWrapper>
+      </MainLinkWrapper> */}
 
       <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link

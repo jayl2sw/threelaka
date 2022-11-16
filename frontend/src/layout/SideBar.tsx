@@ -116,7 +116,7 @@ const SideBar = ({
             <span className="title">Profile</span>
           </NavLink>
         </MenuItems>
-        {/* <MenuItems>
+        <MenuItems>
           <NavLink
             to="/auth/guild/main"
             className={({ isActive }) => (isActive ? 'clicked' : 'not')}
@@ -142,8 +142,8 @@ const SideBar = ({
             <RiBearSmileLine className="icon" size={20} />
             <span className="title">GuildAdmin</span>
           </NavLink>
-        </MenuItems> */}
-        <FlexTransparentDiv
+        </MenuItems>
+        {/* <FlexTransparentDiv
           widthSize={'100vw'}
           heightSize={'30vh'}
           paddingSize={'0'}
@@ -153,7 +153,7 @@ const SideBar = ({
           IsBorder={'none'}
         >
           Spacer
-        </FlexTransparentDiv>
+        </FlexTransparentDiv> */}
       </FlexTransparentDiv>
     </SideBarBlock>
   );
