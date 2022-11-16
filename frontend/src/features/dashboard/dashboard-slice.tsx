@@ -5,6 +5,7 @@ import {
   CompletedVideos,
   MonthStudyTime,
   StudyHistory,
+  TotalStudyTime,
 } from '../../models/dashboard';
 
 type DashboardState = {
@@ -20,6 +21,9 @@ type DashboardState = {
 
   // 학습히스토리
   studyHistory: StudyHistory;
+
+  //총학습시간
+  totalStudyTime: TotalStudyTime;
 };
 
 let initialState: DashboardState = {
@@ -34,6 +38,9 @@ let initialState: DashboardState = {
     essays: 0,
     videos: 0,
     words: 0,
+  },
+  totalStudyTime: {
+    time: 0,
   },
 };
 
@@ -122,6 +129,19 @@ const dashboardSlice = createSlice({
     },
 
     updateProfileFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 총학습시간 받아오기
+    getTotalStudyTime(state) {
+      state.loading = true;
+    },
+    // 총학습시간 받아오기 성공
+    getTotalStudyTimeSuccess(state, action: PayloadAction<TotalStudyTime>) {
+      state.loading = false;
+      state.totalStudyTime = action.payload;
+    },
+
+    getTotalStudyTimeFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
   },

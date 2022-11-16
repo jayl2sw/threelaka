@@ -9,10 +9,10 @@ import {
   ProfileCenter,
   EditBtn,
 } from '../../../styles/DashBoard/DashBoardStyle';
-import { useAppSelector } from '../../../utils/hooks';
+import { useAppSelector, useAppDispatch } from '../../../utils/hooks';
 import ModifyUserInfo from './ModifyUserInfo';
 import SelectProfile from './SelectProfile';
-
+import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
 const UpdateProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [profileNum, setProfileNum] = useState('');
@@ -22,6 +22,14 @@ const UpdateProfile = () => {
   };
   const profile = useAppSelector((state) => state.auth.currentUser?.profile);
   const myGuildInfo = useAppSelector((state) => state.guild.myGuildInfo);
+  const dispatch = useAppDispatch();
+  const totalStudyTime = useAppSelector(
+    (state) => state.dashboard.totalStudyTime
+  );
+  useEffect(() => {
+    dispatch(dashboardActions.getTotalStudyTime());
+  }, []);
+
   return (
     <FlexTransparentDiv
       widthSize={'32vw'}
@@ -131,7 +139,24 @@ const UpdateProfile = () => {
                 }}
               ></div>
               <div>
-                Total<div></div> Study-Time
+                <div>Total</div>
+                <div>Study-Time</div>
+                <div
+                  style={{
+                    color: '#4A9FFF',
+                    marginTop: '2vh',
+                    width: '10vw',
+                    wordBreak: 'break-all',
+                    fontSize: '2.5vmin',
+                  }}
+                >
+                  {totalStudyTime.time !== 0 &&
+                  totalStudyTime.time / 3600 >= 1 ? (
+                    <div>{(totalStudyTime.time / 3600).toFixed(1)}Hr</div>
+                  ) : (
+                    <div>{totalStudyTime.time / 60}Min</div>
+                  )}
+                </div>
               </div>
             </div>
           </FlexTransparentDiv>
