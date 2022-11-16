@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
-import { MainPaleBox } from '../../../styles/Common/CommonDivStyle';
 import { videoActions } from '../../../features/video/video-slice';
 import { studyActions } from '../../../features/study/study-slice';
 // style
-import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
 import {
   RecentVideoTextContainer,
@@ -36,11 +34,11 @@ const RecentVideo = () => {
   const record = recentVideoData.learningRecord;
 
   // 영상 제목 정제하기
-  const cutIndex = video !== undefined ? video.title.indexOf('|') : 0;
-  const videoTitle = video !== undefined ? video.title.substr(0, cutIndex) : '';
-
-  // 영상 정보 왔나요
-  const [studied, setStudied] = useState<boolean>(false);
+  const cutIndex = video.title.indexOf('|');
+  const videoTitle =
+    cutIndex !== -1
+      ? video.title.substr(0, cutIndex)
+      : video.title.substr(video.title.indexOf(':') + 1);
 
   // 공부 새로 시작
   const handlerPostStartStudy = (videoId: string) => {
@@ -75,7 +73,7 @@ const RecentVideo = () => {
           <RecentVideoDataContainer>
             <RecentVideoTextContainer>
               <p className="video-title">{videoTitle}</p>
-              <StudyProgressRegion>
+              <StudyProgressRegion className={'region-' + record.stage}>
                 <ProgressBarIndicator className={'indicator-' + record.stage} />
               </StudyProgressRegion>
               <RecentData>
@@ -131,7 +129,6 @@ const RecentVideo = () => {
           <p>최근 학습한 영상이 없어요</p>
         </NoRecentVideoYet>
       )}
-      {/* <NoRecentVideoYet /> */}
     </div>
   );
 };

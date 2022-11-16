@@ -20,7 +20,7 @@ const Calendar = () => {
   return (
     <Wrapper>
       <div className="dynamic-text-shadow" style={{ zIndex: '1' }}>
-        {seqDays} days streak!
+        <span>{seqDays} days streak!</span>
       </div>
       <GradientBorderBox>
         <CalendarHeader selectDate={selectDate} setSelectDate={setSelectDate} />

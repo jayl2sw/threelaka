@@ -43,12 +43,13 @@ export const SideBarBlock = styled.div`
 `;
 
 export const DashBoardBox = styled.div`
+  //빨간선
   display: flex;
   flex-direction: column;
   /* margin: 3vh auto;
   padding: 3vh; */
   width: 68vw;
-  border: solid red 1px;
+  /* border: solid red 1px; */
   height: 82vh;
   margin-top: 4vh;
   margin-left: 2vw;
@@ -255,21 +256,27 @@ export const GradientBorderBox = styled.div`
 export const Wrapper = styled.div`
   position: relative;
   .dynamic-text-shadow {
-    top: -0.4vh;
+    top: -1vh;
     position: absolute;
-    left: 12vw;
+    left: 11.5vw;
     font-style: italic;
     margin: 0;
-    font-size: 5vmin;
+    /* font-size: 5vmin; */
     line-height: 2vmin;
     display: flex;
     align-items: center;
     text-align: center;
-    letter-spacing: 0.8vmin;
+    letter-spacing: 0.5vmin;
     font-variant: small-caps;
-
+    /* font-weight: bolder; */
+    font-family: 'pretendardbold';
     color: #457b9d;
-    text-shadow: 0.3vmin 0.3vmin 0 #1d3557;
+    /* text-shadow: 0.3vmin 0.3vmin 0 #1d3557; */
+    & span {
+      -webkit-text-stroke: 0.8px white; //텍스트 테두리
+    }
+    color: #457b9d;
+    font-size: 5.5vmin;
   }
 `;
 
@@ -278,10 +285,14 @@ export const Count = styled.div`
     -webkit-text-stroke: 2px #111111; //텍스트 테두리
   }
   color: white;
-  font-size: 5vmin;
+  font-size: 5.5vmin;
+  font-family: 'pretendardbold';
 `;
 
 export const ProfileContainer = styled.div`
+  h3 {
+    margin: 0;
+  }
   display: grid;
   height: 90vh;
   grid-template-columns: repeat(2, 34vw);
@@ -292,7 +303,7 @@ export const ProfileImgBox = styled.div`
   width: 15vmin;
 
   z-index: 1;
-  top: -38vmin;
+  /* top: -38vmin; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -379,10 +390,10 @@ export const EditBtn = styled(MdChangeCircle)`
   font-size: 3vmin;
   color: #457b9d;
   cursor: pointer;
-  z-index: 3;
-  position: absolute;
+  /* z-index: 3; */
+  /* position: absolute; */
 
-  top: 11vh;
+  /* top: 13vh; */
 
   &:hover {
     color: #3b6986;
