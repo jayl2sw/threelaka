@@ -4,7 +4,7 @@ import {
   VideoDataContainer,
   VideoTitle,
   VideoThumbnail,
-} from '../../../styles/Main/VideoModalStyle';
+} from '../../../styles/Common/VideoModalStyle';
 import { studyActions } from '../../../features/study/study-slice';
 import { SubTagContainer, SubTag } from '../../../styles/Main/MainStyle';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
