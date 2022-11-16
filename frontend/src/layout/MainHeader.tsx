@@ -44,6 +44,34 @@ const MainHeader = () => {
       )}
 
       <MainLinkWrapper bgColor="transparent" widthSize="10vw"></MainLinkWrapper>
+      {/* 테스트용 */}
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
+        <Link
+          to=""
+          style={{ fontSize: '1.2vw' }}
+          onClick={() => alert('열심히 준비중입니다. 조금만 기다려주세요!')}
+        >
+          비디오스
+        </Link>
+      </MainLinkWrapper>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
+        <Link
+          to=""
+          style={{ fontSize: '1.2vw' }}
+          onClick={() => alert('열심히 준비중입니다. 조금만 기다려주세요!')}
+        >
+          대시보드
+        </Link>
+      </MainLinkWrapper>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
+        <Link
+          to=""
+          style={{ fontSize: '1.2vw' }}
+          onClick={() => alert('열심히 준비중입니다. 조금만 기다려주세요!')}
+        >
+          길드
+        </Link>
+      </MainLinkWrapper>
       {/* <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/videos" style={{ fontSize: '1.2vw' }}>
           VIDEOS
@@ -80,7 +108,10 @@ const MainHeader = () => {
       <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link
           to="/auth/login"
-          onClick={handleLogout}
+          onClick={() => {
+            // alert('다음에 또 만나요!');
+            handleLogout();
+          }}
           style={{ fontSize: '1.2vw' }}
         >
           LOGOUT

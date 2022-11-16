@@ -1,0 +1,8 @@
+package com.ssafy.laka.dto.study;
+
+import lombok.Data;
+
+@Data
+public class WordbookRequestDto {
+    private int wordbookId;
+}
