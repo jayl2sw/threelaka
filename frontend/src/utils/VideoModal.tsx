@@ -187,6 +187,7 @@ const VideoModal = ({
             justifyContent={'center'}
             alignItems={'center'}
             IsBorder={'none'}
+            style={{ fontSize: '2.5vmin', fontFamily: 'PretendardBold' }}
           >
             <FlexTransparentDiv
               widthSize={'21vw'}
@@ -198,7 +199,17 @@ const VideoModal = ({
               IsBorder={'none'}
               style={{ fontSize: '2vmin' }}
             >
-              {videoData.video.title}
+              <MainBtn
+                widthSize={'10vw'}
+                heightSize={'5vh'}
+                paddingSize={'0'}
+                fontSize={'2vmin'}
+                fontColor={'white'}
+                backgroundColor={'blue'}
+                onClick={() => handlerPostStartStudy(videoData.video.videoId)}
+              >
+                새로운 학습 시작하기
+              </MainBtn>
             </FlexTransparentDiv>
             {continuedToggle ? (
               ''

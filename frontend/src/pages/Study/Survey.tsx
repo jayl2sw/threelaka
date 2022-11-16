@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ModalContainer } from '../../styles/Main/VideoModalStyle';
+import { ModalContainer } from '../../styles/Common/VideoModalStyle';
 import { MainBox } from '../../styles/Common/CommonDivStyle';
 import { AiOutlineDislike, AiOutlineLike } from 'react-icons/ai';
 import { LikeHateBox } from '../../styles/Common/EtcStyle';
