@@ -13,6 +13,9 @@ import {
   FlexTransparentDiv,
 } from '../../styles/Common/CommonDivStyle';
 import { useNavigate } from 'react-router-dom';
+import { RiBearSmileLine } from 'react-icons/ri';
+import { FaCrown } from 'react-icons/fa';
+import { FcIdea } from 'react-icons/fc';
 
 const GuildMain = () => {
   const dispatch = useAppDispatch();
@@ -52,7 +55,24 @@ const GuildMain = () => {
         IsBorder={'none'}
         style={{ fontSize: '3vmin', fontFamily: 'PretendardRegular' }}
       >
-        이번주 우수 길드
+        <p
+          style={{
+            fontSize: '2vmin',
+            fontWeight: 'bold',
+            margin: '0 25%',
+            transform: 'translateX(-50%)',
+          }}
+        >
+          <RiBearSmileLine
+            size={20}
+            style={{ marginRight: '1vmin', verticalAlign: 'middle' }}
+          />
+          이번 주 우수 길드
+          <RiBearSmileLine
+            size={20}
+            style={{ marginLeft: '1vmin', verticalAlign: 'middle' }}
+          />
+        </p>
       </FlexTransparentDiv>
       <FlexTransparentDiv
         widthSize={'65vw'}
@@ -99,9 +119,19 @@ const GuildMain = () => {
                   backgroundUrl={topThreeGuild[0] && topThreeGuild[0].profile}
                   style={{ position: 'relative', marginRight: '2vw' }}
                 >
+                  <FaCrown
+                    style={{
+                      color: '#ffb94c',
+                      position: 'absolute',
+                      width: '9vmin',
+                      height: '9vmin',
+                      top: '-9.5vmin',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                    }}
+                  />
                   <div
                     style={{
-                      width: '20vmin',
                       height: '5vmin',
                       fontSize: '2vmin',
                       position: 'absolute',
@@ -110,7 +140,10 @@ const GuildMain = () => {
                       justifyContent: 'center',
                       alignItems: 'center',
                       fontWeight: 'bold',
-                      // border: '1px solid black',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '100%',
+                      wordBreak: 'keep-all',
                     }}
                   >
                     {topThreeGuild[0] &&
@@ -126,9 +159,19 @@ const GuildMain = () => {
                   backgroundUrl={topThreeGuild[1] && topThreeGuild[1].profile}
                   style={{ position: 'relative', marginRight: '2vw' }}
                 >
+                  <FaCrown
+                    style={{
+                      color: '#bcbcbc',
+                      position: 'absolute',
+                      width: '7vmin',
+                      height: '7vmin',
+                      top: '-7.5vmin',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                    }}
+                  />
                   <div
                     style={{
-                      width: '15vmin',
                       height: '5vmin',
                       fontSize: '2vmin',
                       position: 'absolute',
@@ -137,7 +180,10 @@ const GuildMain = () => {
                       justifyContent: 'center',
                       alignItems: 'center',
                       fontWeight: 'bold',
-                      // border: '1px solid black',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '100%',
+                      wordBreak: 'keep-all',
                     }}
                   >
                     {topThreeGuild[1] &&
@@ -153,9 +199,19 @@ const GuildMain = () => {
                   backgroundUrl={topThreeGuild[2] && topThreeGuild[2].profile}
                   style={{ position: 'relative', marginRight: '0vw' }}
                 >
+                  <FaCrown
+                    style={{
+                      color: '#cc7c00',
+                      position: 'absolute',
+                      width: '5vmin',
+                      height: '5vmin',
+                      top: '-5.5vmin',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                    }}
+                  />
                   <div
                     style={{
-                      width: '10vmin',
                       height: '5vmin',
                       fontSize: '2vmin',
                       position: 'absolute',
@@ -164,7 +220,10 @@ const GuildMain = () => {
                       justifyContent: 'center',
                       alignItems: 'center',
                       fontWeight: 'bold',
-                      // border: '1px solid black',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '100%',
+                      wordBreak: 'keep-all',
                     }}
                   >
                     {topThreeGuild[2] &&
@@ -186,10 +245,35 @@ const GuildMain = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              boxShadow: 'none',
             }}
           >
             {myGuildInfo.guildId === 0 ? (
-              <div>길드가 없어요, 생성?</div>
+              <div>
+                <img
+                  src="https://threelaka.s3.ap-northeast-2.amazonaws.com/blue.png"
+                  alt="blue bear logo"
+                  style={{
+                    width: '17vmin',
+                    margin: '0 50%',
+                    transform: 'translateX(-50%)',
+                  }}
+                />
+                <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                  아직 가입한 길드가 없어요 :&#40;
+                </p>
+
+                <p style={{ fontSize: '2vmin' }}>
+                  <FcIdea /> 길드란?
+                  <br />
+                  같은 목표를 가진 사람들과{' '}
+                  <span style={{ fontWeight: 'bold' }}>함께</span> 영어 공부를
+                  할 수 있는 기능입니다.
+                  <br />
+                  다양한 사람들과 화상미팅을 통해 에세이와 스피킹을 공유하며{' '}
+                  <span style={{ fontWeight: 'bold' }}>성장</span>해보세요!
+                </p>
+              </div>
             ) : (
               <>
                 <FlexTransparentDiv
@@ -245,7 +329,7 @@ const GuildMain = () => {
                         heightSize={'7vh'}
                         paddingSize={'0'}
                         flexDirection={'row'}
-                        justifyContent={'center'}
+                        justifyContent={'start'}
                         alignItems={'center'}
                         IsBorder={'none'}
                         style={{ fontFamily: 'pretendardBold' }}
@@ -268,7 +352,7 @@ const GuildMain = () => {
                           fontSize={'2vmin'}
                           fontColor={'white'}
                           backgroundColor={'black'}
-                          style={{ borderRadius: '5px' }}
+                          style={{ borderRadius: '10px', marginRight: '3vmin' }}
                           onClick={onClickMoveMyGuildPage}
                         >
                           내 길드가기
@@ -310,7 +394,9 @@ const GuildMain = () => {
                         >
                           마스터
                         </BackBlurBox>
-                        {myGuildInfo.masterNickname}
+                        <span style={{ fontSize: '2vmin' }}>
+                          {myGuildInfo.masterNickname}
+                        </span>
                       </FlexTransparentDiv>
                       <FlexTransparentDiv
                         widthSize={'22vw'}
@@ -338,7 +424,9 @@ const GuildMain = () => {
                         >
                           소개
                         </BackBlurBox>
-                        {myGuildInfo.description}
+                        <span style={{ fontSize: '2vmin' }}>
+                          {myGuildInfo.description}
+                        </span>
                       </FlexTransparentDiv>
                     </FlexTransparentDiv>
                   </FlexTransparentDiv>
@@ -404,7 +492,9 @@ const GuildMain = () => {
                           : { fontSize: '3vmin' }
                       }
                     >
-                      {myGuildInfo.notice}
+                      <span style={{ fontSize: '2vmin' }}>
+                        {myGuildInfo.notice}
+                      </span>
                     </FlexTransparentDiv>
                   </FlexTransparentDiv>
                 </FlexTransparentDiv>
@@ -432,6 +522,7 @@ const GuildMain = () => {
               flexDirection: 'column',
               alignItems: 'center',
               position: 'relative',
+              boxShadow: 'none',
               // overflowY: 'scroll',
               // overflowX: 'hidden',
             }}
@@ -481,13 +572,20 @@ const GuildMain = () => {
               justifyContent={'start'}
               alignItems={'start'}
               IsBorder={'none'}
-              style={{ overflowY: 'scroll', overflowX: 'hidden' }}
+              style={{
+                overflowY: 'scroll',
+                overflowX: 'hidden',
+              }}
             >
               {sortedGuild.map((guild, idx) => {
                 return (
                   <GuildBlueArcodian
                     key={`guild-${idx}`}
-                    style={{ position: 'relative' }}
+                    style={{
+                      position: 'relative',
+                      boxShadow: 'none',
+                      width: '100%',
+                    }}
                   >
                     {myGuildInfo.guildId !== 0 ? (
                       ''
@@ -579,6 +677,7 @@ const GuildMain = () => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             marginRight: '1vw',
+                            wordBreak: 'keep-all',
                           }}
                         >
                           소개
