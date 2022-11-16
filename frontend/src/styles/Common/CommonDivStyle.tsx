@@ -1,4 +1,3 @@
-import { url } from 'inspector';
 import styled from 'styled-components';
 
 interface CommonDivProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
