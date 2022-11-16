@@ -39,7 +39,7 @@ const UpdateProfile = () => {
       justifyContent={'center'}
       alignItems={'center'}
       IsBorder={'is'}
-      style={{ marginLeft: '2.8vw' }}
+      style={{ marginLeft: '0' }}
     >
       <FlexTransparentDiv
         widthSize={'32vw'}

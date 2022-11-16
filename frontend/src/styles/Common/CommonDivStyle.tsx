@@ -12,7 +12,7 @@ interface ToastDivProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
   heightSize: string;
   paddingSize: string;
   fontColor: 'white' | 'grey' | 'black' | 'blue';
-  fontSize: string;
+
   top: string;
   left: string;
 }
@@ -213,30 +213,26 @@ export const ToastContainer = styled.div<ToastDivProps>`
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
   padding: ${(props) => props.paddingSize};
-  font-size: ${(props) => props.fontSize};
+
   top: ${(props) => props.top};
   left: ${(props) => props.left};
   box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
   position: fixed;
   z-index: 20;
   border-radius: 2vmin;
-  /* border: 2px solid #83bdff; */
-  background: rgba(131, 189, 255, 0.8);
+  background: rgba(0, 0, 0, 0.65);
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: smoothAppear 1s ease-in-out;
+  @keyframes smoothAppear {
+    from {
+      opacity: 0;
+      transform: translateY(-5%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 `;
-// const ToastContainer = styled.div`
-//   position: fixed;
-//   z-index: 20;
-
-//   /* top: 50%;
-//   left: 50%; */
-//   /* transform: translate(-50%, -50%); */
-//   /* width: 20vw;
-//   height: 10vh; */
-//   border-radius: 10px;
-//   box-shadow: 0 0 15px 0 var(--black-40);
-//   background-color: #323232;
-//   background: #ffffff;
-// `;

@@ -190,23 +190,19 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
         IsBorder={'none'}
         style={{ marginTop: '1.5vh' }}
       >
-        <ToastContainer
-          widthSize={'20vw'}
-          heightSize={'20vh'}
-          paddingSize={'2vh 1vw'}
-          fontColor={'black'}
-          fontSize={'2vmin'}
-          top={'55vh'}
-          left={'30vw'}
-        >
-          <ToastMessage
-            text={'비밀번호가 성공적으로 변경되었습니다.'}
-          ></ToastMessage>
-        </ToastContainer>
         {isSuccess && (
-          <ToastMessage
-            text={'비밀번호가 성공적으로 변경되었습니다.'}
-          ></ToastMessage>
+          <ToastContainer
+            widthSize={'20vw'}
+            heightSize={'20vh'}
+            paddingSize={'2vh 1vw'}
+            fontColor={'black'}
+            top={'55vh'}
+            left={'63.5vw'}
+          >
+            <ToastMessage
+              text={'비밀번호가 성공적으로 변경되었습니다'}
+            ></ToastMessage>
+          </ToastContainer>
         )}
         <h3>비밀번호변경</h3>
         <ModifyPassword></ModifyPassword>

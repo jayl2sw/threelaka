@@ -5,12 +5,15 @@ const UpdateUserInfo = () => {
   return (
     <div>
       <MainBox
-        widthSize={'34vw'}
+        widthSize={'33.8vw'}
         heightSize={'81.5vh'}
         paddingSize={'2vh 2vw'}
         fontColor={'black'}
         fontSize={'2vmin'}
-        style={{ display: 'flex', justifyContent: 'center' }}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
       >
         <ModifyUserInfo></ModifyUserInfo>
       </MainBox>
