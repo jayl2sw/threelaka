@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import EnglishOnlyZone from './EOZ/EnglishOnlyZone';
+import EozPage from './EOZ/EozPage';
 import {
   FlexTransparentDiv,
   MainBox,
@@ -317,7 +317,7 @@ const MyGuild = () => {
             alignItems={'start'}
             IsBorder={'is'}
           >
-            <EnglishOnlyZone />
+            <EozPage />
           </FlexTransparentDiv>
         </FlexTransparentDiv>
       </FlexTransparentDiv>
