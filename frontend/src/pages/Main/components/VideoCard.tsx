@@ -1,5 +1,3 @@
-import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
-
 // style
 import {
   VideoCardBlock,
