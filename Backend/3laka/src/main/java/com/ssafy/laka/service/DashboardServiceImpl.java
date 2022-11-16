@@ -9,6 +9,7 @@ import com.ssafy.laka.dto.dashboard.*;
 import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
 import com.ssafy.laka.dto.exception.dashboard.StudyNotFoundException;
 import com.ssafy.laka.dto.exception.dashboard.TagNotFoundException;
+import com.ssafy.laka.dto.exception.dashboard.TooManyTagException;
 import com.ssafy.laka.dto.exception.study.VideoNotFoundException;
 import com.ssafy.laka.dto.exception.user.DuplicateNicknameException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
@@ -136,14 +137,23 @@ public class DashboardServiceImpl implements DashboardService{
     @Override
     public List<String> getInterestTags() {
         User user = getUser();
-        return userTagRepository.findAllByUser(user)
+        List<String> interestTagList = userTagRepository.findAllByUser(user)
                 .stream().map(s -> s.getTag().getName()).collect(Collectors.toList());
+        if (interestTagList.size() > 3) {
+            throw new TooManyTagException();}
+
+        return interestTagList;
     }
 
     @Override
     public void updateInterestTags(int[] interestTags) {
         User user = getUser();
         userTagRepository.deleteAllByUser(user);
+
+        if (interestTags.length > 3) {
+            throw new TooManyTagException();}
+
+
         for (int i = 0; i < interestTags.length; i++) {
             UserTag usertag = UserTag.builder()
                     .user(user)

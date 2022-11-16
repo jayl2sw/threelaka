@@ -128,7 +128,7 @@ public class DashboardController {
     }
 
     @PutMapping("/tag")
-    @ApiOperation(value = "관심 태그 수정", notes = "회원의 관심 태그를 수정한다")
+    @ApiOperation(value = "관심 태그 수정", notes = "회원의 관심 태그를 수정한다(최대 3개까지 가능)")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = String.class)
     })
