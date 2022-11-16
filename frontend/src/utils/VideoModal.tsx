@@ -184,7 +184,7 @@ const VideoModal = ({
             justifyContent={'center'}
             alignItems={'center'}
             IsBorder={'none'}
-            style={{ fontSize: '2vmin' }}
+            style={{ fontSize: '2.5vmin', fontFamily: 'PretendardBold' }}
           >
             {videoData.video.title}
           </FlexTransparentDiv>
@@ -201,10 +201,10 @@ const VideoModal = ({
               IsBorder={'none'}
             >
               <MainBtn
-                widthSize={'15vw'}
-                heightSize={'8vh'}
+                widthSize={'10vw'}
+                heightSize={'5vh'}
                 paddingSize={'0'}
-                fontSize={'3vmin'}
+                fontSize={'2vmin'}
                 fontColor={'white'}
                 backgroundColor={'blue'}
                 onClick={() => handlerPostStartStudy(videoData.video.videoId)}

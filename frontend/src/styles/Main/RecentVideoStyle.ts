@@ -95,13 +95,20 @@ export const StudyProgressRegion = styled.div`
     rgba(255, 255, 255, 1) 0%,
     rgba(0, 0, 0, 1) 25%
   );
+  &.region-SPEAKING {
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(0, 0, 0, 1) 25%,
+      rgba(255, 255, 255, 1) 98%
+    );
+  }
 `;
 
 // 최근 단계 표시
 export const ProgressBarIndicator = styled.div`
   position: absolute;
   height: 1.5vh;
-
   background-image: linear-gradient(
     90deg,
     rgba(74, 159, 255, 1) 0%,

@@ -23,9 +23,12 @@ interface VideoCardProps {
 }
 
 const VideoCard = ({ data, setModalToggleVideoId }: VideoCardProps) => {
-  // 영상 제목 정제하기
+  // 영상 제목 정제하기 ('이름: 제목' 또는 '제목 | 이름'에서 제목만 남기기)
   const cutIndex = data.title.indexOf('|');
-  const videoTitle = data.title.substr(0, cutIndex);
+  const videoTitle =
+    cutIndex !== -1
+      ? data.title.substr(0, cutIndex)
+      : data.title.substr(data.title.indexOf(':') + 1);
 
   return (
     <VideoCardBlock
