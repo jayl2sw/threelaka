@@ -21,6 +21,7 @@ interface IModifyPasswordProps {
 const ModifyPassword = ({ initialValues, onSubmit }: IModifyPasswordProps) => {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
   const errorStatus = useAppSelector((state) => state.auth.errorStatus);
+  const isSuccess = useAppSelector((state) => state.auth.isSuccess);
   const dispatch = useAppDispatch();
   const schema = yup.object().shape({
     currentPassword: yup
@@ -68,6 +69,28 @@ const ModifyPassword = ({ initialValues, onSubmit }: IModifyPasswordProps) => {
       dispatch(authActions.resetError());
     }
   }, [errorStatus]);
+
+  // function activeToast() {
+  //   setDownloadToast(true);
+  //   let timer = setTimeout(() => {
+  //     setDownloadToast(false);
+  //   }, 2000);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }
+
+  useEffect(() => {
+    if (isSuccess) {
+      let timer = setTimeout(() => {
+        // setDownloadToast(false);
+        dispatch(authActions.resetIsSuccess());
+      }, 2000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [dispatch, isSuccess]);
 
   const handleFormSubmit = (formValues: IPwdForm) => {
     try {
