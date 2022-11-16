@@ -5,6 +5,7 @@ import {
   CompletedVideos,
   MonthStudyTime,
   StudyHistory,
+  TotalStudyTime,
 } from '../models/dashboard';
 
 // 최근에 본 영상 리스트
@@ -57,4 +58,13 @@ export const updateProfileApi = async (profileNum: string): Promise<any> => {
   const res = await customAxios.put(`/api/v1/dashboard/profile/${profileNum}`);
 
   return res.data;
+};
+
+//총 학습시간 조회
+export const getTotalStudyTimeApi = async (
+  totalStudyTime: TotalStudyTime
+): Promise<any> => {
+  const res = await customAxios.get('/api/v1/dashboard/history/time');
+  const response: TotalStudyTime = res.data;
+  return response;
 };

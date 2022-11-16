@@ -8,7 +8,10 @@ import { TopBtn } from '../../../styles/Common/CommonBtnStyle';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 import { BackBlurBox, MainBox } from '../../../styles/Common/CommonDivStyle';
 import { useHorizontalScroll } from '../../../utils/useSideScroll';
-const VideoContainer = () => {
+interface IVideoContainerProps {
+  setModalToggleVideoId: (nextVideoId: string) => void;
+}
+const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
   const recentVideoBlock = useRef<HTMLDivElement>(null);
   const completedVideoBlock = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState(0);
@@ -23,7 +26,6 @@ const VideoContainer = () => {
   const scrollRef = useHorizontalScroll(
     mode
   ) as React.MutableRefObject<HTMLDivElement>;
-
   return (
     <VideoBlock>
       <FlexTransparentDiv
@@ -65,7 +67,7 @@ const VideoContainer = () => {
         </TopBtn>
       </FlexTransparentDiv>
       <MainBox
-        widthSize={'36vw'}
+        widthSize={'41vw'}
         heightSize={'33vh'}
         paddingSize={'2vh 1vw'}
         fontColor={'black'}
@@ -76,6 +78,7 @@ const VideoContainer = () => {
         <DashboardVideos
           mode={mode}
           recentVideoBlock={recentVideoBlock}
+          setModalToggleVideoId={setModalToggleVideoId}
         ></DashboardVideos>
       </MainBox>
     </VideoBlock>

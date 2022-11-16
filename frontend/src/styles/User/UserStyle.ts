@@ -144,6 +144,13 @@ export const InputWrap = styled.div`
   .age {
     width: 30%;
   }
+  .gender {
+    font-size: 3vmin;
+  }
+  span {
+    font-size: 2vmin;
+    line-height: 2vmin;
+  }
 `;
 // // 영상 url 넣을 input 스타일링
 // export const StyledInput = styled.div`

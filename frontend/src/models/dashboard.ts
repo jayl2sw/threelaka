@@ -26,3 +26,7 @@ export interface StudyHistory {
   videos: number;
   words: number;
 }
+
+export interface TotalStudyTime {
+  time: number;
+}
