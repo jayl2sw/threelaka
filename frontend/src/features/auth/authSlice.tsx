@@ -31,6 +31,7 @@ export interface AuthState {
   loading?: boolean;
   currentUser?: User;
   errorStatus: number;
+  isSuccess: boolean;
 }
 
 const initialState: AuthState = {
@@ -38,6 +39,7 @@ const initialState: AuthState = {
   loading: false, //로딩중
   currentUser: undefined, //유저정보 따로 요청보낼거임
   errorStatus: 0,
+  isSuccess: false,
 };
 
 const authSlice = createSlice({
@@ -71,6 +73,7 @@ const authSlice = createSlice({
     },
     modifyPwdSuccess(state, action: PayloadAction<string>) {
       state.loading = false;
+      state.isSuccess = true;
     },
     modifyPwdFailed(state, action: PayloadAction<any>) {
       state.loading = false;
@@ -109,6 +112,9 @@ const authSlice = createSlice({
     },
     resetError(state) {
       state.errorStatus = 0;
+    },
+    resetIsSuccess(state) {
+      state.isSuccess = false;
     },
   },
 });
