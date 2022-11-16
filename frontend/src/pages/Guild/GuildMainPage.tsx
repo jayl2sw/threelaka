@@ -132,7 +132,6 @@ const GuildMain = () => {
                   />
                   <div
                     style={{
-                      width: '20vmin',
                       height: '5vmin',
                       fontSize: '2vmin',
                       position: 'absolute',
@@ -141,7 +140,10 @@ const GuildMain = () => {
                       justifyContent: 'center',
                       alignItems: 'center',
                       fontWeight: 'bold',
-                      // border: '1px solid black',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '100%',
+                      wordBreak: 'keep-all',
                     }}
                   >
                     {topThreeGuild[0] &&
@@ -170,7 +172,6 @@ const GuildMain = () => {
                   />
                   <div
                     style={{
-                      width: '15vmin',
                       height: '5vmin',
                       fontSize: '2vmin',
                       position: 'absolute',
@@ -179,7 +180,10 @@ const GuildMain = () => {
                       justifyContent: 'center',
                       alignItems: 'center',
                       fontWeight: 'bold',
-                      // border: '1px solid black',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '100%',
+                      wordBreak: 'keep-all',
                     }}
                   >
                     {topThreeGuild[1] &&
@@ -208,7 +212,6 @@ const GuildMain = () => {
                   />
                   <div
                     style={{
-                      width: '10vmin',
                       height: '5vmin',
                       fontSize: '2vmin',
                       position: 'absolute',
@@ -217,7 +220,10 @@ const GuildMain = () => {
                       justifyContent: 'center',
                       alignItems: 'center',
                       fontWeight: 'bold',
-                      // border: '1px solid black',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '100%',
+                      wordBreak: 'keep-all',
                     }}
                   >
                     {topThreeGuild[2] &&
@@ -239,6 +245,7 @@ const GuildMain = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              boxShadow: 'none',
             }}
           >
             {myGuildInfo.guildId === 0 ? (
@@ -515,6 +522,7 @@ const GuildMain = () => {
               flexDirection: 'column',
               alignItems: 'center',
               position: 'relative',
+              boxShadow: 'none',
               // overflowY: 'scroll',
               // overflowX: 'hidden',
             }}
@@ -564,13 +572,20 @@ const GuildMain = () => {
               justifyContent={'start'}
               alignItems={'start'}
               IsBorder={'none'}
-              style={{ overflowY: 'scroll', overflowX: 'hidden' }}
+              style={{
+                overflowY: 'scroll',
+                overflowX: 'hidden',
+              }}
             >
               {sortedGuild.map((guild, idx) => {
                 return (
                   <GuildBlueArcodian
                     key={`guild-${idx}`}
-                    style={{ position: 'relative' }}
+                    style={{
+                      position: 'relative',
+                      boxShadow: 'none',
+                      width: '100%',
+                    }}
                   >
                     {myGuildInfo.guildId !== 0 ? (
                       ''
@@ -662,6 +677,7 @@ const GuildMain = () => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             marginRight: '1vw',
+                            wordBreak: 'keep-all',
                           }}
                         >
                           소개
