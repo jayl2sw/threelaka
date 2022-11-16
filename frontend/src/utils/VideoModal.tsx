@@ -196,7 +196,7 @@ const VideoModal = ({
               justifyContent={'center'}
               alignItems={'center'}
               IsBorder={'none'}
-              style={{ fontSize: '2vmin' }}
+              style={{ fontSize: '2.5vmin', fontFamily: 'pretendardbold' }}
             >
               {videoData.video.title}
             </FlexTransparentDiv>
@@ -213,10 +213,10 @@ const VideoModal = ({
                 IsBorder={'none'}
               >
                 <MainBtn
-                  widthSize={'15vw'}
-                  heightSize={'8vh'}
+                  widthSize={'12vw'}
+                  heightSize={'6vh'}
                   paddingSize={'0'}
-                  fontSize={'3vmin'}
+                  fontSize={'2.5vmin'}
                   fontColor={'white'}
                   backgroundColor={'blue'}
                   onClick={() => handlerPostStartStudy(videoData.video.videoId)}
@@ -401,10 +401,10 @@ const VideoModal = ({
               ) : (
                 videoData.learning_record && (
                   <MainBtn
-                    widthSize={'15vw'}
-                    heightSize={'8vh'}
+                    widthSize={'12vw'}
+                    heightSize={'6vh'}
                     paddingSize={'0'}
-                    fontSize={'3vmin'}
+                    fontSize={'2.5vmin'}
                     fontColor={'white'}
                     backgroundColor={'black'}
                     onClick={() => setContinuedToggle(true)}
