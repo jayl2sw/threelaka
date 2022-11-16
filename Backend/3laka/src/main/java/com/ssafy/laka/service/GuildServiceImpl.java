@@ -1,6 +1,7 @@
 package com.ssafy.laka.service;
 
 import com.ssafy.laka.domain.*;
+import com.ssafy.laka.domain.enums.AlertState;
 import com.ssafy.laka.domain.enums.Role;
 import com.ssafy.laka.domain.enums.State;
 import com.ssafy.laka.dto.exception.guild.*;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +33,7 @@ public class GuildServiceImpl implements GuildService{
     private final LearningRecordRepository learningRecordRepository;
     private final GuildRepositorySupport guildRepositorySupport;
     private final VideoRepository videoRepository;
+    private final AlertRepository alertRepository;
 
     @Override
 //    길드 가입 요청
@@ -86,7 +89,13 @@ public class GuildServiceImpl implements GuildService{
 
         }
 
-//        해당 유저에게 alert 보냄
+//         해당 유저에게 alert 보냄
+        Alert alert = Alert.builder()
+                .user(sender)
+                .guild(guild)
+                .alertState(AlertState.accepted)
+                .build();
+        alertRepository.save(alert);
     }
 
     @Override
@@ -99,6 +108,14 @@ public class GuildServiceImpl implements GuildService{
             throw new NotMasterException();
         }
         joinRequest.setState(State.rejected);
+
+        // 해당 유저에게 alert 보냄
+        Alert alert = Alert.builder()
+                .user(joinRequest.getSender())
+                .guild(me.getGuild())
+                .alertState(AlertState.rejected)
+                .build();
+        alertRepository.save(alert);
     }
 
     @Override
@@ -189,6 +206,13 @@ public class GuildServiceImpl implements GuildService{
             throw new NotGuildMemberException();
         }
         member.joinGuild(null);
+//         해당 유저에게 alert 보냄
+        Alert alert = Alert.builder()
+                .user(member)
+                .guild(me.getGuild())
+                .alertState(AlertState.kicked)
+                .build();
+        alertRepository.save(alert);
     }
     @Override
     public void quitGuild(int guildId){
@@ -344,6 +368,17 @@ public class GuildServiceImpl implements GuildService{
                 .endDate(info.getEndDate())
                 .build();
         assignmentRepository.save(assignment);
+//         길드 멤버들에게 alert 보냄
+        ArrayList<User> members = userRepository.findUsersByGuild(guildRepository.findById(info.getGuildId()).orElseThrow(GuildNotFoundException::new));
+        for (User member : members) {
+            Alert alert = Alert.builder()
+                    .user(member)
+                    .guild(member.getGuild())
+                    .assignment(assignment)
+                    .alertState(AlertState.newVideo)
+                    .build();
+            alertRepository.save(alert);
+        }
         return "SUCCESS";
     }
 

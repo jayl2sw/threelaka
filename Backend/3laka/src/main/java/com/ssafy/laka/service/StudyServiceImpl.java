@@ -156,6 +156,21 @@ public class StudyServiceImpl implements StudyService{
         }
     }
 
+    @Override
+    public void deleteWordByWordAndSentence(String word, String sentence) {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        try {
+            Wordbook wordbook = wordbookRepository.findWordbookByWordAndExample(word, sentence).orElseThrow(NotInWordbookException::new);
+            if (user != wordbook.getUser()) {
+                throw new NotCurrentUserException();
+            }
+            wordbookRepository.delete(wordbook);
+        } catch (Exception e) {
+            log.debug("failed to delete workbook: " + e);
+            throw e;
+        }
+    }
+
 
     @Override
     public List<WordbookResponseDto> getWordbooksById(int lrId) {
