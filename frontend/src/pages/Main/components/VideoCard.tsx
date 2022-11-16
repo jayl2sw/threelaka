@@ -1,9 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
-import useModal from '../../../utils/useModal';
-import VideoDataModal from './VideoDataModal';
-import { videoActions } from '../../../features/video/video-slice';
 
 // style
 import {
@@ -17,65 +12,33 @@ import {
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 
 // video별 갖고 있는 정보들
-type VideoCardProps = {
+interface VideoCardProps {
   data: {
     videoId: string;
     title: string;
     description: string;
     korScript: boolean;
   };
-};
+  setModalToggleVideoId: (nextVideoId: string) => void;
+}
 
-const VideoCard = ({ data }: VideoCardProps) => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const [videoUrl, setVideoUrl] = useState<string>('');
-
-  // 모달에 띄워줄 비디오 정보
-  const videoData = useAppSelector((state) => state.video.videoData);
-  const learningRecord = useAppSelector(
-    (state) => state.video.recentVideoData.learningRecord
-  );
-
-  // 영상 제목 정제하기
+const VideoCard = ({ data, setModalToggleVideoId }: VideoCardProps) => {
+  // 영상 제목 정제하기 ('이름: 제목' 또는 '제목 | 이름'에서 제목만 남기기)
   const cutIndex = data.title.indexOf('|');
-  const videoTitle = data.title.substr(0, cutIndex);
-
-  // 영상 정보 조회
-  const handlerGetVideoData = (videoId: string) => {
-    const videoUrl = `https://youtu.be/${videoId}`;
-    dispatch(videoActions.getVideoData(videoUrl));
-  };
-
-  // 모달 사용하기
-  const { isOpenModal, onClickModal } = useModal();
-
-  // 현재 영상 stage 확인
-  const studyState = useAppSelector((state) => state.study.studyState);
-  // stage 변경 시 해당 스테이지로 이동
-  useEffect(() => {
-    if (studyState.stage !== '') {
-      navigate(
-        `/study/reading/${studyState.learningRecordId}/${studyState.stage}/${studyState.videoId}`
-      );
-    }
-  }, [studyState]);
-
-  //모달보수공사
-  const [isOpen, setIsOpen] = useState(false);
-  const openModalVideo = () => {
-    setIsOpen(!isOpen);
-  };
+  const videoTitle =
+    cutIndex !== -1
+      ? data.title.substr(0, cutIndex)
+      : data.title.substr(data.title.indexOf(':') + 1);
 
   return (
-    <VideoCardBlock>
-      <VideoDataBox
-        onClick={() => {
-          handlerGetVideoData(data.videoId);
-          onClickModal();
-        }}
-      >
+    <VideoCardBlock
+      onClick={() => {
+        console.log('클릭');
+        setModalToggleVideoId(data.videoId);
+      }}
+      style={{ cursor: 'pointer' }}
+    >
+      <VideoDataBox>
         <FlexTransparentDiv
           widthSize={'19vw'}
           heightSize={'22.5vh'}
@@ -98,17 +61,6 @@ const VideoCard = ({ data }: VideoCardProps) => {
           </SubTagContainer>
         </FlexTransparentDiv>
       </VideoDataBox>
-      {isOpen ? (
-        <VideoDataModal
-          isOpenModal={isOpenModal}
-          toggle={onClickModal}
-          videoData={videoData}
-          learningRecord={learningRecord}
-          //모달보수
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
-      ) : null}
       <VideoTitle>{videoTitle}</VideoTitle>
     </VideoCardBlock>
   );

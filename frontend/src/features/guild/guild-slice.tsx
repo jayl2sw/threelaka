@@ -9,6 +9,8 @@ import {
   GuildDetailInfo,
   MyguildInfo,
   MyguildLearnTime,
+  MyRequest,
+  GuildRequest,
 } from '../../models/guild';
 
 type GuildState = {
@@ -21,6 +23,8 @@ type GuildState = {
   guildSortedList: GuildDetailInfo[];
   myGuildInfo: MyguildInfo;
   myguildLearnTime: MyguildLearnTime[];
+  MyRequestLst: MyRequest[];
+  GuildRequestLst: GuildRequest[];
 };
 
 let initialState: GuildState = {
@@ -49,6 +53,8 @@ let initialState: GuildState = {
     assignments: [],
   },
   myguildLearnTime: [],
+  MyRequestLst: [],
+  GuildRequestLst: [],
 };
 
 const guildSlice = createSlice({
@@ -245,6 +251,86 @@ const guildSlice = createSlice({
     },
     // 길드량 학습량순 조회 실패
     getGuildLearnTimeFailed(state) {
+      state.loading = false;
+    },
+
+    // 내가 마스터인 길드 가입 요청 조회
+    getGuildRequestStart(state) {
+      state.loading = true;
+    },
+    // 내가 마스터인 길드 가입 요청 조회 성공
+    getGuildRequestSuccess(state, action: PayloadAction<GuildRequest[]>) {
+      state.loading = false;
+      state.GuildRequestLst = action.payload;
+    },
+    // 내가 마스터인 길드 가입 요청 조회 실패
+    getGuildRequestFailed(state) {
+      state.loading = false;
+    },
+
+    // 길드 가입 승인하기 시작
+    putAcceptGuildRequestStart(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 길드 가입 승인하기 시작
+    putAcceptGuildRequestSuccess(state) {
+      state.loading = false;
+    },
+    // 길드 가입 승인하기 시작
+    putAcceptGuildRequestFailed(state) {
+      state.loading = false;
+    },
+
+    // 길드 가입 거절하기 시작
+    deleteRejectGuildRequestStart(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 길드 가입 거절하기 시작
+    deleteRejectGuildRequestSuccess(state) {
+      state.loading = false;
+    },
+    // 길드 가입 거절하기 시작
+    deleteRejectGuildRequestFailed(state) {
+      state.loading = false;
+    },
+
+    // 나의 길드 요청 목록 조회 시작
+    getMyRequestStart(state) {
+      state.loading = true;
+    },
+    // 나의 길드 요청 목록 조회 성공
+    getMyRequestSuccess(state, action: PayloadAction<MyRequest[]>) {
+      state.loading = false;
+      state.MyRequestLst = action.payload;
+    },
+    // 나의 길드 요청 목록 조회 실패
+    getMyRequestFailed(state) {
+      state.loading = false;
+    },
+
+    // 길드 가입 요청 시작
+    postGuildRequestStart(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 길드 가입 요청 성공
+    postGuildRequestSuccess(state) {
+      state.loading = false;
+    },
+    // 길드 가입 요청 실패
+    postGuildRequestFailed(state) {
+      state.loading = false;
+    },
+
+    // 길드 탈퇴 시작
+    quitGuildStart(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 길드 탈퇴 성공
+    quitGuildSuccess(state) {
+      state.loading = false;
+    },
+    // 길드 탈퇴 실패
+    quitGuildFailed(state) {
       state.loading = false;
     },
   },

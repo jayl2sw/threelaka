@@ -75,7 +75,7 @@ const RecentVideo = () => {
           <RecentVideoDataContainer>
             <RecentVideoTextContainer>
               <p className="video-title">{videoTitle}</p>
-              <StudyProgressRegion>
+              <StudyProgressRegion className={'region-' + record.stage}>
                 <ProgressBarIndicator className={'indicator-' + record.stage} />
               </StudyProgressRegion>
               <RecentData>
