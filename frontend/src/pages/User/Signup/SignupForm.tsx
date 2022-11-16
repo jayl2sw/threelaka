@@ -133,6 +133,7 @@ const SignupForm = ({
     const emailCheckRes = await emailCheckApi(username);
     const nicknameCheckRes = await nicknameCheckApi(nickname);
     if (data.password !== data.passwordConfirm) {
+      console.log('이게말이됨');
       setError(
         'passwordConfirm', // 에러 핸들링할 input요소 name
         { message: '비밀번호가 일치하지 않습니다.' }, // 에러 메세지

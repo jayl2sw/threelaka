@@ -282,6 +282,9 @@ export const Count = styled.div`
 `;
 
 export const ProfileContainer = styled.div`
+  h3 {
+    margin: 0;
+  }
   display: grid;
   height: 90vh;
   grid-template-columns: repeat(2, 34vw);
@@ -292,7 +295,7 @@ export const ProfileImgBox = styled.div`
   width: 15vmin;
 
   z-index: 1;
-  top: -38vmin;
+  /* top: -38vmin; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -379,10 +382,10 @@ export const EditBtn = styled(MdChangeCircle)`
   font-size: 3vmin;
   color: #457b9d;
   cursor: pointer;
-  z-index: 3;
-  position: absolute;
+  /* z-index: 3; */
+  /* position: absolute; */
 
-  top: 11vh;
+  /* top: 13vh; */
 
   &:hover {
     color: #3b6986;

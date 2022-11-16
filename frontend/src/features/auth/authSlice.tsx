@@ -16,17 +16,28 @@ export interface SignupPayload {
   age: number;
   nickname: string;
 }
+export interface ModifyPayload {
+  gender: 'male' | 'female' | 'secret';
+  age: number;
+  nickname: string;
+}
+export interface ModifyPwdPayload {
+  newPW: string;
+  nowPW: string;
+}
 
 export interface AuthState {
   isLoggedIn: boolean;
   loading?: boolean;
   currentUser?: User;
+  errorStatus: number;
 }
 
 const initialState: AuthState = {
   isLoggedIn: false,
   loading: false, //로딩중
   currentUser: undefined, //유저정보 따로 요청보낼거임
+  errorStatus: 0,
 };
 
 const authSlice = createSlice({
@@ -44,7 +55,7 @@ const authSlice = createSlice({
       console.log(action.payload);
     },
     //회원정보수정
-    modifyUserInfo(state, action: PayloadAction<SignupPayload>) {
+    modifyUserInfo(state, action: PayloadAction<ModifyPayload>) {
       state.loading = true;
     },
     modifyUserInfoSuccess(state, action: PayloadAction<string>) {
@@ -52,6 +63,19 @@ const authSlice = createSlice({
     },
     modifyUserInfoFailed(state, action: PayloadAction<string>) {
       state.loading = false;
+      console.log(action.payload);
+    },
+    //비밀번호수정
+    modifyPwd(state, action: PayloadAction<ModifyPwdPayload>) {
+      state.loading = true;
+    },
+    modifyPwdSuccess(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    modifyPwdFailed(state, action: PayloadAction<any>) {
+      state.loading = false;
+      // status가 400일때 현재 비밀번호와 일치하지 않는것
+      state.errorStatus = action.payload;
       console.log(action.payload);
     },
 
@@ -63,8 +87,9 @@ const authSlice = createSlice({
       state.loading = false;
       console.log(action.payload);
     },
-    loginFailed(state, action: PayloadAction<string>) {
+    loginFailed(state, action: PayloadAction<any>) {
       state.loading = false;
+      state.errorStatus = action.payload;
     },
     fetchUser(state) {
       state.loading = true;
@@ -81,6 +106,9 @@ const authSlice = createSlice({
       state.isLoggedIn = false;
       state.currentUser = undefined;
       // Object.assign(state, initialState)
+    },
+    resetError(state) {
+      state.errorStatus = 0;
     },
   },
 });
