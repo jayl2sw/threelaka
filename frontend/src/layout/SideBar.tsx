@@ -10,7 +10,7 @@ import {
   ProfileImgBox,
   ProfileCenter,
 } from '../styles/DashBoard/DashBoardStyle';
-
+import { useNavigate } from 'react-router-dom';
 interface IOnClickProps {
   handleSwitchPage: (pageNum: number) => void;
   handleSwitchGuildPage: (guildPageType: string) => void;
@@ -25,6 +25,10 @@ const SideBar = ({
   const [selectedItem, setSelectedItem] = useState<number>(1);
   const onClickMenu = (props: number) => {
     setSelectedItem(props);
+  };
+  const navigate = useNavigate();
+  const goToHome = () => {
+    navigate('/');
   };
 
   return (
@@ -41,7 +45,8 @@ const SideBar = ({
         <img
           src="https://threelaka.s3.ap-northeast-2.amazonaws.com/mainlogo.png"
           alt="스리라까 로고"
-          style={{ width: '11vw' }}
+          style={{ width: '11vw', cursor: 'pointer' }}
+          onClick={goToHome}
         />
       </FlexTransparentDiv>
       <FlexTransparentDiv

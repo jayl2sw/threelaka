@@ -154,7 +154,7 @@ const UpdateProfile = () => {
                   totalStudyTime.time / 3600 >= 1 ? (
                     <div>{(totalStudyTime.time / 3600).toFixed(1)}Hr</div>
                   ) : (
-                    <div>{totalStudyTime.time / 60}Min</div>
+                    <div>{(totalStudyTime.time / 60).toFixed(1)}Min</div>
                   )}
                 </div>
               </div>

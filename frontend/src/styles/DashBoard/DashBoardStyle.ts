@@ -255,21 +255,27 @@ export const GradientBorderBox = styled.div`
 export const Wrapper = styled.div`
   position: relative;
   .dynamic-text-shadow {
-    top: -0.4vh;
+    top: -1vh;
     position: absolute;
-    left: 12vw;
+    left: 11.5vw;
     font-style: italic;
     margin: 0;
-    font-size: 5vmin;
+    /* font-size: 5vmin; */
     line-height: 2vmin;
     display: flex;
     align-items: center;
     text-align: center;
-    letter-spacing: 0.8vmin;
+    letter-spacing: 0.5vmin;
     font-variant: small-caps;
-
+    /* font-weight: bolder; */
+    font-family: 'pretendardbold';
     color: #457b9d;
-    text-shadow: 0.3vmin 0.3vmin 0 #1d3557;
+    /* text-shadow: 0.3vmin 0.3vmin 0 #1d3557; */
+    & span {
+      -webkit-text-stroke: 0.8px white; //텍스트 테두리
+    }
+    color: #457b9d;
+    font-size: 5.5vmin;
   }
 `;
 
@@ -278,7 +284,8 @@ export const Count = styled.div`
     -webkit-text-stroke: 2px #111111; //텍스트 테두리
   }
   color: white;
-  font-size: 5vmin;
+  font-size: 5.5vmin;
+  font-family: 'pretendardbold';
 `;
 
 export const ProfileContainer = styled.div`
