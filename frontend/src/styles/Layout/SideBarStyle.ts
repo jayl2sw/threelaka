@@ -7,7 +7,8 @@ export const MenuItems = styled.div`
     padding: 0 1vw;
     margin-left: 1.5vw;
     width: 11.5vw;
-    height: 8vh;
+    height: 7vh;
+    margin-bottom: 1vw;
     /* border: 1px black solid; */
     background-color: #111111;
     position: relative;
@@ -41,7 +42,7 @@ export const MenuItems = styled.div`
       height: 15px;
       /* background-color: yellow; */
       border-top-right-radius: 10px;
-      top: 8vh;
+      top: 7vh;
       right: 0px;
       box-shadow: 0px -7px 0 0px #dfecf9;
     }
@@ -81,7 +82,7 @@ export const MenuItems = styled.div`
     height: 15px;
     /* background-color: yellow; */
     border-top-right-radius: 10px;
-    top: 8vh;
+    top: 7vh;
     right: 0px;
     box-shadow: 0px -7px 0 0px #dfecf9;
   }

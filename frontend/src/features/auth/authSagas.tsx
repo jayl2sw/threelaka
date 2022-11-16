@@ -20,7 +20,7 @@ import {
 import { User } from '../../models/user';
 
 function* createUser(action: PayloadAction<SignupPayload>) {
-  const { fetchUser, login } = authActions;
+  const { fetchUser, login, isNewbie } = authActions;
   try {
     const response: string = yield call(createUserApi, action.payload);
     //string이 타입
@@ -28,6 +28,7 @@ function* createUser(action: PayloadAction<SignupPayload>) {
     yield put(authActions.signupSuccess(response));
     yield put(login({ username, password }));
     yield put(fetchUser());
+    yield put(isNewbie());
     // console.log(username,password)
     //바로로그인 기능 일단 off
   } catch (error) {}

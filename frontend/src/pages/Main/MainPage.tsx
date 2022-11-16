@@ -18,7 +18,7 @@ import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import RecommendVideoList from './components/RecommendVideoList';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import VideoModal from '../../utils/VideoModal';
-
+import TagSelectModal from './components/TagSelectModal';
 const MainPage = () => {
   let observer = new IntersectionObserver((e) => {
     // console.log('observer start', e);
@@ -52,6 +52,7 @@ const MainPage = () => {
       <MainPageBlock>
         <FirstpageBlock ref={firstpageBlock}>
           <SearchBarBlock id="searchBarBlock">
+            <TagSelectModal></TagSelectModal>
             <LogoBlock>
               <img
                 src="https://threelaka.s3.ap-northeast-2.amazonaws.com/mainlogo.png"
