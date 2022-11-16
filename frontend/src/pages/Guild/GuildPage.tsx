@@ -54,9 +54,9 @@ const GuildPage = () => {
             border: '2px solid green',
           }}
         >
-          {pageNum === '1' && <DailyBoard />}
+          {/* {pageNum === '1' && <DailyBoard />}
           {pageNum === '2' && <HistoryBoard />}
-          {pageNum === '3' && <Profile />}
+          {pageNum === '3' && <Profile />} */}
           {guildPageType === 'main' && <GuildMain />}
           {guildPageType === 'myGuild' && <MyGuild />}
           {guildPageType === 'admin' && <MasterSetting />}

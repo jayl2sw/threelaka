@@ -10,6 +10,7 @@ import {
   getMonthStudyTimeApi,
   getStudyHistoryApi,
   updateProfileApi,
+  getTotalStudyTimeApi,
 } from '../../services/dashboardApi';
 import { dashboardActions } from './dashboard-slice';
 import {
@@ -17,6 +18,7 @@ import {
   CompletedVideos,
   MonthStudyTime,
   StudyHistory,
+  TotalStudyTime,
 } from '../../models/dashboard';
 
 // 현재공부중인 영상 불러오기 SAGA
@@ -84,6 +86,18 @@ function* onStudyHistoryAsync(action: PayloadAction<StudyHistory>) {
     yield put(dashboardActions.getStudyHistoryFailed(error.data));
   }
 }
+//총 학습시간 불러오기
+function* onTotalStudyTimeAsync(action: PayloadAction<TotalStudyTime>) {
+  try {
+    const response: TotalStudyTime = yield call(
+      getTotalStudyTimeApi,
+      action.payload
+    );
+    yield put(dashboardActions.getTotalStudyTimeSuccess(response));
+  } catch (error: any) {
+    yield put(dashboardActions.getTotalStudyTimeFailed(error.data));
+  }
+}
 
 //프로필수정
 function* onUpdateProfileAsync(action: PayloadAction<string>) {
@@ -136,6 +150,13 @@ export function* watchGetStudyHistoryAsync() {
 export function* watchUpdateProfileAsync() {
   yield takeLatest(dashboardActions.updateProfile.type, onUpdateProfileAsync);
 }
+//총학습시간
+export function* watchTotalStudyTimeAsync() {
+  yield takeLatest(
+    dashboardActions.getTotalStudyTime.type,
+    onTotalStudyTimeAsync
+  );
+}
 export const dashboardSagas = [
   fork(watchGetRecentVideoAsync),
   fork(watchGetCompletedVideoAsync),
@@ -143,4 +164,5 @@ export const dashboardSagas = [
   fork(watchGetMonthStudyTimeAsync),
   fork(watchGetStudyHistoryAsync),
   fork(watchUpdateProfileAsync),
+  fork(watchTotalStudyTimeAsync),
 ];

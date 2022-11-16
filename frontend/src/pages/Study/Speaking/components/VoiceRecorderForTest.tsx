@@ -99,9 +99,10 @@ const VoiceRecorderForTest = ({
       <p style={{ textAlign: 'center', fontSize: '2vmin' }}>
         {new Date(timer * 1000).toISOString().substr(11, 8)}
       </p>
+      {/* null일때 */}
+      {/* <p>테스트하고 싶은 문장을 클릭해보세요!</p> */}
       {/* idle => 빨간 점, recordeing: REC 로고 */}
       {/* <p>{status}</p> */}
-
       <RecordBox>
         <VideoAudioBtnContainer className="test-recorder" style={{}}>
           {isRecording ? (

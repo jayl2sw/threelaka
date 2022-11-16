@@ -1,7 +1,13 @@
 import { delay, put } from 'redux-saga/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, takeLatest } from 'redux-saga/effects';
-import { SignupPayload, LoginPayload, authActions } from './authSlice';
+import {
+  SignupPayload,
+  LoginPayload,
+  authActions,
+  ModifyPayload,
+  ModifyPwdPayload,
+} from './authSlice';
 import { ILoginResponse } from '../../services/userApi';
 import {
   createUserApi,
@@ -9,6 +15,7 @@ import {
   userInfoApi,
   logoutApi,
   modifyUserApi,
+  modifyPwdApi,
 } from '../../services/userApi';
 import { User } from '../../models/user';
 
@@ -39,7 +46,9 @@ function* login(action: PayloadAction<LoginPayload>) {
 
     yield put(authActions.loginSuccess(response));
     yield put(authActions.fetchUser());
-  } catch (error) {}
+  } catch (error: any) {
+    yield put(authActions.loginFailed(error.response.data.status));
+  }
 }
 function* watchLoginFlow() {
   yield takeLatest(authActions.login.type, login);
@@ -71,7 +80,7 @@ function* watchLogoutFlow() {
   yield takeLatest(authActions.logout.type, logout);
 }
 
-function* modifyUser(action: PayloadAction<SignupPayload>) {
+function* modifyUser(action: PayloadAction<ModifyPayload>) {
   const { fetchUser } = authActions;
   try {
     const response: string = yield call(modifyUserApi, action.payload);
@@ -88,6 +97,25 @@ function* modifyUser(action: PayloadAction<SignupPayload>) {
 function* watchModifyUserFlow() {
   yield takeLatest(authActions.modifyUserInfo.type, modifyUser);
 }
+function* modifyPwd(action: PayloadAction<ModifyPwdPayload>) {
+  const { fetchUser } = authActions;
+  console.log('어디서막힘?');
+  try {
+    const response: string = yield call(modifyPwdApi, action.payload);
+    //string이 타입
+
+    yield put(authActions.modifyPwdSuccess(response));
+
+    yield put(fetchUser());
+  } catch (error: any) {
+    console.warn('에러', error.response.data.status);
+    yield put(authActions.modifyPwdFailed(error.response.data.status));
+  }
+}
+
+function* watchModifyPwdFlow() {
+  yield takeLatest(authActions.modifyPwd.type, modifyPwd);
+}
 
 export const authSagas = [
   fork(watchSignupFlow),
@@ -95,4 +123,5 @@ export const authSagas = [
   fork(watchLogoutFlow),
   fork(watchfetchUserFlow),
   fork(watchModifyUserFlow),
+  fork(watchModifyPwdFlow),
 ];

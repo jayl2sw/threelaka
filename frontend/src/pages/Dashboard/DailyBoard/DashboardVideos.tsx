@@ -1,16 +1,23 @@
 import React from 'react';
-import { useEffect, RefObject } from 'react';
+import { useEffect, RefObject, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
 import DashboardVideoCard from './DashboardVideoCard';
 import { RecentVideoContainer } from '../../../styles/DashBoard/DashBoardStyle';
+
 interface IRecentVideosPros {
   recentVideoBlock: RefObject<HTMLDivElement>;
   mode: number;
+  setModalToggleVideoId: (nextVideoId: string) => void;
 }
 
-const DashboardVideos = ({ recentVideoBlock, mode }: IRecentVideosPros) => {
+const DashboardVideos = ({
+  recentVideoBlock,
+  mode,
+  setModalToggleVideoId,
+}: IRecentVideosPros) => {
   const dispatch = useAppDispatch();
+
   // 현재 공부중인 영상 리스트
   useEffect(() => {
     dispatch(dashboardActions.getRecentVideos());
@@ -38,11 +45,23 @@ const DashboardVideos = ({ recentVideoBlock, mode }: IRecentVideosPros) => {
           {recentVideoList.length !== 0 ? (
             recentVideoList.length > 3 ? (
               recentVideoList.slice(0, 2).map((data, i) => {
-                return <DashboardVideoCard data={data} key={i} />;
+                return (
+                  <DashboardVideoCard
+                    data={data}
+                    key={i}
+                    setModalToggleVideoId={setModalToggleVideoId}
+                  />
+                );
               })
             ) : (
               recentVideoList.map((data, i) => {
-                return <DashboardVideoCard data={data} key={i} />;
+                return (
+                  <DashboardVideoCard
+                    data={data}
+                    key={i}
+                    setModalToggleVideoId={setModalToggleVideoId}
+                  />
+                );
               })
             )
           ) : (
@@ -57,7 +76,13 @@ const DashboardVideos = ({ recentVideoBlock, mode }: IRecentVideosPros) => {
         >
           {completedVideoList.length !== 0 ? (
             completedVideoList.map((data, i) => {
-              return <DashboardVideoCard data={data} key={i} />;
+              return (
+                <DashboardVideoCard
+                  data={data}
+                  key={i}
+                  setModalToggleVideoId={setModalToggleVideoId}
+                />
+              );
             })
           ) : (
             <div>'공부 완료한 영상이 없어요'</div>
