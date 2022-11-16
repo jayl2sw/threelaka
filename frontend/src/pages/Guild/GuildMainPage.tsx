@@ -13,6 +13,8 @@ import {
   FlexTransparentDiv,
 } from '../../styles/Common/CommonDivStyle';
 import { useNavigate } from 'react-router-dom';
+import { RiBearSmileLine } from 'react-icons/ri';
+import { FaCrown } from 'react-icons/fa';
 
 const GuildMain = () => {
   const dispatch = useAppDispatch();
@@ -52,7 +54,24 @@ const GuildMain = () => {
         IsBorder={'none'}
         style={{ fontSize: '3vmin', fontFamily: 'PretendardRegular' }}
       >
-        이번주 우수 길드
+        <p
+          style={{
+            fontSize: '2vmin',
+            fontWeight: 'bold',
+            margin: '0 25%',
+            transform: 'translateX(-50%)',
+          }}
+        >
+          <RiBearSmileLine
+            size={20}
+            style={{ marginRight: '1vmin', verticalAlign: 'middle' }}
+          />
+          이번 주 우수 길드
+          <RiBearSmileLine
+            size={20}
+            style={{ marginLeft: '1vmin', verticalAlign: 'middle' }}
+          />
+        </p>
       </FlexTransparentDiv>
       <FlexTransparentDiv
         widthSize={'65vw'}
@@ -99,6 +118,17 @@ const GuildMain = () => {
                   backgroundUrl={topThreeGuild[0] && topThreeGuild[0].profile}
                   style={{ position: 'relative', marginRight: '2vw' }}
                 >
+                  <FaCrown
+                    style={{
+                      color: '#ffb94c',
+                      position: 'absolute',
+                      width: '9vmin',
+                      height: '9vmin',
+                      top: '-9.5vmin',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                    }}
+                  />
                   <div
                     style={{
                       width: '20vmin',
@@ -126,6 +156,17 @@ const GuildMain = () => {
                   backgroundUrl={topThreeGuild[1] && topThreeGuild[1].profile}
                   style={{ position: 'relative', marginRight: '2vw' }}
                 >
+                  <FaCrown
+                    style={{
+                      color: '#bcbcbc',
+                      position: 'absolute',
+                      width: '7vmin',
+                      height: '7vmin',
+                      top: '-7.5vmin',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                    }}
+                  />
                   <div
                     style={{
                       width: '15vmin',
@@ -153,6 +194,17 @@ const GuildMain = () => {
                   backgroundUrl={topThreeGuild[2] && topThreeGuild[2].profile}
                   style={{ position: 'relative', marginRight: '0vw' }}
                 >
+                  <FaCrown
+                    style={{
+                      color: '#cc7c00',
+                      position: 'absolute',
+                      width: '5vmin',
+                      height: '5vmin',
+                      top: '-5.5vmin',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                    }}
+                  />
                   <div
                     style={{
                       width: '10vmin',
@@ -189,7 +241,11 @@ const GuildMain = () => {
             }}
           >
             {myGuildInfo.guildId === 0 ? (
-              <div>길드가 없어요, 생성?</div>
+              <div>
+                아직 가입한 길드가 없어요 :&#40;
+                <br />
+                길드란 어쩌구 저쩌구 길드 설명 와좌좌
+              </div>
             ) : (
               <>
                 <FlexTransparentDiv
