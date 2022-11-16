@@ -71,3 +71,24 @@ export interface MyguildInfo {
   notice: string;
   assignments: AssignmentVideo[];
 }
+
+export interface MyguildLearnTime {
+  time: number;
+  profile: string;
+  userId: number;
+  nickname: string;
+}
+
+// 나의 길드 가입 요청 리스트
+export interface MyRequest {
+  guildName: string;
+  state: string;
+}
+
+// 내가 길드장인 길드에 온 요청 리스트
+export interface GuildRequest {
+  guildId: number;
+  requstId: number;
+  state: string;
+  userId: number;
+}

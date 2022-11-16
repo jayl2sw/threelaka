@@ -107,7 +107,7 @@ const GradientInput = ({
         style={{ position: 'absolute', right: '-4vw', top: '-0vh' }}
         onClick={(e) => onClickHandler(e)}
       >
-        안녕
+        검색
       </MainBtn>
     </div>
   );

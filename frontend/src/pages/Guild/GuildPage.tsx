@@ -50,7 +50,7 @@ const GuildPage = () => {
           style={{
             marginTop: '5vh',
             marginLeft: '3.5vw',
-            fontFamily: 'fredoka',
+            fontFamily: 'pretendardRegular',
             border: '2px solid green',
           }}
         >

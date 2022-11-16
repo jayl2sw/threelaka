@@ -5,6 +5,7 @@ import GradientInput from '../../utils/GradientInput';
 import { useAppDispatch } from '../../utils/hooks';
 import { useAppSelector } from './../../utils/hooks';
 import VideoCard from '../Main/components/VideoCard';
+import VideoModal from '../../utils/VideoModal';
 
 const VideosPage = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ const VideosPage = () => {
   //useState
   const [inputValue, setInpuValue] = useState<string>('');
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
   // onClickHandler
   const onClickSearchVideo = (e: React.MouseEvent<HTMLButtonElement>) => {
     const keyword = inputValue.trim();
@@ -28,6 +30,11 @@ const VideosPage = () => {
   };
   return (
     <>
+      <VideoModal
+        modalStyleNum={1}
+        modalToggleVideoId={modalToggleVideoId}
+        setModalToggleVideoId={setModalToggleVideoId}
+      ></VideoModal>
       <FlexTransparentDiv
         widthSize={'100vw'}
         heightSize={'8vh'}
@@ -99,13 +106,18 @@ const VideosPage = () => {
           >
             {searchResultVideo &&
               searchResultVideo.map((videoData, i) => {
-                return <VideoCard data={videoData} key={`video-${i}`} />;
+                return (
+                  <VideoCard
+                    setModalToggleVideoId={setModalToggleVideoId}
+                    data={videoData}
+                    key={`video-${i}`}
+                  />
+                );
               })}
             {/* {searchResultVideo.length > 0
               ? searchResultVideo[0].description
               : ''} */}
           </FlexTransparentDiv>
-          검색해주세요
         </FlexTransparentDiv>
       </FlexTransparentDiv>
     </>

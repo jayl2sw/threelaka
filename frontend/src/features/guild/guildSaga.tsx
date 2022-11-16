@@ -8,6 +8,9 @@ import {
   TopThreeGuild,
   GuildDetailInfo,
   MyguildInfo,
+  MyguildLearnTime,
+  GuildRequest,
+  MyRequest,
 } from '../../models/guild';
 import {
   getGuildNoticeApi,
@@ -22,6 +25,13 @@ import {
   GetTopThreeGuildApi,
   GetSortedGuildApi,
   GetSearchGuildApi,
+  GetGuildLearnTimeApi,
+  GetGuildRequestsApi,
+  AccpetGuildRequestApi,
+  RejectGuildRequestApi,
+  GetMyRequestApi,
+  PostGuildRequestApi,
+  QuitGuildApi,
 } from '../../services/guildApi';
 import { guildActions } from './guild-slice';
 
@@ -165,6 +175,87 @@ function* onGetSearchGuildAsync() {
   }
 }
 
+// 길드 학습량 조회
+function* onGetGuildLearnTimeAsync() {
+  try {
+    const guildId: string = yield select(
+      (state) => state.auth.currentUser.guildId
+    );
+    if (guildId !== null) {
+      const reponse: MyguildLearnTime[] = yield call(
+        GetGuildLearnTimeApi,
+        guildId
+      );
+      yield put(guildActions.getGuildLearnTimeSuccess(reponse));
+    }
+  } catch (error) {
+    console.error();
+  }
+}
+
+// 내가 마스터인 길드 가입 요청 조회
+function* onGetGuildRequestsAsync() {
+  try {
+    const reponse: GuildRequest[] = yield call(GetGuildRequestsApi);
+    yield put(guildActions.getGuildRequestSuccess(reponse));
+  } catch (error) {
+    console.error();
+  }
+}
+
+// 길드 가입 승인하기
+function* onAccpetGuildRequestAsync(action: PayloadAction<number>) {
+  try {
+    yield call(AccpetGuildRequestApi, action.payload);
+    yield put(guildActions.putAcceptGuildRequestSuccess());
+    yield put(guildActions.getGuildRequestStart());
+  } catch (error) {
+    console.error();
+  }
+}
+
+// 길드 가입 거절
+function* onRejectGuildRequestAsync(action: PayloadAction<number>) {
+  try {
+    yield call(RejectGuildRequestApi, action.payload);
+    yield put(guildActions.deleteRejectGuildRequestSuccess());
+    yield put(guildActions.getGuildRequestStart());
+  } catch (error) {
+    console.error();
+  }
+}
+
+// 나의 길드 요청 목록 조회
+function* onGetMyRequestAsync() {
+  try {
+    const response: MyRequest[] = yield call(GetMyRequestApi);
+    yield put(guildActions.getMyRequestSuccess(response));
+  } catch (error) {
+    console.error();
+  }
+}
+
+// 길드 가입 요청 하기
+function* onPostGuildRequestAsync(action: PayloadAction<number>) {
+  try {
+    yield call(PostGuildRequestApi, action.payload);
+    yield put(guildActions.postGuildRequestSuccess());
+  } catch (error) {
+    console.error();
+  }
+}
+
+// 길드 가입 거절
+function* onQuitGuildAsync(action: PayloadAction<number>) {
+  try {
+    yield call(QuitGuildApi, action.payload);
+    yield put(guildActions.quitGuildSuccess());
+    yield put(guildActions.getGuildRequestStart());
+  } catch (error) {
+    console.error();
+  }
+}
+
 // 길드 공지 받아오기 watch
 export function* watchGetGuildNoticeAsync() {
   yield takeLatest(guildActions.getGuildNotice.type, onGetGuildNoticeAsync);
@@ -239,6 +330,56 @@ export function* watchGetSearchGuildAsync() {
   );
 }
 
+// 길드 학습량 watch
+export function* watchgetGuildLearnTimeAsync() {
+  yield takeLatest(
+    guildActions.getGuildLearnTimeStart.type,
+    onGetGuildLearnTimeAsync
+  );
+}
+
+// 내가 마스터인 길드 가입 요청 조회 watch
+export function* watchGetGuildRequestsAsync() {
+  yield takeLatest(
+    guildActions.getGuildRequestStart.type,
+    onGetGuildRequestsAsync
+  );
+}
+
+// 길드 가입 승인하기 watch
+export function* watchAccpetGuildRequestAsync() {
+  yield takeLatest(
+    guildActions.putAcceptGuildRequestStart.type,
+    onAccpetGuildRequestAsync
+  );
+}
+
+// 길드 가입 거절 watch
+export function* watchRejectGuildRequestApiAsync() {
+  yield takeLatest(
+    guildActions.deleteRejectGuildRequestStart.type,
+    onRejectGuildRequestAsync
+  );
+}
+
+// 나의 길드 요청 목록 조회
+export function* watchGetMyRequestAsync() {
+  yield takeLatest(guildActions.getMyRequestStart.type, onGetMyRequestAsync);
+}
+
+// 길드 가입 요청 하기
+export function* watchPostGuildRequestAsync() {
+  yield takeLatest(
+    guildActions.postGuildRequestStart.type,
+    onPostGuildRequestAsync
+  );
+}
+
+// 내가 가입한 길드 탈퇴
+export function* watchgQuitGuildApiAsync() {
+  yield takeLatest(guildActions.quitGuildStart.type, onQuitGuildAsync);
+}
+
 export const guildSagas = [
   fork(watchGetGuildNoticeAsync),
   fork(watchGetProgressTaskAsync),
@@ -251,4 +392,11 @@ export const guildSagas = [
   fork(watchGetTopThreeGuildAsync),
   fork(watchGetSortedGuildAsync),
   fork(watchGetSearchGuildAsync),
+  fork(watchgetGuildLearnTimeAsync),
+  fork(watchGetGuildRequestsAsync),
+  fork(watchAccpetGuildRequestAsync),
+  fork(watchRejectGuildRequestApiAsync),
+  fork(watchGetMyRequestAsync),
+  fork(watchPostGuildRequestAsync),
+  fork(watchgQuitGuildApiAsync),
 ];
