@@ -57,6 +57,11 @@ export const exitRoom = () => {
   socket.emit('exit-room');
 };
 
+const DispatchNewGuildInfo = (data: any) => {
+  const dispatch = useAppDispatch();
+  dispatch(guildActions.putGuildInfo(data));
+};
+
 // 받는거
 export const connectWithSocketIOServer = () => {
   socket = io(SERVER);
@@ -77,9 +82,11 @@ export const connectWithSocketIOServer = () => {
     };
     console.log('newGuildInfo', newGuildInfo);
     console.log('----------------------');
-    let guildInfo = useAppSelector((state) => state.guild.guildInfo);
-    console.log(guildInfo, 'guildInfo');
-    guildInfo = data;
+    DispatchNewGuildInfo(newGuildInfo);
+    console.log('----------------------');
+    // let guildInfo = useAppSelector((state) => state.guild.guildInfo);
+    // console.log(guildInfo, 'guildInfo');
+    // guildInfo = data;
     // const dispatch = useAppDispatch();
     // dispatch(guildActions.putGuildInfo(newGuildInfo));
   });

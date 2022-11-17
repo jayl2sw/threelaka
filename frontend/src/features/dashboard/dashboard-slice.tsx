@@ -17,6 +17,7 @@ type DashboardState = {
   completedVideoList: CompletedVideos[];
   dailyStudyTime: Array<Object>;
   monthStudyTime: Array<Object>;
+  tagList: Array<string>;
   seqDays: number;
 
   // 학습히스토리
@@ -42,6 +43,7 @@ let initialState: DashboardState = {
   totalStudyTime: {
     time: 0,
   },
+  tagList: [],
 };
 
 // Slice
@@ -142,6 +144,31 @@ const dashboardSlice = createSlice({
     },
 
     getTotalStudyTimeFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    //태그 등록 및 수정
+    updateTag(state, action: PayloadAction<number[]>) {
+      state.loading = true;
+    },
+
+    updateTagSuccess(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    updateTagFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 사용자 tag 받아오기
+    getTagList(state) {
+      state.loading = true;
+    },
+
+    getTagListSuccess(state, action: PayloadAction<string[]>) {
+      state.loading = false;
+      state.tagList = action.payload;
+    },
+
+    getTagListFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
   },

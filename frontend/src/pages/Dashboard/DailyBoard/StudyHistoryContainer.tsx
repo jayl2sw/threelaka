@@ -28,7 +28,7 @@ const StudyHistoryContainer = () => {
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <RiBearSmileLine size={26} />
-        <h3 style={{ margin: '0' }}>Study History Count</h3>
+        <h3 style={{ margin: '0' }}>&nbsp;숫자로 보는 나의 영어 기록</h3>
       </div>
 
       <MainBox
@@ -41,6 +41,7 @@ const StudyHistoryContainer = () => {
           marginTop: '1vh',
           display: 'flex',
           justifyContent: 'space-between',
+          boxShadow: 'none',
         }}
       >
         <HistoryCounter mode={'videos'}></HistoryCounter>

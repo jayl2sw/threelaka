@@ -170,13 +170,15 @@ export const VideoDataBox = styled.div`
 export const ListInfo = styled.div`
   display: flex;
   /* border: solid red 2px; */
-  width: 20vw;
+  width: 30vw;
   height: 4vh;
   margin-top: 6.2vh;
-  // margin-bottom: -1vh;
-  margin-right: 57vw;
+  flex-direction: row;
+
+  margin-right: 48vw;
   font-size: 3.2vmin;
   font-weight: bold;
+  align-items: baseline;
 `;
 
 export const VideoImg = styled.img`

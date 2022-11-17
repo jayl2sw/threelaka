@@ -5,6 +5,7 @@ import './index.css';
 import { store } from './features/store';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import 'react-day-picker/dist/style.css';
 
 ReactDOM.render(
   <Provider store={store}>

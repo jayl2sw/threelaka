@@ -39,11 +39,7 @@ const EozModal = (props: EnterRoomModalType) => {
   };
 
   useEffect(() => {
-    console.log('useEffect발동!!!!!!!!!!!!', startEoz);
     if (startEoz) {
-      console.log('roomInfo', roomInfo);
-      console.log('guildId', guildId);
-      console.log('learningRecordId', learningRecordId);
       webrtc.getLocalPreviewAndInitRoomConnection(
         roomInfo,
         guildId,

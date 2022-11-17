@@ -146,7 +146,7 @@ export const DateIndicatorContainer = styled.div`
   .streak:hover:before {
     content: attr(data-tooltip);
     position: absolute;
-    width: 9vw;
+    width: 10vw;
     padding: 1vh 1vw;
 
     margin: 10vh 0 0 0;
@@ -164,9 +164,10 @@ export const DateIndicatorContainer = styled.div`
     margin: 2vh 0 0 0.1vw;
     width: 0;
     height: 0;
-    border-bottom: 0.4vw solid #ffb200;
-    border-left: 0.4vw solid transparent;
-    border-right: 0.4vw solid transparent;
+    transform: translateY(100%);
+    border-bottom: 0.8vw solid #ffb200;
+    border-left: 0.8vw solid transparent;
+    border-right: 0.8vw solid transparent;
   }
 `;
 
@@ -219,6 +220,8 @@ export const GraphBox = styled.div`
     position: absolute;
     top: 1vh;
     left: 0.5vw;
+    height: 100%;
+    width: 100%;
   }
 `;
 
@@ -256,33 +259,31 @@ export const GradientBorderBox = styled.div`
 export const Wrapper = styled.div`
   position: relative;
   .dynamic-text-shadow {
-    top: -1vh;
     position: absolute;
-    left: 11.5vw;
+    top: -6vh;
+    right: 0vw;
     font-style: italic;
     margin: 0;
-    /* font-size: 5vmin; */
     line-height: 2vmin;
     display: flex;
     align-items: center;
     text-align: center;
-    letter-spacing: 0.5vmin;
     font-variant: small-caps;
-    /* font-weight: bolder; */
-    font-family: 'pretendardbold';
-    color: #457b9d;
-    /* text-shadow: 0.3vmin 0.3vmin 0 #1d3557; */
-    & span {
-      -webkit-text-stroke: 0.8px white; //텍스트 테두리
-    }
-    color: #457b9d;
+    font-family: 'pretendardextrabold';
+    color: white;
+    text-shadow: 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+      0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+      0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+      0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+      0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+      0 0 6px #457b9d, 0 0 6px #457b9d;
     font-size: 5.5vmin;
   }
 `;
 
 export const Count = styled.div`
   & span {
-    -webkit-text-stroke: 2px #111111; //텍스트 테두리
+    text-shadow: 0 0 5px #457b9d, 0 0 5px #457b9d; //텍스트 테두리
   }
   color: white;
   font-size: 5.5vmin;
@@ -380,9 +381,13 @@ export const RadioBtn = styled.input`
 `;
 
 export const EditBtn = styled(MdChangeCircle)`
+  position: absolute;
+  bottom: 1vmin;
+  right: 1vmin;
   font-size: 3vmin;
   color: #457b9d;
   cursor: pointer;
+  transition: 0.3s;
   /* z-index: 3; */
   /* position: absolute; */
 
@@ -390,6 +395,10 @@ export const EditBtn = styled(MdChangeCircle)`
 
   &:hover {
     color: #3b6986;
+    width: 4vmin;
+    height: 4vmin;
+    bottom: 0.5vmin;
+    right: 0.5vmin;
   }
 `;
 
