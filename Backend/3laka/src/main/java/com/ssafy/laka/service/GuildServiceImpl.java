@@ -370,7 +370,7 @@ public class GuildServiceImpl implements GuildService{
                 .build();
         assignmentRepository.save(assignment);
 //         길드 멤버들에게 alert 보냄
-        ArrayList<User> members = userRepository.findUsersByGuild(guildRepository.findById(info.getGuildId()).orElseThrow(GuildNotFoundException::new));
+        ArrayList<User> members = userRepository.findUsersByGuild(guildRepository.findById(me.getGuild().getId()).orElseThrow(GuildNotFoundException::new));
         for (User member : members) {
             Alert alert = Alert.builder()
                     .user(member)

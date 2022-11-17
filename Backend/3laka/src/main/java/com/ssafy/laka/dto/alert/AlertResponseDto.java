@@ -13,6 +13,8 @@ import lombok.*;
 public class AlertResponseDto {
     private Integer alertId;
     private Integer assignmentId;
+    private String videoId;
+    private String videoTitle;
     private Integer guildId;
     private String guildName;
     private AlertState alertState;
@@ -21,6 +23,8 @@ public class AlertResponseDto {
         return AlertResponseDto.builder()
                 .alertId(entity.getAlertId())
                 .assignmentId(entity.getAssignment() == null ? null : entity.getAssignment().getAssignmentId())
+                .videoId(entity.getAssignment() == null ? null : entity.getAssignment().getVideo().getVideoId())
+                .videoTitle(entity.getAssignment() == null ? null : entity.getAssignment().getVideo().getTitle())
                 .guildId(entity.getGuild() == null ? null : entity.getGuild().getId())
                 .guildName(entity.getGuild()== null ? null : entity.getGuild().getGuildName())
                 .alertState(entity.getAlertState())
