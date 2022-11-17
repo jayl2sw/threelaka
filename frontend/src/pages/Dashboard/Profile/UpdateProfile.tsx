@@ -13,15 +13,22 @@ import { useAppSelector, useAppDispatch } from '../../../utils/hooks';
 import ModifyUserInfo from './ModifyUserInfo';
 import SelectProfile from './SelectProfile';
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
+import UpdateTagModal from './UpdateTagModal';
+import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
 const UpdateProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isTagOpen, setIsTagOpen] = useState(false);
   const [profileNum, setProfileNum] = useState('');
 
   const openModalProfle = () => {
     setIsOpen(!isOpen);
   };
+  const openModalTag = () => {
+    setIsTagOpen(!isTagOpen);
+  };
   const profile = useAppSelector((state) => state.auth.currentUser?.profile);
   const myGuildInfo = useAppSelector((state) => state.guild.myGuildInfo);
+  const tagList = useAppSelector((state) => state.dashboard.tagList);
   const dispatch = useAppDispatch();
   const totalStudyTime = useAppSelector(
     (state) => state.dashboard.totalStudyTime
@@ -177,6 +184,13 @@ const UpdateProfile = () => {
         alignItems={'center'}
         IsBorder={'is'}
       >
+
+        {isTagOpen ? (
+          <UpdateTagModal isTagOpen={isTagOpen} setIsTagOpen={setIsTagOpen} />
+        ) : null}
+
+        {/* <UpdateTagModal isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+
         <MainBox
           widthSize={'28vw'}
           heightSize={'28vh'}
@@ -186,6 +200,46 @@ const UpdateProfile = () => {
           style={{ marginTop: '9vh' }}
         >
           <h3>관심태그수정</h3>
+          <h3>나의 관심 태그</h3>
+          <FlexTransparentDiv
+            widthSize={'24vw'}
+            heightSize={'17vh'}
+            paddingSize={'0'}
+            flexDirection={'row'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            IsBorder={'is'}
+          >
+            {tagList.length !== 0
+              ? tagList.map((item, idx) => {
+                  return (
+                    <span
+                      style={{
+                        marginRight: '1vw',
+                        lineHeight: '28px',
+                        fontSize: '3vmin',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      #{item}
+                    </span>
+                  );
+                })
+              : null}
+          </FlexTransparentDiv>
+          <MainBtn
+            widthSize={'5vw'}
+            heightSize={'4vh'}
+            paddingSize={'0'}
+            fontSize={'2.5vmin'}
+            fontColor={'white'}
+            backgroundColor={'black'}
+            style={{ marginLeft: '9vw', borderRadius: '5vmin' }}
+            onClick={openModalTag}
+          >
+            수정
+          </MainBtn>
+>>>>>>> a51c13a230279e595069a32a0c9e667d7445dd86
         </MainBox>
       </FlexTransparentDiv>
     </FlexTransparentDiv>

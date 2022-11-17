@@ -59,7 +59,7 @@ export const exitRoom = () => {
 
 const DispatchNewGuildInfo = (data: any) => {
   const dispatch = useAppDispatch();
-  dispatch(guildActions.putGuildInfo(data));
+  // dispatch(guildActions.putGuildInfo(data));
 };
 
 // 받는거

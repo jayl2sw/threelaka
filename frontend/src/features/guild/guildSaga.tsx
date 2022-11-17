@@ -255,20 +255,20 @@ function* onQuitGuildAsync(action: PayloadAction<number>) {
   }
 }
 
-// GuildInfo Redux에 저장하기
-function* onPutGuildInfo(action: PayloadAction<GuildInfo>) {
-  try {
-    console.log('guildSaga, onPutGuildInfo------------');
-    const newGuildInfo = action.payload;
-    console.log('newGuildInfo', newGuildInfo);
-    yield put(guildActions.putGuildInfoSuccess(newGuildInfo));
-  } catch (error) {
-    console.error();
-    console.log('guildSaga에서 putGuildInfo 실패 ㅜㅜ');
-    yield put(guildActions.putGuildInfoFailed);
-  }
-  // 여기서 store에 집어 넣어야 함
-}
+// // GuildInfo Redux에 저장하기
+// function* onPutGuildInfo(action: PayloadAction<GuildInfo>) {
+//   try {
+//     console.log('guildSaga, onPutGuildInfo------------');
+//     const newGuildInfo = action.payload;
+//     console.log('newGuildInfo', newGuildInfo);
+//     yield put(guildActions.putGuildInfoSuccess(newGuildInfo));
+//   } catch (error) {
+//     console.error();
+//     console.log('guildSaga에서 putGuildInfo 실패 ㅜㅜ');
+//     yield put(guildActions.putGuildInfoFailed);
+//   }
+//   // 여기서 store에 집어 넣어야 함
+// }
 
 // 길드 과제 만들기
 function* onPostGuildAssignmentAsync(action: PayloadAction<GuildAssignment>) {
@@ -418,9 +418,9 @@ export function* watchgQuitGuildApiAsync() {
   yield takeLatest(guildActions.quitGuildStart.type, onQuitGuildAsync);
 }
 
-export function* watchPutGuildInfo() {
-  yield takeLatest(guildActions.putGuildInfo.type, onPutGuildInfo);
-}
+// export function* watchPutGuildInfo() {
+//   yield takeLatest(guildActions.putGuildInfo.type, onPutGuildInfo);
+// }
 
 // 길드 과제 만들기
 export function* watchPostGuildAssignmentAsync() {
@@ -457,7 +457,7 @@ export const guildSagas = [
   fork(watchGetMyRequestAsync),
   fork(watchPostGuildRequestAsync),
   fork(watchgQuitGuildApiAsync),
-  fork(watchPutGuildInfo),
+  // fork(watchPutGuildInfo),
   fork(watchPostGuildAssignmentAsync),
   fork(watchDeleteGuildAssignmentAsync),
 ];

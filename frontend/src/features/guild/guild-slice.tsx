@@ -340,22 +340,23 @@ const guildSlice = createSlice({
       state.loading = false;
     },
 
-    // GuildInfo 저장
-    putGuildInfo(state, action: PayloadAction<GuildInfo>) {
-      console.log('guild-slice, putGuildInfo 실행');
-      state.loading = true;
-    },
-    // GuildInfo 저장 성공
-    putGuildInfoSuccess(state, action: PayloadAction<GuildInfo>) {
-      state.loading = false;
-      state.guildInfo = action.payload;
-      console.log('guild-slice, putGuildInfo 성공');
-    },
-    // GuildInfo 저장 실패
-    putGuildInfoFailed(state, action: PayloadAction<string>) {
-      state.loading = false;
-      console.log('guild-slice, putGuildInfo 실패');
-    },
+    // // GuildInfo 저장
+    // putGuildInfo(state, action: PayloadAction<GuildInfo>) {
+    //   console.log('guild-slice, putGuildInfo 실행');
+    //   state.loading = true;
+    // },
+    // // GuildInfo 저장 성공
+    // putGuildInfoSuccess(state, action: PayloadAction<GuildInfo>) {
+    //   state.loading = false;
+    //   state.guildInfo = action.payload;
+    //   console.log('guild-slice, putGuildInfo 성공');
+    // },
+    // // GuildInfo 저장 실패
+    // putGuildInfoFailed(state, action: PayloadAction<string>) {
+    //   state.loading = false;
+    //   console.log('guild-slice, putGuildInfo 실패');
+    // },
+
     // 길드 과제 만들기 시작
     postGuildAssignmentStart(state, action: PayloadAction<GuildAssignment>) {
       state.loading = true;
