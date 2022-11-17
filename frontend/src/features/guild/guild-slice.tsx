@@ -19,6 +19,7 @@ type GuildState = {
   gulidMemberList: GuildMemberList;
   progressTaskList: VideoInfo[];
   upcomingTaskList: VideoInfo[];
+  completedTaskList: VideoInfo[];
   topThreeGuildList: TopThreeGuild[];
   guildSortedList: GuildDetailInfo[];
   myGuildInfo: MyguildInfo;
@@ -41,6 +42,7 @@ let initialState: GuildState = {
   },
   progressTaskList: [],
   upcomingTaskList: [],
+  completedTaskList: [],
   topThreeGuildList: [],
   guildSortedList: [],
   myGuildInfo: {
@@ -78,8 +80,8 @@ const guildSlice = createSlice({
       state.loading = false;
     },
 
-    // 진행중인 과제 받아오기 요청
-    getProgressTask(state, action: PayloadAction<string>) {
+    // 길드 과제 받아오기 요청
+    getProgressTask(state) {
       state.loading = true;
     },
 
@@ -90,26 +92,22 @@ const guildSlice = createSlice({
       state.progressTaskList = action.payload;
     },
 
-    // 진행중인 과제 받아오기 실패
-    getProgressTaskFailed(state, action: PayloadAction<string>) {
-      console.log('진행중인 과제 받아오기 실패');
-      state.loading = false;
-    },
-
-    // 예정된 과제 받아오기 요청
-    getUpcomingTask(state, action: PayloadAction<string>) {
-      state.loading = true;
-    },
-
     // 예정된 과제 받아오기 성공
     getUpcomingTaskSuccess(state, action: PayloadAction<VideoInfo[]>) {
-      console.log('진행중인 과제 받아오기 성공');
+      console.log('예정된 과제 받아오기 성공');
       state.loading = false;
       state.upcomingTaskList = action.payload;
     },
 
-    // 예정된 과제 받아오기 실패
-    getUpcomingTaskFailed(state, action: PayloadAction<string>) {
+    // 완료된 과제 받아오기 성공
+    getCompletedTaskSuccess(state, action: PayloadAction<VideoInfo[]>) {
+      console.log('완료된 과제 받아오기 성공');
+      state.loading = false;
+      state.completedTaskList = action.payload;
+    },
+
+    // 길드 과제 받아오기 실패
+    getProgressTaskFailed(state, action: PayloadAction<string>) {
       console.log('진행중인 과제 받아오기 실패');
       state.loading = false;
     },
