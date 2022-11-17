@@ -19,8 +19,11 @@ const VideosPage = () => {
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
   // onClickHandler
-  const onClickSearchVideo = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const keyword = inputValue.trim();
+  const onClickSearchVideo = (
+    e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLDivElement>,
+    targetInputVal: string
+  ) => {
+    const keyword = targetInputVal.trim();
     if (keyword.length < 2) {
       alert('키워드를 2글자 이상 입력해주세요');
     } else {

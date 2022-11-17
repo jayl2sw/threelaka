@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FlexTransparentDiv } from '../styles/Common/CommonDivStyle';
-import { MainBtn } from '../styles/Common/CommonBtnStyle';
+
+import React, { useEffect, useState } from 'react';
+// style
+
+import {
+  SearchBarInput,
+  SearchButton,
+  SearchIconBtn,
+} from '../styles/Main/MainSearchStyle';
+import { IconContext } from 'react-icons';
+import { GoSearch } from 'react-icons/go';
+
 // style
 const GradientInputTag = styled.input`
   font-family: inherit;
@@ -67,7 +76,10 @@ const GradientFormLabel = styled.label`
 
 interface IGradientInputProps {
   widthSize: number;
-  onClickHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickHandler: (
+    e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLDivElement>,
+    inputVal: string
+  ) => void;
   placeHolderText: string;
   inputName: string;
   inputValue: string;
@@ -81,13 +93,39 @@ const GradientInput = ({
   inputValue,
   setInputValue,
 }: IGradientInputProps) => {
-  const inputSize = `${widthSize - 4}vw`;
+  const inputSize = `${widthSize}vw`;
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   return (
-    <div style={{ position: 'relative', width: inputSize, height: '5vh' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        position: 'relative',
+        width: inputSize,
+        height: '5vh',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <SearchBarInput>
+        <input
+          type="text"
+          onChange={onChangeHandler}
+          value={inputValue}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              onClickHandler(e, inputValue);
+            }
+          }}
+          required
+          style={{ width: inputSize }}
+        />
+        <span>키워드를 입력해주세요</span>
+        <i></i>
+      </SearchBarInput>
       <GradientInputTag
         type="input"
         placeholder={placeHolderText}
@@ -96,19 +134,23 @@ const GradientInput = ({
         onChange={(e) => onChangeHandler(e)}
         required
       />
-      <GradientFormLabel htmlFor={inputName}>{inputName}</GradientFormLabel>
-      <MainBtn
-        widthSize={'5vw'}
-        heightSize={'4vh'}
-        paddingSize={'0'}
-        fontSize={'2vmin'}
-        fontColor={'white'}
-        backgroundColor={'gradient'}
-        style={{ position: 'absolute', right: '-4vw', top: '-0vh' }}
-        onClick={(e) => onClickHandler(e)}
-      >
-        검색
-      </MainBtn>
+      <SearchButton>
+        <SearchIconBtn
+          onClick={(e) => {
+            onClickHandler(e, inputValue);
+          }}
+        >
+          <IconContext.Provider
+            value={{
+              color: '111111',
+              // className: 'global-class-name',
+              size: '2.2vw',
+            }}
+          >
+            <GoSearch style={{ paddingBottom: '0.5vw' }}></GoSearch>
+          </IconContext.Provider>
+        </SearchIconBtn>
+      </SearchButton>
     </div>
   );
 };

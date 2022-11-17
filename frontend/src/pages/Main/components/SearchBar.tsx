@@ -71,7 +71,7 @@ const SearchBar = ({ setModalToggleVideoId }: ISearchBarProps) => {
           <IconContext.Provider
             value={{
               color: '111111',
-              className: 'global-class-name',
+              // className: 'global-class-name',
               size: '2.2vw',
             }}
           >

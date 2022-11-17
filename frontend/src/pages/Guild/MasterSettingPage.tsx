@@ -21,6 +21,7 @@ import { GuildSettingTextArea } from '../../styles/Guild/MasterSetting';
 import { useHorizontalScroll } from '../../utils/useSideScroll';
 import GradientInput from '../../utils/GradientInput';
 import { GrUserAdd } from 'react-icons/gr';
+import AddGuildVideoModal from './components/AddGuildVideoModal';
 
 const MasterSetting = () => {
   const navigate = useNavigate();
@@ -39,9 +40,6 @@ const MasterSetting = () => {
     (state) => state.guild.GuildRequestLst
   );
 
-  // 모달 사용하기
-  const { isOpenModal, onClickModal } = useModal();
-
   // USESTATE
   // 모달 사용하기
   const [noticeToggle, setNoticeToggle] = useState<number>(0);
@@ -50,7 +48,7 @@ const MasterSetting = () => {
   const [acceptRequestMode, setAcceptRequestMode] = useState<boolean>(false);
   const [textareaValue, setTextareaValue] = useState<string>('');
   const [newTextareaValue, setNewTextareaValue] = useState<string>('');
-  const [inputValue, setInputValue] = useState<string>('');
+  const [videoSearchToggle, setVideoSearchToggle] = useState<boolean>(false);
 
   const guildId = currentUser?.guildId;
 
@@ -122,11 +120,19 @@ const MasterSetting = () => {
   }, [guildId]);
 
   useEffect(() => {
-    dispatch(guildActions.getProgressTask('0'));
-    dispatch(guildActions.getProgressTask('1'));
+    dispatch(guildActions.getProgressTask());
   }, []);
   return (
     <div>
+      {videoSearchToggle ? (
+        <AddGuildVideoModal
+          modalToggle={videoSearchToggle}
+          setModalToggle={setVideoSearchToggle}
+        ></AddGuildVideoModal>
+      ) : (
+        ''
+      )}
+
       <FlexTransparentDiv
         widthSize={'65vw'}
         heightSize={'5vh'}
@@ -479,13 +485,26 @@ const MasterSetting = () => {
               </div>
               {/* 이미지 호버하면 남은 시간과 영상 제목 보이게 */}
               <div style={{ width: '25vw' }}>
+                <MainBtn
+                  widthSize={'6vw'}
+                  heightSize={'5vh'}
+                  paddingSize={'0'}
+                  fontSize={'2vmin'}
+                  fontColor={'white'}
+                  backgroundColor={'gradient'}
+                  style={{ borderRadius: '10px', marginLeft: '15vw' }}
+                  onClick={() => setVideoSearchToggle(true)}
+                >
+                  학습추가하기
+                </MainBtn>
                 {/* <GradientInput
-                  widthSize={21}
+                  widthSize={18}
                   onClickHandler={() => 'hi'}
                   placeHolderText="youtube url"
                   inputName="youtube-url"
+                  inputValue={inputValue}
+                  setInputValue={setInputValue}
                 ></GradientInput> */}
-                {/* <button>검색</button> */}
               </div>
             </FlexTransparentDiv>
 
