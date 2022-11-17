@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import RoomInfo from './RoomInfo';
+import RoomInfo from './RoomInfo';
 
 const EnglishOnlyZone = () => {
   const [roomNubmer, setRoomNumber] = useState<number>(0);
