@@ -306,20 +306,20 @@ public class GuildServiceImpl implements GuildService{
     }
 
     @Override
-    public List<AssignmentRequestDto> getAssignments(int status) {
+    public List<AssignmentResponseDto> getAssignments(int status) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         String today = formatter.format(date);
         switch (status) {
             case 0:
                 return assignmentRepository.findAllByStartDateAfterOrderByEndDateDesc(today)
-                        .stream().map(s -> AssignmentRequestDto.from(s)).collect(Collectors.toList());
+                        .stream().map(s -> AssignmentResponseDto.from(s)).collect(Collectors.toList());
             case 1:
                 return assignmentRepository.findAllByStartDateBeforeAndEndDateAfterOrderByEndDateDesc(today, today)
-                        .stream().map(s -> AssignmentRequestDto.from(s)).collect(Collectors.toList());
+                        .stream().map(s -> AssignmentResponseDto.from(s)).collect(Collectors.toList());
             case 2:
                 return assignmentRepository.findAllByEndDateBeforeOrderByEndDateDesc(today)
-                        .stream().map(s -> AssignmentRequestDto.from(s)).collect(Collectors.toList());
+                        .stream().map(s -> AssignmentResponseDto.from(s)).collect(Collectors.toList());
             default:
                 return null;
         }
@@ -361,9 +361,10 @@ public class GuildServiceImpl implements GuildService{
 
     @Override
     public String createAssignment(AssignmentRequestDto info) {
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         Assignment assignment = Assignment.builder()
                 .video(videoRepository.findById(info.getVideoId()).orElseThrow(VideoNotFoundException::new))
-                .guild(guildRepository.findById(info.getGuildId()).orElseThrow(GuildNotFoundException::new))
+                .guild(guildRepository.findById(me.getGuild().getId()).orElseThrow(GuildNotFoundException::new))
                 .startDate(info.getStartDate())
                 .endDate(info.getEndDate())
                 .build();
