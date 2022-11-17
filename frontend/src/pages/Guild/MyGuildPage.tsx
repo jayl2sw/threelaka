@@ -171,7 +171,7 @@ const MyGuild = () => {
                         myguildLearnTime[0].time / 3600
                       )}시간 ${Math.floor(
                         myguildLearnTime[0].time % 60
-                      )}분 공부했어요`}
+                      )}분 공부했어요!`}
                   </FlexTransparentDiv>
                 </FlexTransparentDiv>
                 <FlexTransparentDiv

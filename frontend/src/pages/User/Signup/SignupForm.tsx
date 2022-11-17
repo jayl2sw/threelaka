@@ -187,7 +187,7 @@ const SignupForm = ({
         />
         <InputField name="nickname" control={control} label="닉네임" />
         <div className="short">
-          <div className="age">
+          <div className="age" style={{ width: '25%' }}>
             <InputField
               name="age"
               control={control}

@@ -38,26 +38,26 @@ const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
         IsBorder={'none'}
       >
         <TopBtn
-          widthSize={'7vw'}
-          heightSize={'4vh'}
+          widthSize={'8vw'}
+          heightSize={'4.5vh'}
           paddingSize={'0'}
           fontColor={'black'}
           fontSize={'2vmin'}
           backgroundColor={'blue'}
-          style={{ marginLeft: '1vw' }}
+          style={{ marginLeft: '1vw', wordBreak: 'keep-all' }}
           onClick={() => setMode(0)}
           className={mode ? 'pale' : ''}
         >
           최근 공부한 영상
         </TopBtn>
         <TopBtn
-          widthSize={'7vw'}
-          heightSize={'4vh'}
+          widthSize={'8vw'}
+          heightSize={'4.5vh'}
           paddingSize={'0'}
           fontColor={'black'}
           fontSize={'2vmin'}
           backgroundColor={'blue'}
-          style={{ marginRight: '1vw', marginLeft: '1vw' }}
+          style={{ marginRight: '1vw', marginLeft: '0.25vw' }}
           onClick={() => {
             setMode(1);
           }}
@@ -72,7 +72,7 @@ const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
         paddingSize={'2vh 1vw'}
         fontColor={'black'}
         fontSize={'1vmin'}
-        style={{ overflowY: 'hidden', overflowX: 'scroll' }}
+        style={{ overflowY: 'hidden', overflowX: 'scroll', boxShadow: 'none' }}
         ref={scrollRef}
       >
         <DashboardVideos
