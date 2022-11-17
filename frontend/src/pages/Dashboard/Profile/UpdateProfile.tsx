@@ -26,6 +26,8 @@ const UpdateProfile = () => {
   const totalStudyTime = useAppSelector(
     (state) => state.dashboard.totalStudyTime
   );
+  const username = useAppSelector((state) => state.auth.currentUser?.username);
+  const nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
   useEffect(() => {
     dispatch(dashboardActions.getTotalStudyTime());
   }, []);
@@ -107,8 +109,8 @@ const UpdateProfile = () => {
             IsBorder={'none'}
             style={{ position: 'absolute', top: '9vh' }}
           >
-            <div style={{ margin: '2vh 0 1vh', color: '#aaa' }}>이메일</div>
-            <div style={{ margin: '0 0 2vh', color: '#aaa' }}>닉네임</div>
+            <div style={{ margin: '2vh 0 1vh', color: '#aaa' }}>{username}</div>
+            <div style={{ margin: '0 0 2vh', color: '#aaa' }}>{nickname}</div>
             <div
               style={{
                 display: 'grid',
@@ -173,8 +175,19 @@ const UpdateProfile = () => {
         flexDirection={'column'}
         justifyContent={'center'}
         alignItems={'center'}
-        IsBorder={'none'}
-      ></FlexTransparentDiv>
+        IsBorder={'is'}
+      >
+        <MainBox
+          widthSize={'28vw'}
+          heightSize={'28vh'}
+          paddingSize={'2vh 2vw'}
+          fontColor={'black'}
+          fontSize={'2vmin'}
+          style={{ marginTop: '9vh' }}
+        >
+          <h3>관심태그수정</h3>
+        </MainBox>
+      </FlexTransparentDiv>
     </FlexTransparentDiv>
   );
 };

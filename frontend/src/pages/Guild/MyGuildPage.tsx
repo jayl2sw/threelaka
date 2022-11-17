@@ -16,14 +16,17 @@ import { useHorizontalScroll } from '../../utils/useSideScroll';
 import VideoModal from '../../utils/VideoModal';
 
 const MyGuild = () => {
+  const userGuildId = useAppSelector(
+    (state) => state.auth.currentUser?.guildId
+  );
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(guildActions.getSearchGuildStart());
     dispatch(guildActions.getGuildLearnTimeStart());
-  }, []);
+  }, [userGuildId]);
   useEffect(() => {
     dispatch(guildActions.getProgressTask());
-  }, []);
+  }, [userGuildId]);
   const myGuildInfo = useAppSelector((state) => state.guild.myGuildInfo);
   const progressTaskLst = useAppSelector(
     (state) => state.guild.progressTaskList

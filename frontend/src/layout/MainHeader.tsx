@@ -99,9 +99,7 @@ const MainHeader = () => {
           style={{ width: '15vw' }}
         ></LogoutIcon> */}
       </MainLinkWrapper>
-      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
-        {nickname && <div>{nickname}</div>}
-      </MainLinkWrapper>
+
       <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <FlexTransparentDiv
           widthSize={'13vw'}
@@ -135,6 +133,18 @@ const MainHeader = () => {
               style={{ backgroundSize: '6vmin 6vmin' }}
             ></ProfileCenter>
           </ProfileImgBox>
+          {nickname && (
+            <div
+              style={{
+                fontSize: '2vmin',
+                color: '#111111',
+                textAlign: 'center',
+                marginTop: '11vh',
+              }}
+            >
+              {nickname}
+            </div>
+          )}
         </FlexTransparentDiv>
       </MainLinkWrapper>
     </MainHeaderMenuRegion>
