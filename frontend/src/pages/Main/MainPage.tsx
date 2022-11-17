@@ -54,7 +54,7 @@ const MainPage = () => {
       observer.observe(recentVideoContainer.current);
     }
   }
-  // console.warn('찍고오나');
+
   return (
     <>
       <VideoModal
@@ -62,7 +62,11 @@ const MainPage = () => {
         modalToggleVideoId={modalToggleVideoId}
         setModalToggleVideoId={setModalToggleVideoId}
       ></VideoModal>
-      {isModal ? <TagSelectModal></TagSelectModal> : null}
+
+      <TagSelectModal setIsModal={setIsModal}></TagSelectModal>
+      {/* {isModal ? (
+        <TagSelectModal setIsModal={setIsModal}></TagSelectModal>
+      ) : null} */}
       <MainPageBlock>
         <FirstpageBlock ref={firstpageBlock}>
           <SearchBarBlock id="searchBarBlock">
