@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import * as wss from '../../../../utils/wss';
-import * as webrtc from '../../../../utils/webRTCHandler';
+import React, { useState } from 'react';
+import { createRoom, joinRoom, exitRoom } from '../EozPage';
 import EozRoom from './EozRoom';
 
 import {
@@ -9,6 +8,9 @@ import {
   EozBtn,
 } from '../../../../styles/Guild/GuildEozStyle';
 import { ModalBackdrop } from '../../../../styles/DashBoard/DashBoardStyle';
+
+const videoId = 'asoiharas';
+const learningRecordId = 254;
 
 type EnterRoomModalType = {
   onClickModal: () => void;
@@ -24,9 +26,8 @@ type EnterRoomModalType = {
 
 const EozModal = (props: EnterRoomModalType) => {
   const { onClickModal, isOpenModal, roomNumber, guildId, roomInfo } = props;
-  console.log('EozModalProps:', guildId);
   const [videoId, setVideoId] = useState<string>('');
-  const [learningRecordId, setLearningRecordId] = useState<number>(0);
+  const [learningRecordid, setLearningRecordId] = useState<string>('');
   const [startEoz, setStartEoz] = useState<boolean>(false);
 
   // 입력 받기
@@ -37,16 +38,6 @@ const EozModal = (props: EnterRoomModalType) => {
   const onChangeRecordId = (event: any) => {
     setLearningRecordId(event.target.value);
   };
-
-  useEffect(() => {
-    if (startEoz) {
-      webrtc.getLocalPreviewAndInitRoomConnection(
-        roomInfo,
-        guildId,
-        learningRecordId
-      );
-    }
-  }, [startEoz]);
   if (startEoz) {
     return (
       <EozRoomBlock>
@@ -78,7 +69,7 @@ const EozModal = (props: EnterRoomModalType) => {
           <input
             type="text"
             onChange={onChangeRecordId}
-            value={learningRecordId}
+            value={learningRecordid}
             required
           />
           <EozBtn
@@ -87,6 +78,13 @@ const EozModal = (props: EnterRoomModalType) => {
             fontColor="white"
             backgroundColor="blue"
             onClick={() => {
+              JoinRoomhandler(
+                roomInfo,
+                roomNumber,
+                guildId,
+                videoId,
+                learningRecordId
+              );
               setStartEoz(true);
             }}
           >
@@ -104,6 +102,28 @@ const EozModal = (props: EnterRoomModalType) => {
         </EozModalContainer>
       </ModalBackdrop>
     );
+  }
+};
+
+const JoinRoomhandler = (
+  roomInfo: {
+    roomNumber: number;
+    videoId: string | null;
+    connectedUsers: never[];
+  },
+  roomNumber: number,
+  guildId: number,
+  videoId: string,
+  learningRecordId: number
+) => {
+  if (roomInfo) {
+    if (roomInfo.connectedUsers.length === 0) {
+      createRoom(roomNumber, guildId, videoId, learningRecordId);
+    } else {
+      joinRoom(roomNumber, guildId, learningRecordId);
+    }
+  } else {
+    createRoom(roomNumber, guildId, videoId, learningRecordId);
   }
 };
 

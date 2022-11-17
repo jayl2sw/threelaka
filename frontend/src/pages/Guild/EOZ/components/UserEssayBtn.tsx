@@ -9,9 +9,9 @@ type UserEssayPick = {
 
 const UserEssayBtn = (props: UserEssayPick) => {
   const { nickname, pickedUser, learningRecordId } = props;
-  console.log('nickname', nickname);
-  console.log('pickedUser', pickedUser);
-  console.log(nickname === pickedUser);
+  // console.log('nickname', nickname);
+  // console.log('pickedUser', pickedUser);
+  // console.log(nickname === pickedUser);
 
   return (
     <EssayPickBtn

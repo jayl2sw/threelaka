@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { EozBtn } from '../../../../styles/Guild/GuildEozStyle';
+import { createRoom, joinRoom, exitRoom } from '../EozPage';
 import useModal from '../../../../utils/useModal';
 import EozModal from './EozModal';
 import MembersList from './MembersList';
@@ -70,6 +71,16 @@ const JoinRoomhandler = (
   guildId: number,
   videoId: string,
   learningRecordId: number
-) => {};
+) => {
+  if (roomInfo) {
+    if (roomInfo.connectedUsers.length === 0) {
+      createRoom(roomNumber, guildId, videoId, learningRecordId);
+    } else {
+      joinRoom(roomNumber, guildId, learningRecordId);
+    }
+  } else {
+    createRoom(roomNumber, guildId, videoId, learningRecordId);
+  }
+};
 
 export default EozRoomInfo;

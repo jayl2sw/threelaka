@@ -239,7 +239,6 @@ const UpdateProfile = () => {
           >
             수정
           </MainBtn>
->>>>>>> a51c13a230279e595069a32a0c9e667d7445dd86
         </MainBox>
       </FlexTransparentDiv>
     </FlexTransparentDiv>

@@ -17,8 +17,8 @@ type EozProps = {
     }[];
     connectedUsers: never[];
   };
-  // nickname: string;
-  // socketId: string;
+  nickname: string;
+  socketId: string;
 };
 
 const EnglishOnlyZone = (props: EozProps) => {

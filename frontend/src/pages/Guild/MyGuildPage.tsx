@@ -443,7 +443,8 @@ const MyGuild = () => {
                 )}
               </FlexTransparentDiv>
             </FlexTransparentDiv>
-            <TopBtn
+            <EozPage guildId={guildId} nickname={nickname} />
+            {/* <TopBtn
               widthSize="5vw"
               heightSize="5vh"
               paddingSize="0"
@@ -484,22 +485,12 @@ const MyGuild = () => {
               }}
             >
               방3
-            </TopBtn>
-            {/* <FlexTransparentDiv
-              widthSize={'30vw'}
-              heightSize={'30vh'}
-              paddingSize={'0'}
-              flexDirection={'column'}
-              justifyContent={'start'}
-              alignItems={'start'}
-              IsBorder={'none'}
-            >
-              {guildId && <EozPage guildId={guildId} nickname={nickname} />}
-            </FlexTransparentDiv>
+            </TopBtn> */}
+            {/* 
               <EnglishOnlyZone />
             </FlexTransparentDiv> */}
           </FlexTransparentDiv>
-          <FlexTransparentDiv
+          {/* <FlexTransparentDiv
             widthSize={'30vw'}
             heightSize={'30vh'}
             paddingSize={'0'}
@@ -509,7 +500,7 @@ const MyGuild = () => {
             IsBorder={'is'}
           >
             <EozPage guildId={guildId} nickname={nickname} />
-          </FlexTransparentDiv>
+          </FlexTransparentDiv> */}
         </FlexTransparentDiv>
       </FlexTransparentDiv>
     </>

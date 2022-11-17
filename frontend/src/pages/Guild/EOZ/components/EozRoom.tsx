@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as wss from '../../../../utils/wss';
+import { exitRoom } from '../EozPage';
 import StreamVideo from './StreamVideo';
 import UserEssayBtn from './UserEssayBtn';
 
@@ -59,7 +59,7 @@ const EozRoom = (props: EozRoomProps) => {
         fontColor="white"
         backgroundColor="red"
         onClick={() => {
-          wss.exitRoom();
+          exitRoom();
           onClickModal();
         }}
       >
