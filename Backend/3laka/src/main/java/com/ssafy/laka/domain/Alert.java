@@ -34,4 +34,8 @@ public class Alert {
     private Assignment assignment;
 
     private AlertState alertState;
+
+    public void UpdateState(Alert alert){
+        this.alertState = AlertState.checked;
+    }
 }

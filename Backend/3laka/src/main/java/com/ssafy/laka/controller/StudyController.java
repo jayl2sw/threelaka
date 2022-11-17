@@ -150,8 +150,21 @@ public class StudyController {
     public ResponseEntity<?> deleteWord(
             @RequestBody WordbookRequestDto data
     ){
-        // 단어장에 단어 하나 추가해줌
+        // 단어장에 단어 하나 삭제함
         studyService.deleteWord(data.getWordbookId());
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/wordandexample")
+    @ApiOperation(value = "단어 제거", notes = "특정 회원의 특정 강의에 해당 단어를 제거한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> deleteWordByWordAndExample(
+            @RequestBody WordDeleteRequestDto data
+    ){
+        // 단어장에 단어랑 문장이 일치하는 단어 하나 삭제함
+        studyService.deleteWordByWordAndSentence(data.getWord(), data.getExample());
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
