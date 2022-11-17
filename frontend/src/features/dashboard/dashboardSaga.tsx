@@ -11,6 +11,7 @@ import {
   getStudyHistoryApi,
   updateProfileApi,
   getTotalStudyTimeApi,
+  updateTagApi,
 } from '../../services/dashboardApi';
 import { dashboardActions } from './dashboard-slice';
 import {
@@ -111,6 +112,19 @@ function* onUpdateProfileAsync(action: PayloadAction<string>) {
   }
 }
 
+//태그수정
+function* onUpdateTagAsync(action: PayloadAction<number[]>) {
+  // const { fetchUser } = authActions;
+  try {
+    const response: string = yield call(updateTagApi, action.payload);
+    yield put(dashboardActions.updateTagSuccess(response));
+
+    // yield put(fetchUser());
+  } catch (error: any) {
+    yield put(dashboardActions.updateTagFailed(error.data));
+  }
+}
+
 // 현재공부중인영상
 export function* watchGetRecentVideoAsync() {
   yield takeLatest(
@@ -157,6 +171,11 @@ export function* watchTotalStudyTimeAsync() {
     onTotalStudyTimeAsync
   );
 }
+
+//태그변경
+export function* watchUpdateTagAsync() {
+  yield takeLatest(dashboardActions.updateTag.type, onUpdateTagAsync);
+}
 export const dashboardSagas = [
   fork(watchGetRecentVideoAsync),
   fork(watchGetCompletedVideoAsync),
@@ -165,4 +184,5 @@ export const dashboardSagas = [
   fork(watchGetStudyHistoryAsync),
   fork(watchUpdateProfileAsync),
   fork(watchTotalStudyTimeAsync),
+  fork(watchUpdateTagAsync),
 ];

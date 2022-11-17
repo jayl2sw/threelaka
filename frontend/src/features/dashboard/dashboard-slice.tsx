@@ -144,6 +144,18 @@ const dashboardSlice = createSlice({
     getTotalStudyTimeFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
+    //태그 등록 및 수정
+    updateTag(state, action: PayloadAction<number[]>) {
+      state.loading = true;
+    },
+
+    updateTagSuccess(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    updateTagFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
   },
 });
 

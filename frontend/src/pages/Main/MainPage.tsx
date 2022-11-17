@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import MainHeader from '../../layout/MainHeader';
 import SearchBar from './components/SearchBar';
 import RecentVideo from './components/RecentVideo';
@@ -19,7 +19,20 @@ import RecommendVideoList from './components/RecommendVideoList';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import VideoModal from '../../utils/VideoModal';
 import TagSelectModal from './components/TagSelectModal';
+import { useAppSelector, useAppDispatch } from '../../utils/hooks';
+import { dashboardActions } from '../../features/dashboard/dashboard-slice';
+import { authActions } from '../../features/auth/authSlice';
+
 const MainPage = () => {
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const isNewbie = useAppSelector((state) => state.auth.isNewbie);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (isNewbie !== false) {
+      setIsModal(true);
+      dispatch(authActions.resetIsNewbie());
+    }
+  }, [isNewbie]);
   let observer = new IntersectionObserver((e) => {
     // console.log('observer start', e);
     if (e[0].isIntersecting) {
@@ -49,10 +62,10 @@ const MainPage = () => {
         modalToggleVideoId={modalToggleVideoId}
         setModalToggleVideoId={setModalToggleVideoId}
       ></VideoModal>
+      {isModal ? <TagSelectModal></TagSelectModal> : null}
       <MainPageBlock>
         <FirstpageBlock ref={firstpageBlock}>
           <SearchBarBlock id="searchBarBlock">
-            <TagSelectModal></TagSelectModal>
             <LogoBlock>
               <img
                 src="https://threelaka.s3.ap-northeast-2.amazonaws.com/mainlogo.png"
