@@ -24,8 +24,10 @@ export interface GuildMemberList {
 
 // video 정보
 export interface VideoInfo {
+  assignmentId: number;
   guildId: number;
   videoId: string;
+  videoTitle: string;
   startDate: string;
   endDate: string;
 }
@@ -92,6 +94,13 @@ export interface GuildRequest {
   requstId: number;
   state: string;
   userId: number;
+}
+
+// 길드 공통과제 신청
+export interface GuildAssignment {
+  videoId: string;
+  startDate: string;
+  endDate: string;
 }
 
 // WebSocet 개별 Guild

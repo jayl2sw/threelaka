@@ -1,4 +1,5 @@
 import customAxios from './customAxios';
+import { GuildAssignment } from '../models/guild';
 
 // 내 길드의 공지 조회
 export const getGuildNoticeApi = async (guildId: string): Promise<any> => {
@@ -131,5 +132,26 @@ export const PostGuildRequestApi = async (guildId: number): Promise<any> => {
 // 내가 가입한 길드 탈퇴
 export const QuitGuildApi = async (guildId: number): Promise<any> => {
   const res = await customAxios.delete(`/api/v1/user/guild/quit/${guildId}`);
+  return res.data;
+};
+
+// 길드 과제 만들기
+export const PostGuildAssignmentApi = async (
+  guildAssignment: GuildAssignment
+): Promise<any> => {
+  const res = await customAxios.post(
+    `/api/v1/user/guild/assignment`,
+    guildAssignment
+  );
+  return res.data;
+};
+
+// 길드 과제 삭제하기
+export const DeleteGuildAssignmentApi = async (
+  assignId: number
+): Promise<any> => {
+  const res = await customAxios.delete(
+    `/api/v1/user/guild/assignment/${assignId}`
+  );
   return res.data;
 };
