@@ -1,10 +1,6 @@
 package com.ssafy.laka.dto.guild;
 
-import com.ssafy.laka.domain.Assignment;
 import com.ssafy.laka.domain.Guild;
-import com.ssafy.laka.dto.user.UserListResponseDto;
-import com.ssafy.laka.dto.user.UserResponseDto;
-import com.ssafy.laka.repository.UserRepository;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +23,7 @@ public class GuildResponseDto {
     private String guildName;
     private String description;
     private String notice;
-    private List<AssignmentRequestDto> assignments;
+    private List<AssignmentResponseDto> assignments;
 
     public static GuildResponseDto from(Guild entity, String masterNickname){
         return GuildResponseDto.builder()
@@ -38,7 +34,7 @@ public class GuildResponseDto {
                 .guildName(entity.getGuildName())
                 .description(entity.getDescription())
                 .notice(entity.getNotice())
-                .assignments(entity.getAssignments().stream().map(s -> AssignmentRequestDto.from(s)).collect(Collectors.toList()))
+                .assignments(entity.getAssignments().stream().map(s -> AssignmentResponseDto.from(s)).collect(Collectors.toList()))
                 .build();
     }
 }

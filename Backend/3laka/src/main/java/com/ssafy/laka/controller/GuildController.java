@@ -6,15 +6,9 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ssafy.laka.dto.exception.common.InvalidParameterException;
 import com.ssafy.laka.dto.exception.guild.RequestListEmptyException;
-import com.ssafy.laka.dto.exception.guild.RequestNotFoundException;
 import com.ssafy.laka.dto.guild.*;
-import com.ssafy.laka.dto.user.UserResponseDto;
 import com.ssafy.laka.service.GuildService;
-import com.ssafy.laka.service.UserService;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -109,7 +103,7 @@ public class GuildController {
 
     @GetMapping("/assignment/{status}")
     @ApiOperation(value = "공통 과제 목록 조회")
-    public ResponseEntity<List<AssignmentRequestDto>> getAssignments(@PathVariable int status){
+    public ResponseEntity<List<AssignmentResponseDto>> getAssignments(@PathVariable int status){
         // 예정(0) / 진행중(1) / 완료된(2) 공통 과제 조회
         return new ResponseEntity<>(guildService.getAssignments(status), HttpStatus.OK);
     }
