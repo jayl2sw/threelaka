@@ -388,9 +388,13 @@ export const RadioBtn = styled.input`
 `;
 
 export const EditBtn = styled(MdChangeCircle)`
+  position: absolute;
+  bottom: 1vmin;
+  right: 1vmin;
   font-size: 3vmin;
   color: #457b9d;
   cursor: pointer;
+  transition: 0.3s;
   /* z-index: 3; */
   /* position: absolute; */
 
@@ -398,6 +402,10 @@ export const EditBtn = styled(MdChangeCircle)`
 
   &:hover {
     color: #3b6986;
+    width: 4vmin;
+    height: 4vmin;
+    bottom: 0.5vmin;
+    right: 0.5vmin;
   }
 `;
 

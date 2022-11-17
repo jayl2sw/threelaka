@@ -127,15 +127,19 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
       <StyledForm
         onSubmit={handleSubmit(handleFormSubmit)}
         className="sign-up-form"
-        style={{ width: '90%' }}
+        style={{ width: '90%', margin: '2vmin 0' }}
       >
-        <InputWrap style={{ height: '100%' }}>
+        <InputWrap style={{ height: '80%' }}>
           <h3>회원정보수정</h3>
-          <ProfileInputField name="username" control={control} label="이메일" />
-
-          <ProfileInputField name="nickname" control={control} label="닉네임" />
+          {/* <ProfileInputField name="username" control={control} label="이메일" /> */}
+          <ProfileInputField
+            name="nickname"
+            control={control}
+            label="닉네임"
+            style={{ height: '10px' }}
+          />
           <div className="short">
-            <div className="age" style={{ width: '35%' }}>
+            <div className="age" style={{ height: '150%', width: '30%' }}>
               <ProfileInputField
                 name="age"
                 control={control}
@@ -168,7 +172,7 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
         </InputWrap>
         <SubmitBtnWrap>
           <GradientRoundBtn
-            widthSize={'80%'}
+            widthSize={'70%'}
             heightSize={'5vh'}
             paddingSize={'0'}
             fontColor={'black'}
@@ -182,7 +186,7 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
       </StyledForm>
       <FlexTransparentDiv
         widthSize={'90%'}
-        heightSize={'38vh'}
+        heightSize={'45vh'}
         paddingSize={'1vh 0'}
         flexDirection={'column'}
         justifyContent={'start'}

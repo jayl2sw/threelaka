@@ -73,6 +73,7 @@ const UpdateProfile = () => {
             className={profile !== '0' ? 'profileImg' + profile : 'default'}
             style={{ backgroundSize: '12vmin 12vmin' }}
           ></ProfileCenter>
+          <EditBtn onClick={openModalProfle}></EditBtn>
         </ProfileImgBox>
 
         {isOpen ? (
@@ -85,15 +86,20 @@ const UpdateProfile = () => {
 
         <MainBox
           widthSize={'28vw'}
-          heightSize={'30vh'}
+          heightSize={'40vh'}
           paddingSize={'2vh 2vw'}
           fontColor={'black'}
           fontSize={'2vmin'}
-          style={{ display: 'flex', position: 'absolute' }}
+          style={{
+            display: 'flex',
+            position: 'absolute',
+            boxShadow: 'none',
+            top: '5vh',
+          }}
         >
           <FlexTransparentDiv
             widthSize={'24vw'}
-            heightSize={'30vh'}
+            heightSize={'40vh'}
             paddingSize={'0'}
             flexDirection={'column'}
             justifyContent={'start'}
@@ -101,10 +107,8 @@ const UpdateProfile = () => {
             IsBorder={'none'}
             style={{ position: 'absolute', top: '9vh' }}
           >
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div>프로필 수정</div>
-              <EditBtn onClick={openModalProfle}></EditBtn>
-            </div>
+            <div style={{ margin: '2vh 0 1vh', color: '#aaa' }}>이메일</div>
+            <div style={{ margin: '0 0 2vh', color: '#aaa' }}>닉네임</div>
             <div
               style={{
                 display: 'grid',
@@ -115,32 +119,31 @@ const UpdateProfile = () => {
               }}
             >
               <div>
-                <div>My Guild</div>
+                <div style={{ fontWeight: 'bold' }}>나의 길드</div>
                 <div
                   style={{
                     color: '#4A9FFF',
                     marginTop: '2vh',
                     width: '10vw',
-                    wordBreak: 'break-all',
+                    wordBreak: 'keep-all',
                     fontSize: '2.5vmin',
                   }}
                 >
                   {myGuildInfo.guildName === ''
-                    ? 'Make Guild!'
+                    ? '가입한 길드가 없습니다 :('
                     : myGuildInfo.guildName}
                 </div>
               </div>
               <div
                 style={{
-                  border: '2px solid #565656',
+                  border: '1.2px solid #eee',
                   width: '0.3px',
                   height: '13vh',
-                  background: '#565656',
+                  background: '#eee',
                 }}
               ></div>
               <div>
-                <div>Total</div>
-                <div>Study-Time</div>
+                <div style={{ fontWeight: 'bold' }}>총 공부 시간</div>
                 <div
                   style={{
                     color: '#4A9FFF',
@@ -152,9 +155,9 @@ const UpdateProfile = () => {
                 >
                   {totalStudyTime.time !== 0 &&
                   totalStudyTime.time / 3600 >= 1 ? (
-                    <div>{(totalStudyTime.time / 3600).toFixed(1)}Hr</div>
+                    <div>{(totalStudyTime.time / 3600).toFixed(1)}시간</div>
                   ) : (
-                    <div>{(totalStudyTime.time / 60).toFixed(1)}Min</div>
+                    <div>{(totalStudyTime.time / 60).toFixed(1)}분</div>
                   )}
                 </div>
               </div>
