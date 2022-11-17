@@ -26,6 +26,7 @@ import { authActions } from '../../features/auth/authSlice';
 const MainPage = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const isNewbie = useAppSelector((state) => state.auth.isNewbie);
+  const tagList = useAppSelector((state) => state.dashboard.tagList);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (isNewbie !== false) {
@@ -63,10 +64,10 @@ const MainPage = () => {
         setModalToggleVideoId={setModalToggleVideoId}
       ></VideoModal>
 
-      <TagSelectModal setIsModal={setIsModal}></TagSelectModal>
-      {/* {isModal ? (
+      {/* <TagSelectModal setIsModal={setIsModal}></TagSelectModal> */}
+      {isModal ? (
         <TagSelectModal setIsModal={setIsModal}></TagSelectModal>
-      ) : null} */}
+      ) : null}
       <MainPageBlock>
         <FirstpageBlock ref={firstpageBlock}>
           <SearchBarBlock id="searchBarBlock">
@@ -106,7 +107,21 @@ const MainPage = () => {
           <RecentVideo />
         </RecentVideoContainer>
         <RecommendVideoContainer>
-          <ListInfo>추천 영상</ListInfo>
+          <ListInfo>
+            <div style={{ marginRight: '1vw' }}>추천영상</div>
+            <div style={{ fontSize: '2.5vmin' }}>
+              {tagList.length !== 0
+                ? tagList.map((item, idx) => {
+                    return (
+                      <span style={{ marginRight: '1vw', lineHeight: '28px' }}>
+                        #{item}
+                      </span>
+                    );
+                  })
+                : null}
+            </div>
+          </ListInfo>
+
           <RecommendVideoList
             setModalToggleVideoId={setModalToggleVideoId}
           ></RecommendVideoList>

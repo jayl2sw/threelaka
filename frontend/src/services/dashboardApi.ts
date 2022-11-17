@@ -77,3 +77,10 @@ export const updateTagApi = async (tagList: Array<number>): Promise<any> => {
 
   return res.data;
 };
+
+//태그리스트불러오기
+export const getTagListApi = async (tagList: Array<string>): Promise<any> => {
+  const res = await customAxios.get('/api/v1/dashboard/tag');
+  const response: [] = res.data;
+  return response;
+};
