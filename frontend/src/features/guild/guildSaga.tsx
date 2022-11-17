@@ -11,6 +11,7 @@ import {
   MyguildLearnTime,
   GuildRequest,
   MyRequest,
+  GuildInfo,
 } from '../../models/guild';
 import {
   getGuildNoticeApi,
@@ -251,6 +252,24 @@ function* onQuitGuildAsync(action: PayloadAction<number>) {
   }
 }
 
+// GuildInfo Redux에 저장하기
+function* onPutGuildInfo(action: PayloadAction<GuildInfo>) {
+  try {
+    console.log('guildSaga, onPutGuildInfo------------');
+    const newGuildInfo = action.payload;
+    console.log('newGuildInfo', newGuildInfo);
+    yield put(guildActions.putGuildInfoSuccess(newGuildInfo));
+  } catch (error) {
+    console.error();
+    console.log('guildSaga에서 putGuildInfo 실패 ㅜㅜ');
+    yield put(guildActions.putGuildInfoFailed);
+  }
+  // 여기서 store에 집어 넣어야 함
+}
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
 // 길드 공지 받아오기 watch
 export function* watchGetGuildNoticeAsync() {
   yield takeLatest(guildActions.getGuildNotice.type, onGetGuildNoticeAsync);
@@ -374,6 +393,10 @@ export function* watchgQuitGuildApiAsync() {
   yield takeLatest(guildActions.quitGuildStart.type, onQuitGuildAsync);
 }
 
+export function* watchPutGuildInfo() {
+  yield takeLatest(guildActions.putGuildInfo.type, onPutGuildInfo);
+}
+
 export const guildSagas = [
   fork(watchGetGuildNoticeAsync),
   fork(watchGetProgressTaskAsync),
@@ -393,4 +416,5 @@ export const guildSagas = [
   fork(watchGetMyRequestAsync),
   fork(watchPostGuildRequestAsync),
   fork(watchgQuitGuildApiAsync),
+  fork(watchPutGuildInfo),
 ];

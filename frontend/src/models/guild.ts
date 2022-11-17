@@ -96,7 +96,7 @@ export interface GuildRequest {
 
 // WebSocet 개별 Guild
 export interface GuildInfo {
-  guildId: number;
+  guildId: number | null;
   rooms: Room[];
   connectedUsers: ConnectedUser[];
 }

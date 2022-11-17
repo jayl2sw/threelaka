@@ -17,12 +17,12 @@ type EozProps = {
     }[];
     connectedUsers: never[];
   };
-  nickname: string;
-  socketId: string;
+  // nickname: string;
+  // socketId: string;
 };
 
 const EnglishOnlyZone = (props: EozProps) => {
-  const { guildInfo, nickname, socketId } = props;
+  const { guildInfo } = props;
   const [roomNumber, setRoomNumber] = useState(1);
 
   return (

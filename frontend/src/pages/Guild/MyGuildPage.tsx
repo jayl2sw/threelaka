@@ -38,7 +38,8 @@ const MyGuild = () => {
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
 
   // EOZ에 필요한 데이터 (props해줄 것임)
-  const guildId = myGuildInfo.guildId;
+  const guildId = useAppSelector((state) => state.guild.myGuildInfo.guildId);
+  console.log('MyGuildPage에서 보내는 guildId', guildId);
   let nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
   nickname = nickname ? nickname : '';
 
@@ -449,7 +450,7 @@ const MyGuild = () => {
               alignItems={'start'}
               IsBorder={'is'}
             >
-              <EozPage guildId={guildId} nickname={nickname} />
+              {guildId && <EozPage guildId={guildId} nickname={nickname} />}
             </FlexTransparentDiv>
           </FlexTransparentDiv>
         </FlexTransparentDiv>

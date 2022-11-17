@@ -11,6 +11,7 @@ import {
   MyguildLearnTime,
   MyRequest,
   GuildRequest,
+  GuildInfo,
 } from '../../models/guild';
 
 type GuildState = {
@@ -26,6 +27,7 @@ type GuildState = {
   myguildLearnTime: MyguildLearnTime[];
   MyRequestLst: MyRequest[];
   GuildRequestLst: GuildRequest[];
+  guildInfo: GuildInfo;
 };
 
 let initialState: GuildState = {
@@ -57,6 +59,11 @@ let initialState: GuildState = {
   myguildLearnTime: [],
   MyRequestLst: [],
   GuildRequestLst: [],
+  guildInfo: {
+    guildId: null,
+    rooms: [],
+    connectedUsers: [],
+  },
 };
 
 const guildSlice = createSlice({
@@ -330,6 +337,23 @@ const guildSlice = createSlice({
     // 길드 탈퇴 실패
     quitGuildFailed(state) {
       state.loading = false;
+    },
+
+    // GuildInfo 저장
+    putGuildInfo(state, action: PayloadAction<GuildInfo>) {
+      console.log('guild-slice, putGuildInfo 실행');
+      state.loading = true;
+    },
+    // GuildInfo 저장 성공
+    putGuildInfoSuccess(state, action: PayloadAction<GuildInfo>) {
+      state.loading = false;
+      state.guildInfo = action.payload;
+      console.log('guild-slice, putGuildInfo 성공');
+    },
+    // GuildInfo 저장 실패
+    putGuildInfoFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+      console.log('guild-slice, putGuildInfo 실패');
     },
   },
 });
