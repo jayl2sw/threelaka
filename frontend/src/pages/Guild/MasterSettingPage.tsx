@@ -101,6 +101,11 @@ const MasterSetting = () => {
       dispatch(guildActions.deleteRejectGuildRequestStart(requestId));
     }
   };
+
+  const onClickDeleteAssignment = (assignId: number) => {
+    dispatch(guildActions.delelteGuildAssignmentStart(assignId));
+  };
+
   // textArea value change
   const handleTextValChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextareaValue(e.target.value);
@@ -515,7 +520,7 @@ const MasterSetting = () => {
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'start',
                 // border: 'solid red 1px',
                 overflow: 'auto',
               }}
@@ -551,7 +556,14 @@ const MasterSetting = () => {
                       src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
                     ></img>
                     <div
-                      style={{ position: 'absolute', top: '0', right: '1vw' }}
+                      style={{
+                        position: 'absolute',
+                        top: '0',
+                        right: '1vw',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => onClickDeleteAssignment(task.assignmentId)}
+                      // onClick={{() => onClickDeleteAssignment({task.assignmentId})}}
                     >
                       <AiOutlineCloseCircle size={30} color={'white'} />
                     </div>

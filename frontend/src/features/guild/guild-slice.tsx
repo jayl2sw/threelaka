@@ -11,6 +11,7 @@ import {
   MyguildLearnTime,
   MyRequest,
   GuildRequest,
+  GuildAssignment,
 } from '../../models/guild';
 
 type GuildState = {
@@ -329,6 +330,32 @@ const guildSlice = createSlice({
     },
     // 길드 탈퇴 실패
     quitGuildFailed(state) {
+      state.loading = false;
+    },
+
+    // 길드 과제 만들기 시작
+    postGuildAssignmentStart(state, action: PayloadAction<GuildAssignment>) {
+      state.loading = true;
+    },
+    // 길드 과제 만들기 시작
+    postGuildAssignmentSuccess(state) {
+      state.loading = false;
+    },
+    // 길드 과제 만들기 실패
+    postGuildAssignmentFailed(state) {
+      state.loading = false;
+    },
+
+    // 길드 과제 삭제 시작
+    delelteGuildAssignmentStart(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 길드 과제 삭제 시작
+    delelteGuildAssignmentSuccess(state) {
+      state.loading = false;
+    },
+    // 길드 과제 삭제 실패
+    delelteGuildAssignmentFailed(state) {
       state.loading = false;
     },
   },
