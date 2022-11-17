@@ -187,7 +187,7 @@ const SignupForm = ({
         />
         <InputField name="nickname" control={control} label="닉네임" />
         <div className="short">
-          <div className="age">
+          <div className="age" style={{ width: '25%' }}>
             <InputField
               name="age"
               control={control}
@@ -217,7 +217,7 @@ const SignupForm = ({
         </div>
       </InputWrap>
       <SubmitBtnWrap>
-        <a
+        {/* <a
           href="#"
           onClick={handleToggle}
           className="toggle"
@@ -227,9 +227,9 @@ const SignupForm = ({
             &lt;&lt;&nbsp;&nbsp;현재 베타테스트 기간으로 개별 가입이
             불가능합니다
           </p>
-        </a>
+        </a> */}
 
-        {/* <GradientRoundBtn
+        <GradientRoundBtn
           widthSize={'80%'}
           heightSize={'5vh'}
           paddingSize={'0'}
@@ -248,7 +248,7 @@ const SignupForm = ({
           style={{ fontFamily: 'Fredoka', fontWeight: 'bold' }}
         >
           &lt;&lt;&nbsp;&nbsp;Sign In
-        </a> */}
+        </a>
       </SubmitBtnWrap>
     </StyledForm>
   );

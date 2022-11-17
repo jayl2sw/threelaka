@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import EnglishOnlyZone from './EOZ/EnglishOnlyZone';
+import EozPage from './EOZ/EozPage';
+// import EnglishOnlyZone from './EOZ/EnglishOnlyZone';
 import {
   FlexTransparentDiv,
   MainBox,
@@ -30,10 +31,17 @@ const MyGuild = () => {
   const myguildLearnTime = useAppSelector(
     (state) => state.guild.myguildLearnTime
   );
+
   const learnTimePageNum = Math.ceil(myguildLearnTime.length / 6);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [roomNubmer, setRoomNumber] = useState<number>(0);
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
+
+  // EOZ에 필요한 데이터 (props해줄 것임)
+  const guildId = myGuildInfo.guildId;
+  let nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
+  nickname = nickname ? nickname : '';
+
   // 수평 스크롤
   const scrollRef = useHorizontalScroll(
     ''
@@ -163,7 +171,7 @@ const MyGuild = () => {
                         myguildLearnTime[0].time / 3600
                       )}시간 ${Math.floor(
                         myguildLearnTime[0].time % 60
-                      )}분 공부했어요`}
+                      )}분 공부했어요!`}
                   </FlexTransparentDiv>
                 </FlexTransparentDiv>
                 <FlexTransparentDiv
@@ -431,48 +439,7 @@ const MyGuild = () => {
                 )}
               </FlexTransparentDiv>
             </FlexTransparentDiv>
-            <TopBtn
-              widthSize="5vw"
-              heightSize="5vh"
-              paddingSize="0"
-              fontSize="2vmin"
-              fontColor="white"
-              backgroundColor="blue"
-              style={{ position: 'absolute', bottom: '30vh', left: '1vw' }}
-              onClick={() => {
-                setRoomNumber(1);
-              }}
-            >
-              방1
-            </TopBtn>
-            <TopBtn
-              widthSize="5vw"
-              heightSize="5vh"
-              paddingSize="0"
-              fontSize="2vmin"
-              fontColor="white"
-              backgroundColor="blue"
-              style={{ position: 'absolute', bottom: '30vh', left: '6.25vw' }}
-              onClick={() => {
-                setRoomNumber(2);
-              }}
-            >
-              방2
-            </TopBtn>
-            <TopBtn
-              widthSize="5vw"
-              heightSize="5vh"
-              paddingSize="0"
-              fontSize="2vmin"
-              fontColor="white"
-              backgroundColor="blue"
-              style={{ position: 'absolute', bottom: '30vh', left: '11.5vw' }}
-              onClick={() => {
-                setRoomNumber(3);
-              }}
-            >
-              방3
-            </TopBtn>
+
             <FlexTransparentDiv
               widthSize={'30vw'}
               heightSize={'30vh'}
@@ -480,9 +447,9 @@ const MyGuild = () => {
               flexDirection={'column'}
               justifyContent={'start'}
               alignItems={'start'}
-              IsBorder={'none'}
+              IsBorder={'is'}
             >
-              <EnglishOnlyZone />
+              <EozPage guildId={guildId} nickname={nickname} />
             </FlexTransparentDiv>
           </FlexTransparentDiv>
         </FlexTransparentDiv>

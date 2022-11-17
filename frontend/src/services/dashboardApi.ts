@@ -68,3 +68,19 @@ export const getTotalStudyTimeApi = async (
   const response: TotalStudyTime = res.data;
   return response;
 };
+
+//태그 등록 또는 수정
+
+export const updateTagApi = async (tagList: Array<number>): Promise<any> => {
+  console.log('얘가 뭔가', tagList);
+  const res = await customAxios.put(`/api/v1/dashboard/tag`, tagList);
+
+  return res.data;
+};
+
+//태그리스트불러오기
+export const getTagListApi = async (tagList: Array<string>): Promise<any> => {
+  const res = await customAxios.get('/api/v1/dashboard/tag');
+  const response: [] = res.data;
+  return response;
+};

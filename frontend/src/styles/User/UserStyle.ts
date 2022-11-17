@@ -142,7 +142,7 @@ export const InputWrap = styled.div`
     justify-content: space-between;
   }
   .age {
-    width: 30%;
+    /* width: 30%; */
   }
   .gender {
     font-size: 3vmin;
@@ -235,9 +235,6 @@ export const StyledInput = styled.input`
   transition: 0.4s;
   &.active {
     border-bottom-color: #333333;
-  }
-  &.age {
-    width: 20%;
   }
 `;
 

@@ -39,7 +39,7 @@ export default function Example({ width, height, events = false }: BarsProps) {
   console.log(dailyStudyTime);
   const timeData: Array<TestGraph> = [];
 
-  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
   dailyStudyTime.map((item, idx) => {
     timeData.push({ label: days[idx], value: Number(item) });
   });
@@ -85,7 +85,7 @@ export default function Example({ width, height, events = false }: BarsProps) {
                 left={10}
                 scale={yScale}
                 numTicks={4}
-                label="Times(Min)"
+                label="시간 (분)"
                 tickLabelProps={() => ({
                   fill: '#565656',
                   fontSize: 11,

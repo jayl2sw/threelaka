@@ -13,6 +13,7 @@ const UpdateUserInfo = () => {
         style={{
           display: 'flex',
           justifyContent: 'center',
+          boxShadow: 'none',
         }}
       >
         <ModifyUserInfo></ModifyUserInfo>

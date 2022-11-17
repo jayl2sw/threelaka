@@ -33,13 +33,15 @@ const RecentVideo = () => {
   const video = recentVideoData.video;
   const record = recentVideoData.learningRecord;
 
-  // 영상 제목 정제하기
-  const cutIndex = video.title.indexOf('|');
-  const videoTitle =
-    cutIndex !== -1
-      ? video.title.substr(0, cutIndex)
-      : video.title.substr(video.title.indexOf(':') + 1);
+  //영상 제목 정제하기
 
+  // const cutIndex = video.title.indexOf('|');
+  // const videoTitle =
+  //   cutIndex !== -1
+  //     ? video.title.substr(0, video.title.indexOf('|'))
+  //     : video.title.substr(video.title.indexOf(':') + 1);
+
+  useEffect(() => {}, []);
   // 공부 새로 시작
   const handlerPostStartStudy = (videoId: string) => {
     dispatch(studyActions.postStartStudy(videoId));
@@ -72,7 +74,18 @@ const RecentVideo = () => {
           {/* 비디오 정보 div(container) */}
           <RecentVideoDataContainer>
             <RecentVideoTextContainer>
-              <p className="video-title">{videoTitle}</p>
+              {video.title.length !== 0 ? (
+                video.title.indexOf(':') !== -1 ? (
+                  <div>{video.title.substr(video.title.indexOf(':') + 1)}</div>
+                ) : video.title.indexOf('|') !== -1 ? (
+                  <div>
+                    <p>{video.title.substr(0, video.title.indexOf('|'))}</p>
+                  </div>
+                ) : (
+                  <div>{video.title}</div>
+                )
+              ) : null}
+
               <StudyProgressRegion className={'region-' + record.stage}>
                 <ProgressBarIndicator className={'indicator-' + record.stage} />
               </StudyProgressRegion>

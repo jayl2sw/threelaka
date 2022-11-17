@@ -147,7 +147,7 @@ const ModifyPassword = ({ initialValues, onSubmit }: IModifyPasswordProps) => {
           type="password"
         />
         <GradientRoundBtn
-          widthSize={'80%'}
+          widthSize={'70%'}
           heightSize={'5vh'}
           paddingSize={'0'}
           fontColor={'black'}

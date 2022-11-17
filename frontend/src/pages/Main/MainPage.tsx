@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import MainHeader from '../../layout/MainHeader';
 import SearchBar from './components/SearchBar';
 import RecentVideo from './components/RecentVideo';
@@ -18,8 +18,22 @@ import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import RecommendVideoList from './components/RecommendVideoList';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import VideoModal from '../../utils/VideoModal';
+import TagSelectModal from './components/TagSelectModal';
+import { useAppSelector, useAppDispatch } from '../../utils/hooks';
+import { dashboardActions } from '../../features/dashboard/dashboard-slice';
+import { authActions } from '../../features/auth/authSlice';
 
 const MainPage = () => {
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const isNewbie = useAppSelector((state) => state.auth.isNewbie);
+  const tagList = useAppSelector((state) => state.dashboard.tagList);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (isNewbie !== false) {
+      setIsModal(true);
+      dispatch(authActions.resetIsNewbie());
+    }
+  }, [isNewbie]);
   let observer = new IntersectionObserver((e) => {
     // console.log('observer start', e);
     if (e[0].isIntersecting) {
@@ -41,7 +55,7 @@ const MainPage = () => {
       observer.observe(recentVideoContainer.current);
     }
   }
-  // console.warn('찍고오나');
+
   return (
     <>
       <VideoModal
@@ -49,6 +63,11 @@ const MainPage = () => {
         modalToggleVideoId={modalToggleVideoId}
         setModalToggleVideoId={setModalToggleVideoId}
       ></VideoModal>
+
+      {/* <TagSelectModal setIsModal={setIsModal}></TagSelectModal> */}
+      {isModal ? (
+        <TagSelectModal setIsModal={setIsModal}></TagSelectModal>
+      ) : null}
       <MainPageBlock>
         <FirstpageBlock ref={firstpageBlock}>
           <SearchBarBlock id="searchBarBlock">
@@ -88,7 +107,21 @@ const MainPage = () => {
           <RecentVideo />
         </RecentVideoContainer>
         <RecommendVideoContainer>
-          <ListInfo>추천 영상</ListInfo>
+          <ListInfo>
+            <div style={{ marginRight: '1vw' }}>추천영상</div>
+            <div style={{ fontSize: '2.5vmin' }}>
+              {tagList.length !== 0
+                ? tagList.map((item, idx) => {
+                    return (
+                      <span style={{ marginRight: '1vw', lineHeight: '28px' }}>
+                        #{item}
+                      </span>
+                    );
+                  })
+                : null}
+            </div>
+          </ListInfo>
+
           <RecommendVideoList
             setModalToggleVideoId={setModalToggleVideoId}
           ></RecommendVideoList>
