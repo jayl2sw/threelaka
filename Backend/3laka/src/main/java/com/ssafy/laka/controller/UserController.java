@@ -1,13 +1,14 @@
 package com.ssafy.laka.controller;
 
+import com.ssafy.laka.dto.alert.AlertResponseDto;
 import com.ssafy.laka.dto.exception.common.InvalidParameterException;
-import com.ssafy.laka.dto.exception.user.DuplicateEmailException;
 import com.ssafy.laka.dto.exception.user.DuplicateNicknameException;
 import com.ssafy.laka.dto.exception.user.DuplicateUsernameException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.dto.jwt.TokenDto;
 import com.ssafy.laka.dto.jwt.TokenRequestDto;
 import com.ssafy.laka.dto.user.*;
+import com.ssafy.laka.service.AlertService;
 import com.ssafy.laka.service.MailService;
 import com.ssafy.laka.service.StudyService;
 import com.ssafy.laka.service.UserService;
@@ -23,7 +24,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,6 +35,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
     private final StudyService studyService;
+    private final AlertService alertService;
 
     @GetMapping("/auth/check/nickname/{nickname}")
     @ApiOperation(value = "닉네임 중복 검사", notes = "해당 닉네임이 중복인지 확인하여 중복이면 true, 중복이 아니면 false를 반환한다")
@@ -186,4 +188,32 @@ public class UserController {
         return new ResponseEntity<>(userService.getMyInfo(), HttpStatus.OK);
     }
 
+    @GetMapping("/alert")
+    @ApiOperation(value = "유저 알림 반환", notes = "로그인한 회원의 알림 정보를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = UserResponseDto.class)
+    })
+    public ResponseEntity<List<AlertResponseDto>> getUserAlerts(){
+        return new ResponseEntity<>(alertService.getAlerts(), HttpStatus.OK);
+    }
+
+    @PostMapping("/alert/{alertId}")
+    @ApiOperation(value = "유저 알림 개별 확인", notes = "유저 알림 확인하면 status checked로 변경")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
+    public ResponseEntity<String> checkAlert(@PathVariable int alertId){
+        alertService.checkAlert(alertId);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PostMapping("/alert")
+    @ApiOperation(value = "유저 알림 일괄 확인", notes = "유저의 모든 알림 status checked로 변경")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
+    public ResponseEntity<String> checkAllAlerts(){
+        alertService.checkAllAlerts();
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
 }

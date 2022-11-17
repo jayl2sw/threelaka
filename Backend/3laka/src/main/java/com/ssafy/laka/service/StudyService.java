@@ -18,6 +18,7 @@ public interface StudyService {
 
     void addWord(WordRequestDto data) throws JSONException;
     void deleteWord(int wordbook_id);
+    void deleteWordByWordAndSentence(String word, String sentence);
 
     List<WordbookResponseDto> getWordbooksById(int lrId);
     List<WordbookResponseDto> getWordbooksByUser();

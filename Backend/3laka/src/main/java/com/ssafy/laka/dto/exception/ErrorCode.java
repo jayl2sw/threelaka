@@ -44,7 +44,11 @@ public enum ErrorCode {
 
     MASTER_CANNOT_QUIT(400, "G012", "마스터는 길드를 탈퇴할 수 없습니다"),
     ASSIGNMENT_NOT_FOUND(400, "G013", "해당하는 공통 과제를 찾을 수 없습니다"),
-    OVER_TWENTY_MEMBERS(400, "G014", "길드 정원을 초과합니다");
+    OVER_TWENTY_MEMBERS(400, "G014", "길드 정원을 초과합니다"),
+
+    AlERT_LIST_EMPTY(400, "A001", "새로운 알림이 없습니다"),
+
+    AlERT_NOT_FOUND(400, "A002", "해당 알림을 찾을 수 없습니다");
 
 
 
