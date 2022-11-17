@@ -307,18 +307,19 @@ public class GuildServiceImpl implements GuildService{
 
     @Override
     public List<AssignmentResponseDto> getAssignments(int status) {
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         String today = formatter.format(date);
         switch (status) {
             case 0:
-                return assignmentRepository.findAllByStartDateAfterOrderByEndDateDesc(today)
+                return assignmentRepository.findAllByGuildAndStartDateAfterOrderByEndDateDesc(me.getGuild(), today)
                         .stream().map(s -> AssignmentResponseDto.from(s)).collect(Collectors.toList());
             case 1:
-                return assignmentRepository.findAllByStartDateBeforeAndEndDateAfterOrderByEndDateDesc(today, today)
+                return assignmentRepository.findAllByGuildAndStartDateBeforeAndEndDateAfterOrderByEndDateDesc(me.getGuild(), today, today)
                         .stream().map(s -> AssignmentResponseDto.from(s)).collect(Collectors.toList());
             case 2:
-                return assignmentRepository.findAllByEndDateBeforeOrderByEndDateDesc(today)
+                return assignmentRepository.findAllByGuildAndEndDateBeforeOrderByEndDateDesc(me.getGuild(), today)
                         .stream().map(s -> AssignmentResponseDto.from(s)).collect(Collectors.toList());
             default:
                 return null;
