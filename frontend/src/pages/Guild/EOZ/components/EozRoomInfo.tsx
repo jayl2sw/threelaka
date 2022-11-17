@@ -29,9 +29,10 @@ type RoomInfoProps = {
 };
 
 const EozRoomInfo = (props: RoomInfoProps) => {
-  const { guildInfo, roomNumber } = props;
   const { isOpenModal, onClickModal } = useModal();
+  const { guildInfo, roomNumber, localStream } = props;
   const guildId = guildInfo.guildId;
+
   let roomInfo = guildInfo.rooms[roomNumber - 1];
 
   return (
@@ -57,6 +58,7 @@ const EozRoomInfo = (props: RoomInfoProps) => {
             <EozModal
               isOpenModal={isOpenModal}
               onClickModal={onClickModal}
+              localStream={localStream}
               roomNumber={roomNumber}
               guildId={guildId}
               roomInfo={roomInfo}

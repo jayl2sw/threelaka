@@ -11,20 +11,34 @@ import EnglishOnlyZone from './components/EnglishOnlyZone';
 
 // 길드 아이디 type 확정짓기 User에는 string으로 들어오긴함 ***
 type EozPageProps = {
-  guildId: number;
-  nickname: string;
+  // guildId: number;
+  // nickname: string;
+  localStream: any;
+  setLocalStream: any;
 };
 
+// let guildId = 2;
+// let nickname = '테스트 중입니다';
+
 // EOZ 중 최상단 (MyGuild에서 EOZ 부분 전체)
-const EozPage = (props: EozPageProps) => {
-  // MyGuild 컴포넌트에서 보내주는 guildID와 nickname
-  const { guildId, nickname } = props;
+const EozPage = (
+  // guildId: number,
+  // nickname: string,
+  localStream: any,
+  setLocalStream: any
+) => {
+  // EOZ에 필요한 데이터
+  const guildId = useAppSelector((state) => state.guild.myGuildInfo.guildId);
+  let nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
+  nickname = nickname !== undefined ? nickname : '';
 
   const [bool, setBool] = useState(false);
 
   useEffect(() => {
     connectWithSocketIOServer(); // Socket통신 시작
-    setBool(joinGuildChannel(nickname, guildId));
+    if (nickname !== undefined) {
+      setBool(joinGuildChannel(nickname, guildId));
+    }
     return () => {};
   }, []);
 

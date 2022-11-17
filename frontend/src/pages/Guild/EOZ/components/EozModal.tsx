@@ -22,10 +22,18 @@ type EnterRoomModalType = {
     videoId: string | null;
     connectedUsers: never[];
   };
+  localStream: any;
 };
 
 const EozModal = (props: EnterRoomModalType) => {
-  const { onClickModal, isOpenModal, roomNumber, guildId, roomInfo } = props;
+  const {
+    onClickModal,
+    isOpenModal,
+    roomNumber,
+    guildId,
+    roomInfo,
+    localStream,
+  } = props;
   const [videoId, setVideoId] = useState<string>('');
   const [learningRecordid, setLearningRecordId] = useState<string>('');
   const [startEoz, setStartEoz] = useState<boolean>(false);
