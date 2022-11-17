@@ -439,70 +439,18 @@ const MyGuild = () => {
                 )}
               </FlexTransparentDiv>
             </FlexTransparentDiv>
-            <TopBtn
-              widthSize="5vw"
-              heightSize="5vh"
-              paddingSize="0"
-              fontSize="2vmin"
-              fontColor="white"
-              backgroundColor="blue"
-              style={{ position: 'absolute', bottom: '30vh', left: '1vw' }}
-              onClick={() => {
-                setRoomNumber(1);
-              }}
-            >
-              방1
-            </TopBtn>
-            <TopBtn
-              widthSize="5vw"
-              heightSize="5vh"
-              paddingSize="0"
-              fontSize="2vmin"
-              fontColor="white"
-              backgroundColor="blue"
-              style={{ position: 'absolute', bottom: '30vh', left: '6.25vw' }}
-              onClick={() => {
-                setRoomNumber(2);
-              }}
-            >
-              방2
-            </TopBtn>
-            <TopBtn
-              widthSize="5vw"
-              heightSize="5vh"
-              paddingSize="0"
-              fontSize="2vmin"
-              fontColor="white"
-              backgroundColor="blue"
-              style={{ position: 'absolute', bottom: '30vh', left: '11.5vw' }}
-              onClick={() => {
-                setRoomNumber(3);
-              }}
-            >
-              방3
-            </TopBtn>
-            {/* <FlexTransparentDiv
+
+            <FlexTransparentDiv
               widthSize={'30vw'}
               heightSize={'30vh'}
               paddingSize={'0'}
               flexDirection={'column'}
               justifyContent={'start'}
               alignItems={'start'}
-              IsBorder={'none'}
+              IsBorder={'is'}
             >
-              <EnglishOnlyZone />
-            </FlexTransparentDiv> */}
-          </FlexTransparentDiv>
-          <FlexTransparentDiv
-            widthSize={'30vw'}
-            heightSize={'30vh'}
-            paddingSize={'0'}
-            flexDirection={'column'}
-            justifyContent={'start'}
-            alignItems={'start'}
-            IsBorder={'is'}
-          >
-            <EozPage guildId={guildId} nickname={nickname} />
+              <EozPage guildId={guildId} nickname={nickname} />
+            </FlexTransparentDiv>
           </FlexTransparentDiv>
         </FlexTransparentDiv>
       </FlexTransparentDiv>
