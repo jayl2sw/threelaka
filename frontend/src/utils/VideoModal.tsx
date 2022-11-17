@@ -30,6 +30,7 @@ const VideoModal = ({
 }: IVideoModalProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const outside = useRef<HTMLDivElement>(null);
   // 버튼 클릭으로 영상 정보 조회
   useEffect(() => {
     if (modalToggleVideoId !== 'none') {
@@ -91,7 +92,6 @@ const VideoModal = ({
       alert('제대로 된 url을 입력하라');
     }
   }, [correctUrl]);
-  const outside = useRef<HTMLDivElement>(null);
 
   return modalToggleVideoId === 'none' ? (
     <></>

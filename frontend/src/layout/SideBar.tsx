@@ -96,7 +96,7 @@ const SideBar = ({
         justifyContent={'center'}
         alignItems={'center'}
         IsBorder={'none'}
-        style={{ marginTop: '2vh' }}
+        style={{ marginTop: '3.8vh' }}
       >
         <MenuItems>
           <NavLink

@@ -6,11 +6,14 @@ import {
 } from '../styles/Layout/MainHeaderStyle';
 import { Link } from 'react-router-dom';
 // import { LogoutIcon } from '../styles/Layout/HeaderStyle';
-import { useAppDispatch } from '../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../utils/hooks';
 import { authActions } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { ToastMessage } from '../utils/ToastMessage';
 import { ToastContainer } from '../styles/Common/CommonDivStyle';
+import { FlexTransparentDiv } from '../styles/Common/CommonDivStyle';
+import { ProfileImgBox } from '../styles/DashBoard/DashBoardStyle';
+import { ProfileCenter } from '../styles/DashBoard/DashBoardStyle';
 const MainHeader = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -19,6 +22,8 @@ const MainHeader = () => {
     navigate('/auth/login');
   };
   const [isToast, setIsToast] = useState(false);
+  const profile = useAppSelector((state) => state.auth.currentUser?.profile);
+  const nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
   function activeToast() {
     setIsToast(true);
     let timer = setTimeout(() => {
@@ -43,7 +48,7 @@ const MainHeader = () => {
         </ToastContainer>
       )}
 
-      <MainLinkWrapper bgColor="transparent" widthSize="10vw"></MainLinkWrapper>
+      {/* <MainLinkWrapper bgColor="transparent" widthSize="10vw"></MainLinkWrapper> */}
 
       <MainLinkWrapper bgColor="transparent" widthSize="10vw">
         <Link to="/videos" style={{ fontSize: '1.2vw' }}>
@@ -93,6 +98,44 @@ const MainHeader = () => {
           onClick={handleLogout}
           style={{ width: '15vw' }}
         ></LogoutIcon> */}
+      </MainLinkWrapper>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
+        {nickname && <div>{nickname}</div>}
+      </MainLinkWrapper>
+      <MainLinkWrapper bgColor="transparent" widthSize="10vw">
+        <FlexTransparentDiv
+          widthSize={'13vw'}
+          heightSize={'10vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          IsBorder={'none'}
+        >
+          <ProfileImgBox
+            style={{
+              width: '8vmin',
+              height: '8vmin',
+              background: `linear-gradient(
+                110.64deg,
+                #4a9fff 5.65%,
+                rgba(88, 172, 240, 0.861458) 45.15%,
+                #b0ff91 84.64%
+              )`,
+              borderRadius: '50%',
+              border: '3.5px solid #111111',
+              position: 'absolute',
+              display: 'flex',
+              flexDirection: 'column',
+              // top: '1vh',
+            }}
+          >
+            <ProfileCenter
+              className={profile !== '0' ? 'profileImg' + profile : 'default'}
+              style={{ backgroundSize: '6vmin 6vmin' }}
+            ></ProfileCenter>
+          </ProfileImgBox>
+        </FlexTransparentDiv>
       </MainLinkWrapper>
     </MainHeaderMenuRegion>
   );

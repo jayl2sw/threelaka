@@ -32,6 +32,8 @@ export interface AuthState {
   currentUser?: User;
   errorStatus: number;
   isSuccess: boolean;
+  isNewbie: boolean;
+  tags: Array<object>;
 }
 
 const initialState: AuthState = {
@@ -40,6 +42,8 @@ const initialState: AuthState = {
   currentUser: undefined, //유저정보 따로 요청보낼거임
   errorStatus: 0,
   isSuccess: false,
+  isNewbie: false,
+  tags: [],
 };
 
 const authSlice = createSlice({
@@ -115,6 +119,12 @@ const authSlice = createSlice({
     },
     resetIsSuccess(state) {
       state.isSuccess = false;
+    },
+    isNewbie(state) {
+      state.isNewbie = true;
+    },
+    resetIsNewbie(state) {
+      state.isNewbie = false;
     },
   },
 });
