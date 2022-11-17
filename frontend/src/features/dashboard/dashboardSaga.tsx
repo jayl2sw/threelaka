@@ -11,6 +11,8 @@ import {
   getStudyHistoryApi,
   updateProfileApi,
   getTotalStudyTimeApi,
+  updateTagApi,
+  getTagListApi,
 } from '../../services/dashboardApi';
 import { dashboardActions } from './dashboard-slice';
 import {
@@ -111,6 +113,31 @@ function* onUpdateProfileAsync(action: PayloadAction<string>) {
   }
 }
 
+//태그수정
+function* onUpdateTagAsync(action: PayloadAction<number[]>) {
+  // const { fetchUser } = authActions;
+  try {
+    const response: string = yield call(updateTagApi, action.payload);
+    yield put(dashboardActions.updateTagSuccess(response));
+    yield put(dashboardActions.getTagList());
+
+    // yield put(fetchUser());
+  } catch (error: any) {
+    yield put(dashboardActions.updateTagFailed(error.data));
+  }
+}
+
+//태그 리스트 불러오기
+function* onGetTagListAsync(action: PayloadAction<string[]>) {
+  try {
+    const response: [] = yield call(getTagListApi, action.payload);
+
+    yield put(dashboardActions.getTagListSuccess(response));
+  } catch (error: any) {
+    yield put(dashboardActions.getTagListFailed(error.data));
+  }
+}
+
 // 현재공부중인영상
 export function* watchGetRecentVideoAsync() {
   yield takeLatest(
@@ -157,6 +184,16 @@ export function* watchTotalStudyTimeAsync() {
     onTotalStudyTimeAsync
   );
 }
+
+//태그변경
+export function* watchUpdateTagAsync() {
+  yield takeLatest(dashboardActions.updateTag.type, onUpdateTagAsync);
+}
+
+//태그조회
+export function* watchGetTagListAsync() {
+  yield takeLatest(dashboardActions.getTagList.type, onGetTagListAsync);
+}
 export const dashboardSagas = [
   fork(watchGetRecentVideoAsync),
   fork(watchGetCompletedVideoAsync),
@@ -165,4 +202,6 @@ export const dashboardSagas = [
   fork(watchGetStudyHistoryAsync),
   fork(watchUpdateProfileAsync),
   fork(watchTotalStudyTimeAsync),
+  fork(watchUpdateTagAsync),
+  fork(watchGetTagListAsync),
 ];

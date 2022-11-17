@@ -35,7 +35,7 @@ const readSlice = createSlice({
       state.loading = true;
       state.isAddSuccess = '';
     },
-    // 단어장에 단어 추가 성공
+    // 단어장에 단어 추가 성공getWordBookSuccess
     postAddWordToWordBookSuccess(state, action: PayloadAction<string>) {
       state.loading = false;
       state.isAddSuccess = action.payload;

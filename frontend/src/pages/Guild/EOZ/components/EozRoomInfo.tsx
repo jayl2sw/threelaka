@@ -1,0 +1,86 @@
+import React, { useState } from 'react';
+import { EozBtn } from '../../../../styles/Guild/GuildEozStyle';
+import { createRoom, joinRoom, exitRoom } from '../EozPage';
+import useModal from '../../../../utils/useModal';
+import EozModal from './EozModal';
+import MembersList from './MembersList';
+import TodayVideo from './TodayVideo';
+
+type Room = {
+  roomNumber: number;
+  videoId: string | null;
+  connectedUsers: never[];
+};
+
+type RoomInfoProps = {
+  guildInfo: {
+    guildId: number;
+    rooms: Room[];
+    connectedUsers: never[];
+  };
+  roomNumber: number;
+};
+
+const EozRoomInfo = (props: RoomInfoProps) => {
+  const { guildInfo, roomNumber } = props;
+  const { isOpenModal, onClickModal } = useModal();
+  const guildId = guildInfo.guildId;
+  let roomInfo = guildInfo.rooms[roomNumber - 1];
+
+  return (
+    <div>
+      {roomInfo && (
+        <div>
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <TodayVideo videoId={roomInfo.videoId} />
+            <MembersList connectedUsers={roomInfo.connectedUsers} />
+          </div>
+          <EozBtn
+            widthSize="10vw"
+            heightSize="3.5vh"
+            fontColor="white"
+            backgroundColor="blue"
+            onClick={() => {
+              onClickModal();
+            }}
+          >
+            EOZ 참여하기
+          </EozBtn>
+          {isOpenModal && (
+            <EozModal
+              isOpenModal={isOpenModal}
+              onClickModal={onClickModal}
+              roomNumber={roomNumber}
+              guildId={guildId}
+              roomInfo={roomInfo}
+            />
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const JoinRoomhandler = (
+  roomInfo: {
+    roomNumber: number;
+    videoId: string | null;
+    connectedUsers: never[];
+  },
+  roomNumber: number,
+  guildId: number,
+  videoId: string,
+  learningRecordId: number
+) => {
+  if (roomInfo) {
+    if (roomInfo.connectedUsers.length === 0) {
+      createRoom(roomNumber, guildId, videoId, learningRecordId);
+    } else {
+      joinRoom(roomNumber, guildId, learningRecordId);
+    }
+  } else {
+    createRoom(roomNumber, guildId, videoId, learningRecordId);
+  }
+};
+
+export default EozRoomInfo;

@@ -1,3 +1,4 @@
+import { learningRecordData } from './video';
 import { ReactNode } from 'react';
 
 // 내길드의 공지 조회
@@ -100,4 +101,31 @@ export interface GuildAssignment {
   videoId: string;
   startDate: string;
   endDate: string;
+}
+
+// WebSocet 개별 Guild
+export interface GuildInfo {
+  guildId: number;
+  rooms: Room[];
+  connectedUsers: ConnectedUser[];
+}
+
+// WebSocket 모든 Guilds
+export interface SocketGuilds {
+  guild: GuildInfo[];
+}
+
+// WebSocket 내 개별 길드의 개별 Room
+export interface Room {
+  videoId: string | null;
+  roomNumber: number;
+  conntedUsers: ConnectedUser[];
+}
+
+// WebSocket에 연결된 개별 유저
+export interface ConnectedUser {
+  nickname: string;
+  guildId: number;
+  roomNumber: number;
+  learningRecordId: number;
 }
