@@ -10,7 +10,8 @@ import {
   ProfileImgBox,
   ProfileCenter,
 } from '../styles/DashBoard/DashBoardStyle';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+
 interface IOnClickProps {
   handleSwitchPage: (pageNum: number) => void;
   handleSwitchGuildPage: (guildPageType: string) => void;
@@ -97,57 +98,62 @@ const SideBar = ({
         IsBorder={'none'}
         style={{ marginTop: '2vh' }}
       >
-        <MenuItems
-          onClick={() => {
-            handleSwitchPage(1);
-            onClickMenu(1);
-          }}
-          className={selectedItem === 1 ? 'clicked' : ''}
-        >
-          <RiBearSmileLine className="icon" size={20} />
-
-          <span className="title">DailyBoard</span>
+        <MenuItems>
+          <NavLink
+            to="/auth/dashboard/1"
+            className={({ isActive }) => (isActive ? 'clicked' : 'not')}
+          >
+            <RiBearSmileLine className="icon" size={20} />
+            <span className="title">DailyBoard</span>
+          </NavLink>
         </MenuItems>
-        <MenuItems
-          onClick={() => {
-            handleSwitchPage(3);
-            onClickMenu(2);
-          }}
-          className={selectedItem === 2 ? 'clicked' : ''}
-        >
-          <span className="icon"></span>
-          <span className="title">Profile</span>
+        <MenuItems>
+          <NavLink
+            to="/auth/dashboard/3"
+            className={({ isActive }) => (isActive ? 'clicked' : 'not')}
+          >
+            <RiBearSmileLine className="icon" size={20} />
+            <span className="title">Profile</span>
+          </NavLink>
         </MenuItems>
-        <MenuItems
-          onClick={() => {
-            handleSwitchGuildPage('main');
-            onClickMenu(3);
-          }}
-          className={selectedItem === 3 ? 'clicked' : ''}
-        >
-          <span className="icon"></span>
-          <span className="title">Guild</span>
+        <MenuItems>
+          <NavLink
+            to="/auth/guild/main"
+            className={({ isActive }) => (isActive ? 'clicked' : 'not')}
+          >
+            <RiBearSmileLine className="icon" size={20} />
+            <span className="title">Guild</span>
+          </NavLink>
         </MenuItems>
-        <MenuItems
-          onClick={() => {
-            handleSwitchGuildPage('myGuild');
-            onClickMenu(4);
-          }}
-          className={selectedItem === 4 ? 'clicked' : ''}
-        >
-          <span className="icon"></span>
-          <span className="title">MyGuild</span>
+        <MenuItems>
+          <NavLink
+            to="/auth/guild/myGuild"
+            className={({ isActive }) => (isActive ? 'clicked' : 'not')}
+          >
+            <RiBearSmileLine className="icon" size={20} />
+            <span className="title">MyGuild</span>
+          </NavLink>
         </MenuItems>
-        <MenuItems
-          onClick={() => {
-            handleSwitchGuildPage('admin');
-            onClickMenu(5);
-          }}
-          className={selectedItem === 5 ? 'clicked' : ''}
-        >
-          <span className="icon"></span>
-          <span className="title">GuildAdmin</span>
+        <MenuItems>
+          <NavLink
+            to="/auth/guild/admin"
+            className={({ isActive }) => (isActive ? 'clicked' : 'not')}
+          >
+            <RiBearSmileLine className="icon" size={20} />
+            <span className="title">GuildAdmin</span>
+          </NavLink>
         </MenuItems>
+        {/* <FlexTransparentDiv
+          widthSize={'100vw'}
+          heightSize={'30vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          IsBorder={'none'}
+        >
+          Spacer
+        </FlexTransparentDiv> */}
       </FlexTransparentDiv>
     </SideBarBlock>
   );

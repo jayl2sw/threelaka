@@ -187,7 +187,6 @@ const VideoModal = ({
             justifyContent={'center'}
             alignItems={'center'}
             IsBorder={'none'}
-            style={{ fontSize: '2.5vmin', fontFamily: 'PretendardBold' }}
           >
             <FlexTransparentDiv
               widthSize={'21vw'}
@@ -197,19 +196,9 @@ const VideoModal = ({
               justifyContent={'center'}
               alignItems={'center'}
               IsBorder={'none'}
-              style={{ fontSize: '2vmin' }}
+              style={{ fontSize: '2.5vmin', fontFamily: 'pretendardbold' }}
             >
-              <MainBtn
-                widthSize={'10vw'}
-                heightSize={'5vh'}
-                paddingSize={'0'}
-                fontSize={'2vmin'}
-                fontColor={'white'}
-                backgroundColor={'blue'}
-                onClick={() => handlerPostStartStudy(videoData.video.videoId)}
-              >
-                새로운 학습 시작하기
-              </MainBtn>
+              {videoData.video.title}
             </FlexTransparentDiv>
             {continuedToggle ? (
               ''
@@ -224,10 +213,10 @@ const VideoModal = ({
                 IsBorder={'none'}
               >
                 <MainBtn
-                  widthSize={'15vw'}
-                  heightSize={'8vh'}
+                  widthSize={'12vw'}
+                  heightSize={'6vh'}
                   paddingSize={'0'}
-                  fontSize={'3vmin'}
+                  fontSize={'2.5vmin'}
                   fontColor={'white'}
                   backgroundColor={'blue'}
                   onClick={() => handlerPostStartStudy(videoData.video.videoId)}
@@ -412,10 +401,10 @@ const VideoModal = ({
               ) : (
                 videoData.learning_record && (
                   <MainBtn
-                    widthSize={'15vw'}
-                    heightSize={'8vh'}
+                    widthSize={'12vw'}
+                    heightSize={'6vh'}
                     paddingSize={'0'}
-                    fontSize={'3vmin'}
+                    fontSize={'2.5vmin'}
                     fontColor={'white'}
                     backgroundColor={'black'}
                     onClick={() => setContinuedToggle(true)}

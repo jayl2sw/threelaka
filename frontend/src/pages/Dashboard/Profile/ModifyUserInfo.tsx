@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 
@@ -26,9 +26,13 @@ import {
   SubmitBtnWrap,
 } from '../../../styles/User/UserStyle';
 import { GradientRoundBtn } from '../../../styles/Common/CommonBtnStyle';
-import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
+import {
+  FlexTransparentDiv,
+  ToastContainer,
+} from '../../../styles/Common/CommonDivStyle';
 
 import ModifyPassword from './ModifyPassword';
+import { ToastMessage } from '../../../utils/ToastMessage';
 
 interface IAuthForm {
   username: string;
@@ -46,9 +50,9 @@ interface IModifyUserInfoProps {
 
 const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
   // const [errMsg, setErrMsg] = useState('');
-
+  // const [isSuccess, setIsSuccess] = useState(false);
   const dispatch = useAppDispatch();
-
+  const isSuccess = useAppSelector((state) => state.auth.isSuccess);
   const schema = yup.object().shape({
     nickname: yup
       .string()
@@ -118,7 +122,7 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
       flexDirection={'column'}
       justifyContent={'center'}
       alignItems={'center'}
-      IsBorder={'is'}
+      IsBorder={'none'}
     >
       <StyledForm
         onSubmit={handleSubmit(handleFormSubmit)}
@@ -186,6 +190,20 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
         IsBorder={'none'}
         style={{ marginTop: '1.5vh' }}
       >
+        {isSuccess && (
+          <ToastContainer
+            widthSize={'20vw'}
+            heightSize={'20vh'}
+            paddingSize={'2vh 1vw'}
+            fontColor={'black'}
+            top={'55vh'}
+            left={'63.5vw'}
+          >
+            <ToastMessage
+              text={'비밀번호가 성공적으로 변경되었습니다'}
+            ></ToastMessage>
+          </ToastContainer>
+        )}
         <h3>비밀번호변경</h3>
         <ModifyPassword></ModifyPassword>
       </FlexTransparentDiv>

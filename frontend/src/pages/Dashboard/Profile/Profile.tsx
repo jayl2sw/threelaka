@@ -5,8 +5,8 @@ import { ProfileContainer } from '../../../styles/DashBoard/DashBoardStyle';
 const Profile = () => {
   return (
     <ProfileContainer>
-      <UpdateUserInfo></UpdateUserInfo>
       <UpdateProfile></UpdateProfile>
+      <UpdateUserInfo></UpdateUserInfo>
     </ProfileContainer>
   );
 };

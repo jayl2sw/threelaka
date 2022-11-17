@@ -14,8 +14,7 @@ import {
 } from '../../models/guild';
 import {
   getGuildNoticeApi,
-  getProgressTaskApi,
-  getUpcomingTaskApi,
+  getGuildTaskApi,
   getGuildMemberApi,
   deleteGuildNoticeApi,
   createGuildNoticeApi,
@@ -54,16 +53,12 @@ function* onGetProgressTaskAsync(action: PayloadAction<string>) {
   // 길드 과제 받아오기 성공하면
   try {
     // model에 적어준 dto 값으로 작성
-    const progressResponse: VideoInfo[] = yield call(
-      getProgressTaskApi,
-      action.payload
-    );
+    const progressResponse: VideoInfo[] = yield call(getGuildTaskApi, '1');
     yield put(guildActions.getProgressTaskSuccess(progressResponse));
-    const upcomingResponse: VideoInfo[] = yield call(
-      getUpcomingTaskApi,
-      action.payload
-    );
+    const upcomingResponse: VideoInfo[] = yield call(getGuildTaskApi, '0');
     yield put(guildActions.getUpcomingTaskSuccess(upcomingResponse));
+    const completedResponse: VideoInfo[] = yield call(getGuildTaskApi, '2');
+    yield put(guildActions.getCompletedTaskSuccess(completedResponse));
   } catch (error) {
     console.error();
   }
@@ -263,7 +258,6 @@ export function* watchGetGuildNoticeAsync() {
 // 길드 진행중인 과제 받아오기 watch
 export function* watchGetProgressTaskAsync() {
   yield takeLatest(guildActions.getProgressTask.type, onGetProgressTaskAsync);
-  yield takeLatest(guildActions.getUpcomingTask.type, onGetProgressTaskAsync);
 }
 // 길드 멤버 받아오기 watch
 export function* watchGetGuildMemberListAsync() {

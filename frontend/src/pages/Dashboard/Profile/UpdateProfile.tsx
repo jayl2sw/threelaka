@@ -38,8 +38,8 @@ const UpdateProfile = () => {
       flexDirection={'column'}
       justifyContent={'center'}
       alignItems={'center'}
-      IsBorder={'is'}
-      style={{ marginLeft: '2.8vw' }}
+      IsBorder={'none'}
+      style={{ marginLeft: '0' }}
     >
       <FlexTransparentDiv
         widthSize={'32vw'}
@@ -48,7 +48,7 @@ const UpdateProfile = () => {
         flexDirection={'column'}
         justifyContent={'center'}
         alignItems={'center'}
-        IsBorder={'is'}
+        IsBorder={'none'}
         style={{ position: 'relative', marginTop: '6vh' }}
       >
         <ProfileImgBox
@@ -98,7 +98,7 @@ const UpdateProfile = () => {
             flexDirection={'column'}
             justifyContent={'start'}
             alignItems={'center'}
-            IsBorder={'is'}
+            IsBorder={'none'}
             style={{ position: 'absolute', top: '9vh' }}
           >
             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -170,7 +170,7 @@ const UpdateProfile = () => {
         flexDirection={'column'}
         justifyContent={'center'}
         alignItems={'center'}
-        IsBorder={'is'}
+        IsBorder={'none'}
       ></FlexTransparentDiv>
     </FlexTransparentDiv>
   );
