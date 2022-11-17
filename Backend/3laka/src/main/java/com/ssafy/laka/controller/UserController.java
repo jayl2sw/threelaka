@@ -193,7 +193,27 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = UserResponseDto.class)
     })
-    public ResponseEntity<List<AlertResponseDto>> getUserAlarm(){
+    public ResponseEntity<List<AlertResponseDto>> getUserAlerts(){
         return new ResponseEntity<>(alertService.getAlerts(), HttpStatus.OK);
+    }
+
+    @PostMapping("/alert/{alertId}")
+    @ApiOperation(value = "유저 알림 개별 확인", notes = "유저 알림 확인하면 status checked로 변경")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
+    public ResponseEntity<String> checkAlert(@PathVariable int alertId){
+        alertService.checkAlert(alertId);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PostMapping("/alert")
+    @ApiOperation(value = "유저 알림 일괄 확인", notes = "유저의 모든 알림 status checked로 변경")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = String.class)
+    })
+    public ResponseEntity<String> checkAllAlerts(){
+        alertService.checkAllAlerts();
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 }

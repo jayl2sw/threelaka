@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface AlertRepository extends JpaRepository<Alert, Integer> {
-    @Query(value = "select a from Alert a where a.user = :user and a.alertState <> 'checked'")
+    @Query(value = "select a from Alert a where a.user = :user and a.alertState <> 4")
     List<Alert> findAlerts(User user);
 }

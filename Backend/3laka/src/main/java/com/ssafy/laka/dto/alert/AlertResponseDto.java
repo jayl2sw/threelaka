@@ -11,9 +11,9 @@ import lombok.*;
 @NoArgsConstructor
 @ApiModel(value = "UserAlertResponseDto", description = "유저 할당 알림정보 응답 Dto")
 public class AlertResponseDto {
-    private int alertId;
-    private int assignmentId;
-    private int guildId;
+    private Integer alertId;
+    private Integer assignmentId;
+    private Integer guildId;
     private String guildName;
     private AlertState alertState;
 
@@ -21,10 +21,12 @@ public class AlertResponseDto {
         return AlertResponseDto.builder()
                 .alertId(entity.getAlertId())
                 .assignmentId(entity.getAssignment() == null ? null : entity.getAssignment().getAssignmentId())
-                .guildId(entity.getGuild().getId())
-                .guildName(entity.getGuild().getGuildName())
+                .guildId(entity.getGuild() == null ? null : entity.getGuild().getId())
+                .guildName(entity.getGuild()== null ? null : entity.getGuild().getGuildName())
                 .alertState(entity.getAlertState())
                 .build();
+
+
 
     }
 }

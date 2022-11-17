@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface AlertService {
     List<AlertResponseDto> getAlerts();
+    void checkAlert(int alertId);
+
+    void checkAllAlerts();
 }

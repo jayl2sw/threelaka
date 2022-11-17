@@ -2,8 +2,10 @@ package com.ssafy.laka.service;
 
 import com.ssafy.laka.domain.Alert;
 import com.ssafy.laka.domain.User;
+import com.ssafy.laka.domain.enums.AlertState;
 import com.ssafy.laka.dto.alert.AlertResponseDto;
 import com.ssafy.laka.dto.exception.alert.AlertListEmptyException;
+import com.ssafy.laka.dto.exception.alert.AlertNotFoundException;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.repository.AlertRepository;
 import com.ssafy.laka.repository.UserRepository;
@@ -32,5 +34,21 @@ public class AlertServiceImpl implements AlertService{
         if (list.size() < 1) {
             throw new AlertListEmptyException();}
         return list;
+    }
+
+    @Override
+    public void checkAlert(int alertId) {
+        Alert alert = alertRepository.findById(alertId).orElseThrow(AlertNotFoundException::new);
+        alert.UpdateState(alert);
+    }
+
+    @Override
+    public void checkAllAlerts() {
+        User me = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        List<Alert> alerts = alertRepository.findAlerts(me);
+
+        for (int i = 0; i < alerts.size(); i++){
+            alerts.get(i).UpdateState(alerts.get(i));
+        }
     }
 }
