@@ -116,6 +116,7 @@ export const MainLinkWrapper = styled.div<LinkMenuProps>`
   height: 8vh;
   font-size: 1.2rem;
   color: black;
+  margin-top: 1vh;
   a {
     text-decoration: none;
     color: black;
