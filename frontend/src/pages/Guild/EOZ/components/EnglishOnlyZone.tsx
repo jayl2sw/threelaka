@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EozRoomInfo from './EozRoomInfo';
 //style
 import {
@@ -18,12 +18,17 @@ type EozProps = {
     connectedUsers: never[];
   };
   nickname: string;
-  socketId: string;
+  localStream: any;
 };
 
 const EnglishOnlyZone = (props: EozProps) => {
-  const { guildInfo } = props;
+  const { guildInfo, localStream, nickname } = props;
+  console.warn(localStream);
+  console.log('localStream type을 알려줘===========', typeof localStream);
   const [roomNumber, setRoomNumber] = useState(1);
+  useEffect(() => {
+    console.log('EnglishOnlyZone에서 useEffect 발동');
+  }, []);
 
   return (
     <div>
@@ -53,9 +58,11 @@ const EnglishOnlyZone = (props: EozProps) => {
           Zone 3
         </RoomNumBtn>
       </RoomNumBtnContainer>
-      <EozMainContainer>
-        <EozRoomInfo guildInfo={guildInfo} roomNumber={roomNumber} />
-      </EozMainContainer>
+      <EozRoomInfo
+        guildInfo={guildInfo}
+        roomNumber={roomNumber}
+        localStream={localStream}
+      />
     </div>
   );
 };

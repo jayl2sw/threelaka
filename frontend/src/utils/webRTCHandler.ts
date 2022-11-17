@@ -9,7 +9,11 @@ const defaultConstraint = {
 };
 
 export const getLocalPreviewAndInitRoomConnection = (
-  roomInfo: any,
+  roomInfo: {
+    roomNumber: number;
+    videoId: string;
+    connectedUsers: never[];
+  },
   guildId: number,
   learningRecordId: number
 ) => {

@@ -17,24 +17,38 @@ const MembersList = (props: MembersListProps) => {
   let nicknameList: any = [];
   connectedUsers.forEach((user) => {
     {
-      console.log('user--------', user);
-      console.log(user.nickname);
       nicknameList.push(user.nickname);
     }
   });
   return (
-    <div
-      style={{
-        border: '2px solid red',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '50%',
-      }}
-    >
-      현재 접속한 사람 목록
-      <p>{nicknameList}</p>
+    <div className="member-box">
+      <p>현재 접속 중인 사람 ( {nicknameList.length} / 6 )</p>
+      {nicknameList.length ? (
+        <div className="member-name-box">
+          <span style={{ transform: 'translateY(50%)' }}>
+            {nicknameList[0]}
+          </span>
+          <span style={{ transform: 'translateY(50%)' }}>
+            {nicknameList[1]}
+          </span>
+          <span style={{ transform: 'translateY(50%)' }}>
+            {nicknameList[2]}
+          </span>
+          <span style={{ transform: 'translateY(50%)' }}>
+            {nicknameList[3]}
+          </span>
+          <span style={{ transform: 'translateY(50%)' }}>
+            {nicknameList[4]}
+          </span>
+          <span style={{ transform: 'translateY(50%)' }}>
+            {nicknameList[5]}
+          </span>
+        </div>
+      ) : (
+        <div className="member-empty-box">
+          <p>지금은 아무도 없어요 :(</p>
+        </div>
+      )}
     </div>
   );
 };

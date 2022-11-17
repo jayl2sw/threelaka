@@ -6,6 +6,12 @@ import EozModal from './EozModal';
 import MembersList from './MembersList';
 import TodayVideo from './TodayVideo';
 
+// style
+import {
+  EozRoomInfoContainer,
+  EozMainContainer,
+} from '../../../../styles/Guild/GuildEozStyle';
+
 type Room = {
   roomNumber: number;
   videoId: string | null;
@@ -19,6 +25,7 @@ type RoomInfoProps = {
     connectedUsers: never[];
   };
   roomNumber: number;
+  localStream: any;
 };
 
 const EozRoomInfo = (props: RoomInfoProps) => {
@@ -30,11 +37,11 @@ const EozRoomInfo = (props: RoomInfoProps) => {
   return (
     <div>
       {roomInfo && (
-        <div>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <EozMainContainer>
+          <EozRoomInfoContainer>
             <TodayVideo videoId={roomInfo.videoId} />
             <MembersList connectedUsers={roomInfo.connectedUsers} />
-          </div>
+          </EozRoomInfoContainer>
           <EozBtn
             widthSize="10vw"
             heightSize="3.5vh"
@@ -55,7 +62,7 @@ const EozRoomInfo = (props: RoomInfoProps) => {
               roomInfo={roomInfo}
             />
           )}
-        </div>
+        </EozMainContainer>
       )}
     </div>
   );

@@ -6,20 +6,20 @@ type TodayVideoProps = {
 
 const TodayVideo = (props: TodayVideoProps) => {
   const { videoId } = props;
+  console.log(videoId);
   if (videoId) {
     return (
-      <div style={{ width: '50%', border: '1px solid red' }}>
+      <div className="video-box">
         <img
           src={`https://img.youtube.com/vi/${videoId}/0.jpg`}
-          alt=""
-          style={{ width: '15vw', height: '12vh' }}
+          alt="학습할 영상 썸네일"
         />
       </div>
     );
   } else {
     return (
-      <div style={{ border: '1px solid green', width: '50%' }}>
-        학습할 영상을 선택해주세요
+      <div className="video-box">
+        <p>학습할 영상을 선택해주세요</p>
       </div>
     );
   }

@@ -38,25 +38,73 @@ export const RoomNumBtn = styled.button`
 // EOZ 정보 컨테이너
 export const EozMainContainer = styled.div`
   width: 30vw;
-  height: 26.5vh;
+  height: 30vh;
   padding: 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   font-size: 1vw;
   color: #111111;
   background-color: #ffffff;
   border-radius: 0 2vmin 2vmin 2vmin;
 `;
 
-// EOZ 접속 중인 멤버 목록 보여주기
-export const EozMembersContainer = styled.div`
-  width: 23vw;
-  height: 15vh;
-  padding: 0.5vh 0.5vw;
-  margin: 0.5vh 0.5vw;
+// EOZ Room 정보 컨테이너
+export const EozRoomInfoContainer = styled.div`
+  width: 27vw;
+  height: 17vh;
+  padding: 1vh 0;
+  margin-bottom: 1.5vh;
   display: flex;
-  flex-direction: column;
-  justify-content: start;
-  border: 1px solid red;
-  border-radius: 1vmin;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  & .video-box {
+    width: 14vw;
+    height: 17vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.5vw;
+    border: 0.5vmin dashed rgba(79, 159, 255, 0.2);
+    border-radius: 1vmin;
+    & img {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 1vmin;
+    }
+  }
+  & .member-box {
+    width: 13vw;
+    height: 17vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    padding: 3vh 0 1vh 0;
+    background-color: rgba(79, 159, 255, 0.2);
+    border-radius: 1vmin;
+  }
+  & .member-name-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    height: 14vh;
+  }
+  & .member-empty-box {
+    height: 14vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+  }
+  & p {
+    margin: 0;
+    text-align: center;
+  }
 `;
 
 export const EnterBtn = styled.button`
