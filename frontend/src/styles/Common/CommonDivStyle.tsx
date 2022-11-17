@@ -203,6 +203,7 @@ export const GradientCircleDiv = styled.div<CommonCircleProps>`
   background-origin: border-box;
   background-clip: content-box, border-box;
   margin: 10px;
+  position: relative;
 `;
 
 // export const GradientIconBox = styled.div<CommonDivProps>`

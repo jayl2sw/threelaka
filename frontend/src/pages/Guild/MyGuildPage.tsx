@@ -8,7 +8,10 @@ import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { guildActions } from '../../features/guild/guild-slice';
 import { LearnTimeProgressbar } from '../../styles/Guild/MyGuildStyle';
 import { AiFillFire, AiFillBell } from 'react-icons/ai';
+import { GoFlame } from 'react-icons/go';
 import { VscTriangleLeft, VscTriangleRight } from 'react-icons/vsc';
+import { TopBtn } from '../../styles/Common/CommonBtnStyle';
+
 const MyGuild = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -21,6 +24,7 @@ const MyGuild = () => {
   );
   const learnTimePageNum = Math.ceil(myguildLearnTime.length / 6);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [roomNubmer, setRoomNumber] = useState<number>(0);
   return (
     <FlexTransparentDiv
       widthSize={'65vw'}
@@ -41,7 +45,7 @@ const MyGuild = () => {
         IsBorder={'is'}
         style={{ fontSize: '4vmin', fontFamily: 'pretendardBold' }}
       >
-        WELCOM TO {myGuildInfo.guildName}
+        WELCOME TO {myGuildInfo.guildName}
       </FlexTransparentDiv>
       <FlexTransparentDiv
         widthSize={'65vw'}
@@ -98,7 +102,11 @@ const MyGuild = () => {
                   alignItems={'start'}
                   IsBorder={'none'}
                 >
-                  <AiFillFire size={30}></AiFillFire>
+                  <GoFlame
+                    size={30}
+                    color="red"
+                    style={{ height: '4vh' }}
+                  ></GoFlame>
                   <FlexTransparentDiv
                     widthSize={'30vw'}
                     heightSize={'5vh'}
@@ -109,7 +117,16 @@ const MyGuild = () => {
                     IsBorder={'none'}
                     style={{ fontSize: '3vmin' }}
                   >
-                    best Member
+                    <p
+                      style={{
+                        fontSize: '2vmin',
+                        fontWeight: 'bold',
+                        color: '#4A9FFF',
+                        verticalAlign: 'middle',
+                      }}
+                    >
+                      BEST MEMBER
+                    </p>
                   </FlexTransparentDiv>
                 </FlexTransparentDiv>
                 <FlexTransparentDiv
@@ -120,7 +137,7 @@ const MyGuild = () => {
                   justifyContent={'start'}
                   alignItems={'start'}
                   IsBorder={'none'}
-                  style={{ fontSize: '3vmin' }}
+                  style={{ fontSize: '2.5vmin' }}
                 >
                   {myguildLearnTime[0] &&
                     `${myguildLearnTime[0].nickname}님이 ${Math.floor(
@@ -158,7 +175,11 @@ const MyGuild = () => {
                 alignItems={'start'}
                 IsBorder={'none'}
               >
-                <AiFillBell size={30}></AiFillBell>
+                <AiFillBell
+                  size={30}
+                  color="#ffb94c"
+                  style={{ height: '5vh' }}
+                ></AiFillBell>
                 <FlexTransparentDiv
                   widthSize={'30vw'}
                   heightSize={'5vh'}
@@ -169,7 +190,15 @@ const MyGuild = () => {
                   IsBorder={'none'}
                   style={{ fontSize: '3vmin' }}
                 >
-                  NOTICE
+                  <p
+                    style={{
+                      fontSize: '2vmin',
+                      fontWeight: 'bold',
+                      color: '#4A9FFF',
+                    }}
+                  >
+                    NOTICE
+                  </p>
                 </FlexTransparentDiv>
               </FlexTransparentDiv>
               <FlexTransparentDiv
@@ -180,10 +209,9 @@ const MyGuild = () => {
                 justifyContent={'start'}
                 alignItems={'start'}
                 IsBorder={'none'}
-                style={{ fontSize: '3vmin' }}
+                style={{ fontSize: '2.5vmin' }}
               >
                 {myGuildInfo.notice}
-                {'hdhdhdh'}
               </FlexTransparentDiv>
             </FlexTransparentDiv>
           </FlexTransparentDiv>
@@ -206,6 +234,7 @@ const MyGuild = () => {
                 display: 'flex',
                 justifyContent: 'start',
                 flexDirection: 'column',
+                boxShadow: 'none',
               }}
             >
               <FlexTransparentDiv
@@ -216,9 +245,12 @@ const MyGuild = () => {
                 justifyContent={'center'}
                 alignItems={'start'}
                 IsBorder={'is'}
-                style={{ fontSize: '3vmin' }}
+                style={{
+                  fontSize: '2.5vmin',
+                  fontWeight: 'bold',
+                }}
               >
-                이번주의 영상
+                이번 주의 영상
               </FlexTransparentDiv>
             </MainBox>
           </FlexTransparentDiv>
@@ -231,33 +263,32 @@ const MyGuild = () => {
           justifyContent={'start'}
           alignItems={'start'}
           IsBorder={'is'}
+          style={{ position: 'relative' }}
         >
           <FlexTransparentDiv
             widthSize={'30vw'}
             heightSize={'40vh'}
             paddingSize={'1vh 1vw'}
             flexDirection={'column'}
-            justifyContent={'start'}
+            justifyContent={'space-between'}
             alignItems={'start'}
             IsBorder={'is'}
           >
-            {myguildLearnTime
-              .slice(6 * (currentPage - 1), 6 * currentPage)
-              .map((learnRecord, idx) => {
-                const timePercent =
-                  (learnRecord.time / myguildLearnTime[0].time) * 100;
-                return (
-                  <FlexTransparentDiv
-                    widthSize={'28vw'}
-                    heightSize={'5vh'}
-                    paddingSize={'0'}
-                    flexDirection={'row'}
-                    justifyContent={'start'}
-                    alignItems={'center'}
-                    IsBorder={'none'}
-                  >
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'start',
+              }}
+            >
+              {myguildLearnTime
+                .slice(6 * (currentPage - 1), 6 * currentPage)
+                .map((learnRecord, idx) => {
+                  const timePercent =
+                    (learnRecord.time / myguildLearnTime[0].time) * 100;
+                  return (
                     <FlexTransparentDiv
-                      widthSize={'5vw'}
+                      widthSize={'28vw'}
                       heightSize={'5vh'}
                       paddingSize={'0'}
                       flexDirection={'row'}
@@ -265,17 +296,27 @@ const MyGuild = () => {
                       alignItems={'center'}
                       IsBorder={'none'}
                     >
-                      {learnRecord.nickname}
+                      <FlexTransparentDiv
+                        widthSize={'5vw'}
+                        heightSize={'5vh'}
+                        paddingSize={'0'}
+                        flexDirection={'row'}
+                        justifyContent={'start'}
+                        alignItems={'center'}
+                        IsBorder={'none'}
+                      >
+                        {learnRecord.nickname}
+                      </FlexTransparentDiv>
+                      <LearnTimeProgressbar
+                        widthSize={'23vw'}
+                        heightSize={'2vh'}
+                        progressPercent={timePercent}
+                        style={{ marginBottom: '1vh' }}
+                      />
                     </FlexTransparentDiv>
-                    <LearnTimeProgressbar
-                      widthSize={'23vw'}
-                      heightSize={'2vh'}
-                      progressPercent={timePercent}
-                      style={{ marginBottom: '1vh' }}
-                    />
-                  </FlexTransparentDiv>
-                );
-              })}
+                  );
+                })}
+            </div>
             <FlexTransparentDiv
               widthSize={'28vw'}
               heightSize={'5vh'}
@@ -308,6 +349,48 @@ const MyGuild = () => {
               )}
             </FlexTransparentDiv>
           </FlexTransparentDiv>
+          <TopBtn
+            widthSize="5vw"
+            heightSize="5vh"
+            paddingSize="0"
+            fontSize="2vmin"
+            fontColor="white"
+            backgroundColor="blue"
+            style={{ position: 'absolute', bottom: '30vh', left: '1vw' }}
+            onClick={() => {
+              setRoomNumber(1);
+            }}
+          >
+            방1
+          </TopBtn>
+          <TopBtn
+            widthSize="5vw"
+            heightSize="5vh"
+            paddingSize="0"
+            fontSize="2vmin"
+            fontColor="white"
+            backgroundColor="blue"
+            style={{ position: 'absolute', bottom: '30vh', left: '6.25vw' }}
+            onClick={() => {
+              setRoomNumber(2);
+            }}
+          >
+            방2
+          </TopBtn>
+          <TopBtn
+            widthSize="5vw"
+            heightSize="5vh"
+            paddingSize="0"
+            fontSize="2vmin"
+            fontColor="white"
+            backgroundColor="blue"
+            style={{ position: 'absolute', bottom: '30vh', left: '11.5vw' }}
+            onClick={() => {
+              setRoomNumber(3);
+            }}
+          >
+            방3
+          </TopBtn>
           <FlexTransparentDiv
             widthSize={'30vw'}
             heightSize={'30vh'}
