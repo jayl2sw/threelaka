@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { EozBtn } from '../../../../styles/Guild/GuildEozStyle';
 import { createRoom, joinRoom, exitRoom } from '../EozPage';
-
-const videoId = 'asoiharas';
-const learningRecordId = 254;
+import useModal from '../../../../utils/useModal';
+import EozModal from './EozModal';
+import MembersList from './MembersList';
+import TodayVideo from './TodayVideo';
 
 type Room = {
   roomNumber: number;
@@ -21,32 +23,40 @@ type RoomInfoProps = {
 
 const EozRoomInfo = (props: RoomInfoProps) => {
   const { guildInfo, roomNumber } = props;
+  const { isOpenModal, onClickModal } = useModal();
+  const guildId = guildInfo.guildId;
   let roomInfo = guildInfo.rooms[roomNumber - 1];
 
   return (
     <div>
       {roomInfo && (
         <div>
-          <p>videoId: {roomInfo.videoId}</p>
-          <p>{roomInfo.roomNumber}명 접속했어요</p>
-          <p>현재 접속한 사람들</p>
-          <p>{JSON.stringify(roomInfo)}</p>
-          <button
-            onClick={() =>
-              JoinRoomhandler(
-                roomInfo,
-                roomNumber,
-                guildInfo.guildId,
-                videoId,
-                learningRecordId
-              )
-            }
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <TodayVideo videoId={roomInfo.videoId} />
+            <MembersList connectedUsers={roomInfo.connectedUsers} />
+          </div>
+          <EozBtn
+            widthSize="10vw"
+            heightSize="3.5vh"
+            fontColor="white"
+            backgroundColor="blue"
+            onClick={() => {
+              onClickModal();
+            }}
           >
-            입장하기
-          </button>
+            EOZ 참여하기
+          </EozBtn>
+          {isOpenModal && (
+            <EozModal
+              isOpenModal={isOpenModal}
+              onClickModal={onClickModal}
+              roomNumber={roomNumber}
+              guildId={guildId}
+              roomInfo={roomInfo}
+            />
+          )}
         </div>
       )}
-      <button onClick={() => exitRoom()}>나가기</button>
     </div>
   );
 };

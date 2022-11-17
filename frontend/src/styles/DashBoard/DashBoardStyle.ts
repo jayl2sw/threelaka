@@ -341,13 +341,6 @@ export const ProfileCenter = styled.div`
 `;
 
 export const ModalBackdrop = styled.div`
-  /* position: absolute;
-  left: -1rem;
-  display: flex;
-  align-items: center;
-  width: 120%;
-  margin-top: 1rem;
-  background: red; */
   width: 100vw;
   height: 100vh;
   position: fixed;

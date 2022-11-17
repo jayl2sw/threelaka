@@ -19,8 +19,13 @@ const MyGuild = () => {
   const myguildLearnTime = useAppSelector(
     (state) => state.guild.myguildLearnTime
   );
+
   const learnTimePageNum = Math.ceil(myguildLearnTime.length / 6);
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const guildId = myGuildInfo.guildId;
+  let nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
+  nickname = nickname ? nickname : '';
   return (
     <FlexTransparentDiv
       widthSize={'65vw'}
@@ -317,7 +322,7 @@ const MyGuild = () => {
             alignItems={'start'}
             IsBorder={'is'}
           >
-            <EozPage />
+            <EozPage guildId={guildId} nickname={nickname} />
           </FlexTransparentDiv>
         </FlexTransparentDiv>
       </FlexTransparentDiv>

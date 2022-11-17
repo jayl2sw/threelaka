@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useAppSelector } from '../../../utils/hooks';
 import io from 'socket.io-client';
 import EnglishOnlyZone from './components/EnglishOnlyZone';
 
 // 길드 아이디 type 확정짓기 User에는 string으로 들어오긴함
-const guildId = 3;
-const nickname = 'nickname';
+type EozPageProps = {
+  guildId: number;
+  nickname: string;
+};
 
-const EozPage = () => {
+const EozPage = (props: EozPageProps) => {
+  const { guildId, nickname } = props;
+
   const [bool, setBool] = useState(false);
 
   useEffect(() => {
