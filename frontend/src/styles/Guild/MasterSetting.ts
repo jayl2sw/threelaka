@@ -10,3 +10,19 @@ export const GuildSettingTextArea = styled.textarea`
   font-size: 2vmin;
   font-family: PretendardRegular;
 `;
+
+export const YoutubeVideoInfoBox = styled.div`
+  width: 44vw;
+  height: 8vh;
+  padding: 0 1vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  background-color: transparent;
+  min-height: 10vh;
+  cursor: pointer;
+  :hover {
+    background-color: grey;
+  }
+`;

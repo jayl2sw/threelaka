@@ -11,6 +11,7 @@ import {
   MyguildLearnTime,
   GuildRequest,
   MyRequest,
+  GuildAssignment,
 } from '../../models/guild';
 import {
   getGuildNoticeApi,
@@ -31,6 +32,8 @@ import {
   GetMyRequestApi,
   PostGuildRequestApi,
   QuitGuildApi,
+  PostGuildAssignmentApi,
+  DeleteGuildAssignmentApi,
 } from '../../services/guildApi';
 import { guildActions } from './guild-slice';
 
@@ -251,6 +254,28 @@ function* onQuitGuildAsync(action: PayloadAction<number>) {
   }
 }
 
+// 길드 과제 만들기
+function* onPostGuildAssignmentAsync(action: PayloadAction<GuildAssignment>) {
+  try {
+    yield call(PostGuildAssignmentApi, action.payload);
+    yield put(guildActions.postGuildAssignmentSuccess());
+    yield put(guildActions.getProgressTask());
+  } catch (error) {
+    console.error();
+  }
+}
+
+// 길드 과제 삭제하기
+function* onDeleteGuildAssignmentAsync(action: PayloadAction<number>) {
+  try {
+    yield call(DeleteGuildAssignmentApi, action.payload);
+    yield put(guildActions.delelteGuildAssignmentSuccess());
+    yield put(guildActions.getProgressTask());
+  } catch (error) {
+    console.error();
+  }
+}
+
 // 길드 공지 받아오기 watch
 export function* watchGetGuildNoticeAsync() {
   yield takeLatest(guildActions.getGuildNotice.type, onGetGuildNoticeAsync);
@@ -374,6 +399,22 @@ export function* watchgQuitGuildApiAsync() {
   yield takeLatest(guildActions.quitGuildStart.type, onQuitGuildAsync);
 }
 
+// 길드 과제 만들기
+export function* watchPostGuildAssignmentAsync() {
+  yield takeLatest(
+    guildActions.postGuildAssignmentStart.type,
+    onPostGuildAssignmentAsync
+  );
+}
+
+// 길드 과제 삭제하기
+export function* watchDeleteGuildAssignmentAsync() {
+  yield takeLatest(
+    guildActions.delelteGuildAssignmentStart.type,
+    onDeleteGuildAssignmentAsync
+  );
+}
+
 export const guildSagas = [
   fork(watchGetGuildNoticeAsync),
   fork(watchGetProgressTaskAsync),
@@ -393,4 +434,6 @@ export const guildSagas = [
   fork(watchGetMyRequestAsync),
   fork(watchPostGuildRequestAsync),
   fork(watchgQuitGuildApiAsync),
+  fork(watchPostGuildAssignmentAsync),
+  fork(watchDeleteGuildAssignmentAsync),
 ];
