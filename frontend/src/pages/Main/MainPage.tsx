@@ -13,6 +13,8 @@ import {
   ListInfo,
   PageDownButton,
   FirstCenterBar,
+  TitleBlock,
+  ThumbnailBlock,
 } from '../../styles/Main/MainStyle';
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import RecommendVideoList from './components/RecommendVideoList';
@@ -70,28 +72,9 @@ const MainPage = () => {
       ) : null}
       <MainPageBlock>
         <FirstpageBlock ref={firstpageBlock}>
-          <SearchBarBlock id="searchBarBlock">
-            {/* <LogoBlock>
-              <img
-                src="https://threelaka.s3.ap-northeast-2.amazonaws.com/mainlogo.png"
-                alt="스리라까 로고"
-              />
-            </LogoBlock> */}
-            <NewVideo>
-              {/* <FirstCenterBar> */}
-              <SearchBar
-                setModalToggleVideoId={setModalToggleVideoId}
-              ></SearchBar>
-              {/* </FirstCenterBar> */}
-            </NewVideo>
-          </SearchBarBlock>
-          <PageDownButton
-            className="toggle"
-            style={{ rotate: '270deg' }}
-            href="#recentVideoContainer"
-          >
-            《
-          </PageDownButton>
+          <TitleBlock></TitleBlock>
+
+          <ThumbnailBlock></ThumbnailBlock>
         </FirstpageBlock>
         <RecentVideoContainer
           id="recentVideoContainer"
@@ -132,3 +115,21 @@ const MainPage = () => {
 };
 
 export default MainPage;
+
+{
+  /* <SearchBarBlock id="searchBarBlock">
+            <NewVideo>
+              <SearchBar
+                setModalToggleVideoId={setModalToggleVideoId}
+              ></SearchBar>
+
+            </NewVideo>
+          </SearchBarBlock>
+          <PageDownButton
+            className="toggle"
+            style={{ rotate: '270deg' }}
+            href="#recentVideoContainer"
+          >
+            《
+          </PageDownButton> */
+}

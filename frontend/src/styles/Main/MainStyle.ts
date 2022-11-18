@@ -26,9 +26,9 @@ export const FirstpageBlock = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
-  /* border: solid green 3px; */
-  flex-direction: column;
+  height: 133vh;
+  border: solid green 3px;
+  flex-direction: row;
 `;
 
 // search bar 전체 감싸는 block
@@ -56,6 +56,17 @@ export const LogoBlock = styled.div`
   & img {
     height: 40%;
   }
+`;
+
+export const TitleBlock = styled.div`
+  width: 50vw;
+  height: 100vh;
+  border: solid yellow 1px;
+`;
+export const ThumbnailBlock = styled.div`
+  width: 50vw;
+  height: 100vh;
+  border: solid red 1px;
 `;
 
 export const YoutubeLink = styled.div`

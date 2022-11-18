@@ -43,7 +43,7 @@ export const MainHeaderMenuRegion = styled.div`
 `;
 
 export const HeaderBgBlock = styled.div`
-  position: sticky;
+  position: fixed;
   top: 0;
   height: 15vh;
   display: flex;

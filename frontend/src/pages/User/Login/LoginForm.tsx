@@ -118,22 +118,22 @@ const LoginForm = ({
         </h1>
       </Heading>
       <InputWrap>
-        <InputField name="username" control={control} label="이메일" />
+        <InputField name="username" control={control} label="E-mail" />
         <InputField
           name="password"
           control={control}
-          label="비밀번호"
+          label="Password"
           type="password"
         />
       </InputWrap>
       <SubmitBtnWrap>
         <GradientRoundBtn
-          widthSize={'80%'}
-          heightSize={'5vh'}
+          widthSize={'20vw'}
+          heightSize={'7vh'}
           paddingSize={'0'}
-          fontColor={'black'}
+          fontColor={'white'}
           fontSize={'2vmin'}
-          backgroundColor={'gradient'}
+          backgroundColor={'blue'}
           style={{ margin: '0 auto' }}
         >
           L O G I N
