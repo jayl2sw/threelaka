@@ -123,13 +123,19 @@ public class DashboardServiceImpl implements DashboardService{
     @Override
     public int[] getData() {
         User user = getUser();
-        int[] week = new int[8];
+        int[] week = new int[15];
         List<Study> study = studyRepository.findStudyDateThisWeek(user.getUserId());
+        List<Study> study2 = studyRepository.findStudyDateLastWeek(user.getUserId());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        for (int i = 0; i < study2.size(); i++) {
+            String date = study2.get(i).getDate();
+            LocalDate ld = LocalDate.parse(date, formatter);
+            week[ld.getDayOfWeek().getValue()] = study2.get(i).getTime();
+        }
         for (int i = 0; i < study.size(); i++) {
             String date = study.get(i).getDate();
             LocalDate ld = LocalDate.parse(date, formatter);
-            week[ld.getDayOfWeek().getValue()] = study.get(i).getTime();
+            week[ld.getDayOfWeek().getValue() + 7] = study.get(i).getTime();
         }
         return week;
     }

@@ -108,7 +108,7 @@ public class DashboardController {
     }
 
     @GetMapping("/data")
-    @ApiOperation(value = "학습 히스토리 데이터 조회", notes = "회원의 이번 주 학습 데이터를 반환한다<br/>1부터 월요일")
+    @ApiOperation(value = "학습 히스토리 데이터 조회", notes = "회원의 이번 주 학습 데이터를 반환한다<br/>1부터 저번 주 월요일")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = int[].class)
     })
