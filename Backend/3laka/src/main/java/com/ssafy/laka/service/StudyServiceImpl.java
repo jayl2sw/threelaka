@@ -295,6 +295,12 @@ public class StudyServiceImpl implements StudyService{
         return VideoDescriptionResponseDto.from(videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new));
     }
 
+    @Override
+    public List<EssayResponseDto> getEssays() {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        return learningRecordRepository.findAllByUser(user).stream().map(l -> EssayResponseDto.from(l)).collect(Collectors.toList());
+    }
+
     public String translate(String eng) throws JSONException {
 
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";

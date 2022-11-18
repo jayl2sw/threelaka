@@ -48,4 +48,6 @@ public interface StudyService {
     void setSurvey(SurveyRequestDto data);
 
     VideoDescriptionResponseDto findVideoDescription(String videoId);
+
+    List<EssayResponseDto> getEssays();
 }

@@ -130,6 +130,16 @@ public class StudyController {
         return new ResponseEntity<>(studyService.getVideosByKeyword(keyword), HttpStatus.OK);
     }
 
+    @GetMapping("/user/essay")
+    @ApiOperation(value = "유저의 에세이 검색", notes = "유저의 에세이 모두 검색")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> findUserEssays(){
+        // 키워드로 영상 검색
+        return new ResponseEntity<>(studyService.getEssays(), HttpStatus.OK);
+    }
+
     @PostMapping("/word")
     @ApiOperation(value = "단어 추가", notes = "특정 회원의 특정 강의에 해당 단어를 추가한다")
     @ApiResponses({
