@@ -75,12 +75,12 @@ const MainPage = () => {
       <MainPageBlock>
         <FirstpageBlock ref={firstpageBlock}>
           <SearchBarBlock id="searchBarBlock">
-            <LogoBlock>
+            {/* <LogoBlock>
               <img
                 src="https://threelaka.s3.ap-northeast-2.amazonaws.com/mainlogo.png"
                 alt="스리라까 로고"
               />
-            </LogoBlock>
+            </LogoBlock> */}
             <NewVideo>
               {/* <FirstCenterBar> */}
               <SearchBar

@@ -10,13 +10,13 @@ export const MainPageBlock = styled.div`
   height: 200vh;
   padding: 0 10vw 5vh 10vw;
   /* border: solid red 1px; */
-  /* background: linear-gradient(
+  background: linear-gradient(
     106.56deg,
     rgba(132, 176, 226, 0.1) 7.3%,
     rgba(88, 172, 240, 0.23) 77.68%,
     rgba(174, 243, 147, 0.5) 99.32%
-  ); */
-  background: white;
+  );
+  /* background: white; */
   & .video-title {
   }
 `;
@@ -43,10 +43,18 @@ export const SearchBarBlock = styled.div`
   margin-top: 5vh;
 `;
 export const LogoBlock = styled.div`
-  width: 40vw;
-  height: 18vh;
+  /* position: sticky; */
+  width: 2vw;
+  height: 5vh;
+  margin-top: 12vh;
+  margin-left: 1vw;
+  /* margin-right: 46vw; */
+  /* top: 5vh; */
+  left: 1vw;
+  /* border: 1px red solid; */
+
   & img {
-    width: 100%;
+    height: 40%;
   }
 `;
 
