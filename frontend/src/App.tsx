@@ -29,6 +29,8 @@ import PageNotFound from './layout/PageNotFound';
 // Private
 import { ProtectedRoute } from './pages/private/ProtectedRoute';
 
+import WordTest from './pages/Dashboard/WordTest/WordTest';
+
 function App() {
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -79,6 +81,8 @@ function App() {
 
         {/* Not Found */}
         <Route path="*" element={<PageNotFound />}></Route>
+
+        <Route path="test" element={<WordTest />}></Route>
       </Routes>
     </div>
   );

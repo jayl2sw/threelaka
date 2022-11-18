@@ -43,6 +43,10 @@ const MainPage = () => {
     }
     return;
   });
+
+  useEffect(() => {
+    dispatch(authActions.getUserAlert());
+  }, []);
   const firstpageBlock = useRef<HTMLDivElement>(null);
   const recentVideoContainer = useRef<HTMLDivElement>(null);
   // USESTATE
