@@ -243,3 +243,57 @@ export const VideoTitle = styled.div`
   font-size: 2.2vmin;
   font-family: 'PretendardRegular';
 `;
+
+// export const AlertImgBox = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 15vmin;
+//   z-index: 1;
+//   border: 1px solid black;
+// `;
+
+export const AlertImgBox = styled.img.attrs((props) => ({
+  src: `https://threelaka.s3.ap-northeast-2.amazonaws.com/neonCircle.png`,
+}))`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15vmin;
+  z-index: 3;
+`;
+
+export const AlertDropDownContainer = styled.div`
+  position: fixed;
+  top: 7.5vh;
+  right: 7.5vw;
+  .dropdown {
+    width: 20vw;
+    height: 20vh;
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+
+  .dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+  }
+`;
