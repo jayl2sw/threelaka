@@ -183,7 +183,7 @@ public class StudyServiceImpl implements StudyService{
     @Override
     public List<WordbookResponseDto> getWordbooksByUser() {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        return wordbookRepository.findWordbooksByUser(user).stream()
+        return wordbookRepository.findWordbooksByUserAndMemorized(user, false).stream()
                 .map(w -> WordbookResponseDto.from(w)).collect(Collectors.toList());
 
     }

@@ -24,7 +24,7 @@ public interface WordbookRepository extends JpaRepository<Wordbook, Integer> {
 
     Optional<Wordbook> findByLearningRecordAndWord(LearningRecord lr, String word);
 
-    List<Wordbook> findWordbooksByUser(User user);
+    List<Wordbook> findWordbooksByUserAndMemorized(User user, boolean isMemorized);
 
     Optional<Wordbook> findWordbookByWordAndExample(String word, String sentence);
 }
