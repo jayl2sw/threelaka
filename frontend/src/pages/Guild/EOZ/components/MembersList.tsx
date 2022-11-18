@@ -16,10 +16,9 @@ const MembersList = (props: MembersListProps) => {
   console.log('connectedUsers', connectedUsers);
   let nicknameList: any = [];
   connectedUsers.forEach((user) => {
-    {
-      nicknameList.push(user.nickname);
-    }
+    nicknameList.push(user.nickname);
   });
+  console.log('---------memberslist', nicknameList);
   return (
     <div className="member-box">
       <p>현재 접속 중인 사람 ( {nicknameList.length} / 6 )</p>

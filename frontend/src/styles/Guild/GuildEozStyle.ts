@@ -192,10 +192,10 @@ export const EozModalContainer = styled.div`
 `;
 
 export const EozRoomBlock = styled.div`
-  width: 88vw;
-  height: 90vh;
+  width: 90vw;
+  height: 92vh;
   padding: 1vh 1vw;
-  background: #ffffff;
+  background: #dbecff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -212,11 +212,33 @@ export const EozRoomBlock = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-export const UserEssayContainer = styled.div`
-  width: 48vw;
-  height: 70vh;
+export const VideosContainer = styled.div`
+  width: 30vw;
+  height: 60vh;
+  /* border: 1px solid blue; */
+`;
+
+export const RoomStudyDataContainer = styled.div`
+  width: 84vw;
+  height: 50vh;
+  margin-top: 30vh;
   font-family: 'PretendardRegular';
   border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const RoomStudyVideoContainer = styled.div`
+  width: 31vw;
+  height: 46vh;
+  margin: 4vh 1vw 0 0;
+  border: 1px solid black;
+`;
+
+export const RoomStudyEssayContainer = styled.div`
+  width: 54vw;
+  height: 50vh;
+  border: 1px solid green;
 `;
 
 export const EssayPickBtnContainer = styled.div`

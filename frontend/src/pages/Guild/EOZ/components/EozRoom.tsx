@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { exitRoom } from '../EozPage';
 import StreamVideo from './StreamVideo';
-import UserEssayBtn from './UserEssayBtn';
+import { getLocalPreviewAndInitRoomConnection } from '../EozPage';
 
+//style
+import UserEssayBtn from './UserEssayBtn';
 import {
   EozBtn,
-  UserEssayContainer,
+  VideosContainer,
+  RoomStudyDataContainer,
   EssayPickBtnContainer,
 } from '../../../../styles/Guild/GuildEozStyle';
 
@@ -14,33 +17,40 @@ type EozRoomProps = {
   isOpenModal: Boolean;
   roomNumber: number;
   guildId: number;
-  roomInfo: {
-    roomNumber: number;
-    videoId: string | null;
-    connectedUsers: never[];
-  };
+  roomInfo: any;
+  learningRecordId: number;
 };
 
 const EozRoom = (props: EozRoomProps) => {
-  const { onClickModal, roomNumber, guildId, roomInfo } = props;
+  const { onClickModal, roomNumber, guildId, roomInfo, learningRecordId } =
+    props;
   const [essayNumber, setEssayNumber] = useState<number>(1);
   const [selectedMember, setSelectedMember] = useState<string>('');
 
+  const test = () => {
+    getLocalPreviewAndInitRoomConnection(
+      roomInfo,
+      roomInfo.roomNumber,
+      guildId,
+      roomInfo.videoId,
+      learningRecordId
+    );
+  };
+
   return (
-    <div>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        border: '5px solid red',
+      }}
+    >
+      <div>
+        <VideosContainer>
+          <StreamVideo />
+        </VideosContainer>
         <div>
-          <StreamVideo />
-          <StreamVideo />
-          <StreamVideo />
-        </div>
-        <div>
-          <StreamVideo />
-          <StreamVideo />
-          <StreamVideo />
-        </div>
-        <div>
-          <UserEssayContainer>
+          <RoomStudyDataContainer>
             <EssayPickBtnContainer>
               <UserEssayBtn
                 nickname={'하나둘셋넷다섯여섯'}
@@ -49,7 +59,7 @@ const EozRoom = (props: EozRoomProps) => {
               />
             </EssayPickBtnContainer>
             <div>에세이</div>
-          </UserEssayContainer>
+          </RoomStudyDataContainer>
         </div>
       </div>
 

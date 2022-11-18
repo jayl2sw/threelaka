@@ -3,11 +3,9 @@ import { useAppSelector } from '../../../utils/hooks';
 import io from 'socket.io-client';
 import Peer from 'simple-peer';
 import EnglishOnlyZone from './components/EnglishOnlyZone';
-// import {
-//   showLocalVideoPreview,
-//   prepareNewPeerConnection,
-//   handleSignalingData,
-// } from './EozPageInJs';
+
+// style
+import '../../../styles/Guild/EozVideoStyle.css';
 
 // 길드 아이디 type 확정짓기 User에는 string으로 들어오긴함 ***
 type EozPageProps = {
@@ -16,9 +14,6 @@ type EozPageProps = {
   localStream: any;
   setLocalStream: any;
 };
-
-// let guildId = 2;
-// let nickname = '테스트 중입니다';
 
 // EOZ 중 최상단 (MyGuild에서 EOZ 부분 전체)
 const EozPage = (
@@ -222,6 +217,7 @@ export const getLocalPreviewAndInitRoomConnection = (
       showLocalVideoPreview(localStream);
 
       if (roomInfo) {
+        console.log('225번째줄 =============', roomInfo);
         if (roomInfo.connectedUsers.length === 0) {
           createRoom(roomNumber, guildId, videoId, learningRecordId);
         } else {

@@ -24,6 +24,24 @@ html {
   scroll-behavior: smooth;
 }
 
+/* webRTC 파트 */
+/* 비디오 담을 박스 */
+.videos_portal_styles {
+  width: 84vw;
+  height: 24vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 5vh 0 0 3vw;
+  padding: 2vh 1vw;
+  left: 0;
+  top: 0;
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 2vmin;
+}
+
 /* 링크의 색상 및 밑줄 없애기 */
 a {
   color: inherit;
@@ -34,39 +52,7 @@ a {
   box-sizing: border-box; /* 모든 엘리먼트의 box-sizing: border-box */
 }
 
-/* @font-face {
-  font-family: Fredoka;
-  src: url('./fonts/fredoka-one-v13-latin-regular.woff')
-  
-}
-a {
-  text-decoration: none;
-  font-family: Fredoka;
-}
-body,
-button,
-input {
-  font-family: Fredoka;
-}
-button{
-  font-family: Fredoka;
-} */
 
-
-
-/* @font-face {
-  font-family: "NotoSansKR";
-  src: url("./fonts/NotoSansKR-Regular.woff") format("woff");
-  font-style: normal;
-} */
-
-/* @font-face {
-  font-family: "NotoSansKR";
-  src: url("../fonts/openSans/OpenSans-SemiBold.woff") format("woff");
-  unicode-range: U+0020-007E;
-  font-style: normal;
-}
- */
 @font-face {
   font-family: "PretendardExtraBold";
   src: url("./fonts/Pretendard-ExtraBold.otf") format("opentype");

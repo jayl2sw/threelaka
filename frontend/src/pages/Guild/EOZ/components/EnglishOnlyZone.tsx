@@ -23,12 +23,14 @@ type EozProps = {
 
 const EnglishOnlyZone = (props: EozProps) => {
   const { guildInfo, localStream, nickname } = props;
-  console.warn(localStream);
-  console.log('localStream type을 알려줘===========', typeof localStream);
+  // console.warn(localStream);
+  console.log('=====englishonlyzone=====');
+  console.log('guildInfo', guildInfo);
+  console.log('nickname', nickname);
+  console.log('=====englishonlyzone=====');
   const [roomNumber, setRoomNumber] = useState(1);
-  useEffect(() => {
-    console.log('EnglishOnlyZone에서 useEffect 발동');
-  }, []);
+  console.log('nickname', nickname);
+  useEffect(() => {}, []);
 
   return (
     <div>

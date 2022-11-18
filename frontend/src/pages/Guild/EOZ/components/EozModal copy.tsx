@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { createRoom, joinRoom, exitRoom } from '../EozPage';
 import EozRoom from './EozRoom';
-import RoomModal from './RoomModal';
 
 import {
   EozModalContainer,
@@ -10,30 +9,30 @@ import {
 } from '../../../../styles/Guild/GuildEozStyle';
 import { ModalBackdrop } from '../../../../styles/DashBoard/DashBoardStyle';
 
+const videoId = 'asoiharas';
+const learningRecordId = 254;
+
 type EnterRoomModalType = {
   onClickModal: () => void;
   isOpenModal: Boolean;
+  roomNumber: number;
   guildId: number;
-  videoId: string;
   roomInfo: {
     roomNumber: number;
     videoId: string | null;
     connectedUsers: never[];
   };
-  guildInfo: any;
   localStream: any;
-  learningRecordId: number;
 };
 
 const EozModal = (props: EnterRoomModalType) => {
   const {
     onClickModal,
     isOpenModal,
+    roomNumber,
     guildId,
     roomInfo,
     localStream,
-    learningRecordId,
-    guildInfo,
   } = props;
   const [videoId, setVideoId] = useState<string>('');
   const [learningRecordid, setLearningRecordId] = useState<string>('');
@@ -50,21 +49,12 @@ const EozModal = (props: EnterRoomModalType) => {
   if (startEoz) {
     return (
       <EozRoomBlock>
-        <RoomModal
-          videoId={videoId}
-          learningRecordId={learningRecordId}
-          roomInfo={roomInfo}
-          guildId={guildId}
-          onClickModal={onClickModal}
-          guildInfo={guildInfo}
-        />
         {/* <EozRoom
           isOpenModal={isOpenModal}
           onClickModal={onClickModal}
-          roomNumber={roomInfo.roomNumber}
+          roomNumber={roomNumber}
           guildId={guildId}
           roomInfo={roomInfo}
-          learningRecordId={learningRecordId}
         /> */}
       </EozRoomBlock>
     );
@@ -98,7 +88,7 @@ const EozModal = (props: EnterRoomModalType) => {
             onClick={() => {
               JoinRoomhandler(
                 roomInfo,
-                roomInfo.roomNumber,
+                roomNumber,
                 guildId,
                 videoId,
                 learningRecordId

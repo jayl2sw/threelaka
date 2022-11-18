@@ -22,7 +22,6 @@ import DashBoardPage from './pages/Dashboard/DashBoardPage';
 
 // Guild
 import GuildPage from './pages/Guild/GuildPage';
-import EozPage from './pages/Guild/EOZ/EozPage';
 
 // pageNotFound
 import PageNotFound from './layout/PageNotFound';
@@ -35,7 +34,7 @@ function App() {
   useEffect(() => {
     dispatch(authActions.fetchUser());
   }, [dispatch]);
-  const [localStream, setLocalStream] = useState();
+
   return (
     <div className="App">
       <Routes>
@@ -83,7 +82,7 @@ function App() {
         {/* Not Found */}
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
-      <EozPage localStream={localStream} setLocalStream={setLocalStream} />
+      {/* <EozPage localStream={localStream} setLocalStream={setLocalStream} /> */}
     </div>
   );
 }
