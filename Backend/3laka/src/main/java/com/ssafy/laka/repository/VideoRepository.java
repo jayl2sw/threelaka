@@ -19,4 +19,8 @@ public interface VideoRepository extends JpaRepository<Video, String> {
     @Query(value="select * from video limit 4", nativeQuery = true)
 
     List<Video> findFourVideos();
+
+
+    @Query(value="select * from video natural join tag where tag.name = :tag_name order by rand() limit 4 ", nativeQuery = true)
+    List<Video> findTop4ByTagName(String tag_name);
 }

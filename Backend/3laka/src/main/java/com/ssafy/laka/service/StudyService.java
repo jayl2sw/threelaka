@@ -4,6 +4,7 @@ import com.ssafy.laka.dto.study.LearningRecordResponseDto;
 import com.ssafy.laka.dto.study.*;
 import org.json.JSONException;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface StudyService {
@@ -52,4 +53,6 @@ public interface StudyService {
 
 
     List<EssayResponseDto> getEssays();
+
+    HashMap<String, RecommendsListResponseDto> getRecommendsList();
 }

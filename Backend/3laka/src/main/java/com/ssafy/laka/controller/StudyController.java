@@ -70,6 +70,15 @@ public class StudyController {
         return new ResponseEntity<>(studyService.getRecommends(), HttpStatus.OK);
     }
 
+    @GetMapping("/video/recommends/tags")
+    @ApiOperation(value = "추천 영상 조회", notes = "추천 영상 4개 전달")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> getRecommendsByTag(){
+
+        return new ResponseEntity<>(studyService.getRecommendsList(), HttpStatus.OK);
+    }
     @GetMapping("/video/latest")
     @ApiOperation(value = "가장 최근에 공부한 영상 조회", notes = "가장 최근에 공부한 영상 VideoResponseDto 반환")
     @ApiResponses({

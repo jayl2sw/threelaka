@@ -46,7 +46,7 @@ public class StudyServiceImpl implements StudyService{
     private final WordbookRepository wordbookRepository;
     private final YoutubeService youtubeService;
     private final ScriptRepository scriptRepository;
-
+    private final TagRepository tagRepository;
     private TooShortToSearchException tooShortToSearchException = new TooShortToSearchException();
     private WordAlreadyExistException wordAlreadyExistException = new WordAlreadyExistException();
 
@@ -299,6 +299,18 @@ public class StudyServiceImpl implements StudyService{
     public List<EssayResponseDto> getEssays() {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         return learningRecordRepository.findAllByUser(user).stream().map(l -> EssayResponseDto.from(l)).collect(Collectors.toList());
+    }
+
+    @Override
+    public HashMap<String, RecommendsListResponseDto> getRecommendsList() {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        List<UserTag> userTags = user.getUserTags();
+        HashMap<String, RecommendsListResponseDto> res = new HashMap<>();
+        for (UserTag userTag: userTags) {
+            List<Video> top4ByTagName = videoRepository.findTop4ByTagName(userTag.getTag().getName());
+            res.put(userTag.getTag().getName(), RecommendsListResponseDto.from(top4ByTagName));
+        }
+        return res;
     }
 
     public String translate(String eng) throws JSONException {
