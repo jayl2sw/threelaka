@@ -304,4 +304,6 @@ public class StudyController {
         studyService.setSurvey(data);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
+
+
 }

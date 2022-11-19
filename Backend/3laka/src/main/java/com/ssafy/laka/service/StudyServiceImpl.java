@@ -383,4 +383,5 @@ public class StudyServiceImpl implements StudyService{
 
         return translatedText;
     }
+
 }

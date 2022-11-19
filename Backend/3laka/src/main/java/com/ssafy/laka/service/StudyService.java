@@ -49,5 +49,7 @@ public interface StudyService {
 
     VideoDescriptionResponseDto findVideoDescription(String videoId);
 
+
+
     List<EssayResponseDto> getEssays();
 }
