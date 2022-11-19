@@ -22,6 +22,8 @@ public class SmallTag {
 
     public String smallTagName;
     //  로라킴 화이팅 !
+    //웨않됨
+
 
     @ManyToOne(targetEntity = Tag.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "tag_id")
