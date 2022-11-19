@@ -12,6 +12,7 @@ import {
   MyRequest,
   GuildRequest,
   GuildAssignment,
+  CreateGuildForm,
 } from '../../models/guild';
 
 type GuildState = {
@@ -27,6 +28,7 @@ type GuildState = {
   myguildLearnTime: MyguildLearnTime[];
   MyRequestLst: MyRequest[];
   GuildRequestLst: GuildRequest[];
+  isCreateSuccess: null | true | false;
 };
 
 let initialState: GuildState = {
@@ -58,6 +60,7 @@ let initialState: GuildState = {
   myguildLearnTime: [],
   MyRequestLst: [],
   GuildRequestLst: [],
+  isCreateSuccess: null,
 };
 
 const guildSlice = createSlice({
@@ -65,7 +68,7 @@ const guildSlice = createSlice({
   initialState,
   reducers: {
     // 길드 공지 받아오기 요청
-    getGuildNotice(state, action: PayloadAction<string>) {
+    getGuildNotice(state, action: PayloadAction<number>) {
       state.loading = true;
     },
 
@@ -114,7 +117,7 @@ const guildSlice = createSlice({
     },
 
     // 길드 멤버 정보 받아오기 요청
-    getGuildMember(state, action: PayloadAction<string>) {
+    getGuildMember(state, action: PayloadAction<number>) {
       state.loading = true;
     },
 
@@ -132,7 +135,7 @@ const guildSlice = createSlice({
     },
 
     // 길드 공지 삭제
-    deleteGuildNoticeStart(state, action: PayloadAction<string>) {
+    deleteGuildNoticeStart(state, action: PayloadAction<number>) {
       state.loading = true;
     },
     // 길드 공지 성공
@@ -357,6 +360,26 @@ const guildSlice = createSlice({
     // 길드 과제 삭제 실패
     delelteGuildAssignmentFailed(state) {
       state.loading = false;
+    },
+
+    // 길드 생성
+    createGuildStart(state, action: PayloadAction<CreateGuildForm>) {
+      state.loading = true;
+      state.isCreateSuccess = null;
+    },
+    // 길드 과제 삭제 시작
+    createGuildStartSuccess(state) {
+      state.loading = false;
+      state.isCreateSuccess = true;
+    },
+    // 길드 과제 삭제 실패
+    createGuildStartFailed(state) {
+      state.loading = false;
+      state.isCreateSuccess = false;
+    },
+    // 길드 과제 삭제 실패
+    resetIsCreateSuccess(state) {
+      state.isCreateSuccess = null;
     },
   },
 });

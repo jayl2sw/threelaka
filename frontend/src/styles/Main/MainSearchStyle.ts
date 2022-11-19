@@ -63,7 +63,7 @@ export const SearchBarInput = styled.div`
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 100%;
+    width: 101%;
     height: 0.5vh;
     border-radius: 10px;
     background: #111111;
