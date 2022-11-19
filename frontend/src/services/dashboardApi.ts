@@ -6,6 +6,8 @@ import {
   MonthStudyTime,
   StudyHistory,
   TotalStudyTime,
+  UserWordInfo,
+  isMemorizedWord,
 } from '../models/dashboard';
 
 // 최근에 본 영상 리스트
@@ -83,4 +85,26 @@ export const getTagListApi = async (tagList: Array<string>): Promise<any> => {
   const res = await customAxios.get('/api/v1/dashboard/tag');
   const response: [] = res.data;
   return response;
+};
+
+//유저영단어 불러오기
+export const getUserWordInfoApi = async (
+  userWordInfo: UserWordInfo[]
+): Promise<any> => {
+  const res = await customAxios.get('/api/v1/study/word/user');
+  const response: UserWordInfo[] = res.data;
+  return response;
+};
+
+//단어 외움 처리
+export const putIsMemorizedWordApi = async (
+  isMemorizedWordInfo: isMemorizedWord
+): Promise<any> => {
+  console.log('얘가 뭔가', isMemorizedWordInfo);
+  const res = await customAxios.put(
+    `/api/v1/study/word/complete`,
+    isMemorizedWordInfo
+  );
+
+  return res.data;
 };

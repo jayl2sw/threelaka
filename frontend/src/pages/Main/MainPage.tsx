@@ -27,6 +27,7 @@ const MainPage = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const isNewbie = useAppSelector((state) => state.auth.isNewbie);
   const tagList = useAppSelector((state) => state.dashboard.tagList);
+  const userAlertList = useAppSelector((state) => state.auth.userAlertList);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (isNewbie !== false) {
@@ -43,6 +44,12 @@ const MainPage = () => {
     }
     return;
   });
+
+  useEffect(() => {
+    dispatch(authActions.getUserAlert());
+    dispatch(dashboardActions.getTagList());
+  }, []);
+
   const firstpageBlock = useRef<HTMLDivElement>(null);
   const recentVideoContainer = useRef<HTMLDivElement>(null);
   // USESTATE
