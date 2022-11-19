@@ -62,7 +62,7 @@ public class DashboardServiceImpl implements DashboardService{
     @Override
     public List<PlayingVideoDto> getPlayingList() {
         User user = getUser();
-        List<LearningRecord> learningRecord = learningRecordRepository.findAllByUserAndStageLessThanOrderByModifiedDateDesc(user, Stage.COMPLETE);
+        List<LearningRecord> learningRecord = learningRecordRepository.findTop5ByUserAndStageLessThanOrderByModifiedDateDesc(user, Stage.COMPLETE);
         return learningRecord.stream().map(s -> PlayingVideoDto.of(videoRepository.findById(s.getVideo().getVideoId()).orElseThrow(VideoNotFoundException::new),
                 s.getContinueTime(), s.getStage())).collect(Collectors.toList());
     }
