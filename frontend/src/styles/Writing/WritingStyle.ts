@@ -99,23 +99,26 @@ export const ArcodianBox = styled.div`
   align-items: center;
   margin-bottom: 1vh;
   width: 25.3vw;
-  height: 5vh;
+  /* height: 5vh; */
+  min-height: 5vh;
   padding: 0 1vw;
   font-size: 1vmin;
   color: black;
   background: #ffffff;
   box-shadow: 10px 10px 80px rgba(63, 39, 102, 0.1);
   border-radius: 2vmin;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  /* overflow-x: hidden;
+  overflow-y: scroll; */
   &:hover {
-    height: 20vh;
+    /* height: 20vh; */
+    min-height: 20vh;
   }
   &:hover > div:nth-child(2) {
     top: 0;
   }
   &:hover p.front {
     display: none;
+    /* visibility: hidden; */
   }
   &:hover p.back {
     opacity: 1;

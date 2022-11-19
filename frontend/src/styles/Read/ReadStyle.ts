@@ -151,7 +151,8 @@ export const AutoScrollBtn = styled.div`
 
 export const CircularMenuItem = styled.div<CicularMenuProps>`
   display: flex;
-  cursor: pointer;
+  cursor: default;
+  pointer-events: none;
   justify-content: center;
   align-items: center;
   width: 4vmin;
@@ -162,7 +163,9 @@ export const CircularMenuItem = styled.div<CicularMenuProps>`
   visibility: none;
   border-radius: 50%;
   &.toggle {
+    cursor: pointer;
     opacity: 1;
+    pointer-events: initial;
     visibility: visible;
     transition: opacity ${(props) => props.transitionTime} ease-in-out;
   }

@@ -21,6 +21,7 @@ const GuildPage = () => {
   };
 
   const guildPageType = params.guildPageType ? params.guildPageType : 'main';
+  console.warn(guildPageType);
   const handleSwitchGuildPage = (guildPageType: string) => {
     navigate(`/auth/guild/${guildPageType}`, { replace: true });
   };

@@ -42,7 +42,7 @@ const WordBookComp = ({
       {foldLayoutMode === 0 ? (
         layoutMode === 0 ? (
           <MainPaleBox
-            widthSize={layoutMode === 0 ? '28vw' : '80vw'}
+            widthSize={layoutMode === 0 ? '28.5vw' : '80vw'}
             heightSize={layoutMode === 0 ? '70vh' : '25vh'}
             paddingSize={'1vw'}
             fontColor={'black'}
@@ -54,7 +54,7 @@ const WordBookComp = ({
             }}
           >
             <FlexTransparentDiv
-              widthSize={layoutMode === 0 ? '26.5vw' : '80vw'}
+              widthSize={layoutMode === 0 ? '27.5vw' : '80vw'}
               heightSize={layoutMode === 0 ? '65vh' : '25vh'}
               paddingSize={'0'}
               flexDirection={'column'}
@@ -103,7 +103,12 @@ const WordBookComp = ({
                           {'example'}
                         </span>
                         <br style={{ marginBottom: '5vmin' }} />
-                        <span style={{ fontSize: '2vmin' }}>
+                        <span
+                          style={{
+                            fontSize:
+                              aWord.example.length > 100 ? '1.5vmin' : '2vmin',
+                          }}
+                        >
                           &nbsp;&nbsp;{aWord.example}
                         </span>
                       </p>
@@ -207,10 +212,12 @@ const WordBookComp = ({
                         }
                       />
                       <div
-                        className={`${
-                          filterTarget.includes(aWord.word) ? 'checked' : ''
-                        }`}
-                        style={{ fontSize: '2.5vmin' }}
+                        style={{
+                          fontSize: '2.5vmin',
+                          textDecoration: filterTarget.includes(aWord.word)
+                            ? 'line-through'
+                            : '',
+                        }}
                       >
                         {aWord.word}
                       </div>
@@ -222,7 +229,16 @@ const WordBookComp = ({
                           {'example'}
                         </span>
                         <br style={{ marginBottom: '5vmin' }} />
-                        <span style={{ fontSize: '2vmin' }}>
+                        <span
+                          style={{
+                            fontSize:
+                              aWord.example.length > 250
+                                ? '1.2vmin'
+                                : aWord.example.length > 100
+                                ? '1.5vmin'
+                                : '2vmin',
+                          }}
+                        >
                           &nbsp;&nbsp;{aWord.example}
                         </span>
                       </p>

@@ -32,6 +32,7 @@ const MainHeader = () => {
   const [isToast, setIsToast] = useState(false);
   const profile = useAppSelector((state) => state.auth.currentUser?.profile);
   const nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
+  const guildId = useAppSelector((state) => state.auth.currentUser?.guildId);
   function activeToast() {
     setIsToast(true);
     let timer = setTimeout(() => {
@@ -83,7 +84,7 @@ const MainHeader = () => {
           </MainLinkWrapper>
 
           <MainLinkWrapper bgColor="transparent" widthSize="5vw">
-            <Link to="/auth/guild/1">GUILD</Link>
+            <Link to={`/auth/guild/main/${guildId}`}>GUILD</Link>
           </MainLinkWrapper>
           {/* <MainLinkWrapper
         bgColor="transparent"
