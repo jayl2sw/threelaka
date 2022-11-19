@@ -4,7 +4,7 @@ import civilization from '../../media/images/civilization.jpg';
 import culture from '../../media/images/culture.jpg';
 import human from '../../media/images/human.jpg';
 import industry from '../../media/images/industry.jpg';
-import knowledge from '../../media/images/knowledge.jpg';
+// import knowledge from '../../media/images/knowledge.jpg';
 import nature from '../../media/images/nature.jpg';
 
 // 메인페이지 전체
@@ -28,7 +28,7 @@ export const FirstpageBlock = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  border: solid green 3px;
+  /* border: solid green 3px; */
   flex-direction: row;
 `;
 
@@ -310,10 +310,10 @@ export const BackgroundImg = styled.div`
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  background: url(${knowledge}) center no-repeat;
+
   background-size: 100vw 100vh;
 `;
-
+// background: url(${knowledge}) center no-repeat;
 export const ThumbnailImg = styled.div`
   width: 100vw;
   height: 100vh;

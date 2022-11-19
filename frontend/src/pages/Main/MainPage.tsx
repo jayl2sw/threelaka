@@ -20,8 +20,6 @@ import {
   BackgroundImg,
   ThumbnailImg,
 } from '../../styles/Main/MainStyle';
-import { NewVideo } from '../../styles/Main/MainSearchStyle';
-import RecommendVideoList from './components/RecommendVideoList';
 // import { useScrollDirection } from 'react-use-scroll-direction';
 import VideoModal from '../../utils/VideoModal';
 import TagSelectModal from './components/TagSelectModal';
@@ -29,6 +27,7 @@ import { useAppSelector, useAppDispatch } from '../../utils/hooks';
 import { dashboardActions } from '../../features/dashboard/dashboard-slice';
 import { authActions } from '../../features/auth/authSlice';
 import { GradientRoundBtn } from '../../styles/Common/CommonBtnStyle';
+import CustomSlider from './components/CustomSlider';
 
 const MainPage = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -58,6 +57,15 @@ const MainPage = () => {
     dispatch(dashboardActions.getTagList());
   }, []);
 
+  // useEffect(() => {
+  //   // Applying on mount
+  //   document.body.style.overflow = 'hidden';
+  //   // Applying on unmount
+  //   return () => {
+  //     document.body.style.overflow = 'visible';
+  //   };
+  // }, []);
+
   // USESTATE
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
 
@@ -75,36 +83,7 @@ const MainPage = () => {
       ) : null}
       <MainPageBlock>
         <FirstpageBlock id="FirstpageBlock">
-          <TitleBlock>
-            <div className="tagName">KNOWLEDGE</div>
-            <div className="tagDesc">
-              끊임없이 탐구하는 당신을 위하여
-              <br />
-              세계적인 석학의 강의를 만나보세요
-            </div>
-            <div className="smallTags">
-              #철학 #과학 #수학 #정치 #생물학 #의학
-            </div>
-            <GradientRoundBtn
-              widthSize={'13vw'}
-              heightSize={'7vh'}
-              paddingSize={'0'}
-              fontColor={'white'}
-              fontSize={'2vmin'}
-              backgroundColor={'blue'}
-              style={{
-                position: 'absolute',
-                top: '70%',
-                left: '50%',
-                transform: 'translateX(-50%)',
-              }}
-            >
-              더 알아보러 가기
-            </GradientRoundBtn>
-          </TitleBlock>
-          <ThumbnailBlock>
-            <BackgroundImg />
-          </ThumbnailBlock>
+          <CustomSlider></CustomSlider>
           <PageDownButton
             className="toggle down"
             style={{ rotate: '270deg' }}
@@ -190,26 +169,6 @@ const MainPage = () => {
           <RecentVideoContainer></RecentVideoContainer>
           {/* <RecentVideo /> */}
         </SecondpageBlock>
-        {/* <RecommendVideoContainer>
-          <ListInfo>
-            <div style={{ marginRight: '1vw' }}>추천영상</div>
-            <div style={{ fontSize: '2.5vmin' }}>
-              {tagList.length !== 0
-                ? tagList.map((item, idx) => {
-                    return (
-                      <span style={{ marginRight: '1vw', lineHeight: '28px' }}>
-                        #{item}
-                      </span>
-                    );
-                  })
-                : null}
-            </div>
-          </ListInfo>
-
-          <RecommendVideoList
-            setModalToggleVideoId={setModalToggleVideoId}
-          ></RecommendVideoList>
-        </RecommendVideoContainer> */}
       </MainPageBlock>
     </>
   );
