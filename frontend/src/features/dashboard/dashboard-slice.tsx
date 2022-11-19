@@ -17,7 +17,8 @@ type DashboardState = {
   recentVideoList: RecentVideos[];
   // 공부완료영상
   completedVideoList: CompletedVideos[];
-  dailyStudyTime: Array<Object>;
+  thisWeekdailyStudyTime: Array<Object>;
+  lastWeekdailyStudyTime: Array<Object>;
   monthStudyTime: Array<Object>;
   tagList: Array<string>;
   seqDays: number;
@@ -40,7 +41,8 @@ let initialState: DashboardState = {
 
   recentVideoList: [],
   completedVideoList: [],
-  dailyStudyTime: [],
+  thisWeekdailyStudyTime: [],
+  lastWeekdailyStudyTime: [],
   monthStudyTime: [],
   seqDays: 0,
   studyHistory: {
@@ -101,7 +103,9 @@ const dashboardSlice = createSlice({
     // 데일리 공부 시간 받아오기 성공
     getDailyStudyTimeSuccess(state, action: PayloadAction<number[]>) {
       state.loading = false;
-      state.dailyStudyTime = action.payload;
+      state.lastWeekdailyStudyTime = action.payload.slice(1, 8);
+      state.thisWeekdailyStudyTime = action.payload.slice(8, 16);
+      console.log('얍얍', action.payload.slice(8, 16));
     },
 
     getDailyStudyTimeFailed(state, action: PayloadAction<string>) {
