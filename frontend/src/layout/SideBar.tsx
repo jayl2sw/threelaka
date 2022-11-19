@@ -22,6 +22,7 @@ const SideBar = ({
 }: IOnClickProps) => {
   const profile = useAppSelector((state) => state.auth.currentUser?.profile);
   const nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
+  const guildId = useAppSelector((state) => state.auth.currentUser?.guildId);
 
   const [selectedItem, setSelectedItem] = useState<number>(1);
   const onClickMenu = (props: number) => {
@@ -118,7 +119,7 @@ const SideBar = ({
         </MenuItems>
         <MenuItems>
           <NavLink
-            to="/auth/guild/main"
+            to={`/auth/guild/main/${guildId}`}
             className={({ isActive }) => (isActive ? 'clicked' : 'not')}
           >
             <RiBearSmileLine className="icon" size={20} />
@@ -127,7 +128,7 @@ const SideBar = ({
         </MenuItems>
         <MenuItems>
           <NavLink
-            to="/auth/guild/myGuild"
+            to={`/auth/guild/myGuild/${guildId}`}
             className={({ isActive }) => (isActive ? 'clicked' : 'not')}
           >
             <RiBearSmileLine className="icon" size={20} />
@@ -136,7 +137,7 @@ const SideBar = ({
         </MenuItems>
         <MenuItems>
           <NavLink
-            to="/auth/guild/admin"
+            to={`/auth/guild/admin/${guildId}`}
             className={({ isActive }) => (isActive ? 'clicked' : 'not')}
           >
             <RiBearSmileLine className="icon" size={20} />

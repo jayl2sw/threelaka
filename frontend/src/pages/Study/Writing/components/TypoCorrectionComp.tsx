@@ -31,7 +31,7 @@ const TypoCorrectionComp = ({
         foldLayoutMode === 0 ? (
           <>
             <MainPaleBox
-              widthSize={'28vw'}
+              widthSize={'28.5vw'}
               heightSize={'70vh'}
               paddingSize={'1vw'}
               fontColor={'black'}
@@ -39,51 +39,64 @@ const TypoCorrectionComp = ({
               style={{
                 position: 'relative',
                 display: 'flex',
-                flexDirection: 'column',
-                overflowY: 'scroll',
-                overflowX: 'hidden',
-                transition: 'all 0.8s ease-in-out',
               }}
             >
-              {spellCheckResult.map((spellWord: FlggedToken, idx) => {
-                // console.log('얍', spellWord);
-                return (
-                  <BackBlurBox
-                    widthSize={'26vw'}
-                    heightSize={'5vh'}
-                    paddingSize={'1vw'}
-                    fontColor={'black'}
-                    fontSize={'1vmin'}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'start',
-                      alignItems: 'center',
-                      marginBottom: '1vh',
-                      transition: 'all 0.8s ease-in-out',
-                    }}
-                    key={`spell-word-${idx}`}
-                  >
-                    <SpellText>
-                      {spellWord.type === 'UnknownToken' ? (
-                        <p style={{ fontSize: '2.5vmin' }}>
-                          <span>수정&nbsp;&nbsp;</span>
-                          <span style={{ color: 'red' }}>
-                            {spellWord.token}
-                          </span>{' '}
-                          {'=>'} {spellWord.suggestions[0].suggestion}
-                        </p>
-                      ) : (
-                        <p style={{ fontSize: '2.5vmin' }}>
-                          <span>반복&nbsp;&nbsp;</span>
-                          <span style={{ color: 'red' }}>
-                            {spellWord.token}
-                          </span>
-                        </p>
-                      )}
-                    </SpellText>
-                  </BackBlurBox>
-                );
-              })}
+              <FlexTransparentDiv
+                widthSize={layoutMode === 0 ? '27.5vw' : '80vw'}
+                heightSize={layoutMode === 0 ? '65vh' : '25vh'}
+                paddingSize={'0'}
+                flexDirection={'column'}
+                justifyContent={'start'}
+                alignItems={'start'}
+                IsBorder={'none'}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflowY: 'scroll',
+                  overflowX: 'hidden',
+                  transition: 'all 0.8s ease-in-out',
+                }}
+              >
+                {spellCheckResult.map((spellWord: FlggedToken, idx) => {
+                  // console.log('얍', spellWord);
+                  return (
+                    <BackBlurBox
+                      widthSize={'25.3vw'}
+                      heightSize={'5vh'}
+                      paddingSize={'1vw'}
+                      fontColor={'black'}
+                      fontSize={'1vmin'}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'start',
+                        alignItems: 'center',
+                        marginBottom: '1vh',
+                        transition: 'all 0.8s ease-in-out',
+                      }}
+                      key={`spell-word-${idx}`}
+                    >
+                      <SpellText>
+                        {spellWord.type === 'UnknownToken' ? (
+                          <p style={{ fontSize: '2.5vmin' }}>
+                            <span>수정&nbsp;&nbsp;</span>
+                            <span style={{ color: 'red' }}>
+                              {spellWord.token}
+                            </span>{' '}
+                            {'=>'} {spellWord.suggestions[0].suggestion}
+                          </p>
+                        ) : (
+                          <p style={{ fontSize: '2.5vmin' }}>
+                            <span>반복&nbsp;&nbsp;</span>
+                            <span style={{ color: 'red' }}>
+                              {spellWord.token}
+                            </span>
+                          </p>
+                        )}
+                      </SpellText>
+                    </BackBlurBox>
+                  );
+                })}
+              </FlexTransparentDiv>
             </MainPaleBox>
             <div
               style={{

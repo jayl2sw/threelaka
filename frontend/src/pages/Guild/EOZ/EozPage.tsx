@@ -77,7 +77,7 @@ const EozPage = (props: EozPageProps) => {
 };
 
 // 소켓 통신용
-const SERVER = 'http://localhost:5002';
+const SERVER = 'https://3laka.com/';
 
 let socket: any = null;
 
