@@ -20,35 +20,15 @@ import {
 } from '../../styles/Main/MainStyle';
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import RecommendVideoList from './components/RecommendVideoList';
-import { useScrollDirection } from 'react-use-scroll-direction';
+// import { useScrollDirection } from 'react-use-scroll-direction';
 import VideoModal from '../../utils/VideoModal';
 import TagSelectModal from './components/TagSelectModal';
 import { useAppSelector, useAppDispatch } from '../../utils/hooks';
 import { dashboardActions } from '../../features/dashboard/dashboard-slice';
 import { authActions } from '../../features/auth/authSlice';
-// import Carousel from 'react-multi-carousel';
-// import 'react-multi-carousel/lib/styles.css';
+import { GradientRoundBtn } from '../../styles/Common/CommonBtnStyle';
 
 const MainPage = () => {
-  const responsive = {
-    superLargeDesktop: {
-      // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
   const [isModal, setIsModal] = useState<boolean>(false);
   const isNewbie = useAppSelector((state) => state.auth.isNewbie);
   const tagList = useAppSelector((state) => state.dashboard.tagList);
@@ -72,14 +52,14 @@ const MainPage = () => {
   const recentVideoContainer = useRef<HTMLDivElement>(null);
   // USESTATE
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
-  const { isScrolling, isScrollingUp, isScrollingDown } = useScrollDirection();
-  if (isScrolling) {
-    if (isScrollingUp && firstpageBlock.current != null) {
-      observer.observe(firstpageBlock.current);
-    } else if (isScrollingDown && recentVideoContainer.current != null) {
-      observer.observe(recentVideoContainer.current);
-    }
-  }
+  // const { isScrolling, isScrollingUp, isScrollingDown } = useScrollDirection();
+  // if (isScrolling) {
+  //   if (isScrollingUp && firstpageBlock.current != null) {
+  //     observer.observe(firstpageBlock.current);
+  //   } else if (isScrollingDown && recentVideoContainer.current != null) {
+  //     observer.observe(recentVideoContainer.current);
+  //   }
+  // }
 
   return (
     <>
@@ -94,23 +74,53 @@ const MainPage = () => {
         <TagSelectModal setIsModal={setIsModal}></TagSelectModal>
       ) : null}
       <MainPageBlock>
-        <FirstpageBlock ref={firstpageBlock}>
+        <FirstpageBlock id="FirstpageBlock">
           <TitleBlock>
-            <div className="tagName"># TAG NAME</div>
-            <div className="tagDesc">description</div>
+            <div className="tagName">KNOWLEDGE</div>
+            <div className="tagDesc">
+              끊임없이 탐구하는 당신을 위하여
+              <br />
+              세계적인 석학의 강의를 만나보세요
+            </div>
+            <div className="smallTags">
+              #철학 #과학 #수학 #정치 #생물학 #의학
+            </div>
+            <GradientRoundBtn
+              widthSize={'13vw'}
+              heightSize={'7vh'}
+              paddingSize={'0'}
+              fontColor={'white'}
+              fontSize={'2vmin'}
+              backgroundColor={'blue'}
+              style={{
+                position: 'absolute',
+                top: '70%',
+                left: '50%',
+                transform: 'translateX(-50%)',
+              }}
+            >
+              더 알아보러 가기
+            </GradientRoundBtn>
           </TitleBlock>
           <ThumbnailBlock>
             <ThumbnailImg />
           </ThumbnailBlock>
+          <PageDownButton
+            className="toggle down"
+            style={{ rotate: '270deg' }}
+            href="#recentVideoContainer"
+          >
+            《
+          </PageDownButton>
         </FirstpageBlock>
         <RecentVideoContainer
           id="recentVideoContainer"
           ref={recentVideoContainer}
         >
           <PageDownButton
-            className="toggle"
+            className="toggle up"
             style={{ rotate: '90deg' }}
-            href="#searchBarBlock"
+            href="#FirstpageBlock"
           >
             《
           </PageDownButton>
@@ -144,19 +154,11 @@ const MainPage = () => {
 export default MainPage;
 
 {
-  /* <SearchBarBlock id="searchBarBlock">
-            <NewVideo>
-              <SearchBar
-                setModalToggleVideoId={setModalToggleVideoId}
-              ></SearchBar>
-
-            </NewVideo>
-          </SearchBarBlock>
-          <PageDownButton
-            className="toggle"
-            style={{ rotate: '270deg' }}
-            href="#recentVideoContainer"
-          >
-            《
-          </PageDownButton> */
+  // <SearchBarBlock id="searchBarBlock">
+  //           <NewVideo>
+  //             <SearchBar
+  //               setModalToggleVideoId={setModalToggleVideoId}
+  //             ></SearchBar>
+  //           </NewVideo>
+  //         </SearchBarBlock>
 }
