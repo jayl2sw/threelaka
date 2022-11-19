@@ -84,7 +84,7 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<RecentLearningRecordResponseDto> getRecentVideo(){
+    public ResponseEntity<List<RecentLearningRecordResponseDto>> getRecentVideo(){
 
         return new ResponseEntity<>(studyService.getRecentVideo(), HttpStatus.OK);
     }
