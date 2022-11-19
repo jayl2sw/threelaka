@@ -2,13 +2,14 @@ import { Radio } from '@material-ui/core';
 import styled from 'styled-components';
 
 export const StyledForm = styled.form`
-  max-width: 400px;
-  width: 100%;
+  max-width: 80vw;
+  width: 80%;
   margin: 0 auto;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   grid-column: 1 / 2;
   grid-row: 1 / 2;
   transition: opacity 0.02s 0.4s;
@@ -56,7 +57,7 @@ export const AuthContainer = styled.div`
   position: relative;
   background-color: white;
   width: 60vw;
-  max-width: 1020px;
+  max-width: 80vw;
   height: 80vh;
   border-radius: 3.3rem;
   /* border: solid red 2px; */
@@ -86,13 +87,14 @@ export const FormsWrap = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
+  /* border: red solid 1px; */
 
   .sign-up-form {
     opacity: 0;
     pointer-events: none;
   }
   .sign-up-form > div:nth-child(2) {
-    height: 70%;
+    height: 60%;
   }
   .hide-login-form {
     opacity: 0;
@@ -131,10 +133,14 @@ export const Heading = styled.div`
   }
 `;
 export const InputWrap = styled.div`
+  width: 20vw;
   position: relative;
-  height: 25%;
+  height: 23vh;
   display: flex;
+  /* border-radius: 50%; */
+  /* border: 1px red solid; */
   flex-direction: column;
+  /* align-items: center; */
   justify-content: space-around;
   .short {
     display: flex;
@@ -142,7 +148,14 @@ export const InputWrap = styled.div`
     justify-content: space-between;
   }
   .age {
-    width: 30%;
+    /* width: 30%; */
+  }
+  .gender {
+    font-size: 3vmin;
+  }
+  span {
+    font-size: 2vmin;
+    line-height: 2vmin;
   }
 `;
 // // 영상 url 넣을 input 스타일링
@@ -217,20 +230,17 @@ export const InputWrap = styled.div`
 export const StyledInput = styled.input`
   font-family: Fredoka;
   width: 100%;
-  height: 50%;
+  height: 32%;
   background: none;
   outline: none;
-  border: none;
-  border-bottom: 1px solid #bbb;
-  padding: 0;
-  font-size: 2vmin;
+  border: 1px solid #bbb;
+  border-radius: 50px;
+  padding-left: 1vw;
+  font-size: 2.5vmin;
   color: #333333;
   transition: 0.4s;
   &.active {
-    border-bottom-color: #333333;
-  }
-  &.age {
-    width: 20%;
+    /* border-bottom-color: #333333; */
   }
 `;
 
@@ -246,15 +256,28 @@ export const StyledLabel = styled.div`
   position: none;
   left: 0;
   top: 50%;
-  transform: translateY(100%);
+  transform: translateY(180%);
+
   font-size: 2.3vmin;
+  background: white;
+  justify-content: start;
+  align-items: flex-start;
+  width: 10vw;
   color: gray;
+  /* padding-left: 1vw; */
+  margin-left: 1vw;
+  /* margin-top: 1vh; */
+  /* margin-bottom: -1.2vh; */
   pointer-events: none;
+  padding-left: 0.5vw;
   transition: 0.4s;
   &.active {
-    font-size: 1.3vmin;
-    transform: translateY(50%);
+    font-size: 1.4vmin;
+    transform: translateY(85%) translateX(20%);
     top: -2px;
+    width: 6vw;
+    border-left: solid 1px grey;
+    border-right: solid 1px grey;
   }
 `;
 

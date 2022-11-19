@@ -67,8 +67,9 @@ customAxios.interceptors.response.use(
           ] = `Bearer ${accessToken}`;
           return customAxios(originalConfig);
         } catch (_error) {
+          //얘를 하고 앱.js에서 유저정보 받아오면 무한으로 새로고침됨 방식을 바꿔야할듯
           // 리프레쉬 토큰도 만료됐으니 재로그인하세요
-          window.location.href = '/auth/login';
+          // window.location.href = '/auth/login';
 
           // if (_error.response && _error.response.data) {
           //   return Promise.reject(_error.response.data);

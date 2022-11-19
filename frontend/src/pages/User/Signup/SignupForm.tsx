@@ -133,6 +133,7 @@ const SignupForm = ({
     const emailCheckRes = await emailCheckApi(username);
     const nicknameCheckRes = await nicknameCheckApi(nickname);
     if (data.password !== data.passwordConfirm) {
+      console.log('이게말이됨');
       setError(
         'passwordConfirm', // 에러 핸들링할 input요소 name
         { message: '비밀번호가 일치하지 않습니다.' }, // 에러 메세지
@@ -163,30 +164,26 @@ const SignupForm = ({
       onSubmit={handleSubmit(handleFormSubmit)}
       className="sign-up-form"
     >
-      <Heading style={{ marginBottom: '3vh' }}>
-        <h1>
-          Hello,
-          <br />
-          Welcome to ThreeLaka!
-        </h1>
+      <Heading style={{ marginTop: '3vh' }}>
+        <h1>Welcome to ThreeLaka!</h1>
       </Heading>
       <InputWrap>
-        <InputField name="username" control={control} label="이메일" />
+        <InputField name="username" control={control} label="E-mail" />
         <InputField
           name="password"
           control={control}
-          label="비밀번호"
+          label="PW"
           type="password"
         />
         <InputField
           name="passwordConfirm"
           control={control}
-          label="비밀번호 확인"
+          label="Confirm PW"
           type="password"
         />
-        <InputField name="nickname" control={control} label="닉네임" />
-        <div className="short">
-          <div className="age">
+        <InputField name="nickname" control={control} label="Nickname" />
+        {/* <div className="short">
+          <div className="age" style={{ width: '25%' }}>
             <InputField
               name="age"
               control={control}
@@ -213,10 +210,10 @@ const SignupForm = ({
               },
             ]}
           />
-        </div>
+        </div> */}
       </InputWrap>
       <SubmitBtnWrap>
-        <a
+        {/* <a
           href="#"
           onClick={handleToggle}
           className="toggle"
@@ -226,16 +223,21 @@ const SignupForm = ({
             &lt;&lt;&nbsp;&nbsp;현재 베타테스트 기간으로 개별 가입이
             불가능합니다
           </p>
-        </a>
+        </a> */}
 
-        {/* <GradientRoundBtn
-          widthSize={'80%'}
-          heightSize={'5vh'}
+        <GradientRoundBtn
+          widthSize={'20vw'}
+          heightSize={'7vh'}
           paddingSize={'0'}
           fontColor={'black'}
           fontSize={'2vmin'}
           backgroundColor={'gradient'}
-          style={{ margin: '0 auto' }}
+          style={{
+            // margin: '0 auto',
+            background: '#bff5ab',
+            marginBottom: '-3vh',
+            marginTop: '2.5vh',
+          }}
         >
           J O I N
         </GradientRoundBtn>
@@ -247,7 +249,7 @@ const SignupForm = ({
           style={{ fontFamily: 'Fredoka', fontWeight: 'bold' }}
         >
           &lt;&lt;&nbsp;&nbsp;Sign In
-        </a> */}
+        </a>
       </SubmitBtnWrap>
     </StyledForm>
   );

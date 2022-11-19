@@ -89,6 +89,8 @@ const studySlice = createSlice({
     SearchDictStart(state, action: PayloadAction<string>) {
       state.loading = true;
       state.searchDictError = '';
+      state.wordMeaning.wordId = '';
+      state.wordMeaning.wordList = [];
     },
     // 사전 검색 성공
     SearchDictSuccess(state, action: PayloadAction<WordMeaning>) {

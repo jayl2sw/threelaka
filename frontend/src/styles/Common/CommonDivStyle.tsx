@@ -7,6 +7,24 @@ interface CommonDivProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
   fontColor: 'white' | 'grey' | 'black' | 'blue';
   fontSize: string;
 }
+interface ToastDivProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
+  widthSize: string;
+  heightSize: string;
+  paddingSize: string;
+  fontColor: 'white' | 'grey' | 'black' | 'blue';
+
+  top: string;
+  left: string;
+}
+
+interface CommonCircleProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
+  widthSize: string;
+  heightSize: string;
+  paddingSize: string;
+  fontColor: 'white' | 'grey' | 'black' | 'blue';
+  fontSize: string;
+  backgroundUrl: string;
+}
 
 interface TransparentFlexDivProps
   extends React.ButtonHTMLAttributes<HTMLDivElement> {
@@ -156,6 +174,66 @@ export const FlexTransparentDiv = styled.div<TransparentFlexDivProps>`
     props.IsBorder === 'none' ? 'none' : '1px solid black'};
 `;
 
+export const GradientCircleDiv = styled.div<CommonCircleProps>`
+  width: ${(props) => props.widthSize};
+  height: ${(props) => props.heightSize};
+  padding: ${(props) => props.paddingSize};
+  font-size: ${(props) => props.fontSize};
+  border: 5px solid transparent;
+  border-radius: 50%;
+  color: ${(props) =>
+    props.fontColor === 'white'
+      ? '#ffffff'
+      : props.fontColor === 'grey'
+      ? '#9897a9'
+      : props.fontColor === 'black'
+      ? '#111111'
+      : props.fontColor === 'blue'
+      ? '#4a9fff'
+      : '#111111'};
+  background-image: url(${(props) => props.backgroundUrl}),
+    linear-gradient(
+      106.62deg,
+      #83bdff 8.18%,
+      rgba(88, 172, 240, 0.861458) 45.03%,
+      #c1ffa9 92.42%
+    );
+
+  background-size: ${(props) => props.widthSize} ${(props) => props.heightSize};
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  margin: 10px;
+  position: relative;
+`;
+
 // export const GradientIconBox = styled.div<CommonDivProps>`
 
 // `
+
+export const ToastContainer = styled.div<ToastDivProps>`
+  width: ${(props) => props.widthSize};
+  height: ${(props) => props.heightSize};
+  padding: ${(props) => props.paddingSize};
+
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
+  position: fixed;
+  z-index: 20;
+  border-radius: 2vmin;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: smoothAppear 1s ease-in-out;
+  @keyframes smoothAppear {
+    from {
+      opacity: 0;
+      transform: translateY(-5%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;

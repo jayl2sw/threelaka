@@ -1,44 +1,64 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { VideoData, RecentVideoData } from '../../models/video';
-import { RecentVideos } from '../../models/dashboard';
+import {
+  RecentVideos,
+  CompletedVideos,
+  MonthStudyTime,
+  StudyHistory,
+  TotalStudyTime,
+  UserWordInfo,
+  isMemorizedWord,
+} from '../../models/dashboard';
 
 type DashboardState = {
   loading: boolean;
-  // 비디오 1개
-  videoData: VideoData;
-  // 최근 공부한 영상 1개
-  recentVideoData: RecentVideoData;
-  // 현재 공부중인 영상 비디오 4개
+
+  // 현재공부중인영상
   recentVideoList: RecentVideos[];
+  // 공부완료영상
+  completedVideoList: CompletedVideos[];
+  dailyStudyTime: Array<Object>;
+  monthStudyTime: Array<Object>;
+  tagList: Array<string>;
+  seqDays: number;
+
+  // 학습히스토리
+  studyHistory: StudyHistory;
+
+  //총학습시간
+  totalStudyTime: TotalStudyTime;
+
+  //
+  userWordInfo: UserWordInfo[];
+
+  //
+  pickRandomWord: UserWordInfo;
 };
 
 let initialState: DashboardState = {
   loading: false,
-  videoData: {
-    watched: null,
-    video: {
-      videoId: '',
-      title: '',
-      description: '',
-      script: '',
-    },
-  },
-  recentVideoData: {
-    learningRecord: {
-      date: 'string',
-      learningRecordId: 0,
-      stage: '',
-      userId: 0,
-      videoId: '',
-    },
-    video: {
-      title: '',
-      videoId: '',
-      description: '',
-      korScript: false,
-    },
-  },
+
   recentVideoList: [],
+  completedVideoList: [],
+  dailyStudyTime: [],
+  monthStudyTime: [],
+  seqDays: 0,
+  studyHistory: {
+    essays: 0,
+    videos: 0,
+    words: 0,
+  },
+  totalStudyTime: {
+    time: 0,
+  },
+  tagList: [],
+  userWordInfo: [],
+  pickRandomWord: {
+    wordbookId: 0,
+    word: '',
+    example: '',
+    exampleKor: '',
+  },
 };
 
 // Slice
@@ -46,36 +66,20 @@ const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState,
   reducers: {
-    // 비디오 1개 정보 받아오기 요청
-    getVideoData(state, action: PayloadAction<string>) {
+    // 현재 공부중인 영상 정보 받아오기 요청
+    getCompletedVideos(state) {
       state.loading = true;
     },
-    // 비디오 1개 정보 받아오기 성공
-    getVideoDataSuccess(state, action: PayloadAction<VideoData>) {
-      state.loading = false;
-      state.videoData = action.payload;
-    },
-    // 비디오 1개 정보 받아오기 실패
-    getVideoDataFailed(state, action: PayloadAction<string>) {
-      state.loading = false;
-    },
-
-    // 최근 공부한 영상 1개 정보 받아오기 요칭
-    getRecentVideoData(state) {
-      state.loading = true;
-    },
-    // 최근 공부한 영상 1개 정보 받아오기 성공
-    getRecentVideoDataSuccess(state, action: PayloadAction<RecentVideoData>) {
-      // console.log('정보 받아오기 성공! video-slice에서 주석처리해주세요');
+    // 현재 공부중인 영상 정보 받아오기 성공
+    getCompletedVideosSuccess(state, action: PayloadAction<CompletedVideos[]>) {
       // console.log(action.payload);
       state.loading = false;
-      state.recentVideoData = action.payload;
+      state.completedVideoList = action.payload;
     },
-    // 최근 공부한 영상 1개 정보 받아오기 실패
-    getRecentVideoDataFailed(state, action: PayloadAction<any>) {
+    // 현재 공부중인 영상 정보 받아오기 요청 실패
+    getCompletedVideosFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
-
     // 현재 공부중인 영상 정보 받아오기 요청
     getRecentVideos(state) {
       state.loading = true;
@@ -88,6 +92,133 @@ const dashboardSlice = createSlice({
     },
     // 현재 공부중인 영상 정보 받아오기 요청 실패
     getRecentVideosFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 데일리 공부 시간 받아오기
+    getDailyStudyTime(state) {
+      state.loading = true;
+    },
+    // 데일리 공부 시간 받아오기 성공
+    getDailyStudyTimeSuccess(state, action: PayloadAction<number[]>) {
+      state.loading = false;
+      state.dailyStudyTime = action.payload;
+    },
+
+    getDailyStudyTimeFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 한달 공부 시간 받아오기
+    getMonthStudyTime(state) {
+      state.loading = true;
+    },
+    // 한달 공부 시간 받아오기 성공
+    getMonthStudyTimeSuccess(state, action: PayloadAction<MonthStudyTime>) {
+      state.loading = false;
+
+      state.monthStudyTime = action.payload.time;
+      state.seqDays = action.payload.seqDays;
+    },
+
+    getMonthStudyTimeFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 학습히스토리 받아오기
+    getStudyHistory(state) {
+      state.loading = true;
+    },
+    // 학습히스토리 받아오기 성공
+    getStudyHistorySuccess(state, action: PayloadAction<StudyHistory>) {
+      state.loading = false;
+      state.studyHistory = action.payload;
+    },
+
+    getStudyHistoryFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    //프로필수정
+    updateProfile(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+    //프로필 수정 성공
+    updateProfileSuccess(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    updateProfileFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 총학습시간 받아오기
+    getTotalStudyTime(state) {
+      state.loading = true;
+    },
+    // 총학습시간 받아오기 성공
+    getTotalStudyTimeSuccess(state, action: PayloadAction<TotalStudyTime>) {
+      state.loading = false;
+      state.totalStudyTime = action.payload;
+    },
+
+    getTotalStudyTimeFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    //태그 등록 및 수정
+    updateTag(state, action: PayloadAction<number[]>) {
+      state.loading = true;
+    },
+
+    updateTagSuccess(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    updateTagFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 사용자 tag 받아오기
+    getTagList(state) {
+      state.loading = true;
+    },
+
+    getTagListSuccess(state, action: PayloadAction<string[]>) {
+      state.loading = false;
+      state.tagList = action.payload;
+    },
+
+    getTagListFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    //유저단어정보받아오기
+    getUserWordInfo(state) {
+      state.loading = true;
+    },
+
+    getUserWordInfoSuccess(state, action: PayloadAction<UserWordInfo[]>) {
+      state.loading = false;
+      state.userWordInfo = action.payload;
+      // action.payload.map((item, idx) => {
+      //   if (item.exampleKor !== null) {
+      //     state.userWordInfo.push(item);
+      //   }
+      // });
+      const randomElement =
+        action.payload[Math.floor(Math.random() * action.payload.length)];
+      state.pickRandomWord = randomElement;
+    },
+
+    getUserWordInfoFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    //단어외움처리
+
+    putIsMemorizedWord(state, action: PayloadAction<isMemorizedWord>) {
+      state.loading = true;
+    },
+
+    putIsMemorizedWordSuccess(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    putIsMemorizedWordFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
   },

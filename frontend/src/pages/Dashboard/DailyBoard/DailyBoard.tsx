@@ -1,10 +1,23 @@
 import React from 'react';
 import VideoContainer from './VideoContainer';
-const DailyBoard = () => {
+import GraphContainer from './GraphContainer';
+import Calendar from './Calendar';
+import { DailyBoardContainer } from '../../../styles/DashBoard/DashBoardStyle';
+import StudyHistoryContainer from './StudyHistoryContainer';
+
+interface IDailyBoardProps {
+  setModalToggleVideoId: (nextVideoId: string) => void;
+}
+const DailyBoard = ({ setModalToggleVideoId }: IDailyBoardProps) => {
   return (
-    <div>
-      <VideoContainer></VideoContainer>
-    </div>
+    <DailyBoardContainer>
+      <VideoContainer
+        setModalToggleVideoId={setModalToggleVideoId}
+      ></VideoContainer>
+      <Calendar></Calendar>
+      <GraphContainer></GraphContainer>
+      <StudyHistoryContainer></StudyHistoryContainer>
+    </DailyBoardContainer>
   );
 };
 

@@ -20,7 +20,7 @@ import VocaPage from './pages/Study/Voca/VocaPage';
 // Dashboard
 import DashBoardPage from './pages/Dashboard/DashBoardPage';
 
-// Guild 
+// Guild
 import GuildPage from './pages/Guild/GuildPage';
 
 // pageNotFound
@@ -29,7 +29,13 @@ import PageNotFound from './layout/PageNotFound';
 // Private
 import { ProtectedRoute } from './pages/private/ProtectedRoute';
 
+import WordTest from './pages/Dashboard/WordTest/WordTest';
+
 function App() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(authActions.fetchUser());
+  }, [dispatch]);
   return (
     <div className="App">
       <Routes>
@@ -48,7 +54,11 @@ function App() {
           <Route path="login" element={<AuthPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="dashboard/:pageNum" element={<DashBoardPage />} />
-            <Route path="guild/:guildPageNum" element={<GuildPage  />} />
+            <Route
+              path="guild/:guildPageType/:guildId"
+              element={<GuildPage />}
+            />
+
             <Route path="" element={<PageNotFound />} />
             {/* 뒤에 라우트 주소가 비었을때도 NotFound로 갈 수 있게끔*/}
           </Route>
@@ -75,6 +85,8 @@ function App() {
 
         {/* Not Found */}
         <Route path="*" element={<PageNotFound />}></Route>
+
+        {/* <Route path="test" element={<WordTest />}></Route> */}
       </Routes>
     </div>
   );

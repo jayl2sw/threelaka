@@ -1,10 +1,19 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
+import UpdateProfile from './UpdateProfile';
+import UpdateUserInfo from './UpdateUserInfo';
+import { ProfileContainer } from '../../../styles/DashBoard/DashBoardStyle';
+import { useAppDispatch } from '../../../utils/hooks';
+import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
 const Profile = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(dashboardActions.getTagList());
+  }, []);
   return (
-    <div>
-      <p>프로필 페이지</p>
-    </div>
+    <ProfileContainer>
+      <UpdateProfile></UpdateProfile>
+      <UpdateUserInfo></UpdateUserInfo>
+    </ProfileContainer>
   );
 };
 

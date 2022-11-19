@@ -1,16 +1,11 @@
+import React from 'react';
 import styled from 'styled-components';
 
-export const ReadPageBlock = styled.div`
-  font-family: PretendardRegular;
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
-  flex-direction: row;
-  width: 100vw;
-  height: 85vh;
-  padding: 0vh 5vw 0vh 5vw;
-  /* border: 1px solid black; */
-`;
+interface CicularMenuProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
+  transitionTime: string;
+  removeTransitionTime: string;
+  bgColor: string;
+}
 
 export const WordBookAddReqBtn = styled.div`
   cursor: pointer;
@@ -30,7 +25,7 @@ export const WordBookAddReqBtn = styled.div`
 `;
 
 export const DictInput = styled.input`
-  width: 25vw;
+  width: 30vw;
   height: 5vh;
   font-family: PretendardBold;
   font-size: 3vmin;
@@ -57,17 +52,6 @@ export const DictResult = styled.div`
   border-bottom: black 2px solid;
   background-color: white;
   color: black;
-`;
-
-export const ScriptItemBox = styled.div`
-  min-height: 19.5vh;
-  width: 45vw;
-  display: flex;
-  /* justify-content: flex-start; */
-  align-items: center;
-  color: black;
-  font-size: 2vmin;
-  /* border: 1px solid green; */
 `;
 
 export const ScriptTimeStamp = styled.div`
@@ -97,18 +81,6 @@ export const ScriptTimeStamp = styled.div`
   }
 `;
 
-export const ScriptText = styled.div`
-  min-height: 19.5vh;
-  width: 33vw;
-  padding: 0vh 2vw;
-  display: flex;
-  /* justify-content: center; */
-  align-items: center;
-  color: black;
-  font-size: 2vmin;
-  /* border: 1px solid green; */
-`;
-
 export const ScriptWordSpan = styled.span`
   /* margin-right: 0.7vmin; */
   display: inline-block;
@@ -136,10 +108,11 @@ export const ScriptWordSpan = styled.span`
 
 export const AutoScrollBtn = styled.div`
   cursor: pointer;
-  position: absolute;
+  /* position: absolute; */
+  position: relative;
   z-index: 1;
-  top: 10vh;
-  right: 8.5vw;
+  /* top: 10vh; */
+  /* right: 8.5vw; */
   width: 5vw;
   height: 3vh;
   border-radius: 10px;
@@ -176,17 +149,37 @@ export const AutoScrollBtn = styled.div`
   }
 `;
 
-export const AutoScrollText = styled.div`
-  font-size: 2vmin;
+export const CircularMenuItem = styled.div<CicularMenuProps>`
   display: flex;
-  position: absolute;
-  align-items: center;
+  cursor: default;
+  pointer-events: none;
   justify-content: center;
-  top: 10.2vh;
-  right: 11vw;
-  width: 10vw;
-  height: 3vh;
-  & p {
-    margin: 0;
+  align-items: center;
+  width: 4vmin;
+  height: 4vmin;
+  background-color: ${(props) => props.bgColor};
+  opacity: 0;
+  transition: opacity ${(props) => props.removeTransitionTime} ease-in-out;
+  visibility: none;
+  border-radius: 50%;
+  &.toggle {
+    cursor: pointer;
+    opacity: 1;
+    pointer-events: initial;
+    visibility: visible;
+    transition: opacity ${(props) => props.transitionTime} ease-in-out;
+  }
+`;
+
+export const CircularMenu = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 4vmin;
+  height: 4vmin;
+  background-color: #4a9fff;
+  &:active {
+    transform: scale(0.9);
   }
 `;

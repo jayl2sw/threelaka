@@ -6,7 +6,7 @@ import videoReducer from './video/video-slice';
 import studyReducer from './study/study-slice';
 import writingReducer from './writing/writing-slice';
 import dashboardReducer from './dashboard/dashboard-slice';
-
+import guildReducer from './guild/guild-slice';
 const rootReducer = combineReducers({
   counter: countReducer,
   read: readReducer,
@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
   study: studyReducer,
   write: writingReducer,
   dashboard: dashboardReducer,
+  guild: guildReducer,
 });
 
 export default rootReducer;
