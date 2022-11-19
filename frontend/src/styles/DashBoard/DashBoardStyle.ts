@@ -431,8 +431,63 @@ export const CheckBtn = styled(MdCheckCircleOutline)`
 `;
 
 export const WordTestInput = styled.input`
+  background: rgba(88, 172, 240, 0.2);
+  padding: 1vh 1vw;
+  border: none;
+  outline: none;
+  border-radius: 1vmin;
+  font-size: 2.5vmin;
+  width: 10vw;
+
   &.right {
     border: none;
-    background: red;
+    background: #b9ddd3;
+    color: #308068;
+  }
+`;
+
+export const RightAlert = styled.div`
+  z-index: 1;
+  position: absolute;
+  top: 5vh;
+  left: 2vw;
+  font-style: italic;
+  margin: 0;
+  line-height: 2vmin;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-variant: small-caps;
+  font-family: 'pretendardextrabold';
+  color: white;
+  text-shadow: 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+    0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+    0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+    0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+    0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+    0 0 6px #457b9d, 0 0 6px #457b9d;
+  font-size: 6vmin;
+  @keyframes bounce {
+    0% {
+      /* text-shadow: 0 5px 0 #ccc, 0 2px 3px rgba(0, 0, 0, 1); */
+    }
+    100% {
+      transform: translateY(10px);
+      /* text-shadow: 0 50px 0 #black, 0 0px 20px rgba(0, 0, 0, 0.8); */
+    }
+  }
+  animation: bounce 0.6s;
+`;
+
+export const HistoryCounterContainer = styled.div`
+  .historyTitle {
+    color: #111111;
+    box-shadow: inset 0 0 0 0 #54b3d6;
+    :hover {
+      color: #fff;
+      box-shadow: inset 200px 0 0 0 #4a9fff;
+      cursor: pointer;
+    }
+    transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   }
 `;
