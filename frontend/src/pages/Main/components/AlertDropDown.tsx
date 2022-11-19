@@ -8,21 +8,14 @@ const AlertDropDown = () => {
       <div className="dropdown">
         <MainBox
           widthSize={'20vw'}
-          heightSize={'25vh'}
-          paddingSize={'0'}
+          heightSize={'22vh'}
+          paddingSize={'1.5vh 0.5vw 0 0.5vw'}
           fontColor={'black'}
           fontSize={'1vmin'}
           className="dropdown-content"
-          style={{ overflowY: 'auto', minHeight: '25vh' }}
+          style={{ overflowY: 'auto', minHeight: '24vh' }}
         >
           <Card></Card>
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-          {/* <a href="#">Link 3</a>
-          <a href="#">Link 3</a>
-          <a href="#">Link 3</a>
-          <a href="#">Link 3</a> */}
         </MainBox>
       </div>
     </AlertDropDownContainer>

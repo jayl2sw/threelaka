@@ -1,44 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useAppSelector } from '../../../utils/hooks';
-
+import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
 const CardContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 5vw);
+  /* grid-template-columns: repeat(3, 7vw); */
+  grid-template-columns: 4.5vw 10.1vw 6vw;
   height: 10vh;
   align-items: center;
-  border: 1px black solid;
+
+  background: #f1f1f1;
+
+  border-radius: 2vmin;
 `;
 
 const CardImgBox = styled.div`
-  width: 5vmin;
-
-  /* z-index: 1; */
-  /* top: -38vmin; */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: red; */
 
-  .accepted {
-    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile1.png')
+  .isBadAlert {
+    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/blue.png')
       no-repeat center;
-    background-size: 10vmin 10vmin;
-  }
-  .kicked {
-    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile1.png')
-      no-repeat center;
-    background-size: 10vmin 10vmin;
-  }
-  .newVideo {
-    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile1.png')
-      no-repeat center;
-    background-size: 10vmin 10vmin;
-  }
-  .rejected {
-    background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile1.png')
-      no-repeat center;
-    background-size: 10vmin 10vmin;
+    background-size: 9vmin 9vmin;
   }
 `;
 const CardImgCenter = styled.div`
@@ -59,91 +43,162 @@ const Card = () => {
             ) {
               return (
                 <>
-                  <CardContainer>
+                  <CardContainer className="link">
                     <div>
                       <CardImgBox
                         style={{
-                          width: '10vmin',
-                          height: '10vmin',
+                          width: '9.5vmin',
+                          height: '9.5vmin',
                           background: `linear-gradient(
-                    110.64deg,
-                      #4a9fff 5.65%,
-                    rgba(88, 172, 240, 0.861458) 45.15%,
-                      #b0ff91 84.64%
-                    )`,
-                          borderRadius: '50%',
+              110.64deg,
+                #4a9fff
+                 5.65%,
+              rgba(88, 172, 240, 0.861458) 45.15%,
+                #b0ff91 84.64%
+              )`,
+                          borderRadius: '2vmin',
                           border: '4px solid #fff',
 
                           display: 'flex',
                           flexDirection: 'column',
                           // top: '-6vh',
+                          margin: '0 0.2vw',
                         }}
                       >
                         <CardImgCenter
                           className={
                             item.alertState === 'rejected'
-                              ? 'rejected'
+                              ? 'isBadAlert'
                               : item.alertState === 'kicked'
-                              ? 'kicked'
+                              ? 'isBadAlert'
                               : ''
                           }
                         ></CardImgCenter>
                       </CardImgBox>
                     </div>
-                    <div>안녕</div>
-                    <div>안녕</div>
+                    <div
+                      style={{
+                        padding: '0.4vw',
+                        fontSize: '1.2vmin',
+                        textAlign: 'justify',
+                      }}
+                    >
+                      {item.alertState === 'rejected' ? (
+                        <div>
+                          {item.guildName}에 보낸 가입 요청이 거절되었습니다.
+                        </div>
+                      ) : item.alertState === 'kicked' ? (
+                        <div>{item.guildName}에서 추방되었습니다.</div>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                    <div></div>
                   </CardContainer>
-                  <div>{item.alertState}</div>
                 </>
               );
             } else {
               return (
                 <>
-                  <CardContainer>
+                  <CardContainer className="link">
                     <div>
                       <CardImgBox
                         style={{
-                          width: '10vmin',
-                          height: '10vmin',
-                          background: `linear-gradient(
+                          width: '9.5vmin',
+                          height: '9.5vmin',
+                          background:
+                            item.alertState === 'newVideo'
+                              ? 'black'
+                              : `linear-gradient(
                     110.64deg,
-                      #4a9fff 5.65%,
+                      #4a9fff
+                       5.65%,
                     rgba(88, 172, 240, 0.861458) 45.15%,
                       #b0ff91 84.64%
                     )`,
-                          borderRadius: '50%',
+                          borderRadius: '2vmin',
                           border: '4px solid #fff',
 
                           display: 'flex',
                           flexDirection: 'column',
                           // top: '-6vh',
+                          margin: '0 0.2vw',
                         }}
                       >
                         <img
-                          // className={
-                          //   item.alertState === 'accepted'
-                          //     ? 'accepted'
-                          //     : item.alertState === 'rejected'
-                          //     ? 'rejected'
-                          //     : item.alertState === 'kicked'
-                          //     ? 'kicked'
-                          //     : item.alertState === 'newVideo'
-                          //     ? 'newVideo'
-                          //     : ''
-                          // }
                           src={
                             item.alertState === 'newVideo'
                               ? `https://img.youtube.com/vi/${item.videoId}/0.jpg`
-                              : 'https://threelaka.s3.ap-northeast-2.amazonaws.com/profile1.png'
+                              : item.alertState === 'accepted'
+                              ? 'https://threelaka.s3.ap-northeast-2.amazonaws.com/0.png'
+                              : ''
                           }
-                          style={{ objectFit: 'cover', width: '10vmin' }}
+                          style={{
+                            objectFit: 'cover',
+                            width: '7vmin',
+                            // height: '7min',
+                          }}
                         ></img>
                       </CardImgBox>
                     </div>
-                    <div>안녕</div>
-                    <div>안녕</div>
+                    <div
+                      style={{
+                        padding: '0 0.4vw 0 0.7vw',
+                        fontSize: '1.2vmin',
+                        textAlign: 'justify',
+                      }}
+                    >
+                      {item.alertState === 'newVideo' ? (
+                        <div>
+                          {item.guildName}에서 새로운 영상 {item.videoTitle}이
+                          생성되었습니다.
+                        </div>
+                      ) : item.alertState === 'accepted' ? (
+                        <div>
+                          {item.guildName}에 보낸 가입 요청이 수락되었습니다.
+                        </div>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                    {item.alertState === 'newVideo' ? (
+                      <MainBtn
+                        widthSize={'4vw'}
+                        heightSize={'5vh'}
+                        paddingSize={'0.5vw'}
+                        fontSize={'1.5vmin'}
+                        fontColor={'white'}
+                        backgroundColor={'blue'}
+                        style={{
+                          borderRadius: '1.5vmin',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          marginLeft: '0.2vw',
+                        }}
+                      >
+                        <div>영상 공부</div>
+                        <div>바로 가기</div>
+                      </MainBtn>
+                    ) : item.alertState === 'accepted' ? (
+                      <MainBtn
+                        widthSize={'4vw'}
+                        heightSize={'5vh'}
+                        paddingSize={'0.5vw'}
+                        fontSize={'1.5vmin'}
+                        fontColor={'white'}
+                        backgroundColor={'blue'}
+                        style={{
+                          borderRadius: '1.5vmin',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          marginLeft: '0.2vw',
+                        }}
+                      >
+                        <div>길드 구경</div>
+                        <div>바로 가기</div>
+                      </MainBtn>
+                    ) : null}
                   </CardContainer>
-                  <div>{item.alertState}</div>
                 </>
               );
             }

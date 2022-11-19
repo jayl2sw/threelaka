@@ -265,32 +265,45 @@ export const AlertImgBox = styled.img.attrs((props) => ({
 
 export const AlertDropDownContainer = styled.div`
   position: fixed;
-  top: 7.5vh;
-  right: 7.5vw;
+  top: 7vh;
+  right: 7vw;
+  @keyframes growDown {
+    0% {
+      transform: scaleY(0);
+    }
+    80% {
+      transform: scaleY(1.1);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
   .dropdown {
     width: 20vw;
     height: 20vh;
     position: relative;
     display: inline-block;
+    animation: growDown 300ms ease-in-out forwards;
+    transform-origin: top center;
   }
 
   .dropdown-content {
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
   }
 
-  .dropdown-content a {
+  .dropdown-content .link {
     color: black;
-    padding: 12px 16px;
+
     text-decoration: none;
-    display: block;
+    margin-bottom: 1vh;
   }
 
-  .dropdown-content a:hover {
-    background-color: #f1f1f1;
+  .dropdown-content .link:hover {
+    background-color: rgba(88, 172, 240, 0.2);
   }
 
   .dropdown:hover .dropbtn {

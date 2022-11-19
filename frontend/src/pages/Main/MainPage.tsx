@@ -47,6 +47,7 @@ const MainPage = () => {
 
   useEffect(() => {
     dispatch(authActions.getUserAlert());
+    dispatch(dashboardActions.getTagList());
   }, []);
 
   const firstpageBlock = useRef<HTMLDivElement>(null);
