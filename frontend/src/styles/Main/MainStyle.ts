@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ocean from '../../media/images/ocean.jpg';
 
 // 메인페이지 전체
 export const MainPageBlock = styled.div`
@@ -59,12 +60,34 @@ export const LogoBlock = styled.div`
 `;
 
 export const TitleBlock = styled.div`
-  width: 50vw;
+  position: absolute;
+  left: 0;
+  width: 30vw;
   height: 100vh;
   border: solid yellow 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 1), 90%, rgba(0, 0, 0, 0));
+  z-index: 1;
+  .tagName {
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 5vmin;
+    font-family: 'pretendardextrabold';
+  }
+  .tagDesc {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: white;
+  }
 `;
+
 export const ThumbnailBlock = styled.div`
-  width: 50vw;
+  position: absolute;
+  right: 0;
+  width: 90vw;
   height: 100vh;
   border: solid red 1px;
 `;
@@ -208,6 +231,14 @@ export const VideoImg = styled.img`
   // 이미지 위에 자막 정보 띄우기
   position: absolute;
   /* z-index: -1; */
+`;
+
+export const ThumbnailImg = styled.div`
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  background: url(${ocean}) center no-repeat;
+  background-size: 100vw 100vh;
 `;
 
 export const SubTagContainer = styled.div`

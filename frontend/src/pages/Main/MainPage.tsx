@@ -15,6 +15,8 @@ import {
   FirstCenterBar,
   TitleBlock,
   ThumbnailBlock,
+  VideoImg,
+  ThumbnailImg,
 } from '../../styles/Main/MainStyle';
 import { NewVideo } from '../../styles/Main/MainSearchStyle';
 import RecommendVideoList from './components/RecommendVideoList';
@@ -24,8 +26,29 @@ import TagSelectModal from './components/TagSelectModal';
 import { useAppSelector, useAppDispatch } from '../../utils/hooks';
 import { dashboardActions } from '../../features/dashboard/dashboard-slice';
 import { authActions } from '../../features/auth/authSlice';
+// import Carousel from 'react-multi-carousel';
+// import 'react-multi-carousel/lib/styles.css';
 
 const MainPage = () => {
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
   const [isModal, setIsModal] = useState<boolean>(false);
   const isNewbie = useAppSelector((state) => state.auth.isNewbie);
   const tagList = useAppSelector((state) => state.dashboard.tagList);
@@ -72,9 +95,13 @@ const MainPage = () => {
       ) : null}
       <MainPageBlock>
         <FirstpageBlock ref={firstpageBlock}>
-          <TitleBlock></TitleBlock>
-
-          <ThumbnailBlock></ThumbnailBlock>
+          <TitleBlock>
+            <div className="tagName"># TAG NAME</div>
+            <div className="tagDesc">description</div>
+          </TitleBlock>
+          <ThumbnailBlock>
+            <ThumbnailImg />
+          </ThumbnailBlock>
         </FirstpageBlock>
         <RecentVideoContainer
           id="recentVideoContainer"

@@ -126,7 +126,11 @@ const MainHeader = () => {
         ></LogoutIcon> */}
           </MainLinkWrapper>
 
-          <TbBellRinging size={25} style={{ marginTop: '2vh' }}></TbBellRinging>
+          <TbBellRinging
+            size={25}
+            color="white"
+            style={{ marginTop: '2vh' }}
+          ></TbBellRinging>
           <MainLinkWrapper bgColor="transparent" widthSize="5vw">
             <FlexTransparentDiv
               widthSize={'13vw'}
