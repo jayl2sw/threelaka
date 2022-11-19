@@ -145,7 +145,7 @@ export const MainLinkWrapper = styled.div<LinkMenuProps>`
   justify-content: center;
   align-items: center;
   height: 8vh;
-  font-size: 2.3vmin;
+  font-size: 0.8rem;
   color: black;
   margin-top: 2vh;
 
@@ -158,7 +158,7 @@ export const MainLinkWrapper = styled.div<LinkMenuProps>`
     color: white;
     opacity: 0.8;
     font-weight: bold;
-    font-size: 2.5vmin;
+    font-size: 0.9rem;
   }
 `;
 

@@ -6,8 +6,6 @@ import {
   MonthStudyTime,
   StudyHistory,
   TotalStudyTime,
-  UserWordInfo,
-  isMemorizedWord,
 } from '../../models/dashboard';
 
 type DashboardState = {
@@ -27,12 +25,6 @@ type DashboardState = {
 
   //총학습시간
   totalStudyTime: TotalStudyTime;
-
-  //
-  userWordInfo: UserWordInfo[];
-
-  //
-  pickRandomWord: UserWordInfo;
 };
 
 let initialState: DashboardState = {
@@ -52,13 +44,6 @@ let initialState: DashboardState = {
     time: 0,
   },
   tagList: [],
-  userWordInfo: [],
-  pickRandomWord: {
-    wordbookId: 0,
-    word: '',
-    example: '',
-    exampleKor: '',
-  },
 };
 
 // Slice
@@ -184,41 +169,6 @@ const dashboardSlice = createSlice({
     },
 
     getTagListFailed(state, action: PayloadAction<string>) {
-      state.loading = false;
-    },
-
-    //유저단어정보받아오기
-    getUserWordInfo(state) {
-      state.loading = true;
-    },
-
-    getUserWordInfoSuccess(state, action: PayloadAction<UserWordInfo[]>) {
-      state.loading = false;
-      state.userWordInfo = action.payload;
-      // action.payload.map((item, idx) => {
-      //   if (item.exampleKor !== null) {
-      //     state.userWordInfo.push(item);
-      //   }
-      // });
-      const randomElement =
-        action.payload[Math.floor(Math.random() * action.payload.length)];
-      state.pickRandomWord = randomElement;
-    },
-
-    getUserWordInfoFailed(state, action: PayloadAction<string>) {
-      state.loading = false;
-    },
-    //단어외움처리
-
-    putIsMemorizedWord(state, action: PayloadAction<isMemorizedWord>) {
-      state.loading = true;
-    },
-
-    putIsMemorizedWordSuccess(state, action: PayloadAction<string>) {
-      state.loading = false;
-    },
-
-    putIsMemorizedWordFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
   },

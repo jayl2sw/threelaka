@@ -30,14 +30,3 @@ export interface StudyHistory {
 export interface TotalStudyTime {
   time: number;
 }
-
-export interface UserWordInfo {
-  wordbookId: number;
-  word: string;
-  example: string;
-  exampleKor: string;
-}
-
-export interface isMemorizedWord {
-  wordbookId: number;
-}

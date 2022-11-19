@@ -7,7 +7,6 @@ import {
   ModifyPwdPayload,
 } from '../features/auth/authSlice';
 
-import { UserAlertInfo } from '../models/user';
 export interface ILoginResponse {
   accessToken: string;
   refreshToken: string;
@@ -91,12 +90,4 @@ export const userInfoApi = async () => {
 export const logoutApi = async () => {
   const res = await customAxios.put('api/v1/user/logout');
   return res;
-};
-
-export const getUserAlertApi = async (
-  userAlertList: UserAlertInfo[]
-): Promise<any> => {
-  const res = await customAxios.get('/api/v1/user/alert');
-  const response: UserAlertInfo[] = res.data;
-  return response;
 };

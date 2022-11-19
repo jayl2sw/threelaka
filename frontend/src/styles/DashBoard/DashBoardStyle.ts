@@ -429,10 +429,3 @@ export const CheckBtn = styled(MdCheckCircleOutline)`
     font-size: 3.8vmin;
   }
 `;
-
-export const WordTestInput = styled.input`
-  &.right {
-    border: none;
-    background: red;
-  }
-`;

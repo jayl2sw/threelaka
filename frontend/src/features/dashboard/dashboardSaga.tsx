@@ -13,8 +13,6 @@ import {
   getTotalStudyTimeApi,
   updateTagApi,
   getTagListApi,
-  getUserWordInfoApi,
-  putIsMemorizedWordApi,
 } from '../../services/dashboardApi';
 import { dashboardActions } from './dashboard-slice';
 import {
@@ -23,8 +21,6 @@ import {
   MonthStudyTime,
   StudyHistory,
   TotalStudyTime,
-  UserWordInfo,
-  isMemorizedWord,
 } from '../../models/dashboard';
 
 // 현재공부중인 영상 불러오기 SAGA
@@ -141,35 +137,6 @@ function* onGetTagListAsync(action: PayloadAction<string[]>) {
     yield put(dashboardActions.getTagListFailed(error.data));
   }
 }
-//유저영단어정보 불러오기
-function* onGetUserWordInfoAsync(action: PayloadAction<UserWordInfo[]>) {
-  try {
-    const response: UserWordInfo[] = yield call(
-      getUserWordInfoApi,
-      action.payload
-    );
-    const processedRes = response.filter((item, idx) => {
-      if (item.exampleKor !== null) {
-        return item;
-      }
-    });
-
-    yield put(dashboardActions.getUserWordInfoSuccess(processedRes));
-  } catch (error: any) {
-    yield put(dashboardActions.getUserWordInfoFailed(error.data));
-  }
-}
-
-//단어외움처리
-function* onPutIsMemorizedWordsync(action: PayloadAction<isMemorizedWord>) {
-  try {
-    const response: string = yield call(putIsMemorizedWordApi, action.payload);
-    yield put(dashboardActions.putIsMemorizedWordSuccess(response));
-    yield put(dashboardActions.getUserWordInfo);
-  } catch (error: any) {
-    yield put(dashboardActions.putIsMemorizedWordFailed(error.data));
-  }
-}
 
 // 현재공부중인영상
 export function* watchGetRecentVideoAsync() {
@@ -227,21 +194,6 @@ export function* watchUpdateTagAsync() {
 export function* watchGetTagListAsync() {
   yield takeLatest(dashboardActions.getTagList.type, onGetTagListAsync);
 }
-//유저영단어조회
-export function* watchGetUserWordInfoAsync() {
-  yield takeLatest(
-    dashboardActions.getUserWordInfo.type,
-    onGetUserWordInfoAsync
-  );
-}
-
-//단어외움처리
-export function* watchPutIsMemorizedWordAsync() {
-  yield takeLatest(
-    dashboardActions.putIsMemorizedWord.type,
-    onPutIsMemorizedWordsync
-  );
-}
 export const dashboardSagas = [
   fork(watchGetRecentVideoAsync),
   fork(watchGetCompletedVideoAsync),
@@ -252,6 +204,4 @@ export const dashboardSagas = [
   fork(watchTotalStudyTimeAsync),
   fork(watchUpdateTagAsync),
   fork(watchGetTagListAsync),
-  fork(watchGetUserWordInfoAsync),
-  fork(watchPutIsMemorizedWordAsync),
 ];
