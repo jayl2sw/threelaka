@@ -40,10 +40,11 @@ export const MainHeaderMenuRegion = styled.div`
   /* padding: 0 5.5vw; */
   font-family: 'PretendardRegular';
   color: black;
+  z-index: 999;
 `;
 
 export const HeaderBgBlock = styled.div`
-  position: sticky;
+  position: fixed;
   top: 0;
   height: 15vh;
   display: flex;
@@ -150,18 +151,15 @@ export const MainLinkWrapper = styled.div<LinkMenuProps>`
 
   a {
     text-decoration: none;
-    color: black;
+    color: white;
     transition: 0.3s;
   }
   a:hover {
-    /* text-decoration: underline; */
-    color: black;
+    color: white;
     opacity: 0.8;
     font-weight: bold;
     font-size: 2.5vmin;
   }
-
-  /* border: solid 1px red; */
 `;
 
 export const TitleRegion = styled.div`

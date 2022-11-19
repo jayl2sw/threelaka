@@ -164,29 +164,25 @@ const SignupForm = ({
       onSubmit={handleSubmit(handleFormSubmit)}
       className="sign-up-form"
     >
-      <Heading style={{ marginBottom: '3vh' }}>
-        <h1>
-          Hello,
-          <br />
-          Welcome to ThreeLaka!
-        </h1>
+      <Heading style={{ marginTop: '3vh' }}>
+        <h1>Welcome to ThreeLaka!</h1>
       </Heading>
       <InputWrap>
-        <InputField name="username" control={control} label="이메일" />
+        <InputField name="username" control={control} label="E-mail" />
         <InputField
           name="password"
           control={control}
-          label="비밀번호"
+          label="PW"
           type="password"
         />
         <InputField
           name="passwordConfirm"
           control={control}
-          label="비밀번호 확인"
+          label="Confirm PW"
           type="password"
         />
-        <InputField name="nickname" control={control} label="닉네임" />
-        <div className="short">
+        <InputField name="nickname" control={control} label="Nickname" />
+        {/* <div className="short">
           <div className="age" style={{ width: '25%' }}>
             <InputField
               name="age"
@@ -214,7 +210,7 @@ const SignupForm = ({
               },
             ]}
           />
-        </div>
+        </div> */}
       </InputWrap>
       <SubmitBtnWrap>
         {/* <a
@@ -230,13 +226,18 @@ const SignupForm = ({
         </a> */}
 
         <GradientRoundBtn
-          widthSize={'80%'}
-          heightSize={'5vh'}
+          widthSize={'20vw'}
+          heightSize={'7vh'}
           paddingSize={'0'}
           fontColor={'black'}
           fontSize={'2vmin'}
           backgroundColor={'gradient'}
-          style={{ margin: '0 auto' }}
+          style={{
+            // margin: '0 auto',
+            background: '#bff5ab',
+            marginBottom: '-3vh',
+            marginTop: '2.5vh',
+          }}
         >
           J O I N
         </GradientRoundBtn>
