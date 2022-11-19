@@ -3,6 +3,7 @@ package com.ssafy.laka.service;
 import com.ssafy.laka.domain.*;
 import com.ssafy.laka.domain.enums.Stage;
 import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
+import com.ssafy.laka.dto.exception.dashboard.TagNotFoundException;
 import com.ssafy.laka.dto.exception.study.*;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
 import com.ssafy.laka.dto.study.*;
@@ -307,6 +308,12 @@ public class StudyServiceImpl implements StudyService{
             res.put(userTag.getTag().getName(), RecommendsListResponseDto.from(top4ByTagName));
         }
         return res;
+    }
+
+    @Override
+    public List<VideoResponseDto> getVideosByTags(int tagId, int page) {
+        String tagName = tagRepository.findById(tagId).orElseThrow(TagNotFoundException::new).getName();
+        return videoRepository.findAllByTagName(tagName, page*20).stream().map(v -> VideoResponseDto.from(v)).collect(Collectors.toList());
     }
 
     public String translate(String eng) throws JSONException {

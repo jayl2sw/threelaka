@@ -89,6 +89,16 @@ public class StudyController {
         return new ResponseEntity<>(studyService.getRecentVideo(), HttpStatus.OK);
     }
 
+    @GetMapping("/video/tags/{tagId}")
+    @ApiOperation(value = "태그기반 필터링 조회", notes = "태그 기반 필터링 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> getVideosByTag(@PathVariable int tagId, int page){
+
+        return new ResponseEntity<>(studyService.getVideosByTags(tagId, page), HttpStatus.OK);
+    }
+
     @PostMapping("/video/wish")
     @ApiOperation(value = "나중에 볼 영상 추가", notes = "회원의 나중에 볼 영상에 해당 영상을 추가한다")
     @ApiResponses({
