@@ -100,6 +100,7 @@ const EozPage = (
     });
 
     socket.on('conn-signal', (data: any) => {
+      console.log('conn-signal emit됐다!', data);
       handleSignalingData(data);
     });
 
@@ -128,7 +129,7 @@ const EozPage = (
 ////////////// 소켓 통신용 ///////////////
 ///////////////////////////////////////
 
-const SERVER = 'http://localhost:5002';
+const SERVER = 'https://3laka.com/';
 
 let socket: any = null;
 
@@ -217,7 +218,7 @@ export const getLocalPreviewAndInitRoomConnection = (
       showLocalVideoPreview(localStream);
 
       if (roomInfo) {
-        console.log('225번째줄 =============', roomInfo);
+        console.log('getLocalPreview=============', roomInfo);
         if (roomInfo.connectedUsers.length === 0) {
           createRoom(roomNumber, guildId, videoId, learningRecordId);
         } else {
@@ -341,7 +342,10 @@ const addStream = (stream: any, connUserSocketId: string) => {
 };
 
 export const signalPeerData = (data: any) => {
+  console.log('signalPeerData에서 emit하자');
+  console.log('==========before==emit');
   socket.emit('conn-signal', data);
+  console.log('==========after==emit');
 };
 
 const handleSignalingData = (data: any) => {

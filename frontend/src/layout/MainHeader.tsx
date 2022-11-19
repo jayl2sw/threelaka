@@ -83,7 +83,7 @@ const MainHeader = () => {
           </MainLinkWrapper>
 
           <MainLinkWrapper bgColor="transparent" widthSize="5vw">
-            <Link to="/auth/guild/1">GUILD</Link>
+            <Link to="/auth/guild/main">GUILD</Link>
           </MainLinkWrapper>
           {/* <MainLinkWrapper
         bgColor="transparent"

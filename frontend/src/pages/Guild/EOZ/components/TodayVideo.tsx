@@ -6,7 +6,6 @@ type TodayVideoProps = {
 
 const TodayVideo = (props: TodayVideoProps) => {
   const { videoId } = props;
-  console.log(videoId);
   if (videoId) {
     return (
       <div className="video-box">
@@ -19,7 +18,7 @@ const TodayVideo = (props: TodayVideoProps) => {
   } else {
     return (
       <div className="video-box">
-        <p>학습할 영상을 선택해주세요</p>
+        <p>아직 학습 전이에요</p>
       </div>
     );
   }

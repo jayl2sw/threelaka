@@ -21,7 +21,17 @@ const RoomModal = (
   guildInfo: any,
   onClickModal: () => void
 ) => {
-  const test = () => {
+  // const test = () => {
+  //   getLocalPreviewAndInitRoomConnection(
+  //     roomInfo,
+  //     roomInfo.roomNumber,
+  //     guildId,
+  //     videoId,
+  //     learningRecordId
+  //   );
+  // };
+  useEffect(() => {
+    // test();
     getLocalPreviewAndInitRoomConnection(
       roomInfo,
       roomInfo.roomNumber,
@@ -29,9 +39,6 @@ const RoomModal = (
       videoId,
       learningRecordId
     );
-  };
-  useEffect(() => {
-    test();
     return () => {
       exitRoom();
     };

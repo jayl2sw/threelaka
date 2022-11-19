@@ -24,12 +24,12 @@ type EozProps = {
 const EnglishOnlyZone = (props: EozProps) => {
   const { guildInfo, localStream, nickname } = props;
   // console.warn(localStream);
-  console.log('=====englishonlyzone=====');
-  console.log('guildInfo', guildInfo);
-  console.log('nickname', nickname);
-  console.log('=====englishonlyzone=====');
+  // console.log('=====englishonlyzone=====');
+  // console.log('guildInfo', guildInfo);
+  // console.log('nickname', nickname);
+  // console.log('=====englishonlyzone=====');
   const [roomNumber, setRoomNumber] = useState(1);
-  console.log('nickname', nickname);
+  // console.log('nickname', nickname);
   useEffect(() => {}, []);
 
   return (
