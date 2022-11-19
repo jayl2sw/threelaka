@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
-import { call, put, takeLatest, fork, select } from 'redux-saga/effects';
+import { call, put, takeLatest, fork, select, delay } from 'redux-saga/effects';
 import {
   GuildNotice,
   VideoInfo,
@@ -12,6 +12,7 @@ import {
   GuildRequest,
   MyRequest,
   GuildAssignment,
+  CreateGuildForm,
 } from '../../models/guild';
 import {
   getGuildNoticeApi,
@@ -34,7 +35,9 @@ import {
   QuitGuildApi,
   PostGuildAssignmentApi,
   DeleteGuildAssignmentApi,
+  CreateGuildApi,
 } from '../../services/guildApi';
+import { authActions } from '../auth/authSlice';
 import { guildActions } from './guild-slice';
 
 // 길드 공지 받아오기 SAGA
@@ -67,7 +70,7 @@ function* onGetProgressTaskAsync(action: PayloadAction<string>) {
   }
 }
 
-function* onGetGuildMemberListAsync(action: PayloadAction<string>) {
+function* onGetGuildMemberListAsync(action: PayloadAction<number>) {
   // 멤버 정보 받아오기 성공하면
   try {
     const response: GuildMemberList = yield call(
@@ -80,7 +83,7 @@ function* onGetGuildMemberListAsync(action: PayloadAction<string>) {
   }
 }
 
-function* onDeleteGuildNoticeStartAsync(action: PayloadAction<string>) {
+function* onDeleteGuildNoticeStartAsync(action: PayloadAction<number>) {
   try {
     yield call(deleteGuildNoticeApi);
     yield put(guildActions.getGuildNotice(action.payload));
@@ -89,10 +92,10 @@ function* onDeleteGuildNoticeStartAsync(action: PayloadAction<string>) {
   }
 }
 
-function* onCreateGuildNoticeStartAsync(action: PayloadAction<string>) {
+function* onCreateGuildNoticeStartAsync(action: PayloadAction<number>) {
   try {
     console.warn('되나');
-    const guildId: string = yield select(
+    const guildId: number = yield select(
       (state) => state.auth.currentUser.guildId
     );
     yield call(createGuildNoticeApi, action.payload);
@@ -102,10 +105,10 @@ function* onCreateGuildNoticeStartAsync(action: PayloadAction<string>) {
   }
 }
 
-function* onPutGuildNoticeStartAsync(action: PayloadAction<string>) {
+function* onPutGuildNoticeStartAsync(action: PayloadAction<number>) {
   try {
     console.warn('되나');
-    const guildId: string = yield select(
+    const guildId: number = yield select(
       (state) => state.auth.currentUser.guildId
     );
     yield call(putGuildNoticeApi, action.payload);
@@ -126,7 +129,7 @@ function* onPostGuildHandOverAsync(action: PayloadAction<string>) {
 function* onDeleteMemberAsync(action: PayloadAction<number>) {
   try {
     yield call(DeleteMemberApi, action.payload);
-    const guildId: string = yield select(
+    const guildId: number = yield select(
       (state) => state.auth.currentUser.guildId
     );
     yield put(guildActions.getGuildMember(guildId));
@@ -276,6 +279,20 @@ function* onDeleteGuildAssignmentAsync(action: PayloadAction<number>) {
   }
 }
 
+// 길드 생성하기
+function* onCreateGuildStartAsync(action: PayloadAction<CreateGuildForm>) {
+  try {
+    yield call(CreateGuildApi, action.payload);
+    yield put(authActions.fetchUser()); // guild ID 다시 가져오기 위해
+    yield delay(2000); // 나중에 해결하기
+    yield put(guildActions.getSearchGuildStart()); // 길드마스터 가져오기 위해
+    yield put(guildActions.createGuildStartSuccess());
+  } catch (error) {
+    yield put(guildActions.createGuildStartFailed());
+    console.error();
+  }
+}
+
 // 길드 공지 받아오기 watch
 export function* watchGetGuildNoticeAsync() {
   yield takeLatest(guildActions.getGuildNotice.type, onGetGuildNoticeAsync);
@@ -414,6 +431,10 @@ export function* watchDeleteGuildAssignmentAsync() {
     onDeleteGuildAssignmentAsync
   );
 }
+// 길드 생성하기
+export function* watchCreateGuildStartAsync() {
+  yield takeLatest(guildActions.createGuildStart.type, onCreateGuildStartAsync);
+}
 
 export const guildSagas = [
   fork(watchGetGuildNoticeAsync),
@@ -436,4 +457,5 @@ export const guildSagas = [
   fork(watchgQuitGuildApiAsync),
   fork(watchPostGuildAssignmentAsync),
   fork(watchDeleteGuildAssignmentAsync),
+  fork(watchCreateGuildStartAsync),
 ];

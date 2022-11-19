@@ -1,5 +1,5 @@
 import customAxios from './customAxios';
-import { GuildAssignment } from '../models/guild';
+import { GuildAssignment, CreateGuildForm } from '../models/guild';
 
 // 내 길드의 공지 조회
 export const getGuildNoticeApi = async (guildId: string): Promise<any> => {
@@ -23,7 +23,7 @@ export const getGuildTaskApi = async (status: string): Promise<any> => {
 // };
 
 // 길드의 멤버 조회
-export const getGuildMemberApi = async (guildId: string): Promise<any> => {
+export const getGuildMemberApi = async (guildId: number): Promise<any> => {
   const res = await customAxios.get(`/api/v1/user/guild/members/${guildId}`);
   console.log('길드 멤버 조회', res.data);
   return res.data;
@@ -37,14 +37,14 @@ export const deleteGuildNoticeApi = async (): Promise<any> => {
 
 // 길드의 공지 생성
 export const createGuildNoticeApi = async (
-  guildNotice: string
+  guildNotice: number
 ): Promise<any> => {
   const res = await customAxios.post(`/api/v1/user/guild/notice`, guildNotice);
   return res.data;
 };
 
 // 길드의 공지 수정
-export const putGuildNoticeApi = async (guildNotice: string): Promise<any> => {
+export const putGuildNoticeApi = async (guildNotice: number): Promise<any> => {
   const res = await customAxios.put(
     `/api/v1/user/guild/notice?notice=${guildNotice}`
   );
@@ -153,5 +153,13 @@ export const DeleteGuildAssignmentApi = async (
   const res = await customAxios.delete(
     `/api/v1/user/guild/assignment/${assignId}`
   );
+  return res.data;
+};
+
+// 길드 생성하기
+export const CreateGuildApi = async (
+  guildCreateData: CreateGuildForm
+): Promise<any> => {
+  const res = await customAxios.post(`/api/v1/user/guild`, guildCreateData);
   return res.data;
 };

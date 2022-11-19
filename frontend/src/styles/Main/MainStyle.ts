@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ocean from '../../media/images/ocean.jpg';
+// import ocean from '../../media/images/ocean.jpg';
 
 // 메인페이지 전체
 export const MainPageBlock = styled.div`
@@ -237,7 +237,6 @@ export const ThumbnailImg = styled.div`
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  background: url(${ocean}) center no-repeat;
   background-size: 100vw 100vh;
 `;
 

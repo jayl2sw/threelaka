@@ -289,7 +289,7 @@ const MyGuild = () => {
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    justifyContent: 'start',
                     // border: 'solid red 1px',
                     overflowX: 'auto',
                     overflowY: 'hidden',

@@ -129,3 +129,9 @@ export interface ConnectedUser {
   roomNumber: number;
   learningRecordId: number;
 }
+
+// 길드 만들기
+export interface CreateGuildForm {
+  name: string;
+  description: string;
+}
