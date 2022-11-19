@@ -150,12 +150,23 @@ const Card = () => {
                     >
                       {item.alertState === 'newVideo' ? (
                         <div>
-                          {item.guildName}에서 새로운 영상 {item.videoTitle}이
-                          생성되었습니다.
+                          '
+                          <span style={{ fontWeight: 'bold' }}>
+                            {item.guildName}
+                          </span>
+                          ' 에서 새로운 영상 '
+                          <span style={{ fontWeight: 'bold' }}>
+                            {item.videoTitle}
+                          </span>
+                          ' 이 생성되었습니다.
                         </div>
                       ) : item.alertState === 'accepted' ? (
                         <div>
-                          {item.guildName}에 보낸 가입 요청이 수락되었습니다.
+                          '
+                          <span style={{ fontWeight: 'bold' }}>
+                            {item.guildName}
+                          </span>
+                          ' 에 보낸 가입 요청이 수락되었습니다.
                         </div>
                       ) : (
                         ''
