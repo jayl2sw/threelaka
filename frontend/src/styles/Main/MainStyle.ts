@@ -14,7 +14,6 @@ export const MainPageBlock = styled.div`
   align-items: center;
   width: 100vw;
   height: 200vh;
-  padding: 0 10vw 5vh 10vw;
   background: linear-gradient(
     106.56deg,
     rgba(132, 176, 226, 0.1) 7.3%,
@@ -28,9 +27,20 @@ export const FirstpageBlock = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 133vh;
+  height: 100vh;
   border: solid green 3px;
   flex-direction: row;
+`;
+
+export const SecondpageBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  border: solid green 3px;
+  flex-direction: row;
+  position: relative;
 `;
 
 // search bar 전체 감싸는 block
@@ -68,6 +78,17 @@ export const TitleBlock = styled.div`
   // border: solid yellow 1px;
   background: linear-gradient(90deg, rgba(0, 0, 0, 1), 80%, rgba(0, 0, 0, 0));
   z-index: 1;
+
+  &.youtubeTitleBlock {
+    width: 100vw;
+    align-items: start;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 1),
+      60%,
+      rgba(0, 0, 0, 0.4)
+    );
+  }
   .tagName {
     position: absolute;
     top: 25%;
@@ -76,6 +97,17 @@ export const TitleBlock = styled.div`
     color: white;
     font-size: 7vmin;
     font-family: 'pretendardextrabold';
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: keep-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding: 0 4vw;
+  }
+  .recent.tagName {
+    max-height: 20vh;
   }
   .tagDesc {
     position: absolute;
@@ -85,6 +117,18 @@ export const TitleBlock = styled.div`
     color: white;
     font-size: 3vmin;
     line-height: 5vmin;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: keep-all;
+    padding: 0 4vw;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  .tagDesc.recent {
+    top: 50%;
+    max-height: 20vh;
   }
   .smallTags {
     position: absolute;
@@ -93,6 +137,9 @@ export const TitleBlock = styled.div`
     width: 100%;
     text-align: center;
     letter-spacing: 0.4vmin;
+  }
+  .recent {
+    width: 50%;
   }
 `;
 
@@ -177,19 +224,26 @@ export const PageDownButton = styled.a`
     bottom: 5vh;
   }
   &.up {
-    top: 5vh;
+    position: absolute;
+    z-index: 2;
+    bottom: 5vh;
   }
 `;
 
 // 최근 학습 영상 전체 컨테이너(MainPage)
 export const RecentVideoContainer = styled.div`
   display: flex;
+  position: absolute;
+  right: 10vw;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 60vh;
-  margin-top: 10vh;
+  width: 30vw;
+  height: 40vh;
+  box-shadow: 20px 20px 20px rgba(255, 255, 255, 0.3);
+  z-index: 2;
+  object-fit: cover;
+  background: url(https://img.youtube.com/vi/1QX7aoxSTAQ/0.jpg) center no-repeat;
 `;
 
 // 추천 영상 관련 스타일링
@@ -252,11 +306,19 @@ export const VideoImg = styled.img`
   /* z-index: -1; */
 `;
 
-export const ThumbnailImg = styled.div`
+export const BackgroundImg = styled.div`
   width: 100vw;
   height: 100vh;
   object-fit: cover;
   background: url(${knowledge}) center no-repeat;
+  background-size: 100vw 100vh;
+`;
+
+export const ThumbnailImg = styled.div`
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  background: url(https://img.youtube.com/vi/1QX7aoxSTAQ/0.jpg) center no-repeat;
   background-size: 100vw 100vh;
 `;
 
