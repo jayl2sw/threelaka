@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
-import { Count } from '../../../styles/DashBoard/DashBoardStyle';
+import {
+  Count,
+  HistoryCounterContainer,
+} from '../../../styles/DashBoard/DashBoardStyle';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import CountUp from 'react-countup';
 import { FaYoutube } from 'react-icons/fa';
@@ -9,10 +12,19 @@ import { BsFileEarmarkTextFill } from 'react-icons/bs';
 import { RiStickyNoteFill } from 'react-icons/ri';
 interface IHistoryCounterProps {
   mode: string;
+  setIsOpenWordList: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpenWordList: boolean;
 }
 
-const HistoryCounter = ({ mode }: IHistoryCounterProps) => {
+const HistoryCounter = ({
+  mode,
+  isOpenWordList,
+  setIsOpenWordList,
+}: IHistoryCounterProps) => {
   const studyHistory = useAppSelector((state) => state.dashboard.studyHistory);
+  const openModalWordList = () => {
+    setIsOpenWordList(!isOpenWordList);
+  };
   return (
     <FlexTransparentDiv
       widthSize={'7.5vw'}
@@ -24,7 +36,7 @@ const HistoryCounter = ({ mode }: IHistoryCounterProps) => {
       IsBorder={'none'}
       style={{ fontSize: '2.5vmin' }}
     >
-      <div>
+      <HistoryCounterContainer>
         {mode === 'videos' ? (
           <span>
             <FaYoutube
@@ -44,16 +56,16 @@ const HistoryCounter = ({ mode }: IHistoryCounterProps) => {
             &nbsp;에세이
           </span>
         ) : (
-          <span>
+          <span onClick={openModalWordList}>
             <RiStickyNoteFill
               size={25}
               color="#ffb94c"
               style={{ verticalAlign: 'middle' }}
             />
-            &nbsp;단어
+            <span className="historyTitle">&nbsp;단어</span>
           </span>
         )}
-      </div>
+      </HistoryCounterContainer>
       <FlexTransparentDiv
         widthSize={'7.3vw'}
         heightSize={'18vh'}

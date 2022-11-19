@@ -86,7 +86,7 @@ function App() {
         {/* Not Found */}
         <Route path="*" element={<PageNotFound />}></Route>
 
-        <Route path="test" element={<WordTest />}></Route>
+        {/* <Route path="test" element={<WordTest />}></Route> */}
       </Routes>
     </div>
   );
