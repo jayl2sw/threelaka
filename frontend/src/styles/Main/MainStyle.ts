@@ -10,6 +10,14 @@ import styled from 'styled-components';
 // import knowledge from '../../media/images/knowledge.jpg';
 // import nature from '../../media/images/nature.jpg';
 
+import animals from '../../media/images/animals.jpg';
+import civilization from '../../media/images/civilization.jpg';
+import culture from '../../media/images/culture.jpg';
+import human from '../../media/images/human.jpg';
+import industry from '../../media/images/industry.jpg';
+import knowledge from '../../media/images/knowledge.jpg';
+import nature from '../../media/images/nature.jpg';
+
 // 메인페이지 전체
 export const MainPageBlock = styled.div`
   display: flex;
