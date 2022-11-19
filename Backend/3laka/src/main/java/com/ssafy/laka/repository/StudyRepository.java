@@ -22,6 +22,12 @@ public interface StudyRepository extends JpaRepository<Study, Integer> {
                     "and subdate(curdate(), date_format(curdate(), '%w') - 7)")
     List<Study> findStudyDateThisWeek(int userId);
 
+    @Query(nativeQuery = true,
+            value = "select * from study s where s.user_user_id = :userId and date(s.date) " +
+                    "between subdate(date_add(curdate(), interval - 7 day), date_format(date_add(curdate(), interval - 7 day), '%w') - 1) " +
+                    "and subdate(date_add(curdate(), interval - 7 day), date_format(date_add(curdate(), interval - 7 day), '%w') - 7)")
+    List<Study> findStudyDateLastWeek(int userId);
+
     List<Study> findByUser(User user);
 
 }

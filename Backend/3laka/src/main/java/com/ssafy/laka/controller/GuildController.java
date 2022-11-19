@@ -238,7 +238,7 @@ public class GuildController {
     }
 
     @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
-    @PostMapping("/auth/assignment")
+    @PostMapping("/assignment")
     @ApiOperation(value = "공통 과제 생성")
     public ResponseEntity<String> createAssignment(@RequestBody AssignmentRequestDto info){
         // 공통 과제를 생성

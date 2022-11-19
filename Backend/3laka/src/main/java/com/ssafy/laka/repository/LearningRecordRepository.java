@@ -15,11 +15,12 @@ public interface LearningRecordRepository extends JpaRepository<LearningRecord, 
 
     List<LearningRecord> findLearningRecordsByUserOrderByModifiedDateDesc(User user);
     Optional<LearningRecord> findTop1ByUserOrderByModifiedDateDesc(User user);
-    List<LearningRecord> findAllByUserAndStageLessThanOrderByModifiedDateDesc(User user, Stage stage);
+    List<LearningRecord> findTop5ByUserAndStageLessThanOrderByModifiedDateDesc(User user, Stage stage);
     Integer countByUserAndStage(User user, Stage stage);
     List<LearningRecord> findAllByUserAndStage(User user, Stage stage);
     List<LearningRecord> findByUserAndVideoOrderByModifiedDateDesc(User user, Video video);
     List<LearningRecord> findAllByUserAndVideoOrderByModifiedDateDesc(User user, Video video);
+    List<LearningRecord> findAllByUser(User user);
 
     @Query(nativeQuery = true,
             value="SELECT u.nickname, u.profile, max(lr.stage) stage " +

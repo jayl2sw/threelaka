@@ -183,7 +183,7 @@ public class StudyServiceImpl implements StudyService{
     @Override
     public List<WordbookResponseDto> getWordbooksByUser() {
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        return wordbookRepository.findWordbooksByUser(user).stream()
+        return wordbookRepository.findWordbooksByUserAndIsMemorized(user, false).stream()
                 .map(w -> WordbookResponseDto.from(w)).collect(Collectors.toList());
 
     }
@@ -296,9 +296,9 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public void test(String videoId) {
-        Video video = videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new);
-        video.preprocessDescription();
+    public List<EssayResponseDto> getEssays() {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        return learningRecordRepository.findAllByUser(user).stream().map(l -> EssayResponseDto.from(l)).collect(Collectors.toList());
     }
 
     public String translate(String eng) throws JSONException {
