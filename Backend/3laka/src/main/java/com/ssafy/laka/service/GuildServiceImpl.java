@@ -149,6 +149,7 @@ public class GuildServiceImpl implements GuildService{
 
     @Override
     public GuildResponseDto createGuild(GuildCreateDto data) {
+        System.out.println(data);
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
         if (user.getGuild() != null){
             throw new AlreadyInGuildException();
@@ -161,12 +162,12 @@ public class GuildServiceImpl implements GuildService{
                 .master(user.getUserId())
                 .description(data.getDescription())
                 .build();
-        Guild guild1 = guildRepository.save(guild);
-        user.joinGuild(guild1);
+        guildRepository.save(guild);
+        user.joinGuild(guild);
         user.be(Role.ROLE_GUILD_MASTER);
         userRepository.flush();
-        guild1.getMembers().add(user);
-        return GuildResponseDto.from(guild1, user.getNickname());
+        guild.getMembers().add(user);
+        return GuildResponseDto.from(guild, user.getNickname());
     }
 
     @Override

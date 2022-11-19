@@ -26,6 +26,7 @@ public class GuildResponseDto {
     private List<AssignmentResponseDto> assignments;
 
     public static GuildResponseDto from(Guild entity, String masterNickname){
+        List<AssignmentResponseDto> assignment = entity.getAssignments() == null ? null : entity.getAssignments().stream().map(s -> AssignmentResponseDto.from(s)).collect(Collectors.toList());
         return GuildResponseDto.builder()
                 .guildId(entity.getId())
                 .profile(entity.getProfile())
@@ -34,7 +35,7 @@ public class GuildResponseDto {
                 .guildName(entity.getGuildName())
                 .description(entity.getDescription())
                 .notice(entity.getNotice())
-                .assignments(entity.getAssignments().stream().map(s -> AssignmentResponseDto.from(s)).collect(Collectors.toList()))
+                .assignments(assignment)
                 .build();
     }
 }

@@ -22,14 +22,12 @@ public class Tag {
     public int tagId;
 
     public String name;
-    //  로라킴 화이팅 !
+
+    public String smallTagName;
 
     @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     private List<VideoTag> videoTags;
 
     @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     private List<UserTag> userTags;
-
-    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
-    private List<SmallTag> smallTags;
 }
