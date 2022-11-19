@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ILoginResponse } from '../../services/userApi';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../../models/user';
+import { User, UserAlertInfo } from '../../models/user';
 
 export interface LoginPayload {
   username: string;
@@ -34,6 +34,7 @@ export interface AuthState {
   isSuccess: boolean;
   isNewbie: boolean;
   tags: Array<object>;
+  userAlertList: UserAlertInfo[];
 }
 
 const initialState: AuthState = {
@@ -44,6 +45,7 @@ const initialState: AuthState = {
   isSuccess: false,
   isNewbie: false,
   tags: [],
+  userAlertList: [],
 };
 
 const authSlice = createSlice({
@@ -107,6 +109,19 @@ const authSlice = createSlice({
       state.currentUser = action.payload;
     },
     fetchUserFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    //유저알림 받아오기
+    getUserAlert(state) {
+      state.loading = true;
+    },
+    getUserAlertSuccess(state, action: PayloadAction<UserAlertInfo[]>) {
+      console.log(action.payload);
+      state.loading = false;
+      state.userAlertList = action.payload;
+    },
+    getUserAlertFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
     logout(state) {

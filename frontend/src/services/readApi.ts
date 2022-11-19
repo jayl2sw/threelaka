@@ -28,3 +28,12 @@ export const postAddWordToWordBookApi = async (
   // console.log(res);
   return res.data; // "success"
 };
+
+export const deleteWordToWordBookApi = async (
+  wordBookId: number
+): Promise<any> => {
+  let res = await customAxios.delete(`api/v1/study/word`, {
+    data: { wordbookId: wordBookId },
+  });
+  return res.data; // "success"
+};
