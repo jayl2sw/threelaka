@@ -8,7 +8,7 @@ import {
   ModifyPayload,
   ModifyPwdPayload,
 } from './authSlice';
-import { ILoginResponse } from '../../services/userApi';
+import { ILoginResponse, getUserAlertApi } from '../../services/userApi';
 import {
   createUserApi,
   loginApi,
@@ -17,7 +17,7 @@ import {
   modifyUserApi,
   modifyPwdApi,
 } from '../../services/userApi';
-import { User } from '../../models/user';
+import { User, UserAlertInfo } from '../../models/user';
 import { dashboardActions } from '../dashboard/dashboard-slice';
 
 function* createUser(action: PayloadAction<SignupPayload>) {
@@ -70,6 +70,24 @@ function* fetchUser() {
 }
 function* watchfetchUserFlow() {
   yield takeLatest(authActions.fetchUser.type, fetchUser);
+}
+
+//유저알림받오기
+function* onGetUserAlertAsync(action: PayloadAction<UserAlertInfo[]>) {
+  console.log('어디서멈춤');
+  try {
+    // console.log(action.payload);
+
+    const response: UserAlertInfo[] = yield call(
+      getUserAlertApi,
+      action.payload
+    );
+
+    yield put(authActions.getUserAlertSuccess(response));
+  } catch (error) {}
+}
+function* watchGetUserAlertAsyncFlow() {
+  yield takeLatest(authActions.getUserAlert.type, onGetUserAlertAsync);
 }
 
 function* logout() {
@@ -128,4 +146,5 @@ export const authSagas = [
   fork(watchfetchUserFlow),
   fork(watchModifyUserFlow),
   fork(watchModifyPwdFlow),
+  fork(watchGetUserAlertAsyncFlow),
 ];

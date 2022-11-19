@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TedScript, WordInfo } from '../../models';
+import { TedScript, WordInfo, deleteAWord } from '../../models';
 
 type ReadPageState = {
   loading: boolean;
   TedScriptList: TedScript[];
-  isAddSuccess: string;
+  isAddSuccess: null | true | false;
+  isDeleteSuccess: null | true | false;
 };
 
 let initialState: ReadPageState = {
   loading: false,
   TedScriptList: [],
-  isAddSuccess: '',
+  isAddSuccess: null,
+  isDeleteSuccess: null,
 };
 
 const readSlice = createSlice({
@@ -33,17 +35,41 @@ const readSlice = createSlice({
     // 단어장에 단어 추가
     postAddWordToWordBookStart(state, action: PayloadAction<WordInfo>) {
       state.loading = true;
-      state.isAddSuccess = '';
+      state.isAddSuccess = null;
     },
     // 단어장에 단어 추가 성공getWordBookSuccess
-    postAddWordToWordBookSuccess(state, action: PayloadAction<string>) {
+    postAddWordToWordBookSuccess(state) {
       state.loading = false;
-      state.isAddSuccess = action.payload;
+      state.isAddSuccess = true;
     },
     // 단어장에 단어 추가 실패
-    postAddWordToWordBookFailed(state, action: PayloadAction<string>) {
+    postAddWordToWordBookFailed(state) {
       state.loading = false;
-      state.isAddSuccess = action.payload;
+      state.isAddSuccess = false;
+    },
+    // 단어장에 alert 리셋
+    resetIsAddSuccess(state) {
+      state.isAddSuccess = null;
+    },
+
+    // 단어장에 단어 추가
+    deleteWordToWordBookStart(state, action: PayloadAction<deleteAWord>) {
+      state.loading = true;
+      state.isDeleteSuccess = null;
+    },
+    // 단어장에 단어 추가 성공getWordBookSuccess
+    deleteWordToWordBookSuccess(state) {
+      state.loading = false;
+      state.isDeleteSuccess = true;
+    },
+    // 단어장에 단어 추가 실패
+    deleteWordToWordBookFailed(state) {
+      state.loading = false;
+      state.isDeleteSuccess = false;
+    },
+    // 단어장에 alert 리셋
+    resetIsDeleteSuccess(state) {
+      state.isDeleteSuccess = null;
     },
   },
 });
