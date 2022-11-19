@@ -3,11 +3,32 @@ import React, { useCallback, useRef } from 'react';
 import { useEffect, useState } from 'react';
 
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
-import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
+import {
+  FlexTransparentDiv,
+  MainBox,
+} from '../../../styles/Common/CommonDivStyle';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 
 import { WordTestInput } from '../../../styles/DashBoard/DashBoardStyle';
-const WordTest = () => {
+import {
+  ModalBackdrop,
+  RightAlert,
+} from '../../../styles/DashBoard/DashBoardStyle';
+import { AiFillCloseCircle } from 'react-icons/ai';
+import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
+
+interface IWordTestProps {
+  isOpenWordList: boolean;
+  setIsOpenWordList: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpenTest: boolean;
+  setIsOpenTest: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const WordTest = ({
+  isOpenWordList,
+  setIsOpenWordList,
+  isOpenTest,
+  setIsOpenTest,
+}: IWordTestProps) => {
   const dispatch = useAppDispatch();
 
   const wordList = useAppSelector((state) => state.dashboard.userWordInfo);
@@ -57,59 +78,127 @@ const WordTest = () => {
       dispatch(dashboardActions.putIsMemorizedWord(isMemorizedWordInfo));
     }
   };
+  const closeModalWordTest = () => {
+    setIsOpenTest(!isOpenTest);
+  };
   return (
-    <div>
-      <div>영어단어테스트페이지</div>
-      <FlexTransparentDiv
+    <ModalBackdrop>
+      <MainBox
         widthSize={'60vw'}
-        heightSize={'35vh'}
-        paddingSize={'0'}
-        flexDirection={'column'}
-        justifyContent={'center'}
-        alignItems={'center'}
-        IsBorder={'is'}
-        style={{ marginLeft: '10VW' }}
+        heightSize={'46.5vh'}
+        paddingSize={'1vw 0'}
+        fontColor={'black'}
+        fontSize={'2.5vmin'}
+        style={{
+          // display: 'flex',
+          position: 'relative',
+        }}
       >
-        {wordList.length !== 0 ? (
-          <>
-            <button onClick={handleTrigger}>skip</button>
+        {isRight === true ? <RightAlert>Right!</RightAlert> : null}
+        {/* <RightAlert>Right!</RightAlert> */}
+        <AiFillCloseCircle
+          size={25}
+          color={'black'}
+          style={{
+            position: 'absolute',
+            top: '1vh',
+            right: '1vw',
+            cursor: 'pointer',
+          }}
+          onClick={() => {
+            closeModalWordTest();
+          }}
+        ></AiFillCloseCircle>
+        <FlexTransparentDiv
+          widthSize={'58vw'}
+          heightSize={'38vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          IsBorder={'none'}
+          style={{
+            marginTop: '4vh',
+            marginLeft: '1vw',
+            borderRadius: '2vmin',
+            boxShadow: '1px 1px 3px 1px #dadce0',
+          }}
+        >
+          {wordList.length !== 0 ? (
+            <>
+              <FlexTransparentDiv
+                widthSize={'58vw'}
+                heightSize={'17vh'}
+                paddingSize={'1vh 1vw'}
+                flexDirection={'row'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                IsBorder={'none'}
+                style={{
+                  flexWrap: 'wrap',
+                  borderRadius: '2vmin 2vmin 0 0',
+                  background: 'rgba(88, 172, 240, 0.2)',
+                  fontSize:
+                    randomWord.exampleKor.length > 100 ? '2vmin' : '2.5vmin',
+                }}
+              >
+                {randomWord.exampleKor}
+                {/* <span>{randomWord.word}</span> */}
+              </FlexTransparentDiv>
+              <FlexTransparentDiv
+                widthSize={'58vw'}
+                heightSize={'21vh'}
+                paddingSize={'1vh 1vw'}
+                flexDirection={'row'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                IsBorder={'none'}
+                style={{
+                  flexWrap: 'wrap',
+                  fontSize:
+                    randomWord.example.length > 100 ? '2vmin' : '2.5vmin',
+                }}
+              >
+                {randomWord.example.split(/[ .?!,]/).map((item, idx) => {
+                  console.warn(item, randomWord.word.trimEnd());
+                  if (item === randomWord.word.trimEnd()) {
+                    return (
+                      <>
+                        <WordTestInput
+                          onKeyUp={(e) => {
+                            checkKeyUp(e);
+                          }}
+                          ref={inputRef}
+                          className={isRight ? 'right' : ''}
+                        />
+                        <p>&nbsp;</p>
+                      </>
+                    );
+                  }
+                  return <p>{item}&nbsp;</p>;
+                })}
+              </FlexTransparentDiv>
+            </>
+          ) : (
+            <h1>외우지 못한 영어 단어가 없어요</h1>
+          )}
 
-            <div>{randomWord.word}</div>
-            <div
-              style={{
-                display: 'flex',
-                width: '55vw',
-                border: '1px red solid',
-                flexWrap: 'wrap',
-              }}
-            >
-              {randomWord.example.split(/[ .?!]/).map((item, idx) => {
-                console.warn(item, randomWord.word.trimEnd());
-                if (item === randomWord.word.trimEnd()) {
-                  return (
-                    <>
-                      <WordTestInput
-                        onKeyUp={(e) => {
-                          checkKeyUp(e);
-                        }}
-                        ref={inputRef}
-                        className={isRight ? 'right' : ''}
-                      />
-                      <p>&nbsp;</p>
-                    </>
-                  );
-                }
-                return <p>{item}&nbsp;</p>;
-              })}
-            </div>
-            <div>{randomWord.exampleKor}</div>
-          </>
-        ) : (
-          <div>외우지 못한 영어 단어가 없어요</div>
-        )}
-      </FlexTransparentDiv>
+          <MainBtn
+            widthSize={'6vw'}
+            heightSize={'5vh'}
+            paddingSize={'0'}
+            fontSize={'2.5vmin'}
+            fontColor={'white'}
+            backgroundColor={'black'}
+            onClick={handleTrigger}
+            style={{ margin: '1vh 0 1vh 51vw' }}
+          >
+            PASS
+          </MainBtn>
+        </FlexTransparentDiv>
+      </MainBox>
       {/* <div>{randomWord.wordbookId}</div> */}
-    </div>
+    </ModalBackdrop>
   );
 };
 
