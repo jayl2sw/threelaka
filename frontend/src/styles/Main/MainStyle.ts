@@ -285,3 +285,70 @@ export const VideoTitle = styled.div`
   font-size: 2.2vmin;
   font-family: 'PretendardRegular';
 `;
+
+// export const AlertImgBox = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 15vmin;
+//   z-index: 1;
+//   border: 1px solid black;
+// `;
+
+export const AlertImgBox = styled.img.attrs((props) => ({
+  src: `https://threelaka.s3.ap-northeast-2.amazonaws.com/neonCircle.png`,
+}))`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15vmin;
+  z-index: 3;
+`;
+
+export const AlertDropDownContainer = styled.div`
+  position: fixed;
+  top: 7vh;
+  right: 7vw;
+  @keyframes growDown {
+    0% {
+      transform: scaleY(0);
+    }
+    80% {
+      transform: scaleY(1.1);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
+  .dropdown {
+    width: 20vw;
+    height: 20vh;
+    position: relative;
+    display: inline-block;
+    animation: growDown 300ms ease-in-out forwards;
+    transform-origin: top center;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    background-color: #f9f9f9;
+
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content .link {
+    color: black;
+
+    text-decoration: none;
+    margin-bottom: 1vh;
+  }
+
+  .dropdown-content .link:hover {
+    background-color: rgba(88, 172, 240, 0.2);
+  }
+
+  .dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+  }
+`;

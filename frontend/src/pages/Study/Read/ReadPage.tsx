@@ -59,6 +59,11 @@ const ReadPage = () => {
     }
   }, [videoElement]);
 
+  // 처음에 단어장 가져옴
+  useEffect(() => {
+    dispatch(studyActions.getWordBookStart(pageParams.learningRecordId));
+  }, []);
+
   // 1초 단위로 계속 현재 시간 업데이트 하는 SetInterval
   useEffect(() => {
     const interval = setInterval(async () => {

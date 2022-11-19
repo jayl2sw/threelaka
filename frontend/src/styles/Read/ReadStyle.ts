@@ -25,7 +25,7 @@ export const WordBookAddReqBtn = styled.div`
 `;
 
 export const DictInput = styled.input`
-  width: 25vw;
+  width: 30vw;
   height: 5vh;
   font-family: PretendardBold;
   font-size: 3vmin;
