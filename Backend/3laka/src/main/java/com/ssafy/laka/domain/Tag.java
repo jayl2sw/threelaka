@@ -29,4 +29,7 @@ public class Tag {
 
     @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     private List<UserTag> userTags;
+
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
+    private List<SmallTag> smallTags;
 }

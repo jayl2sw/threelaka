@@ -295,6 +295,12 @@ public class StudyServiceImpl implements StudyService{
         return VideoDescriptionResponseDto.from(videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new));
     }
 
+    @Override
+    public void test(String videoId) {
+        Video video = videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new);
+        video.preprocessDescription();
+    }
+
     public String translate(String eng) throws JSONException {
 
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
@@ -377,4 +383,5 @@ public class StudyServiceImpl implements StudyService{
 
         return translatedText;
     }
+
 }

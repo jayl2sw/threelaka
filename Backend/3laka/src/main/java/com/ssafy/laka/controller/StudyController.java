@@ -294,4 +294,18 @@ public class StudyController {
         studyService.setSurvey(data);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
+
+    @PutMapping("/test")
+    @ApiOperation(value = "test", notes = "test")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> setSurvey(
+            @RequestBody String videoId
+    ) {
+        studyService.test(videoId);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+
 }
