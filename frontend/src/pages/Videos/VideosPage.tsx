@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { videoActions } from '../../features/video/video-slice';
 import { FlexTransparentDiv } from '../../styles/Common/CommonDivStyle';
 import { MainBtn } from '../../styles/Common/CommonBtnStyle';
@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../utils/hooks';
 import { useAppSelector } from './../../utils/hooks';
 import VideoCard from '../Main/components/VideoCard';
 import VideoModal from '../../utils/VideoModal';
-import { string } from 'yup';
+import { useLocation } from 'react-router-dom';
 
 interface ItagIdDict {
   [index: string]: number;
@@ -32,10 +32,23 @@ const tagIdDict: ItagIdDict = {
 
 const VideosPage = () => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
+
+  const tagConv = location.state.tagConv;
   // useSelector
   const searchResultVideo = useAppSelector(
     (state) => state.video.keywordSearchVideoList
   );
+
+  const tagSearchResultVideo = useAppSelector(
+    (state) => state.video.tagSearchVideoList
+  );
+
+  // useEffect
+  useEffect(() => {
+    console.log(tagConv);
+    onClickTagVideo(tagConv);
+  }, [tagConv]);
 
   //useState
   const [inputValue, setInpuValue] = useState<string>('');
@@ -221,7 +234,11 @@ const VideosPage = () => {
             IsBorder={'none'}
             style={{ fontSize: '5vmin' }}
           >
-            {searchKeyword !== '' ? `${searchKeyword}의 검색결과 입니다.` : ''}
+            {serachMode === 'tag'
+              ? `${selectedTag}과 관련된 영상들입니다.`
+              : searchKeyword !== ''
+              ? `${searchKeyword}의 검색결과 입니다.`
+              : ''}
           </FlexTransparentDiv>
           <FlexTransparentDiv
             widthSize={'100vw'}
@@ -233,16 +250,28 @@ const VideosPage = () => {
             IsBorder={'none'}
             style={{ flexWrap: 'wrap' }}
           >
-            {searchResultVideo &&
-              searchResultVideo.map((videoData, i) => {
-                return (
-                  <VideoCard
-                    setModalToggleVideoId={setModalToggleVideoId}
-                    data={videoData}
-                    key={`video-${i}`}
-                  />
-                );
-              })}
+            {serachMode === 'tag'
+              ? tagSearchResultVideo &&
+                tagSearchResultVideo.map((videoData, i) => {
+                  return (
+                    <VideoCard
+                      setModalToggleVideoId={setModalToggleVideoId}
+                      data={videoData}
+                      key={`video-${i}`}
+                    />
+                  );
+                })
+              : searchResultVideo &&
+                searchResultVideo.map((videoData, i) => {
+                  return (
+                    <VideoCard
+                      setModalToggleVideoId={setModalToggleVideoId}
+                      data={videoData}
+                      key={`video-${i}`}
+                    />
+                  );
+                })}
+            {}
             {/* {searchResultVideo.length > 0
               ? searchResultVideo[0].description
               : ''} */}

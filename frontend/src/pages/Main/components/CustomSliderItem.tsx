@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 import { GradientRoundBtn } from '../../../styles/Common/CommonBtnStyle';
+import { useNavigate } from 'react-router-dom';
+
 interface ICustomSliderProps {
   sThreeUrl: string;
   title: string;
@@ -21,12 +23,44 @@ const TagThumbnail = styled.div<TagThumbnailProps>`
   background-size: 100vw 100vh;
 `;
 
+interface ItagIdConvDict {
+  [index: string]: string;
+  ANIMALS: string;
+  CULTURE: string;
+  INDUSTRY: string;
+  KNOWLEDGE: string;
+  HUMAN: string;
+  NATURE: string;
+  CIVILIZATION: string;
+}
+
+const tagIdConvDict: ItagIdConvDict = {
+  ANIMALS: '생물',
+  CULTURE: '문화예술',
+  INDUSTRY: '산업',
+  KNOWLEDGE: '지식',
+  HUMAN: '인간',
+  NATURE: '자연',
+  CIVILIZATION: '문명',
+};
+
 const CustomSliderItem = ({
   sThreeUrl,
   title,
   content,
   tagContent,
 }: ICustomSliderProps) => {
+  const navigate = useNavigate();
+  // tag번호 찾기
+  const tagConv: string = tagIdConvDict[title];
+  const onClickMoveToTagSearch = () => {
+    navigate('/videos', {
+      state: {
+        tagConv: tagConv,
+      },
+    });
+  };
+
   return (
     <FlexTransparentDiv
       widthSize={'100vw'}
@@ -95,6 +129,7 @@ const CustomSliderItem = ({
           fontSize={'2vmin'}
           backgroundColor={'blue'}
           style={{ marginTop: '5vh' }}
+          onClick={() => onClickMoveToTagSearch()}
         >
           더 알아보러 가기
         </GradientRoundBtn>
