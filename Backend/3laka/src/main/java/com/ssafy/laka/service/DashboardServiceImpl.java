@@ -116,7 +116,7 @@ public class DashboardServiceImpl implements DashboardService{
     @Override
     public List<VideoDto> getDoneVideos() {
         User user = getUser();
-        return learningRecordRepository.findAllByUserAndStage(user, Stage.COMPLETE)
+        return learningRecordRepository.findAllByUserAndStageOrderByModifiedDateDesc(user, Stage.COMPLETE)
                 .stream().map(s -> VideoDto.of(s.getVideo())).collect(Collectors.toList());
     }
 
