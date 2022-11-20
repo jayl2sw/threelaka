@@ -183,8 +183,8 @@ async def papago(naver_request: NaverRequest):
         
     return response
 
-user_based_df = pd.read_csv("user_based_recommendations.csv")
-talk_based_df = pd.read_csv("talk_based_recommendations.csv")
+user_based_df = pd.read_csv("./user_based_recommendations.csv")
+talk_based_df = pd.read_csv("./talk_based_recommendations.csv")
 
 @app.get("/api/v2/study/videos/recommends/{user_id}/{type}")
 async def recommends(user_id, type):
