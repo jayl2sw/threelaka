@@ -16,8 +16,7 @@ public interface VideoRepository extends JpaRepository<Video, String> {
 
     List<Video> findByTitleContaining(String keyword);
 
-    @Query(value="select * from video limit 4", nativeQuery = true)
-
+    @Query(value="select * from video limit 40", nativeQuery = true)
     List<Video> findFourVideos();
 
 
