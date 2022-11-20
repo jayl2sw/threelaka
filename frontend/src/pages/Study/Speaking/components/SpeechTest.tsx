@@ -23,10 +23,11 @@ import {
   ErrorText,
   ErrorBlock,
 } from '../../../../styles/Speaking/SpeakingStyle';
+import { FaBullseye, FaLessThanEqual } from 'react-icons/fa';
 const SpeechTest = () => {
   const pageParams: StudyPageParams = useParams() as any;
   const [selectedText, setSelectedText] = useState<string>('');
-  const [flag, setFlag] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
   const speechScores = useAppSelector((state) => state.study.speechScores);
   const totalScore = useAppSelector((state) => state.study.totalScore);
@@ -35,8 +36,10 @@ const SpeechTest = () => {
   );
   const pickedTextBox = useRef<HTMLDivElement>(null);
   const scoreLoading = useAppSelector((state) => state.study.loading);
+  const [initialText, setInitailText] = useState(false);
   useEffect(() => {
     dispatch(studyActions.resetSpeechScore());
+    setInitailText(true);
   }, []);
 
   const [isTestStart, setIsTestStart] = useState<boolean>(false);
@@ -48,18 +51,21 @@ const SpeechTest = () => {
             <ErrorBlock>
               <ErrorText>발음 테스트가 어렵습니다😂</ErrorText>
               <ErrorText>
-                틀린 단어가 있지는 않은지, 녹음은 잘 되었는지 확인해주세요
+                테스트하려는 문장을 클릭했는지, 녹음은 잘 되었는지 확인해주세요.
               </ErrorText>
             </ErrorBlock>
           </>
         ) : (
           <>
-            {scoreLoading ? (
-              <LoadingSpinner
-                widthSize="20vmin"
-                heightSize="20vmin"
-                style={{ marginTop: '2vh' }}
-              />
+            {isTestStart && scoreLoading ? (
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <h3>발음 분석 중 입니다</h3>
+                <LoadingSpinner
+                  widthSize="20vmin"
+                  heightSize="20vmin"
+                  style={{ marginTop: '2vh' }}
+                />
+              </div>
             ) : (
               <>
                 {speechScores && speechScores.length !== 0 ? (
@@ -101,7 +107,7 @@ const SpeechTest = () => {
                       {selectedText.split(/\r?\n| /).map((word, idx) => (
                         <ScoreTextBox>
                           <span
-                            style={{ color: '#fff' }}
+                            style={{ color: '#111111', fontWeight: 'bold' }}
                             className={`${
                               speechScores[idx].score <= 50
                                 ? 'bad'
@@ -120,9 +126,19 @@ const SpeechTest = () => {
                     </TextBox>
                   </MarkedTextBox>
                 ) : selectedText ? (
-                  <TextBox style={{ color: '#111111' }}>{selectedText}</TextBox>
-                ) : (
+                  <TextBox
+                    style={{
+                      color: '#111111',
+                      fontSize:
+                        selectedText.length > 100 ? '2.8vmin' : '3.8vmin',
+                    }}
+                  >
+                    {selectedText}
+                  </TextBox>
+                ) : initialText ? (
                   <TextBox>테스트하고 싶은 문장을 클릭해보세요</TextBox>
+                ) : (
+                  ''
                 )}
               </>
             )}
@@ -140,7 +156,6 @@ const SpeechTest = () => {
       <EssayScript
         setSelectedText={setSelectedText}
         pageParams={pageParams}
-        setFlag={setFlag}
       ></EssayScript>
     </SpeechTestContainer>
   );

@@ -1,4 +1,15 @@
 import styled from 'styled-components';
+
+// import ocean from '../../media/images/ocean.jpg';
+
+// import animals from '../../media/images/animals.jpg';
+// import civilization from '../../media/images/civilization.jpg';
+// import culture from '../../media/images/culture.jpg';
+// import human from '../../media/images/human.jpg';
+// import industry from '../../media/images/industry.jpg';
+// import knowledge from '../../media/images/knowledge.jpg';
+// import nature from '../../media/images/nature.jpg';
+
 import animals from '../../media/images/animals.jpg';
 import civilization from '../../media/images/civilization.jpg';
 import culture from '../../media/images/culture.jpg';
@@ -318,7 +329,9 @@ export const ThumbnailImg = styled.div`
   width: 100vw;
   height: 100vh;
   object-fit: cover;
+
   background: url(https://img.youtube.com/vi/1QX7aoxSTAQ/0.jpg) center no-repeat;
+
   background-size: 100vw 100vh;
 `;
 
@@ -388,7 +401,7 @@ export const AlertImgBox = styled.img.attrs((props) => ({
 
 export const AlertDropDownContainer = styled.div`
   position: fixed;
-  top: 7vh;
+  top: 10.5vh;
   right: 7vw;
   @keyframes growDown {
     0% {
@@ -431,5 +444,82 @@ export const AlertDropDownContainer = styled.div`
 
   .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+  }
+`;
+
+export const ProfileDropDownContainer = styled.div`
+  position: fixed;
+  top: 13vh;
+  right: -1vw;
+  @keyframes growDown {
+    0% {
+      transform: scaleY(0);
+    }
+    80% {
+      transform: scaleY(1.1);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
+  .dropdown {
+    width: 20vw;
+    height: 18vh;
+    position: relative;
+    display: inline-block;
+    animation: growDown 300ms ease-in-out forwards;
+    transform-origin: top center;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    background-color: #f9f9f9;
+
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content .link {
+    color: black;
+
+    text-decoration: none;
+    margin-bottom: 1vh;
+  }
+
+  .dropdown-content .link:hover {
+    background-color: #f1f1f1;
+  }
+
+  .dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+  }
+`;
+
+export const ProfileDropDownCard = styled.div`
+  align-items: center;
+  background: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  height: 10vh;
+  border-radius: 0;
+  width: 18vw;
+  margin: 0;
+  .profileLink {
+    display: inline-block;
+    :hover {
+      color: #4a9fff;
+      cursor: pointer;
+    }
+  }
+
+  .profileLink:after {
+    display: block;
+    content: '';
+    border-bottom: solid 1.5px #4a9fff;
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
+  }
+  .profileLink:hover:after {
+    transform: scaleX(1);
   }
 `;

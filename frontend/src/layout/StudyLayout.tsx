@@ -4,6 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../utils/hooks';
 import { studyActions } from '../features/study/study-slice';
 import { StudyPageParams } from '../models';
+import { dashboardActions } from '../features/dashboard/dashboard-slice';
 
 // interface IheaderProps {
 //   customMoveToNext: (
@@ -31,6 +32,8 @@ const StudyLayout = () => {
 
     if (nextStep === 'COMPLETE') {
       dispatch(studyActions.UpdateStudyStageStart(stageInfo));
+      dispatch(dashboardActions.getCompletedVideos());
+      navigate('/auth/dashboard/1');
       // dispatch(studyActions.resetStudystate());
     } else {
       // 2. 라이팅 페이지로 이동
