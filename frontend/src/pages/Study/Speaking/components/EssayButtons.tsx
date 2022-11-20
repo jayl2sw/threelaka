@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 // style
 import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
 import { RightBtn } from '../../../../styles/Common/CommonBtnStyle';
+import { EssayOnOffContainer } from '../../../../styles/Speaking/SpeakingStyle';
 
 const EssayButtons = () => {
   const navigate = useNavigate();
   const currentPath = useLocation().pathname;
   const modeCode = useLocation().search.replace('?mode=', '');
+
+  const [isOn, setIsOn] = useState<boolean>(true);
 
   const onClickTest = () => {
     navigate({
@@ -23,15 +26,7 @@ const EssayButtons = () => {
   };
 
   return (
-    <FlexTransparentDiv
-      widthSize={'6vw'}
-      heightSize={'30vh'}
-      paddingSize={'0'}
-      flexDirection={'column'}
-      justifyContent={'start'}
-      alignItems={'start'}
-      IsBorder={'none'}
-    >
+    <EssayOnOffContainer>
       {modeCode !== 'test' && (
         <div>
           <RightBtn
@@ -42,6 +37,10 @@ const EssayButtons = () => {
             fontColor={'white'}
             backgroundColor={'blue'}
             style={{ marginTop: '2vh', fontFamily: 'PretendardRegular' }}
+            className={isOn ? '' : 'not-active'}
+            onClick={() => {
+              setIsOn(true);
+            }}
           >
             ON
           </RightBtn>
@@ -53,12 +52,16 @@ const EssayButtons = () => {
             fontColor={'white'}
             backgroundColor={'blue'}
             style={{ marginTop: '0.5vh', fontFamily: 'PretendardRegular' }}
+            className={isOn ? 'not-active' : ''}
+            onClick={() => {
+              setIsOn(false);
+            }}
           >
             OFF
           </RightBtn>
         </div>
       )}
-    </FlexTransparentDiv>
+    </EssayOnOffContainer>
   );
 };
 

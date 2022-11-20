@@ -1,8 +1,11 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+
 // style
 import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
 import { RightBtn } from '../../../../styles/Common/CommonBtnStyle';
+import { ModePickContainer } from '../../../../styles/Speaking/SpeakingStyle';
 
 const ModeButtons = () => {
   const navigate = useNavigate();
@@ -29,15 +32,7 @@ const ModeButtons = () => {
   };
 
   return (
-    <FlexTransparentDiv
-      widthSize={'6vw'}
-      heightSize={modeCode === 'test' ? '82vh' : '50vh'}
-      paddingSize={'0'}
-      flexDirection={'column'}
-      justifyContent={'start'}
-      alignItems={'start'}
-      IsBorder={'none'}
-    >
+    <ModePickContainer heightSize={modeCode === 'test' ? '82vh' : '50vh'}>
       <RightBtn
         widthSize={'5vw'}
         heightSize={'5vh'}
@@ -47,6 +42,7 @@ const ModeButtons = () => {
         backgroundColor={'blue'}
         style={{ marginTop: '2vh' }}
         onClick={onClickTest}
+        className={modeCode === 'test' ? '' : 'not-active'}
       >
         발음 연습
       </RightBtn>
@@ -59,6 +55,7 @@ const ModeButtons = () => {
         backgroundColor={'blue'}
         style={{ marginTop: '0.5vh' }}
         onClick={onClickVideo}
+        className={modeCode === 'video' ? '' : 'not-active'}
       >
         실전 녹화
       </RightBtn>
@@ -71,10 +68,11 @@ const ModeButtons = () => {
         backgroundColor={'blue'}
         style={{ marginTop: '0.5vh' }}
         onClick={onClickAudio}
+        className={modeCode === 'audio' ? '' : 'not-active'}
       >
         실전 녹음{' '}
       </RightBtn>
-    </FlexTransparentDiv>
+    </ModePickContainer>
   );
 };
 

@@ -59,15 +59,18 @@ export const VideoAudioBtn = styled.button`
   cursor: pointer;
 `;
 
-export const ModePickContainer = styled.div`
+type ModePickContainerProps = {
+  heightSize: string;
+};
+export const ModePickContainer = styled.div<ModePickContainerProps>`
+  width: 6vw;
+  height: ${(props) => props.heightSize};
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 15vw;
-  height: 5vh;
-  & button {
-    background-color: #4a9fff;
-    color: white;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  & .not-active {
+    opacity: 0.5;
   }
 `;
 
@@ -291,4 +294,16 @@ export const ErrorBlock = styled.div`
 export const ErrorText = styled.div`
   font-size: 3vmin;
   margin: 0.5vw;
+`;
+
+export const EssayOnOffContainer = styled.div`
+  width: 6vw;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  & .not-active {
+    opacity: 0.5;
+  }
 `;
