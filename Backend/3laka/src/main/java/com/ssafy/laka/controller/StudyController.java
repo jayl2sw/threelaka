@@ -66,8 +66,10 @@ public class StudyController {
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> getRecommends(){
-
-        return new ResponseEntity<>(studyService.getRecommends(), HttpStatus.OK);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("usedModel", "item-based");
+        res.put("recommends", studyService.getRecommends());
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @GetMapping("/video/recommends/tags")
