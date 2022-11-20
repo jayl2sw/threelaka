@@ -17,13 +17,15 @@ import { MdDownload, MdCameraswitch } from 'react-icons/md';
 
 import { LoadingSpinner } from '../../../../styles/Common/LoadingSpinner';
 import { margin } from '@material-ui/system';
-
+import { StudyPageParams } from '../../../../models';
+import { writingActions } from '../../../../features/writing/writing-slice';
+import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../../../utils/hooks';
 interface IRecorderProps {
   selectedText: string;
   setIsTestStart: React.Dispatch<React.SetStateAction<boolean>>;
   isTestStart: boolean;
 }
-
 const VoiceRecorderForTest = ({
   selectedText,
   setIsTestStart,
@@ -42,7 +44,9 @@ const VoiceRecorderForTest = ({
   } = useAudioRecorder();
 
   const dispatch = useAppDispatch();
-
+  // useEffect(() => {
+  //   dispatch(studyActions.resetSpeechScore());
+  // }, []);
   const speechTest = async () => {
     var data = new FormData();
     const audioBlob = await fetch(audioResult).then((r) => r.blob());
@@ -58,15 +62,9 @@ const VoiceRecorderForTest = ({
     speechTest();
   }, [audioResult]);
 
-  // const toggleTestStart = () => {
-  //   setIsTestStart(true);
-  // };
-
-  // const toggleIsRecording = () => {
-  //   setIsRecording(!isRecording);
-  // };
-
   const handleStartRecording = () => {
+    // dispatch(studyActions.resetSpeechScore());
+    dispatch(studyActions.resetSpeechErrText);
     startRecording();
     setRecording(true);
     setIsPaused(false);
@@ -93,17 +91,20 @@ const VoiceRecorderForTest = ({
     setIsPaused(false);
     setIsRecording(!isRecording);
   };
+  const pageParams: StudyPageParams = useParams() as any;
+  useEffect(() => {
+    //내가 쓴 에세이 불러오는거
+    dispatch(writingActions.getEssayStart(pageParams.learningRecordId));
+  }, []);
+  const userEssay = useAppSelector((state) => state.write.essay);
 
   return (
     <div>
-      <p style={{ textAlign: 'center', fontSize: '2vmin' }}>
+      {/* <p style={{ textAlign: 'center', fontSize: '2vmin' }}>
         {new Date(timer * 1000).toISOString().substr(11, 8)}
-      </p>
-      {/* null일때 */}
-      {/* <p>테스트하고 싶은 문장을 클릭해보세요!</p> */}
-      {/* idle => 빨간 점, recordeing: REC 로고 */}
-      {/* <p>{status}</p> */}
-      <RecordBox>
+      </p> */}
+
+      <RecordBox className={userEssay === '' ? 'noEssay' : ''}>
         <VideoAudioBtnContainer className="test-recorder" style={{}}>
           {isRecording ? (
             <LoadingSpinner

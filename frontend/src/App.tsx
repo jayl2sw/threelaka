@@ -29,7 +29,7 @@ import PageNotFound from './layout/PageNotFound';
 // Private
 import { ProtectedRoute } from './pages/private/ProtectedRoute';
 
-import WordTest from './pages/Dashboard/WordTest/WordTest';
+import Test from './pages/Test';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -86,7 +86,7 @@ function App() {
         {/* Not Found */}
         <Route path="*" element={<PageNotFound />}></Route>
 
-        {/* <Route path="test" element={<WordTest />}></Route> */}
+        <Route path="test" element={<Test />}></Route>
       </Routes>
     </div>
   );

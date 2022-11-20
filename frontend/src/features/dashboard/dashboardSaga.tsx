@@ -59,8 +59,9 @@ function* onDailyStudyTimeAsync(action: PayloadAction<[]>) {
     // response.map((item, idx) => item / 60);
     console.log(response);
     const processedTime: number[] = response
-      .slice(1, 8)
+      // .slice(1, 15)
       .map((item, idx) => item / 60);
+    console.log(processedTime);
     yield put(dashboardActions.getDailyStudyTimeSuccess(processedTime));
   } catch (error: any) {
     yield put(dashboardActions.getDailyStudyTimeFailed(error.data));

@@ -15,7 +15,7 @@ import { studyActions } from '../../../../features/study/study-slice';
 
 interface IEssayProps {
   setSelectedText: React.Dispatch<React.SetStateAction<string>>;
-  setFlag: React.Dispatch<React.SetStateAction<boolean>>;
+
   pageParams: StudyPageParams;
 }
 
@@ -40,8 +40,6 @@ const EssayForTest = ({
     dispatch(studyActions.resetSpeechScore());
 
     setSelectedText(pickedSentence);
-
-    setFlag(false);
   };
 
   useEffect(() => {
@@ -95,7 +93,7 @@ const EssayForTest = ({
           에세이예요
         </p>
 
-        {script ? (
+        {script.length !== 0 ? (
           script.map((item, idx) => (
             <TextBox
               key={idx}
@@ -105,12 +103,18 @@ const EssayForTest = ({
                 }
               }}
               onClick={(e) => sentenceClickHandler(e, idx)}
+              style={{
+                fontSize: item.length > 100 ? '2vmin' : '3.8vmin',
+                color: '#1D3557',
+              }}
             >
               {item}
             </TextBox>
           ))
         ) : (
-          <p>아직 작성된 에세이가 없어요😂</p>
+          <h2 style={{ textAlign: 'center' }}>
+            에세이를 작성해야 발음 테스트가 가능합니다😂
+          </h2>
         )}
       </TextContainer>
     </EssayContainer>

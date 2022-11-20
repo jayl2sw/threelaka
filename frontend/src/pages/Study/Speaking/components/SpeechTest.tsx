@@ -23,11 +23,12 @@ import { useAppSelector, useAppDispatch } from '../../../../utils/hooks';
 import ScoreIndicator from '../../Speaking/components/ScoreIndicator';
 import { studyActions } from '../../../../features/study/study-slice';
 import { MainBox, MainPaleBox } from '../../../../styles/Common/CommonDivStyle';
+import { FaBullseye, FaLessThanEqual } from 'react-icons/fa';
 
 const SpeechTest = () => {
   const pageParams: StudyPageParams = useParams() as any;
   const [selectedText, setSelectedText] = useState<string>('');
-  const [flag, setFlag] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
   const speechScores = useAppSelector((state) => state.study.speechScores);
   const totalScore = useAppSelector((state) => state.study.totalScore);
@@ -36,8 +37,10 @@ const SpeechTest = () => {
   );
   const pickedTextBox = useRef<HTMLDivElement>(null);
   const scoreLoading = useAppSelector((state) => state.study.loading);
+  const [initialText, setInitailText] = useState(false);
   useEffect(() => {
     dispatch(studyActions.resetSpeechScore());
+    setInitailText(true);
   }, []);
 
   const [isTestStart, setIsTestStart] = useState<boolean>(false);
@@ -160,7 +163,7 @@ const SpeechTest = () => {
         <EssayForTest
           setSelectedText={setSelectedText}
           pageParams={pageParams}
-          setFlag={setFlag}
+          // setFlag={setFlag}
         />
       </MainBox>
     </SpeechTestContainer>

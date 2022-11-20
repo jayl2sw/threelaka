@@ -199,6 +199,9 @@ export const CalendarContainer = styled.div`
 `;
 
 export const GraphBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 0.5vh;
   tspan {
     font-size: 2vmin;
@@ -216,12 +219,19 @@ export const GraphBox = styled.div`
   height: 39.5vh;
   border-radius: 1rem;
   position: relative;
+  .graph-container {
+    width: 40vw;
+    height: 30vh;
+  }
   .graph {
     position: absolute;
-    top: 1vh;
+    top: 4vh;
     left: 0.5vw;
     height: 100%;
     width: 100%;
+  }
+  .indicator {
+    font-size: 2vmin;
   }
 `;
 

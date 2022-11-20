@@ -127,9 +127,9 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
       <StyledForm
         onSubmit={handleSubmit(handleFormSubmit)}
         className="sign-up-form"
-        style={{ width: '90%', margin: '2vmin 0' }}
+        style={{ width: '95%', margin: '2vmin 0' }}
       >
-        <InputWrap style={{ height: '80%' }}>
+        <InputWrap style={{ height: '80%', width: '95%' }}>
           <h3>회원정보수정</h3>
           {/* <ProfileInputField name="username" control={control} label="이메일" /> */}
           <ProfileInputField
@@ -169,20 +169,20 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
               />
             </div>
           </div>
+          <SubmitBtnWrap>
+            <GradientRoundBtn
+              widthSize={'70%'}
+              heightSize={'5vh'}
+              paddingSize={'0'}
+              fontColor={'black'}
+              fontSize={'2vmin'}
+              backgroundColor={'gradient'}
+              style={{ margin: '0 auto' }}
+            >
+              회원정보수정
+            </GradientRoundBtn>
+          </SubmitBtnWrap>
         </InputWrap>
-        <SubmitBtnWrap>
-          <GradientRoundBtn
-            widthSize={'70%'}
-            heightSize={'5vh'}
-            paddingSize={'0'}
-            fontColor={'black'}
-            fontSize={'2vmin'}
-            backgroundColor={'gradient'}
-            style={{ margin: '0 auto' }}
-          >
-            회원정보수정
-          </GradientRoundBtn>
-        </SubmitBtnWrap>
       </StyledForm>
       <FlexTransparentDiv
         widthSize={'90%'}

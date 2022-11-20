@@ -131,7 +131,7 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
                 </Label>
               ))}
             </FlexTransparentDiv>
-            <p style={{ textAlign: 'end' }}>최대 3개 선택가능</p>
+            <p style={{ textAlign: 'end' }}>3개 선택 가능</p>
 
             {selectedItem.length === 3 ? (
               <MainBtn

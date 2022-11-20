@@ -83,8 +83,6 @@ export const EssayScreenContainer = styled.div`
 export const EssayContainer = styled.div`
   width: 50vw;
   height: 30vh;
-  /* background: #ffffff; */
-  /* box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25); */
   border-radius: 2vmin;
   display: flex;
   flex-direction: column;
@@ -143,6 +141,10 @@ export const RecordBox = styled.div`
   align-items: center;
   .test-recorder {
     height: 10vh;
+  }
+  &.noEssay {
+    pointer-events: none;
+    visibility: hidden;
   }
 `;
 
@@ -232,21 +234,25 @@ export const SpeechResultBox = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  min-height: 33vh;
+  /* flex-wrap: wrap; */
+  /* width: auto; */
 `;
 
 export const ScoreTextBox = styled.div`
   .bad {
-    background-color: #a8dadc;
+    background-color: #b9ddd3;
   }
   .well {
-    background-color: #a8dadc;
+    background-color: #97cdbd;
   }
   .good {
-    background-color: cadetblue;
+    background-color: #74bca6;
   }
   .verygood {
-    background-color: #1d3557;
+    background-color: #52aa90;
   }
+  letter-spacing: 1.5px;
 `;
 
 export const ColorScoreIndicator = styled.div`
@@ -267,16 +273,16 @@ export const ScoreIcon = styled(BsCircleFill)`
   font-size: 2vmin;
 
   &.bad {
-    color: #a8dadc;
+    color: #b9ddd3;
   }
   &.well {
-    color: #4a9fff;
+    color: #97cdbd;
   }
   &.good {
-    color: cadetblue;
+    color: #74bca6;
   }
   &.verygood {
-    color: #1d3557;
+    color: #52aa90;
   }
 `;
 
