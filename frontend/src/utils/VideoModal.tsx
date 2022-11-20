@@ -69,7 +69,9 @@ const VideoModal = ({
     } else if (stage === 'WRITING') {
       navigate(`/study/writing/${learingRecordId}/${stage}/${videoId}`);
     } else if (stage === 'SPEAKING') {
-      navigate(`/study/speaking/${learingRecordId}/${stage}/${videoId}`);
+      navigate(
+        `/study/speaking/${learingRecordId}/${stage}/${videoId}?mode=test`
+      );
     } else navigate(`/`);
   };
 
@@ -108,7 +110,7 @@ const VideoModal = ({
     >
       <MainBox
         widthSize={'50vw'}
-        heightSize={'60vh'}
+        heightSize={'70vh'}
         paddingSize={'2vh 2vw'}
         fontColor={'black'}
         fontSize={'1.5vmin'}
@@ -131,8 +133,20 @@ const VideoModal = ({
           }}
           style={{ cursor: 'pointer' }}
         >
-          <AiFillCloseCircle size={30}></AiFillCloseCircle>
+          <AiFillCloseCircle size={30} color={'black'}></AiFillCloseCircle>
         </CloseModalBtn>
+        <FlexTransparentDiv
+          widthSize={'46vw'}
+          heightSize={'10vh'}
+          paddingSize={'0 1vw'}
+          flexDirection={'column'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          IsBorder={'none'}
+          style={{ fontSize: '4vmin', fontFamily: 'pretendardbold' }}
+        >
+          {videoData.video.title}
+        </FlexTransparentDiv>
         <FlexTransparentDiv
           widthSize={'46vw'}
           heightSize={'30vh'}
@@ -188,18 +202,6 @@ const VideoModal = ({
             alignItems={'center'}
             IsBorder={'none'}
           >
-            <FlexTransparentDiv
-              widthSize={'21vw'}
-              heightSize={'10vh'}
-              paddingSize={'0 1vw'}
-              flexDirection={'column'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              IsBorder={'none'}
-              style={{ fontSize: '2.5vmin', fontFamily: 'pretendardbold' }}
-            >
-              {videoData.video.title}
-            </FlexTransparentDiv>
             {continuedToggle ? (
               ''
             ) : (
@@ -211,10 +213,11 @@ const VideoModal = ({
                 justifyContent={'center'}
                 alignItems={'center'}
                 IsBorder={'none'}
+                style={{ marginBottom: '3vh' }}
               >
                 <MainBtn
                   widthSize={'12vw'}
-                  heightSize={'6vh'}
+                  heightSize={'10vh'}
                   paddingSize={'0'}
                   fontSize={'2.5vmin'}
                   fontColor={'white'}
@@ -228,7 +231,7 @@ const VideoModal = ({
 
             <FlexTransparentDiv
               widthSize={'21vw'}
-              heightSize={continuedToggle ? '20vh' : '10vh'}
+              heightSize={continuedToggle ? '30vh' : '10vh'}
               paddingSize={'0'}
               flexDirection={'column'}
               justifyContent={'center'}
@@ -240,10 +243,10 @@ const VideoModal = ({
                 <>
                   <AiFillCloseCircle
                     size={20}
-                    color={'white'}
+                    color={'black'}
                     style={{
                       position: 'absolute',
-                      top: '1vh',
+                      top: '0vh',
                       right: '1.5vw',
                       cursor: 'pointer',
                     }}
@@ -254,7 +257,7 @@ const VideoModal = ({
                   ></AiFillCloseCircle>
                   <FlexTransparentDiv
                     widthSize={'18vw'}
-                    heightSize={'18vh'}
+                    heightSize={'30vh'}
                     paddingSize={'0'}
                     flexDirection={'row'}
                     justifyContent={'center'}
@@ -262,7 +265,7 @@ const VideoModal = ({
                     IsBorder={'none'}
                     style={{
                       transition: 'all 1s ease',
-                      backgroundColor: 'black',
+                      backgroundColor: '#ebecf0',
                       borderRadius: '10px',
                       color: 'white',
                     }}
@@ -273,11 +276,13 @@ const VideoModal = ({
                         onClick={() =>
                           setContinuePage((continuePage) => continuePage - 1)
                         }
+                        color={'black'}
                         style={{ visibility: 'hidden' }}
                       ></AiOutlineArrowLeft>
                     ) : (
                       <AiOutlineArrowLeft
                         size={50}
+                        color={'black'}
                         onClick={() =>
                           setContinuePage((continuePage) => continuePage - 1)
                         }
@@ -285,7 +290,7 @@ const VideoModal = ({
                     )}
                     <FlexTransparentDiv
                       widthSize={'15vw'}
-                      heightSize={'18vh'}
+                      heightSize={'25vh'}
                       paddingSize={'0'}
                       flexDirection={'column'}
                       justifyContent={'center'}
@@ -294,7 +299,7 @@ const VideoModal = ({
                     >
                       <FlexTransparentDiv
                         widthSize={'15vw'}
-                        heightSize={'6vh'}
+                        heightSize={'8vh'}
                         paddingSize={'0'}
                         flexDirection={'column'}
                         justifyContent={'center'}
@@ -303,7 +308,7 @@ const VideoModal = ({
                       >
                         <MainBtn
                           widthSize={'15vw'}
-                          heightSize={'4vh'}
+                          heightSize={'6vh'}
                           paddingSize={'0'}
                           fontSize={'2vmin'}
                           fontColor={'white'}
@@ -322,7 +327,7 @@ const VideoModal = ({
                       </FlexTransparentDiv>
                       <FlexTransparentDiv
                         widthSize={'15vw'}
-                        heightSize={'6vh'}
+                        heightSize={'8vh'}
                         paddingSize={'0'}
                         flexDirection={'column'}
                         justifyContent={'center'}
@@ -331,7 +336,7 @@ const VideoModal = ({
                       >
                         <BackBlurBox
                           widthSize={'15vw'}
-                          heightSize={'4vh'}
+                          heightSize={'6vh'}
                           paddingSize={'0'}
                           fontSize={'2vmin'}
                           fontColor={'black'}
@@ -351,7 +356,7 @@ const VideoModal = ({
                       </FlexTransparentDiv>
                       <FlexTransparentDiv
                         widthSize={'15vw'}
-                        heightSize={'6vh'}
+                        heightSize={'8vh'}
                         paddingSize={'0'}
                         flexDirection={'column'}
                         justifyContent={'center'}
@@ -360,7 +365,7 @@ const VideoModal = ({
                       >
                         <BackBlurBox
                           widthSize={'15vw'}
-                          heightSize={'4vh'}
+                          heightSize={'6vh'}
                           paddingSize={'0'}
                           fontSize={'2vmin'}
                           fontColor={'black'}
@@ -380,6 +385,7 @@ const VideoModal = ({
                     {videoData.learning_record.length - 1 === continuePage ? (
                       <AiOutlineArrowRight
                         size={50}
+                        color={'black'}
                         onClick={() =>
                           setContinuePage((continuePage) => continuePage + 1)
                         }
@@ -388,6 +394,7 @@ const VideoModal = ({
                     ) : (
                       <AiOutlineArrowRight
                         size={50}
+                        color={'black'}
                         onClick={() =>
                           setContinuePage((continuePage) => continuePage + 1)
                         }
@@ -402,7 +409,7 @@ const VideoModal = ({
                 videoData.learning_record && (
                   <MainBtn
                     widthSize={'12vw'}
-                    heightSize={'6vh'}
+                    heightSize={'10vh'}
                     paddingSize={'0'}
                     fontSize={'2.5vmin'}
                     fontColor={'white'}
@@ -417,23 +424,36 @@ const VideoModal = ({
           </FlexTransparentDiv>
         </FlexTransparentDiv>
         <FlexTransparentDiv
-          widthSize={'46vw'}
+          widthSize={'44.5vw'}
           heightSize={'24vh'}
-          paddingSize={'0vh 1vw'}
+          paddingSize={'1vh 0vw'}
           flexDirection={'column'}
           justifyContent={'start'}
           alignItems={'start'}
           IsBorder={'none'}
           style={{
             marginTop: '3vh',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            fontSize: '2vmin',
             borderRadius: '10px',
-            border: '2px solid black',
+            // border: '2px solid black',
+            backgroundColor: '#e7f5fb',
           }}
         >
-          <p>{videoData.video.description}</p>
+          <FlexTransparentDiv
+            widthSize={'43.5vw'}
+            heightSize={'24vh'}
+            paddingSize={'0vh 1vw'}
+            flexDirection={'column'}
+            justifyContent={'start'}
+            alignItems={'start'}
+            IsBorder={'none'}
+            style={{
+              overflowY: 'auto',
+              overflowX: 'hidden',
+              fontSize: '2vmin',
+            }}
+          >
+            <p>{videoData.video.description}</p>
+          </FlexTransparentDiv>
         </FlexTransparentDiv>
       </MainBox>
     </ModalBackdrop>
