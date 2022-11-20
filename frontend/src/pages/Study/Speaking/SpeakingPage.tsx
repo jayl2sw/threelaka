@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import PickSpeakingMode from './components/ModeButtons';
+import EssayScript from './components/EssayForTest';
 import { SpeakingPageBlock } from '../../../styles/Speaking/SpeakingStyle';
 import { useLocation } from 'react-router-dom';
 import SpeakingScreen from './components/SpeakingScreen';
@@ -15,6 +16,7 @@ import { RiBearSmileLine } from 'react-icons/ri';
 
 import { IheaderProps } from '../../../layout/Header';
 import { StudyPageParams } from '../../../models';
+import useModal from '../../../utils/useModal';
 
 import { useParams, useOutletContext } from 'react-router-dom';
 const SpeakingPage = () => {
@@ -22,8 +24,6 @@ const SpeakingPage = () => {
   const moveToNext = customMoveToNext;
   // 발음 테스트 클릭
   const pageParams: StudyPageParams = useParams() as any;
-
-  const modeCode = useLocation().search.replace('?mode=', '');
 
   const studyDuration = useRef<number>(0);
   const dispatch = useAppDispatch();
@@ -39,6 +39,9 @@ const SpeakingPage = () => {
       dispatch(studyActions.putStopStudyStart(studyDuration.current));
     };
   }, []);
+
+  const { isOpenModal, onClickModal } = useModal();
+  // 실전녹화 선택
 
   const onClickComplete = (e: React.MouseEvent<HTMLDivElement>) => {
     dispatch(studyActions.resetStudystate());

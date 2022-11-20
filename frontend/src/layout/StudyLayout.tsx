@@ -36,6 +36,14 @@ const StudyLayout = () => {
       dispatch(dashboardActions.getCompletedVideos());
       navigate('/auth/dashboard/1');
       // dispatch(studyActions.resetStudystate());
+    } else if (nextStep === 'SPEAKING') {
+      // 2. 라이팅 페이지로 이동
+      dispatch(studyActions.UpdateStudyStageStart(stageInfo));
+      navigate(
+        `/study/${nextStep.toLocaleLowerCase()}/${
+          pageParams.learningRecordId
+        }/${nextStep}/${pageParams.videoId}?mode=test`
+      );
     } else {
       // 2. 라이팅 페이지로 이동
       dispatch(studyActions.UpdateStudyStageStart(stageInfo));

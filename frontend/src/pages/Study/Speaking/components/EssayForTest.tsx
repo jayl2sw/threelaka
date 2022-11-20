@@ -14,13 +14,14 @@ import { useCallback } from 'react';
 import { writingActions } from '../../../../features/writing/writing-slice';
 import { StudyPageParams } from '../../../../models';
 import { studyActions } from '../../../../features/study/study-slice';
+import { TextEssayBox } from '../../../../styles/Speaking/SpeakingStyle';
 interface IEssayProps {
   setSelectedText: React.Dispatch<React.SetStateAction<string>>;
 
   pageParams: StudyPageParams;
 }
 
-const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
+const EssayForTest = ({ setSelectedText, pageParams }: IEssayProps) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const isOnScreen = useOnScreen(elementRef);
   const dispatch = useAppDispatch();
@@ -86,13 +87,9 @@ const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
   return (
     <EssayContainer>
       <TextContainer>
-        <p ref={elementRef} className="trigger">
-          에세이에요
-        </p>
-
         {script.length !== 0 ? (
           script.map((item, idx) => (
-            <TextBox
+            <TextEssayBox
               key={idx}
               ref={(el) => {
                 if (null != el) {
@@ -106,7 +103,7 @@ const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
               }}
             >
               {item}
-            </TextBox>
+            </TextEssayBox>
           ))
         ) : (
           <h2 style={{ textAlign: 'center' }}>
@@ -118,4 +115,4 @@ const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
   );
 };
 
-export default EssayScript;
+export default EssayForTest;

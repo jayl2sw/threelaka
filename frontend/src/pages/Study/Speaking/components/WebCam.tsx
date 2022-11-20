@@ -94,7 +94,7 @@ const WebCam = () => {
 
   return (
     <FlexTransparentDiv
-      widthSize={'32vw'}
+      widthSize={'40vw'}
       heightSize={'42vh'}
       paddingSize={'4vw'}
       flexDirection={'column'}
