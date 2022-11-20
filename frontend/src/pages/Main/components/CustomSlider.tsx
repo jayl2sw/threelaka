@@ -71,7 +71,9 @@ const CutomSlider = () => {
             'https://threelaka.s3.ap-northeast-2.amazonaws.com/culture.jpg'
           }
           title={'CULTURE'}
-          content={'인간이 그려낸 아름다움에 대하여'}
+          content={
+            '인간이 그려낸 아름다움에 대하여, 형형색색의 미를 만나보세요'
+          }
           tagContent={'#영화 #음악 #문화유산 #종교'}
         />
         <CustomSliderItem
@@ -79,7 +81,7 @@ const CutomSlider = () => {
             'https://threelaka.s3.ap-northeast-2.amazonaws.com/industry.jpg'
           }
           title={'INDUSTRY'}
-          content={'1차 산업혁명, 2차 산업혁명, 3차 산업혁명, 4차 산업혁명'}
+          content={'세상을 움직이는 힘,어떻게 발전하고 있을까요?'}
           tagContent={'#발명 #발전 #기술 #에너지 #공업'}
         />
         <CustomSliderItem
@@ -97,7 +99,9 @@ const CutomSlider = () => {
             'https://threelaka.s3.ap-northeast-2.amazonaws.com/human.jpg'
           }
           title={'HUMAN'}
-          content={'당신은 인간을 얼마나 알고있나요? '}
+          content={
+            '당신은 인간을 얼마나 알고있나요? 더 깊이 더 많이 알아보세요'
+          }
           tagContent={'#진화 #심리 #감각 #감정 #인류'}
         />
         <CustomSliderItem
@@ -115,7 +119,7 @@ const CutomSlider = () => {
             'https://threelaka.s3.ap-northeast-2.amazonaws.com/civilization.jpg'
           }
           title={'CIVILIZATION'}
-          content={'메소포타미아, 이집트, 황하, ...'}
+          content={'우리가 살고 있는 이곳은 어떻게 변해왔을까요?'}
           tagContent={'#IT #건축 #도시 #국가 #경영'}
         />
       </SliderContainer>
