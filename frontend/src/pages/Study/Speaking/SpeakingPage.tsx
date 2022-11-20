@@ -16,6 +16,7 @@ import { RiBearSmileLine } from 'react-icons/ri';
 
 import { IheaderProps } from '../../../layout/Header';
 import { StudyPageParams } from '../../../models';
+import useModal from '../../../utils/useModal';
 
 import { useParams, useOutletContext } from 'react-router-dom';
 const SpeakingPage = () => {
@@ -39,7 +40,6 @@ const SpeakingPage = () => {
     };
   }, []);
 
-
   const { isOpenModal, onClickModal } = useModal();
   // 실전녹화 선택
 
@@ -48,7 +48,6 @@ const SpeakingPage = () => {
 
     moveToNext(e, 'COMPLETE', pageParams);
   };
->>>>>>> d1783c22e752e1e5dc621def4393d2f84bbc782b
 
   return (
     <SpeakingPageBlock>

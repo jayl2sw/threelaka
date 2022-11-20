@@ -15,15 +15,15 @@ import { studyActions } from '../../../../features/study/study-slice';
 
 interface IEssayProps {
   setSelectedText: React.Dispatch<React.SetStateAction<string>>;
-
+  // setFlag: boolean;
   pageParams: StudyPageParams;
 }
 
 const EssayForTest = ({
   setSelectedText,
   pageParams,
-  setFlag,
-}: IEssayProps) => {
+}: // setFlag,
+IEssayProps) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const isOnScreen = useOnScreen(elementRef);
   const dispatch = useAppDispatch();

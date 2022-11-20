@@ -31,7 +31,7 @@ const EssayScreen = () => {
       <EssayForTest
         setSelectedText={setSelectedText}
         pageParams={pageParams}
-        setFlag={setFlag}
+        // setFlag={flag}
       />
     );
   } else {
