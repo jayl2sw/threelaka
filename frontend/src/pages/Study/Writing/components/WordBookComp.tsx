@@ -15,6 +15,12 @@ import {
   BackBlurBox,
 } from '../../../../styles/Common/CommonDivStyle';
 import { RiMenuFoldFill, RiMenuUnfoldFill } from 'react-icons/ri';
+import {
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+  AiOutlineArrowUp,
+  AiOutlineArrowDown,
+} from 'react-icons/ai';
 import { useHorizontalScroll } from '../../../../utils/useSideScroll';
 
 // 필요한 props interface
@@ -134,7 +140,7 @@ const WordBookComp = ({
                 }}
                 onClick={() => setFoldLayoutMode(1)}
               >
-                <RiMenuFoldFill size={30}></RiMenuFoldFill>
+                <AiOutlineArrowLeft size={30}></AiOutlineArrowLeft>
               </div>
             ) : (
               <div
@@ -151,7 +157,7 @@ const WordBookComp = ({
                 }}
                 onClick={() => setFoldLayoutMode(1)}
               >
-                <RiMenuFoldFill size={30}></RiMenuFoldFill>
+                <AiOutlineArrowUp size={30}></AiOutlineArrowUp>
               </div>
             )}
           </MainPaleBox>
@@ -264,7 +270,7 @@ const WordBookComp = ({
                 }}
                 onClick={() => setFoldLayoutMode(1)}
               >
-                <RiMenuFoldFill size={30}></RiMenuFoldFill>
+                <AiOutlineArrowLeft size={30}></AiOutlineArrowLeft>
               </div>
             ) : (
               <div
@@ -282,7 +288,7 @@ const WordBookComp = ({
                 }}
                 onClick={() => setFoldLayoutMode(1)}
               >
-                <RiMenuFoldFill size={30}></RiMenuFoldFill>
+                <AiOutlineArrowUp size={30}></AiOutlineArrowUp>
               </div>
             )}
           </MainPaleBox>
@@ -315,7 +321,7 @@ const WordBookComp = ({
               }}
               onClick={() => setFoldLayoutMode(0)}
             >
-              <RiMenuUnfoldFill size={30}></RiMenuUnfoldFill>
+              <AiOutlineArrowRight size={30}></AiOutlineArrowRight>
             </div>
           ) : (
             <div
@@ -332,7 +338,7 @@ const WordBookComp = ({
               }}
               onClick={() => setFoldLayoutMode(0)}
             >
-              <RiMenuUnfoldFill size={30}></RiMenuUnfoldFill>
+              <AiOutlineArrowDown size={30}></AiOutlineArrowDown>
               <div ref={scrollRef}></div>
             </div>
           )}
