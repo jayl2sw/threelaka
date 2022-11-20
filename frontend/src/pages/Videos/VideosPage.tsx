@@ -114,6 +114,10 @@ const VideosPage = () => {
     dispatch(dashboardActions.getTagList());
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   //useState
   const [inputValue, setInpuValue] = useState<string>('');
   const [searchKeyword, setSearchKeyword] = useState<string>('');
