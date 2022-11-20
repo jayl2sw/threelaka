@@ -19,7 +19,7 @@ export const BlackBlurDiv = styled.div`
   min-width: 100vw;
   min-height: 100vh;
   background-color: black;
-  opacity: 0.5;
+  opacity: 0.7;
   position: fixed;
   z-index: -1;
 `;

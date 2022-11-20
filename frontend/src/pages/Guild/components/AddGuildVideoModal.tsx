@@ -99,6 +99,7 @@ const AddGuildVideoModal = ({
         .replace('.', '')}`,
     };
     dispatch(guildActions.postGuildAssignmentStart(payload));
+    setModalToggle(false);
   };
 
   return (
