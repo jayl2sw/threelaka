@@ -63,16 +63,16 @@ const GradientInputTag = styled.input`
   }
 `;
 
-const GradientFormLabel = styled.label`
-  position: absolute;
-  top: 1vh;
-  left: 0.2vw;
-  display: block;
-  transition: 0.2s;
-  font-size: 1vmin;
-  color: grey;
-  /* border: 1px solid green; */
-`;
+// const GradientFormLabel = styled.label`
+//   position: absolute;
+//   top: 1vh;
+//   left: 0.2vw;
+//   display: block;
+//   transition: 0.2s;
+//   font-size: 1vmin;
+//   color: grey;
+//   /* border: 1px solid green; */
+// `;
 
 interface IGradientInputProps {
   widthSize: number;

@@ -25,10 +25,10 @@ const DashBoardPage = () => {
   };
 
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
-  const guildPageType = params.guildPageType ? params.guildPageType : '0';
-  const handleSwitchGuildPage = (guildPageType: string) => {
-    navigate(`/auth/guild/${guildPageType}`, { replace: true });
-  };
+  // const guildPageType = params.guildPageType ? params.guildPageType : '0';
+  // const handleSwitchGuildPage = (guildPageType: string) => {
+  //   navigate(`/auth/guild/${guildPageType}`, { replace: true });
+  // };
   return (
     <>
       <VideoModal

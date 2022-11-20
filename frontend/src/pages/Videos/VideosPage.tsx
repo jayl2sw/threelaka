@@ -95,7 +95,7 @@ const VideosPage = () => {
             IsBorder={'none'}
             style={{ fontSize: '5vmin' }}
           >
-            {searchKeyword}의 검색결과 입니다.
+            {searchKeyword !== '' ? `${searchKeyword}의 검색결과 입니다.` : ''}
           </FlexTransparentDiv>
           <FlexTransparentDiv
             widthSize={'100vw'}
