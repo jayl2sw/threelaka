@@ -25,12 +25,13 @@ export const MainPageBlock = styled.div`
   align-items: center;
   width: 100vw;
   height: 200vh;
-  background: linear-gradient(
+  /* background: linear-gradient(
     106.56deg,
     rgba(132, 176, 226, 0.1) 7.3%,
     rgba(88, 172, 240, 0.23) 77.68%,
     rgba(174, 243, 147, 0.5) 99.32%
-  );
+  ); */
+  background-color: black;
 `;
 
 export const FirstpageBlock = styled.div`

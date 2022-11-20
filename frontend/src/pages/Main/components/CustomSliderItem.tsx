@@ -77,7 +77,7 @@ const CustomSliderItem = ({
         paddingSize={'0'}
         flexDirection={'column'}
         justifyContent={'center'}
-        alignItems={'center'}
+        alignItems={'start'}
         IsBorder={'none'}
         style={{
           background:
@@ -88,12 +88,16 @@ const CustomSliderItem = ({
         <FlexTransparentDiv
           widthSize={'35vw'}
           heightSize={'20vh'}
-          paddingSize={'0'}
+          paddingSize={'0 5vw'}
           flexDirection={'row'}
-          justifyContent={'center'}
+          justifyContent={'start'}
           alignItems={'center'}
           IsBorder={'none'}
-          style={{ fontSize: '7vmin', color: 'white' }}
+          style={{
+            fontSize: '7vmin',
+            color: 'white',
+            fontFamily: 'pretendardextrabold',
+          }}
         >
           {title}
         </FlexTransparentDiv>
@@ -101,34 +105,51 @@ const CustomSliderItem = ({
           widthSize={'35vw'}
           heightSize={'20vh'}
           paddingSize={'0 5vw'}
-          flexDirection={'row'}
+          flexDirection={'column'}
           justifyContent={'center'}
           alignItems={'center'}
           IsBorder={'none'}
           style={{ fontSize: '3vmin', color: 'white', wordBreak: 'break-all' }}
         >
-          {content}
+          {content.split(',').map((item) => {
+            return (
+              <FlexTransparentDiv
+                widthSize={'25vw'}
+                heightSize={'5vh'}
+                paddingSize={'0'}
+                flexDirection={'row'}
+                justifyContent={'start'}
+                alignItems={'center'}
+                IsBorder={'none'}
+              >
+                {item}
+              </FlexTransparentDiv>
+            );
+          })}
         </FlexTransparentDiv>
         <FlexTransparentDiv
           widthSize={'35vw'}
           heightSize={'10vh'}
-          paddingSize={'0'}
+          paddingSize={'0 5vw'}
           flexDirection={'row'}
-          justifyContent={'center'}
+          justifyContent={'start'}
           alignItems={'center'}
           IsBorder={'none'}
-          style={{ letterSpacing: '0.4vmin', color: 'white' }}
+          style={{
+            letterSpacing: '0.4vmin',
+            color: 'white',
+          }}
         >
           {tagContent}
         </FlexTransparentDiv>
         <GradientRoundBtn
           widthSize={'13vw'}
-          heightSize={'10vh'}
+          heightSize={'8vh'}
           paddingSize={'0'}
           fontColor={'white'}
           fontSize={'2vmin'}
           backgroundColor={'blue'}
-          style={{ marginTop: '5vh' }}
+          style={{ marginTop: '5vh', marginLeft: '4vw' }}
           onClick={() => onClickMoveToTagSearch()}
         >
           더 알아보러 가기
