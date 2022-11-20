@@ -13,13 +13,9 @@ import {
 import { useNavigate, NavLink } from 'react-router-dom';
 
 interface IOnClickProps {
-  handleSwitchPage: (pageNum: number) => void;
-  handleSwitchGuildPage: (guildPageType: string) => void;
+  isMaster: boolean;
 }
-const SideBar = ({
-  handleSwitchPage,
-  handleSwitchGuildPage,
-}: IOnClickProps) => {
+const SideBar = ({ isMaster }: IOnClickProps) => {
   const profile = useAppSelector((state) => state.auth.currentUser?.profile);
   const nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
   const guildId = useAppSelector((state) => state.auth.currentUser?.guildId);
@@ -126,24 +122,33 @@ const SideBar = ({
             <span className="title">Guild</span>
           </NavLink>
         </MenuItems>
-        <MenuItems>
-          <NavLink
-            to={`/auth/guild/myGuild/${guildId}`}
-            className={({ isActive }) => (isActive ? 'clicked' : 'not')}
-          >
-            <RiBearSmileLine className="icon" size={20} />
-            <span className="title">MyGuild</span>
-          </NavLink>
-        </MenuItems>
-        <MenuItems>
-          <NavLink
-            to={`/auth/guild/admin/${guildId}`}
-            className={({ isActive }) => (isActive ? 'clicked' : 'not')}
-          >
-            <RiBearSmileLine className="icon" size={20} />
-            <span className="title">GuildAdmin</span>
-          </NavLink>
-        </MenuItems>
+        {guildId ? (
+          <MenuItems>
+            <NavLink
+              to={`/auth/guild/myGuild/${guildId}`}
+              className={({ isActive }) => (isActive ? 'clicked' : 'not')}
+            >
+              <RiBearSmileLine className="icon" size={20} />
+              <span className="title">MyGuild</span>
+            </NavLink>
+          </MenuItems>
+        ) : (
+          ''
+        )}
+        {isMaster ? (
+          <MenuItems>
+            <NavLink
+              to={`/auth/guild/admin/${guildId}`}
+              className={({ isActive }) => (isActive ? 'clicked' : 'not')}
+            >
+              <RiBearSmileLine className="icon" size={20} />
+              <span className="title">GuildAdmin</span>
+            </NavLink>
+          </MenuItems>
+        ) : (
+          ''
+        )}
+
         {/* <FlexTransparentDiv
           widthSize={'100vw'}
           heightSize={'30vh'}

@@ -11,6 +11,7 @@ export const GuildMainBox = styled.div`
 export const GuildBlueArcodian = styled.div`
   width: 26vw;
   position: relative;
+  min-height: 7vh;
   height: 7vh;
   padding: 1vh 1vw;
   font-size: 2vmin;
@@ -18,15 +19,16 @@ export const GuildBlueArcodian = styled.div`
   background: #dbecff;
   box-shadow: 10px 10px 80px rgba(63, 39, 102, 0.1);
   border-radius: 2vmin;
-  transition: height 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   margin-bottom: 1vh;
   &:hover {
+    min-height: 25vh;
     height: 25vh;
-    transition: height 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     .arcodian-item {
       visibility: visible;
       opacity: 1;
-      transition: all 0.2s ease-in-out;
+      transition: all 0.3s ease-in-out;
       transition-delay: 0.3s;
     }
   }
@@ -44,4 +46,42 @@ export const GuildBlueArcodianItem = styled.div`
   /* border: 1px solid black; */
   visibility: hidden;
   opacity: 0;
+`;
+
+export const GuildCreateContainer = styled.div`
+  &.guildCreate {
+    animation: smoothAppear 1s ease-in-out;
+    @keyframes smoothAppear {
+      from {
+        opacity: 0;
+        transform: translateY(-5%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &.notGuild {
+    animation: smoothAppearTwo 1s ease-in-out;
+    @keyframes smoothAppearTwo {
+      from {
+        opacity: 0;
+        transform: translateY(-5%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+`;
+
+export const GuildCreateInput = styled.input`
+  width: 28vw;
+  height: 6vh;
+  font-size: 3vmin;
+  border-radius: 10px;
+  padding: 0 0.5vw;
 `;

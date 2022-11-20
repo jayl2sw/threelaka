@@ -18,7 +18,7 @@ import SpeakingPage from './pages/Study/Speaking/SpeakingPage';
 import VocaPage from './pages/Study/Voca/VocaPage';
 
 // Dashboard
-import DashBoardPage from './pages/Dashboard/DashBoardPage';
+// import DashBoardPage from './pages/Dashboard/DashBoardPage';
 
 // Guild
 import GuildPage from './pages/Guild/GuildPage';
@@ -53,7 +53,7 @@ function App() {
         <Route path="auth">
           <Route path="login" element={<AuthPage />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="dashboard/:pageNum" element={<DashBoardPage />} />
+            <Route path="dashboard/:pageNum" element={<GuildPage />} />
             <Route
               path="guild/:guildPageType/:guildId"
               element={<GuildPage />}

@@ -28,8 +28,8 @@ interface IAuthForm {
   username: string;
   password: string;
   passwordConfirm: string;
-  gender: 'male' | 'female' | 'secret';
-  age: string;
+  // gender: 'male' | 'female' | 'secret';
+  // age: string;
   nickname: string;
 }
 
@@ -87,12 +87,12 @@ const SignupForm = ({
         /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/,
         '닉네임은 2-10자리의 한글, 영문, 숫자만 가능합니다'
       ),
-    gender: yup.string().required('성별을 선택해주세요'),
-    age: yup
-      .number()
-      .default(1)
-      .min(1, '최소 입력값은 1 입니다')
-      .max(100, '최대 입력값은 100 입니다'),
+    // gender: yup.string().required('성별을 선택해주세요'),
+    // age: yup
+    //   .number()
+    //   .default(1)
+    //   .min(1, '최소 입력값은 1 입니다')
+    //   .max(100, '최대 입력값은 100 입니다'),
   });
 
   const {
@@ -110,12 +110,14 @@ const SignupForm = ({
       onValid?.(formValues);
 
       //회원가입
-      let { username, password, nickname, age, gender } = formValues;
+      let { username, password, nickname } = formValues;
       const signupInfo = {
         username: username,
         password: password,
-        age: parseInt(age),
-        gender: gender,
+        // age: parseInt(age),
+        // gender: gender,
+        age: 30,
+        gender: 'MALE',
         nickname: nickname,
       };
 
