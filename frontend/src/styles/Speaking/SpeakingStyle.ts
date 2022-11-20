@@ -274,13 +274,13 @@ export const SpeechResultBox = styled.div`
 
 export const ScoreTextBox = styled.div`
   .bad {
-    background-color: #b9ddd3;
+    background-color: #eb603e;
   }
   .well {
-    background-color: #97cdbd;
+    background-color: #f5826e;
   }
   .good {
-    background-color: #74bca6;
+    background-color: #97cd8d;
   }
   .verygood {
     background-color: #52aa90;
@@ -308,13 +308,13 @@ export const ScoreIcon = styled(BsCircleFill)`
   font-size: 2vmin;
 
   &.bad {
-    color: #b9ddd3;
+    color: #eb603e;
   }
   &.well {
-    color: #97cdbd;
+    color: #f5826e;
   }
   &.good {
-    color: #74bca6;
+    color: #97cd8d;
   }
   &.verygood {
     color: #52aa90;
