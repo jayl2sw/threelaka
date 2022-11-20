@@ -27,6 +27,7 @@ import { AlertImgBox } from '../styles/Main/MainStyle';
 import AlertDropDown from '../pages/Main/components/AlertDropDown';
 import ProfileDropDown from '../pages/Main/components/ProfileDropDown';
 import { IVideoContainerProps } from '../pages/Dashboard/DailyBoard/VideoContainer';
+import { studyActions } from '../features/study/study-slice';
 const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -50,6 +51,10 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
     setToggleProfile(!toggleProfile);
     setToggleDropDown(false);
   };
+  const goToHome = () => {
+    dispatch(studyActions.resetStudystate());
+    navigate('/');
+  };
 
   return (
     <MainHeaderMenuRegion>
@@ -59,6 +64,8 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
             <img
               src="https://threelaka.s3.ap-northeast-2.amazonaws.com/mainlogo.png"
               alt="스리라까 로고"
+              onClick={goToHome}
+              style={{ cursor: 'pointer' }}
             />
           </LogoBlock>
           <MainLinkWrapper bgColor="transparent" widthSize="5vw">
