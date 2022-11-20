@@ -1,11 +1,34 @@
 import React, { useState } from 'react';
 import { videoActions } from '../../features/video/video-slice';
 import { FlexTransparentDiv } from '../../styles/Common/CommonDivStyle';
+import { MainBtn } from '../../styles/Common/CommonBtnStyle';
 import GradientInput from '../../utils/GradientInput';
 import { useAppDispatch } from '../../utils/hooks';
 import { useAppSelector } from './../../utils/hooks';
 import VideoCard from '../Main/components/VideoCard';
 import VideoModal from '../../utils/VideoModal';
+import { string } from 'yup';
+
+interface ItagIdDict {
+  [index: string]: number;
+  인간: number;
+  산업: number;
+  생물: number;
+  문화예술: number;
+  문명: number;
+  자연: number;
+  지식: number;
+}
+
+const tagIdDict: ItagIdDict = {
+  인간: 19,
+  산업: 53,
+  생물: 20,
+  문화예술: 35,
+  문명: 52,
+  자연: 54,
+  지식: 16,
+};
 
 const VideosPage = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +41,8 @@ const VideosPage = () => {
   const [inputValue, setInpuValue] = useState<string>('');
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
+  const [selectedTag, setSelectedTag] = useState<string>('');
+  const [serachMode, setSearchMode] = useState<string>('search');
   // onClickHandler
   const onClickSearchVideo = (
     e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLDivElement>,
@@ -29,8 +54,18 @@ const VideosPage = () => {
     } else {
       dispatch(videoActions.getKeywordSearchVideosStart(keyword));
       setSearchKeyword(keyword);
+      setSearchMode('search');
     }
   };
+
+  const onClickTagVideo = (targetTagVal: string) => {
+    const tagId: number = tagIdDict[targetTagVal];
+
+    dispatch(videoActions.getTagSearchVideosStart(tagId));
+    setSelectedTag(targetTagVal);
+    setSearchMode('tag');
+  };
+  //
   return (
     <>
       <VideoModal
@@ -46,13 +81,11 @@ const VideosPage = () => {
         justifyContent={'center'}
         alignItems={'center'}
         IsBorder={'none'}
-      >
-        Spacer
-      </FlexTransparentDiv>
+      ></FlexTransparentDiv>
       <FlexTransparentDiv
         widthSize={'100vw'}
-        heightSize={'92vh'}
-        paddingSize={'0'}
+        heightSize={'100%'}
+        paddingSize={'10vh 0 0 0'}
         flexDirection={'column'}
         justifyContent={'start'}
         alignItems={'center'}
@@ -60,7 +93,7 @@ const VideosPage = () => {
       >
         <FlexTransparentDiv
           widthSize={'100vw'}
-          heightSize={'20vh'}
+          heightSize={'10vh'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'center'}
@@ -75,6 +108,99 @@ const VideosPage = () => {
             inputValue={inputValue}
             setInputValue={setInpuValue}
           ></GradientInput>
+        </FlexTransparentDiv>
+        <FlexTransparentDiv
+          widthSize={'100vw'}
+          heightSize={'7vh'}
+          paddingSize={'0'}
+          flexDirection={'row'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          IsBorder={'none'}
+        >
+          <MainBtn
+            widthSize={'10vw'}
+            heightSize={'5vh'}
+            paddingSize={'0'}
+            fontSize={'2vmin'}
+            fontColor={'white'}
+            backgroundColor={'black'}
+            style={{ marginRight: '1vw' }}
+            onClick={() => onClickTagVideo('인간')}
+          >
+            #인간
+          </MainBtn>
+          <MainBtn
+            widthSize={'10vw'}
+            heightSize={'5vh'}
+            paddingSize={'0'}
+            fontSize={'2vmin'}
+            fontColor={'white'}
+            backgroundColor={'black'}
+            style={{ marginRight: '1vw' }}
+            onClick={() => onClickTagVideo('산업')}
+          >
+            #산업
+          </MainBtn>
+          <MainBtn
+            widthSize={'10vw'}
+            heightSize={'5vh'}
+            paddingSize={'0'}
+            fontSize={'2vmin'}
+            fontColor={'white'}
+            backgroundColor={'black'}
+            style={{ marginRight: '1vw' }}
+            onClick={() => onClickTagVideo('생물')}
+          >
+            #생물
+          </MainBtn>
+          <MainBtn
+            widthSize={'10vw'}
+            heightSize={'5vh'}
+            paddingSize={'0'}
+            fontSize={'2vmin'}
+            fontColor={'white'}
+            backgroundColor={'black'}
+            style={{ marginRight: '1vw' }}
+            onClick={() => onClickTagVideo('문화예술')}
+          >
+            #문화예술
+          </MainBtn>
+          <MainBtn
+            widthSize={'10vw'}
+            heightSize={'5vh'}
+            paddingSize={'0'}
+            fontSize={'2vmin'}
+            fontColor={'white'}
+            backgroundColor={'black'}
+            style={{ marginRight: '1vw' }}
+            onClick={() => onClickTagVideo('문명')}
+          >
+            #문명
+          </MainBtn>
+          <MainBtn
+            widthSize={'10vw'}
+            heightSize={'5vh'}
+            paddingSize={'0'}
+            fontSize={'2vmin'}
+            fontColor={'white'}
+            backgroundColor={'black'}
+            style={{ marginRight: '1vw' }}
+            onClick={() => onClickTagVideo('자연')}
+          >
+            #자연
+          </MainBtn>
+          <MainBtn
+            widthSize={'10vw'}
+            heightSize={'5vh'}
+            paddingSize={'0'}
+            fontSize={'2vmin'}
+            fontColor={'white'}
+            backgroundColor={'black'}
+            onClick={() => onClickTagVideo('지식')}
+          >
+            #지식
+          </MainBtn>
         </FlexTransparentDiv>
         <FlexTransparentDiv
           widthSize={'100vw'}

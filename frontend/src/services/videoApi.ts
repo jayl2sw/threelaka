@@ -33,6 +33,13 @@ export const getKeywordSearchVideosApi = async (
   return response;
 };
 
+// 태그 검색 api
+export const getTagSearchVideosApi = async (tagId: number): Promise<any> => {
+  const res = await customAxios.get(`api/v1/study/video/tags/${tagId}`);
+  const response: RecommendVideos[] = res.data;
+  return response;
+};
+
 // 학습 기록 없는 신규 유저가 선택한 태그 기반 추천
 // export const getTagVideoAPI = async (videoId: string): Promise<VideoData[]> => {
 //   return customAxios.get(`api/v1/video/recommend`);
