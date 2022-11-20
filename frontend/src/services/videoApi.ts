@@ -35,7 +35,7 @@ export const getKeywordSearchVideosApi = async (
 
 // 태그 검색 api
 export const getTagSearchVideosApi = async (tagId: number): Promise<any> => {
-  const res = await customAxios.get(`api/v1/study/video/tags/${tagId}?page=1`);
+  const res = await customAxios.get(`api/v1/study/video/tags/${tagId}/1`);
   const response: RecommendVideos[] = res.data;
   return response;
 };

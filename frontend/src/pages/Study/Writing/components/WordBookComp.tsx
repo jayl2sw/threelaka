@@ -33,9 +33,10 @@ const WordBookComp = ({
   foldLayoutMode,
   setFoldLayoutMode,
 }: IWordBookProps) => {
-  const scrollRef = useHorizontalScroll(
-    foldLayoutMode
-  ) as React.MutableRefObject<HTMLDivElement>;
+  const scrollRef = useHorizontalScroll([
+    foldLayoutMode,
+    layoutMode,
+  ]) as React.MutableRefObject<HTMLDivElement>;
 
   return (
     <>

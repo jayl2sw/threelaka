@@ -16,7 +16,7 @@ import ReadPage from './pages/Study/Read/ReadPage';
 import WritingPage from './pages/Study/Writing/WritingPage';
 import SpeakingPage from './pages/Study/Speaking/SpeakingPage';
 import VocaPage from './pages/Study/Voca/VocaPage';
-import './App.css';
+// import './App.css';
 
 // Dashboard
 // import DashBoardPage from './pages/Dashboard/DashBoardPage';

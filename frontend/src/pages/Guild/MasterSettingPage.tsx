@@ -54,7 +54,7 @@ const MasterSetting = () => {
 
   // 수평 스크롤
   const scrollRef = useHorizontalScroll(
-    ''
+    []
   ) as React.MutableRefObject<HTMLDivElement>;
 
   // onClickHandler
