@@ -4,6 +4,8 @@ import com.ssafy.laka.dto.study.LearningRecordResponseDto;
 import com.ssafy.laka.dto.study.*;
 import org.json.JSONException;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public interface StudyService {
 
     String getScript(String videoId);
 
-    List<VideoResponseDto> getRecommends();
+    List<VideoResponseDto> getRecommends() throws IOException;
 
     void addEssay(EssayRequestDto essay);
 

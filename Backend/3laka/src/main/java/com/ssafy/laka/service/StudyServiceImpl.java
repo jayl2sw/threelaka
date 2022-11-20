@@ -31,6 +31,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.google.api.client.http.HttpMethods.GET;
+import static jdk.internal.net.http.HttpRequestImpl.USER_AGENT;
+
 
 @Service
 @RequiredArgsConstructor
@@ -264,8 +267,67 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
-    public List<VideoResponseDto> getRecommends() {
-        return videoRepository.findFourVideos().stream().map(v -> VideoResponseDto.from(v)).collect(Collectors.toList());
+    public List<VideoResponseDto> getRecommends() throws IOException {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        int type = learningRecordRepository.findAllByUser(user).size() > 10 ? 1 : 0;
+        String recommends = getRecommendsFromFastAPI(user.getUserId(), type);
+        List<String> collects = Arrays.stream(recommends.replace("[", "").replace("]", "").replaceAll("\"", "").split(",")).collect(Collectors.toList());
+        List<VideoResponseDto> result = videoRepository.findUserRecommendsByVideoIdIn(collects).stream().map(v -> VideoResponseDto.from(v)).collect(Collectors.toList());
+        Collections.shuffle(result);
+        return result;
+    }
+
+
+    private String getRecommendsFromFastAPI(int userId, int type) throws IOException {
+        URL url;
+        String readLine;
+        StringBuilder buffer = null;
+        BufferedReader bufferedReader = null;
+        BufferedWriter bufferedWriter = null;
+        HttpURLConnection urlConnection = null;
+
+        int connTimeout = 5000;
+        int readTimeout = 3000;
+
+        String URL = "https://3laka.com/api/v2/study/videos/recommends/"+userId+"/"+type;
+
+        try {
+            url = new URL(URL);
+            urlConnection = (HttpURLConnection)url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setConnectTimeout(connTimeout);
+            urlConnection.setReadTimeout(readTimeout);
+            urlConnection.setRequestProperty("Accept", "application/json;");
+
+            buffer = new StringBuilder();
+            if(urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(),"UTF-8"));
+                while((readLine = bufferedReader.readLine()) != null) {
+                    buffer.append(readLine).append("\n");
+                }
+            }
+            else {
+                buffer.append("code : ");
+                buffer.append(urlConnection.getResponseCode()).append("\n");
+                buffer.append("message : ");
+                buffer.append(urlConnection.getResponseMessage()).append("\n");
+            }
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            try {
+                if (bufferedWriter != null) { bufferedWriter.close(); }
+                if (bufferedReader != null) { bufferedReader.close(); }
+            }
+            catch(Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+
+        return buffer.toString();
     }
 
     @Override
@@ -399,4 +461,58 @@ public class StudyServiceImpl implements StudyService{
         return translatedText;
     }
 
+    public void apiTestGet() throws Exception
+    {
+        URL url = null;
+        String readLine = null;
+        StringBuilder buffer = null;
+        BufferedReader bufferedReader = null;
+        BufferedWriter bufferedWriter = null;
+        HttpURLConnection urlConnection = null;
+
+        int connTimeout = 5000;
+        int readTimeout = 3000;
+
+        String apiUrl = "http://localhost:8080/api/test";    // 각자 상황에 맞는 IP & url 사용
+
+        try {
+            url = new URL(apiUrl);
+            urlConnection = (HttpURLConnection)url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setConnectTimeout(connTimeout);
+            urlConnection.setReadTimeout(readTimeout);
+            urlConnection.setRequestProperty("Accept", "application/json;");
+
+            buffer = new StringBuilder();
+            if(urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(),"UTF-8"));
+                while((readLine = bufferedReader.readLine()) != null) {
+                    buffer.append(readLine).append("\n");
+                }
+            }
+            else {
+                buffer.append("code : ");
+                buffer.append(urlConnection.getResponseCode()).append("\n");
+                buffer.append("message : ");
+                buffer.append(urlConnection.getResponseMessage()).append("\n");
+            }
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            try {
+                if (bufferedWriter != null) { bufferedWriter.close(); }
+                if (bufferedReader != null) { bufferedReader.close(); }
+            }
+            catch(Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+
+        System.out.println("결과 : " + buffer.toString());
+    }
+
 }
+

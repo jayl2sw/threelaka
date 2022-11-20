@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,7 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> getRecommends(){
+    public ResponseEntity<?> getRecommends() throws IOException {
         HashMap<String, Object> res = new HashMap<>();
         res.put("usedModel", "item-based");
         res.put("recommends", studyService.getRecommends());

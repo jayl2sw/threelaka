@@ -27,4 +27,6 @@ public interface VideoRepository extends JpaRepository<Video, String> {
     @Query(value="select * from video left join ( select * from video_tag natural join tag ) as tags\n" +
             " on video.video_id = tags.video_id where name = :tagName limit 40 offset :offset ", nativeQuery = true)
     List<Video> findAllByTagName(String tagName, int offset);
+
+    List<Video> findUserRecommendsByVideoIdIn(List<String> recommends);
 }
