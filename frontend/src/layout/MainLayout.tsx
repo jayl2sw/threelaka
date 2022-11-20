@@ -7,7 +7,7 @@ const MainLayout = () => {
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
 
   return (
-    <div className="main-style">
+    <>
       <VideoModal
         modalStyleNum={1}
         modalToggleVideoId={modalToggleVideoId}
@@ -16,7 +16,7 @@ const MainLayout = () => {
       <MainHeader setModalToggleVideoId={setModalToggleVideoId}></MainHeader>
 
       <Outlet />
-    </div>
+    </>
   );
 };
 

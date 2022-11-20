@@ -31,6 +31,12 @@ const MyGuild = () => {
   const progressTaskLst = useAppSelector(
     (state) => state.guild.progressTaskList
   );
+  const upcomingTaskLst = useAppSelector(
+    (state) => state.guild.upcomingTaskList
+  );
+  const completeTaskLst = useAppSelector(
+    (state) => state.guild.completedTaskList
+  );
   const myguildLearnTime = useAppSelector(
     (state) => state.guild.myguildLearnTime
   );
@@ -40,15 +46,17 @@ const MyGuild = () => {
   const [roomNubmer, setRoomNumber] = useState<number>(0);
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
 
+  const [mode, setMode] = useState<number>(0);
+
   // EOZ에 필요한 데이터 (props해줄 것임)
   const guildId = myGuildInfo.guildId;
   let nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
   nickname = nickname ? nickname : '';
 
   // 수평 스크롤
-  const scrollRef = useHorizontalScroll(
-    []
-  ) as React.MutableRefObject<HTMLDivElement>;
+  const scrollRef = useHorizontalScroll([
+    mode,
+  ]) as React.MutableRefObject<HTMLDivElement>;
   return (
     <>
       <VideoModal
@@ -245,59 +253,82 @@ const MyGuild = () => {
                 </FlexTransparentDiv>
               </FlexTransparentDiv>
             </FlexTransparentDiv>
+
             <FlexTransparentDiv
-              widthSize={'33vw'}
-              heightSize={'30vh'}
+              widthSize={'28vw'}
+              heightSize={'4vh'}
               paddingSize={'0'}
-              flexDirection={'column'}
+              flexDirection={'row'}
               justifyContent={'start'}
-              alignItems={'start'}
+              alignItems={'end'}
               IsBorder={'none'}
             >
-              <MainBox
-                widthSize={'33vw'}
-                heightSize={'30vh'}
+              <TopBtn
+                widthSize={'8vw'}
+                heightSize={'4.5vh'}
                 paddingSize={'0'}
-                fontSize={'2vmin'}
                 fontColor={'black'}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'start',
-                  flexDirection: 'column',
-                  boxShadow: 'none',
-                }}
+                fontSize={'2vmin'}
+                backgroundColor={'blue'}
+                style={{ marginLeft: '1vw', wordBreak: 'keep-all' }}
+                onClick={() => setMode(0)}
+                className={mode === 0 ? 'pale' : ''}
               >
-                <FlexTransparentDiv
-                  widthSize={'33vw'}
-                  heightSize={'5vh'}
-                  paddingSize={'0 0 0 1vw'}
-                  flexDirection={'column'}
-                  justifyContent={'center'}
-                  alignItems={'start'}
-                  IsBorder={'none'}
-                  style={{
-                    fontSize: '2.5vmin',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  이번 주의 영상
-                </FlexTransparentDiv>
-                <div
-                  style={{
-                    width: '32vw',
-                    height: '23vh',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'start',
-                    // border: 'solid red 1px',
-                    overflowX: 'auto',
-                    overflowY: 'hidden',
-                    marginTop: '1vh',
-                  }}
-                  ref={scrollRef}
-                >
-                  {/* 진행중인 정보들이 옵니다 */}
+                진행중인 과제
+              </TopBtn>
+              <TopBtn
+                widthSize={'8vw'}
+                heightSize={'4.5vh'}
+                paddingSize={'0'}
+                fontColor={'black'}
+                fontSize={'2vmin'}
+                backgroundColor={'blue'}
+                style={{ marginLeft: '1vw' }}
+                onClick={() => {
+                  setMode(1);
+                }}
+                className={mode === 1 ? 'pale' : ''}
+              >
+                예정된 과제
+              </TopBtn>
+              <TopBtn
+                widthSize={'8vw'}
+                heightSize={'4.5vh'}
+                paddingSize={'0'}
+                fontColor={'black'}
+                fontSize={'2vmin'}
+                backgroundColor={'blue'}
+                style={{ marginLeft: '1vw' }}
+                onClick={() => {
+                  setMode(2);
+                }}
+                className={mode === 2 ? 'pale' : ''}
+              >
+                완료한 과제
+              </TopBtn>
+            </FlexTransparentDiv>
+            <MainBox
+              widthSize={'34vw'}
+              heightSize={'50vh'}
+              paddingSize={'2vh 1vw'}
+              fontColor={'black'}
+              fontSize={'1vmin'}
+              style={{
+                overflowY: 'hidden',
+                overflowX: 'scroll',
+                boxShadow: 'none',
+                display: 'flex',
+              }}
+              ref={scrollRef}
+            >
+              {/* <DashboardVideos
+                mode={mode}
+                recentVideoBlock={recentVideoBlock}
+                setModalToggleVideoId={setModalToggleVideoId}
+              ></DashboardVideos> */}
+
+              {mode === 0 ? (
+                <>
                   {progressTaskLst.map((task, idx) => {
                     return (
                       <FlexTransparentDiv
@@ -344,9 +375,154 @@ const MyGuild = () => {
                     );
                     // return <p key={`task-${idx}`}>{task.videoId}</p>;
                   })}
-                </div>
-              </MainBox>
-            </FlexTransparentDiv>
+                </>
+              ) : mode === 1 ? (
+                <>
+                  {upcomingTaskLst.map((task, idx) => {
+                    return (
+                      <FlexTransparentDiv
+                        key={`video-progree-${idx}`}
+                        widthSize={'15vw'}
+                        heightSize={'20vh'}
+                        paddingSize={'0'}
+                        flexDirection={'row'}
+                        justifyContent={'center'}
+                        alignItems={'center'}
+                        IsBorder={'none'}
+                        onClick={() => setModalToggleVideoId(task.videoId)}
+                        style={{
+                          cursor: 'pointer',
+                          borderTop: '10px solid black',
+                          borderBottom: '10px solid black',
+                          borderRadius: '10px',
+                          background: 'black',
+                          margin: '0.5vw',
+                          position: 'relative',
+                        }}
+                      >
+                        <img
+                          style={{
+                            width: '15vw',
+                            height: '18vh',
+                            objectFit: 'cover',
+                          }}
+                          src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
+                        ></img>
+                        <div
+                          style={{
+                            position: 'absolute',
+                            width: '10vw',
+                            top: '0.5vh',
+                            left: '1vw',
+                            color: 'white',
+                            fontSize: '2.5vmin',
+                          }}
+                        >
+                          ~{task.startDate}
+                        </div>
+                      </FlexTransparentDiv>
+                    );
+                    // return <p key={`task-${idx}`}>{task.videoId}</p>;
+                  })}
+                </>
+              ) : (
+                <>
+                  {completeTaskLst.map((task, idx) => {
+                    return (
+                      <FlexTransparentDiv
+                        key={`video-progree-${idx}`}
+                        widthSize={'15vw'}
+                        heightSize={'20vh'}
+                        paddingSize={'0'}
+                        flexDirection={'row'}
+                        justifyContent={'center'}
+                        alignItems={'center'}
+                        IsBorder={'none'}
+                        onClick={() => setModalToggleVideoId(task.videoId)}
+                        style={{
+                          cursor: 'pointer',
+                          borderTop: '10px solid black',
+                          borderBottom: '10px solid black',
+                          borderRadius: '10px',
+                          background: 'black',
+                          margin: '0.5vw',
+                          position: 'relative',
+                        }}
+                      >
+                        <img
+                          style={{
+                            width: '15vw',
+                            height: '18vh',
+                            objectFit: 'cover',
+                          }}
+                          src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
+                        ></img>
+                        <div
+                          style={{
+                            position: 'absolute',
+                            width: '10vw',
+                            top: '0.5vh',
+                            left: '1vw',
+                            color: 'white',
+                            fontSize: '2.5vmin',
+                          }}
+                        >
+                          ~{task.startDate}
+                        </div>
+                      </FlexTransparentDiv>
+                    );
+                    // return <p key={`task-${idx}`}>{task.videoId}</p>;
+                  })}
+                </>
+              )}
+
+              {/* {progressTaskLst.map((task, idx) => {
+                return (
+                  <FlexTransparentDiv
+                    key={`video-progree-${idx}`}
+                    widthSize={'15vw'}
+                    heightSize={'20vh'}
+                    paddingSize={'0'}
+                    flexDirection={'row'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    IsBorder={'none'}
+                    onClick={() => setModalToggleVideoId(task.videoId)}
+                    style={{
+                      cursor: 'pointer',
+                      borderTop: '10px solid black',
+                      borderBottom: '10px solid black',
+                      borderRadius: '10px',
+                      background: 'black',
+                      margin: '0.5vw',
+                      position: 'relative',
+                    }}
+                  >
+                    <img
+                      style={{
+                        width: '15vw',
+                        height: '18vh',
+                        objectFit: 'cover',
+                      }}
+                      src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
+                    ></img>
+                    <div
+                      style={{
+                        position: 'absolute',
+                        width: '10vw',
+                        top: '0.5vh',
+                        left: '1vw',
+                        color: 'white',
+                        fontSize: '2.5vmin',
+                      }}
+                    >
+                      ~{task.startDate}
+                    </div>
+                  </FlexTransparentDiv>
+                );
+                // return <p key={`task-${idx}`}>{task.videoId}</p>;
+              })} */}
+            </MainBox>
           </FlexTransparentDiv>
           <FlexTransparentDiv
             widthSize={'30vw'}
