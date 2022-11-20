@@ -89,7 +89,7 @@ public class StudyController {
         return new ResponseEntity<>(studyService.getRecentVideo(), HttpStatus.OK);
     }
 
-    @GetMapping("/video/tags/{tagId}/")
+    @GetMapping("/video/tags/{tagId}/{page}")
     @ApiOperation(value = "태그기반 필터링 조회", notes = "태그 기반 필터링 조회")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
