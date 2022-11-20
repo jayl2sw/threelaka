@@ -7,6 +7,13 @@ import { MenuItems } from '../styles/Layout/SideBarStyle';
 import { LogoBlock } from '../styles/Main/MainStyle';
 import { RiBearSmileLine } from 'react-icons/ri';
 import {
+  BsFillBarChartFill,
+  BsPersonFill,
+  BsPeopleFill,
+  BsKeyFill,
+} from 'react-icons/bs';
+import { AiTwotoneHeart } from 'react-icons/ai';
+import {
   ProfileImgBox,
   ProfileCenter,
 } from '../styles/DashBoard/DashBoardStyle';
@@ -100,7 +107,7 @@ const SideBar = ({ isMaster }: IOnClickProps) => {
             to="/auth/dashboard/1"
             className={({ isActive }) => (isActive ? 'clicked' : 'not')}
           >
-            <RiBearSmileLine className="icon" size={20} />
+            <BsFillBarChartFill className="icon" size={20} />
             <span className="title">DailyBoard</span>
           </NavLink>
         </MenuItems>
@@ -109,7 +116,7 @@ const SideBar = ({ isMaster }: IOnClickProps) => {
             to="/auth/dashboard/3"
             className={({ isActive }) => (isActive ? 'clicked' : 'not')}
           >
-            <RiBearSmileLine className="icon" size={20} />
+            <BsPersonFill className="icon" size={20} />
             <span className="title">Profile</span>
           </NavLink>
         </MenuItems>
@@ -118,7 +125,7 @@ const SideBar = ({ isMaster }: IOnClickProps) => {
             to={`/auth/guild/main/${guildId}`}
             className={({ isActive }) => (isActive ? 'clicked' : 'not')}
           >
-            <RiBearSmileLine className="icon" size={20} />
+            <BsPeopleFill className="icon" size={20} />
             <span className="title">Guild</span>
           </NavLink>
         </MenuItems>
@@ -128,7 +135,7 @@ const SideBar = ({ isMaster }: IOnClickProps) => {
               to={`/auth/guild/myGuild/${guildId}`}
               className={({ isActive }) => (isActive ? 'clicked' : 'not')}
             >
-              <RiBearSmileLine className="icon" size={20} />
+              <AiTwotoneHeart className="icon" size={20} />
               <span className="title">MyGuild</span>
             </NavLink>
           </MenuItems>
@@ -141,7 +148,7 @@ const SideBar = ({ isMaster }: IOnClickProps) => {
               to={`/auth/guild/admin/${guildId}`}
               className={({ isActive }) => (isActive ? 'clicked' : 'not')}
             >
-              <RiBearSmileLine className="icon" size={20} />
+              <BsKeyFill className="icon" size={20} />
               <span className="title">GuildAdmin</span>
             </NavLink>
           </MenuItems>

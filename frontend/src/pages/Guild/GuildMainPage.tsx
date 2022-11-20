@@ -39,6 +39,8 @@ const GuildMain = () => {
   const [guildCreateName, setGuildCreateName] = useState<string>('');
   const [guildCreateDescription, setGuildCreateDescription] =
     useState<string>('');
+  const [pickedSortStandard, setPickedSortStandard] =
+    useState<string>('activity');
   // useEffect
   useEffect(() => {
     dispatch(guildActions.getTopThreeGuildStart());
@@ -114,33 +116,27 @@ const GuildMain = () => {
       )}
       <div>
         <FlexTransparentDiv
-          widthSize={'65vw'}
+          widthSize={'32vw'}
           heightSize={'5vh'}
           paddingSize={'0'}
           flexDirection={'row'}
-          justifyContent={'start'}
+          justifyContent={'center'}
           alignItems={'center'}
           IsBorder={'none'}
-          style={{ fontSize: '3vmin', fontFamily: 'PretendardRegular' }}
         >
-          <p
+          <div
             style={{
-              fontSize: '2vmin',
-              fontWeight: 'bold',
-              margin: '0 25%',
-              transform: 'translateX(-50%)',
+              fontSize: '2.5vmin',
+              backgroundColor: '#4f9fff',
+              color: '#ffffff',
+              borderRadius: '2vmin',
+              padding: '0.8vh 1vw',
+              marginTop: '2vh',
+              fontFamily: 'PretendardRegular',
             }}
           >
-            <RiBearSmileLine
-              size={20}
-              style={{ marginRight: '1vmin', verticalAlign: 'middle' }}
-            />
             이번 주 우수 길드
-            <RiBearSmileLine
-              size={20}
-              style={{ marginLeft: '1vmin', verticalAlign: 'middle' }}
-            />
-          </p>
+          </div>
         </FlexTransparentDiv>
         <FlexTransparentDiv
           widthSize={'65vw'}
@@ -789,8 +785,12 @@ const GuildMain = () => {
                   top: '-5vh',
                   left: '1vw',
                   marginRight: '1vw',
+                  opacity: pickedSortStandard === 'activity' ? '' : '0.5',
                 }}
-                onClick={() => onClickGuildSortedList('activity')}
+                onClick={() => {
+                  onClickGuildSortedList('activity');
+                  setPickedSortStandard('activity');
+                }}
               >
                 활동순
               </TopBtn>
@@ -806,8 +806,12 @@ const GuildMain = () => {
                   top: '-5vh',
                   left: '6.25vw',
                   marginRight: '1vw',
+                  opacity: pickedSortStandard === 'size' ? '' : '0.5',
                 }}
-                onClick={() => onClickGuildSortedList('size')}
+                onClick={() => {
+                  onClickGuildSortedList('size');
+                  setPickedSortStandard('size');
+                }}
               >
                 인원순
               </TopBtn>
@@ -818,8 +822,16 @@ const GuildMain = () => {
                 fontSize="2vmin"
                 fontColor="white"
                 backgroundColor="blue"
-                style={{ position: 'absolute', top: '-5vh', left: '11.5vw' }}
-                onClick={() => onClickGuildSortedList('name')}
+                style={{
+                  position: 'absolute',
+                  top: '-5vh',
+                  left: '11.5vw',
+                  opacity: pickedSortStandard === 'name' ? '' : '0.5',
+                }}
+                onClick={() => {
+                  onClickGuildSortedList('name');
+                  setPickedSortStandard('name');
+                }}
               >
                 가나다순
               </TopBtn>
