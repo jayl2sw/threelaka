@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { videoActions } from '../../features/video/video-slice';
 import { FlexTransparentDiv } from '../../styles/Common/CommonDivStyle';
 import { MainBtn } from '../../styles/Common/CommonBtnStyle';
 import GradientInput from '../../utils/GradientInput';
+import { PageDownButton } from '../../styles/Main/MainStyle';
 import { useAppDispatch } from '../../utils/hooks';
 import { useAppSelector } from './../../utils/hooks';
-import VideoCard from '../Main/components/VideoCard';
+import VideoCardTwo from '../Main/components/VideoCardTwo';
 import VideoModal from '../../utils/VideoModal';
 import { useLocation } from 'react-router-dom';
+import { dashboardActions } from '../../features/dashboard/dashboard-slice';
 
 interface ItagIdDict {
   [index: string]: number;
@@ -30,9 +32,42 @@ const tagIdDict: ItagIdDict = {
   지식: 16,
 };
 
+const tagStringLst = [
+  '인간',
+  '산업',
+  '생물',
+  '문화예술',
+  '문명',
+  '자연',
+  '지식',
+];
+
+interface ItagIdCommentDict {
+  [index: string]: string;
+  인간: string;
+  산업: string;
+  생물: string;
+  문화예술: string;
+  문명: string;
+  자연: string;
+  지식: string;
+}
+
+const tagComment: ItagIdCommentDict = {
+  인간: '인간 멘트 좀 만들어주세요',
+  산업: '산업 멘트 좀 만들어주세요',
+  생물: '생물 멘트 좀 만들어주세요',
+  문화예술: '문화예술 멘트 좀 만들어주세요',
+  문명: '문명 멘트 좀 만들어주세요',
+  자연: '자연 멘트 좀 만들어주세요',
+  지식: '지식 멘트 좀 만들어주세요',
+};
+
 const VideosPage = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const firstRef = useRef<HTMLDivElement>(null);
+  const secondRef = useRef<HTMLDivElement>(null);
 
   let tagConv = '';
   if (location.state !== null) {
@@ -43,9 +78,18 @@ const VideosPage = () => {
     (state) => state.video.keywordSearchVideoList
   );
 
+  const modelRecommendVideo = useAppSelector(
+    (state) => state.video.recommendVideoList
+  );
+  const recommendModelType = useAppSelector(
+    (state) => state.video.recommendVideoType
+  );
+
   const tagSearchResultVideo = useAppSelector(
     (state) => state.video.tagSearchVideoList
   );
+
+  const mySelectedTags = useAppSelector((state) => state.dashboard.tagList);
 
   // useEffect
   useEffect(() => {
@@ -54,6 +98,10 @@ const VideosPage = () => {
       onClickTagVideo(tagConv);
     }
   }, [tagConv]);
+
+  useEffect(() => {
+    dispatch(dashboardActions.getTagList());
+  }, []);
 
   //useState
   const [inputValue, setInpuValue] = useState<string>('');
@@ -73,19 +121,66 @@ const VideosPage = () => {
       dispatch(videoActions.getKeywordSearchVideosStart(keyword));
       setSearchKeyword(keyword);
       setSearchMode('search');
+      if (secondRef.current !== null) {
+        secondRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+      }
     }
   };
 
   const onClickTagVideo = (targetTagVal: string) => {
     const tagId: number = tagIdDict[targetTagVal];
 
+    if (secondRef.current !== null) {
+      secondRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+    }
+
     dispatch(videoActions.getTagSearchVideosStart(tagId));
     setSelectedTag(targetTagVal);
     setSearchMode('tag');
   };
+
+  const moveToFirst = () => {
+    if (firstRef.current !== null) {
+      firstRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+    }
+  };
+
+  const getModelRecommentVideo = () => {
+    dispatch(videoActions.getRecommendVideos());
+    setSearchMode('model');
+    if (secondRef.current !== null) {
+      secondRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+    }
+  };
   //
   return (
-    <>
+    <FlexTransparentDiv
+      widthSize={'100vw'}
+      heightSize={'540vh'}
+      paddingSize={'0'}
+      flexDirection={'column'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      IsBorder={'none'}
+      style={{ backgroundColor: 'black' }}
+      ref={firstRef}
+    >
       <VideoModal
         modalStyleNum={1}
         modalToggleVideoId={modalToggleVideoId}
@@ -93,136 +188,121 @@ const VideosPage = () => {
       ></VideoModal>
       <FlexTransparentDiv
         widthSize={'100vw'}
-        heightSize={'8vh'}
+        heightSize={'20vh'}
         paddingSize={'0'}
         flexDirection={'column'}
         justifyContent={'center'}
         alignItems={'center'}
         IsBorder={'none'}
+        style={{
+          position: 'sticky',
+          minHeight: '20vh',
+          top: '0vh',
+        }}
       ></FlexTransparentDiv>
       <FlexTransparentDiv
         widthSize={'100vw'}
-        heightSize={'100%'}
-        paddingSize={'10vh 0 0 0'}
+        heightSize={'520vh'}
+        paddingSize={'0'}
         flexDirection={'column'}
         justifyContent={'start'}
-        alignItems={'center'}
+        alignItems={'start'}
         IsBorder={'none'}
       >
         <FlexTransparentDiv
           widthSize={'100vw'}
-          heightSize={'10vh'}
+          heightSize={'80vh'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'center'}
           alignItems={'center'}
           IsBorder={'none'}
+          style={{ minHeight: '85vh' }}
         >
           <GradientInput
             widthSize={60}
             onClickHandler={onClickSearchVideo}
-            placeHolderText={'안녕하세요'}
+            placeHolderText={'검색페이지인풋'}
             inputName={'keyword'}
             inputValue={inputValue}
             setInputValue={setInpuValue}
           ></GradientInput>
+          <FlexTransparentDiv
+            widthSize={'100vw'}
+            heightSize={'7vh'}
+            paddingSize={'0'}
+            flexDirection={'row'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            IsBorder={'none'}
+          >
+            {tagStringLst.map((tagName, idx) => {
+              if (mySelectedTags.includes(tagName)) {
+                return (
+                  <MainBtn
+                    key={`upper-tag-btn-${idx}`}
+                    widthSize={'10vw'}
+                    heightSize={'5vh'}
+                    paddingSize={'0'}
+                    fontSize={'2vmin'}
+                    fontColor={'white'}
+                    backgroundColor={'gradient'}
+                    style={{ marginRight: '1vw' }}
+                    onClick={() => onClickTagVideo(tagName)}
+                  >
+                    #{tagName}
+                  </MainBtn>
+                );
+              }
+            })}
+          </FlexTransparentDiv>
+          <FlexTransparentDiv
+            widthSize={'100vw'}
+            heightSize={'7vh'}
+            paddingSize={'0'}
+            flexDirection={'row'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            IsBorder={'none'}
+          >
+            {tagStringLst.map((tagName, idx) => {
+              if (!mySelectedTags.includes(tagName)) {
+                return (
+                  <MainBtn
+                    key={`bottom-tag-btn-${idx}`}
+                    widthSize={'10vw'}
+                    heightSize={'5vh'}
+                    paddingSize={'0'}
+                    fontSize={'2vmin'}
+                    fontColor={'white'}
+                    backgroundColor={'blue'}
+                    style={{ marginRight: '1vw' }}
+                    onClick={() => onClickTagVideo(tagName)}
+                  >
+                    #{tagName}
+                  </MainBtn>
+                );
+              }
+            })}
+            <MainBtn
+              widthSize={'10vw'}
+              heightSize={'5vh'}
+              paddingSize={'0'}
+              fontSize={'2vmin'}
+              fontColor={'white'}
+              backgroundColor={'gradient'}
+              style={{ marginRight: '1vw' }}
+              onClick={() => getModelRecommentVideo()}
+            >
+              추천알고리즘
+            </MainBtn>
+          </FlexTransparentDiv>
         </FlexTransparentDiv>
+
         <FlexTransparentDiv
+          ref={secondRef}
           widthSize={'100vw'}
-          heightSize={'7vh'}
-          paddingSize={'0'}
-          flexDirection={'row'}
-          justifyContent={'center'}
-          alignItems={'center'}
-          IsBorder={'none'}
-        >
-          <MainBtn
-            widthSize={'10vw'}
-            heightSize={'5vh'}
-            paddingSize={'0'}
-            fontSize={'2vmin'}
-            fontColor={'white'}
-            backgroundColor={'black'}
-            style={{ marginRight: '1vw' }}
-            onClick={() => onClickTagVideo('인간')}
-          >
-            #인간
-          </MainBtn>
-          <MainBtn
-            widthSize={'10vw'}
-            heightSize={'5vh'}
-            paddingSize={'0'}
-            fontSize={'2vmin'}
-            fontColor={'white'}
-            backgroundColor={'black'}
-            style={{ marginRight: '1vw' }}
-            onClick={() => onClickTagVideo('산업')}
-          >
-            #산업
-          </MainBtn>
-          <MainBtn
-            widthSize={'10vw'}
-            heightSize={'5vh'}
-            paddingSize={'0'}
-            fontSize={'2vmin'}
-            fontColor={'white'}
-            backgroundColor={'black'}
-            style={{ marginRight: '1vw' }}
-            onClick={() => onClickTagVideo('생물')}
-          >
-            #생물
-          </MainBtn>
-          <MainBtn
-            widthSize={'10vw'}
-            heightSize={'5vh'}
-            paddingSize={'0'}
-            fontSize={'2vmin'}
-            fontColor={'white'}
-            backgroundColor={'black'}
-            style={{ marginRight: '1vw' }}
-            onClick={() => onClickTagVideo('문화예술')}
-          >
-            #문화예술
-          </MainBtn>
-          <MainBtn
-            widthSize={'10vw'}
-            heightSize={'5vh'}
-            paddingSize={'0'}
-            fontSize={'2vmin'}
-            fontColor={'white'}
-            backgroundColor={'black'}
-            style={{ marginRight: '1vw' }}
-            onClick={() => onClickTagVideo('문명')}
-          >
-            #문명
-          </MainBtn>
-          <MainBtn
-            widthSize={'10vw'}
-            heightSize={'5vh'}
-            paddingSize={'0'}
-            fontSize={'2vmin'}
-            fontColor={'white'}
-            backgroundColor={'black'}
-            style={{ marginRight: '1vw' }}
-            onClick={() => onClickTagVideo('자연')}
-          >
-            #자연
-          </MainBtn>
-          <MainBtn
-            widthSize={'10vw'}
-            heightSize={'5vh'}
-            paddingSize={'0'}
-            fontSize={'2vmin'}
-            fontColor={'white'}
-            backgroundColor={'black'}
-            onClick={() => onClickTagVideo('지식')}
-          >
-            #지식
-          </MainBtn>
-        </FlexTransparentDiv>
-        <FlexTransparentDiv
-          widthSize={'100vw'}
-          heightSize={'72vh'}
+          heightSize={'440vh'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'start'}
@@ -231,16 +311,18 @@ const VideosPage = () => {
         >
           <FlexTransparentDiv
             widthSize={'100vw'}
-            heightSize={'10vh'}
+            heightSize={'25vh'}
             paddingSize={'0 10vw'}
             flexDirection={'row'}
             justifyContent={'start'}
             alignItems={'center'}
             IsBorder={'none'}
-            style={{ fontSize: '5vmin' }}
+            style={{ fontSize: '5vmin', color: 'white', paddingTop: '15vh' }}
           >
             {serachMode === 'tag'
-              ? `${selectedTag}과 관련된 영상들입니다.`
+              ? `${tagComment[selectedTag]}`
+              : serachMode === 'model'
+              ? `${recommendModelType}기반 추천 영상입니다.`
               : searchKeyword !== ''
               ? `${searchKeyword}의 검색결과 입니다.`
               : ''}
@@ -259,7 +341,17 @@ const VideosPage = () => {
               ? tagSearchResultVideo &&
                 tagSearchResultVideo.map((videoData, i) => {
                   return (
-                    <VideoCard
+                    <VideoCardTwo
+                      setModalToggleVideoId={setModalToggleVideoId}
+                      data={videoData}
+                      key={`video-${i}`}
+                    />
+                  );
+                })
+              : serachMode === 'model'
+              ? modelRecommendVideo.map((videoData, i) => {
+                  return (
+                    <VideoCardTwo
                       setModalToggleVideoId={setModalToggleVideoId}
                       data={videoData}
                       key={`video-${i}`}
@@ -269,7 +361,7 @@ const VideosPage = () => {
               : searchResultVideo &&
                 searchResultVideo.map((videoData, i) => {
                   return (
-                    <VideoCard
+                    <VideoCardTwo
                       setModalToggleVideoId={setModalToggleVideoId}
                       data={videoData}
                       key={`video-${i}`}
@@ -282,8 +374,22 @@ const VideosPage = () => {
               : ''} */}
           </FlexTransparentDiv>
         </FlexTransparentDiv>
+        <PageDownButton
+          className="toggle up"
+          style={{
+            rotate: '90deg',
+            position: 'absolute',
+            bottom: '-435vh',
+            left: '48vw',
+          }}
+          onClick={() => {
+            moveToFirst();
+          }}
+        >
+          《
+        </PageDownButton>
       </FlexTransparentDiv>
-    </>
+    </FlexTransparentDiv>
   );
 };
 

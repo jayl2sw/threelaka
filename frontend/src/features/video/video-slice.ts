@@ -10,12 +10,13 @@ type VideoState = {
   videoData: VideoData;
   // 최근 공부한 영상 5개
   recentVideoData: RecentVideoData[];
-  // 추천 비디오 4개
+  // 추천 비디오 40개(아이템 기반, 유저 기반)
   recommendVideoList: RecommendVideos[];
   // 키워드 검색 결과
   keywordSearchVideoList: RecommendVideos[];
   // 태그 검색 결과
   tagSearchVideoList: RecommendVideos[];
+  recommendVideoType: string; // item-based;
 };
 
 let initialState: VideoState = {
@@ -34,6 +35,7 @@ let initialState: VideoState = {
   recommendVideoList: [],
   keywordSearchVideoList: [],
   tagSearchVideoList: [],
+  recommendVideoType: '',
 };
 
 // Slice
@@ -80,12 +82,14 @@ const videoSlice = createSlice({
     // 추천 비디오 4개 정보 받아오기 요청
     getRecommendVideos(state) {
       state.loading = true;
+      state.recommendVideoType = '';
     },
     // 추천 비디오 4개 정보 받아오기 성공
-    getRecommendVideosSuccess(state, action: PayloadAction<RecommendVideos[]>) {
+    getRecommendVideosSuccess(state, action: PayloadAction<any>) {
       // console.log(action.payload);
       state.loading = false;
-      state.recommendVideoList = action.payload;
+      state.recommendVideoList = action.payload.recommends;
+      state.recommendVideoType = action.payload.usedModel;
     },
     // 추천 비디오 4개 정보 받아오기 실패
     getRecommendVideosFailed(state, action: PayloadAction<string>) {
