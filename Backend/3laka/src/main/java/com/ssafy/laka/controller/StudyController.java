@@ -71,7 +71,7 @@ public class StudyController {
     }
 
     @GetMapping("/video/recommends/tags")
-    @ApiOperation(value = "추천 영상 조회", notes = "추천 영상 4개 전달")
+    @ApiOperation(value = "추천 태그 영상 조회", notes = "추천 영상 4개 전달")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
@@ -89,13 +89,15 @@ public class StudyController {
         return new ResponseEntity<>(studyService.getRecentVideo(), HttpStatus.OK);
     }
 
-    @GetMapping("/video/tags/{tagId}")
+    @GetMapping("/video/tags/{tagId}/")
     @ApiOperation(value = "태그기반 필터링 조회", notes = "태그 기반 필터링 조회")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> getVideosByTag(@PathVariable int tagId, int page){
-
+    public ResponseEntity<?> getVideosByTag(@PathVariable int tagId, @PathVariable(required = false) Integer page){
+        if (page == null){
+            page = 0;
+        }
         return new ResponseEntity<>(studyService.getVideosByTags(tagId, page), HttpStatus.OK);
     }
 
