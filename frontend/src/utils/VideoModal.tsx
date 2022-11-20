@@ -222,6 +222,7 @@ const VideoModal = ({
                   fontSize={'2.5vmin'}
                   fontColor={'white'}
                   backgroundColor={'blue'}
+                  style={{ marginLeft: '1.5vw' }}
                   onClick={() => handlerPostStartStudy(videoData.video.videoId)}
                 >
                   새로운 학습 시작하기
@@ -237,7 +238,11 @@ const VideoModal = ({
               justifyContent={'center'}
               alignItems={'center'}
               IsBorder={'none'}
-              style={{ transition: 'all 1s ease', position: 'relative' }}
+              style={{
+                transition: 'all 1s ease',
+                position: 'relative',
+                marginLeft: '1.5vw',
+              }}
             >
               {continuedToggle ? (
                 <>
@@ -424,7 +429,7 @@ const VideoModal = ({
           </FlexTransparentDiv>
         </FlexTransparentDiv>
         <FlexTransparentDiv
-          widthSize={'44.5vw'}
+          widthSize={'46vw'}
           heightSize={'24vh'}
           paddingSize={'1vh 0vw'}
           flexDirection={'column'}
@@ -436,10 +441,11 @@ const VideoModal = ({
             borderRadius: '10px',
             // border: '2px solid black',
             backgroundColor: '#e7f5fb',
+            maxHeight: '20vh',
           }}
         >
           <FlexTransparentDiv
-            widthSize={'43.5vw'}
+            widthSize={'45.5vw'}
             heightSize={'24vh'}
             paddingSize={'0vh 1vw'}
             flexDirection={'column'}

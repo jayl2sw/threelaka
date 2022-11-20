@@ -36,6 +36,21 @@ const WordTest = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isRight, setIsRight] = useState<boolean>(false);
 
+  // function AudioFilePlayer(props:any) {
+  //   let name = props.name;
+  //   let id = props.id;
+
+  const handleAudioPlay = (state: boolean) => {
+    const s3_url_link =
+      'https://threelaka.s3.ap-northeast-2.amazonaws.com/right.mp3';
+    var audio = new Audio(s3_url_link);
+    if (state) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  };
+
   //영어 단어리스트에서 랜덤으로 한개씩 뽑아서 퀴즈 내기
 
   const [trigger, setTrigger] = useState(false);
@@ -55,6 +70,11 @@ const WordTest = ({
     }
   };
   useEffect(() => {
+    if (isRight) {
+      handleAudioPlay(true);
+    }
+  }, [handleTrigger]);
+  useEffect(() => {
     if (inputRef.current !== null) {
       inputRef.current.focus();
     }
@@ -71,7 +91,7 @@ const WordTest = ({
       setIsRight(true);
       setTimeout(() => {
         handleTrigger();
-      }, 500);
+      }, 1000);
       const isMemorizedWordInfo = {
         wordbookId: randomWord.wordbookId,
       };

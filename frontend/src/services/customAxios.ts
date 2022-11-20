@@ -4,8 +4,8 @@ const customAxios = axios.create({
   // baseURL: 'http://localhost:8000/',
   // nginx가 안달려있을 땐 port번호를 적어줘야 제대로감
   // https://k7e2021.p.ssafy.io/
-  // baseURL: 'https://3laka.com/',
-  baseURL: 'https://k7e2021.p.ssafy.io',
+  baseURL: 'https://3laka.com/',
+  // baseURL: 'https://k7e2021.p.ssafy.io',
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     // 'Access-Control-Allow-Origin': '*',
