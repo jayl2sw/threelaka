@@ -7,7 +7,7 @@ import urllib
 import json
 from properties import spell_checker_key, oxford_appId, oxford_key, speechace_url, naver_id, naver_secret
 from preprocess import process
-
+import pandas as pd
 from models import EssayChecker, NaverRequest
 import re
 import nltk
@@ -181,3 +181,12 @@ async def papago(naver_request: NaverRequest):
         response[k] = res.json()["message"]["result"]["translatedText"]
         
     return response
+
+user_based_df = pd.read_csv("user_based_recommendations.csv")
+talk_based_df = pd.read_csv("talk_based_recommendations.csv")
+@app.get("/api/v2/study/videos/recommends/{user_id}/{type}")
+async def recommends(user_id, type):
+    if type:
+        return user_based_df.loc[user_id]
+    else:
+        return talk_based_df.loc[user_id]
