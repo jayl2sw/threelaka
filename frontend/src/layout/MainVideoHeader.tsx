@@ -24,6 +24,7 @@ import AlertDropDown from '../pages/Main/components/AlertDropDown';
 import ProfileDropDown from '../pages/Main/components/ProfileDropDown';
 import { IVideoContainerProps } from '../pages/Dashboard/DailyBoard/VideoContainer';
 import { studyActions } from '../features/study/study-slice';
+import { AlertImgBoxVideo } from '../styles/Main/MainStyle';
 const MainVideoHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -51,9 +52,14 @@ const MainVideoHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
     dispatch(studyActions.resetStudystate());
     navigate('/');
   };
-
+  const userAlertList = useAppSelector((state) => state.auth.userAlertList);
   return (
-    <MainHeaderMenuRegion style={{ background: 'black' }}>
+    <MainHeaderMenuRegion
+      style={{
+        background: `linear-gradient(180deg, rgb(0, 0, 0), 50%, rgba(0, 0, 0, 0))`,
+        height: '16.5vh',
+      }}
+    >
       <HeaderBgBlock>
         <HeaderLeftBlock>
           <LogoBlock>
@@ -87,21 +93,23 @@ const MainVideoHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
             widthSize="2vw"
             onClick={handleToggle}
           >
-            <AlertImgBox
-              style={{
-                width: '4vmin',
-                height: '3vmin',
+            {userAlertList.length !== 0 ? (
+              <AlertImgBoxVideo
+                style={{
+                  width: '4vmin',
+                  height: '3vmin',
 
-                borderRadius: '50%',
+                  borderRadius: '50%',
 
-                position: 'absolute',
-                display: 'flex',
-                flexDirection: 'column',
+                  position: 'absolute',
+                  display: 'flex',
+                  flexDirection: 'column',
 
-                top: '6vh',
-                right: '6.5vw',
-              }}
-            ></AlertImgBox>
+                  top: '6vh',
+                  right: '6.5vw',
+                }}
+              ></AlertImgBoxVideo>
+            ) : null}
             <TbBellRinging
               size={30}
               color="white"

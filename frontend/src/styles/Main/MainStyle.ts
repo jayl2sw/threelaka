@@ -408,6 +408,16 @@ export const AlertImgBox = styled.img.attrs((props) => ({
   }
 `;
 
+export const AlertImgBoxVideo = styled.img.attrs((props) => ({
+  src: `https://threelaka.s3.ap-northeast-2.amazonaws.com/neonCircle.png`,
+}))`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15vmin;
+  z-index: 3;
+`;
+
 export const AlertDropDownContainer = styled.div`
   position: fixed;
   top: 10.5vh;
