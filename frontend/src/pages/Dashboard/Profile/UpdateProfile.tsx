@@ -182,7 +182,7 @@ const UpdateProfile = () => {
         flexDirection={'column'}
         justifyContent={'center'}
         alignItems={'center'}
-        IsBorder={'is'}
+        IsBorder={'none'}
       >
         {isTagOpen ? (
           <UpdateTagModal isTagOpen={isTagOpen} setIsTagOpen={setIsTagOpen} />
@@ -206,7 +206,7 @@ const UpdateProfile = () => {
             flexDirection={'row'}
             justifyContent={'center'}
             alignItems={'center'}
-            IsBorder={'is'}
+            IsBorder={'none'}
           >
             {tagList.length !== 0
               ? tagList.map((item, idx) => {

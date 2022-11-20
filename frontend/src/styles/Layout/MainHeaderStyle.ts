@@ -33,6 +33,7 @@ export const MainHeaderMenuRegion = styled.div`
   align-items: center;
   width: 100vw;
   height: 8.5vh;
+
   /* background-color: rgba(255, 255, 255, 0.5); */
   /* opacity: 1; */
   position: fixed;

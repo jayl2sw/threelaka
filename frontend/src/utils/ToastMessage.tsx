@@ -21,11 +21,11 @@ interface IToastMessage {
 export const ToastMessage = ({ text }: IToastMessage) => {
   return (
     <>
-      <LogoBlock style={{ marginTop: '1vh', width: '60%', height: '4vh' }}>
+      <LogoBlock style={{ margin: '0', width: '10vw', height: '4vh' }}>
         <img
           src="https://threelaka.s3.ap-northeast-2.amazonaws.com/mainlogo.png"
           alt="스리라까 로고"
-          // style={{ width: '100%' }}
+          style={{ width: '100%', height: 'auto' }}
         />
       </LogoBlock>
       <ToastText>{text}</ToastText>

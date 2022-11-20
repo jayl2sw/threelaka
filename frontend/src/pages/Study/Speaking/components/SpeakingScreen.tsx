@@ -5,13 +5,14 @@ import { useLocation } from 'react-router-dom';
 import ModeScreen from './ModeScreen';
 import EssayButtons from './EssayButtons';
 import EssayScreen from './EssayScreen';
-
+import { useState } from 'react';
 // style
 import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
 
 const SpeakingScreen = () => {
   const modeCode = useLocation().search.replace('?mode=', '');
-
+  // const [essayOn, setEssayOn] = useState<0>;
+  const [essayOn, setEssayOn] = useState<number>(0);
   if (modeCode !== 'test') {
     // 녹화 또는 녹음 모드
     return (
@@ -40,8 +41,8 @@ const SpeakingScreen = () => {
           IsBorder={'none'}
           style={{ marginTop: '2vh' }}
         >
-          <EssayScreen />
-          <EssayButtons />
+          <EssayScreen essayOn={essayOn} setEssayOn={setEssayOn} />
+          <EssayButtons essayOn={essayOn} setEssayOn={setEssayOn} />
         </FlexTransparentDiv>
       </div>
     );

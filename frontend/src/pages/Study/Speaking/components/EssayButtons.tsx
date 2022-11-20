@@ -5,7 +5,12 @@ import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
 import { RightBtn } from '../../../../styles/Common/CommonBtnStyle';
 import { EssayOnOffContainer } from '../../../../styles/Speaking/SpeakingStyle';
 
-const EssayButtons = () => {
+export interface IEssayButtons {
+  essayOn: number;
+  setEssayOn: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const EssayButtons = ({ essayOn, setEssayOn }: IEssayButtons) => {
   const navigate = useNavigate();
   const currentPath = useLocation().pathname;
   const modeCode = useLocation().search.replace('?mode=', '');
@@ -40,6 +45,7 @@ const EssayButtons = () => {
             className={isOn ? '' : 'not-active'}
             onClick={() => {
               setIsOn(true);
+              setEssayOn(1);
             }}
           >
             ON
@@ -55,6 +61,7 @@ const EssayButtons = () => {
             className={isOn ? 'not-active' : ''}
             onClick={() => {
               setIsOn(false);
+              setEssayOn(0);
             }}
           >
             OFF

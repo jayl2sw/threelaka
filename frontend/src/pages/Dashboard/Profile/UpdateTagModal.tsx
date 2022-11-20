@@ -17,7 +17,7 @@ interface IUpdateTagModalProps {
 
 const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
   const dispatch = useAppDispatch();
-  const [selectedItem, setSelectedItem] = useState<Array<number>>([]);
+  const [selectedItem, setSelectedItem] = useState<Array<string>>([]);
 
   const tags: string[] = [
     '#인간',
@@ -29,19 +29,42 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
     '#문화예술',
   ];
 
+  const tagNum = {
+    19: '#인간',
+    53: '#산업',
+    20: '#생물',
+    35: '#문화예술',
+    52: '#문명',
+    54: '#자연',
+    16: '#지식',
+  };
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const tagId = Number(e.target.value);
-    if (selectedItem.includes(tagId)) {
-      const tmp = selectedItem.filter((el) => el !== tagId);
+    const tagVal = e.target.value;
+
+    if (selectedItem.includes(tagVal)) {
+      const tmp = selectedItem.filter((el) => el !== tagVal);
       setSelectedItem(tmp);
     } else {
-      selectedItem.push(tagId);
+      selectedItem.push(tagVal);
       setSelectedItem([...selectedItem]);
     }
   };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    function getKeyByValue(obj: any, value: any) {
+      return Object.keys(obj).find((key) => obj[key] === value);
+    }
     e.preventDefault();
-    dispatch(dashboardActions.updateTag(selectedItem));
+    const tagData: number[] = [];
+
+    selectedItem.map((item, idx) => {
+      let tagNumber = getKeyByValue(tagNum, item);
+      console.log('얍얍', tagNumber);
+      tagData.push(Number(tagNumber));
+    });
+    console.log(tagData);
+    dispatch(dashboardActions.updateTag(tagData));
   };
 
   const closeModalTag = () => {
@@ -61,7 +84,7 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
           top: '20vh',
           left: '25vw',
           zIndex: '1000',
-          // border: '1px solid green',
+
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -106,7 +129,7 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
               style={{
                 flexWrap: 'wrap',
                 alignContent: 'flex-start',
-                // background: 'red',
+
                 background: 'rgba(131,189,255, 0.3)',
                 borderRadius: '2vmin',
                 marginTop: '3vh',
@@ -117,11 +140,11 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
                   <Input
                     type="checkbox"
                     className="check"
-                    value={idx + 1}
+                    value={item}
                     onChange={(e) => onChange(e)}
                     disabled={
                       selectedItem.length === 3
-                        ? selectedItem.includes(idx + 1)
+                        ? selectedItem.includes(item)
                           ? false
                           : true
                         : false
@@ -154,10 +177,6 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
             ) : null}
           </form>
         </FlexTransparentDiv>
-
-        {/* <CloseModalBtn onClick={() => {}} style={{ cursor: 'pointer' }}>
-        <AiFillCloseCircle size={30}></AiFillCloseCircle>
-      </CloseModalBtn> */}
       </MainBox>
     </ModalBackdrop>
   );

@@ -184,6 +184,7 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
           </SubmitBtnWrap>
         </InputWrap>
       </StyledForm>
+
       <FlexTransparentDiv
         widthSize={'90%'}
         heightSize={'45vh'}
