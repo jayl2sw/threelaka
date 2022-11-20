@@ -31,4 +31,6 @@ public interface LearningRecordRepository extends JpaRepository<LearningRecord, 
                     "lr.modified_date between :start and :end " +
                     "group by u.user_id")
     List<ProgressInterface> findProgress(int guildId, String videoId, String start, String end);
+
+    int countByUserAndAndEssayNotNull(User usr);
 }

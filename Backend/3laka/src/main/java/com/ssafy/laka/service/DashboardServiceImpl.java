@@ -71,7 +71,7 @@ public class DashboardServiceImpl implements DashboardService{
     public HistoryNumDto getHistory() {
         User user = getUser();
         int videos = learningRecordRepository.countByUserAndStage(user, Stage.COMPLETE);
-        int essays = essayRepository.countByUser(user);
+        int essays = learningRecordRepository.countByUserAndAndEssayNotNull(user);
         int words = wordbookRepository.countByUser(user);
         HistoryNumDto historyNumDto = new HistoryNumDto(videos, essays, words);
         return historyNumDto;
