@@ -187,6 +187,6 @@ talk_based_df = pd.read_csv("talk_based_recommendations.csv")
 @app.get("/api/v2/study/videos/recommends/{user_id}/{type}")
 async def recommends(user_id, type):
     if type:
-        return user_based_df.loc[user_id]
+        return user_based_df.loc[user_id].to_list()
     else:
-        return talk_based_df.loc[user_id]
+        return talk_based_df.loc[user_id].to_list()
