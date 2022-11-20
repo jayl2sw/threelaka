@@ -13,18 +13,18 @@ import {
   ScoreIcon,
   MarkedTextBox,
   Score,
-  SpeechTestBox,
-  ErrorText,
-  ErrorBlock,
 } from '../../../../styles/Speaking/SpeakingStyle';
 import { LoadingSpinner } from '../../../../styles/Common/LoadingSpinner';
 import { useRef } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../../utils/hooks';
 import ScoreIndicator from '../../Speaking/components/ScoreIndicator';
 import { studyActions } from '../../../../features/study/study-slice';
-import { MainBox, MainPaleBox } from '../../../../styles/Common/CommonDivStyle';
+import {
+  ErrorText,
+  ErrorBlock,
+} from '../../../../styles/Speaking/SpeakingStyle';
 import { FaBullseye, FaLessThanEqual } from 'react-icons/fa';
-
+import { MainBox, MainPaleBox } from '../../../../styles/Common/CommonDivStyle';
 const SpeechTest = () => {
   const pageParams: StudyPageParams = useParams() as any;
   const [selectedText, setSelectedText] = useState<string>('');
@@ -44,15 +44,15 @@ const SpeechTest = () => {
   }, []);
 
   const [isTestStart, setIsTestStart] = useState<boolean>(false);
-
   return (
     <SpeechTestContainer>
       <MainPaleBox
         widthSize={'50vw'}
         heightSize={'50vh'}
         paddingSize={'0'}
-        fontSize={'1vw'}
+        fontSize={'3.8vmin'}
         fontColor={'black'}
+        style={{ minHeight: '50vh' }}
       >
         <SpeechResultBox>
           {isTestStart && speechTestError ? (
@@ -60,18 +60,28 @@ const SpeechTest = () => {
               <ErrorBlock>
                 <ErrorText>발음 테스트가 어렵습니다😂</ErrorText>
                 <ErrorText>
-                  틀린 단어가 있지는 않은지, 녹음은 잘 되었는지 확인해주세요
+                  테스트하려는 문장을 클릭했는지, 녹음은 잘 되었는지
+                  확인해주세요.
                 </ErrorText>
               </ErrorBlock>
             </>
           ) : (
             <>
-              {scoreLoading ? (
-                <LoadingSpinner
-                  widthSize="20vmin"
-                  heightSize="20vmin"
-                  style={{ marginTop: '2vh' }}
-                />
+              {isTestStart && scoreLoading ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  <h3>발음 분석 중 입니다</h3>
+                  <LoadingSpinner
+                    widthSize="20vmin"
+                    heightSize="20vmin"
+                    style={{ marginTop: '2vh' }}
+                  />
+                </div>
               ) : (
                 <>
                   {speechScores && speechScores.length !== 0 ? (
@@ -82,7 +92,7 @@ const SpeechTest = () => {
                   ) : null}
                   {speechScores && speechScores.length !== 0 ? (
                     <MarkedTextBox>
-                      <ColorScoreIndicator>
+                      <ColorScoreIndicator style={{ fontSize: '2vmin' }}>
                         <div className="box">
                           <div className="innerBox">
                             <ScoreIcon className="bad" />
@@ -107,13 +117,20 @@ const SpeechTest = () => {
                           color: '#111111',
                           width: 'auto',
                           fontSize: '3vmin',
+                          display: 'flex',
+                          flexWrap: 'wrap',
                         }}
                         ref={pickedTextBox}
                       >
                         {selectedText.split(/\r?\n| /).map((word, idx) => (
-                          <ScoreTextBox>
+                          <ScoreTextBox
+                            style={{
+                              fontSize:
+                                selectedText.length > 100 ? '2vmin' : '3.8vmin',
+                            }}
+                          >
                             <span
-                              style={{ color: '#fff' }}
+                              style={{ color: '#111111', fontWeight: 'bold' }}
                               className={`${
                                 speechScores[idx].score <= 50
                                   ? 'bad'
@@ -132,11 +149,19 @@ const SpeechTest = () => {
                       </TextBox>
                     </MarkedTextBox>
                   ) : selectedText ? (
-                    <TextBox style={{ color: '#111111' }}>
+                    <TextBox
+                      style={{
+                        color: '#111111',
+                        fontSize:
+                          selectedText.length > 100 ? '2.8vmin' : '3.8vmin',
+                      }}
+                    >
                       {selectedText}
                     </TextBox>
-                  ) : (
+                  ) : initialText ? (
                     <TextBox>테스트하고 싶은 문장을 클릭해보세요</TextBox>
+                  ) : (
+                    ''
                   )}
                 </>
               )}
@@ -150,7 +175,7 @@ const SpeechTest = () => {
           selectedText={selectedText}
           setIsTestStart={setIsTestStart}
           isTestStart={isTestStart}
-        />
+        ></VoiceRecorderForTest>
       </MainPaleBox>
       <MainBox
         widthSize={'50vw'}
@@ -163,8 +188,7 @@ const SpeechTest = () => {
         <EssayForTest
           setSelectedText={setSelectedText}
           pageParams={pageParams}
-          // setFlag={setFlag}
-        />
+        ></EssayForTest>
       </MainBox>
     </SpeechTestContainer>
   );

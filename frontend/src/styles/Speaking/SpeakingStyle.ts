@@ -81,37 +81,70 @@ export const EssayScreenContainer = styled.div`
 
 // 에세이 스크립트 스타일
 export const EssayContainer = styled.div`
-  width: 50vw;
   height: 30vh;
+  padding: 1vw;
+  /* font-size: 1.5vmin; */
+  min-height: 30vh;
+  width: auto;
+  background: #ffffff;
+  box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
   border-radius: 2vmin;
   display: flex;
   flex-direction: column;
-  padding: 0.5vh 0.5vw;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
   .trigger {
     display: none;
   }
 `;
 
 export const TextContainer = styled.div`
-  margin-top: 1vh;
+  /* margin-top: 1vh; */
 `;
 export const TextBox = styled.div`
-  width: 50vw;
+  width: 45vw;
+  /* height: 10rem; */
+  /* padding-top: 5vh; */
   margin: 5rem auto;
+  padding-bottom: 2.2vh;
+  /* margin-bottom: 1vh; */
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3vmin;
-  font-family: 'PretendardRegular';
+  font-size: 3.8vmin;
   color: #9897a9;
+  /* background-color: #febf00; */
   transition: 0.4s;
-  &.active {
+  /* &.active {
     font-size: 3.8vmin;
     width: 50vw;
     background-color: #8dc2ff;
     color: #fff;
+    padding: 1vw;
+  } */
+`;
+
+export const TextEssayBox = styled.div`
+  width: 45vw;
+  /* height: 10rem; */
+  /* padding-top: 5vh; */
+  margin: 4.5rem auto;
+  /* padding-bottom: 2.2vh; */
+  padding: 1vw 0 1vw 0;
+  line-height: 2vh;
+  /* margin-bottom: 1vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.8vmin;
+  color: #9897a9;
+  box-shadow: inset 0 0 0 0 #8dc2ff;
+  :hover {
+    color: #fff;
+    box-shadow: inset 50vw 0 0 0 #8dc2ff;
+    cursor: pointer;
   }
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 `;
 
 export const SpeechTestContainer = styled.div`
@@ -234,7 +267,7 @@ export const SpeechResultBox = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  min-height: 33vh;
+  min-height: 37vh;
   /* flex-wrap: wrap; */
   /* width: auto; */
 `;
@@ -253,9 +286,11 @@ export const ScoreTextBox = styled.div`
     background-color: #52aa90;
   }
   letter-spacing: 1.5px;
+  line-height: 3vh;
 `;
 
 export const ColorScoreIndicator = styled.div`
+  margin-top: 2vh;
   .box {
     display: flex;
   }

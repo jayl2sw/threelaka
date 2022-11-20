@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import useOnScreen from '../UseOnScreen';
-import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
+import { MainBox } from '../../../../styles/Common/CommonDivStyle';
 import {
+  ModePickContainer,
   EssayContainer,
   TextBox,
   TextContainer,
@@ -9,21 +10,18 @@ import {
 import { useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../../utils/hooks';
+import { useCallback } from 'react';
 import { writingActions } from '../../../../features/writing/writing-slice';
 import { StudyPageParams } from '../../../../models';
 import { studyActions } from '../../../../features/study/study-slice';
-
+import { TextEssayBox } from '../../../../styles/Speaking/SpeakingStyle';
 interface IEssayProps {
   setSelectedText: React.Dispatch<React.SetStateAction<string>>;
-  // setFlag: boolean;
+
   pageParams: StudyPageParams;
 }
 
-const EssayForTest = ({
-  setSelectedText,
-  pageParams,
-}: // setFlag,
-IEssayProps) => {
+const EssayForTest = ({ setSelectedText, pageParams }: IEssayProps) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const isOnScreen = useOnScreen(elementRef);
   const dispatch = useAppDispatch();
@@ -89,13 +87,9 @@ IEssayProps) => {
   return (
     <EssayContainer>
       <TextContainer>
-        <p ref={elementRef} className="trigger">
-          에세이예요
-        </p>
-
         {script.length !== 0 ? (
           script.map((item, idx) => (
-            <TextBox
+            <TextEssayBox
               key={idx}
               ref={(el) => {
                 if (null != el) {
@@ -109,7 +103,7 @@ IEssayProps) => {
               }}
             >
               {item}
-            </TextBox>
+            </TextEssayBox>
           ))
         ) : (
           <h2 style={{ textAlign: 'center' }}>
