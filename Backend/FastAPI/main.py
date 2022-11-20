@@ -3,14 +3,14 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from fastapi.middleware.cors import CORSMiddleware
 from nltk.stem import WordNetLemmatizer
 import requests
-import urllib
-import json
+
 from properties import spell_checker_key, oxford_appId, oxford_key, speechace_url, naver_id, naver_secret
 from preprocess import process
 import pandas as pd
 from models import EssayChecker, NaverRequest
 import re
 import nltk
+
 nltk.download('wordnet')
 nltk.download('omw-1.4')
 
@@ -21,6 +21,7 @@ origins = ["*"]
 
 
 app = FastAPI() 
+app.router.redirect_slashes=False
 
 app.add_middleware(
     CORSMiddleware,
@@ -184,9 +185,11 @@ async def papago(naver_request: NaverRequest):
 
 user_based_df = pd.read_csv("user_based_recommendations.csv")
 talk_based_df = pd.read_csv("talk_based_recommendations.csv")
+
 @app.get("/api/v2/study/videos/recommends/{user_id}/{type}")
 async def recommends(user_id, type):
     if type:
-        return user_based_df.loc[user_id].to_list()
+        res = user_based_df.iloc[int(user_id)].to_list()[1:]
     else:
-        return talk_based_df.loc[user_id].to_list()
+        res = talk_based_df.iloc[int(user_id)].to_list()[1:]
+    return res
