@@ -18,6 +18,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 
 import ParentSize from '@vx/responsive/lib/components/ParentSize';
+import { useSpring, animated } from 'react-spring';
 
 export type BarsProps = {
   width: number;
@@ -92,6 +93,12 @@ export default function Example({
     [timeData, yMax]
   );
 
+  const { scale } = useSpring({
+    from: { scale: 0 },
+    to: { scale: 1 },
+  });
+  const AnimatedBar = animated(Bar);
+
   return width < 20 || height < 20 ? null : (
     <div className="" style={{ width, height }}>
       <GraphBox>
@@ -138,6 +145,7 @@ export default function Example({
                   />
                   <Group top={20} left={90}>
                     <AxisLeft
+                      labelOffset={45}
                       stroke="#565656"
                       tickStroke="#565656"
                       strokeDasharray="#565656"
@@ -165,12 +173,14 @@ export default function Example({
                       const barX = xScale(label);
                       const barY = yMax - barHeight;
                       return (
-                        <Bar
+                        <AnimatedBar
                           key={`bar-${label}`}
                           x={barX}
-                          y={barY}
+                          y={scale.interpolate(
+                            (s: any) => yMax - s * barHeight
+                          )}
                           width={barWidth}
-                          height={barHeight}
+                          height={scale.interpolate((s: any) => s * barHeight)}
                           fill={'url(#gradient)'}
                           onClick={() => {
                             if (events)
