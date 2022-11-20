@@ -22,9 +22,10 @@ const TypoCorrectionComp = ({
   foldLayoutMode,
   setFoldLayoutMode,
 }: ITypoCorretionProps) => {
-  const scrollRef = useHorizontalScroll(
-    foldLayoutMode
-  ) as React.MutableRefObject<HTMLDivElement>;
+  const scrollRef = useHorizontalScroll([
+    foldLayoutMode,
+    layoutMode,
+  ]) as React.MutableRefObject<HTMLDivElement>;
   return (
     <>
       {layoutMode === 0 ? (

@@ -23,9 +23,9 @@ const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
     }
   };
 
-  const scrollRef = useHorizontalScroll(
-    mode
-  ) as React.MutableRefObject<HTMLDivElement>;
+  const scrollRef = useHorizontalScroll([
+    mode,
+  ]) as React.MutableRefObject<HTMLDivElement>;
   return (
     <VideoBlock>
       <FlexTransparentDiv

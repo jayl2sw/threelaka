@@ -9,7 +9,7 @@ export const getVideoDataApi = async (url: string) => {
 };
 
 // 가장 최근에 공부한 영상 조회
-export const getRecentVideoDataApi = async (url: string) => {
+export const getRecentVideoDataApi = async () => {
   const res = await customAxios.get(`/api/v1/study/video/latest`);
 
   return res.data;
@@ -29,6 +29,13 @@ export const getKeywordSearchVideosApi = async (
   keyword: string
 ): Promise<any> => {
   const res = await customAxios.get(`api/v1/study/video/search/${keyword}`);
+  const response: RecommendVideos[] = res.data;
+  return response;
+};
+
+// 태그 검색 api
+export const getTagSearchVideosApi = async (tagId: number): Promise<any> => {
+  const res = await customAxios.get(`api/v1/study/video/tags/${tagId}/1`);
   const response: RecommendVideos[] = res.data;
   return response;
 };

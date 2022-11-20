@@ -47,7 +47,7 @@ const MyGuild = () => {
 
   // 수평 스크롤
   const scrollRef = useHorizontalScroll(
-    ''
+    []
   ) as React.MutableRefObject<HTMLDivElement>;
   return (
     <>

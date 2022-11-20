@@ -5,6 +5,7 @@ import { useAppDispatch } from '../utils/hooks';
 import { studyActions } from '../features/study/study-slice';
 import { StudyPageParams } from '../models';
 import { dashboardActions } from '../features/dashboard/dashboard-slice';
+// import './StudyLayoutStyle.css';
 
 // interface IheaderProps {
 //   customMoveToNext: (

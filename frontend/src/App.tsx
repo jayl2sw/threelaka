@@ -16,6 +16,7 @@ import ReadPage from './pages/Study/Read/ReadPage';
 import WritingPage from './pages/Study/Writing/WritingPage';
 import SpeakingPage from './pages/Study/Speaking/SpeakingPage';
 import VocaPage from './pages/Study/Voca/VocaPage';
+// import './App.css';
 
 // Dashboard
 // import DashBoardPage from './pages/Dashboard/DashBoardPage';
@@ -37,7 +38,7 @@ function App() {
     dispatch(authActions.fetchUser());
   }, [dispatch]);
   return (
-    <div className="App">
+    <div className="App main-page-style">
       <Routes>
         {/* Main */}
         <Route element={<ProtectedRoute />}>
