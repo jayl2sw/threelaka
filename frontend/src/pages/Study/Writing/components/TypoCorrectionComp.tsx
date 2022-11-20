@@ -7,6 +7,12 @@ import {
 } from '../../../../styles/Common/CommonDivStyle';
 import { RiMenuFoldFill, RiMenuUnfoldFill } from 'react-icons/ri';
 import { useHorizontalScroll } from '../../../../utils/useSideScroll';
+import {
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+  AiOutlineArrowUp,
+  AiOutlineArrowDown,
+} from 'react-icons/ai';
 
 // 필요한 props interface
 interface ITypoCorretionProps {
@@ -106,8 +112,8 @@ const TypoCorrectionComp = ({
                 // border: '3px solid blue',
                 position: 'absolute',
                 zIndex: 5,
-                top: '50vh',
-                left: '37vw',
+                top: '53.4vh',
+                left: '37.5vw',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -115,7 +121,7 @@ const TypoCorrectionComp = ({
               }}
               onClick={() => setFoldLayoutMode(1)}
             >
-              <RiMenuUnfoldFill size={30}>ddd</RiMenuUnfoldFill>
+              <AiOutlineArrowLeft size={30}>ddd</AiOutlineArrowLeft>
             </div>
           </>
         ) : (
@@ -139,8 +145,8 @@ const TypoCorrectionComp = ({
                 height: '5vh',
                 // border: '3px solid blue',
                 position: 'absolute',
-                top: '50vh',
-                left: '11vw',
+                top: '53.4vh',
+                left: '12vw',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -148,7 +154,7 @@ const TypoCorrectionComp = ({
               }}
               onClick={() => setFoldLayoutMode(0)}
             >
-              <RiMenuUnfoldFill size={30}></RiMenuUnfoldFill>
+              <AiOutlineArrowRight size={30}></AiOutlineArrowRight>
             </div>
             {/* <p>{spellCheckResult}</p> */}
           </MainPaleBox>
@@ -273,7 +279,7 @@ const TypoCorrectionComp = ({
             }}
             onClick={() => setFoldLayoutMode(1)}
           >
-            <RiMenuFoldFill size={30}></RiMenuFoldFill>
+            <AiOutlineArrowUp size={30}></AiOutlineArrowUp>
           </div>
         </MainPaleBox>
       ) : (
@@ -306,7 +312,7 @@ const TypoCorrectionComp = ({
             }}
             onClick={() => setFoldLayoutMode(0)}
           >
-            <RiMenuUnfoldFill size={30}></RiMenuUnfoldFill>
+            <AiOutlineArrowDown size={30}></AiOutlineArrowDown>
           </div>
           {/* <p>{spellCheckResult}</p> */}
         </MainPaleBox>

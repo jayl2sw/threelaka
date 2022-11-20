@@ -5,7 +5,7 @@ import { useAppDispatch } from '../utils/hooks';
 import { studyActions } from '../features/study/study-slice';
 import { StudyPageParams } from '../models';
 import { dashboardActions } from '../features/dashboard/dashboard-slice';
-// import './StudyLayoutStyle.css';
+import './StudyLayoutStyle.css';
 
 // interface IheaderProps {
 //   customMoveToNext: (
@@ -49,6 +49,7 @@ const StudyLayout = () => {
 
   return (
     <div
+      className="study-style"
       style={{
         width: '100vw',
         height: '100vh',

@@ -19,7 +19,7 @@ import { authActions } from '../../features/auth/authSlice';
 import { GradientRoundBtn } from '../../styles/Common/CommonBtnStyle';
 import CustomSlider from './components/CustomSlider';
 import CutomSliderBottom from './components/CustomSliderBottom';
-import './MainPage.css';
+// import './MainPage.css';
 import { videoActions } from '../../features/video/video-slice';
 
 const MainPage = () => {
