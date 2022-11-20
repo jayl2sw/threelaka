@@ -31,6 +31,7 @@ const StudyLayout = () => {
 
     if (nextStep === 'COMPLETE') {
       dispatch(studyActions.UpdateStudyStageStart(stageInfo));
+      navigate('/auth/dashboard/1');
       // dispatch(studyActions.resetStudystate());
     } else {
       // 2. 라이팅 페이지로 이동

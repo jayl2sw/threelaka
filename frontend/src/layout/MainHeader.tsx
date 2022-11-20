@@ -101,6 +101,7 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
             ></AlertImgBox>
             <TbBellRinging
               size={30}
+              color="white"
               style={{ cursor: 'pointer' }}
             ></TbBellRinging>
           </MainLinkWrapper>
