@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import EozPage from './EOZ/EozPage';
+// import EozPage from './EOZ/EozPage';
 // import EnglishOnlyZone from './EOZ/EnglishOnlyZone';
 import {
   FlexTransparentDiv,
@@ -35,7 +35,7 @@ const MyGuild = () => {
     (state) => state.guild.myguildLearnTime
   );
 
-  const learnTimePageNum = Math.ceil(myguildLearnTime.length / 6);
+  const learnTimePageNum = Math.ceil(myguildLearnTime.length / 7);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [roomNubmer, setRoomNumber] = useState<number>(0);
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
@@ -173,7 +173,7 @@ const MyGuild = () => {
                       `${myguildLearnTime[0].nickname}님이 ${Math.floor(
                         myguildLearnTime[0].time / 3600
                       )}시간 ${Math.floor(
-                        myguildLearnTime[0].time % 60
+                        (myguildLearnTime[0].time % 3600) / 60
                       )}분 공부했어요!`}
                   </FlexTransparentDiv>
                 </FlexTransparentDiv>
@@ -360,7 +360,7 @@ const MyGuild = () => {
           >
             <FlexTransparentDiv
               widthSize={'30vw'}
-              heightSize={'40vh'}
+              heightSize={'70vh'}
               paddingSize={'1vh 1vw'}
               flexDirection={'column'}
               justifyContent={'space-between'}
@@ -375,22 +375,34 @@ const MyGuild = () => {
                 }}
               >
                 {myguildLearnTime
-                  .slice(6 * (currentPage - 1), 6 * currentPage)
+                  .slice(7 * (currentPage - 1), 7 * currentPage)
                   .map((learnRecord, idx) => {
                     const timePercent =
                       (learnRecord.time / myguildLearnTime[0].time) * 100;
                     return (
                       <FlexTransparentDiv
                         widthSize={'28vw'}
-                        heightSize={'5vh'}
+                        heightSize={'10vh'}
                         paddingSize={'0'}
-                        flexDirection={'row'}
+                        flexDirection={'column'}
                         justifyContent={'start'}
                         alignItems={'center'}
                         IsBorder={'none'}
                       >
                         <FlexTransparentDiv
-                          widthSize={'5vw'}
+                          widthSize={'28vw'}
+                          heightSize={'5vh'}
+                          paddingSize={'0'}
+                          flexDirection={'row'}
+                          justifyContent={'start'}
+                          alignItems={'center'}
+                          IsBorder={'none'}
+                          style={{ fontSize: '2.5vmin', fontWeight: 'bold' }}
+                        >
+                          {learnRecord.nickname}
+                        </FlexTransparentDiv>
+                        <FlexTransparentDiv
+                          widthSize={'28vw'}
                           heightSize={'5vh'}
                           paddingSize={'0'}
                           flexDirection={'row'}
@@ -398,14 +410,31 @@ const MyGuild = () => {
                           alignItems={'center'}
                           IsBorder={'none'}
                         >
-                          {learnRecord.nickname}
+                          <LearnTimeProgressbar
+                            widthSize={'20vw'}
+                            heightSize={'2vh'}
+                            progressPercent={timePercent}
+                            style={{ marginBottom: '1vh' }}
+                          />
+                          <FlexTransparentDiv
+                            widthSize={'8vw'}
+                            heightSize={'4vh'}
+                            paddingSize={'0'}
+                            flexDirection={'row'}
+                            justifyContent={'end'}
+                            alignItems={'center'}
+                            IsBorder={'none'}
+                            style={{
+                              paddingBottom: '1.5vh',
+                              fontSize: '2.5vmin',
+                              fontWeight: 'bold',
+                              color: '#4A9FFF',
+                            }}
+                          >
+                            {Math.floor(learnRecord.time / 3600)}시간&nbsp;
+                            {Math.floor((learnRecord.time % 3600) / 60)}분
+                          </FlexTransparentDiv>
                         </FlexTransparentDiv>
-                        <LearnTimeProgressbar
-                          widthSize={'23vw'}
-                          heightSize={'2vh'}
-                          progressPercent={timePercent}
-                          style={{ marginBottom: '1vh' }}
-                        />
                       </FlexTransparentDiv>
                     );
                   })}
@@ -443,7 +472,7 @@ const MyGuild = () => {
               </FlexTransparentDiv>
             </FlexTransparentDiv>
 
-            <FlexTransparentDiv
+            {/* <FlexTransparentDiv
               widthSize={'30vw'}
               heightSize={'30vh'}
               paddingSize={'0'}
@@ -453,7 +482,7 @@ const MyGuild = () => {
               IsBorder={'is'}
             >
               <EozPage guildId={guildId} nickname={nickname} />
-            </FlexTransparentDiv>
+            </FlexTransparentDiv> */}
           </FlexTransparentDiv>
         </FlexTransparentDiv>
       </FlexTransparentDiv>

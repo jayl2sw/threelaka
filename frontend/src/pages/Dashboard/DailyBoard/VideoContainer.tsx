@@ -41,7 +41,7 @@ const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
           widthSize={'8vw'}
           heightSize={'4.5vh'}
           paddingSize={'0'}
-          fontColor={'black'}
+          fontColor={'white'}
           fontSize={'2vmin'}
           backgroundColor={'blue'}
           style={{ marginLeft: '1vw', wordBreak: 'keep-all' }}
@@ -54,7 +54,7 @@ const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
           widthSize={'8vw'}
           heightSize={'4.5vh'}
           paddingSize={'0'}
-          fontColor={'black'}
+          fontColor={'white'}
           fontSize={'2vmin'}
           backgroundColor={'blue'}
           style={{ marginRight: '1vw', marginLeft: '0.25vw' }}

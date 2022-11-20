@@ -71,9 +71,7 @@ const CutomSliderBottom = ({
       {recentVideoDataLst.length !== 0 ? (
         <ThumnailBlock
           url={`https://img.youtube.com/vi/${recentVideoDataLst[currentSlide].video.videoId}/0.jpg`}
-        >
-          sdsd
-        </ThumnailBlock>
+        ></ThumnailBlock>
       ) : (
         ''
       )}

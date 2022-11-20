@@ -25,6 +25,7 @@ const TagThumbnail = styled.div<TagThumbnailProps>`
   object-fit: contain;
   background: url(${(props) => props.url}) center no-repeat;
   background-size: 100vw 100vh;
+  opacity: 0.5;
 `;
 
 const ElipsisDiv = styled.div`
@@ -32,18 +33,18 @@ const ElipsisDiv = styled.div`
   justify-content: center;
   align-items: center;
   width: 35vw;
-  height: 30vh;
+  height: 15vh;
   text-align: left;
   color: white;
   font-size: 2.5vmin;
-  line-height: 6vh;
+  line-height: 5vh;
   overflow: hidden;
   word-wrap: break-word;
   word-break: keep-all;
   padding: 0 4vw 0 5vw;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   /* border: 1px solid yellow; */
 `;
@@ -116,6 +117,7 @@ const CustomSliderBottomItem = ({
             background:
               'linear-gradient(90deg, rgba(0, 0, 0, 1), 90%, rgba(0, 0, 0, 0))',
             zIndex: 1,
+            minWidth: '35vw',
           }}
         >
           <FlexTransparentDiv
@@ -129,6 +131,7 @@ const CustomSliderBottomItem = ({
             style={{
               fontSize: '4vmin',
               color: 'white',
+              fontFamily: 'pretendardextrabold',
             }}
           >
             {title}

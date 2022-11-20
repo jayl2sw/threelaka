@@ -2,13 +2,9 @@ import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { throttle } from 'lodash';
 import {
   MainPageBlock,
-  RecentVideoContainer,
   FirstpageBlock,
   SecondpageBlock,
   PageDownButton,
-  TitleBlock,
-  ThumbnailBlock,
-  ThumbnailImg,
 } from '../../styles/Main/MainStyle';
 // import { useScrollDirection } from 'react-use-scroll-direction';
 import VideoModal from '../../utils/VideoModal';
@@ -16,7 +12,6 @@ import TagSelectModal from './components/TagSelectModal';
 import { useAppSelector, useAppDispatch } from '../../utils/hooks';
 import { dashboardActions } from '../../features/dashboard/dashboard-slice';
 import { authActions } from '../../features/auth/authSlice';
-import { GradientRoundBtn } from '../../styles/Common/CommonBtnStyle';
 import CustomSlider from './components/CustomSlider';
 import CutomSliderBottom from './components/CustomSliderBottom';
 // import './MainPage.css';
