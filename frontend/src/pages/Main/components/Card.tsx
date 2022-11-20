@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAppSelector } from '../../../utils/hooks';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
-const CardContainer = styled.div`
+import { Link } from 'react-router-dom';
+
+import { IAlertDropDownProps } from './AlertDropDown';
+export const CardContainer = styled.div`
   display: grid;
   /* grid-template-columns: repeat(3, 7vw); */
   grid-template-columns: 4.5vw 10.1vw 6vw;
@@ -14,7 +17,7 @@ const CardContainer = styled.div`
   border-radius: 2vmin;
 `;
 
-const CardImgBox = styled.div`
+export const CardImgBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,8 +33,12 @@ const CardImgCenter = styled.div`
   height: 100%;
 `;
 
-const Card = () => {
+const Card = ({
+  setModalToggleVideoId,
+  setToggleDropDown,
+}: IAlertDropDownProps) => {
   const userAlertList = useAppSelector((state) => state.auth.userAlertList);
+
   return (
     <div>
       {userAlertList.length !== 0 ? (
@@ -186,28 +193,37 @@ const Card = () => {
                           flexDirection: 'column',
                           marginLeft: '0.2vw',
                         }}
+                        onClick={() => {
+                          setModalToggleVideoId(item.videoId);
+                          setToggleDropDown(false);
+                        }}
                       >
                         <div>영상 공부</div>
                         <div>바로 가기</div>
                       </MainBtn>
                     ) : item.alertState === 'accepted' ? (
-                      <MainBtn
-                        widthSize={'4vw'}
-                        heightSize={'5vh'}
-                        paddingSize={'0.5vw'}
-                        fontSize={'1.5vmin'}
-                        fontColor={'white'}
-                        backgroundColor={'blue'}
-                        style={{
-                          borderRadius: '1.5vmin',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          marginLeft: '0.2vw',
-                        }}
+                      <Link
+                        to={`/auth/guild/main/${item.guildId}`}
+                        style={{ width: '4vw' }}
                       >
-                        <div>길드 구경</div>
-                        <div>바로 가기</div>
-                      </MainBtn>
+                        <MainBtn
+                          widthSize={'4vw'}
+                          heightSize={'5vh'}
+                          paddingSize={'0.5vw'}
+                          fontSize={'1.5vmin'}
+                          fontColor={'white'}
+                          backgroundColor={'blue'}
+                          style={{
+                            borderRadius: '1.5vmin',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            marginLeft: '0.2vw',
+                          }}
+                        >
+                          <div>길드 구경</div>
+                          <div>바로 가기</div>
+                        </MainBtn>
+                      </Link>
                     ) : null}
                   </CardContainer>
                 </>

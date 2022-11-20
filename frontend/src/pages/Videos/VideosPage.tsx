@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { videoActions } from '../../features/video/video-slice';
 import { FlexTransparentDiv } from '../../styles/Common/CommonDivStyle';
 import GradientInput from '../../utils/GradientInput';
@@ -31,6 +31,7 @@ const VideosPage = () => {
       setSearchKeyword(keyword);
     }
   };
+
   return (
     <>
       <VideoModal
