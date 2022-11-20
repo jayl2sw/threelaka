@@ -34,7 +34,10 @@ const VideosPage = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
-  const tagConv = location.state.tagConv;
+  let tagConv = '';
+  if (location.state !== null) {
+    tagConv = location.state.tagConv;
+  }
   // useSelector
   const searchResultVideo = useAppSelector(
     (state) => state.video.keywordSearchVideoList
@@ -46,8 +49,10 @@ const VideosPage = () => {
 
   // useEffect
   useEffect(() => {
-    console.log(tagConv);
-    onClickTagVideo(tagConv);
+    if (tagConv !== '') {
+      console.log(tagConv);
+      onClickTagVideo(tagConv);
+    }
   }, [tagConv]);
 
   //useState
