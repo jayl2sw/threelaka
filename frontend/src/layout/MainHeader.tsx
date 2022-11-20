@@ -31,7 +31,7 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
     dispatch(authActions.logout());
     navigate('/auth/login');
   };
-
+  const userAlertList = useAppSelector((state) => state.auth.userAlertList);
   const profile = useAppSelector((state) => state.auth.currentUser?.profile);
 
   const guildId = useAppSelector((state) => state.auth.currentUser?.guildId);
@@ -87,21 +87,24 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
             widthSize="2vw"
             onClick={handleToggle}
           >
-            <AlertImgBox
-              style={{
-                width: '4vmin',
-                height: '3vmin',
+            {userAlertList.length !== 0 ? (
+              <AlertImgBox
+                style={{
+                  width: '4vmin',
+                  height: '3vmin',
 
-                borderRadius: '50%',
+                  borderRadius: '50%',
 
-                position: 'absolute',
-                display: 'flex',
-                flexDirection: 'column',
+                  position: 'absolute',
+                  display: 'flex',
+                  flexDirection: 'column',
 
-                top: '6vh',
-                right: '6.5vw',
-              }}
-            ></AlertImgBox>
+                  top: '6vh',
+                  right: '6.5vw',
+                }}
+              ></AlertImgBox>
+            ) : null}
+
             <TbBellRinging
               size={30}
               color="white"

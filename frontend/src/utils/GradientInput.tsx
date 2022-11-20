@@ -26,7 +26,7 @@ export const CSearchBarInput = styled.div`
     border: none;
     outline: none;
     box-shadow: none;
-    font-size: 1vw;
+    font-size: 2.5vmin;
     font-family: 'PretendardRegular';
   }
 
@@ -205,7 +205,11 @@ const GradientInput = ({
           required
           style={{ width: inputSize }}
         />
-        <span>키워드를 입력해주세요</span>
+        <span
+          style={{ color: placeHolderText === '검색페이지인풋' ? 'white' : '' }}
+        >
+          키워드를 입력해주세요
+        </span>
         <i
           className={placeHolderText === '검색페이지인풋' ? 'search-input' : ''}
         ></i>
