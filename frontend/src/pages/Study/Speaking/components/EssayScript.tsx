@@ -102,6 +102,7 @@ const EssayScript = ({ setSelectedText, pageParams }: IEssayProps) => {
               onClick={(e) => sentenceClickHandler(e, idx)}
               style={{
                 fontSize: item.length > 100 ? '2vmin' : '3.8vmin',
+                color: '#1D3557',
               }}
             >
               {item}
