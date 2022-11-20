@@ -16,8 +16,9 @@ import { LinearGradient, RadialGradient } from '@vx/gradient';
 import { GraphBox } from '../../../styles/DashBoard/DashBoardStyle';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
-import { ScaleSVG } from '@vx/responsive';
+
 import ParentSize from '@vx/responsive/lib/components/ParentSize';
+import { useSpring, animated } from 'react-spring';
 
 export type BarsProps = {
   width: number;
@@ -34,6 +35,8 @@ export default function Example({
   setMode,
 }: BarsProps) {
   const verticalMargin = 70;
+  // const controls = useAnimation();
+
   // accessors
   const x = (d: TestGraph) => d.label;
   const y = (d: TestGraph) => d.value;
@@ -47,12 +50,12 @@ export default function Example({
     dispatch(dashboardActions.getDailyStudyTime());
   }, []);
 
-  console.log(thisWeekdailyStudyTime);
   // const [mode, setMode] = useState(0);
 
   const graphRef = useRef<HTMLDivElement>(null);
 
   const timeData: Array<TestGraph> = [];
+  // const ANIMATION_OFFSET = 12;
 
   const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
   thisWeekdailyStudyTime.map((item, idx) => {
@@ -88,6 +91,12 @@ export default function Example({
       }),
     [timeData, yMax]
   );
+
+  const { scale } = useSpring({
+    from: { scale: 0 },
+    to: { scale: 1 },
+  });
+  const AnimatedBar = animated(Bar);
 
   return width < 20 || height < 20 ? null : (
     <div className="" style={{ width, height }}>
@@ -135,6 +144,7 @@ export default function Example({
                   />
                   <Group top={20} left={90}>
                     <AxisLeft
+                      labelOffset={45}
                       stroke="#565656"
                       tickStroke="#565656"
                       strokeDasharray="#565656"
@@ -162,12 +172,14 @@ export default function Example({
                       const barX = xScale(label);
                       const barY = yMax - barHeight;
                       return (
-                        <Bar
+                        <AnimatedBar
                           key={`bar-${label}`}
                           x={barX}
-                          y={barY}
+                          y={scale.interpolate(
+                            (s: any) => yMax - s * barHeight
+                          )}
                           width={barWidth}
-                          height={barHeight}
+                          height={scale.interpolate((s: any) => s * barHeight)}
                           fill={'url(#gradient)'}
                           onClick={() => {
                             if (events)
