@@ -644,8 +644,8 @@ const MasterSetting = () => {
           flexDirection={'row'}
           justifyContent={'center'}
           alignItems={'center'}
-          IsBorder={'is'}
-          style={{ border: '3px solid pink' }}
+          IsBorder={'none'}
+          // style={{ border: '3px solid pink' }}
         >
           <MainBox
             widthSize={'30vw'}
