@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 import { GradientRoundBtn } from '../../../styles/Common/CommonBtnStyle';
-interface IDailyBoardProps {
+interface ICustomSliderProps {
   sThreeUrl: string;
   title: string;
   content: string;
@@ -26,7 +26,7 @@ const CustomSliderItem = ({
   title,
   content,
   tagContent,
-}: IDailyBoardProps) => {
+}: ICustomSliderProps) => {
   return (
     <FlexTransparentDiv
       widthSize={'100vw'}

@@ -9,7 +9,7 @@ export const getVideoDataApi = async (url: string) => {
 };
 
 // 가장 최근에 공부한 영상 조회
-export const getRecentVideoDataApi = async (url: string) => {
+export const getRecentVideoDataApi = async () => {
   const res = await customAxios.get(`/api/v1/study/video/latest`);
 
   return res.data;

@@ -38,7 +38,7 @@ export const SecondpageBlock = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  border: solid green 3px;
+  /* border: solid green 3px; */
   flex-direction: row;
   position: relative;
 `;

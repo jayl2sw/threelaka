@@ -22,12 +22,9 @@ function* onGetVideoDataAsync(action: PayloadAction<string>) {
 }
 
 // 최근 공부한 영상 1개 정보 받아오기 SAGA
-function* onGetRecentVideoAsync(action: PayloadAction<string>) {
+function* onGetRecentVideoAsync() {
   try {
-    const response: RecentVideoData = yield call(
-      getRecentVideoDataApi,
-      action.payload
-    );
+    const response: RecentVideoData[] = yield call(getRecentVideoDataApi);
     yield put(videoActions.getRecentVideoDataSuccess(response));
   } catch (error) {
     console.log(`Fail to fetch RecentVideoData`, error);

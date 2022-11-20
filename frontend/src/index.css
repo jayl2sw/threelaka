@@ -84,6 +84,11 @@ body, button, input {
   width: 0.75vw; 
 }
 
+/* ::-webkit-scrollbar {
+  width: 0;
+  display: block;
+} */
+
 ::-webkit-scrollbar:horizontal { 
   height: 1vh; 
 }
