@@ -232,7 +232,17 @@ const Card = ({
           })}
         </div>
       ) : (
-        <div>알림이없어요</div>
+        <div
+          style={{
+            fontSize: '3vmin',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '8vh',
+          }}
+        >
+          알림이없어요
+        </div>
       )}
     </div>
   );

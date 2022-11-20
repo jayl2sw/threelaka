@@ -18,12 +18,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 
 import ParentSize from '@vx/responsive/lib/components/ParentSize';
-// import {
-//   AnimatePresence,
-//   AnimateSharedLayout,
-//   motion,
-//   useAnimation,
-// } from 'framer-motion';
+
 export type BarsProps = {
   width: number;
   height: number;
@@ -39,6 +34,8 @@ export default function Example({
   setMode,
 }: BarsProps) {
   const verticalMargin = 70;
+  // const controls = useAnimation();
+
   // accessors
   const x = (d: TestGraph) => d.label;
   const y = (d: TestGraph) => d.value;
@@ -58,6 +55,7 @@ export default function Example({
   const graphRef = useRef<HTMLDivElement>(null);
 
   const timeData: Array<TestGraph> = [];
+  // const ANIMATION_OFFSET = 12;
 
   const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
   lastWeekdailyStudyTime.map((item, idx) => {

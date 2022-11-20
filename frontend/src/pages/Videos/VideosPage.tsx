@@ -256,6 +256,7 @@ const VideosPage = () => {
               justifyContent={'center'}
               alignItems={'center'}
               IsBorder={'none'}
+              style={{ marginTop: '2vh' }}
             >
               {tagStringLst.map((tagName, idx) => {
                 if (mySelectedTags.includes(tagName)) {

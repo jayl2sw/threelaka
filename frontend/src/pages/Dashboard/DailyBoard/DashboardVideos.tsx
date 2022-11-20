@@ -65,7 +65,7 @@ const DashboardVideos = ({
               })
             )
           ) : (
-            <div>'아직 공부중인 영상이 없어요'</div>
+            <h1>'아직 공부중인 영상이 없어요'</h1>
           )}
         </RecentVideoContainer>
       ) : (
@@ -85,7 +85,7 @@ const DashboardVideos = ({
               );
             })
           ) : (
-            <div>'공부 완료한 영상이 없어요'</div>
+            <h1>'공부 완료한 영상이 없어요'</h1>
           )}
         </RecentVideoContainer>
       )}
