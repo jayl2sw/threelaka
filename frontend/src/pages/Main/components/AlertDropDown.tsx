@@ -2,7 +2,16 @@ import React from 'react';
 import { AlertDropDownContainer } from '../../../styles/Main/MainStyle';
 import { MainBox } from '../../../styles/Common/CommonDivStyle';
 import Card from './Card';
-const AlertDropDown = () => {
+
+export interface IAlertDropDownProps {
+  setToggleDropDown: React.Dispatch<React.SetStateAction<boolean>>;
+
+  setModalToggleVideoId: (nextVideoId: string) => void;
+}
+const AlertDropDown = ({
+  setModalToggleVideoId,
+  setToggleDropDown,
+}: IAlertDropDownProps) => {
   return (
     <AlertDropDownContainer>
       <div className="dropdown">
@@ -15,7 +24,10 @@ const AlertDropDown = () => {
           className="dropdown-content"
           style={{ overflowY: 'auto', minHeight: '24vh' }}
         >
-          <Card></Card>
+          <Card
+            setModalToggleVideoId={setModalToggleVideoId}
+            setToggleDropDown={setToggleDropDown}
+          ></Card>
         </MainBox>
       </div>
     </AlertDropDownContainer>

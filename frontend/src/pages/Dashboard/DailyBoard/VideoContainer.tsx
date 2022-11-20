@@ -8,7 +8,7 @@ import { TopBtn } from '../../../styles/Common/CommonBtnStyle';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 import { BackBlurBox, MainBox } from '../../../styles/Common/CommonDivStyle';
 import { useHorizontalScroll } from '../../../utils/useSideScroll';
-interface IVideoContainerProps {
+export interface IVideoContainerProps {
   setModalToggleVideoId: (nextVideoId: string) => void;
 }
 const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {

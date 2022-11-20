@@ -27,12 +27,18 @@ const GraphContainer = () => {
           }}
         </ParentSize>
       ) : (
-        <ThisWeekStudyGraph
-          width={550}
-          height={250}
-          mode={mode}
-          setMode={setMode}
-        />
+        <ParentSize>
+          {({ width, height }) => {
+            return (
+              <ThisWeekStudyGraph
+                width={width}
+                height={250}
+                mode={mode}
+                setMode={setMode}
+              />
+            );
+          }}
+        </ParentSize>
       )}
     </div>
   );
