@@ -48,7 +48,7 @@ const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
           onClick={() => setMode(0)}
           className={mode ? 'pale' : ''}
         >
-          최근 공부한 영상
+          공부 중인 영상
         </TopBtn>
         <TopBtn
           widthSize={'8vw'}

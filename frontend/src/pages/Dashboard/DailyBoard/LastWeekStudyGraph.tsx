@@ -16,9 +16,14 @@ import { LinearGradient, RadialGradient } from '@vx/gradient';
 import { GraphBox } from '../../../styles/DashBoard/DashBoardStyle';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
-import { ScaleSVG } from '@vx/responsive';
-import ParentSize from '@vx/responsive/lib/components/ParentSize';
 
+import ParentSize from '@vx/responsive/lib/components/ParentSize';
+// import {
+//   AnimatePresence,
+//   AnimateSharedLayout,
+//   motion,
+//   useAnimation,
+// } from 'framer-motion';
 export type BarsProps = {
   width: number;
   height: number;
@@ -102,7 +107,10 @@ export default function Example({
           IsBorder={'none'}
           style={{ fontSize: '2.2vmin' }}
         >
-          <IoIosArrowBack onClick={() => setMode(0)}></IoIosArrowBack>
+          <IoIosArrowBack
+            style={{ cursor: 'pointer' }}
+            onClick={() => setMode(0)}
+          ></IoIosArrowBack>
           <div ref={graphRef}>
             {mode === 0 ? (
               <div>지난 주 공부 시간</div>
@@ -110,7 +118,10 @@ export default function Example({
               <div>이번 주 공부 시간</div>
             )}
           </div>
-          <IoIosArrowForward onClick={() => setMode(1)}></IoIosArrowForward>
+          <IoIosArrowForward
+            style={{ cursor: 'pointer' }}
+            onClick={() => setMode(1)}
+          ></IoIosArrowForward>
         </FlexTransparentDiv>
 
         <div className="graph">

@@ -397,6 +397,15 @@ export const AlertImgBox = styled.img.attrs((props) => ({
   align-items: center;
   width: 15vmin;
   z-index: 3;
+
+  animation: blinker 1s;
+  animation-iteration-count: 3;
+
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
 `;
 
 export const AlertDropDownContainer = styled.div`

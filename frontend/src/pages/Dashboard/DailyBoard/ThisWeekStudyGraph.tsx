@@ -102,7 +102,10 @@ export default function Example({
           IsBorder={'none'}
           style={{ fontSize: '2.2vmin' }}
         >
-          <IoIosArrowBack onClick={() => setMode(0)}></IoIosArrowBack>
+          <IoIosArrowBack
+            style={{ cursor: 'pointer' }}
+            onClick={() => setMode(0)}
+          ></IoIosArrowBack>
           <div ref={graphRef}>
             {mode === 0 ? (
               <div>지난 주 공부 시간</div>
@@ -110,7 +113,10 @@ export default function Example({
               <div>이번 주 공부 시간</div>
             )}
           </div>
-          <IoIosArrowForward onClick={() => setMode(1)}></IoIosArrowForward>
+          <IoIosArrowForward
+            style={{ cursor: 'pointer' }}
+            onClick={() => setMode(1)}
+          ></IoIosArrowForward>
         </FlexTransparentDiv>
 
         <div className="graph">

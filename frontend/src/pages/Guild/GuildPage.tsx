@@ -76,7 +76,7 @@ const GuildPage = () => {
               marginTop: '4vh',
               marginLeft: '2vw',
               fontFamily: 'pretendardRegular',
-              border: '2px solid green',
+              // border: '2px solid green',
             }}
           >
             {pageNum === '1' && (

@@ -24,7 +24,7 @@ import AlertDropDown from '../pages/Main/components/AlertDropDown';
 import ProfileDropDown from '../pages/Main/components/ProfileDropDown';
 import { IVideoContainerProps } from '../pages/Dashboard/DailyBoard/VideoContainer';
 import { studyActions } from '../features/study/study-slice';
-const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
+const MainVideoHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -53,7 +53,7 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
   };
 
   return (
-    <MainHeaderMenuRegion>
+    <MainHeaderMenuRegion style={{ background: 'black' }}>
       <HeaderBgBlock>
         <HeaderLeftBlock>
           <LogoBlock>
@@ -181,4 +181,4 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
   );
 };
 
-export default MainHeader;
+export default MainVideoHeader;

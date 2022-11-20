@@ -26,7 +26,7 @@ export const DashBoardBlock = styled.div`
 export const DashBoardContainer = styled.div`
   display: flex;
   justify-content: start;
-  border: 3px solid black;
+  /* border: 3px solid black; */
   width: 80vw;
   height: 80vh;
 `;
@@ -216,7 +216,7 @@ export const GraphBox = styled.div`
     #b0ff91 84.64%
   );
   width: 37vw;
-  height: 39.5vh;
+  height: 39.8vh;
   border-radius: 1rem;
   position: relative;
   .graph-container {
@@ -258,9 +258,9 @@ export const GradientBorderBox = styled.div`
   .innerBox {
     position: absolute;
     top: 1vh;
-    left: 0.4vw;
+    left: 0.5vw;
     background: #fff;
-    border-radius: 1rem;
+    border-radius: 0.8rem;
     height: 46vh;
     width: 25vw;
   }
