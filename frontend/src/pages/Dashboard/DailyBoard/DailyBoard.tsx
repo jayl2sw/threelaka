@@ -4,16 +4,10 @@ import GraphContainer from './GraphContainer';
 import Calendar from './Calendar';
 import { DailyBoardContainer } from '../../../styles/DashBoard/DashBoardStyle';
 import StudyHistoryContainer from './StudyHistoryContainer';
-
-interface IDailyBoardProps {
-  setModalToggleVideoId: (nextVideoId: string) => void;
-}
-const DailyBoard = ({ setModalToggleVideoId }: IDailyBoardProps) => {
+const DailyBoard = () => {
   return (
     <DailyBoardContainer>
-      <VideoContainer
-        setModalToggleVideoId={setModalToggleVideoId}
-      ></VideoContainer>
+      <VideoContainer></VideoContainer>
       <Calendar></Calendar>
       <GraphContainer></GraphContainer>
       <StudyHistoryContainer></StudyHistoryContainer>

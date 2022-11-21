@@ -2,10 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { studyActions } from '../../../../features/study/study-slice';
 import { useAppSelector, useAppDispatch } from '../../../../utils/hooks';
 import { WordListAndWritingContainer } from '../../../../styles/Writing/WritingStyle';
-import {
-  FlexTransparentDiv,
-  ToastContainer,
-} from '../../../../styles/Common/CommonDivStyle';
+import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
 import {
   TopBtn,
   MoveToNextRightBtn,
@@ -21,7 +18,6 @@ import { writingActions } from '../../../../features/writing/writing-slice';
 import { useOutletContext } from 'react-router-dom';
 import { IheaderProps } from '../../../../layout/Header';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
-import { ToastMessage } from '../../../../utils/ToastMessage';
 import WordBookComp from './WordBookComp';
 import TypoCorrectionComp from './TypoCorrectionComp';
 import HighlightTextAreaComp from './HighlightTextAreaComp';
@@ -45,14 +41,13 @@ const WordListAndWritingContainerComp = ({
   );
   const spellCheckLst = useAppSelector((state) => state.write.spellCheckLst);
   const userEssay = useAppSelector((state) => state.write.essay);
-  const isSaveSuccess = useAppSelector((state) => state.write.isSaveSuccess);
   // state
   const [filterTarget, setFilterTarget] = useState<string[]>([]);
   const [filterEssayTarget, setFilterEssayTarget] = useState<string[]>([]);
   const [textAreaValue, setTextAreaValue] = useState('');
   const [spellCheckResult, setSpellCheckResult] = useState<FlggedToken[]>([]);
   const [spellFilterTarget, setSpellFilterTarget] = useState<string[]>([]);
-  const [layoutMode, setLayoutMode] = useState<number>(0);
+  const [layoutMode, setLayoutMode] = useState<number>(1);
   // 단어장(0) <-> 문법검사(1)
   const [modeValue, setModeValue] = useState(0);
   const [foldLayoutMode, setFoldLayoutMode] = useState<number>(0);
@@ -102,7 +97,7 @@ const WordListAndWritingContainerComp = ({
     setFilterTarget(nextFilterTarget);
   }, [checkedWordList]);
 
-  // 2초 마다 단어 썼는지 체크해줌
+  // 10초 마다 단어 썼는지 체크해줌
   useEffect(() => {
     if (wordBookList.length == 0) {
       return;
@@ -116,7 +111,7 @@ const WordListAndWritingContainerComp = ({
       if (textAreaRef.current!.innerText.length !== 0) {
         dispatch(writingActions.postCheckWordStart(wordCheckPayload));
       }
-    }, 2000);
+    }, 10000);
     return () => clearInterval(wordChecker);
   }, [wordBookList]); // wordbooklist가 있을 때 돌아가게 하기 위해
 
@@ -141,215 +136,174 @@ const WordListAndWritingContainerComp = ({
     setSpellFilterTarget(tempFilterTarget);
   }, [spellCheckLst]);
 
-  useEffect(() => {
-    if (isSaveSuccess !== null) {
-      let timer = setTimeout(() => {
-        // setDownloadToast(false);
-        dispatch(writingActions.resetIsSaveSuccess());
-      }, 1000);
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [dispatch, isSaveSuccess]);
-
   return (
-    <>
-      {isSaveSuccess && (
-        <ToastContainer
-          widthSize={'20vw'}
-          heightSize={'20vh'}
-          paddingSize={'2vh 1vw'}
-          fontColor={'black'}
-          top={'40vh'}
-          left={'40vw'}
-        >
-          <ToastMessage text={'에세이가 저장되었습니다.'}></ToastMessage>
-        </ToastContainer>
-      )}
-      {isSaveSuccess === false && (
-        <ToastContainer
-          widthSize={'20vw'}
-          heightSize={'20vh'}
-          paddingSize={'2vh 1vw'}
-          fontColor={'black'}
-          top={'40vh'}
-          left={'40vw'}
-        >
-          <ToastMessage text={'에세이 저장에 실패했습니다.'}></ToastMessage>
-        </ToastContainer>
-      )}
-      <WordListAndWritingContainer
-        style={
-          layoutMode === 0
-            ? { flexDirection: 'row' }
-            : { flexDirection: 'column' }
-        }
+    <WordListAndWritingContainer
+      style={
+        layoutMode === 0
+          ? { flexDirection: 'row' }
+          : { flexDirection: 'column' }
+      }
+    >
+      <MoveToNextLeftBtn
+        onClick={(e) => {
+          essaySave();
+          moveToNext(e, 'READING', pageParams);
+        }}
       >
-        <MoveToNextLeftBtn
-          onClick={(e) => {
-            essaySave();
-            moveToNext(e, 'READING', pageParams);
-          }}
-        >
-          <AiOutlineLeft size={30} />
-          <p>reading</p>
-        </MoveToNextLeftBtn>
-        <MoveToNextRightBtn
-          onClick={(e) => {
-            essaySave();
-            moveToNext(e, 'SPEAKING', pageParams);
-          }}
-        >
-          <AiOutlineRight size={30} />
-          <p>speaking</p>
-        </MoveToNextRightBtn>
-        {/* textAreaValue를 참조하기 위한 컴포넌트 */}
-        <div
-          style={{ width: '0', height: '0', display: 'none' }}
-          ref={textAreaRef}
-        >
-          {textAreaValue}
-        </div>
+        <AiOutlineLeft size={30} />
+        <p>reading</p>
+      </MoveToNextLeftBtn>
+      <MoveToNextRightBtn
+        onClick={(e) => {
+          essaySave();
+          moveToNext(e, 'SPEAKING', pageParams);
+        }}
+      >
+        <AiOutlineRight size={30} />
+        <p>speaking</p>
+      </MoveToNextRightBtn>
+      {/* textAreaValue를 참조하기 위한 컴포넌트 */}
+      <div
+        style={{ width: '0', height: '0', display: 'none' }}
+        ref={textAreaRef}
+      >
+        {textAreaValue}
+      </div>
 
-        <FlexTransparentDiv
-          widthSize={
-            layoutMode === 0 ? (foldLayoutMode === 1 ? '2vw' : '28vw') : '80vw'
-          }
-          heightSize={
-            layoutMode === 0 ? '70vh' : foldLayoutMode === 1 ? '2vh' : '25vh'
-          }
-          paddingSize={'0'}
-          flexDirection={'column'}
-          justifyContent={'start'}
-          alignItems={'start'}
-          IsBorder={'none'}
-        >
-          {foldLayoutMode === 1 ? (
-            <FlexTransparentDiv
-              widthSize={'2vw'}
-              heightSize={'5vh'}
-              paddingSize={'0'}
-              flexDirection={'row'}
-              justifyContent={'start'}
-              alignItems={'end'}
-              IsBorder={'none'}
-              style={{ minHeight: '4vh', transition: 'all 0.8s ease-in-out' }}
-            />
-          ) : (
-            <FlexTransparentDiv
-              widthSize={layoutMode === 0 ? '28vw' : '80vw'}
-              heightSize={'5vh'}
-              paddingSize={'0'}
-              flexDirection={'row'}
-              justifyContent={'start'}
-              alignItems={'end'}
-              IsBorder={'none'}
-              style={{ transition: 'all 0.8s ease-in-out' }}
-            >
-              <TopBtn
-                widthSize={'7vw'}
-                heightSize={'4vh'}
-                paddingSize={'0'}
-                fontColor={'black'}
-                fontSize={'2vmin'}
-                backgroundColor={'blue'}
-                style={{ marginRight: '1vw', marginLeft: '1vw' }}
-                onClick={() => setModeValue(0)}
-                className={modeValue ? 'pale' : ''}
-              >
-                단어장
-              </TopBtn>
-              <TopBtn
-                widthSize={'7vw'}
-                heightSize={'4vh'}
-                paddingSize={'0'}
-                fontColor={'black'}
-                fontSize={'2vmin'}
-                backgroundColor={'blue'}
-                style={{ marginRight: '1vw' }}
-                onClick={() => {
-                  setModeValue(1);
-                  onClickSpellCheck();
-                }}
-                className={modeValue ? '' : 'pale'}
-              >
-                오타검사
-              </TopBtn>
-            </FlexTransparentDiv>
-          )}
-
+      <FlexTransparentDiv
+        widthSize={
+          layoutMode === 0 ? (foldLayoutMode === 1 ? '2vw' : '28vw') : '80vw'
+        }
+        heightSize={
+          layoutMode === 0 ? '70vh' : foldLayoutMode === 1 ? '2vh' : '25vh'
+        }
+        paddingSize={'0'}
+        flexDirection={'column'}
+        justifyContent={'start'}
+        alignItems={'start'}
+        IsBorder={'none'}
+      >
+        {foldLayoutMode === 1 ? (
+          <FlexTransparentDiv
+            widthSize={'2vw'}
+            heightSize={'5vh'}
+            paddingSize={'0'}
+            flexDirection={'row'}
+            justifyContent={'start'}
+            alignItems={'end'}
+            IsBorder={'none'}
+            style={{ minHeight: '4vh', transition: 'all 0.8s ease-in-out' }}
+          />
+        ) : (
           <FlexTransparentDiv
             widthSize={layoutMode === 0 ? '28vw' : '80vw'}
-            heightSize={layoutMode === 0 ? '70vh' : '25vh'}
+            heightSize={'5vh'}
             paddingSize={'0'}
-            flexDirection={'column'}
+            flexDirection={'row'}
             justifyContent={'start'}
-            alignItems={'start'}
+            alignItems={'end'}
             IsBorder={'none'}
             style={{ transition: 'all 0.8s ease-in-out' }}
           >
-            {modeValue == 1 ? (
-              /* 문법검사 */
-              <TypoCorrectionComp
-                layoutMode={layoutMode}
-                spellCheckResult={spellCheckResult}
-                foldLayoutMode={foldLayoutMode}
-                setFoldLayoutMode={setFoldLayoutMode}
-              ></TypoCorrectionComp>
-            ) : (
-              /* 단어장 */
-              <WordBookComp
-                wordBookList={wordBookList}
-                filterTarget={filterTarget}
-                layoutMode={layoutMode}
-                foldLayoutMode={foldLayoutMode}
-                setFoldLayoutMode={setFoldLayoutMode}
-              ></WordBookComp>
-            )}
+            <TopBtn
+              widthSize={'7vw'}
+              heightSize={'4vh'}
+              paddingSize={'0'}
+              fontColor={'black'}
+              fontSize={'2vmin'}
+              backgroundColor={'blue'}
+              style={{ marginRight: '1vw', marginLeft: '1vw' }}
+              onClick={() => setModeValue(0)}
+              className={modeValue ? 'pale' : ''}
+            >
+              단어장
+            </TopBtn>
+            <TopBtn
+              widthSize={'7vw'}
+              heightSize={'4vh'}
+              paddingSize={'0'}
+              fontColor={'black'}
+              fontSize={'2vmin'}
+              backgroundColor={'blue'}
+              style={{ marginRight: '1vw' }}
+              onClick={() => {
+                setModeValue(1);
+                onClickSpellCheck();
+              }}
+              className={modeValue ? '' : 'pale'}
+            >
+              오타검사
+            </TopBtn>
           </FlexTransparentDiv>
-        </FlexTransparentDiv>
-        {/* SPACER */}
+        )}
+
         <FlexTransparentDiv
-          widthSize={layoutMode === 0 ? '2vw' : '80vw'}
-          heightSize={layoutMode === 0 ? '70vh' : '5vh'}
+          widthSize={layoutMode === 0 ? '28vw' : '80vw'}
+          heightSize={layoutMode === 0 ? '70vh' : '25vh'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'start'}
           alignItems={'start'}
           IsBorder={'none'}
           style={{ transition: 'all 0.8s ease-in-out' }}
-        ></FlexTransparentDiv>
+        >
+          {modeValue == 1 ? (
+            /* 문법검사 */
+            <TypoCorrectionComp
+              layoutMode={layoutMode}
+              spellCheckResult={spellCheckResult}
+              foldLayoutMode={foldLayoutMode}
+              setFoldLayoutMode={setFoldLayoutMode}
+            ></TypoCorrectionComp>
+          ) : (
+            /* 단어장 */
+            <WordBookComp
+              wordBookList={wordBookList}
+              filterTarget={filterTarget}
+              layoutMode={layoutMode}
+              foldLayoutMode={foldLayoutMode}
+              setFoldLayoutMode={setFoldLayoutMode}
+            ></WordBookComp>
+          )}
+        </FlexTransparentDiv>
+      </FlexTransparentDiv>
+      {/* SPACER */}
+      <FlexTransparentDiv
+        widthSize={layoutMode === 0 ? '2vw' : '80vw'}
+        heightSize={layoutMode === 0 ? '70vh' : '5vh'}
+        paddingSize={'0'}
+        flexDirection={'column'}
+        justifyContent={'start'}
+        alignItems={'start'}
+        IsBorder={'none'}
+        style={{ transition: 'all 0.8s ease-in-out' }}
+      ></FlexTransparentDiv>
+      <FlexTransparentDiv
+        widthSize={
+          layoutMode === 0 ? (foldLayoutMode === 1 ? '75vw' : '50vw') : '80vw'
+        }
+        heightSize={
+          layoutMode === 0 ? '70vh' : foldLayoutMode === 0 ? '45vh' : '68vh'
+        }
+        paddingSize={'0'}
+        flexDirection={'column'}
+        justifyContent={'start'}
+        alignItems={'start'}
+        IsBorder={'none'}
+        style={{ transition: 'all 0.8s ease-in-out' }}
+      >
         <FlexTransparentDiv
           widthSize={
             layoutMode === 0 ? (foldLayoutMode === 1 ? '75vw' : '50vw') : '80vw'
           }
-          heightSize={
-            layoutMode === 0 ? '70vh' : foldLayoutMode === 0 ? '45vh' : '68vh'
-          }
+          heightSize={'5vh'}
           paddingSize={'0'}
-          flexDirection={'column'}
-          justifyContent={'start'}
-          alignItems={'start'}
+          flexDirection={'row'}
+          justifyContent={'end'}
+          alignItems={'end'}
           IsBorder={'none'}
-          style={{ transition: 'all 0.8s ease-in-out' }}
         >
-          <FlexTransparentDiv
-            widthSize={
-              layoutMode === 0
-                ? foldLayoutMode === 1
-                  ? '75vw'
-                  : '50vw'
-                : '80vw'
-            }
-            heightSize={'5vh'}
-            paddingSize={'0'}
-            flexDirection={'row'}
-            justifyContent={'end'}
-            alignItems={'end'}
-            IsBorder={'none'}
-          >
-            {/* <TopBtn
+          {/* <TopBtn
             widthSize={'7vw'}
             heightSize={'4vh'}
             paddingSize={'0'}
@@ -360,53 +314,48 @@ const WordListAndWritingContainerComp = ({
           >
             파일 저장
           </TopBtn> */}
-            <TopBtn
-              widthSize={'7vw'}
-              heightSize={'4vh'}
-              paddingSize={'0'}
-              fontColor={'black'}
-              fontSize={'2vmin'}
-              backgroundColor={'blue'}
-              style={{ marginRight: '2vw' }}
-              onClick={essaySave}
-            >
-              저장
-            </TopBtn>
-          </FlexTransparentDiv>
-          <FlexTransparentDiv
-            widthSize={
-              layoutMode === 0
-                ? foldLayoutMode === 1
-                  ? '75vw'
-                  : '50vw'
-                : '80vw'
-            }
-            heightSize={
-              layoutMode === 0 ? '70vh' : foldLayoutMode === 0 ? '45vh' : '63vh'
-            }
+          <TopBtn
+            widthSize={'7vw'}
+            heightSize={'4vh'}
             paddingSize={'0'}
-            flexDirection={'column'}
-            justifyContent={layoutMode === 0 ? 'start' : 'center'}
-            alignItems={'start'}
-            IsBorder={'none'}
+            fontColor={'black'}
+            fontSize={'2vmin'}
+            backgroundColor={'blue'}
+            style={{ marginRight: '2vw' }}
+            onClick={essaySave}
           >
-            <HighlightTextAreaComp
-              textAreaValue={textAreaValue}
-              modeValue={modeValue}
-              spellFilterTarget={spellFilterTarget}
-              filterEssayTarget={filterEssayTarget}
-              onChangeText={onChangeText}
-              foldLayoutMode={foldLayoutMode}
-              layoutMode={layoutMode}
-            />
-          </FlexTransparentDiv>
+            저장
+          </TopBtn>
         </FlexTransparentDiv>
-        <WritingCircularNavComp
-          layoutMode={layoutMode}
-          setLayoutMode={setLayoutMode}
-        ></WritingCircularNavComp>
-      </WordListAndWritingContainer>
-    </>
+        <FlexTransparentDiv
+          widthSize={
+            layoutMode === 0 ? (foldLayoutMode === 1 ? '75vw' : '50vw') : '80vw'
+          }
+          heightSize={
+            layoutMode === 0 ? '70vh' : foldLayoutMode === 0 ? '45vh' : '63vh'
+          }
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={layoutMode === 0 ? 'start' : 'center'}
+          alignItems={'start'}
+          IsBorder={'none'}
+        >
+          <HighlightTextAreaComp
+            textAreaValue={textAreaValue}
+            modeValue={modeValue}
+            spellFilterTarget={spellFilterTarget}
+            filterEssayTarget={filterEssayTarget}
+            onChangeText={onChangeText}
+            foldLayoutMode={foldLayoutMode}
+            layoutMode={layoutMode}
+          />
+        </FlexTransparentDiv>
+      </FlexTransparentDiv>
+      <WritingCircularNavComp
+        layoutMode={layoutMode}
+        setLayoutMode={setLayoutMode}
+      ></WritingCircularNavComp>
+    </WordListAndWritingContainer>
   );
 };
 

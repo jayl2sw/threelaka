@@ -8,34 +8,43 @@ type VideoState = {
   correctUrl: boolean | null;
   // 비디오 1개
   videoData: VideoData;
-  // 최근 공부한 영상 5개
-  recentVideoData: RecentVideoData[];
-  // 추천 비디오 40개(아이템 기반, 유저 기반)
+  // 최근 공부한 영상 1개
+  recentVideoData: RecentVideoData;
+  // 추천 비디오 4개
   recommendVideoList: RecommendVideos[];
   // 키워드 검색 결과
   keywordSearchVideoList: RecommendVideos[];
-  // 태그 검색 결과
-  tagSearchVideoList: RecommendVideos[];
-  recommendVideoType: string; // item-based;
 };
 
 let initialState: VideoState = {
   loading: false,
   correctUrl: null,
   videoData: {
+    watched: null,
     video: {
       videoId: '',
       title: '',
       description: '',
+      script: '',
+    },
+  },
+  recentVideoData: {
+    learningRecord: {
+      date: 'string',
+      learningRecordId: 0,
+      stage: '',
+      userId: 0,
+      videoId: '',
+    },
+    video: {
+      title: '',
+      videoId: '',
+      description: '',
       korScript: false,
     },
-    learning_record: [],
   },
-  recentVideoData: [],
   recommendVideoList: [],
   keywordSearchVideoList: [],
-  tagSearchVideoList: [],
-  recommendVideoType: '',
 };
 
 // Slice
@@ -59,17 +68,14 @@ const videoSlice = createSlice({
       state.loading = false;
       state.correctUrl = false;
     },
-    // correctUrl 리셋
-    resetCorrectUrl(state) {
-      state.correctUrl = null;
-    },
 
     // 최근 공부한 영상 1개 정보 받아오기 요칭
     getRecentVideoData(state) {
       state.loading = true;
     },
     // 최근 공부한 영상 1개 정보 받아오기 성공
-    getRecentVideoDataSuccess(state, action: PayloadAction<RecentVideoData[]>) {
+    getRecentVideoDataSuccess(state, action: PayloadAction<RecentVideoData>) {
+      // console.log('정보 받아오기 성공! video-slice에서 주석처리해주세요');
       // console.log(action.payload);
       state.loading = false;
       state.recentVideoData = action.payload;
@@ -82,14 +88,12 @@ const videoSlice = createSlice({
     // 추천 비디오 4개 정보 받아오기 요청
     getRecommendVideos(state) {
       state.loading = true;
-      state.recommendVideoType = '';
     },
     // 추천 비디오 4개 정보 받아오기 성공
-    getRecommendVideosSuccess(state, action: PayloadAction<any>) {
+    getRecommendVideosSuccess(state, action: PayloadAction<RecommendVideos[]>) {
       // console.log(action.payload);
       state.loading = false;
-      state.recommendVideoList = action.payload.recommends;
-      state.recommendVideoType = action.payload.usedModel;
+      state.recommendVideoList = action.payload;
     },
     // 추천 비디오 4개 정보 받아오기 실패
     getRecommendVideosFailed(state, action: PayloadAction<string>) {
@@ -109,20 +113,6 @@ const videoSlice = createSlice({
     },
     // search keyword video 실패
     getKeywordSearchVideosFailed(state) {
-      state.loading = false;
-    },
-
-    // search keyword video 시작
-    getTagSearchVideosStart(state, action: PayloadAction<number>) {
-      state.loading = true;
-    },
-    // search keyword video 성공
-    getTagSearchVideosSuccess(state, action: PayloadAction<RecommendVideos[]>) {
-      state.loading = false;
-      state.tagSearchVideoList = action.payload;
-    },
-    // search keyword video 실패
-    getTagSearchVideosFailed(state) {
       state.loading = false;
     },
   },

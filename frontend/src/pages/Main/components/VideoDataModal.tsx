@@ -1,16 +1,18 @@
+import React, { useEffect } from 'react';
 import { VideoDataModalType } from '../../../models';
 import {
   ModalContainer,
   VideoDataContainer,
   VideoTitle,
   VideoThumbnail,
-} from '../../../styles/Common/VideoModalStyle';
+} from '../../../styles/Main/VideoModalStyle';
 import { studyActions } from '../../../features/study/study-slice';
+import { useAppDispatch } from '../../../utils/hooks';
+
 import { SubTagContainer, SubTag } from '../../../styles/Main/MainStyle';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
 import { useNavigate } from 'react-router-dom';
 import { ModalBackdrop } from '../../../styles/DashBoard/DashBoardStyle';
-import { useAppDispatch } from '../../../utils/hooks';
 
 const VideoDataModal = (props: VideoDataModalType) => {
   const closeModalVideo = () => {
@@ -62,12 +64,12 @@ const VideoDataModal = (props: VideoDataModalType) => {
             src={`https://img.youtube.com/vi/${video.videoId}/0.jpg`}
           />
           <SubTagContainer>
-            {video.korScript && (
+            {video.script && (
               <SubTag>
                 <p>영어 자막</p>
               </SubTag>
             )}
-            {video.korScript && (
+            {video.script && (
               <SubTag>
                 <p>한글 자막</p>
               </SubTag>

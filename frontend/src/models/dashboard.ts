@@ -26,18 +26,3 @@ export interface StudyHistory {
   videos: number;
   words: number;
 }
-
-export interface TotalStudyTime {
-  time: number;
-}
-
-export interface UserWordInfo {
-  wordbookId: number;
-  word: string;
-  example: string;
-  exampleKor: string;
-}
-
-export interface isMemorizedWord {
-  wordbookId: number;
-}

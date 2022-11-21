@@ -1,127 +1,86 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { throttle } from 'lodash';
+import React, { useRef } from 'react';
+import MainHeader from '../../layout/MainHeader';
+import SearchBar from './components/SearchBar';
+import RecentVideo from './components/RecentVideo';
 import {
   MainPageBlock,
+  RecommendVideos,
+  RecentVideoContainer,
+  SearchBarBlock,
+  LogoBlock,
   FirstpageBlock,
-  SecondpageBlock,
+  RecommendVideoContainer,
+  ListInfo,
   PageDownButton,
+  FirstCenterBar,
 } from '../../styles/Main/MainStyle';
-// import { useScrollDirection } from 'react-use-scroll-direction';
-import VideoModal from '../../utils/VideoModal';
-import TagSelectModal from './components/TagSelectModal';
-import { useAppSelector, useAppDispatch } from '../../utils/hooks';
-import { dashboardActions } from '../../features/dashboard/dashboard-slice';
-import { authActions } from '../../features/auth/authSlice';
-import CustomSlider from './components/CustomSlider';
-import CutomSliderBottom from './components/CustomSliderBottom';
-// import './MainPage.css';
-import { videoActions } from '../../features/video/video-slice';
+import { NewVideo } from '../../styles/Main/MainSearchStyle';
+import RecommendVideoList from './components/RecommendVideoList';
+import { useScrollDirection } from 'react-use-scroll-direction';
 
 const MainPage = () => {
-  const [isModal, setIsModal] = useState<boolean>(false);
-  const [scrollQuantity, setScrollQuantity] = useState<number>(0);
-  const isNewbie = useAppSelector((state) => state.auth.isNewbie);
-  const recentVideoDataLst = useAppSelector(
-    (state) => state.video.recentVideoData
-  );
-  const firstBlockRef = useRef<HTMLDivElement>(null);
-  const secondBlockRef = useRef<HTMLDivElement>(null);
-
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (isNewbie !== false) {
-      setIsModal(true);
-      dispatch(authActions.resetIsNewbie());
+  let observer = new IntersectionObserver((e) => {
+    // console.log('observer start', e);
+    if (e[0].isIntersecting) {
+      // console.log('intersect');
+      // console.log(e[0].target);
+      window.scrollBy(0, e[0].boundingClientRect.top);
     }
-  }, [isNewbie]);
-
-  // 스크롤 방지 밑 일정 횟수이상 스크롤 시 이동하도록 구현
-  const throttledScroll = (e: any) => {
-    e.preventDefault();
-    if (e.wheelDeltaY > 0) {
-      setScrollQuantity((scrollQuantity) => scrollQuantity + 1);
-    } else {
-      setScrollQuantity((scrollQuantity) => scrollQuantity - 1);
+    return;
+  });
+  const firstpageBlock = useRef<HTMLDivElement>(null);
+  const recentVideoContainer = useRef<HTMLDivElement>(null);
+  const { isScrolling, isScrollingUp, isScrollingDown } = useScrollDirection();
+  if (isScrolling) {
+    if (isScrollingUp && firstpageBlock.current != null) {
+      observer.observe(firstpageBlock.current);
+    } else if (isScrollingDown && recentVideoContainer.current != null) {
+      observer.observe(recentVideoContainer.current);
     }
-    console.log(scrollQuantity);
-
-    // 10 이상 다음 섹션, -10 이하 다음 섹션
-    if (scrollQuantity > 3) {
-      if (firstBlockRef.current !== null) {
-        firstBlockRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'end',
-          inline: 'nearest',
-        });
-      }
-      setScrollQuantity((scrollQuantity) => scrollQuantity - 3);
-    } else if (scrollQuantity < -3) {
-      if (secondBlockRef.current !== null) {
-        console.log('얍얍');
-        secondBlockRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'end',
-          inline: 'nearest',
-        });
-      }
-      setScrollQuantity((scrollQuantity) => scrollQuantity + 3);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('wheel', throttledScroll, { passive: false });
-    return () => {
-      window.removeEventListener('wheel', throttledScroll);
-    };
-  }, [throttledScroll]);
-  //
-
-  useEffect(() => {
-    dispatch(authActions.getUserAlert());
-    dispatch(dashboardActions.getTagList());
-    dispatch(videoActions.getRecentVideoData());
-  }, []);
-
-  // USESTATE
-  const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
-
+  }
+  // console.warn('찍고오나');
   return (
-    <>
-      <VideoModal
-        modalStyleNum={1}
-        modalToggleVideoId={modalToggleVideoId}
-        setModalToggleVideoId={setModalToggleVideoId}
-      ></VideoModal>
-
-      {/* <TagSelectModal setIsModal={setIsModal}></TagSelectModal> */}
-      {isModal ? (
-        <TagSelectModal setIsModal={setIsModal}></TagSelectModal>
-      ) : null}
-      <MainPageBlock>
-        <FirstpageBlock id="FirstpageBlock" ref={firstBlockRef}>
-          <CustomSlider></CustomSlider>
-          <PageDownButton
-            className="toggle down"
-            style={{ rotate: '270deg' }}
-            href="#SecondpageBlock"
-          >
-            《
-          </PageDownButton>
-        </FirstpageBlock>
-        <SecondpageBlock id="SecondpageBlock" ref={secondBlockRef}>
-          <CutomSliderBottom
-            recentVideoDataLst={recentVideoDataLst}
-          ></CutomSliderBottom>
-          <PageDownButton
-            className="toggle up"
-            style={{ rotate: '90deg' }}
-            href="#FirstpageBlock"
-          >
-            《
-          </PageDownButton>
-        </SecondpageBlock>
-      </MainPageBlock>
-    </>
+    <MainPageBlock>
+      <FirstpageBlock ref={firstpageBlock}>
+        <SearchBarBlock id="searchBarBlock">
+          <LogoBlock>
+            <img
+              src="https://threelaka.s3.ap-northeast-2.amazonaws.com/mainlogo.png"
+              alt="스리라까 로고"
+            />
+          </LogoBlock>
+          <NewVideo>
+            {/* <FirstCenterBar> */}
+            <SearchBar />
+            {/* </FirstCenterBar> */}
+          </NewVideo>
+        </SearchBarBlock>
+        <PageDownButton
+          className="toggle"
+          style={{ rotate: '270deg' }}
+          href="#recentVideoContainer"
+        >
+          《
+        </PageDownButton>
+      </FirstpageBlock>
+      <RecentVideoContainer
+        id="recentVideoContainer"
+        ref={recentVideoContainer}
+      >
+        <PageDownButton
+          className="toggle"
+          style={{ rotate: '90deg' }}
+          href="#searchBarBlock"
+        >
+          《
+        </PageDownButton>
+        <RecentVideo />
+      </RecentVideoContainer>
+      <RecommendVideoContainer>
+        <ListInfo>추천 영상</ListInfo>
+        <RecommendVideoList />
+      </RecommendVideoContainer>
+    </MainPageBlock>
   );
 };
 

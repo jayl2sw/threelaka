@@ -59,54 +59,46 @@ export const VideoAudioBtn = styled.button`
   cursor: pointer;
 `;
 
-type ModePickContainerProps = {
-  heightSize: string;
-};
-export const ModePickContainer = styled.div<ModePickContainerProps>`
-  width: 6vw;
-  height: ${(props) => props.heightSize};
+export const ModePickContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  & .not-active {
-    opacity: 0.5;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 15vw;
+  height: 5vh;
+  & button {
+    background-color: #4a9fff;
+    color: white;
   }
 `;
 
-export const EssayScreenContainer = styled.div`
-  width: 50vw;
-  height: 30vh;
-`;
+// 비디오 녹화 스타일
 
 // 에세이 스크립트 스타일
 export const EssayContainer = styled.div`
-  height: 30vh;
+  height: 33vh;
   padding: 1vw;
   /* font-size: 1.5vmin; */
-  min-height: 30vh;
   width: auto;
   background: #ffffff;
   box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
   border-radius: 2vmin;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: auto;
+
+  overflow: scroll;
   .trigger {
     display: none;
   }
 `;
 
 export const TextContainer = styled.div`
-  /* margin-top: 1vh; */
+  margin-top: 1vh;
 `;
 export const TextBox = styled.div`
-  width: 45vw;
+  width: 50vw;
   /* height: 10rem; */
   /* padding-top: 5vh; */
   margin: 5rem auto;
-  padding-bottom: 2.2vh;
   /* margin-bottom: 1vh; */
   display: flex;
   justify-content: center;
@@ -115,58 +107,33 @@ export const TextBox = styled.div`
   color: #9897a9;
   /* background-color: #febf00; */
   transition: 0.4s;
-  /* &.active {
+  &.active {
     font-size: 3.8vmin;
     width: 50vw;
     background-color: #8dc2ff;
     color: #fff;
-    padding: 1vw;
-  } */
-`;
-
-export const TextEssayBox = styled.div`
-  width: 45vw;
-  /* height: 10rem; */
-  /* padding-top: 5vh; */
-  margin: 4.5rem auto;
-  /* padding-bottom: 2.2vh; */
-  padding: 1vw 0 1vw 0;
-  line-height: 2vh;
-  /* margin-bottom: 1vh; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 3.8vmin;
-  color: #9897a9;
-  box-shadow: inset 0 0 0 0 #8dc2ff;
-  :hover {
-    color: #fff;
-    box-shadow: inset 50vw 0 0 0 #8dc2ff;
-    cursor: pointer;
   }
-  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 `;
 
 export const SpeechTestContainer = styled.div`
-  height: 82vh;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  padding-top: 3vh;
+  height: 80vh;
 `;
 
 export const SpeechTestBox = styled.div`
-  height: 50vh;
-  border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1vw;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
+  border-radius: 2vmin;
 `;
-
-// export const SpeechTestBox = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   padding: 1vw;
-//   background-color: rgba(255, 255, 255, 0.5);
-//   box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
-//   border-radius: 2vmin;
-//   border: 1px solid green;
-// `;
 
 export const RecordBox = styled.div`
   display: flex;
@@ -174,10 +141,6 @@ export const RecordBox = styled.div`
   align-items: center;
   .test-recorder {
     height: 10vh;
-  }
-  &.noEssay {
-    pointer-events: none;
-    visibility: hidden;
   }
 `;
 
@@ -267,30 +230,29 @@ export const SpeechResultBox = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  min-height: 37vh;
-  /* flex-wrap: wrap; */
-  /* width: auto; */
 `;
 
 export const ScoreTextBox = styled.div`
   .bad {
-    background-color: #eb603e;
+    background-color: #a8dadc;
   }
   .well {
-    background-color: #f5826e;
+    background-color: #a8dadc;
   }
   .good {
-    background-color: #97cd8d;
+    background-color: cadetblue;
   }
   .verygood {
-    background-color: #52aa90;
+    background-color: #1d3557;
   }
+<<<<<<< HEAD
   letter-spacing: 1.5px;
   line-height: 5vh;
+=======
+>>>>>>> parent of 964b66c (Merge branch 'front' into 'dev')
 `;
 
 export const ColorScoreIndicator = styled.div`
-  margin-top: 2vh;
   .box {
     display: flex;
   }
@@ -308,16 +270,16 @@ export const ScoreIcon = styled(BsCircleFill)`
   font-size: 2vmin;
 
   &.bad {
-    color: #eb603e;
+    color: #a8dadc;
   }
   &.well {
-    color: #f5826e;
+    color: #4a9fff;
   }
   &.good {
-    color: #97cd8d;
+    color: cadetblue;
   }
   &.verygood {
-    color: #52aa90;
+    color: #1d3557;
   }
 `;
 
@@ -335,16 +297,4 @@ export const ErrorBlock = styled.div`
 export const ErrorText = styled.div`
   font-size: 3vmin;
   margin: 0.5vw;
-`;
-
-export const EssayOnOffContainer = styled.div`
-  width: 6vw;
-  height: 30vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  & .not-active {
-    opacity: 0.5;
-  }
 `;

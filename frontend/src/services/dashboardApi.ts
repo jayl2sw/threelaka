@@ -5,9 +5,6 @@ import {
   CompletedVideos,
   MonthStudyTime,
   StudyHistory,
-  TotalStudyTime,
-  UserWordInfo,
-  isMemorizedWord,
 } from '../models/dashboard';
 
 // 최근에 본 영상 리스트
@@ -58,53 +55,6 @@ export const getStudyHistoryApi = async (
 
 export const updateProfileApi = async (profileNum: string): Promise<any> => {
   const res = await customAxios.put(`/api/v1/dashboard/profile/${profileNum}`);
-
-  return res.data;
-};
-
-//총 학습시간 조회
-export const getTotalStudyTimeApi = async (
-  totalStudyTime: TotalStudyTime
-): Promise<any> => {
-  const res = await customAxios.get('/api/v1/dashboard/history/time');
-  const response: TotalStudyTime = res.data;
-  return response;
-};
-
-//태그 등록 또는 수정
-
-export const updateTagApi = async (tagList: Array<number>): Promise<any> => {
-  console.log('얘가 뭔가', tagList);
-  const res = await customAxios.put(`/api/v1/dashboard/tag`, tagList);
-
-  return res.data;
-};
-
-//태그리스트불러오기
-export const getTagListApi = async (tagList: Array<string>): Promise<any> => {
-  const res = await customAxios.get('/api/v1/dashboard/tag');
-  const response: [] = res.data;
-  return response;
-};
-
-//유저영단어 불러오기
-export const getUserWordInfoApi = async (
-  userWordInfo: UserWordInfo[]
-): Promise<any> => {
-  const res = await customAxios.get('/api/v1/study/word/user');
-  const response: UserWordInfo[] = res.data;
-  return response;
-};
-
-//단어 외움 처리
-export const putIsMemorizedWordApi = async (
-  isMemorizedWordInfo: isMemorizedWord
-): Promise<any> => {
-  console.log('얘가 뭔가', isMemorizedWordInfo);
-  const res = await customAxios.put(
-    `/api/v1/study/word/complete`,
-    isMemorizedWordInfo
-  );
 
   return res.data;
 };

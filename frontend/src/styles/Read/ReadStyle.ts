@@ -25,7 +25,7 @@ export const WordBookAddReqBtn = styled.div`
 `;
 
 export const DictInput = styled.input`
-  width: 30vw;
+  width: 25vw;
   height: 5vh;
   font-family: PretendardBold;
   font-size: 3vmin;
@@ -151,8 +151,7 @@ export const AutoScrollBtn = styled.div`
 
 export const CircularMenuItem = styled.div<CicularMenuProps>`
   display: flex;
-  cursor: default;
-  pointer-events: none;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
   width: 4vmin;
@@ -163,9 +162,7 @@ export const CircularMenuItem = styled.div<CicularMenuProps>`
   visibility: none;
   border-radius: 50%;
   &.toggle {
-    cursor: pointer;
     opacity: 1;
-    pointer-events: initial;
     visibility: visible;
     transition: opacity ${(props) => props.transitionTime} ease-in-out;
   }

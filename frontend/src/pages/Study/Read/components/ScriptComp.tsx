@@ -130,29 +130,12 @@ IScriptCompProps) => {
     wordIdx: number
   ) => {
     let nextInputValue: string = '';
-    const spanText = (e.target as HTMLSpanElement).innerText;
     if (selectedSentenceIdx === idx) {
-      // 같은 문장 안에 있을 때
-      if (selectedWordIdxArr.indexOf(wordIdx) !== -1) {
-        // 이미 눌렀던 단어일 때
-        nextInputValue = dictInputValue
-          .split(' ')
-          .filter((word) => word !== spanText)
-          .join(' ');
-        nextInputValue = nextInputValue.replace('  ', ' ').trimEnd();
-        // 빼 줌
-        const nextSelectedWordIdxArr = selectedWordIdxArr.filter(
-          (idx) => idx !== wordIdx
-        );
-        setSelectedWordIdxArr(nextSelectedWordIdxArr);
-      } else {
-        nextInputValue = dictInputValue + ' ' + spanText;
-        nextInputValue = nextInputValue.trimStart();
-        setSelectedWordIdxArr([...selectedWordIdxArr, wordIdx]);
-      }
+      nextInputValue =
+        dictInputValue + (e.target as HTMLSpanElement).innerText + ' ';
+      setSelectedWordIdxArr([...selectedWordIdxArr, wordIdx]);
     } else {
-      nextInputValue = spanText;
-      // nextInputValue = nextInputValue.trimStart();
+      nextInputValue = (e.target as HTMLSpanElement).innerText + ' ';
       setSelectedSentenceIdx(idx);
       setSelectedWordIdxArr([wordIdx]);
     }

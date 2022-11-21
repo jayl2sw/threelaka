@@ -10,16 +10,6 @@ export interface User {
   gender: string;
   username: string;
   grade: number;
-  guildId: number;
+  guildId: string;
   profile: string;
 } //아직안씀
-
-export interface UserAlertInfo {
-  alertId: 0;
-  alertState: string;
-  assignmentId: 0;
-  guildId: 0;
-  guildName: string;
-  videoId: string;
-  videoTitle: string;
-}

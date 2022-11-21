@@ -1,3 +1,4 @@
+import { url } from 'inspector';
 import styled from 'styled-components';
 
 interface CommonDivProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
@@ -6,15 +7,6 @@ interface CommonDivProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
   paddingSize: string;
   fontColor: 'white' | 'grey' | 'black' | 'blue';
   fontSize: string;
-}
-interface ToastDivProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
-  widthSize: string;
-  heightSize: string;
-  paddingSize: string;
-  fontColor: 'white' | 'grey' | 'black' | 'blue';
-
-  top: string;
-  left: string;
 }
 
 interface CommonCircleProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
@@ -203,37 +195,8 @@ export const GradientCircleDiv = styled.div<CommonCircleProps>`
   background-origin: border-box;
   background-clip: content-box, border-box;
   margin: 10px;
-  position: relative;
 `;
 
 // export const GradientIconBox = styled.div<CommonDivProps>`
 
 // `
-
-export const ToastContainer = styled.div<ToastDivProps>`
-  width: ${(props) => props.widthSize};
-  height: ${(props) => props.heightSize};
-  padding: ${(props) => props.paddingSize};
-
-  top: ${(props) => props.top};
-  left: ${(props) => props.left};
-  box-shadow: 5px 5px 5px rgba(63, 39, 102, 0.25);
-  position: fixed;
-  z-index: 20;
-  border-radius: 2vmin;
-  background: rgba(0, 0, 0, 0.65);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  animation: smoothAppear 1s ease-in-out;
-  @keyframes smoothAppear {
-    from {
-      opacity: 0;
-      transform: translateY(-5%);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-`;

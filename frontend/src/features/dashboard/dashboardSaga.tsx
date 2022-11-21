@@ -10,11 +10,6 @@ import {
   getMonthStudyTimeApi,
   getStudyHistoryApi,
   updateProfileApi,
-  getTotalStudyTimeApi,
-  updateTagApi,
-  getTagListApi,
-  getUserWordInfoApi,
-  putIsMemorizedWordApi,
 } from '../../services/dashboardApi';
 import { dashboardActions } from './dashboard-slice';
 import {
@@ -22,9 +17,6 @@ import {
   CompletedVideos,
   MonthStudyTime,
   StudyHistory,
-  TotalStudyTime,
-  UserWordInfo,
-  isMemorizedWord,
 } from '../../models/dashboard';
 
 // 현재공부중인 영상 불러오기 SAGA
@@ -59,9 +51,8 @@ function* onDailyStudyTimeAsync(action: PayloadAction<[]>) {
     // response.map((item, idx) => item / 60);
     console.log(response);
     const processedTime: number[] = response
-      // .slice(1, 15)
+      .slice(1, 8)
       .map((item, idx) => item / 60);
-    console.log(processedTime);
     yield put(dashboardActions.getDailyStudyTimeSuccess(processedTime));
   } catch (error: any) {
     yield put(dashboardActions.getDailyStudyTimeFailed(error.data));
@@ -93,18 +84,6 @@ function* onStudyHistoryAsync(action: PayloadAction<StudyHistory>) {
     yield put(dashboardActions.getStudyHistoryFailed(error.data));
   }
 }
-//총 학습시간 불러오기
-function* onTotalStudyTimeAsync(action: PayloadAction<TotalStudyTime>) {
-  try {
-    const response: TotalStudyTime = yield call(
-      getTotalStudyTimeApi,
-      action.payload
-    );
-    yield put(dashboardActions.getTotalStudyTimeSuccess(response));
-  } catch (error: any) {
-    yield put(dashboardActions.getTotalStudyTimeFailed(error.data));
-  }
-}
 
 //프로필수정
 function* onUpdateProfileAsync(action: PayloadAction<string>) {
@@ -115,60 +94,6 @@ function* onUpdateProfileAsync(action: PayloadAction<string>) {
     yield put(fetchUser());
   } catch (error: any) {
     yield put(dashboardActions.updateProfileFailed(error.data));
-  }
-}
-
-//태그수정
-function* onUpdateTagAsync(action: PayloadAction<number[]>) {
-  // const { fetchUser } = authActions;
-  try {
-    const response: string = yield call(updateTagApi, action.payload);
-    yield put(dashboardActions.updateTagSuccess(response));
-    yield put(dashboardActions.getTagList());
-
-    // yield put(fetchUser());
-  } catch (error: any) {
-    yield put(dashboardActions.updateTagFailed(error.data));
-  }
-}
-
-//태그 리스트 불러오기
-function* onGetTagListAsync(action: PayloadAction<string[]>) {
-  try {
-    const response: [] = yield call(getTagListApi, action.payload);
-
-    yield put(dashboardActions.getTagListSuccess(response));
-  } catch (error: any) {
-    yield put(dashboardActions.getTagListFailed(error.data));
-  }
-}
-//유저영단어정보 불러오기
-function* onGetUserWordInfoAsync(action: PayloadAction<UserWordInfo[]>) {
-  try {
-    const response: UserWordInfo[] = yield call(
-      getUserWordInfoApi,
-      action.payload
-    );
-    const processedRes = response.filter((item, idx) => {
-      if (item.exampleKor !== null) {
-        return item;
-      }
-    });
-
-    yield put(dashboardActions.getUserWordInfoSuccess(processedRes));
-  } catch (error: any) {
-    yield put(dashboardActions.getUserWordInfoFailed(error.data));
-  }
-}
-
-//단어외움처리
-function* onPutIsMemorizedWordsync(action: PayloadAction<isMemorizedWord>) {
-  try {
-    const response: string = yield call(putIsMemorizedWordApi, action.payload);
-    yield put(dashboardActions.putIsMemorizedWordSuccess(response));
-    yield put(dashboardActions.getUserWordInfo);
-  } catch (error: any) {
-    yield put(dashboardActions.putIsMemorizedWordFailed(error.data));
   }
 }
 
@@ -211,38 +136,6 @@ export function* watchGetStudyHistoryAsync() {
 export function* watchUpdateProfileAsync() {
   yield takeLatest(dashboardActions.updateProfile.type, onUpdateProfileAsync);
 }
-//총학습시간
-export function* watchTotalStudyTimeAsync() {
-  yield takeLatest(
-    dashboardActions.getTotalStudyTime.type,
-    onTotalStudyTimeAsync
-  );
-}
-
-//태그변경
-export function* watchUpdateTagAsync() {
-  yield takeLatest(dashboardActions.updateTag.type, onUpdateTagAsync);
-}
-
-//태그조회
-export function* watchGetTagListAsync() {
-  yield takeLatest(dashboardActions.getTagList.type, onGetTagListAsync);
-}
-//유저영단어조회
-export function* watchGetUserWordInfoAsync() {
-  yield takeLatest(
-    dashboardActions.getUserWordInfo.type,
-    onGetUserWordInfoAsync
-  );
-}
-
-//단어외움처리
-export function* watchPutIsMemorizedWordAsync() {
-  yield takeLatest(
-    dashboardActions.putIsMemorizedWord.type,
-    onPutIsMemorizedWordsync
-  );
-}
 export const dashboardSagas = [
   fork(watchGetRecentVideoAsync),
   fork(watchGetCompletedVideoAsync),
@@ -250,9 +143,4 @@ export const dashboardSagas = [
   fork(watchGetMonthStudyTimeAsync),
   fork(watchGetStudyHistoryAsync),
   fork(watchUpdateProfileAsync),
-  fork(watchTotalStudyTimeAsync),
-  fork(watchUpdateTagAsync),
-  fork(watchGetTagListAsync),
-  fork(watchGetUserWordInfoAsync),
-  fork(watchPutIsMemorizedWordAsync),
 ];

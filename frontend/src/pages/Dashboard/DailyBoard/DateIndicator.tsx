@@ -50,7 +50,7 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
 
           return (
             <div
-              data-tooltip={`이 날의 공부 : ${time}분`}
+              data-tooltip={`Study-Time : ${time}분`}
               className={`${
                 monthStudyTime[getDayOfMonth(item.date)] === 0
                   ? 'noStudy'

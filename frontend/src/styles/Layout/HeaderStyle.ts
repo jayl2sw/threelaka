@@ -134,7 +134,7 @@ export const TitleRegion = styled.div`
   background-color: black;
   font-size: 3rem;
   color: white;
-  margin-right: 25vw;
+  margin-right: 10vw;
   cursor: pointer;
   & img {
     width: 30%;

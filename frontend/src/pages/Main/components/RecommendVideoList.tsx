@@ -3,13 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import VideoCard from './VideoCard';
 import { videoActions } from '../../../features/video/video-slice';
 
-interface IRecommendVideoProps {
-  setModalToggleVideoId: (nextVideoId: string) => void;
-}
-
-const RecommendVideoList = ({
-  setModalToggleVideoId,
-}: IRecommendVideoProps) => {
+const RecommendVideoList = () => {
   const dispatch = useAppDispatch();
 
   // 페이지 렌더링 하기 전에 추천 영상 요청하기
@@ -23,16 +17,10 @@ const RecommendVideoList = ({
   );
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex'}}>
       {recommendVideoList &&
         recommendVideoList.map((videoData, i) => {
-          return (
-            <VideoCard
-              data={videoData}
-              key={i}
-              setModalToggleVideoId={setModalToggleVideoId}
-            />
-          );
+          return <VideoCard data={videoData} key={i} />;
         })}
     </div>
   );

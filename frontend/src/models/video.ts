@@ -1,22 +1,14 @@
 import { ReactNode } from 'react';
 
-export interface learningRecordData {
-  learningRecordId: number;
-  userId: number;
-  videoId: string;
-  stage: string;
-  date: string;
-}
-
 // 영상 정보
 export interface VideoData {
+  watched: boolean | null;
   video: {
     videoId: string;
     title: string;
     description: string;
-    korScript: boolean;
+    script: string;
   };
-  learning_record: learningRecordData[];
 }
 
 // 최근 영상 정보

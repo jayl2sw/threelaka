@@ -11,7 +11,6 @@ type WritingState = {
   checkedWordList: CheckedWord[];
   spellCheckLst: SpellCheckRes;
   essay: string;
-  isSaveSuccess: null | true | false;
 };
 
 let initialState: WritingState = {
@@ -22,7 +21,6 @@ let initialState: WritingState = {
     flaggedTokens: [],
   },
   essay: '',
-  isSaveSuccess: null,
 };
 
 const writingSlice = createSlice({
@@ -60,21 +58,14 @@ const writingSlice = createSlice({
     // 에세이 저장 :: 시작
     postSaveEssayStart(state, action: PayloadAction<SaveEssayPayload>) {
       state.loading = true;
-      state.isSaveSuccess = null;
     },
     // 에세이 저장 :: 성공
     postSaveEssaySuccess(state, action: PayloadAction<string>) {
       state.loading = false;
-      state.isSaveSuccess = true;
     },
     // 에세이 저장 :: 실패
     postSaveEssayFailed(state, action: PayloadAction<string>) {
       state.loading = false;
-      state.isSaveSuccess = false;
-    },
-
-    resetIsSaveSuccess(state) {
-      state.isSaveSuccess = null;
     },
 
     // 에세이 불러오기 :: 시작

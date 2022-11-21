@@ -48,6 +48,6 @@ export const LearnTimeProgressbar = styled.div<ProgressDivProps>`
     height: 2vmin;
     background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile1.png');
     background-size: 2vmin 2vmin;
-    left: ${(props) => `${props.progressPercent - 3}%`};
+    left: ${(props) => `${props.progressPercent - 2}%`};
   }
 `;

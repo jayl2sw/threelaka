@@ -8,10 +8,7 @@ import { TopBtn } from '../../../styles/Common/CommonBtnStyle';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 import { BackBlurBox, MainBox } from '../../../styles/Common/CommonDivStyle';
 import { useHorizontalScroll } from '../../../utils/useSideScroll';
-export interface IVideoContainerProps {
-  setModalToggleVideoId: (nextVideoId: string) => void;
-}
-const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
+const VideoContainer = () => {
   const recentVideoBlock = useRef<HTMLDivElement>(null);
   const completedVideoBlock = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState(0);
@@ -23,9 +20,10 @@ const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
     }
   };
 
-  const scrollRef = useHorizontalScroll([
-    mode,
-  ]) as React.MutableRefObject<HTMLDivElement>;
+  const scrollRef = useHorizontalScroll(
+    mode
+  ) as React.MutableRefObject<HTMLDivElement>;
+
   return (
     <VideoBlock>
       <FlexTransparentDiv
@@ -38,26 +36,26 @@ const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
         IsBorder={'none'}
       >
         <TopBtn
-          widthSize={'8vw'}
-          heightSize={'4.5vh'}
+          widthSize={'7vw'}
+          heightSize={'4vh'}
           paddingSize={'0'}
-          fontColor={'white'}
+          fontColor={'black'}
           fontSize={'2vmin'}
           backgroundColor={'blue'}
-          style={{ marginLeft: '1vw', wordBreak: 'keep-all' }}
+          style={{ marginLeft: '1vw' }}
           onClick={() => setMode(0)}
           className={mode ? 'pale' : ''}
         >
-          공부 중인 영상
+          최근 공부한 영상
         </TopBtn>
         <TopBtn
-          widthSize={'8vw'}
-          heightSize={'4.5vh'}
+          widthSize={'7vw'}
+          heightSize={'4vh'}
           paddingSize={'0'}
-          fontColor={'white'}
+          fontColor={'black'}
           fontSize={'2vmin'}
           backgroundColor={'blue'}
-          style={{ marginRight: '1vw', marginLeft: '0.25vw' }}
+          style={{ marginRight: '1vw', marginLeft: '1vw' }}
           onClick={() => {
             setMode(1);
           }}
@@ -67,18 +65,17 @@ const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
         </TopBtn>
       </FlexTransparentDiv>
       <MainBox
-        widthSize={'41vw'}
+        widthSize={'36vw'}
         heightSize={'33vh'}
         paddingSize={'2vh 1vw'}
         fontColor={'black'}
         fontSize={'1vmin'}
-        style={{ overflowY: 'hidden', overflowX: 'scroll', boxShadow: 'none' }}
+        style={{ overflowY: 'hidden', overflowX: 'scroll' }}
         ref={scrollRef}
       >
         <DashboardVideos
           mode={mode}
           recentVideoBlock={recentVideoBlock}
-          setModalToggleVideoId={setModalToggleVideoId}
         ></DashboardVideos>
       </MainBox>
     </VideoBlock>

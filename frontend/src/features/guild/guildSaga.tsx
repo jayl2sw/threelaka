@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
-import { call, put, takeLatest, fork, select, delay } from 'redux-saga/effects';
+import { call, put, takeLatest, fork, select } from 'redux-saga/effects';
 import {
   GuildNotice,
   VideoInfo,
@@ -9,14 +9,11 @@ import {
   GuildDetailInfo,
   MyguildInfo,
   MyguildLearnTime,
-  GuildRequest,
-  MyRequest,
-  GuildAssignment,
-  CreateGuildForm,
 } from '../../models/guild';
 import {
   getGuildNoticeApi,
-  getGuildTaskApi,
+  getProgressTaskApi,
+  getUpcomingTaskApi,
   getGuildMemberApi,
   deleteGuildNoticeApi,
   createGuildNoticeApi,
@@ -27,17 +24,7 @@ import {
   GetSortedGuildApi,
   GetSearchGuildApi,
   GetGuildLearnTimeApi,
-  GetGuildRequestsApi,
-  AccpetGuildRequestApi,
-  RejectGuildRequestApi,
-  GetMyRequestApi,
-  PostGuildRequestApi,
-  QuitGuildApi,
-  PostGuildAssignmentApi,
-  DeleteGuildAssignmentApi,
-  CreateGuildApi,
 } from '../../services/guildApi';
-import { authActions } from '../auth/authSlice';
 import { guildActions } from './guild-slice';
 
 // 길드 공지 받아오기 SAGA
@@ -59,18 +46,22 @@ function* onGetProgressTaskAsync(action: PayloadAction<string>) {
   // 길드 과제 받아오기 성공하면
   try {
     // model에 적어준 dto 값으로 작성
-    const progressResponse: VideoInfo[] = yield call(getGuildTaskApi, '1');
+    const progressResponse: VideoInfo[] = yield call(
+      getProgressTaskApi,
+      action.payload
+    );
     yield put(guildActions.getProgressTaskSuccess(progressResponse));
-    const upcomingResponse: VideoInfo[] = yield call(getGuildTaskApi, '0');
+    const upcomingResponse: VideoInfo[] = yield call(
+      getUpcomingTaskApi,
+      action.payload
+    );
     yield put(guildActions.getUpcomingTaskSuccess(upcomingResponse));
-    const completedResponse: VideoInfo[] = yield call(getGuildTaskApi, '2');
-    yield put(guildActions.getCompletedTaskSuccess(completedResponse));
   } catch (error) {
     console.error();
   }
 }
 
-function* onGetGuildMemberListAsync(action: PayloadAction<number>) {
+function* onGetGuildMemberListAsync(action: PayloadAction<string>) {
   // 멤버 정보 받아오기 성공하면
   try {
     const response: GuildMemberList = yield call(
@@ -83,7 +74,7 @@ function* onGetGuildMemberListAsync(action: PayloadAction<number>) {
   }
 }
 
-function* onDeleteGuildNoticeStartAsync(action: PayloadAction<number>) {
+function* onDeleteGuildNoticeStartAsync(action: PayloadAction<string>) {
   try {
     yield call(deleteGuildNoticeApi);
     yield put(guildActions.getGuildNotice(action.payload));
@@ -92,10 +83,10 @@ function* onDeleteGuildNoticeStartAsync(action: PayloadAction<number>) {
   }
 }
 
-function* onCreateGuildNoticeStartAsync(action: PayloadAction<number>) {
+function* onCreateGuildNoticeStartAsync(action: PayloadAction<string>) {
   try {
     console.warn('되나');
-    const guildId: number = yield select(
+    const guildId: string = yield select(
       (state) => state.auth.currentUser.guildId
     );
     yield call(createGuildNoticeApi, action.payload);
@@ -105,10 +96,10 @@ function* onCreateGuildNoticeStartAsync(action: PayloadAction<number>) {
   }
 }
 
-function* onPutGuildNoticeStartAsync(action: PayloadAction<number>) {
+function* onPutGuildNoticeStartAsync(action: PayloadAction<string>) {
   try {
     console.warn('되나');
-    const guildId: number = yield select(
+    const guildId: string = yield select(
       (state) => state.auth.currentUser.guildId
     );
     yield call(putGuildNoticeApi, action.payload);
@@ -129,7 +120,7 @@ function* onPostGuildHandOverAsync(action: PayloadAction<string>) {
 function* onDeleteMemberAsync(action: PayloadAction<number>) {
   try {
     yield call(DeleteMemberApi, action.payload);
-    const guildId: number = yield select(
+    const guildId: string = yield select(
       (state) => state.auth.currentUser.guildId
     );
     yield put(guildActions.getGuildMember(guildId));
@@ -194,105 +185,6 @@ function* onGetGuildLearnTimeAsync() {
   }
 }
 
-// 내가 마스터인 길드 가입 요청 조회
-function* onGetGuildRequestsAsync() {
-  try {
-    const reponse: GuildRequest[] = yield call(GetGuildRequestsApi);
-    yield put(guildActions.getGuildRequestSuccess(reponse));
-  } catch (error) {
-    console.error();
-  }
-}
-
-// 길드 가입 승인하기
-function* onAccpetGuildRequestAsync(action: PayloadAction<number>) {
-  try {
-    yield call(AccpetGuildRequestApi, action.payload);
-    yield put(guildActions.putAcceptGuildRequestSuccess());
-    yield put(guildActions.getGuildRequestStart());
-  } catch (error) {
-    console.error();
-  }
-}
-
-// 길드 가입 거절
-function* onRejectGuildRequestAsync(action: PayloadAction<number>) {
-  try {
-    yield call(RejectGuildRequestApi, action.payload);
-    yield put(guildActions.deleteRejectGuildRequestSuccess());
-    yield put(guildActions.getGuildRequestStart());
-  } catch (error) {
-    console.error();
-  }
-}
-
-// 나의 길드 요청 목록 조회
-function* onGetMyRequestAsync() {
-  try {
-    const response: MyRequest[] = yield call(GetMyRequestApi);
-    yield put(guildActions.getMyRequestSuccess(response));
-  } catch (error) {
-    console.error();
-  }
-}
-
-// 길드 가입 요청 하기
-function* onPostGuildRequestAsync(action: PayloadAction<number>) {
-  try {
-    yield call(PostGuildRequestApi, action.payload);
-    yield put(guildActions.postGuildRequestSuccess());
-  } catch (error) {
-    console.error();
-  }
-}
-
-// 길드 가입 거절
-function* onQuitGuildAsync(action: PayloadAction<number>) {
-  try {
-    yield call(QuitGuildApi, action.payload);
-    yield put(guildActions.quitGuildSuccess());
-    yield put(guildActions.getGuildRequestStart());
-  } catch (error) {
-    console.error();
-  }
-}
-
-// 길드 과제 만들기
-function* onPostGuildAssignmentAsync(action: PayloadAction<GuildAssignment>) {
-  try {
-    yield call(PostGuildAssignmentApi, action.payload);
-    yield put(guildActions.postGuildAssignmentSuccess());
-    yield put(guildActions.getProgressTask());
-  } catch (error) {
-    console.error();
-  }
-}
-
-// 길드 과제 삭제하기
-function* onDeleteGuildAssignmentAsync(action: PayloadAction<number>) {
-  try {
-    yield call(DeleteGuildAssignmentApi, action.payload);
-    yield put(guildActions.delelteGuildAssignmentSuccess());
-    yield put(guildActions.getProgressTask());
-  } catch (error) {
-    console.error();
-  }
-}
-
-// 길드 생성하기
-function* onCreateGuildStartAsync(action: PayloadAction<CreateGuildForm>) {
-  try {
-    yield call(CreateGuildApi, action.payload);
-    yield put(authActions.fetchUser()); // guild ID 다시 가져오기 위해
-    yield delay(2000); // 나중에 해결하기
-    yield put(guildActions.getSearchGuildStart()); // 길드마스터 가져오기 위해
-    yield put(guildActions.createGuildStartSuccess());
-  } catch (error) {
-    yield put(guildActions.createGuildStartFailed());
-    console.error();
-  }
-}
-
 // 길드 공지 받아오기 watch
 export function* watchGetGuildNoticeAsync() {
   yield takeLatest(guildActions.getGuildNotice.type, onGetGuildNoticeAsync);
@@ -300,6 +192,7 @@ export function* watchGetGuildNoticeAsync() {
 // 길드 진행중인 과제 받아오기 watch
 export function* watchGetProgressTaskAsync() {
   yield takeLatest(guildActions.getProgressTask.type, onGetProgressTaskAsync);
+  yield takeLatest(guildActions.getUpcomingTask.type, onGetProgressTaskAsync);
 }
 // 길드 멤버 받아오기 watch
 export function* watchGetGuildMemberListAsync() {
@@ -374,68 +267,6 @@ export function* watchgetGuildLearnTimeAsync() {
   );
 }
 
-// 내가 마스터인 길드 가입 요청 조회 watch
-export function* watchGetGuildRequestsAsync() {
-  yield takeLatest(
-    guildActions.getGuildRequestStart.type,
-    onGetGuildRequestsAsync
-  );
-}
-
-// 길드 가입 승인하기 watch
-export function* watchAccpetGuildRequestAsync() {
-  yield takeLatest(
-    guildActions.putAcceptGuildRequestStart.type,
-    onAccpetGuildRequestAsync
-  );
-}
-
-// 길드 가입 거절 watch
-export function* watchRejectGuildRequestApiAsync() {
-  yield takeLatest(
-    guildActions.deleteRejectGuildRequestStart.type,
-    onRejectGuildRequestAsync
-  );
-}
-
-// 나의 길드 요청 목록 조회
-export function* watchGetMyRequestAsync() {
-  yield takeLatest(guildActions.getMyRequestStart.type, onGetMyRequestAsync);
-}
-
-// 길드 가입 요청 하기
-export function* watchPostGuildRequestAsync() {
-  yield takeLatest(
-    guildActions.postGuildRequestStart.type,
-    onPostGuildRequestAsync
-  );
-}
-
-// 내가 가입한 길드 탈퇴
-export function* watchgQuitGuildApiAsync() {
-  yield takeLatest(guildActions.quitGuildStart.type, onQuitGuildAsync);
-}
-
-// 길드 과제 만들기
-export function* watchPostGuildAssignmentAsync() {
-  yield takeLatest(
-    guildActions.postGuildAssignmentStart.type,
-    onPostGuildAssignmentAsync
-  );
-}
-
-// 길드 과제 삭제하기
-export function* watchDeleteGuildAssignmentAsync() {
-  yield takeLatest(
-    guildActions.delelteGuildAssignmentStart.type,
-    onDeleteGuildAssignmentAsync
-  );
-}
-// 길드 생성하기
-export function* watchCreateGuildStartAsync() {
-  yield takeLatest(guildActions.createGuildStart.type, onCreateGuildStartAsync);
-}
-
 export const guildSagas = [
   fork(watchGetGuildNoticeAsync),
   fork(watchGetProgressTaskAsync),
@@ -449,13 +280,4 @@ export const guildSagas = [
   fork(watchGetSortedGuildAsync),
   fork(watchGetSearchGuildAsync),
   fork(watchgetGuildLearnTimeAsync),
-  fork(watchGetGuildRequestsAsync),
-  fork(watchAccpetGuildRequestAsync),
-  fork(watchRejectGuildRequestApiAsync),
-  fork(watchGetMyRequestAsync),
-  fork(watchPostGuildRequestAsync),
-  fork(watchgQuitGuildApiAsync),
-  fork(watchPostGuildAssignmentAsync),
-  fork(watchDeleteGuildAssignmentAsync),
-  fork(watchCreateGuildStartAsync),
 ];

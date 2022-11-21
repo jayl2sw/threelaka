@@ -6,7 +6,6 @@ import {
   getRecentVideoDataApi,
   getRecommendVideosApi,
   getKeywordSearchVideosApi,
-  getTagSearchVideosApi,
 } from '../../services/videoApi';
 import { VideoData, RecommendVideos, RecentVideoData } from '../../models';
 import { call, put, takeLatest, fork } from 'redux-saga/effects';
@@ -23,9 +22,12 @@ function* onGetVideoDataAsync(action: PayloadAction<string>) {
 }
 
 // 최근 공부한 영상 1개 정보 받아오기 SAGA
-function* onGetRecentVideoAsync() {
+function* onGetRecentVideoAsync(action: PayloadAction<string>) {
   try {
-    const response: RecentVideoData[] = yield call(getRecentVideoDataApi);
+    const response: RecentVideoData = yield call(
+      getRecentVideoDataApi,
+      action.payload
+    );
     yield put(videoActions.getRecentVideoDataSuccess(response));
   } catch (error) {
     console.log(`Fail to fetch RecentVideoData`, error);
@@ -58,19 +60,6 @@ function* onGetKeywordSearchVideosAsync(action: PayloadAction<string>) {
   }
 }
 
-// 태그 검색 비디오 SAGA
-function* onGetTagSearchVideosAsync(action: PayloadAction<number>) {
-  try {
-    const response: RecommendVideos[] = yield call(
-      getTagSearchVideosApi,
-      action.payload
-    );
-    yield put(videoActions.getTagSearchVideosSuccess(response));
-  } catch (error: any) {
-    yield put(videoActions.getTagSearchVideosFailed());
-  }
-}
-
 // 비디오 1개 정보 받아오기 watch
 export function* watchGetVideoDataAsync() {
   yield takeLatest(videoActions.getVideoData.type, onGetVideoDataAsync);
@@ -97,18 +86,9 @@ export function* watchGetKeywordSearchVideosAsync() {
   );
 }
 
-// 태그 검색 비디오 watch
-export function* watchGetTagSearchVideosAsync() {
-  yield takeLatest(
-    videoActions.getTagSearchVideosStart.type,
-    onGetTagSearchVideosAsync
-  );
-}
-
 export const videoSagas = [
   fork(watchGetVideoDataAsync),
   fork(watchGetRecommendVideoAsync),
   fork(watchGetRecentVideoDataAsync),
   fork(watchGetKeywordSearchVideosAsync),
-  fork(watchGetTagSearchVideosAsync),
 ];

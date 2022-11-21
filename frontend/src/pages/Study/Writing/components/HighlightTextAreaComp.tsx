@@ -1,7 +1,6 @@
 import { MainBox } from '../../../../styles/Common/CommonDivStyle';
 import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
 import { HighlightTextAreaWrapper } from '../../../../styles/Writing/WritingStyle';
-import { useRef } from 'react';
 
 // 필요한 props interface
 interface IHighlightTextAreaProps {
@@ -23,7 +22,6 @@ const HighlightTextAreaComp = ({
   foldLayoutMode,
   layoutMode,
 }: IHighlightTextAreaProps) => {
-  const textAreaRef = useRef<HTMLDivElement>(null);
   return (
     <MainBox
       widthSize={layoutMode === 0 ? (foldLayoutMode ? '75vw' : '50vw') : '80vw'}
@@ -35,13 +33,8 @@ const HighlightTextAreaComp = ({
       fontSize={'3vmin'}
       style={{ display: 'flex', flexDirection: 'column' }}
     >
-      <HighlightTextAreaWrapper
-        onClick={() => {
-          textAreaRef.current?.focus();
-        }}
-      >
+      <HighlightTextAreaWrapper>
         <HighlightWithinTextarea
-          ref={textAreaRef}
           value={textAreaValue}
           highlight={{
             highlight: modeValue ? spellFilterTarget : filterEssayTarget,

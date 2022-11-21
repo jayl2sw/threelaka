@@ -7,7 +7,7 @@ import {
   InputWrap,
   SubmitBtnWrap,
 } from '../../../styles/User/UserStyle';
-import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import { useAppDispatch } from '../../../utils/hooks';
 import { authActions } from '../../../features/auth/authSlice';
 
 //form 관리 라이브러리
@@ -48,7 +48,6 @@ const LoginForm = ({
   // const [errMsg, setErrMsg] = useState('');
 
   const dispatch = useAppDispatch();
-  const errorStatus = useAppSelector((state) => state.auth.errorStatus);
 
   const schema = yup.object().shape({
     // username: yup
@@ -93,17 +92,6 @@ const LoginForm = ({
       // setError(error.message);
     }
   };
-  useEffect(() => {
-    if (errorStatus !== 0) {
-      setError(
-        'password',
-        { message: '잘못된 로그인 정보입니다' } // 에러 메세지
-        // { shouldFocus: true }
-      );
-
-      dispatch(authActions.resetError());
-    }
-  }, [errorStatus]);
 
   return (
     <StyledForm
@@ -118,22 +106,22 @@ const LoginForm = ({
         </h1>
       </Heading>
       <InputWrap>
-        <InputField name="username" control={control} label="E-mail" />
+        <InputField name="username" control={control} label="이메일" />
         <InputField
           name="password"
           control={control}
-          label="Password"
+          label="비밀번호"
           type="password"
         />
       </InputWrap>
       <SubmitBtnWrap>
         <GradientRoundBtn
-          widthSize={'20vw'}
-          heightSize={'7vh'}
+          widthSize={'80%'}
+          heightSize={'5vh'}
           paddingSize={'0'}
-          fontColor={'white'}
+          fontColor={'black'}
           fontSize={'2vmin'}
-          backgroundColor={'blue'}
+          backgroundColor={'gradient'}
           style={{ margin: '0 auto' }}
         >
           L O G I N

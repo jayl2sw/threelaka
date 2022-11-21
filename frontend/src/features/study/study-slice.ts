@@ -89,8 +89,6 @@ const studySlice = createSlice({
     SearchDictStart(state, action: PayloadAction<string>) {
       state.loading = true;
       state.searchDictError = '';
-      state.wordMeaning.wordId = '';
-      state.wordMeaning.wordList = [];
     },
     // 사전 검색 성공
     SearchDictSuccess(state, action: PayloadAction<WordMeaning>) {
@@ -140,7 +138,6 @@ const studySlice = createSlice({
     },
     speechTestSuccess(state, action: PayloadAction<any>) {
       state.loading = false;
-      console.log('발음검사결과', action.payload);
 
       state.speechScores = action.payload.scores;
       state.totalScore = action.payload.total_score;
@@ -155,11 +152,6 @@ const studySlice = createSlice({
       state.totalScore = 0;
       state.speechTestError = '';
     },
-    //오류문구리셋
-    resetSpeechErrText(state) {
-      state.speechTestError = '';
-    },
-
     // 공부 후 만족도 조사 시작
     postStudySatisfactionStart(
       state,

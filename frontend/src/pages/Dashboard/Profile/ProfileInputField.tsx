@@ -1,5 +1,5 @@
 import { TextField } from '@material-ui/core';
-import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
+import React, { InputHTMLAttributes, useRef } from 'react';
 import { Control, useController } from 'react-hook-form';
 import { useAppSelector } from '../../../utils/hooks';
 import {
@@ -34,41 +34,59 @@ export const ProfileInputField = ({
   const currentUser = useAppSelector((state) => state.auth.currentUser);
 
   const inputTagRef = useRef<HTMLInputElement>(null);
+  const labelTagRef = useRef<HTMLDivElement>(null);
+  // const handleLabel = () => {
+  //   if (inputTagRef?.current !== null){
+
+  //     inputTagRef.current
+  //   }}
+
+  const AddActive = () => {
+    if (inputTagRef?.current !== null && labelTagRef?.current !== null) {
+      inputTagRef?.current.classList.add('active');
+      labelTagRef?.current.classList.add('active');
+    }
+  };
+
+  const RemoveActive = () => {
+    if (
+      inputTagRef?.current !== null &&
+      labelTagRef?.current !== null &&
+      inputTagRef?.current.value == ''
+    ) {
+      inputTagRef?.current.classList.remove('active');
+      labelTagRef?.current.classList.remove('active');
+    }
+  };
 
   let placeHolderVal: string = '';
   if (name === 'username') {
     placeHolderVal = currentUser?.username as string;
   } else if (name === 'age') {
     placeHolderVal = `${currentUser?.age}` as string;
-    type = type;
   } else if (name === 'nickname') {
     placeHolderVal = currentUser?.nickname as string;
-    type = type;
   }
 
   return (
     <>
-      <label
-        style={{
-          display: 'block',
-          color: 'rgba(0, 0, 0, 0.6)',
-          marginTop: '2vh',
-        }}
-      >
-        {label}
-      </label>
+      {/* <StyledLabel ref={labelTagRef} className="label">
+        {name}
+      </StyledLabel> */}
+
+      <label>{label}</label>
 
       <StyledInput
         placeholder={placeHolderVal}
-        value={name === 'username' ? currentUser?.username : value || ''}
+        value={value || ''}
         onChange={onChange}
+        onBlur={RemoveActive}
         autoComplete="on"
         minLength={4}
+        onFocus={AddActive}
         ref={inputTagRef}
         type={type}
-        className={`${name}`}
-        disabled={name === 'username' ? true : false}
-        style={{ height: '22%' }}
+        className={value?.length >= 1 ? 'yes-input' : ''}
       ></StyledInput>
 
       {error?.message && <ErrorText>{error?.message}</ErrorText>}
