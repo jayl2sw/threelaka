@@ -14,13 +14,14 @@ import { useCallback } from 'react';
 import { writingActions } from '../../../../features/writing/writing-slice';
 import { StudyPageParams } from '../../../../models';
 import { studyActions } from '../../../../features/study/study-slice';
+import { TextEssayBox } from '../../../../styles/Speaking/SpeakingStyle';
 interface IEssayProps {
   setSelectedText: React.Dispatch<React.SetStateAction<string>>;
-  setFlag: React.Dispatch<React.SetStateAction<boolean>>;
+
   pageParams: StudyPageParams;
 }
 
-const EssayScript = ({ setSelectedText, pageParams, setFlag }: IEssayProps) => {
+const EssayForTest = ({ setSelectedText, pageParams }: IEssayProps) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const isOnScreen = useOnScreen(elementRef);
   const dispatch = useAppDispatch();
@@ -37,8 +38,6 @@ const EssayScript = ({ setSelectedText, pageParams, setFlag }: IEssayProps) => {
     dispatch(studyActions.resetSpeechScore());
 
     setSelectedText(pickedSentence);
-
-    setFlag(false);
   };
 
   useEffect(() => {
@@ -88,13 +87,9 @@ const EssayScript = ({ setSelectedText, pageParams, setFlag }: IEssayProps) => {
   return (
     <EssayContainer>
       <TextContainer>
-        <p ref={elementRef} className="trigger">
-          에세이에요
-        </p>
-
-        {script ? (
+        {script.length !== 0 ? (
           script.map((item, idx) => (
-            <TextBox
+            <TextEssayBox
               key={idx}
               ref={(el) => {
                 if (null != el) {
@@ -102,16 +97,23 @@ const EssayScript = ({ setSelectedText, pageParams, setFlag }: IEssayProps) => {
                 }
               }}
               onClick={(e) => sentenceClickHandler(e, idx)}
+              style={{
+                fontSize: item.length > 50 ? '2.5vmin' : '3.8vmin',
+                color: '#1D3557',
+                lineHeight: '3vh',
+              }}
             >
               {item}
-            </TextBox>
+            </TextEssayBox>
           ))
         ) : (
-          <p>아직 작성된 에세이가 없어요😂</p>
+          <h2 style={{ textAlign: 'center' }}>
+            에세이를 작성해야 발음 테스트가 가능합니다😂
+          </h2>
         )}
       </TextContainer>
     </EssayContainer>
   );
 };
 
-export default EssayScript;
+export default EssayForTest;

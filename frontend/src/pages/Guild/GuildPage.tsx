@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SideBar from '../../layout/SideBar';
 import { useParams, useNavigate } from 'react-router-dom';
-import DailyBoard from '../Dashboard/DailyBoard/DailyBoard';
-import HistoryBoard from '../Dashboard/HistoryBoard/HistoryBoard';
-import Profile from '../Dashboard/Profile/Profile';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import GuildMain from './GuildMainPage';
 import MyGuild from '../Guild/MyGuildPage';
 import MasterSetting from '../Guild/MasterSettingPage';
@@ -12,57 +10,87 @@ import {
   FlexTransparentDiv,
   MainPaleBox,
 } from '../../styles/Common/CommonDivStyle';
+import { guildActions } from '../../features/guild/guild-slice';
+import VideoModal from '../../utils/VideoModal';
+import DailyBoard from '../Dashboard/DailyBoard/DailyBoard';
+import HistoryBoard from '../Dashboard/HistoryBoard/HistoryBoard';
+import Profile from '../Dashboard/Profile/Profile';
+
 const GuildPage = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const params = useParams();
-  const pageNum = params.pageNum ? params.pageNum : '0';
-  const handleSwitchPage = (pageNum: number) => {
-    navigate(`/auth/dashboard/${pageNum}`, { replace: true });
-  };
+  // const pageNum = params.pageNum ? params.pageNum : '1';
+  const pageNum = params.pageNum;
+  const guildPageType = params.guildPageType;
+  // const guildPageType = params.guildPageType ? params.guildPageType : 'main';
 
-  const guildPageType = params.guildPageType ? params.guildPageType : 'main';
-  const handleSwitchGuildPage = (guildPageType: string) => {
-    navigate(`/auth/guild/${guildPageType}`, { replace: true });
-  };
+  // useState
+  const [isMaster, setIsMaster] = useState<boolean>(false);
+  const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
+  // selector
+  const guildMasterId: number = useAppSelector(
+    (state) => state.guild.myGuildInfo.masterId
+  );
+  const userId = useAppSelector((state) => state.auth.currentUser?.userId);
+
+  // useEffect
+  useEffect(() => {
+    dispatch(guildActions.getSearchGuildStart());
+  }, []);
+
+  useEffect(() => {
+    if (guildMasterId === userId) {
+      setIsMaster(true);
+    } else {
+      setIsMaster(false);
+    }
+  }, [guildMasterId]);
 
   return (
-    <DashBoardBlock>
-      <MainPaleBox
-        widthSize={'85vw'}
-        heightSize={'90vh'}
-        paddingSize={'0'}
-        fontColor={'black'}
-        fontSize={'2vmin'}
-        style={{ display: 'flex' }}
-      >
-        <SideBar
-          handleSwitchPage={handleSwitchPage}
-          handleSwitchGuildPage={handleSwitchGuildPage}
-        ></SideBar>
-        <FlexTransparentDiv
-          widthSize={'65vw'}
-          heightSize={'80vh'}
+    <>
+      <VideoModal
+        modalStyleNum={1}
+        modalToggleVideoId={modalToggleVideoId}
+        setModalToggleVideoId={setModalToggleVideoId}
+      ></VideoModal>
+      <DashBoardBlock>
+        <MainPaleBox
+          widthSize={'85vw'}
+          heightSize={'90vh'}
           paddingSize={'0'}
-          flexDirection={'column'}
-          justifyContent={'start'}
-          alignItems={'center'}
-          IsBorder={'none'}
-          style={{
-            marginTop: '5vh',
-            marginLeft: '3.5vw',
-            fontFamily: 'pretendardRegular',
-            border: '2px solid green',
-          }}
+          fontColor={'black'}
+          fontSize={'2vmin'}
+          style={{ display: 'flex' }}
         >
-          {pageNum === '1' && <DailyBoard />}
-          {pageNum === '2' && <HistoryBoard />}
-          {pageNum === '3' && <Profile />}
-          {guildPageType === 'main' && <GuildMain />}
-          {guildPageType === 'myGuild' && <MyGuild />}
-          {guildPageType === 'admin' && <MasterSetting />}
-        </FlexTransparentDiv>
-      </MainPaleBox>
-    </DashBoardBlock>
+          <SideBar isMaster={isMaster}></SideBar>
+          <FlexTransparentDiv
+            widthSize={'68vw'}
+            heightSize={'82vh'}
+            paddingSize={'0'}
+            flexDirection={'column'}
+            justifyContent={'start'}
+            alignItems={'start'}
+            IsBorder={'none'}
+            style={{
+              marginTop: '4vh',
+              marginLeft: '2vw',
+              fontFamily: 'pretendardRegular',
+              // border: '2px solid green',
+            }}
+          >
+            {pageNum === '1' && (
+              <DailyBoard setModalToggleVideoId={setModalToggleVideoId} />
+            )}
+            {pageNum === '2' && <HistoryBoard />}
+            {pageNum === '3' && <Profile />}
+            {guildPageType === 'main' && <GuildMain />}
+            {guildPageType === 'myGuild' && <MyGuild />}
+            {guildPageType === 'admin' && <MasterSetting />}
+          </FlexTransparentDiv>
+        </MainPaleBox>
+      </DashBoardBlock>
+    </>
   );
 };
 

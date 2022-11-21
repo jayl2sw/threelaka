@@ -1,3 +1,4 @@
+import { learningRecordData } from './video';
 import { ReactNode } from 'react';
 
 // 내길드의 공지 조회
@@ -23,8 +24,10 @@ export interface GuildMemberList {
 
 // video 정보
 export interface VideoInfo {
+  assignmentId: number;
   guildId: number;
   videoId: string;
+  videoTitle: string;
   startDate: string;
   endDate: string;
 }
@@ -77,4 +80,58 @@ export interface MyguildLearnTime {
   profile: string;
   userId: number;
   nickname: string;
+}
+
+// 나의 길드 가입 요청 리스트
+export interface MyRequest {
+  guildName: string;
+  state: string;
+}
+
+// 내가 길드장인 길드에 온 요청 리스트
+export interface GuildRequest {
+  guildId: number;
+  requstId: number;
+  state: string;
+  userId: number;
+}
+
+// 길드 공통과제 신청
+export interface GuildAssignment {
+  videoId: string;
+  startDate: string;
+  endDate: string;
+}
+
+// WebSocet 개별 Guild
+export interface GuildInfo {
+  guildId: number;
+  rooms: Room[];
+  connectedUsers: ConnectedUser[];
+}
+
+// WebSocket 모든 Guilds
+export interface SocketGuilds {
+  guild: GuildInfo[];
+}
+
+// WebSocket 내 개별 길드의 개별 Room
+export interface Room {
+  videoId: string | null;
+  roomNumber: number;
+  conntedUsers: ConnectedUser[];
+}
+
+// WebSocket에 연결된 개별 유저
+export interface ConnectedUser {
+  nickname: string;
+  guildId: number;
+  roomNumber: number;
+  learningRecordId: number;
+}
+
+// 길드 만들기
+export interface CreateGuildForm {
+  name: string;
+  description: string;
 }

@@ -8,7 +8,7 @@ import VideosPage from './pages/Videos/VideosPage';
 // Layout
 import StudyLayout from './layout/StudyLayout';
 import MainLayout from './layout/MainLayout';
-
+import MainVideoLayout from './layout/MainVideoLayout';
 // Auth
 import AuthPage from './pages/User/Auth/AuthPage';
 // Study
@@ -16,13 +16,13 @@ import ReadPage from './pages/Study/Read/ReadPage';
 import WritingPage from './pages/Study/Writing/WritingPage';
 import SpeakingPage from './pages/Study/Speaking/SpeakingPage';
 import VocaPage from './pages/Study/Voca/VocaPage';
+// import './App.css';
 
 // Dashboard
-import DashBoardPage from './pages/Dashboard/DashBoardPage';
+// import DashBoardPage from './pages/Dashboard/DashBoardPage';
 
 // Guild
 import GuildPage from './pages/Guild/GuildPage';
-import ZonePage from './pages/Guild/EOZ/ZonePage';
 
 // pageNotFound
 import PageNotFound from './layout/PageNotFound';
@@ -30,21 +30,25 @@ import PageNotFound from './layout/PageNotFound';
 // Private
 import { ProtectedRoute } from './pages/private/ProtectedRoute';
 
+import Test from './pages/Test';
+
 function App() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(authActions.fetchUser());
   }, [dispatch]);
   return (
-    <div className="App">
+    <div className="App main-page-style">
       <Routes>
         {/* Main */}
         <Route element={<ProtectedRoute />}>
           <Route path="" element={<MainLayout />}>
             <Route path="" element={<MainPage />} />
-            <Route path="videos" element={<VideosPage />} />
             {/* <Route path="" element={<MainPage />} /> */}
             {/* 뒤에 라우트 주소가 비었을 때에도 무조건 메인으로 */}
+          </Route>
+          <Route path="" element={<MainVideoLayout />}>
+            <Route path="videos" element={<VideosPage />} />
           </Route>
         </Route>
 
@@ -52,9 +56,12 @@ function App() {
         <Route path="auth">
           <Route path="login" element={<AuthPage />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="dashboard/:pageNum" element={<DashBoardPage />} />
-            <Route path="guild/:guildPageType" element={<GuildPage />} />
-            <Route path="guild/myGuild/:roomNumber" element={<ZonePage />} />
+            <Route path="dashboard/:pageNum" element={<GuildPage />} />
+            <Route
+              path="guild/:guildPageType/:guildId"
+              element={<GuildPage />}
+            />
+
             <Route path="" element={<PageNotFound />} />
             {/* 뒤에 라우트 주소가 비었을때도 NotFound로 갈 수 있게끔*/}
           </Route>
@@ -81,6 +88,8 @@ function App() {
 
         {/* Not Found */}
         <Route path="*" element={<PageNotFound />}></Route>
+
+        <Route path="test" element={<Test />}></Route>
       </Routes>
     </div>
   );

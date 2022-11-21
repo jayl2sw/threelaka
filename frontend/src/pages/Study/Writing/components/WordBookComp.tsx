@@ -15,6 +15,12 @@ import {
   BackBlurBox,
 } from '../../../../styles/Common/CommonDivStyle';
 import { RiMenuFoldFill, RiMenuUnfoldFill } from 'react-icons/ri';
+import {
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+  AiOutlineArrowUp,
+  AiOutlineArrowDown,
+} from 'react-icons/ai';
 import { useHorizontalScroll } from '../../../../utils/useSideScroll';
 
 // 필요한 props interface
@@ -33,16 +39,17 @@ const WordBookComp = ({
   foldLayoutMode,
   setFoldLayoutMode,
 }: IWordBookProps) => {
-  const scrollRef = useHorizontalScroll(
-    foldLayoutMode
-  ) as React.MutableRefObject<HTMLDivElement>;
+  const scrollRef = useHorizontalScroll([
+    foldLayoutMode,
+    layoutMode,
+  ]) as React.MutableRefObject<HTMLDivElement>;
 
   return (
     <>
       {foldLayoutMode === 0 ? (
         layoutMode === 0 ? (
           <MainPaleBox
-            widthSize={layoutMode === 0 ? '28vw' : '80vw'}
+            widthSize={layoutMode === 0 ? '28.5vw' : '80vw'}
             heightSize={layoutMode === 0 ? '70vh' : '25vh'}
             paddingSize={'1vw'}
             fontColor={'black'}
@@ -54,7 +61,7 @@ const WordBookComp = ({
             }}
           >
             <FlexTransparentDiv
-              widthSize={layoutMode === 0 ? '26.5vw' : '80vw'}
+              widthSize={layoutMode === 0 ? '27.5vw' : '80vw'}
               heightSize={layoutMode === 0 ? '65vh' : '25vh'}
               paddingSize={'0'}
               flexDirection={'column'}
@@ -103,7 +110,12 @@ const WordBookComp = ({
                           {'example'}
                         </span>
                         <br style={{ marginBottom: '5vmin' }} />
-                        <span style={{ fontSize: '2vmin' }}>
+                        <span
+                          style={{
+                            fontSize:
+                              aWord.example.length > 100 ? '1.5vmin' : '2vmin',
+                          }}
+                        >
                           &nbsp;&nbsp;{aWord.example}
                         </span>
                       </p>
@@ -128,7 +140,7 @@ const WordBookComp = ({
                 }}
                 onClick={() => setFoldLayoutMode(1)}
               >
-                <RiMenuFoldFill size={30}></RiMenuFoldFill>
+                <AiOutlineArrowLeft size={30}></AiOutlineArrowLeft>
               </div>
             ) : (
               <div
@@ -145,7 +157,7 @@ const WordBookComp = ({
                 }}
                 onClick={() => setFoldLayoutMode(1)}
               >
-                <RiMenuFoldFill size={30}></RiMenuFoldFill>
+                <AiOutlineArrowUp size={30}></AiOutlineArrowUp>
               </div>
             )}
           </MainPaleBox>
@@ -207,10 +219,12 @@ const WordBookComp = ({
                         }
                       />
                       <div
-                        className={`${
-                          filterTarget.includes(aWord.word) ? 'checked' : ''
-                        }`}
-                        style={{ fontSize: '2.5vmin' }}
+                        style={{
+                          fontSize: '2.5vmin',
+                          textDecoration: filterTarget.includes(aWord.word)
+                            ? 'line-through'
+                            : '',
+                        }}
                       >
                         {aWord.word}
                       </div>
@@ -222,7 +236,16 @@ const WordBookComp = ({
                           {'example'}
                         </span>
                         <br style={{ marginBottom: '5vmin' }} />
-                        <span style={{ fontSize: '2vmin' }}>
+                        <span
+                          style={{
+                            fontSize:
+                              aWord.example.length > 250
+                                ? '1.2vmin'
+                                : aWord.example.length > 100
+                                ? '1.5vmin'
+                                : '2vmin',
+                          }}
+                        >
                           &nbsp;&nbsp;{aWord.example}
                         </span>
                       </p>
@@ -247,7 +270,7 @@ const WordBookComp = ({
                 }}
                 onClick={() => setFoldLayoutMode(1)}
               >
-                <RiMenuFoldFill size={30}></RiMenuFoldFill>
+                <AiOutlineArrowLeft size={30}></AiOutlineArrowLeft>
               </div>
             ) : (
               <div
@@ -265,7 +288,7 @@ const WordBookComp = ({
                 }}
                 onClick={() => setFoldLayoutMode(1)}
               >
-                <RiMenuFoldFill size={30}></RiMenuFoldFill>
+                <AiOutlineArrowUp size={30}></AiOutlineArrowUp>
               </div>
             )}
           </MainPaleBox>
@@ -298,7 +321,7 @@ const WordBookComp = ({
               }}
               onClick={() => setFoldLayoutMode(0)}
             >
-              <RiMenuUnfoldFill size={30}></RiMenuUnfoldFill>
+              <AiOutlineArrowRight size={30}></AiOutlineArrowRight>
             </div>
           ) : (
             <div
@@ -315,7 +338,7 @@ const WordBookComp = ({
               }}
               onClick={() => setFoldLayoutMode(0)}
             >
-              <RiMenuUnfoldFill size={30}></RiMenuUnfoldFill>
+              <AiOutlineArrowDown size={30}></AiOutlineArrowDown>
               <div ref={scrollRef}></div>
             </div>
           )}

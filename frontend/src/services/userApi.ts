@@ -1,7 +1,13 @@
 import customAxios from './customAxios';
 
-import { SignupPayload, LoginPayload } from '../features/auth/authSlice';
+import {
+  SignupPayload,
+  LoginPayload,
+  ModifyPayload,
+  ModifyPwdPayload,
+} from '../features/auth/authSlice';
 
+import { UserAlertInfo } from '../models/user';
 export interface ILoginResponse {
   accessToken: string;
   refreshToken: string;
@@ -16,8 +22,19 @@ export const createUserApi = async (data: SignupPayload) => {
   return res.data;
 };
 //회원정보 수정
-export const modifyUserApi = async (data: SignupPayload) => {
-  const res = await customAxios.put('api/v1/user/', JSON.stringify(data));
+export const modifyUserApi = async (data: ModifyPayload) => {
+  const res = await customAxios.put(
+    'api/v1/dashboard/profile',
+    JSON.stringify(data)
+  );
+  return res.data;
+};
+//비밀번호 변경
+export const modifyPwdApi = async (data: ModifyPwdPayload) => {
+  const res = await customAxios.put(
+    'api/v1/user/password',
+    JSON.stringify(data)
+  );
   return res.data;
 };
 
@@ -74,4 +91,12 @@ export const userInfoApi = async () => {
 export const logoutApi = async () => {
   const res = await customAxios.put('api/v1/user/logout');
   return res;
+};
+
+export const getUserAlertApi = async (
+  userAlertList: UserAlertInfo[]
+): Promise<any> => {
+  const res = await customAxios.get('/api/v1/user/alert');
+  const response: UserAlertInfo[] = res.data;
+  return response;
 };

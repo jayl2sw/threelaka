@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
-import { videoActions } from '../../../features/video/video-slice';
-import VideoDataModal from './VideoDataModal';
-import useModal from '../../../utils/useModal';
-
 // style
+import { useNavigate } from 'react-router-dom';
 import {
   SearchBarContainer,
   SearchBarInput,
@@ -16,65 +11,30 @@ import { RiYoutubeFill } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import { YoutubeLink } from '../../../styles/Main/MainStyle';
 import { GoSearch } from 'react-icons/go';
-import { boolean } from 'yup';
 
-const SearchBar = () => {
-  const dispatch = useAppDispatch();
+interface ISearchBarProps {
+  setModalToggleVideoId: (nextVideoId: string) => void;
+}
+
+const SearchBar = ({ setModalToggleVideoId }: ISearchBarProps) => {
   const navigate = useNavigate();
-
   // 입력 받을 영상 주소
   const [videoUrl, setVideoUrl] = useState<string>('');
   // 입력 받을 때 변환
   const onChange = (e: any) => {
     setVideoUrl(e.target.value);
   };
-  // 모달에 띄워줄 비디오 정보
-  const videoData = useAppSelector((state) => state.video.videoData);
-  const learningRecord = useAppSelector(
-    (state) => state.video.recentVideoData.learningRecord
-  );
 
   // 버튼 클릭으로 영상 정보 조회
   const handlerGetVideoData = (videoUrl: string) => {
-    dispatch(videoActions.getVideoData(videoUrl));
-    // 이전에 본 적 있는지도 확인하자
-    dispatch(videoActions.getRecentVideoData());
-  };
-
-  // 모달 사용하기
-  const { isOpenModal, onClickModal } = useModal();
-
-  //모달보수공사
-  const [isOpen, setIsOpen] = useState(false);
-  const openModalVideo = () => {
-    setIsOpen(!isOpen);
-  };
-  // url 관련 안내문
-  const [urlAlert, setUrlAlert] = useState('');
-
-  // 정확한 url인지 확인하기
-  const correctUrl = useAppSelector((state) => state.video.correctUrl);
-  useEffect(() => {
-    if (correctUrl === true) {
-      openModalVideo();
-    } else if (correctUrl == false) {
-      alert('정확한 URL을 입력해주세요');
+    // https://www.youtube.com/watch?v=_X834O9MaCM&t=90s
+    if (videoUrl.includes('www.youtube.com')) {
+      setModalToggleVideoId(videoUrl);
+    } else {
+      alert('키워드는 videos 페이지에서 이용하세요');
+      navigate('/videos');
     }
-  }, [correctUrl]);
-
-  // 현재 영상 stage 확인
-  const studyState = useAppSelector((state) => state.study.studyState);
-  // stage 변경 시 해당 스테이지로 이동
-  useEffect(() => {
-    if (studyState.stage !== '') {
-      // navigate(`/study/${stage}`);
-      if (studyState.learningRecordId !== 0) {
-        navigate(
-          `/study/reading/${studyState.learningRecordId}/${studyState.stage}/${studyState.videoId}`
-        );
-      }
-    }
-  }, [studyState]);
+  };
 
   return (
     <SearchBarContainer>
@@ -111,25 +71,13 @@ const SearchBar = () => {
           <IconContext.Provider
             value={{
               color: '111111',
-              className: 'global-class-name',
+              // className: 'global-class-name',
               size: '2.2vw',
             }}
           >
             <GoSearch style={{ paddingBottom: '0.5vw' }}></GoSearch>
           </IconContext.Provider>
         </SearchIconBtn>
-
-        {isOpen ? (
-          <VideoDataModal
-            isOpenModal={isOpenModal}
-            toggle={onClickModal}
-            videoData={videoData}
-            learningRecord={learningRecord}
-            //모달보수
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-          />
-        ) : null}
       </SearchButton>
     </SearchBarContainer>
   );
