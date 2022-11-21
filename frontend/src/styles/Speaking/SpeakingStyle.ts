@@ -286,7 +286,7 @@ export const ScoreTextBox = styled.div`
     background-color: #52aa90;
   }
   letter-spacing: 1.5px;
-  line-height: 3vh;
+  line-height: 5vh;
 `;
 
 export const ColorScoreIndicator = styled.div`
