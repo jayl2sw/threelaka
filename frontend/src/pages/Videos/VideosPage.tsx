@@ -197,13 +197,17 @@ const VideosPage = () => {
 
       <FlexTransparentDiv
         widthSize={'100vw'}
-        heightSize={'540vh'}
+        heightSize={'auto'}
         paddingSize={'0'}
         flexDirection={'column'}
         justifyContent={'center'}
         alignItems={'center'}
         IsBorder={'none'}
-        style={{ backgroundColor: 'transparent' }}
+        style={{
+          backgroundColor: 'transparent',
+          minHeight: '100vh',
+          border: '3px solid yellowgreen',
+        }}
         ref={firstRef}
       >
         <VideoModal
@@ -227,7 +231,7 @@ const VideosPage = () => {
         ></FlexTransparentDiv>
         <FlexTransparentDiv
           widthSize={'100vw'}
-          heightSize={'520vh'}
+          heightSize={'auto'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'start'}
@@ -328,12 +332,18 @@ const VideosPage = () => {
           <FlexTransparentDiv
             ref={secondRef}
             widthSize={'100vw'}
-            heightSize={'440vh'}
+            heightSize={'auto'}
             paddingSize={'0'}
             flexDirection={'column'}
             justifyContent={'start'}
             alignItems={'center'}
             IsBorder={'none'}
+            style={{
+              border: '5px solid pink',
+              minHeight: '100vh',
+              transition: 'height 1s ease',
+              position: 'relative',
+            }}
           >
             <FlexTransparentDiv
               widthSize={'100vw'}
@@ -360,11 +370,11 @@ const VideosPage = () => {
             </FlexTransparentDiv>
             <FlexTransparentDiv
               widthSize={'100vw'}
-              heightSize={'60vh'}
+              heightSize={'auto'}
               paddingSize={'0 8vw'}
               flexDirection={'row'}
               justifyContent={'start'}
-              alignItems={'center'}
+              alignItems={'start'}
               IsBorder={'none'}
               style={{ flexWrap: 'wrap' }}
             >
@@ -404,21 +414,21 @@ const VideosPage = () => {
               ? searchResultVideo[0].description
               : ''} */}
             </FlexTransparentDiv>
+            <PageDownButton
+              className="toggle up"
+              style={{
+                rotate: '90deg',
+                position: 'absolute',
+                bottom: '0',
+                left: '48vw',
+              }}
+              onClick={() => {
+                moveToFirst();
+              }}
+            >
+              《
+            </PageDownButton>
           </FlexTransparentDiv>
-          <PageDownButton
-            className="toggle up"
-            style={{
-              rotate: '90deg',
-              position: 'absolute',
-              bottom: '-435vh',
-              left: '48vw',
-            }}
-            onClick={() => {
-              moveToFirst();
-            }}
-          >
-            《
-          </PageDownButton>
         </FlexTransparentDiv>
       </FlexTransparentDiv>
     </>
