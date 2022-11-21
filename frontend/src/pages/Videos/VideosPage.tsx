@@ -353,7 +353,7 @@ const VideosPage = () => {
               {serachMode === 'tag'
                 ? `${tagComment[selectedTag]}`
                 : serachMode === 'model'
-                ? `${recommendModelType}기반 추천 영상입니다.`
+                ? `선호 태그 기반 추천 영상입니다.`
                 : searchKeyword !== ''
                 ? `${searchKeyword}의 검색결과 입니다.`
                 : ''}
