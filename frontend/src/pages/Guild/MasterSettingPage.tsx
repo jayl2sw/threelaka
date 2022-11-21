@@ -20,6 +20,8 @@ import { ImYoutube } from 'react-icons/im';
 import { GuildSettingTextArea } from '../../styles/Guild/MasterSetting';
 import { useHorizontalScroll } from '../../utils/useSideScroll';
 import GradientInput from '../../utils/GradientInput';
+import { GrUserAdd } from 'react-icons/gr';
+import AddGuildVideoModal from './components/AddGuildVideoModal';
 
 const MasterSetting = () => {
   const navigate = useNavigate();
@@ -34,24 +36,25 @@ const MasterSetting = () => {
   const guildMemberList = useAppSelector(
     (state) => state.guild.gulidMemberList
   );
-
-  // 모달 사용하기
-  const { isOpenModal, onClickModal } = useModal();
+  const guildRequestLst = useAppSelector(
+    (state) => state.guild.GuildRequestLst
+  );
 
   // USESTATE
   // 모달 사용하기
   const [noticeToggle, setNoticeToggle] = useState<number>(0);
   // 길드 넘기기 활성화
   const [guildHandOver, setGuildHandOver] = useState<boolean>(false);
+  const [acceptRequestMode, setAcceptRequestMode] = useState<boolean>(false);
   const [textareaValue, setTextareaValue] = useState<string>('');
   const [newTextareaValue, setNewTextareaValue] = useState<string>('');
-  const [inputValue, setInputValue] = useState<string>('');
+  const [videoSearchToggle, setVideoSearchToggle] = useState<boolean>(false);
 
   const guildId = currentUser?.guildId;
 
   // 수평 스크롤
   const scrollRef = useHorizontalScroll(
-    ''
+    []
   ) as React.MutableRefObject<HTMLDivElement>;
 
   // onClickHandler
@@ -89,6 +92,20 @@ const MasterSetting = () => {
   const onClickDeleteMember = (tagetMemberId: number) => {
     dispatch(guildActions.deleteMemberStart(tagetMemberId));
   };
+  const onClickRequestHandler = (requestId: number, typeInfo: string) => {
+    console.warn(typeInfo);
+    if (typeInfo === 'accept') {
+      console.log('들어왔어요');
+      dispatch(guildActions.putAcceptGuildRequestStart(requestId));
+    } else {
+      dispatch(guildActions.deleteRejectGuildRequestStart(requestId));
+    }
+  };
+
+  const onClickDeleteAssignment = (assignId: number) => {
+    dispatch(guildActions.delelteGuildAssignmentStart(assignId));
+  };
+
   // textArea value change
   const handleTextValChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextareaValue(e.target.value);
@@ -103,17 +120,26 @@ const MasterSetting = () => {
     if (guildId !== undefined) {
       dispatch(guildActions.getGuildNotice(guildId));
       dispatch(guildActions.getGuildMember(guildId));
+      dispatch(guildActions.getGuildRequestStart());
     }
   }, [guildId]);
 
   useEffect(() => {
-    dispatch(guildActions.getProgressTask('0'));
-    dispatch(guildActions.getProgressTask('1'));
+    dispatch(guildActions.getProgressTask());
   }, []);
   return (
     <div>
+      {videoSearchToggle ? (
+        <AddGuildVideoModal
+          modalToggle={videoSearchToggle}
+          setModalToggle={setVideoSearchToggle}
+        ></AddGuildVideoModal>
+      ) : (
+        ''
+      )}
+
       <FlexTransparentDiv
-        widthSize={'60vw'}
+        widthSize={'65vw'}
         heightSize={'5vh'}
         paddingSize={'0vh 1vw'}
         flexDirection={'row'}
@@ -122,10 +148,10 @@ const MasterSetting = () => {
         IsBorder={'none'}
         style={{ fontSize: '2.5vmin' }}
       >
-        {currentUser?.nickname} 마스터님, 길드를 관리하세요{' '}
+        {currentUser?.nickname} 마스터님, 길드를 관리하세요
       </FlexTransparentDiv>
       <FlexTransparentDiv
-        widthSize={'60vw'}
+        widthSize={'65vw'}
         heightSize={'75vh'}
         paddingSize={'0'}
         flexDirection={'row'}
@@ -165,53 +191,76 @@ const MasterSetting = () => {
               justifyContent={'start'}
               alignItems={'center'}
               IsBorder={'none'}
+              style={{ marginBottom: '1vh' }}
             >
-              <TbBellRinging size={30}></TbBellRinging>
-              &nbsp;NOTICE
-              <MainBtn
-                widthSize={'5vw'}
-                heightSize={'3vh'}
+              <FlexTransparentDiv
+                widthSize={'15vw'}
+                heightSize={'5vh'}
                 paddingSize={'0'}
-                fontSize={'2vmin'}
-                fontColor={'white'}
-                backgroundColor={'black'}
-                style={{ marginLeft: '6vw' }}
-                onClick={() => {
-                  setNoticeToggle(1);
-                }}
+                flexDirection={'row'}
+                justifyContent={'start'}
+                alignItems={'center'}
+                IsBorder={'none'}
               >
-                삭제
-              </MainBtn>
-              {guildNotice.notice === null ? (
-                ''
-              ) : (
+                <TbBellRinging size={30}></TbBellRinging>
+                &nbsp;NOTICE
+              </FlexTransparentDiv>
+              <FlexTransparentDiv
+                widthSize={'16.5vw'}
+                heightSize={'5vh'}
+                paddingSize={'0'}
+                flexDirection={'row'}
+                justifyContent={'end'}
+                alignItems={'center'}
+                IsBorder={'none'}
+              >
                 <MainBtn
                   widthSize={'5vw'}
-                  heightSize={'3vh'}
+                  heightSize={'4vh'}
+                  paddingSize={'0'}
+                  fontSize={'2vmin'}
+                  fontColor={'white'}
+                  backgroundColor={'black'}
+                  style={{ marginRight: '0.5vw' }}
+                  onClick={() => {
+                    setNoticeToggle(1);
+                  }}
+                >
+                  삭제
+                </MainBtn>
+                {guildNotice.notice === null ? (
+                  ''
+                ) : (
+                  <MainBtn
+                    widthSize={'5vw'}
+                    heightSize={'4vh'}
+                    paddingSize={'0'}
+                    fontSize={'2vmin'}
+                    fontColor={'white'}
+                    backgroundColor={'black'}
+                    onClick={() => {
+                      setNoticeToggle(2);
+                    }}
+                    style={{ marginRight: '0.5vw' }}
+                  >
+                    수정
+                  </MainBtn>
+                )}
+                <MainBtn
+                  widthSize={'5vw'}
+                  heightSize={'4vh'}
                   paddingSize={'0'}
                   fontSize={'2vmin'}
                   fontColor={'white'}
                   backgroundColor={'black'}
                   onClick={() => {
-                    setNoticeToggle(2);
+                    setNoticeToggle(3);
                   }}
+                  style={{ marginRight: '0.5vw' }}
                 >
-                  수정
+                  생성
                 </MainBtn>
-              )}
-              <MainBtn
-                widthSize={'5vw'}
-                heightSize={'3vh'}
-                paddingSize={'0'}
-                fontSize={'2vmin'}
-                fontColor={'white'}
-                backgroundColor={'black'}
-                onClick={() => {
-                  setNoticeToggle(3);
-                }}
-              >
-                생성
-              </MainBtn>
+              </FlexTransparentDiv>
             </FlexTransparentDiv>
 
             <FlexTransparentDiv
@@ -441,13 +490,26 @@ const MasterSetting = () => {
               </div>
               {/* 이미지 호버하면 남은 시간과 영상 제목 보이게 */}
               <div style={{ width: '25vw' }}>
+                <MainBtn
+                  widthSize={'6vw'}
+                  heightSize={'5vh'}
+                  paddingSize={'0'}
+                  fontSize={'2vmin'}
+                  fontColor={'white'}
+                  backgroundColor={'gradient'}
+                  style={{ borderRadius: '10px', marginLeft: '15vw' }}
+                  onClick={() => setVideoSearchToggle(true)}
+                >
+                  학습추가하기
+                </MainBtn>
                 {/* <GradientInput
-                  widthSize={21}
+                  widthSize={18}
                   onClickHandler={() => 'hi'}
                   placeHolderText="youtube url"
                   inputName="youtube-url"
+                  inputValue={inputValue}
+                  setInputValue={setInputValue}
                 ></GradientInput> */}
-                {/* <button>검색</button> */}
               </div>
             </FlexTransparentDiv>
 
@@ -458,7 +520,7 @@ const MasterSetting = () => {
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'start',
                 // border: 'solid red 1px',
                 overflow: 'auto',
               }}
@@ -494,7 +556,14 @@ const MasterSetting = () => {
                       src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
                     ></img>
                     <div
-                      style={{ position: 'absolute', top: '0', right: '1vw' }}
+                      style={{
+                        position: 'absolute',
+                        top: '0',
+                        right: '1vw',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => onClickDeleteAssignment(task.assignmentId)}
+                      // onClick={{() => onClickDeleteAssignment({task.assignmentId})}}
                     >
                       <AiOutlineCloseCircle size={30} color={'white'} />
                     </div>
@@ -575,10 +644,11 @@ const MasterSetting = () => {
           flexDirection={'row'}
           justifyContent={'center'}
           alignItems={'center'}
-          IsBorder={'is'}
+          IsBorder={'none'}
+          // style={{ border: '3px solid pink' }}
         >
           <MainBox
-            widthSize={'22vw'}
+            widthSize={'30vw'}
             heightSize={'72vh'}
             paddingSize={'2vh 1vw'}
             fontColor={'black'}
@@ -591,7 +661,7 @@ const MasterSetting = () => {
             }}
           >
             <FlexTransparentDiv
-              widthSize={'22vw'}
+              widthSize={'26.5vw'}
               heightSize={'5vh'}
               paddingSize={'0'}
               flexDirection={'row'}
@@ -601,10 +671,25 @@ const MasterSetting = () => {
               style={{ marginBottom: '1vh' }}
             >
               <GrGroup size={30}></GrGroup>
-              <div>&nbsp;MEMBERS</div>
+              <div style={{ width: '10vw' }}>&nbsp;MEMBERS</div>
+              <div style={{ width: '5vw', position: 'relative' }}>
+                <div
+                  style={{
+                    color: 'red',
+                    position: 'absolute',
+                    top: '-2.5vh',
+                    left: '1vw',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => setAcceptRequestMode(true)}
+                >
+                  {guildRequestLst.length}
+                </div>
+                <GrUserAdd size={30}></GrUserAdd>
+              </div>
               {guildHandOver ? (
                 <MainBtn
-                  widthSize={'7vw'}
+                  widthSize={'8vw'}
                   heightSize={'4vh'}
                   paddingSize={'0'}
                   fontSize={'2vmin'}
@@ -617,9 +702,24 @@ const MasterSetting = () => {
                 >
                   취소
                 </MainBtn>
+              ) : acceptRequestMode ? (
+                <MainBtn
+                  widthSize={'8vw'}
+                  heightSize={'4vh'}
+                  paddingSize={'0'}
+                  fontSize={'2vmin'}
+                  fontColor={'white'}
+                  backgroundColor={'black'}
+                  style={{ marginLeft: '5vw' }}
+                  onClick={() => {
+                    setAcceptRequestMode(false);
+                  }}
+                >
+                  뒤로가기
+                </MainBtn>
               ) : (
                 <MainBtn
-                  widthSize={'7vw'}
+                  widthSize={'8vw'}
                   heightSize={'4vh'}
                   paddingSize={'0'}
                   fontSize={'2vmin'}
@@ -634,61 +734,118 @@ const MasterSetting = () => {
                 </MainBtn>
               )}
             </FlexTransparentDiv>
-
-            {guildMemberList.members.map((member, idx) => {
-              if (member.nickname !== currentUser?.nickname) {
-                return (
-                  <MainBox
-                    widthSize={'20vw'}
-                    heightSize={'6vh'}
-                    paddingSize={'0 1vw'}
-                    fontColor={'black'}
-                    fontSize={'2.5vmin'}
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'start',
-                      marginBottom: '1vh',
-                      background: '#A2D0FC',
-                    }}
-                    key={idx}
-                  >
-                    <div style={{ minWidth: '8vw', fontSize: '2.5vmin' }}>
-                      {member.nickname}
-                    </div>
-                    <div
+            {acceptRequestMode
+              ? guildRequestLst.map((request, idx) => {
+                  return (
+                    <MainBox
+                      widthSize={'27vw'}
+                      heightSize={'6vh'}
+                      paddingSize={'0 1vw'}
+                      fontColor={'black'}
+                      fontSize={'2.5vmin'}
                       style={{
-                        minWidth: '4vw',
-                        fontSize: '2vmin',
-                        color: '#9897a9',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'start',
+                        marginBottom: '1vh',
+                        background: '#A2D0FC',
                       }}
+                      key={idx}
                     >
-                      {member.lastLearningDay}일 전
-                    </div>
-                    <div
-                      style={{
-                        minWidth: '2vw',
-                      }}
-                    ></div>
-                    {guildHandOver ? (
-                      <AiFillCrown
-                        size={30}
-                        style={{ marginRight: '1vw', cursor: 'pointer' }}
-                        onClick={() => onClickHandOverPost(member.userId)}
-                      ></AiFillCrown>
-                    ) : (
-                      ''
-                    )}
-                    <ImExit
-                      style={{ cursor: 'pointer' }}
-                      size={25}
-                      onClick={() => onClickDeleteMember(member.userId)}
-                    ></ImExit>
-                  </MainBox>
-                );
-              }
-            })}
+                      <div style={{ minWidth: '8vw', fontSize: '2.5vmin' }}>
+                        {request.requstId}의 신청
+                      </div>
+                      <div
+                        style={{
+                          minWidth: '7vw',
+                        }}
+                      ></div>
+                      <MainBtn
+                        widthSize={'5vw'}
+                        heightSize={'4vh'}
+                        paddingSize={'0'}
+                        fontSize={'2vmin'}
+                        fontColor={'white'}
+                        backgroundColor={'blue'}
+                        style={{ marginRight: '0.5vw' }}
+                        onClick={() => {
+                          onClickRequestHandler(request.requstId, 'accept');
+                        }}
+                      >
+                        승인
+                      </MainBtn>
+                      <MainBtn
+                        widthSize={'5vw'}
+                        heightSize={'4vh'}
+                        paddingSize={'0'}
+                        fontSize={'2vmin'}
+                        fontColor={'white'}
+                        backgroundColor={'black'}
+                        style={{ marginRight: '0.5vw' }}
+                        onClick={() => {
+                          onClickRequestHandler(request.requstId, 'reject');
+                        }}
+                      >
+                        거절
+                      </MainBtn>
+                    </MainBox>
+                  );
+                })
+              : guildMemberList.members.map((member, idx) => {
+                  if (member.nickname !== currentUser?.nickname) {
+                    return (
+                      <MainBox
+                        widthSize={'27vw'}
+                        heightSize={'6vh'}
+                        paddingSize={'0 1vw'}
+                        fontColor={'black'}
+                        fontSize={'2.5vmin'}
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'start',
+                          marginBottom: '1vh',
+                          background: '#A2D0FC',
+                        }}
+                        key={idx}
+                      >
+                        <div style={{ minWidth: '8vw', fontSize: '2.5vmin' }}>
+                          {member.nickname}
+                        </div>
+                        <div
+                          style={{
+                            minWidth: '4vw',
+                            fontSize: '2vmin',
+                            color: '#9897a9',
+                          }}
+                        >
+                          {member.lastLearningDay}일 전
+                        </div>
+                        <div
+                          style={{
+                            minWidth: '7vw',
+                          }}
+                        ></div>
+                        {guildHandOver ? (
+                          <AiFillCrown
+                            size={30}
+                            style={{ marginRight: '1vw', cursor: 'pointer' }}
+                            onClick={() => onClickHandOverPost(member.userId)}
+                          ></AiFillCrown>
+                        ) : (
+                          ''
+                        )}
+                        <ImExit
+                          style={{ cursor: 'pointer' }}
+                          size={25}
+                          onClick={() => onClickDeleteMember(member.userId)}
+                        ></ImExit>
+                      </MainBox>
+                    );
+                  }
+                })}
           </MainBox>
         </FlexTransparentDiv>
       </FlexTransparentDiv>

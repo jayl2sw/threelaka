@@ -9,12 +9,23 @@ import {
 } from '../../../styles/Common/CommonDivStyle';
 import { RiBearSmileLine } from 'react-icons/ri';
 import HistoryCounter from './HistoryCounter';
+import WordTest from '../WordTest/WordTest';
+import { useState } from 'react';
+import WordList from '../WordTest/WordList';
 const StudyHistoryContainer = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(dashboardActions.getStudyHistory());
   }, []);
   const studyHistory = useAppSelector((state) => state.dashboard.studyHistory);
+
+  const [isOpenWordList, setIsOpenWordList] = useState(false);
+  const [isOpenTest, setIsOpenTest] = useState(false);
+
+  useEffect(() => {
+    dispatch(dashboardActions.getUserWordInfo());
+  }, []);
+
   return (
     <FlexTransparentDiv
       widthSize={'30vw'}
@@ -28,7 +39,7 @@ const StudyHistoryContainer = () => {
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <RiBearSmileLine size={26} />
-        <h3 style={{ margin: '0' }}>Study History Count</h3>
+        <h3 style={{ margin: '0' }}>&nbsp;숫자로 보는 나의 영어 기록</h3>
       </div>
 
       <MainBox
@@ -41,11 +52,40 @@ const StudyHistoryContainer = () => {
           marginTop: '1vh',
           display: 'flex',
           justifyContent: 'space-between',
+          boxShadow: 'none',
         }}
       >
-        <HistoryCounter mode={'videos'}></HistoryCounter>
-        <HistoryCounter mode={'essays'}></HistoryCounter>
-        <HistoryCounter mode={'words'}></HistoryCounter>
+        {isOpenWordList ? (
+          <WordList
+            isOpenWordList={isOpenWordList}
+            setIsOpenWordList={setIsOpenWordList}
+            isOpenTest={isOpenTest}
+            setIsOpenTest={setIsOpenTest}
+          ></WordList>
+        ) : null}
+        {isOpenTest ? (
+          <WordTest
+            isOpenWordList={isOpenWordList}
+            setIsOpenWordList={setIsOpenWordList}
+            isOpenTest={isOpenTest}
+            setIsOpenTest={setIsOpenTest}
+          ></WordTest>
+        ) : null}
+        <HistoryCounter
+          mode={'videos'}
+          isOpenWordList={isOpenWordList}
+          setIsOpenWordList={setIsOpenWordList}
+        ></HistoryCounter>
+        <HistoryCounter
+          mode={'essays'}
+          isOpenWordList={isOpenWordList}
+          setIsOpenWordList={setIsOpenWordList}
+        ></HistoryCounter>
+        <HistoryCounter
+          mode={'words'}
+          isOpenWordList={isOpenWordList}
+          setIsOpenWordList={setIsOpenWordList}
+        ></HistoryCounter>
       </MainBox>
     </FlexTransparentDiv>
   );

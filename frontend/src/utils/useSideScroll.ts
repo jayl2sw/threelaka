@@ -15,6 +15,6 @@ export function useHorizontalScroll(dependancyState: any) {
       el.addEventListener('wheel', onWheel);
       return () => el.removeEventListener('wheel', onWheel);
     }
-  }, [dependancyState]);
+  }, [...dependancyState]);
   return elRef;
 }

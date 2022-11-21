@@ -26,7 +26,7 @@ export const DashBoardBlock = styled.div`
 export const DashBoardContainer = styled.div`
   display: flex;
   justify-content: start;
-  border: 3px solid black;
+  /* border: 3px solid black; */
   width: 80vw;
   height: 80vh;
 `;
@@ -43,12 +43,13 @@ export const SideBarBlock = styled.div`
 `;
 
 export const DashBoardBox = styled.div`
+  //빨간선
   display: flex;
   flex-direction: column;
   /* margin: 3vh auto;
   padding: 3vh; */
   width: 68vw;
-  border: solid red 1px;
+  /* border: solid red 1px; */
   height: 82vh;
   margin-top: 4vh;
   margin-left: 2vw;
@@ -145,7 +146,7 @@ export const DateIndicatorContainer = styled.div`
   .streak:hover:before {
     content: attr(data-tooltip);
     position: absolute;
-    width: 9vw;
+    width: 10vw;
     padding: 1vh 1vw;
 
     margin: 10vh 0 0 0;
@@ -163,9 +164,10 @@ export const DateIndicatorContainer = styled.div`
     margin: 2vh 0 0 0.1vw;
     width: 0;
     height: 0;
-    border-bottom: 0.4vw solid #ffb200;
-    border-left: 0.4vw solid transparent;
-    border-right: 0.4vw solid transparent;
+    transform: translateY(100%);
+    border-bottom: 0.8vw solid #ffb200;
+    border-left: 0.8vw solid transparent;
+    border-right: 0.8vw solid transparent;
   }
 `;
 
@@ -197,6 +199,9 @@ export const CalendarContainer = styled.div`
 `;
 
 export const GraphBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 0.5vh;
   tspan {
     font-size: 2vmin;
@@ -211,13 +216,22 @@ export const GraphBox = styled.div`
     #b0ff91 84.64%
   );
   width: 37vw;
-  height: 39.5vh;
+  height: 39.8vh;
   border-radius: 1rem;
   position: relative;
+  .graph-container {
+    width: 40vw;
+    height: 30vh;
+  }
   .graph {
     position: absolute;
-    top: 1vh;
+    top: 4vh;
     left: 0.5vw;
+    height: 100%;
+    width: 100%;
+  }
+  .indicator {
+    font-size: 2vmin;
   }
 `;
 
@@ -244,9 +258,9 @@ export const GradientBorderBox = styled.div`
   .innerBox {
     position: absolute;
     top: 1vh;
-    left: 0.4vw;
+    left: 0.5vw;
     background: #fff;
-    border-radius: 1rem;
+    border-radius: 0.8rem;
     height: 46vh;
     width: 25vw;
   }
@@ -255,33 +269,41 @@ export const GradientBorderBox = styled.div`
 export const Wrapper = styled.div`
   position: relative;
   .dynamic-text-shadow {
-    top: -0.4vh;
     position: absolute;
-    left: 12vw;
+    top: -6vh;
+    right: 0vw;
     font-style: italic;
     margin: 0;
-    font-size: 5vmin;
     line-height: 2vmin;
     display: flex;
     align-items: center;
     text-align: center;
-    letter-spacing: 0.8vmin;
     font-variant: small-caps;
-
-    color: #457b9d;
-    text-shadow: 0.3vmin 0.3vmin 0 #1d3557;
+    font-family: 'pretendardextrabold';
+    color: white;
+    text-shadow: 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+      0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+      0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+      0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+      0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+      0 0 6px #457b9d, 0 0 6px #457b9d;
+    font-size: 5.5vmin;
   }
 `;
 
 export const Count = styled.div`
   & span {
-    -webkit-text-stroke: 2px #111111; //텍스트 테두리
+    text-shadow: 0 0 5px #457b9d, 0 0 5px #457b9d; //텍스트 테두리
   }
   color: white;
-  font-size: 5vmin;
+  font-size: 5.5vmin;
+  font-family: 'pretendardbold';
 `;
 
 export const ProfileContainer = styled.div`
+  h3 {
+    margin: 0;
+  }
   display: grid;
   height: 90vh;
   grid-template-columns: repeat(2, 34vw);
@@ -292,7 +314,7 @@ export const ProfileImgBox = styled.div`
   width: 15vmin;
 
   z-index: 1;
-  top: -38vmin;
+  /* top: -38vmin; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -331,13 +353,6 @@ export const ProfileCenter = styled.div`
 `;
 
 export const ModalBackdrop = styled.div`
-  /* position: absolute;
-  left: -1rem;
-  display: flex;
-  align-items: center;
-  width: 120%;
-  margin-top: 1rem;
-  background: red; */
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -376,16 +391,24 @@ export const RadioBtn = styled.input`
 `;
 
 export const EditBtn = styled(MdChangeCircle)`
+  position: absolute;
+  bottom: 1vmin;
+  right: 1vmin;
   font-size: 3vmin;
   color: #457b9d;
   cursor: pointer;
-  z-index: 3;
-  position: absolute;
+  transition: 0.3s;
+  /* z-index: 3; */
+  /* position: absolute; */
 
-  top: 11vh;
+  /* top: 13vh; */
 
   &:hover {
     color: #3b6986;
+    width: 4vmin;
+    height: 4vmin;
+    bottom: 0.5vmin;
+    right: 0.5vmin;
   }
 `;
 
@@ -414,5 +437,67 @@ export const CheckBtn = styled(MdCheckCircleOutline)`
 
   &:hover {
     font-size: 3.8vmin;
+  }
+`;
+
+export const WordTestInput = styled.input`
+  background: rgba(88, 172, 240, 0.2);
+  padding: 1vh 1vw;
+  border: none;
+  outline: none;
+  border-radius: 1vmin;
+  font-size: 2.5vmin;
+  width: 10vw;
+
+  &.right {
+    border: none;
+    background: #b9ddd3;
+    color: #308068;
+  }
+`;
+
+export const RightAlert = styled.div`
+  z-index: 1;
+  position: absolute;
+  top: 5vh;
+  left: 2vw;
+  font-style: italic;
+  margin: 0;
+  line-height: 2vmin;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-variant: small-caps;
+  font-family: 'pretendardextrabold';
+  color: white;
+  text-shadow: 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+    0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+    0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+    0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+    0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d, 0 0 6px #457b9d,
+    0 0 6px #457b9d, 0 0 6px #457b9d;
+  font-size: 6vmin;
+  @keyframes bounce {
+    0% {
+      /* text-shadow: 0 5px 0 #ccc, 0 2px 3px rgba(0, 0, 0, 1); */
+    }
+    100% {
+      transform: translateY(10px);
+      /* text-shadow: 0 50px 0 #black, 0 0px 20px rgba(0, 0, 0, 0.8); */
+    }
+  }
+  animation: bounce 0.6s;
+`;
+
+export const HistoryCounterContainer = styled.div`
+  .historyTitle {
+    color: #111111;
+    box-shadow: inset 0 0 0 0 #54b3d6;
+    :hover {
+      color: #fff;
+      box-shadow: inset 200px 0 0 0 #4a9fff;
+      cursor: pointer;
+    }
+    transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   }
 `;

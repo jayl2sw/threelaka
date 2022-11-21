@@ -5,6 +5,9 @@ import {
   CompletedVideos,
   MonthStudyTime,
   StudyHistory,
+  TotalStudyTime,
+  UserWordInfo,
+  isMemorizedWord,
 } from '../../models/dashboard';
 
 type DashboardState = {
@@ -14,12 +17,23 @@ type DashboardState = {
   recentVideoList: RecentVideos[];
   // 공부완료영상
   completedVideoList: CompletedVideos[];
-  dailyStudyTime: Array<Object>;
+  thisWeekdailyStudyTime: Array<Object>;
+  lastWeekdailyStudyTime: Array<Object>;
   monthStudyTime: Array<Object>;
+  tagList: Array<string>;
   seqDays: number;
 
   // 학습히스토리
   studyHistory: StudyHistory;
+
+  //총학습시간
+  totalStudyTime: TotalStudyTime;
+
+  //
+  userWordInfo: UserWordInfo[];
+
+  //
+  pickRandomWord: UserWordInfo;
 };
 
 let initialState: DashboardState = {
@@ -27,13 +41,25 @@ let initialState: DashboardState = {
 
   recentVideoList: [],
   completedVideoList: [],
-  dailyStudyTime: [],
+  thisWeekdailyStudyTime: [],
+  lastWeekdailyStudyTime: [],
   monthStudyTime: [],
   seqDays: 0,
   studyHistory: {
     essays: 0,
     videos: 0,
     words: 0,
+  },
+  totalStudyTime: {
+    time: 0,
+  },
+  tagList: [],
+  userWordInfo: [],
+  pickRandomWord: {
+    wordbookId: 0,
+    word: '',
+    example: '',
+    exampleKor: '',
   },
 };
 
@@ -77,7 +103,9 @@ const dashboardSlice = createSlice({
     // 데일리 공부 시간 받아오기 성공
     getDailyStudyTimeSuccess(state, action: PayloadAction<number[]>) {
       state.loading = false;
-      state.dailyStudyTime = action.payload;
+      state.lastWeekdailyStudyTime = action.payload.slice(1, 8);
+      state.thisWeekdailyStudyTime = action.payload.slice(8, 16);
+      console.log('얍얍', action.payload.slice(8, 16));
     },
 
     getDailyStudyTimeFailed(state, action: PayloadAction<string>) {
@@ -122,6 +150,79 @@ const dashboardSlice = createSlice({
     },
 
     updateProfileFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 총학습시간 받아오기
+    getTotalStudyTime(state) {
+      state.loading = true;
+    },
+    // 총학습시간 받아오기 성공
+    getTotalStudyTimeSuccess(state, action: PayloadAction<TotalStudyTime>) {
+      state.loading = false;
+      state.totalStudyTime = action.payload;
+    },
+
+    getTotalStudyTimeFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    //태그 등록 및 수정
+    updateTag(state, action: PayloadAction<number[]>) {
+      state.loading = true;
+    },
+
+    updateTagSuccess(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    updateTagFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    // 사용자 tag 받아오기
+    getTagList(state) {
+      state.loading = true;
+    },
+
+    getTagListSuccess(state, action: PayloadAction<string[]>) {
+      state.loading = false;
+      state.tagList = action.payload;
+    },
+
+    getTagListFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    //유저단어정보받아오기
+    getUserWordInfo(state) {
+      state.loading = true;
+    },
+
+    getUserWordInfoSuccess(state, action: PayloadAction<UserWordInfo[]>) {
+      state.loading = false;
+      state.userWordInfo = action.payload;
+      // action.payload.map((item, idx) => {
+      //   if (item.exampleKor !== null) {
+      //     state.userWordInfo.push(item);
+      //   }
+      // });
+      const randomElement =
+        action.payload[Math.floor(Math.random() * action.payload.length)];
+      state.pickRandomWord = randomElement;
+    },
+
+    getUserWordInfoFailed(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+    //단어외움처리
+
+    putIsMemorizedWord(state, action: PayloadAction<isMemorizedWord>) {
+      state.loading = true;
+    },
+
+    putIsMemorizedWordSuccess(state, action: PayloadAction<string>) {
+      state.loading = false;
+    },
+
+    putIsMemorizedWordFailed(state, action: PayloadAction<string>) {
       state.loading = false;
     },
   },

@@ -1,15 +1,30 @@
 import React from 'react';
 
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
-import { Count } from '../../../styles/DashBoard/DashBoardStyle';
+import {
+  Count,
+  HistoryCounterContainer,
+} from '../../../styles/DashBoard/DashBoardStyle';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import CountUp from 'react-countup';
+import { FaYoutube } from 'react-icons/fa';
+import { BsFileEarmarkTextFill } from 'react-icons/bs';
+import { RiStickyNoteFill } from 'react-icons/ri';
 interface IHistoryCounterProps {
   mode: string;
+  setIsOpenWordList: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpenWordList: boolean;
 }
 
-const HistoryCounter = ({ mode }: IHistoryCounterProps) => {
+const HistoryCounter = ({
+  mode,
+  isOpenWordList,
+  setIsOpenWordList,
+}: IHistoryCounterProps) => {
   const studyHistory = useAppSelector((state) => state.dashboard.studyHistory);
+  const openModalWordList = () => {
+    setIsOpenWordList(!isOpenWordList);
+  };
   return (
     <FlexTransparentDiv
       widthSize={'7.5vw'}
@@ -21,7 +36,36 @@ const HistoryCounter = ({ mode }: IHistoryCounterProps) => {
       IsBorder={'none'}
       style={{ fontSize: '2.5vmin' }}
     >
-      <div>{mode}</div>
+      <HistoryCounterContainer>
+        {mode === 'videos' ? (
+          <span>
+            <FaYoutube
+              size={25}
+              color="red"
+              style={{ verticalAlign: 'middle' }}
+            />
+            &nbsp;영상
+          </span>
+        ) : mode === 'essays' ? (
+          <span>
+            <BsFileEarmarkTextFill
+              size={25}
+              color="#457b9d"
+              style={{ verticalAlign: 'middle' }}
+            />
+            &nbsp;에세이
+          </span>
+        ) : (
+          <span onClick={openModalWordList}>
+            <RiStickyNoteFill
+              size={25}
+              color="#ffb94c"
+              style={{ verticalAlign: 'middle' }}
+            />
+            <span className="historyTitle">&nbsp;단어</span>
+          </span>
+        )}
+      </HistoryCounterContainer>
       <FlexTransparentDiv
         widthSize={'7.3vw'}
         heightSize={'18vh'}
@@ -31,8 +75,9 @@ const HistoryCounter = ({ mode }: IHistoryCounterProps) => {
         alignItems={'center'}
         IsBorder={'none'}
         style={{
-          background: `linear-gradient(120.62deg, #83BDFF 8.18%, rgba(136, 192, 255, 0.90051) 49.26%, #8DC2FF 69.16%)`,
+          background: `linear-gradient(120.62deg, #83BDFF 8.18%, rgba(136, 192, 255, 0.80051) 49.26%, #8DC2FF 49.16%)`,
           borderRadius: '1rem',
+          marginTop: '2vh',
         }}
       >
         <Count>

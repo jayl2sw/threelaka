@@ -7,6 +7,12 @@ import {
 } from '../../../../styles/Common/CommonDivStyle';
 import { RiMenuFoldFill, RiMenuUnfoldFill } from 'react-icons/ri';
 import { useHorizontalScroll } from '../../../../utils/useSideScroll';
+import {
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+  AiOutlineArrowUp,
+  AiOutlineArrowDown,
+} from 'react-icons/ai';
 
 // 필요한 props interface
 interface ITypoCorretionProps {
@@ -22,16 +28,17 @@ const TypoCorrectionComp = ({
   foldLayoutMode,
   setFoldLayoutMode,
 }: ITypoCorretionProps) => {
-  const scrollRef = useHorizontalScroll(
-    foldLayoutMode
-  ) as React.MutableRefObject<HTMLDivElement>;
+  const scrollRef = useHorizontalScroll([
+    foldLayoutMode,
+    layoutMode,
+  ]) as React.MutableRefObject<HTMLDivElement>;
   return (
     <>
       {layoutMode === 0 ? (
         foldLayoutMode === 0 ? (
           <>
             <MainPaleBox
-              widthSize={'28vw'}
+              widthSize={'28.5vw'}
               heightSize={'70vh'}
               paddingSize={'1vw'}
               fontColor={'black'}
@@ -39,51 +46,64 @@ const TypoCorrectionComp = ({
               style={{
                 position: 'relative',
                 display: 'flex',
-                flexDirection: 'column',
-                overflowY: 'scroll',
-                overflowX: 'hidden',
-                transition: 'all 0.8s ease-in-out',
               }}
             >
-              {spellCheckResult.map((spellWord: FlggedToken, idx) => {
-                // console.log('얍', spellWord);
-                return (
-                  <BackBlurBox
-                    widthSize={'26vw'}
-                    heightSize={'5vh'}
-                    paddingSize={'1vw'}
-                    fontColor={'black'}
-                    fontSize={'1vmin'}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'start',
-                      alignItems: 'center',
-                      marginBottom: '1vh',
-                      transition: 'all 0.8s ease-in-out',
-                    }}
-                    key={`spell-word-${idx}`}
-                  >
-                    <SpellText>
-                      {spellWord.type === 'UnknownToken' ? (
-                        <p style={{ fontSize: '2.5vmin' }}>
-                          <span>수정&nbsp;&nbsp;</span>
-                          <span style={{ color: 'red' }}>
-                            {spellWord.token}
-                          </span>{' '}
-                          {'=>'} {spellWord.suggestions[0].suggestion}
-                        </p>
-                      ) : (
-                        <p style={{ fontSize: '2.5vmin' }}>
-                          <span>반복&nbsp;&nbsp;</span>
-                          <span style={{ color: 'red' }}>
-                            {spellWord.token}
-                          </span>
-                        </p>
-                      )}
-                    </SpellText>
-                  </BackBlurBox>
-                );
-              })}
+              <FlexTransparentDiv
+                widthSize={layoutMode === 0 ? '27.5vw' : '80vw'}
+                heightSize={layoutMode === 0 ? '65vh' : '25vh'}
+                paddingSize={'0'}
+                flexDirection={'column'}
+                justifyContent={'start'}
+                alignItems={'start'}
+                IsBorder={'none'}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflowY: 'scroll',
+                  overflowX: 'hidden',
+                  transition: 'all 0.8s ease-in-out',
+                }}
+              >
+                {spellCheckResult.map((spellWord: FlggedToken, idx) => {
+                  // console.log('얍', spellWord);
+                  return (
+                    <BackBlurBox
+                      widthSize={'25.3vw'}
+                      heightSize={'5vh'}
+                      paddingSize={'1vw'}
+                      fontColor={'black'}
+                      fontSize={'1vmin'}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'start',
+                        alignItems: 'center',
+                        marginBottom: '1vh',
+                        transition: 'all 0.8s ease-in-out',
+                      }}
+                      key={`spell-word-${idx}`}
+                    >
+                      <SpellText>
+                        {spellWord.type === 'UnknownToken' ? (
+                          <p style={{ fontSize: '2.5vmin' }}>
+                            <span>수정&nbsp;&nbsp;</span>
+                            <span style={{ color: 'red' }}>
+                              {spellWord.token}
+                            </span>{' '}
+                            {'=>'} {spellWord.suggestions[0].suggestion}
+                          </p>
+                        ) : (
+                          <p style={{ fontSize: '2.5vmin' }}>
+                            <span>반복&nbsp;&nbsp;</span>
+                            <span style={{ color: 'red' }}>
+                              {spellWord.token}
+                            </span>
+                          </p>
+                        )}
+                      </SpellText>
+                    </BackBlurBox>
+                  );
+                })}
+              </FlexTransparentDiv>
             </MainPaleBox>
             <div
               style={{
@@ -92,8 +112,8 @@ const TypoCorrectionComp = ({
                 // border: '3px solid blue',
                 position: 'absolute',
                 zIndex: 5,
-                top: '50vh',
-                left: '37vw',
+                top: '53.4vh',
+                left: '37.5vw',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -101,7 +121,7 @@ const TypoCorrectionComp = ({
               }}
               onClick={() => setFoldLayoutMode(1)}
             >
-              <RiMenuUnfoldFill size={30}>ddd</RiMenuUnfoldFill>
+              <AiOutlineArrowLeft size={30}>ddd</AiOutlineArrowLeft>
             </div>
           </>
         ) : (
@@ -125,8 +145,8 @@ const TypoCorrectionComp = ({
                 height: '5vh',
                 // border: '3px solid blue',
                 position: 'absolute',
-                top: '50vh',
-                left: '11vw',
+                top: '53.4vh',
+                left: '12vw',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -134,7 +154,7 @@ const TypoCorrectionComp = ({
               }}
               onClick={() => setFoldLayoutMode(0)}
             >
-              <RiMenuUnfoldFill size={30}></RiMenuUnfoldFill>
+              <AiOutlineArrowRight size={30}></AiOutlineArrowRight>
             </div>
             {/* <p>{spellCheckResult}</p> */}
           </MainPaleBox>
@@ -259,7 +279,7 @@ const TypoCorrectionComp = ({
             }}
             onClick={() => setFoldLayoutMode(1)}
           >
-            <RiMenuFoldFill size={30}></RiMenuFoldFill>
+            <AiOutlineArrowUp size={30}></AiOutlineArrowUp>
           </div>
         </MainPaleBox>
       ) : (
@@ -292,7 +312,7 @@ const TypoCorrectionComp = ({
             }}
             onClick={() => setFoldLayoutMode(0)}
           >
-            <RiMenuUnfoldFill size={30}></RiMenuUnfoldFill>
+            <AiOutlineArrowDown size={30}></AiOutlineArrowDown>
           </div>
           {/* <p>{spellCheckResult}</p> */}
         </MainPaleBox>
