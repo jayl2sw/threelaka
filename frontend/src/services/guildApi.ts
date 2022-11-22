@@ -157,9 +157,16 @@ export const DeleteGuildAssignmentApi = async (
 };
 
 // 길드 생성하기
-export const CreateGuildApi = async (
-  guildCreateData: CreateGuildForm
-): Promise<any> => {
-  const res = await customAxios.post(`/api/v1/user/guild`, guildCreateData);
+export const CreateGuildApi = async (guildCreateData: any): Promise<any> => {
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+  const res = await customAxios.post(
+    `/api/v1/user/guild`,
+    guildCreateData,
+    config
+  );
   return res.data;
 };

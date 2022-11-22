@@ -41,8 +41,9 @@ export interface NoticeModalType {
 
 // 상위 3개 길드 정보
 export interface TopThreeGuild {
+  time: number;
   guildId: number;
-  guildName: string;
+  guildname: string;
   profile: string;
 }
 
@@ -73,6 +74,7 @@ export interface MyguildInfo {
   description: string;
   notice: string;
   assignments: AssignmentVideo[];
+  profile: string;
 }
 
 export interface MyguildLearnTime {

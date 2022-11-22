@@ -79,9 +79,20 @@ export const GuildCreateContainer = styled.div`
 `;
 
 export const GuildCreateInput = styled.input`
-  width: 28vw;
+  width: 10vw;
   height: 6vh;
   font-size: 3vmin;
   border-radius: 10px;
   padding: 0 0.5vw;
+`;
+
+export const GuildCreateTextArea = styled.textarea`
+  width: 30vw;
+  height: 17vh;
+  font-size: 2.5vmin;
+  border-radius: 10px;
+  padding: 0 0.5vw;
+  resize: none;
+  font-family: 'PretendardRegular';
+  border: 2px solid black;
 `;

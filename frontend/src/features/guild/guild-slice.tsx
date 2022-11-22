@@ -55,6 +55,7 @@ let initialState: GuildState = {
     description: '',
     notice: '',
     assignments: [],
+    profile: '',
   },
   myguildLearnTime: [],
   MyRequestLst: [],
@@ -165,9 +166,8 @@ const guildSlice = createSlice({
       state.loading = true;
     },
     // 길드 공지 수정 성공
-    putGuildNoticeSuccess(state, action: PayloadAction<TopThreeGuild[]>) {
+    putGuildNoticeSuccess(state, action: PayloadAction<string>) {
       state.loading = false;
-      state.topThreeGuildList = action.payload;
     },
     // 길드 공지 수정 실패
     putGuildNoticeFailed(state) {
@@ -366,16 +366,16 @@ const guildSlice = createSlice({
     },
 
     // 길드 생성
-    createGuildStart(state, action: PayloadAction<CreateGuildForm>) {
+    createGuildStart(state, action: PayloadAction<any>) {
       state.loading = true;
       state.isCreateSuccess = null;
     },
-    // 길드 과제 삭제 시작
+    // 길드 생성 성공
     createGuildStartSuccess(state) {
       state.loading = false;
       state.isCreateSuccess = true;
     },
-    // 길드 과제 삭제 실패
+    // 길드 생성 실패
     createGuildStartFailed(state) {
       state.loading = false;
       state.isCreateSuccess = false;
