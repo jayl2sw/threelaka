@@ -38,4 +38,17 @@ public class GuildResponseDto {
                 .assignments(assignment)
                 .build();
     }
+
+    public static GuildResponseDto from (GuildResponseDto dto, String profile) {
+        return GuildResponseDto.builder()
+            .guildId(dto.getGuildId())
+            .profile(profile)
+            .masterId(dto.getMasterId())
+            .masterNickname(dto.getMasterNickname())
+            .guildName(dto.getGuildName())
+            .description(dto.getDescription())
+            .notice(dto.getNotice())
+            .assignments(dto.assignments)
+            .build();
+    }
 }

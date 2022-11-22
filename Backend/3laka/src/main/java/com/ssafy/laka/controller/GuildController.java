@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.ssafy.laka.domain.Guild;
 import com.ssafy.laka.dto.exception.common.InvalidParameterException;
 import com.ssafy.laka.dto.exception.guild.RequestListEmptyException;
 import com.ssafy.laka.dto.guild.*;
@@ -37,11 +38,29 @@ public class GuildController {
 
     @PostMapping("")
     @ApiOperation(value = "길드 생성")
-    public ResponseEntity<GuildResponseDto> createGuild(@Valid @RequestBody GuildCreateDto data, BindingResult result){
+    public ResponseEntity<GuildResponseDto> createGuild(@Valid @RequestPart GuildCreateDto data,
+                                                        @RequestPart(required = false) MultipartFile file,
+                                                        BindingResult result){
         if(result.hasErrors()){
             throw new InvalidParameterException(result);
         }
-        return new ResponseEntity<>(guildService.createGuild(data), HttpStatus.OK);
+        GuildResponseDto guild = guildService.createGuild(data);
+        if (file.isEmpty()) {
+            return new ResponseEntity<>(guild, HttpStatus.OK);
+        }
+        Date today = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat( "_yyyyMMddHHmmss");
+        String suffix = sdf.format(today);
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentType(file.getContentType());
+        try(InputStream inputStream = file.getInputStream()){
+            amazonS3Client.putObject(new PutObjectRequest(bucketName, "guild" + guild.getGuildId() + suffix, inputStream, objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+            Guild guild1 = guildService.updateProfile(guild.getGuildId(), guild.getGuildId() + suffix);
+            return new ResponseEntity<>(GuildResponseDto.from(guild1, guild.getMasterNickname()), HttpStatus.OK);
+        } catch (IOException e){
+            throw new RuntimeException("이미지 업로드 실패");
+        }
     }
 
     @PostMapping("/request")
@@ -79,7 +98,7 @@ public class GuildController {
     // 여기서부터 전부 반환값 협의 필요 =====================================================================================
     @GetMapping("/ranking")
     @ApiOperation(value = "상위 랭킹 길드 조회")
-    public ResponseEntity<List<GuildRankDto>> getRankGuild(){
+    public ResponseEntity<List<GuildWithTimeInterface>> getRankGuild(){
         return new ResponseEntity<>(guildService.getRankGuild(), HttpStatus.OK);
     }
 

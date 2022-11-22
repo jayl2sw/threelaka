@@ -44,7 +44,7 @@ public interface GuildService {
     NoticeResponseDto updateNotice(String notice);
     void changeMaster(int userId);
 
-    List<GuildRankDto> getRankGuild();
+    List<GuildWithTimeInterface> getRankGuild();
     List<GuildRequestDto> getMyRequests();
     List<Guild> searchGuilds(GuildSearchDto guildSearchDto);
     List<AssignmentResponseDto> getAssignments(int status);
@@ -58,7 +58,7 @@ public interface GuildService {
     String createAssignment(AssignmentRequestDto info);
     String updateAssignment(AssignmentUpdateRequestDto info);
     String deleteAssignment(int assignmentId);
-    void updateProfile(int guildId, String profileId);
+    Guild updateProfile(int guildId, String profileId);
 
 }
 

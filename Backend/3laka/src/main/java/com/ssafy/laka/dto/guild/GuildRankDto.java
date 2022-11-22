@@ -11,12 +11,5 @@ public class GuildRankDto {
     private int guildId;
     private String guildName;
     private String profile;
-
-    public static GuildRankDto from(Guild entity) {
-        return GuildRankDto.builder()
-                .guildId(entity.getId())
-                .guildName(entity.getGuildName())
-                .profile(entity.getProfile())
-                .build();
-    }
+    private int time;
 }

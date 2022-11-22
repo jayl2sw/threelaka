@@ -289,8 +289,8 @@ public class GuildServiceImpl implements GuildService{
     }
 
     @Override
-    public List<GuildRankDto> getRankGuild() {
-        return guildRepository.findRanking3Guilds().stream().map(s -> GuildRankDto.from(s)).collect(Collectors.toList());
+    public List<GuildWithTimeInterface> getRankGuild() {
+        return guildRepository.findRanking3Guilds();
     }
 
     @Override
@@ -407,8 +407,9 @@ public class GuildServiceImpl implements GuildService{
     }
 
     @Override
-    public void updateProfile(int guildId, String profileId) {
+    public Guild updateProfile(int guildId, String profileId) {
         Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
         guild.changeProfile(profileId);
+        return guild;
     }
 }
