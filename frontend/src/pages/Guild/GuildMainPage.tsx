@@ -569,7 +569,7 @@ const GuildMain = () => {
                         IsBorder={'none'}
                       >
                         <FlexTransparentDiv
-                          widthSize={'15vw'}
+                          widthSize={'14vw'}
                           heightSize={'7vh'}
                           paddingSize={'0'}
                           flexDirection={'row'}
@@ -581,7 +581,7 @@ const GuildMain = () => {
                           {myGuildInfo.guildName}
                         </FlexTransparentDiv>
                         <FlexTransparentDiv
-                          widthSize={'7vw'}
+                          widthSize={'8vw'}
                           heightSize={'7vh'}
                           paddingSize={'0'}
                           flexDirection={'row'}
@@ -590,14 +590,14 @@ const GuildMain = () => {
                           IsBorder={'none'}
                         >
                           <MainBtn
-                            widthSize={'6vw'}
+                            widthSize={'7vw'}
                             heightSize={'5vh'}
-                            paddingSize={'0'}
+                            paddingSize={'0.25vw'}
                             fontSize={'2vmin'}
                             fontColor={'white'}
                             backgroundColor={'black'}
                             style={{
-                              borderRadius: '10px',
+                              borderRadius: '5px',
                               marginRight: '3vmin',
                             }}
                             onClick={onClickMoveMyGuildPage}
@@ -626,14 +626,14 @@ const GuildMain = () => {
                           style={{ marginBottom: '1vh' }}
                         >
                           <BackBlurBox
-                            widthSize={'6vw'}
-                            heightSize={'5vh'}
+                            widthSize={'4vw'}
+                            heightSize={'4vh'}
                             paddingSize={'0'}
                             fontSize={'2vmin'}
                             fontColor={'white'}
                             style={{
                               backgroundColor: '#5CA9FF',
-                              borderRadius: '10px',
+                              borderRadius: '5px',
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
@@ -656,14 +656,14 @@ const GuildMain = () => {
                           IsBorder={'none'}
                         >
                           <BackBlurBox
-                            widthSize={'6vw'}
-                            heightSize={'5vh'}
+                            widthSize={'4.1vw'}
+                            heightSize={'4vh'}
                             paddingSize={'0'}
                             fontSize={'2vmin'}
                             fontColor={'white'}
                             style={{
                               backgroundColor: '#5CA9FF',
-                              borderRadius: '10px',
+                              borderRadius: '5px',
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
@@ -697,23 +697,24 @@ const GuildMain = () => {
                       alignItems={'start'}
                       IsBorder={'none'}
                     >
-                      <BackBlurBox
-                        widthSize={'10vw'}
-                        heightSize={'4vh'}
+                      <FlexTransparentDiv
+                        widthSize={'14vw'}
+                        heightSize={'7vh'}
                         paddingSize={'0'}
-                        fontSize={'2vmin'}
-                        fontColor={'white'}
+                        flexDirection={'row'}
+                        justifyContent={'start'}
+                        alignItems={'center'}
+                        IsBorder={'none'}
                         style={{
-                          backgroundColor: '#5CA9FF',
-                          borderRadius: '10px',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          marginRight: '1vw',
+                          fontFamily: 'pretendardBold',
+                          fontSize: '1rem',
+                          marginLeft: '1vw',
+                          marginBottom: '-1vh',
                         }}
                       >
                         공지사항
-                      </BackBlurBox>
+                      </FlexTransparentDiv>
+
                       {myGuildInfo.notice !== null ? (
                         <FlexTransparentDiv
                           widthSize={'30vw'}
@@ -725,8 +726,15 @@ const GuildMain = () => {
                           IsBorder={'none'}
                           style={
                             myGuildInfo.notice.length > 50
-                              ? { fontSize: '2vmin' }
-                              : { fontSize: '3vmin' }
+                              ? {
+                                  fontSize: '2vmin',
+                                  backgroundColor: '#dbecff',
+                                  borderRadius: '10px',
+                                }
+                              : {
+                                  fontSize: '3vmin',
+                                  backgroundColor: '#dbecff',
+                                }
                           }
                         >
                           <span
@@ -777,7 +785,7 @@ const GuildMain = () => {
                 widthSize="5vw"
                 heightSize="5vh"
                 paddingSize="0"
-                fontSize="2vmin"
+                fontSize="2.3vmin"
                 fontColor="white"
                 backgroundColor="blue"
                 style={{
@@ -786,6 +794,7 @@ const GuildMain = () => {
                   left: '1vw',
                   marginRight: '1vw',
                   opacity: pickedSortStandard === 'activity' ? '' : '0.5',
+                  fontFamily: 'PretendardRegular',
                 }}
                 onClick={() => {
                   onClickGuildSortedList('activity');
@@ -798,7 +807,7 @@ const GuildMain = () => {
                 widthSize="5vw"
                 heightSize="5vh"
                 paddingSize="0"
-                fontSize="2vmin"
+                fontSize="2.3vmin"
                 fontColor="white"
                 backgroundColor="blue"
                 style={{
@@ -807,6 +816,7 @@ const GuildMain = () => {
                   left: '6.25vw',
                   marginRight: '1vw',
                   opacity: pickedSortStandard === 'size' ? '' : '0.5',
+                  fontFamily: 'PretendardRegular',
                 }}
                 onClick={() => {
                   onClickGuildSortedList('size');
@@ -819,7 +829,7 @@ const GuildMain = () => {
                 widthSize="5vw"
                 heightSize="5vh"
                 paddingSize="0"
-                fontSize="2vmin"
+                fontSize="2.3vmin"
                 fontColor="white"
                 backgroundColor="blue"
                 style={{
@@ -827,6 +837,7 @@ const GuildMain = () => {
                   top: '-5vh',
                   left: '11.5vw',
                   opacity: pickedSortStandard === 'name' ? '' : '0.5',
+                  fontFamily: 'PretendardRegular',
                 }}
                 onClick={() => {
                   onClickGuildSortedList('name');
@@ -894,7 +905,10 @@ const GuildMain = () => {
                           fontColor={'black'}
                           fontSize={'2vmin'}
                           backgroundUrl={guild.profile}
-                          style={{ margin: '0 1vw 0 0' }}
+                          style={{
+                            margin: '0 1vw 0 0',
+                            border: 'white',
+                          }}
                         ></GradientCircleDiv>
                         {guild.guildName}
                       </FlexTransparentDiv>
