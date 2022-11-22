@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "private": true,
+  "private": true,  
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@emotion/react": "^11.10.4",
@@ -191,5 +191,5 @@
     "@types/styled-components": "^5.1.26",
     "redux-devtools-extension": "^2.13.9"
   },
-  "homepage": "./"
+  "homepage": "."
 }
