@@ -244,14 +244,17 @@ const SignupForm = ({
           J O I N
         </GradientRoundBtn>
         <p style={{ fontFamily: 'Fredoka' }}>Already Have an Account?</p>
-        <a
-          href="#"
+        <div
           onClick={handleToggle}
           className="toggle"
-          style={{ fontFamily: 'Fredoka', fontWeight: 'bold' }}
+          style={{
+            fontFamily: 'Fredoka',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+          }}
         >
           &lt;&lt;&nbsp;&nbsp;Sign In
-        </a>
+        </div>
       </SubmitBtnWrap>
     </StyledForm>
   );

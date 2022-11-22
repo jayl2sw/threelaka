@@ -241,8 +241,12 @@ function* onPostGuildRequestAsync(action: PayloadAction<number>) {
   try {
     yield call(PostGuildRequestApi, action.payload);
     yield put(guildActions.postGuildRequestSuccess());
+    yield delay(1000);
+    yield put(guildActions.resetIsCreateSuccess());
   } catch (error) {
-    console.error();
+    yield put(guildActions.postGuildRequestFailed());
+    yield delay(1000);
+    yield put(guildActions.resetIsCreateSuccess());
   }
 }
 
@@ -280,7 +284,7 @@ function* onDeleteGuildAssignmentAsync(action: PayloadAction<number>) {
 }
 
 // 길드 생성하기
-function* onCreateGuildStartAsync(action: PayloadAction<CreateGuildForm>) {
+function* onCreateGuildStartAsync(action: PayloadAction<any>) {
   try {
     yield call(CreateGuildApi, action.payload);
     yield put(authActions.fetchUser()); // guild ID 다시 가져오기 위해

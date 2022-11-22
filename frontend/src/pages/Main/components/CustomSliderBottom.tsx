@@ -68,13 +68,13 @@ const CutomSliderBottom = ({
 
   return (
     <Container>
-      {recentVideoDataLst.length !== 0 ? (
+      {/* {recentVideoDataLst.length !== 0 ? (
         <ThumnailBlock
           url={`https://img.youtube.com/vi/${recentVideoDataLst[currentSlide].video.videoId}/0.jpg`}
         ></ThumnailBlock>
       ) : (
         ''
-      )}
+      )} */}
       <SliderContainer ref={slideRef}>
         {recentVideoDataLst.map((videoInfo, idx) => {
           return (
@@ -86,6 +86,7 @@ const CutomSliderBottom = ({
               stage={videoInfo.learningRecord.stage}
               learningRecordId={videoInfo.learningRecord.learningRecordId}
               videoId={videoInfo.learningRecord.videoId}
+              date={videoInfo.learningRecord.date}
             />
           );
         })}

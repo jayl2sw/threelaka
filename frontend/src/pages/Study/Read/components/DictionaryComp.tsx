@@ -155,7 +155,7 @@ const DictionaryComp = ({
         setIsnWordBookId(result?.wordbookId);
       }
     }
-  }, [wordMeaning]);
+  }, [wordMeaning, wordBookLst]);
 
   return (
     <>

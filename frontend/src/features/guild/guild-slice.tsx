@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { VideoData, RecentVideoData } from '../../models/video';
-import { RecentVideos } from '../../models/dashboard';
 import {
   GuildNotice,
   VideoInfo,
@@ -29,6 +27,7 @@ type GuildState = {
   MyRequestLst: MyRequest[];
   GuildRequestLst: GuildRequest[];
   isCreateSuccess: null | true | false;
+  isRequestSuccess: null | true | false;
 };
 
 let initialState: GuildState = {
@@ -56,11 +55,13 @@ let initialState: GuildState = {
     description: '',
     notice: '',
     assignments: [],
+    profile: '',
   },
   myguildLearnTime: [],
   MyRequestLst: [],
   GuildRequestLst: [],
   isCreateSuccess: null,
+  isRequestSuccess: null,
 };
 
 const guildSlice = createSlice({
@@ -165,9 +166,8 @@ const guildSlice = createSlice({
       state.loading = true;
     },
     // 길드 공지 수정 성공
-    putGuildNoticeSuccess(state, action: PayloadAction<TopThreeGuild[]>) {
+    putGuildNoticeSuccess(state, action: PayloadAction<string>) {
       state.loading = false;
-      state.topThreeGuildList = action.payload;
     },
     // 길드 공지 수정 실패
     putGuildNoticeFailed(state) {
@@ -313,14 +313,17 @@ const guildSlice = createSlice({
     // 길드 가입 요청 시작
     postGuildRequestStart(state, action: PayloadAction<number>) {
       state.loading = true;
+      state.isRequestSuccess = null;
     },
     // 길드 가입 요청 성공
     postGuildRequestSuccess(state) {
       state.loading = false;
+      state.isRequestSuccess = true;
     },
     // 길드 가입 요청 실패
     postGuildRequestFailed(state) {
       state.loading = false;
+      state.isRequestSuccess = false;
     },
 
     // 길드 탈퇴 시작
@@ -363,23 +366,24 @@ const guildSlice = createSlice({
     },
 
     // 길드 생성
-    createGuildStart(state, action: PayloadAction<CreateGuildForm>) {
+    createGuildStart(state, action: PayloadAction<any>) {
       state.loading = true;
       state.isCreateSuccess = null;
     },
-    // 길드 과제 삭제 시작
+    // 길드 생성 성공
     createGuildStartSuccess(state) {
       state.loading = false;
       state.isCreateSuccess = true;
     },
-    // 길드 과제 삭제 실패
+    // 길드 생성 실패
     createGuildStartFailed(state) {
       state.loading = false;
       state.isCreateSuccess = false;
     },
-    // 길드 과제 삭제 실패
+    // 토스트 메시지 토글 리셋
     resetIsCreateSuccess(state) {
       state.isCreateSuccess = null;
+      state.isRequestSuccess = null;
     },
   },
 });
