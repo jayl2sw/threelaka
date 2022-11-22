@@ -94,7 +94,7 @@ const CutomSlider = () => {
           korTitle={'지식'}
           title={'KNOWLEDGE'}
           content={
-            ' 끊임없이 탐구하는 당신을 위하여, 세계적인 석학들의 강의를 만나보세요'
+            ' 끊임없이 탐구하는 당신을 위한, 세계적인 석학들의 강의를 만나보세요'
           }
           tagContent={'#철학 #과학 #수학 #정치 #의학'}
         />
@@ -105,7 +105,7 @@ const CutomSlider = () => {
           korTitle={'인간'}
           title={'HUMAN'}
           content={
-            '당신은 인간을 얼마나 알고있나요, 더 깊이 더 많이 알아보세요'
+            '당신은 인간을 얼마나 알고있나요?, 더 깊이 더 많이 알아보세요'
           }
           tagContent={'#진화 #심리 #감각 #감정 #인류'}
         />

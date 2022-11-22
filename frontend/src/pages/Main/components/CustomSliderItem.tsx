@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
-import { GradientRoundBtn } from '../../../styles/Common/CommonBtnStyle';
+import {
+  GradientRoundBtn,
+  MainBtn,
+} from '../../../styles/Common/CommonBtnStyle';
 import { useNavigate } from 'react-router-dom';
 
 interface ICustomSliderProps {
@@ -164,11 +167,12 @@ const CustomSliderItem = ({
             heightSize={'6vh'}
             paddingSize={'0'}
             fontColor={'white'}
-            fontSize={'2vmin'}
-            backgroundColor={'blue'}
+            fontSize={'2.3vmin'}
+            backgroundColor={'gradient'}
+            style={{ borderRadius: '2vmin', fontWeight: 'bold' }}
             onClick={() => onClickMoveToTagSearch()}
           >
-            더 알아보러 가기
+            더 많은 영상 보기
           </GradientRoundBtn>
         </FlexTransparentDiv>
       </FlexTransparentDiv>
