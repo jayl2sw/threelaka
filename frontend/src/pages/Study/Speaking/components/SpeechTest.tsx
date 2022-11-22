@@ -49,7 +49,7 @@ const SpeechTest = () => {
       <MainPaleBox
         widthSize={'50vw'}
         heightSize={'50vh'}
-        paddingSize={'0'}
+        paddingSize={'0 0 0 1vw'}
         fontSize={'3.8vmin'}
         fontColor={'black'}
         style={{ minHeight: '50vh' }}
@@ -126,7 +126,11 @@ const SpeechTest = () => {
                           <ScoreTextBox
                             style={{
                               fontSize:
-                                selectedText.length > 100 ? '2vmin' : '3.8vmin',
+                                selectedText.length > 100
+                                  ? '2.3vmin'
+                                  : selectedText.length > 50
+                                  ? '2.8vmin'
+                                  : '3vmin',
                             }}
                           >
                             <span
