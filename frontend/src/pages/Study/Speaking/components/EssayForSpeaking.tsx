@@ -14,6 +14,9 @@ import {
   TextContainer,
 } from '../../../../styles/Speaking/SpeakingStyle';
 import { useParams } from 'react-router-dom';
+import ScriptForSpeaking from './ScriptForSpeaking';
+import { AutoScrollBtn } from '../../../../styles/Read/ReadStyle';
+import ScriptForRecording from './ScriptForRecording';
 
 const EssayForSpeaking = ({ essayOn, setEssayOn }: IEssayButtons) => {
   const dispatch = useAppDispatch();
@@ -21,6 +24,7 @@ const EssayForSpeaking = ({ essayOn, setEssayOn }: IEssayButtons) => {
 
   const userEssay = useAppSelector((state) => state.write.essay);
   const [script, setScript] = useState<string[]>([]);
+  const [isScript, setIsScript] = useState<boolean>(false);
 
   useEffect(() => {
     //내가 쓴 에세이 불러오는거
@@ -94,47 +98,155 @@ const EssayForSpeaking = ({ essayOn, setEssayOn }: IEssayButtons) => {
         display: 'flex',
         flexDirection: 'column',
         // overflow: 'auto',
+
         wordBreak: 'break-word',
       }}
     >
-      <TextContainer id="container">
-        {userEssay !== '' && essayOn === 0 ? (
-          script.map((item, idx) => (
-            <TextEssayBox
-              key={idx}
-              onClick={(e) => sentenceClickHandler(e, idx)}
+      {essayOn === 0 ? (
+        <div style={{ overflow: 'auto', overflowX: 'hidden' }}>
+          <FlexTransparentDiv
+            widthSize={'12vw'}
+            heightSize={'0vw'}
+            alignItems={'center'}
+            justifyContent={'start'}
+            paddingSize={'0'}
+            flexDirection={'row'}
+            IsBorder={'none'}
+            style={{ position: 'relative' }}
+          >
+            <div
               style={{
-                fontSize: item.length > 50 ? '2.5vmin' : '3vmin',
-
-                lineHeight: '4vh',
+                position: 'absolute',
+                top: '-3.8vh',
+                left: '37.5vw',
+                display: 'flex',
+                alignItems: 'center',
               }}
-              id="textBox"
             >
-              {item}
-            </TextEssayBox>
-          ))
-        ) : userEssay !== '' && essayOn === 1 ? (
+              <AutoScrollBtn
+                onClick={() => setIsScript(!isScript)}
+                className={isScript ? 'auto-scroll' : 'manual-scroll'}
+              ></AutoScrollBtn>
+              <div
+                style={{
+                  width: '5vw',
+                  height: '5vw',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '2.5vmin',
+                  color: '#9897a9',
+                }}
+              >
+                <div>{isScript ? 'SCRIPT' : 'ESSAY'}</div>
+              </div>
+            </div>
+          </FlexTransparentDiv>
+
+          {isScript ? (
+            <ScriptForRecording></ScriptForRecording>
+          ) : (
+            <>
+              <TextContainer id="container">
+                {script.length !== 0 ? (
+                  script.map((item, idx) => (
+                    <TextEssayBox
+                      key={idx}
+                      onClick={(e) => sentenceClickHandler(e, idx)}
+                      style={{
+                        fontSize: item.length > 50 ? '2.5vmin' : '3vmin',
+
+                        lineHeight: '4vh',
+                      }}
+                      id="textBox"
+                    >
+                      {item}
+                    </TextEssayBox>
+                  ))
+                ) : (
+                  <h2 style={{ textAlign: 'center', lineHeight: '20vh' }}>
+                    아직 작성한 에세이가 없어요😂
+                  </h2>
+                )}
+              </TextContainer>
+            </>
+          )}
+        </div>
+      ) : (
+        <h3 style={{ textAlign: 'center', lineHeight: '20vh' }}>
+          문장을 보지않고 말하기 연습을 해보세요
+        </h3>
+      )}
+
+      {/* <div>
+        <FlexTransparentDiv
+          widthSize={'12vw'}
+          heightSize={'0vw'}
+          alignItems={'center'}
+          justifyContent={'start'}
+          paddingSize={'0'}
+          flexDirection={'row'}
+          IsBorder={'none'}
+          style={{ position: 'relative' }}
+        >
           <div
             style={{
-              textAlign: 'center',
-              lineHeight: '25vh',
-              fontWeight: 'bold',
+              position: 'absolute',
+              top: '-1.8vh',
+              left: '38.5vw',
+              display: 'flex',
+              alignItems: 'center',
             }}
           >
-            에세이를 보지 않고 발음 연습을 해보세요
+            <AutoScrollBtn
+              onClick={() => setIsScript(!isScript)}
+              className={isScript ? 'auto-scroll' : 'manual-scroll'}
+            ></AutoScrollBtn>
+            <div
+              style={{
+                width: '5vw',
+                height: '5vw',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '2.5vmin',
+                color: '#9897a9',
+              }}
+            >
+              <div>{isScript ? 'SCRIPT' : 'ESSAY'}</div>
+            </div>
           </div>
+        </FlexTransparentDiv>
+
+        {isScript ? (
+          <ScriptForRecording></ScriptForRecording>
         ) : (
-          <div
-            style={{
-              textAlign: 'center',
-              lineHeight: '25vh',
-              fontWeight: 'bold',
-            }}
-          >
-            아직 작성한 에세이가 없어요😂
-          </div>
+          <>
+            <TextContainer id="container">
+              {script.length !== 0 ? (
+                script.map((item, idx) => (
+                  <TextEssayBox
+                    key={idx}
+                    onClick={(e) => sentenceClickHandler(e, idx)}
+                    style={{
+                      fontSize: item.length > 50 ? '2.5vmin' : '3vmin',
+
+                      lineHeight: '4vh',
+                    }}
+                    id="textBox"
+                  >
+                    {item}
+                  </TextEssayBox>
+                ))
+              ) : (
+                <h2 style={{ textAlign: 'center', lineHeight: '20vh' }}>
+                  아직 작성한 에세이가 없어요😂
+                </h2>
+              )}
+            </TextContainer>
+          </>
         )}
-      </TextContainer>
+      </div> */}
     </MainBox>
   );
 };
