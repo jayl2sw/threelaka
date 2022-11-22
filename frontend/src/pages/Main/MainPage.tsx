@@ -16,6 +16,7 @@ import CustomSlider from './components/CustomSlider';
 import CutomSliderBottom from './components/CustomSliderBottom';
 // import './MainPage.css';
 import { videoActions } from '../../features/video/video-slice';
+import { FlexTransparentDiv } from '../../styles/Common/CommonDivStyle';
 
 const MainPage = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -109,16 +110,38 @@ const MainPage = () => {
           </PageDownButton>
         </FirstpageBlock>
         <SecondpageBlock id="SecondpageBlock" ref={secondBlockRef}>
-          <CutomSliderBottom
-            recentVideoDataLst={recentVideoDataLst}
-          ></CutomSliderBottom>
-          <PageDownButton
-            className="toggle up"
-            style={{ rotate: '90deg' }}
-            href="#FirstpageBlock"
-          >
-            《
-          </PageDownButton>
+          {recentVideoDataLst.length === 0 ? (
+            <FlexTransparentDiv
+              widthSize={'100vw'}
+              heightSize={'100vh'}
+              paddingSize={'0'}
+              flexDirection={'column'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              IsBorder={'none'}
+              style={{
+                fontSize: '10vmin',
+                backgroundColor: 'white',
+                border: '3px dotted red',
+              }}
+            >
+              이 글씨가 있는 플렉스 지워도 됩니다. ? 뒤의 () 안에서 뛰어노시면
+              됩니다.
+            </FlexTransparentDiv>
+          ) : (
+            <>
+              <CutomSliderBottom
+                recentVideoDataLst={recentVideoDataLst}
+              ></CutomSliderBottom>
+              <PageDownButton
+                className="toggle up"
+                style={{ rotate: '90deg' }}
+                href="#FirstpageBlock"
+              >
+                《
+              </PageDownButton>
+            </>
+          )}
         </SecondpageBlock>
       </MainPageBlock>
     </>

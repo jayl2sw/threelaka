@@ -470,53 +470,6 @@ const MyGuild = () => {
                   })}
                 </>
               )}
-
-              {/* {progressTaskLst.map((task, idx) => {
-                return (
-                  <FlexTransparentDiv
-                    key={`video-progree-${idx}`}
-                    widthSize={'15vw'}
-                    heightSize={'20vh'}
-                    paddingSize={'0'}
-                    flexDirection={'row'}
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                    IsBorder={'none'}
-                    onClick={() => setModalToggleVideoId(task.videoId)}
-                    style={{
-                      cursor: 'pointer',
-                      borderTop: '10px solid black',
-                      borderBottom: '10px solid black',
-                      borderRadius: '10px',
-                      background: 'black',
-                      margin: '0.5vw',
-                      position: 'relative',
-                    }}
-                  >
-                    <img
-                      style={{
-                        width: '15vw',
-                        height: '18vh',
-                        objectFit: 'cover',
-                      }}
-                      src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
-                    ></img>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        width: '10vw',
-                        top: '0.5vh',
-                        left: '1vw',
-                        color: 'white',
-                        fontSize: '2.5vmin',
-                      }}
-                    >
-                      ~{task.startDate}
-                    </div>
-                  </FlexTransparentDiv>
-                );
-                // return <p key={`task-${idx}`}>{task.videoId}</p>;
-              })} */}
             </MainBox>
           </FlexTransparentDiv>
           <FlexTransparentDiv
