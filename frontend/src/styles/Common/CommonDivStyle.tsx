@@ -174,6 +174,52 @@ export const FlexTransparentDiv = styled.div<TransparentFlexDivProps>`
     props.IsBorder === 'none' ? 'none' : '1px solid black'};
 `;
 
+export const FlexFadeInOutDiv = styled.div<TransparentFlexDivProps>`
+  width: ${(props) => props.widthSize};
+  height: ${(props) => props.heightSize};
+  padding: ${(props) => props.paddingSize};
+  display: flex;
+  flex-direction: ${(props) => props.flexDirection};
+  justify-content: ${(props) => props.justifyContent};
+  align-items: ${(props) => props.alignItems};
+  background-color: transparent;
+  border: ${(props) =>
+    props.IsBorder === 'none' ? 'none' : '1px solid black'};
+  &.hidden {
+    display: none;
+    opacity: 0;
+  }
+
+  &.appear {
+    animation: fade-in 1s;
+    animation-fill-mode: forwards;
+    display: flex;
+  }
+
+  &.disappear {
+    animation: fade-out 1s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+`;
+
 export const GradientCircleDiv = styled.div<CommonCircleProps>`
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
