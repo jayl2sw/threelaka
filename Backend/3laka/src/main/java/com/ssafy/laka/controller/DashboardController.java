@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ssafy.laka.dto.dashboard.*;
+import com.ssafy.laka.dto.user.UpdateUserRequestDto;
 import com.ssafy.laka.service.DashboardService;
 import com.ssafy.laka.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -27,21 +28,17 @@ import java.util.List;
 public class DashboardController {
 
     private final DashboardService dashboardService;
-    private final UserService userService;
-    private final AmazonS3Client amazonS3Client;
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucketName;
 
     // 아직 안함 =========================================================================================================
-    @GetMapping("/profile")
-    @ApiOperation(value = "회원 정보 조회", notes = "회원의 프로필 관련 정보를 반환한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = Void.class)
-    })
-    public ResponseEntity<?> getUserInfo(){
-        // 사용자 프로필 관련 Dto 싹다 보내줌
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
+//    @GetMapping("/profile")
+//    @ApiOperation(value = "회원 정보 조회", notes = "회원의 프로필 관련 정보를 반환한다")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "Success", response = Void.class)
+//    })
+//    public ResponseEntity<?> getUserInfo(){
+//        // 사용자 프로필 관련 Dto 싹다 보내줌
+//        return new ResponseEntity<>(null, HttpStatus.OK);
+//    }
 
     @GetMapping("/dailywords")
     @ApiOperation(value = "오늘의 단어 조회", notes = "회원의 단어장 중 외우지 못한 단어를 랜덤하게 반환한다")
@@ -55,10 +52,7 @@ public class DashboardController {
 
     @GetMapping("/playing")
     @ApiOperation(value = "현재 공부 중인 영상 조회", notes = "회원이 현재 공부를 완료하지 못한 영상 리스트를 반환한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = PlayingVideoDto.class)
-    })
-    public ResponseEntity<PlayingVideoDto> getPlayingList(){
+    public ResponseEntity<List<PlayingVideoDto>> getPlayingList(){
         // 현재 공부중인 영상 리스트 반환
         return new ResponseEntity<>(dashboardService.getPlayingList(), HttpStatus.OK);
     }
@@ -72,6 +66,16 @@ public class DashboardController {
         // 지금까지 전체 공부한 양 반환 (공부 완료 비디오, 에세이, 단어 수)
         return new ResponseEntity<>(dashboardService.getHistory(), HttpStatus.OK);
     }
+
+    @GetMapping("/history/time")
+    @ApiOperation(value = "유저의 누적 학습시간 조회", notes = "회원의 누적된 학습 시간 정보를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = TimeHistoryDto.class)})
+            public ResponseEntity<TimeHistoryDto> getTimeHistory(){
+                //지금까지 공부한 시간 반환
+            return new ResponseEntity<>(dashboardService.getTimeHistory(), HttpStatus.OK);
+            }
+
 
     @GetMapping("/calendar")
     @ApiOperation(value = "캘린더 조회", notes = "회원의 캘린더 관련 정보를 반환한다")
@@ -104,7 +108,7 @@ public class DashboardController {
     }
 
     @GetMapping("/data")
-    @ApiOperation(value = "학습 히스토리 데이터 조회", notes = "회원의 이번 주 학습 데이터를 반환한다<br/>1부터 월요일")
+    @ApiOperation(value = "학습 히스토리 데이터 조회", notes = "회원의 이번 주 학습 데이터를 반환한다<br/>1부터 저번 주 월요일")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = int[].class)
     })
@@ -124,7 +128,7 @@ public class DashboardController {
     }
 
     @PutMapping("/tag")
-    @ApiOperation(value = "관심 태그 수정", notes = "회원의 관심 태그를 수정한다")
+    @ApiOperation(value = "관심 태그 수정", notes = "회원의 관심 태그를 수정한다(최대 3개까지 가능)")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = String.class)
     })
@@ -134,25 +138,25 @@ public class DashboardController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
-    @PutMapping("/profile")
+    @PutMapping("/profile/{profile}")
     @ApiOperation(value = "프로필 사진 수정", notes = "회원의 프로필 사진을 수정한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = String.class)
     })
-    public ResponseEntity<?> changeProfile(@RequestPart MultipartFile file) {
+    public ResponseEntity<?> changeProfile(@PathVariable String profile) {
         // 프로필 사진 수정
-        if(file.isEmpty()){
-            throw new RuntimeException("이미지가 없습니다.");
-        }
-        int userId = userService.getMyInfo().getUserId();
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentType(file.getContentType());
-        try(InputStream inputStream = file.getInputStream()){
-            amazonS3Client.putObject(new PutObjectRequest(bucketName, String.valueOf(userId), inputStream, objectMetadata)
-                    .withCannedAcl(CannedAccessControlList.PublicRead));
-        } catch (IOException e){
-            throw new RuntimeException("이미지 업로드 실패");
-        }
+        dashboardService.updateProfile(profile);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PutMapping("/profile")
+    @ApiOperation(value = "회원 정보 수정", notes = "회원 정보 입력을 통해 회원 정보를 수정한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<String> updateUser(@RequestBody UpdateUserRequestDto requestDto){
+        dashboardService.updateUserInfo(requestDto);
+
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 

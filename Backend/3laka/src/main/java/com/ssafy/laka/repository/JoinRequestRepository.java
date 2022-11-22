@@ -20,9 +20,10 @@ public interface JoinRequestRepository extends JpaRepository<JoinRequest, Intege
 
     List<JoinRequestDto> findByGuildId(int guildId);
 
-    Optional<JoinRequest> findBySender(User sender);
+    List<JoinRequest> findAllBySender(User sender);
 
     List<JoinRequestDto> findByGuildIdAndState(int guildId, State state);
 
-    List<JoinRequest> findAllBySenderAndState(User user, State state);
+    List<JoinRequest> findAllBySenderAndStateNot(User user, State state);
+
 }

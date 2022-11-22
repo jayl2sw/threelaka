@@ -4,6 +4,7 @@ import com.ssafy.laka.domain.enums.State;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -26,9 +27,11 @@ public class Assignment {
     @JoinColumn(name = "guild_Id")
     private Guild guild;
 
-    // 시작일, 종료일, 미팅 날짜 및 시간
+    @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL)
+    private List<Alert> alerts;
+
+    // 시작일, 종료일
     private String startDate;
     private String endDate;
-    private String meetingTime;
 
 }

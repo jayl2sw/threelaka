@@ -6,11 +6,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
+import org.json.JSONException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,11 +37,11 @@ public class StudyController {
 
         VideoResponseDto video = studyService.getVideo(data.getUrl());
         response.put("video", video);
-        LearningRecordResponseDto lr = studyService.getLearningRecordByVideo(video.getVideoId());
-        if (lr == null) {
+        List<LearningRecordResponseDto> lrs = studyService.getLearningRecordsByVideo(video.getVideoId());
+        if (lrs == null) {
             response.put("learning_record", null);
         } else {
-            response.put("learning_record", lr);
+            response.put("learning_record", lrs);
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -65,19 +66,42 @@ public class StudyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<?> getRecommends(){
-
-        return new ResponseEntity<>(studyService.getRecommends(), HttpStatus.OK);
+    public ResponseEntity<?> getRecommends() throws IOException {
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("usedModel", "item-based");
+        res.put("recommends", studyService.getRecommends());
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @GetMapping("/video/recommends/tags")
+    @ApiOperation(value = "추천 태그 영상 조회", notes = "추천 영상 4개 전달")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> getRecommendsByTag(){
+
+        return new ResponseEntity<>(studyService.getRecommendsList(), HttpStatus.OK);
+    }
     @GetMapping("/video/latest")
     @ApiOperation(value = "가장 최근에 공부한 영상 조회", notes = "가장 최근에 공부한 영상 VideoResponseDto 반환")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
-    public ResponseEntity<RecentLearningRecordResponseDto> getRecentVideo(){
+    public ResponseEntity<List<RecentLearningRecordResponseDto>> getRecentVideo(){
 
         return new ResponseEntity<>(studyService.getRecentVideo(), HttpStatus.OK);
+    }
+
+    @GetMapping("/video/tags/{tagId}/{page}")
+    @ApiOperation(value = "태그기반 필터링 조회", notes = "태그 기반 필터링 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> getVideosByTag(@PathVariable int tagId, @PathVariable(required = false) Integer page){
+        if (page == null){
+            page = 0;
+        }
+        return new ResponseEntity<>(studyService.getVideosByTags(tagId, page), HttpStatus.OK);
     }
 
     @PostMapping("/video/wish")
@@ -106,17 +130,38 @@ public class StudyController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
+    @GetMapping("/video/{videoId}")
+    @ApiOperation(value = "유저 단어장 조회", notes = "특정 회원의 단어 리스트를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<VideoDescriptionResponseDto> getVideoDescription(
+            @PathVariable String videoId
+    ){
+        // 해당 강좌의 단어장 불러오기
+        return new ResponseEntity<>(studyService.findVideoDescription(videoId), HttpStatus.OK);
+    }
+
     @GetMapping("/video/search/{keyword}")
     @ApiOperation(value = "keyword로 영상 검색", notes = "keyword를 이용한 영상 검색")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Void.class)
     })
     public ResponseEntity<?> searchVideos(
-            Pageable pageable,
             @PathVariable String keyword
     ){
         // 키워드로 영상 검색
-        return new ResponseEntity<>(studyService.getVideosByKeyword(keyword, pageable), HttpStatus.OK);
+        return new ResponseEntity<>(studyService.getVideosByKeyword(keyword), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/essay")
+    @ApiOperation(value = "유저의 에세이 검색", notes = "유저의 에세이 모두 검색")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> findUserEssays(){
+        // 키워드로 영상 검색
+        return new ResponseEntity<>(studyService.getEssays(), HttpStatus.OK);
     }
 
     @PostMapping("/word")
@@ -126,7 +171,7 @@ public class StudyController {
     })
     public ResponseEntity<?> addWord(
             @RequestBody WordRequestDto data
-    ){
+    ) throws JSONException {
         // 단어장에 단어 하나 추가해줌
         studyService.addWord(data);
         return new ResponseEntity<>("success", HttpStatus.OK);
@@ -139,8 +184,21 @@ public class StudyController {
     public ResponseEntity<?> deleteWord(
             @RequestBody WordbookRequestDto data
     ){
-        // 단어장에 단어 하나 추가해줌
+        // 단어장에 단어 하나 삭제함
         studyService.deleteWord(data.getWordbookId());
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/wordandexample")
+    @ApiOperation(value = "단어 제거", notes = "특정 회원의 특정 강의에 해당 단어를 제거한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> deleteWordByWordAndExample(
+            @RequestBody WordDeleteRequestDto data
+    ){
+        // 단어장에 단어랑 문장이 일치하는 단어 하나 삭제함
+        studyService.deleteWordByWordAndSentence(data.getWord(), data.getExample());
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
@@ -154,7 +212,17 @@ public class StudyController {
         // 해당 강좌의 단어장 불러오기
         return new ResponseEntity<>(studyService.getWordbooksById(lr_id), HttpStatus.OK);
     }
-    
+
+    @GetMapping("/word/user")
+    @ApiOperation(value = "유저 단어장 조회", notes = "특정 회원의 단어 리스트를 반환한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<List<WordbookResponseDto>> getWordsByUser(){
+        // 해당 강좌의 단어장 불러오기
+        return new ResponseEntity<>(studyService.getWordbooksByUser(), HttpStatus.OK);
+    }
+
 
     @PutMapping("/word/complete")
     @ApiOperation(value = "단어 외움 처리", notes = "학습량을 업데이트 한다.")
@@ -260,4 +328,6 @@ public class StudyController {
         studyService.setSurvey(data);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
+
+
 }
