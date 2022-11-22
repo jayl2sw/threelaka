@@ -54,7 +54,7 @@ public class GuildController {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(file.getContentType());
         try(InputStream inputStream = file.getInputStream()){
-            amazonS3Client.putObject(new PutObjectRequest(bucketName, "guild" + guild.getGuildId() + suffix, inputStream, objectMetadata)
+            amazonS3Client.putObject(new PutObjectRequest(bucketName, guild.getGuildId() + suffix, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
             Guild guild1 = guildService.updateProfile(guild.getGuildId(), guild.getGuildId() + suffix);
             return new ResponseEntity<>(GuildResponseDto.from(guild1, guild.getMasterNickname()), HttpStatus.OK);
