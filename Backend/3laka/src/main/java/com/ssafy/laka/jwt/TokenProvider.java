@@ -80,6 +80,7 @@ public class TokenProvider implements InitializingBean {
         return generateTokenDto(authentication.getName(), authorities);
     }
 
+
     public Authentication getAuthentication(String token){
         // 토큰 복호화
         Claims claims = parseClaims(token);
