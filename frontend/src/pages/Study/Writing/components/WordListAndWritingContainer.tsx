@@ -65,7 +65,9 @@ const WordListAndWritingContainerComp = ({
       content: textAreaRef.current!.innerText,
       learningRecordId: Number(pageParams.learningRecordId),
     };
+    console.log('뭐냥..');
     dispatch(writingActions.postSaveEssayStart(temp));
+    console.log(temp);
   };
   // 스펠링 체크 온클릭
   const onClickSpellCheck = () => {
@@ -116,7 +118,7 @@ const WordListAndWritingContainerComp = ({
       if (textAreaRef.current!.innerText.length !== 0) {
         dispatch(writingActions.postCheckWordStart(wordCheckPayload));
       }
-    }, 2000);
+    }, 20000);
     return () => clearInterval(wordChecker);
   }, [wordBookList]); // wordbooklist가 있을 때 돌아가게 하기 위해
 
@@ -141,21 +143,21 @@ const WordListAndWritingContainerComp = ({
     setSpellFilterTarget(tempFilterTarget);
   }, [spellCheckLst]);
 
-  useEffect(() => {
-    if (isSaveSuccess !== null) {
-      let timer = setTimeout(() => {
-        // setDownloadToast(false);
-        dispatch(writingActions.resetIsSaveSuccess());
-      }, 1000);
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [dispatch, isSaveSuccess]);
+  // useEffect(() => {
+  //   if (isSaveSuccess !== null) {
+  //     let timer = setTimeout(() => {
+  //       // setDownloadToast(false);
+  //       dispatch(writingActions.resetIsSaveSuccess());
+  //     }, 1000);
+  //     return () => {
+  //       clearTimeout(timer);
+  //     };
+  //   }
+  // }, [dispatch, isSaveSuccess]);
 
   return (
     <>
-      {isSaveSuccess && (
+      {isSaveSuccess === true && (
         <ToastContainer
           widthSize={'20vw'}
           heightSize={'20vh'}
