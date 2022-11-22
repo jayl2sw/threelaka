@@ -38,6 +38,8 @@ const EssayForTest = ({ setSelectedText, pageParams }: IEssayProps) => {
     dispatch(studyActions.resetSpeechScore());
 
     setSelectedText(pickedSentence);
+    // if (e.currentTarget.classList.contains('backlight'))
+    // e.currentTarget.classList
   };
 
   useEffect(() => {
@@ -63,8 +65,54 @@ const EssayForTest = ({ setSelectedText, pageParams }: IEssayProps) => {
   }, [userEssay]);
 
   useEffect(() => {
+    // const options = {
+    //   root: null, // viewport
+    //   rootMargin: '0px',
+    //   threshold: 1.0, // 50%가 viewport에 들어와 있어야 callback 실행
+    // };
+
+    // const observer = new IntersectionObserver((entries) => {
+    //   entries.forEach((entry) => {
+    //     if (entry.isIntersecting) {
+    //       entry.target.classList.add('active');
+    //     } else {
+    //       entry.target.classList.remove('active');
+    //     }
+    //   });
+    // }, options);
+
+    // const boxList = textBoxRef.current;
+
+    // boxList.forEach((el) => observer.observe(el));
+    // const element = document.getElementById('textBox');
+    // const container = document.getElementById('container');
+    // if (null !== element) {
+    //   console.log(element);
+    //   // element.classList.add('preFade');
+    //   let observer = new IntersectionObserver(
+    //     (entries, observer) => {
+    //       entries.forEach((entry) => {
+    //         if (entry.isIntersecting) {
+    //           entry.target.classList.add('fadeIn');
+    //         } else entry.target.classList.remove('fadeIn');
+    //       });
+    //     },
+    //     {
+    //       root: null, // viewport
+    //       // console.log(root)
+    //       rootMargin: '0px',
+    //       threshold: 1,
+    //     }
+    //   );
+
+    // }
+
+    // observer.observe(element);
+    const element = document.querySelectorAll('#textBox');
+    const container = document.querySelector('#container');
+
     const options = {
-      root: null, // viewport
+      root: container, // viewport
       rootMargin: '0px',
       threshold: 1.0, // 50%가 viewport에 들어와 있어야 callback 실행
     };
@@ -78,14 +126,11 @@ const EssayForTest = ({ setSelectedText, pageParams }: IEssayProps) => {
         }
       });
     }, options);
-
-    const boxList = textBoxRef.current;
-
-    boxList.forEach((el) => observer.observe(el));
+    element.forEach((el: Element) => observer.observe(el));
   });
 
   return (
-    <EssayContainer>
+    <EssayContainer id="container">
       <TextContainer>
         {script.length !== 0 ? (
           script.map((item, idx) => (
@@ -98,10 +143,11 @@ const EssayForTest = ({ setSelectedText, pageParams }: IEssayProps) => {
               }}
               onClick={(e) => sentenceClickHandler(e, idx)}
               style={{
-                fontSize: item.length > 50 ? '2.5vmin' : '3.8vmin',
-                color: '#1D3557',
+                fontSize: item.length > 50 ? '2.5vmin' : '3vmin',
+
                 lineHeight: '3vh',
               }}
+              id="textBox"
             >
               {item}
             </TextEssayBox>
