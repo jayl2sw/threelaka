@@ -1,11 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
-import { GradientRoundBtn } from '../../../styles/Common/CommonBtnStyle';
+import {
+  GradientRoundBtn,
+  MainBtn,
+} from '../../../styles/Common/CommonBtnStyle';
 import { useNavigate } from 'react-router-dom';
 
 interface ICustomSliderProps {
   sThreeUrl: string;
+  korTitle: string;
   title: string;
   content: string;
   tagContent: string;
@@ -46,6 +50,7 @@ const tagIdConvDict: ItagIdConvDict = {
 
 const CustomSliderItem = ({
   sThreeUrl,
+  korTitle,
   title,
   content,
   tagContent,
@@ -72,16 +77,16 @@ const CustomSliderItem = ({
       IsBorder={'none'}
     >
       <FlexTransparentDiv
-        widthSize={'35vw'}
+        widthSize={'45vw'}
         heightSize={'100vh'}
-        paddingSize={'0'}
+        paddingSize={'7vh'}
         flexDirection={'column'}
         justifyContent={'center'}
         alignItems={'start'}
         IsBorder={'none'}
         style={{
           background:
-            'linear-gradient(90deg, rgba(0, 0, 0, 1), 90%, rgba(0, 0, 0, 0))',
+            'linear-gradient(90deg, rgba(0, 0, 0, 1), 85%, rgba(0, 0, 0, 0))',
           zIndex: 1,
         }}
       >
@@ -99,6 +104,8 @@ const CustomSliderItem = ({
             fontFamily: 'pretendardextrabold',
           }}
         >
+          {korTitle}
+          <br />
           {title}
         </FlexTransparentDiv>
         <FlexTransparentDiv
@@ -142,21 +149,35 @@ const CustomSliderItem = ({
         >
           {tagContent}
         </FlexTransparentDiv>
-        <GradientRoundBtn
-          widthSize={'13vw'}
-          heightSize={'8vh'}
-          paddingSize={'0'}
-          fontColor={'white'}
-          fontSize={'2vmin'}
-          backgroundColor={'blue'}
-          style={{ marginTop: '5vh', marginLeft: '4vw' }}
-          onClick={() => onClickMoveToTagSearch()}
+        <FlexTransparentDiv
+          widthSize={'35vw'}
+          heightSize={'10vh'}
+          paddingSize={'0 5vw'}
+          flexDirection={'row'}
+          justifyContent={'start'}
+          alignItems={'center'}
+          IsBorder={'none'}
+          style={{
+            letterSpacing: '0.4vmin',
+            color: 'white',
+          }}
         >
-          더 알아보러 가기
-        </GradientRoundBtn>
+          <GradientRoundBtn
+            widthSize={'12vw'}
+            heightSize={'6vh'}
+            paddingSize={'0'}
+            fontColor={'white'}
+            fontSize={'2.3vmin'}
+            backgroundColor={'gradient'}
+            style={{ borderRadius: '2vmin', fontWeight: 'bold' }}
+            onClick={() => onClickMoveToTagSearch()}
+          >
+            더 많은 영상 보기
+          </GradientRoundBtn>
+        </FlexTransparentDiv>
       </FlexTransparentDiv>
       <FlexTransparentDiv
-        widthSize={'65vw'}
+        widthSize={'55vw'}
         heightSize={'100vh'}
         paddingSize={'0'}
         flexDirection={'column'}

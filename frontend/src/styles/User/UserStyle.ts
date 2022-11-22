@@ -257,17 +257,12 @@ export const StyledLabel = styled.div`
   left: 0;
   top: 50%;
   transform: translateY(180%);
-
   font-size: 2.3vmin;
-  background: white;
   justify-content: start;
   align-items: flex-start;
   width: 10vw;
   color: gray;
-  /* padding-left: 1vw; */
   margin-left: 1vw;
-  /* margin-top: 1vh; */
-  /* margin-bottom: -1.2vh; */
   pointer-events: none;
   padding-left: 0.5vw;
   transition: 0.4s;
@@ -278,6 +273,7 @@ export const StyledLabel = styled.div`
     width: 6vw;
     border-left: solid 1px grey;
     border-right: solid 1px grey;
+    background: white;
   }
 `;
 
