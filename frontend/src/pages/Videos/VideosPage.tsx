@@ -206,7 +206,7 @@ const VideosPage = () => {
         style={{
           backgroundColor: 'transparent',
           minHeight: '100vh',
-          border: '3px solid yellowgreen',
+          // border: '3px solid yellowgreen',
         }}
         ref={firstRef}
       >
@@ -339,7 +339,7 @@ const VideosPage = () => {
             alignItems={'center'}
             IsBorder={'none'}
             style={{
-              border: '5px solid pink',
+              // border: '5px solid pink',
               minHeight: '100vh',
               transition: 'height 1s ease',
               position: 'relative',
