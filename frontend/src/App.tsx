@@ -31,6 +31,7 @@ import PageNotFound from './layout/PageNotFound';
 import { ProtectedRoute } from './pages/private/ProtectedRoute';
 
 import Test from './pages/Test';
+import WebRtcPage from './pages/WebRtc/WebRtcPage';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -57,6 +58,7 @@ function App() {
           <Route path="login" element={<AuthPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="dashboard/:pageNum" element={<GuildPage />} />
+            <Route path="dashboard/:pageNum" element={<WebRtcPage />} />
             <Route
               path="guild/:guildPageType/:guildId"
               element={<GuildPage />}
