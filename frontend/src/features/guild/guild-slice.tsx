@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { VideoData, RecentVideoData } from '../../models/video';
-import { RecentVideos } from '../../models/dashboard';
 import {
   GuildNotice,
   VideoInfo,
@@ -29,6 +27,7 @@ type GuildState = {
   MyRequestLst: MyRequest[];
   GuildRequestLst: GuildRequest[];
   isCreateSuccess: null | true | false;
+  isRequestSuccess: null | true | false;
 };
 
 let initialState: GuildState = {
@@ -61,6 +60,7 @@ let initialState: GuildState = {
   MyRequestLst: [],
   GuildRequestLst: [],
   isCreateSuccess: null,
+  isRequestSuccess: null,
 };
 
 const guildSlice = createSlice({
@@ -313,14 +313,17 @@ const guildSlice = createSlice({
     // 길드 가입 요청 시작
     postGuildRequestStart(state, action: PayloadAction<number>) {
       state.loading = true;
+      state.isRequestSuccess = null;
     },
     // 길드 가입 요청 성공
     postGuildRequestSuccess(state) {
       state.loading = false;
+      state.isRequestSuccess = true;
     },
     // 길드 가입 요청 실패
     postGuildRequestFailed(state) {
       state.loading = false;
+      state.isRequestSuccess = false;
     },
 
     // 길드 탈퇴 시작
@@ -377,9 +380,10 @@ const guildSlice = createSlice({
       state.loading = false;
       state.isCreateSuccess = false;
     },
-    // 길드 과제 삭제 실패
+    // 토스트 메시지 토글 리셋
     resetIsCreateSuccess(state) {
       state.isCreateSuccess = null;
+      state.isRequestSuccess = null;
     },
   },
 });

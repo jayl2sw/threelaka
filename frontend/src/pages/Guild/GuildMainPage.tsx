@@ -34,6 +34,10 @@ const GuildMain = () => {
   const isCreateSuccess = useAppSelector(
     (state) => state.guild.isCreateSuccess
   );
+  const myRequestLst = useAppSelector((state) => state.guild.MyRequestLst);
+  const isRequestSuccess = useAppSelector(
+    (state) => state.guild.isRequestSuccess
+  );
   // useState
   const [guildCreateToggle, setGuildCreateToggle] = useState<boolean>(false);
   const [guildCreateName, setGuildCreateName] = useState<string>('');
@@ -41,12 +45,21 @@ const GuildMain = () => {
     useState<string>('');
   const [pickedSortStandard, setPickedSortStandard] =
     useState<string>('activity');
+  const [myRequestNames, setMyRequestNames] = useState<string[]>([]);
   // useEffect
   useEffect(() => {
     dispatch(guildActions.getTopThreeGuildStart());
     dispatch(guildActions.getSortedGuildStart('activity'));
     dispatch(guildActions.getSearchGuildStart());
+    dispatch(guildActions.getMyRequestStart());
   }, []);
+  useEffect(() => {
+    const temp = myRequestLst.map((item, idx) => {
+      return item.guildName;
+    });
+    setMyRequestNames(temp);
+  }, [myRequestLst]);
+  // 요청보낸 길드 목록 name
 
   // 길드 생성 alert
   useEffect(() => {
@@ -112,6 +125,30 @@ const GuildMain = () => {
           left={'40vw'}
         >
           <ToastMessage text={'길드 생성에 실패했어요'}></ToastMessage>
+        </ToastContainer>
+      )}
+      {isRequestSuccess && (
+        <ToastContainer
+          widthSize={'30vw'}
+          heightSize={'20vh'}
+          paddingSize={'2vh 1vw'}
+          fontColor={'black'}
+          top={'40vh'}
+          left={'40vw'}
+        >
+          <ToastMessage text={'가입 신청이 성공적으로 됐습니다'}></ToastMessage>
+        </ToastContainer>
+      )}
+      {isRequestSuccess === false && (
+        <ToastContainer
+          widthSize={'30vw'}
+          heightSize={'20vh'}
+          paddingSize={'2vh 1vw'}
+          fontColor={'black'}
+          top={'40vh'}
+          left={'40vw'}
+        >
+          <ToastMessage text={'가입 신청에 실패했어요'}></ToastMessage>
         </ToastContainer>
       )}
       <div>
@@ -672,7 +709,11 @@ const GuildMain = () => {
                           >
                             소개
                           </BackBlurBox>
-                          <span style={{ fontSize: '2.5vmin' }}>
+                          <span
+                            style={{
+                              fontSize: '2.5vmin',
+                            }}
+                          >
                             {myGuildInfo.description}
                           </span>
                         </FlexTransparentDiv>
@@ -867,11 +908,28 @@ const GuildMain = () => {
                       style={{
                         position: 'relative',
                         boxShadow: 'none',
-                        width: '100%',
                       }}
                     >
                       {guildId !== null ? (
                         ''
+                      ) : myRequestNames.includes(guild.guildName) ? (
+                        <div
+                          style={{
+                            position: 'absolute',
+                            right: '1vw',
+                            width: '6vw',
+                            height: '5vh',
+                            fontSize: '2vmin',
+                            color: 'white',
+                            backgroundColor: 'black',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderRadius: '2vmin',
+                          }}
+                        >
+                          가입신청중
+                        </div>
                       ) : (
                         <MainBtn
                           widthSize={'6vw'}
@@ -968,7 +1026,17 @@ const GuildMain = () => {
                           >
                             소개
                           </BackBlurBox>
-                          {guild.description}
+                          <div
+                            style={{
+                              width: '16vw',
+                              fontSize:
+                                guild.description.length > 20
+                                  ? '1.5vmin'
+                                  : '2vmin',
+                            }}
+                          >
+                            {guild.description}
+                          </div>
                         </FlexTransparentDiv>
                         <FlexTransparentDiv
                           widthSize={'22vw'}

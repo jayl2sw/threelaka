@@ -241,8 +241,12 @@ function* onPostGuildRequestAsync(action: PayloadAction<number>) {
   try {
     yield call(PostGuildRequestApi, action.payload);
     yield put(guildActions.postGuildRequestSuccess());
+    yield delay(1000);
+    yield put(guildActions.resetIsCreateSuccess());
   } catch (error) {
-    console.error();
+    yield put(guildActions.postGuildRequestFailed());
+    yield delay(1000);
+    yield put(guildActions.resetIsCreateSuccess());
   }
 }
 

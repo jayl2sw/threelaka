@@ -9,7 +9,7 @@ export const GuildMainBox = styled.div`
 `;
 
 export const GuildBlueArcodian = styled.div`
-  width: 26vw;
+  width: 26.5vw;
   position: relative;
   min-height: 7vh;
   height: 7vh;

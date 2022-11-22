@@ -48,11 +48,6 @@ const MyGuild = () => {
 
   const [mode, setMode] = useState<number>(0);
 
-  // EOZ에 필요한 데이터 (props해줄 것임)
-  const guildId = myGuildInfo.guildId;
-  let nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
-  nickname = nickname ? nickname : '';
-
   // 수평 스크롤
   const scrollRef = useHorizontalScroll([
     mode,
@@ -647,18 +642,6 @@ const MyGuild = () => {
                 )}
               </FlexTransparentDiv>
             </FlexTransparentDiv>
-
-            {/* <FlexTransparentDiv
-              widthSize={'30vw'}
-              heightSize={'30vh'}
-              paddingSize={'0'}
-              flexDirection={'column'}
-              justifyContent={'start'}
-              alignItems={'start'}
-              IsBorder={'is'}
-            >
-              <EozPage guildId={guildId} nickname={nickname} />
-            </FlexTransparentDiv> */}
           </FlexTransparentDiv>
         </FlexTransparentDiv>
       </FlexTransparentDiv>
