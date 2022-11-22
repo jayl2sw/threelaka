@@ -17,8 +17,24 @@ import CutomSliderBottom from './components/CustomSliderBottom';
 // import './MainPage.css';
 import { videoActions } from '../../features/video/video-slice';
 import { FlexTransparentDiv } from '../../styles/Common/CommonDivStyle';
+import { GradientRoundBtn } from '../../styles/Common/CommonBtnStyle';
+import styled from 'styled-components';
 
 const MainPage = () => {
+  interface TagThumbnailProps
+    extends React.ButtonHTMLAttributes<HTMLDivElement> {
+    url: string;
+  }
+
+  const TagThumbnail = styled.div<TagThumbnailProps>`
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    background: url(${(props) => props.url}) center no-repeat;
+    background-size: 100vw 100vh;
+    opacity: 0.3;
+  `;
+
   const [isModal, setIsModal] = useState<boolean>(false);
   const [scrollQuantity, setScrollQuantity] = useState<number>(0);
   const isNewbie = useAppSelector((state) => state.auth.isNewbie);
@@ -115,18 +131,76 @@ const MainPage = () => {
               widthSize={'100vw'}
               heightSize={'100vh'}
               paddingSize={'0'}
-              flexDirection={'column'}
+              flexDirection={'row'}
               justifyContent={'center'}
               alignItems={'center'}
               IsBorder={'none'}
               style={{
                 fontSize: '10vmin',
-                backgroundColor: 'white',
-                border: '3px dotted red',
+                backgroundColor: 'black',
               }}
             >
-              이 글씨가 있는 플렉스 지워도 됩니다. ? 뒤의 () 안에서 뛰어노시면
-              됩니다.
+              <FlexTransparentDiv
+                widthSize={'45vw'}
+                heightSize={'100vh'}
+                paddingSize={'0'}
+                flexDirection={'column'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                IsBorder={'none'}
+                style={{
+                  background:
+                    'linear-gradient(90deg, rgba(0, 0, 0, 1), 90%, rgba(0, 0, 0, 0))',
+                  zIndex: 1,
+                  minWidth: '35vw',
+                  // paddingTop: '20vh',
+                }}
+              >
+                <FlexTransparentDiv
+                  widthSize={'45vw'}
+                  heightSize={'20vh'}
+                  paddingSize={'0 4vw'}
+                  flexDirection={'column'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  IsBorder={'none'}
+                  style={{
+                    fontSize: '4vmin',
+                    color: 'white',
+                  }}
+                >
+                  최근 학습한 영상이 없어요
+                </FlexTransparentDiv>
+                <GradientRoundBtn
+                  widthSize={'13vw'}
+                  heightSize={'6vh'}
+                  paddingSize={'0 1vw'}
+                  fontColor={'white'}
+                  fontSize={'2.3vmin'}
+                  backgroundColor={'gradient'}
+                  style={{ borderRadius: '2vmin', fontWeight: 'bold' }}
+                >
+                  영상 찾아보기
+                </GradientRoundBtn>
+              </FlexTransparentDiv>
+              <FlexTransparentDiv
+                widthSize={'55vw'}
+                heightSize={'100vh'}
+                paddingSize={'0'}
+                flexDirection={'column'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                IsBorder={'none'}
+              ></FlexTransparentDiv>
+              <TagThumbnail
+                style={{
+                  position: 'absolute',
+                  opacity: '0.5',
+                  width: '65vw',
+                  marginLeft: '35vw',
+                }}
+                url="https://threelaka.s3.ap-northeast-2.amazonaws.com/ted.png"
+              />
             </FlexTransparentDiv>
           ) : (
             <>
