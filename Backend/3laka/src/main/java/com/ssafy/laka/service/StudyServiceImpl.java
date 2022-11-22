@@ -449,12 +449,16 @@ public class StudyServiceImpl implements StudyService{
         }
     }
     private String getTranslatedText(String string) throws JSONException {
-        JSONObject json = new JSONObject(string);
-        JSONObject message = (JSONObject) json.get("message");
-        JSONObject result = (JSONObject) message.get("result");
-        String translatedText = (String) result.get("translatedText");
+        try {
+            JSONObject json = new JSONObject(string);
+            JSONObject message = (JSONObject) json.get("message");
+            JSONObject result = (JSONObject) message.get("result");
+            String translatedText = (String) result.get("translatedText");
+            return translatedText;
+        } catch (Exception e){
+            return "";
+        }
 
-        return translatedText;
     }
 
     public void apiTestGet() throws Exception
