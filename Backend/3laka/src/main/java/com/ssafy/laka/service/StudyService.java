@@ -59,4 +59,6 @@ public interface StudyService {
     HashMap<String, RecommendsListResponseDto> getRecommendsList();
 
     List<VideoResponseDto> getVideosByTags(int tagId, int page);
+
+    LearningResultResponseDto getLearningResult(int lr_id);
 }

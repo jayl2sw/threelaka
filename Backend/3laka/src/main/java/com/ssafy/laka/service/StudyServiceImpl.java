@@ -3,6 +3,7 @@ package com.ssafy.laka.service;
 import com.ssafy.laka.domain.*;
 import com.ssafy.laka.domain.enums.Stage;
 import com.ssafy.laka.dto.exception.dashboard.LearningRecordNotFoundException;
+import com.ssafy.laka.dto.exception.dashboard.StudyNotFoundException;
 import com.ssafy.laka.dto.exception.dashboard.TagNotFoundException;
 import com.ssafy.laka.dto.exception.study.*;
 import com.ssafy.laka.dto.exception.user.UserNotFoundException;
@@ -372,6 +373,18 @@ public class StudyServiceImpl implements StudyService{
     public List<VideoResponseDto> getVideosByTags(int tagId, int page) {
         String tagName = tagRepository.findById(tagId).orElseThrow(TagNotFoundException::new).getName();
         return videoRepository.findAllByTagName(tagName, page*20).stream().map(v -> VideoResponseDto.from(v)).collect(Collectors.toList());
+    }
+
+    @Override
+    public LearningResultResponseDto getLearningResult(int lr_id) {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
+        String today = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now()).toString();
+        LearningRecord learningRecord = learningRecordRepository.findById(lr_id).orElseThrow(LearningRecordNotFoundException::new);
+        int time = studyRepository.findByUserAndDate(user, today).orElseThrow(StudyNotFoundException::new).getTime();
+        int wordbooks = wordbookRepository.findWordbooksByLearningRecord(learningRecord).size();
+        return LearningResultResponseDto.from(learningRecord, wordbooks, time);
+
+
     }
 
     public String translate(String eng) throws JSONException {

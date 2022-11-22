@@ -276,6 +276,17 @@ public class StudyController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
+    @GetMapping("/result/{lr_id}")
+    @ApiOperation(value = "Learning Record 조회", notes = "해당 아이디를 가지는 Learning Record 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Void.class)
+    })
+    public ResponseEntity<?> getLearningResult(
+            @PathVariable int lr_id
+    ){
+        return new ResponseEntity<>(studyService.getLearningResult(lr_id), HttpStatus.OK);
+    }
+
     @PutMapping("/complete/stage")
     @ApiOperation(value = "학습 스테이지 업데이트", notes = "해당 학습 아이디를 가지는 학습의 스테이지를 해당 값으로 업데이트한다.")
     @ApiResponses({
