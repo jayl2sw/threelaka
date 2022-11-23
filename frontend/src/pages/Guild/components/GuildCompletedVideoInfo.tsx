@@ -4,18 +4,13 @@ import {
   MainBox,
   FlexFadeInOutDiv,
   MainPaleBox,
+  BackBlurBox,
 } from '../../../styles/Common/CommonDivStyle';
 import {
   MainBtn,
   GradientRoundBtn,
 } from '../../../styles/Common/CommonBtnStyle';
 import { VideoInfo } from '../../../models/guild';
-import {
-  VscTriangleLeft,
-  VscTriangleRight,
-  VscTriangleUp,
-  VscTriangleDown,
-} from 'react-icons/vsc';
 import { guildActions } from '../../../features/guild/guild-slice';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import styled from 'styled-components';
@@ -168,12 +163,19 @@ const GuildCompletedVideoInfo = ({
                     widthSize={'23vw'}
                     heightSize={'14vh'}
                     paddingSize={'0'}
-                    fontColor={'black'}
+                    fontColor={
+                      selectedIdx === 4 * (pageNum - 1) + idx
+                        ? 'white'
+                        : 'black'
+                    }
                     fontSize={'2vmin'}
                     style={{
                       display: 'flex',
                       marginBottom: '2vh',
-                      backgroundColor: 'white',
+                      backgroundColor:
+                        selectedIdx === 4 * (pageNum - 1) + idx
+                          ? '#4a9fff'
+                          : 'white',
                       justifyContent: 'center',
                       alignItems: 'center',
                       cursor: 'pointer',
@@ -247,6 +249,7 @@ const GuildCompletedVideoInfo = ({
               <BsCaretLeftFill
                 size={20}
                 onClick={() => setPageNum((pageNum) => pageNum - 1)}
+                style={{ cursor: 'pointer' }}
               ></BsCaretLeftFill>
             )}
             &nbsp;&nbsp;{pageNum}&nbsp;/&nbsp;{totalPageNum}&nbsp;&nbsp;
@@ -264,6 +267,7 @@ const GuildCompletedVideoInfo = ({
               <BsCaretRightFill
                 onClick={() => setPageNum((pageNum) => pageNum + 1)}
                 size={20}
+                style={{ cursor: 'pointer' }}
               ></BsCaretRightFill>
             )}
           </FlexTransparentDiv>
@@ -455,8 +459,12 @@ const GuildCompletedVideoInfo = ({
                       borderRadius: '10px',
                       margin: '1.5vh 0 0 4vw',
                     }}
+                    onClick={() => {
+                      setSelectedEssayIdx(idx);
+                      setIsEssayMode(1);
+                    }}
                   >
-                    에세이
+                    {item.stage > 0 ? '에세이' : ''}
                   </GradientRoundBtn>
                   {/* <FlexTransparentDiv
                     widthSize={'7vw'}
@@ -485,12 +493,12 @@ const GuildCompletedVideoInfo = ({
 
         <FlexFadeInOutDiv
           widthSize={'35vw'}
-          heightSize={'60vh'}
+          heightSize={'66vh'}
           paddingSize={'2.5vh 1vw'}
           flexDirection={'column'}
           justifyContent={'start'}
           alignItems={'center'}
-          IsBorder={'is'}
+          IsBorder={'none'}
           className={
             isEssayMode === 2
               ? 'appear'
@@ -498,11 +506,16 @@ const GuildCompletedVideoInfo = ({
               ? 'disappear'
               : 'hidden'
           }
+          style={{
+            backgroundColor: '#D8E7F4',
+            boxShadow: '10px 10px 80px rgba(63, 39, 102, 0.1)',
+            borderRadius: '2vmin',
+          }}
         >
           <FlexTransparentDiv
-            widthSize={'35vw'}
-            heightSize={'60vh'}
-            paddingSize={'1vh 1vw'}
+            widthSize={'33vw'}
+            heightSize={'61vh'}
+            paddingSize={'0 1vw'}
             flexDirection={'column'}
             justifyContent={'start'}
             alignItems={'start'}
@@ -510,26 +523,82 @@ const GuildCompletedVideoInfo = ({
             style={{
               cursor: 'pointer',
               fontSize: '3vmin',
-              border: '2px dashed red',
+              // border: '2px dashed red',
               overflowY: 'auto',
+              overflowX: 'hidden',
             }}
           >
-            <MainBtn
-              widthSize={'10vw'}
-              heightSize={'5vh'}
-              paddingSize={'0'}
-              fontSize={'2vmin'}
-              fontColor={'white'}
-              backgroundColor={'black'}
-              onClick={() => setIsEssayMode(0)}
-              style={{ marginLeft: '22vw' }}
-            >
-              돌아가기
-            </MainBtn>
+            {selectedEssayIdx !== -1 ? (
+              <FlexTransparentDiv
+                widthSize={'33vw'}
+                heightSize={'5vh'}
+                paddingSize={'0'}
+                flexDirection={'row'}
+                justifyContent={'start'}
+                alignItems={'center'}
+                IsBorder={'none'}
+                style={{ position: 'relative' }}
+              >
+                <img
+                  src={`https://threelaka.s3.ap-northeast-2.amazonaws.com/profile${assignmentProgressLst[selectedEssayIdx].profile}.png`}
+                  style={{
+                    width: '5vmin',
+                    height: '5vmin',
+                    borderRadius: '10px',
+                  }}
+                />
+                <div
+                  style={{
+                    width: '20vw',
+                    marginLeft: '1vw',
+                  }}
+                >
+                  {assignmentProgressLst[selectedEssayIdx].nickname}의 에세이
+                </div>
+                <MainBtn
+                  widthSize={'5vw'}
+                  heightSize={'3.5vh'}
+                  paddingSize={'0'}
+                  fontSize={'2vmin'}
+                  fontColor={'white'}
+                  backgroundColor={'black'}
+                  onClick={() => setIsEssayMode(0)}
+                  style={{ position: 'absolute', right: '2vw' }}
+                >
+                  돌아가기
+                </MainBtn>
+              </FlexTransparentDiv>
+            ) : (
+              ''
+            )}
 
-            {selectedEssayIdx !== -1
-              ? assignmentProgressLst[selectedEssayIdx].essay
-              : ''}
+            <BackBlurBox
+              widthSize={'31vw'}
+              heightSize={'54vh'}
+              paddingSize={'2.5vh 2vw'}
+              fontColor={'black'}
+              fontSize={'2.5vmin'}
+              style={{
+                marginTop: '2vh',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <FlexTransparentDiv
+                widthSize={'26vw'}
+                heightSize={'48vh'}
+                paddingSize={'0'}
+                flexDirection={'column'}
+                justifyContent={'start'}
+                alignItems={'start'}
+                IsBorder={'none'}
+                style={{ overflowY: 'scroll', overflowX: 'hidden' }}
+              >
+                {selectedEssayIdx !== -1
+                  ? assignmentProgressLst[selectedEssayIdx].essay
+                  : ''}
+              </FlexTransparentDiv>
+            </BackBlurBox>
           </FlexTransparentDiv>
         </FlexFadeInOutDiv>
       </FlexTransparentDiv>

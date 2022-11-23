@@ -49,6 +49,7 @@ const GuildMain = () => {
     useState<string>('activity');
   const [myRequestNames, setMyRequestNames] = useState<string[]>([]);
   const [files, setFiles] = useState<any>('');
+  const [filesMiri, setFilesMiri] = useState<any>('');
   const [progressAnime, setProgressAnime] = useState<boolean>(false);
   // useEffect
   useEffect(() => {
@@ -134,6 +135,7 @@ const GuildMain = () => {
   // profile img upload 관련
   const onLoadFile = (e: any) => {
     const file = e.target.files;
+    setFilesMiri(URL.createObjectURL(file[0]));
     console.log(file);
     setFiles(file);
   };
@@ -241,15 +243,27 @@ const GuildMain = () => {
                 alignItems: 'start',
                 justifyContent: 'center',
                 marginBottom: '2vh',
+                position: 'relative',
               }}
             >
+              <img
+                style={{
+                  position: 'absolute',
+                  width: '5vmin',
+                  height: '5vmin',
+                  objectFit: 'cover',
+                  top: '1vh',
+                }}
+                src={`https://threelaka.s3.ap-northeast-2.amazonaws.com/crown.png
+                `}
+              ></img>
               {topThreeGuild.length !== 0 ? (
                 <>
                   {topThreeGuild.map((guild, idx) => {
                     const timeRatio = guild.time / topThreeGuild[0].time;
                     return (
                       <FlexTransparentDiv
-                        key={`progress-${idx}`}
+                        key={`top-three-${idx}`}
                         widthSize={'30vw'}
                         heightSize={'8vh'}
                         paddingSize={'0'}
@@ -361,17 +375,30 @@ const GuildMain = () => {
                           style={{ display: 'none' }}
                         />
                       </form>
+                      {files ? (
+                        <img
+                          src={filesMiri}
+                          alt="file-miri"
+                          style={{
+                            width: '10vmin',
+                            height: '10vmin',
+                            marginRight: '1vw',
+                            borderRadius: '10px',
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src="https://threelaka.s3.ap-northeast-2.amazonaws.com/white.png"
+                          alt="blue bear logo"
+                          style={{
+                            width: '10vmin',
+                            // transform: 'translateX(10%)',
+                            // border: '1px solid black',
+                            marginRight: '1vw',
+                          }}
+                        />
+                      )}
 
-                      <img
-                        src="https://threelaka.s3.ap-northeast-2.amazonaws.com/white.png"
-                        alt="blue bear logo"
-                        style={{
-                          width: '10vmin',
-                          // transform: 'translateX(10%)',
-                          // border: '1px solid black',
-                          marginRight: '1vw',
-                        }}
-                      />
                       <FlexTransparentDiv
                         widthSize={'10vw'}
                         heightSize={'10vh'}

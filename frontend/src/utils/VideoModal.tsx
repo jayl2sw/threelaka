@@ -223,7 +223,7 @@ const VideoModal = ({
                   widthSize={'12vw'}
                   heightSize={'8vh'}
                   paddingSize={'0'}
-                  fontSize={'2.5vmin'}
+                  fontSize={'2.2vmin'}
                   fontColor={'white'}
                   backgroundColor={'blue'}
                   style={{ marginLeft: '1.5vw' }}
@@ -420,7 +420,7 @@ const VideoModal = ({
                     widthSize={'12vw'}
                     heightSize={'8vh'}
                     paddingSize={'0'}
-                    fontSize={'2.5vmin'}
+                    fontSize={'2.2vmin'}
                     fontColor={'white'}
                     backgroundColor={'black'}
                     onClick={() => setContinuedToggle(true)}

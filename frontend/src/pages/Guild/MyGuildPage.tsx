@@ -14,7 +14,7 @@ import {
   LearnTimeProgressbar,
   AssignmentDiv,
 } from '../../styles/Guild/MyGuildStyle';
-import { VscTriangleLeft, VscTriangleRight } from 'react-icons/vsc';
+import { BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
 import { TopBtn } from '../../styles/Common/CommonBtnStyle';
 import { useHorizontalScroll } from '../../utils/useSideScroll';
 import VideoModal from '../../utils/VideoModal';
@@ -551,27 +551,29 @@ const MyGuild = () => {
                 IsBorder={'none'}
               >
                 {currentPage === 1 ? (
-                  <div style={{ width: '30px', height: '30px' }}></div>
+                  <div style={{ width: '20px', height: '20px' }}></div>
                 ) : (
-                  <VscTriangleLeft
-                    size={30}
+                  <BsCaretLeftFill
+                    size={20}
                     onClick={() => {
                       setAnimateToggle(false);
                       setCurrentPage((currentPage) => currentPage - 1);
                     }}
-                  ></VscTriangleLeft>
+                    style={{ cursor: 'pointer' }}
+                  ></BsCaretLeftFill>
                 )}
                 {currentPage}&nbsp;/&nbsp;{learnTimePageNum}
                 {currentPage === learnTimePageNum ? (
-                  <div style={{ width: '30px', height: '30px' }}></div>
+                  <div style={{ width: '20px', height: '20px' }}></div>
                 ) : (
-                  <VscTriangleRight
+                  <BsCaretRightFill
                     onClick={() => {
                       setAnimateToggle(false);
                       setCurrentPage((currentPage) => currentPage + 1);
                     }}
-                    size={30}
-                  ></VscTriangleRight>
+                    size={20}
+                    style={{ cursor: 'pointer' }}
+                  ></BsCaretRightFill>
                 )}
               </FlexTransparentDiv>
             </FlexTransparentDiv>

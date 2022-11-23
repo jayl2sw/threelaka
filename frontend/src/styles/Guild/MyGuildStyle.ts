@@ -57,6 +57,9 @@ export const LearnTimeProgressbar = styled.div<ProgressDivProps>`
     :before {
       width: 0;
     }
+    :after {
+      left: 0;
+    }
   }
 
   &:after {
@@ -70,6 +73,7 @@ export const LearnTimeProgressbar = styled.div<ProgressDivProps>`
       `url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile${props.profileNum}.png')`};
     background-size: 3vmin 3vmin;
     left: ${(props) => `${props.progressPercent - 3}%`};
+    transition: left 2s;
   }
 `;
 
