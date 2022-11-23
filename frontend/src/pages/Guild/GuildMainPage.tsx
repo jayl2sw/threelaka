@@ -162,7 +162,7 @@ const GuildMain = () => {
           top={'40vh'}
           left={'40vw'}
         >
-          <ToastMessage text={'가입 신청이 성공적으로 됐습니다'}></ToastMessage>
+          <ToastMessage text={'가입 신청 성공!'}></ToastMessage>
         </ToastContainer>
       )}
       {isRequestSuccess === false && (

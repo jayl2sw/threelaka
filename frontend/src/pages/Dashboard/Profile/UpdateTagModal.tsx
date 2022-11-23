@@ -104,7 +104,7 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
           }}
         ></AiFillCloseCircle>
         <FlexTransparentDiv
-          widthSize={'22vw'}
+          widthSize={'28vw'}
           heightSize={'50vh'}
           paddingSize={'0'}
           flexDirection={'column'}
@@ -119,7 +119,7 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
 
           <form onSubmit={(e) => handleSubmit(e)}>
             <FlexTransparentDiv
-              widthSize={'22vw'}
+              widthSize={'28vw'}
               heightSize={'19vh'}
               paddingSize={'0'}
               flexDirection={'row'}
@@ -170,7 +170,7 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
                     closeModalTag();
                   }, 100);
                 }}
-                style={{ marginLeft: '8vw', marginTop: '5vh' }}
+                style={{ marginLeft: '11vw', marginTop: '5vh' }}
               >
                 등록
               </MainBtn>
