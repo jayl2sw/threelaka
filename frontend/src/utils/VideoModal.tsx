@@ -33,12 +33,12 @@ const VideoModal = ({
   const navigate = useNavigate();
   const outside = useRef<HTMLDivElement>(null);
   const [blockScroll, allowScroll] = useScrollBlock();
-  useEffect(() => {
-    // modal이 떠 있을 땐 스크롤 막음
-    blockScroll();
-    // modal 닫히면 다시 스크롤 가능하도록 함
-    return () => allowScroll();
-  }, []);
+  // useEffect(() => {
+  //   // modal이 떠 있을 땐 스크롤 막음
+  //   blockScroll();
+  //   // modal 닫히면 다시 스크롤 가능하도록 함
+  //   return () => allowScroll();
+  // }, []);
 
   // 버튼 클릭으로 영상 정보 조회
   useEffect(() => {
@@ -139,6 +139,7 @@ const VideoModal = ({
             setModalToggleVideoId('none');
             setContinuedToggle(false);
             setContinuePage(0);
+            allowScroll();
           }}
           style={{ cursor: 'pointer' }}
         >
