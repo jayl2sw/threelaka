@@ -51,7 +51,6 @@ const ModifyProfile = () => {
       style={{
         position: 'relative',
         marginTop: '6vh',
-        border: '1px solid green',
       }}
     >
       <ProfileImgBox
@@ -111,7 +110,6 @@ const ModifyProfile = () => {
           style={{
             position: 'absolute',
             top: '5vh',
-            border: 'solid brown 1px',
             marginLeft: '1vw',
           }}
         >

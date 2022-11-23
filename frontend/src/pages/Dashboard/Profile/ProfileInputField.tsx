@@ -52,7 +52,8 @@ export const ProfileInputField = ({
         style={{
           display: 'block',
           color: 'rgba(0, 0, 0, 0.6)',
-          marginTop: '2vh',
+          marginTop: '1.5vh',
+          fontSize: '1.5vmin',
         }}
       >
         {label}

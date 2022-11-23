@@ -116,8 +116,8 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
 
   return (
     <FlexTransparentDiv
-      widthSize={'30vw'}
-      heightSize={'40vh'}
+      widthSize={'28vw'}
+      heightSize={'36vh'}
       paddingSize={'0 0 4vh 0'}
       flexDirection={'column'}
       justifyContent={'center'}
@@ -187,13 +187,12 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
 
       <FlexTransparentDiv
         widthSize={'90%'}
-        heightSize={'45vh'}
+        heightSize={'36vh'}
         paddingSize={'1vh 0'}
         flexDirection={'column'}
         justifyContent={'start'}
         alignItems={'start'}
         IsBorder={'none'}
-        style={{ marginTop: '1.5vh' }}
       >
         {isSuccess && (
           <ToastContainer
@@ -209,7 +208,6 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
             ></ToastMessage>
           </ToastContainer>
         )}
-        <h3>비밀번호변경</h3>
         <ModifyPassword></ModifyPassword>
       </FlexTransparentDiv>
     </FlexTransparentDiv>
