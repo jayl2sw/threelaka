@@ -137,3 +137,11 @@ export interface CreateGuildForm {
   name: string;
   description: string;
 }
+
+// 길드 만들기
+export interface AssignmentProgress {
+  profile: string;
+  stage: number;
+  nickname: string;
+  essay: string;
+}

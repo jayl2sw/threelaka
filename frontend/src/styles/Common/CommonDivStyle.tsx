@@ -191,13 +191,13 @@ export const FlexFadeInOutDiv = styled.div<TransparentFlexDivProps>`
   }
 
   &.appear {
-    animation: fade-in 1s;
+    animation: fade-in 0.5s;
     animation-fill-mode: forwards;
     display: flex;
   }
 
   &.disappear {
-    animation: fade-out 1s;
+    animation: fade-out 0.5s;
     animation-fill-mode: forwards;
   }
 

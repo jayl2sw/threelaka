@@ -103,17 +103,18 @@ const GuildMain = () => {
     console.log(files);
     const formdata = new FormData();
     formdata.append('file', files[0]);
+    formdata.append('title', guildCreateName);
+    formdata.append('description', guildCreateDescription);
 
-    const value = {
-      description: guildCreateDescription,
-      name: guildCreateName,
-    };
+    // const value = {
+    //   description: guildCreateDescription,
+    //   name: guildCreateName,
+    // };
 
-    const blob = new Blob([JSON.stringify(value)], {
-      type: 'application/json',
-    });
+    // const blob = new Blob([JSON.stringify(value)], {
+    //   type: 'application/json',
+    // });
 
-    formdata.append('data', blob);
     for (let value of formdata.values() as any) {
       console.log(value);
     }
