@@ -404,8 +404,9 @@ public class StudyServiceImpl implements StudyService{
         String responseBody = post(apiURL, requestHeaders, text);
         String translatedText = getTranslatedText(responseBody);
 
-
+        System.out.println(translatedText);
         return translatedText;
+
     }
     private String post(String apiUrl, Map<String, String> requestHeaders, String text){
         HttpURLConnection con = connect(apiUrl);
@@ -462,6 +463,7 @@ public class StudyServiceImpl implements StudyService{
         }
     }
     private String getTranslatedText(String string) throws JSONException {
+        System.out.println(string);
         try {
             JSONObject json = new JSONObject(string);
             JSONObject message = (JSONObject) json.get("message");
@@ -469,9 +471,10 @@ public class StudyServiceImpl implements StudyService{
             String translatedText = (String) result.get("translatedText");
             return translatedText;
         } catch (Exception e){
+            System.out.println("error: "+ e);
+            System.out.println(string);
             return "";
         }
-
     }
 
     public void apiTestGet() throws Exception
