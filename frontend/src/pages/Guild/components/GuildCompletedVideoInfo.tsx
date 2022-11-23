@@ -5,7 +5,10 @@ import {
   FlexFadeInOutDiv,
   MainPaleBox,
 } from '../../../styles/Common/CommonDivStyle';
-import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
+import {
+  MainBtn,
+  GradientRoundBtn,
+} from '../../../styles/Common/CommonBtnStyle';
 import { VideoInfo } from '../../../models/guild';
 import {
   VscTriangleLeft,
@@ -15,6 +18,12 @@ import {
 } from 'react-icons/vsc';
 import { guildActions } from '../../../features/guild/guild-slice';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import styled from 'styled-components';
+import {
+  BsCalendarCheck,
+  BsCaretRightFill,
+  BsCaretLeftFill,
+} from 'react-icons/bs';
 
 interface IGuildCompletedVideoProps {
   setMode: (nextMode: number) => void;
@@ -58,6 +67,19 @@ const GuildCompletedVideoInfo = ({
     dispatch(guildActions.resetAssignmentProgressLst());
   };
 
+  const ElipsisDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: keep-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  `;
+
   return (
     <FlexTransparentDiv
       widthSize={'63vw'}
@@ -66,21 +88,22 @@ const GuildCompletedVideoInfo = ({
       flexDirection={'column'}
       justifyContent={'start'}
       alignItems={'start'}
-      IsBorder={'is'}
+      IsBorder={'none'}
     >
       <FlexTransparentDiv
         widthSize={'63vw'}
         heightSize={'10vh'}
-        paddingSize={'0 0 0 2vw'}
+        paddingSize={'0 0 0 0.5vw'}
         flexDirection={'row'}
         justifyContent={'start'}
         alignItems={'center'}
-        IsBorder={'is'}
-        style={{ fontSize: '5vmin', position: 'relative' }}
+        IsBorder={'none'}
+        style={{ fontSize: '4vmin', position: 'relative', fontWeight: 'bold' }}
       >
-        완료된 과제
+        <BsCalendarCheck />
+        &nbsp;&nbsp;완료된 과제
         <MainBtn
-          widthSize={'10vw'}
+          widthSize={'8vw'}
           heightSize={'5vh'}
           paddingSize={'0'}
           fontSize={'2vmin'}
@@ -119,12 +142,13 @@ const GuildCompletedVideoInfo = ({
           IsBorder={'none'}
           style={{
             marginRight: '3vw',
-            backgroundColor: '#9897a9',
+            backgroundColor: '#D8E7F4',
+            borderRadius: '10px',
           }}
         >
           <FlexTransparentDiv
             widthSize={'25vw'}
-            heightSize={'54vh'}
+            heightSize={'58vh'}
             paddingSize={'0'}
             flexDirection={'column'}
             justifyContent={'start'}
@@ -141,8 +165,8 @@ const GuildCompletedVideoInfo = ({
                 return (
                   <MainPaleBox
                     key={`complete-video-${idx}`}
-                    widthSize={'21vw'}
-                    heightSize={'11.5vh'}
+                    widthSize={'23vw'}
+                    heightSize={'14vh'}
                     paddingSize={'0'}
                     fontColor={'black'}
                     fontSize={'2vmin'}
@@ -153,6 +177,7 @@ const GuildCompletedVideoInfo = ({
                       justifyContent: 'center',
                       alignItems: 'center',
                       cursor: 'pointer',
+                      boxShadow: 'none',
                     }}
                     onClick={() => {
                       setSelectedIdx(4 * (pageNum - 1) + idx);
@@ -167,9 +192,8 @@ const GuildCompletedVideoInfo = ({
                       flexDirection={'row'}
                       justifyContent={'start'}
                       alignItems={'center'}
-                      IsBorder={'is'}
+                      IsBorder={'none'}
                       style={{
-                        border: '1px solid blue',
                         marginRight: '1vw',
                         background: `url(https://img.youtube.com/vi/${video.videoId}/0.jpg) center no-repeat`,
                         backgroundSize: '6vw 9vh',
@@ -177,7 +201,7 @@ const GuildCompletedVideoInfo = ({
                       }}
                     ></FlexTransparentDiv>
                     <FlexTransparentDiv
-                      widthSize={'13vw'}
+                      widthSize={'14.5vw'}
                       heightSize={'8vh'}
                       paddingSize={'0'}
                       flexDirection={'column'}
@@ -185,11 +209,12 @@ const GuildCompletedVideoInfo = ({
                       alignItems={'start'}
                       IsBorder={'none'}
                     >
+                      <ElipsisDiv style={{ fontSize: '2vmin' }}>
+                        {video.videoTitle}
+                      </ElipsisDiv>
                       <div style={{ fontSize: '1.5vmin' }}>
-                        title: {video.videoTitle}
-                      </div>
-                      <div style={{ fontSize: '2vmin' }}>
-                        {video.startDate}~{video.endDate}
+                        {video.startDate.replaceAll('-', '.')} ~{' '}
+                        {video.endDate.replaceAll('-', '.')}
                       </div>
                     </FlexTransparentDiv>
                   </MainPaleBox>
@@ -198,14 +223,13 @@ const GuildCompletedVideoInfo = ({
           </FlexTransparentDiv>
           <FlexTransparentDiv
             widthSize={'25vw'}
-            heightSize={'10vh'}
+            heightSize={'6vh'}
             paddingSize={'0'}
             flexDirection={'row'}
             justifyContent={'center'}
             alignItems={'center'}
             IsBorder={'none'}
             style={{
-              // border: '2px solid yellow',
               fontSize: '2vmin',
             }}
           >
@@ -220,12 +244,12 @@ const GuildCompletedVideoInfo = ({
                 IsBorder={'none'}
               ></FlexTransparentDiv>
             ) : (
-              <VscTriangleLeft
-                size={30}
+              <BsCaretLeftFill
+                size={20}
                 onClick={() => setPageNum((pageNum) => pageNum - 1)}
-              ></VscTriangleLeft>
+              ></BsCaretLeftFill>
             )}
-            {pageNum}&nbsp;/&nbsp;{totalPageNum}
+            &nbsp;&nbsp;{pageNum}&nbsp;/&nbsp;{totalPageNum}&nbsp;&nbsp;
             {pageNum === totalPageNum ? (
               <FlexTransparentDiv
                 widthSize={'30px'}
@@ -237,21 +261,21 @@ const GuildCompletedVideoInfo = ({
                 IsBorder={'none'}
               ></FlexTransparentDiv>
             ) : (
-              <VscTriangleRight
+              <BsCaretRightFill
                 onClick={() => setPageNum((pageNum) => pageNum + 1)}
-                size={30}
-              ></VscTriangleRight>
+                size={20}
+              ></BsCaretRightFill>
             )}
           </FlexTransparentDiv>
         </FlexTransparentDiv>
         <FlexFadeInOutDiv
           widthSize={'35vw'}
-          heightSize={'60vh'}
-          paddingSize={'2.5vh 1vw'}
+          heightSize={'66vh'}
+          paddingSize={'2vh 0 0 0'}
           flexDirection={'column'}
           justifyContent={'start'}
           alignItems={'center'}
-          IsBorder={'is'}
+          IsBorder={'none'}
           className={
             isEssayMode === 2
               ? 'hidden'
@@ -259,10 +283,11 @@ const GuildCompletedVideoInfo = ({
               ? 'disappear'
               : 'appear'
           }
+          style={{ backgroundColor: '#D8E7F4', borderRadius: '10px' }}
         >
           <FlexTransparentDiv
-            widthSize={'32vw'}
-            heightSize={'15vh'}
+            widthSize={'33vw'}
+            heightSize={'19vh'}
             paddingSize={'0'}
             flexDirection={'row'}
             justifyContent={'start'}
@@ -275,26 +300,27 @@ const GuildCompletedVideoInfo = ({
             {selectedIdx !== -1 ? (
               <>
                 <FlexTransparentDiv
-                  widthSize={'10vw'}
-                  heightSize={'14vh'}
+                  widthSize={'13vw'}
+                  heightSize={'19vh'}
                   paddingSize={'0'}
                   flexDirection={'column'}
                   justifyContent={'center'}
                   alignItems={'center'}
                   IsBorder={'none'}
+                  style={{ marginLeft: '0.5vw' }}
                 >
                   <img
                     src={`https://img.youtube.com/vi/${completeTaskLst[selectedIdx].videoId}/0.jpg`}
                     style={{
-                      width: '10vw',
-                      height: '13vh',
-                      borderRadius: '5px',
+                      width: '13vw',
+                      height: '18vh',
+                      borderRadius: '10px',
                     }}
                   />
                 </FlexTransparentDiv>
                 <FlexTransparentDiv
                   widthSize={'22vw'}
-                  heightSize={'14vh'}
+                  heightSize={'19vh'}
                   paddingSize={'1vh 0 0 1vw'}
                   flexDirection={'column'}
                   justifyContent={'start'}
@@ -304,13 +330,32 @@ const GuildCompletedVideoInfo = ({
                     fontSize: '2vmin',
                   }}
                 >
-                  <div style={{ height: '5vh', fontWeight: 'bold' }}>
+                  <div
+                    style={{
+                      height: '11vh',
+                      fontWeight: 'bold',
+                      fontSize: '2.5vmin',
+                      overflow: 'hidden',
+                      wordWrap: 'break-word',
+                      wordBreak: 'keep-all',
+                      textOverflow: 'ellipsis',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical',
+                    }}
+                  >
                     {completeTaskLst[selectedIdx].videoTitle}
                   </div>
-                  <div style={{ height: '2vh' }}>과제진행날짜</div>
-                  <div style={{ height: '6vh' }}>
-                    {completeTaskLst[selectedIdx].startDate} ~{' '}
-                    {completeTaskLst[selectedIdx].endDate}
+                  <div style={{ height: '4vh' }}>
+                    {completeTaskLst[selectedIdx].startDate.replaceAll(
+                      '-',
+                      '.'
+                    )}{' '}
+                    ~{' '}
+                    {completeTaskLst[selectedIdx].endDate.replaceAll('-', '.')}
+                  </div>
+                  <div style={{ height: '4vh' }}>
+                    과제 참여 인원 : {assignmentProgressLst.length}명
                   </div>
                 </FlexTransparentDiv>
               </>
@@ -323,10 +368,10 @@ const GuildCompletedVideoInfo = ({
           <FlexTransparentDiv
             widthSize={'32vw'}
             heightSize={'35vh'}
-            paddingSize={'0 1vw'}
+            paddingSize={'0'}
             flexDirection={'column'}
             justifyContent={'start'}
-            alignItems={'center'}
+            alignItems={'start'}
             IsBorder={'none'}
             style={{
               position: 'relative',
@@ -336,22 +381,22 @@ const GuildCompletedVideoInfo = ({
             {assignmentProgressLst.map((item, idx) => {
               return (
                 <MainBox
-                  widthSize={'28vw'}
+                  widthSize={'30vw'}
                   heightSize={'10vh'}
                   paddingSize={'0'}
                   fontColor={'black'}
                   fontSize={'1vmin'}
                   style={{
-                    minHeight: '5vh',
-                    border: '1px solid black',
+                    minHeight: '7vh',
                     marginBottom: '2vh',
                     display: 'flex',
+                    boxShadow: 'none',
                   }}
                 >
                   <FlexTransparentDiv
                     key={`member-progress-${idx}`}
                     widthSize={'5vw'}
-                    heightSize={'5vh'}
+                    heightSize={'7vh'}
                     paddingSize={'0'}
                     flexDirection={'row'}
                     justifyContent={'center'}
@@ -370,8 +415,8 @@ const GuildCompletedVideoInfo = ({
                     />
                   </FlexTransparentDiv>
                   <FlexTransparentDiv
-                    widthSize={'7vw'}
-                    heightSize={'5vh'}
+                    widthSize={'10vw'}
+                    heightSize={'7vh'}
                     paddingSize={'0'}
                     flexDirection={'row'}
                     justifyContent={'center'}
@@ -383,13 +428,13 @@ const GuildCompletedVideoInfo = ({
                   </FlexTransparentDiv>
                   <FlexTransparentDiv
                     widthSize={'5vw'}
-                    heightSize={'5vh'}
+                    heightSize={'7vh'}
                     paddingSize={'0'}
                     flexDirection={'row'}
                     justifyContent={'center'}
                     alignItems={'center'}
                     IsBorder={'none'}
-                    style={{ marginRight: '4vw', fontSize: '2vmin' }}
+                    style={{ marginRight: '1vw', fontSize: '2vmin' }}
                   >
                     {item.stage === 0
                       ? 'R/L'
@@ -399,22 +444,39 @@ const GuildCompletedVideoInfo = ({
                       ? 'Speaking'
                       : 'Completed'}
                   </FlexTransparentDiv>
-                  <FlexTransparentDiv
+                  <GradientRoundBtn
+                    widthSize="4vw"
+                    heightSize="4vh"
+                    paddingSize="0"
+                    fontSize="1.5vmin"
+                    fontColor="white"
+                    backgroundColor="blue"
+                    style={{
+                      borderRadius: '10px',
+                      margin: '1.5vh 0 0 4vw',
+                    }}
+                  >
+                    에세이
+                  </GradientRoundBtn>
+                  {/* <FlexTransparentDiv
                     widthSize={'7vw'}
-                    heightSize={'5vh'}
+                    heightSize={'7vh'}
                     paddingSize={'0'}
                     flexDirection={'row'}
                     justifyContent={'center'}
                     alignItems={'center'}
                     IsBorder={'none'}
-                    style={{ cursor: 'pointer', fontSize: '2vmin' }}
+                    style={{
+                      cursor: 'pointer',
+                      fontSize: '2vmin',
+                    }}
                     onClick={() => {
                       setSelectedEssayIdx(idx);
                       setIsEssayMode(1);
                     }}
                   >
                     {item.stage > 0 ? '에세이' : ''}
-                  </FlexTransparentDiv>
+                  </FlexTransparentDiv> */}
                 </MainBox>
               );
             })}
