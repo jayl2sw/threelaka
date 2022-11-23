@@ -280,7 +280,7 @@ export const VideoCardBlock = styled.div`
   display: flex;
   flex-direction: column;
   width: 20vw;
-  height: 40vh;
+  height: 32vh;
   padding: 1vw;
 `;
 

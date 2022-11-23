@@ -27,10 +27,7 @@ import { studyActions } from '../features/study/study-slice';
 const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleLogout = () => {
-    dispatch(authActions.logout());
-    navigate('/auth/login');
-  };
+
   const userAlertList = useAppSelector((state) => state.auth.userAlertList);
   const profile = useAppSelector((state) => state.auth.currentUser?.profile);
 

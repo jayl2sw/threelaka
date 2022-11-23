@@ -30,11 +30,6 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
   const moveToNext = customMoveToNext;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleLogout = () => {
-    dispatch(authActions.logout());
-    navigate('/auth/login');
-    window.location.reload();
-  };
 
   // const moveToNext = (
   //   e: React.MouseEvent<HTMLSpanElement>,

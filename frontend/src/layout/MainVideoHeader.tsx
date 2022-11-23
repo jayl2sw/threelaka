@@ -28,10 +28,6 @@ import { AlertImgBoxVideo } from '../styles/Main/MainStyle';
 const MainVideoHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleLogout = () => {
-    dispatch(authActions.logout());
-    navigate('/auth/login');
-  };
 
   const profile = useAppSelector((state) => state.auth.currentUser?.profile);
 
