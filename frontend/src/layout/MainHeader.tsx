@@ -73,7 +73,15 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
           </MainLinkWrapper>
 
           <MainLinkWrapper bgColor="transparent" widthSize="5vw">
-            <Link to={`/auth/guild/main/${guildId}`}>GUILD</Link>
+            <Link
+              to={
+                guildId === null
+                  ? `/auth/guild/main/${guildId}`
+                  : `/auth/guild/myGuild/${guildId}`
+              }
+            >
+              GUILD
+            </Link>
           </MainLinkWrapper>
         </HeaderLeftBlock>
 

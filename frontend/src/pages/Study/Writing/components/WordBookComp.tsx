@@ -21,7 +21,9 @@ import {
   AiOutlineArrowUp,
   AiOutlineArrowDown,
 } from 'react-icons/ai';
+import { HiBarsArrowUp, HiBars2 } from 'react-icons/hi2';
 import { useHorizontalScroll } from '../../../../utils/useSideScroll';
+import { transform } from '@babel/core';
 
 // 필요한 props interface
 interface IWordBookProps {
@@ -132,7 +134,7 @@ const WordBookComp = ({
                   height: '66vh',
                   // border: '3px solid blue',
                   position: 'absolute',
-                  right: '-1vw',
+                  right: '0vw',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
@@ -140,7 +142,10 @@ const WordBookComp = ({
                 }}
                 onClick={() => setFoldLayoutMode(1)}
               >
-                <AiOutlineArrowLeft size={30}></AiOutlineArrowLeft>
+                <HiBars2
+                  style={{ transform: 'rotate(90deg)' }}
+                  size={30}
+                ></HiBars2>
               </div>
             ) : (
               <div
@@ -157,7 +162,10 @@ const WordBookComp = ({
                 }}
                 onClick={() => setFoldLayoutMode(1)}
               >
-                <AiOutlineArrowUp size={30}></AiOutlineArrowUp>
+                <HiBars2
+                  style={{ transform: 'rotate(90deg)' }}
+                  size={30}
+                ></HiBars2>
               </div>
             )}
           </MainPaleBox>
@@ -279,7 +287,7 @@ const WordBookComp = ({
                   height: '2vh',
                   // border: '3px solid blue',
                   position: 'absolute',
-                  bottom: '-1vh',
+                  bottom: '0vh',
                   right: '40vw',
                   display: 'flex',
                   justifyContent: 'center',
@@ -288,7 +296,10 @@ const WordBookComp = ({
                 }}
                 onClick={() => setFoldLayoutMode(1)}
               >
-                <AiOutlineArrowUp size={30}></AiOutlineArrowUp>
+                <HiBars2
+                  style={{ transform: 'rotate(180deg)' }}
+                  size={30}
+                ></HiBars2>
               </div>
             )}
           </MainPaleBox>
@@ -313,7 +324,7 @@ const WordBookComp = ({
                 height: '66vh',
                 // border: '3px solid blue',
                 position: 'absolute',
-                right: '-1vw',
+                right: '0vw',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -321,7 +332,10 @@ const WordBookComp = ({
               }}
               onClick={() => setFoldLayoutMode(0)}
             >
-              <AiOutlineArrowRight size={30}></AiOutlineArrowRight>
+              <HiBars2
+                style={{ transform: 'rotate(90deg)' }}
+                size={30}
+              ></HiBars2>
             </div>
           ) : (
             <div
@@ -330,7 +344,7 @@ const WordBookComp = ({
                 height: '2vh',
                 // border: '3px solid blue',
                 position: 'absolute',
-                bottom: '-2vh',
+                bottom: '0vh',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -338,7 +352,10 @@ const WordBookComp = ({
               }}
               onClick={() => setFoldLayoutMode(0)}
             >
-              <AiOutlineArrowDown size={30}></AiOutlineArrowDown>
+              <HiBars2
+                style={{ transform: 'rotate(180deg)' }}
+                size={30}
+              ></HiBars2>
               <div ref={scrollRef}></div>
             </div>
           )}

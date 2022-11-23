@@ -113,18 +113,20 @@ export const AutoScrollBtn = styled.div`
   z-index: 1;
   /* top: 10vh; */
   /* right: 8.5vw; */
-  width: 5vw;
-  height: 3vh;
+  width: 6vw;
+  height: 4vh;
   border-radius: 10px;
   background-color: grey;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  padding-top: 0.5vmin;
+  /* font-size: 2.5vmin; */
   &::before {
     content: '';
     position: absolute;
     width: 2vmin;
     height: 2vmin;
     border-radius: 10px;
-    top: 0.5vmin;
+    top: 1vmin;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
   }
   &.auto-scroll {
@@ -137,7 +139,7 @@ export const AutoScrollBtn = styled.div`
   }
   &.auto-scroll::before {
     background-color: white;
-    transform: translateX(3.5vw);
+    transform: translateX(4.5vw);
     transition: 1s;
   }
   &.manual-scroll::before {
@@ -155,13 +157,13 @@ export const CircularMenuItem = styled.div<CicularMenuProps>`
   pointer-events: none;
   justify-content: center;
   align-items: center;
-  width: 4vmin;
-  height: 4vmin;
+  width: 5vmin;
+  height: 5vmin;
   background-color: ${(props) => props.bgColor};
   opacity: 0;
   transition: opacity ${(props) => props.removeTransitionTime} ease-in-out;
   visibility: none;
-  border-radius: 50%;
+  border-radius: 5px;
   &.toggle {
     cursor: pointer;
     opacity: 1;
@@ -175,9 +177,9 @@ export const CircularMenu = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  width: 4vmin;
-  height: 4vmin;
+  border-radius: 5px;
+  width: 5vmin;
+  height: 5vmin;
   background-color: #4a9fff;
   &:active {
     transform: scale(0.9);

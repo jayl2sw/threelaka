@@ -251,10 +251,10 @@ const WordListAndWritingContainerComp = ({
             >
               <TopBtn
                 widthSize={'7vw'}
-                heightSize={'4vh'}
+                heightSize={'5vh'}
                 paddingSize={'0'}
-                fontColor={'black'}
-                fontSize={'2vmin'}
+                fontColor={'white'}
+                fontSize={'2.5vmin'}
                 backgroundColor={'blue'}
                 style={{ marginRight: '1vw', marginLeft: '1vw' }}
                 onClick={() => setModeValue(0)}
@@ -264,10 +264,10 @@ const WordListAndWritingContainerComp = ({
               </TopBtn>
               <TopBtn
                 widthSize={'7vw'}
-                heightSize={'4vh'}
+                heightSize={'5vh'}
                 paddingSize={'0'}
-                fontColor={'black'}
-                fontSize={'2vmin'}
+                fontColor={'white'}
+                fontSize={'2.5vmin'}
                 backgroundColor={'blue'}
                 style={{ marginRight: '1vw' }}
                 onClick={() => {
@@ -364,10 +364,10 @@ const WordListAndWritingContainerComp = ({
           </TopBtn> */}
             <TopBtn
               widthSize={'7vw'}
-              heightSize={'4vh'}
+              heightSize={'5vh'}
               paddingSize={'0'}
-              fontColor={'black'}
-              fontSize={'2vmin'}
+              fontColor={'white'}
+              fontSize={'2.5vmin'}
               backgroundColor={'blue'}
               style={{ marginRight: '2vw' }}
               onClick={essaySave}
