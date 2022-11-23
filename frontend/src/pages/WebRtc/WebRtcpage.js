@@ -110,7 +110,8 @@ const WebRtcPage = () => {
   );
 };
 
-export const SERVER = 'http://localhost:5002';
+// export const SERVER = 'http://localhost:5002';
+export const SERVER = 'https://3laka.com';
 
 let socket = null;
 // const nickname = '테스트계정';
