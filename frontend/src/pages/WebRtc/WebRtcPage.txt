@@ -1,0 +1,104 @@
+import React, { useEffect, useState } from 'react';
+import WaitingRoom from './components/WaitingRoom';
+import io from 'socket.io-client';
+import Peer from 'simple-peer';
+import axios from 'axios';
+
+import * as wss from '../../utils/wss';
+
+const nickname = '테스트계정';
+const guildId = 2;
+let socket: any = null;
+
+const WebRtcPage = () => {
+  const [bool, setBool] = useState(false);
+
+  useEffect(() => {
+    connectWithSocketIOServer();
+    setBool(wss.joinGuildChannel(nickname, guildId));
+    return () => {};
+  }, []);
+
+  const [guildInfo, setGuildInfo] = useState({
+    guildId: guildId,
+    rooms: [
+      {
+        roomNumber: 1,
+        videoId: null,
+        connectedUsers: [],
+      },
+      {
+        roomNumber: 2,
+        videoId: null,
+        connectedUsers: [],
+      },
+      {
+        roomNumber: 3,
+        videoId: null,
+        connectedUsers: [],
+      },
+    ],
+    connectedUsers: [],
+  });
+
+  useEffect(() => {
+    console.log('guildInfo changed:', guildInfo);
+  }, [guildInfo]);
+
+  const connectWithSocketIOServer = () => {
+    socket = io(SERVER);
+
+    socket.on('connect', () => {
+      console.log('successfully connected with socket io server');
+      console.log(socket.id);
+      // setSocketId(socket.id);
+    });
+
+    socket.on('guild-update', (data) => {
+      setGuildInfo((prevState) => ({
+        ...prevState,
+        guildId: data.guild.guildId,
+        rooms: data.guild.rooms,
+        connectedUsers: data.guild.connectedUsers,
+      }));
+    });
+
+    socket.on('conn-prepare', (data) => {
+      const { connUserSocketId } = data;
+      console.log('====================prepare 받음===================');
+      wss.prepareNewPeerConnection(connUserSocketId, false);
+
+      // inform the user which just join the room that we have prepared for incoming connection
+      console.log(5);
+      socket.emit('conn-init', { connUserSocketId: connUserSocketId });
+    });
+
+    socket.on('conn-signal', (data) => {
+      wss.handleSignalingData(data);
+    });
+
+    socket.on('user-disconnected', (data) => {
+      wss.removePeerConnection(data);
+    });
+
+    socket.on('conn-init', (data) => {
+      console.log('====================init 시작===================');
+      const { connUserSocketId } = data;
+      wss.prepareNewPeerConnection(connUserSocketId, true);
+    });
+  };
+
+  return (
+    <div>
+      {bool && (
+        <WaitingRoom
+          messages={messages}
+          guildInfo={guildInfo}
+          localStream={localStream}
+        />
+      )}
+    </div>
+  );
+};
+
+export default WebRtcPage;
