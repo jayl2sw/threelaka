@@ -197,7 +197,7 @@ const Card = ({
                           </CardImgBox>
                         </div>
                         <div
-                          style={{ fontSize: '1.5vmin', fontWeight: 'bold' }}
+                          style={{ fontSize: '1.8vmin', fontWeight: 'bold' }}
                         >
                           {item.guildName}
                         </div>
@@ -281,98 +281,6 @@ const Card = ({
                         </Link>
                       )}
                     </div>
-                    {/* {item.alertState === 'newVideo' ? (
-                      <MainBtn
-                        widthSize={'4vw'}
-                        heightSize={'5vh'}
-                        paddingSize={'0.5vw'}
-                        fontSize={'1.5vmin'}
-                        fontColor={'white'}
-                        backgroundColor={'blue'}
-                        style={{
-                          borderRadius: '1.5vmin',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          marginLeft: '0.2vw',
-                        }}
-                        onClick={() => {
-                          setModalToggleVideoId(item.videoId);
-                          setToggleDropDown(false);
-                        }}
-                      >
-                        <div>영상 공부</div>
-                        <div>바로 가기</div>
-                      </MainBtn>
-                    ) : item.alertState === 'accepted' ? (
-                      <Link
-                        to={`/auth/guild/myGuild/${item.guildId}`}
-                        style={{ width: '4vw' }}
-                      >
-                        <MainBtn
-                          widthSize={'4vw'}
-                          heightSize={'5vh'}
-                          paddingSize={'0.5vw'}
-                          fontSize={'1vmin'}
-                          fontColor={'white'}
-                          backgroundColor={'blue'}
-                          style={{
-                            borderRadius: '1.5vmin',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            marginLeft: '0.2vw',
-                          }}
-                        >
-                          <div>길드 구경</div>
-                          <div>바로 가기</div>
-                        </MainBtn>
-                      </Link>
-                    ) : item.alertState === 'accepted' ? (
-                      <Link
-                        to={`/auth/guild/myGuild/${item.guildId}`}
-                        style={{ width: '4vw' }}
-                      >
-                        <MainBtn
-                          widthSize={'4vw'}
-                          heightSize={'5vh'}
-                          paddingSize={'0.5vw'}
-                          fontSize={'1vmin'}
-                          fontColor={'white'}
-                          backgroundColor={'blue'}
-                          style={{
-                            borderRadius: '1.5vmin',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            marginLeft: '0.2vw',
-                          }}
-                        >
-                          <div>길드 구경</div>
-                          <div>바로 가기</div>
-                        </MainBtn>
-                      </Link>
-                    ) : item.alertState === 'accepted' ? (
-                      <Link
-                        to={`/auth/guild/myGuild/${item.guildId}`}
-                        style={{ width: '4vw' }}
-                      >
-                        <MainBtn
-                          widthSize={'4vw'}
-                          heightSize={'5vh'}
-                          paddingSize={'0.5vw'}
-                          fontSize={'1vmin'}
-                          fontColor={'white'}
-                          backgroundColor={'blue'}
-                          style={{
-                            borderRadius: '1.5vmin',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            marginLeft: '0.2vw',
-                          }}
-                        >
-                          <div>길드 구경</div>
-                          <div>바로 가기</div>
-                        </MainBtn>
-                      </Link>
-                    ) : null} */}
                   </CardContainer>
                 </>
               );
