@@ -196,12 +196,12 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
       >
         {isSuccess && (
           <ToastContainer
-            widthSize={'20vw'}
+            widthSize={'23vw'}
             heightSize={'20vh'}
             paddingSize={'2vh 1vw'}
             fontColor={'black'}
             top={'55vh'}
-            left={'63.5vw'}
+            left={'26.5vw'}
           >
             <ToastMessage
               text={'비밀번호가 성공적으로 변경되었습니다'}

@@ -2,18 +2,20 @@ import React, { SetStateAction } from 'react';
 import { ModalBackdrop } from '../../../styles/DashBoard/DashBoardStyle';
 import { useState, useEffect } from 'react';
 import { Label, Input } from '../../../styles/Main/TagModalStyle';
-import { useAppDispatch } from '../../../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
 import {
   FlexTransparentDiv,
   MainBox,
+  ToastContainer,
 } from '../../../styles/Common/CommonDivStyle';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
 import { AiFillCloseCircle } from 'react-icons/ai';
-
+import { ToastMessage } from '../../../utils/ToastMessage';
 const UpdateTagModal = () => {
   const dispatch = useAppDispatch();
   const [selectedItem, setSelectedItem] = useState<Array<string>>([]);
+  const isNewTag = useAppSelector((state) => state.dashboard.isNewTag);
 
   const tags: string[] = [
     '#인간',
@@ -63,6 +65,17 @@ const UpdateTagModal = () => {
     dispatch(dashboardActions.updateTag(tagData));
   };
 
+  useEffect(() => {
+    if (isNewTag) {
+      let timer = setTimeout(() => {
+        dispatch(dashboardActions.resetIsNewTag());
+      }, 2000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [dispatch, isNewTag]);
+
   return (
     <MainBox
       widthSize={'28vw'}
@@ -96,7 +109,7 @@ const UpdateTagModal = () => {
         >
           {/* <h2>Threelaka가 당신을 위해,</h2> */}
           <h3>Threelaka가 당신을 위해,</h3>
-          <h3>관심 태그 기반으로 공부 영상을 추천해드려요</h3>
+          <h3>관심 태그 기반으로 영상을 추천해드려요</h3>
         </div>
         <p
           style={{
@@ -176,6 +189,21 @@ const UpdateTagModal = () => {
               등록
             </MainBtn>
           ) : null}
+
+          {isNewTag && (
+            <ToastContainer
+              widthSize={'23vw'}
+              heightSize={'20vh'}
+              paddingSize={'2vh 1vw'}
+              fontColor={'black'}
+              top={'55vh'}
+              left={'61.5vw'}
+            >
+              <ToastMessage
+                text={'태그가 성공적으로 변경되었습니다'}
+              ></ToastMessage>
+            </ToastContainer>
+          )}
         </form>
       </FlexTransparentDiv>
     </MainBox>

@@ -14,6 +14,7 @@ import ModifyUserInfo from './ModifyUserInfo';
 import SelectProfile from './SelectProfile';
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
 import UpdateTagModal from './UpdateTagModal';
+import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
 const ModifyProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -114,7 +115,18 @@ const ModifyProfile = () => {
           }}
         >
           <div style={{ margin: '2vh 0 1vh', color: '#aaa' }}>{username}</div>
-          <div style={{ margin: '0 0 2vh', color: '#aaa' }}>{nickname}</div>
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ margin: '0 0 2vh', color: '#aaa' }}>{nickname}</div>
+            <HiOutlinePencilSquare
+              style={{
+                marginLeft: '0.2vw',
+                marginTop: '0.2vh',
+                color: '#aaa',
+                width: '4vmin',
+                cursor: 'pointer',
+              }}
+            ></HiOutlinePencilSquare>
+          </div>
           <div
             style={{
               display: 'grid',
