@@ -118,7 +118,7 @@ const EssayForTest = ({ setSelectedText, pageParams }: IEssayProps) => {
           style={{
             position: 'absolute',
             top: '-1.8vh',
-            left: '38.5vw',
+            left: '37vw',
             display: 'flex',
             alignItems: 'center',
           }}

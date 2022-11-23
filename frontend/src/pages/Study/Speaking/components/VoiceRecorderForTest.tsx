@@ -101,19 +101,15 @@ const VoiceRecorderForTest = ({
 
   return (
     <div>
-      {/* <p style={{ textAlign: 'center', fontSize: '2vmin' }}>
-        {new Date(timer * 1000).toISOString().substr(11, 8)}
-      </p> */}
-
       <RecordBox
         className={userEssay !== '' || tedScript.length !== 0 ? '' : 'noEssay'}
       >
-        <VideoAudioBtnContainer className="test-recorder" style={{}}>
+        <VideoAudioBtnContainer className="test-recorder">
           {isRecording ? (
             <LoadingSpinner
               widthSize="7.3vmin"
               heightSize="7.3vmin"
-              style={{ display: 'absolute', left: '8vmin' }}
+              style={{ display: 'absolute', left: '7.9vmin' }}
             ></LoadingSpinner>
           ) : null}
           {recording ? (
