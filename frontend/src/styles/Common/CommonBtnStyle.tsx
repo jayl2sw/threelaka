@@ -14,7 +14,7 @@ export const TopBtn = styled.button<CommonBtnProps>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-family: PretendardBold;
+  font-family: PretendardRegular;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
   padding: ${(props) => props.paddingSize};
@@ -59,6 +59,7 @@ export const RightBtn = styled.button<CommonBtnProps>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  font-family: PretendardRegular;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
   padding: ${(props) => props.paddingSize};
@@ -103,6 +104,7 @@ export const MainBtn = styled.button<CommonBtnProps>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  font-family: PretendardRegular;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
   padding: ${(props) => props.paddingSize};
@@ -149,6 +151,7 @@ export const GradientRoundBtn = styled.button<CommonBtnProps>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  font-family: PretendardRegular;
   width: ${(props) => props.widthSize};
   height: ${(props) => props.heightSize};
   padding: ${(props) => props.paddingSize};
@@ -200,8 +203,26 @@ export const MoveToNextRightBtn = styled.div`
   }
   :hover {
     color: #4a9fff;
+    animation: bounce 0.4s infinite linear;
     & p {
       display: inline;
+    }
+  }
+  @keyframes bounce {
+    0% {
+      top: 55vh;
+    }
+
+    50% {
+      top: 53vh;
+    }
+
+    70% {
+      top: 52vh;
+    }
+
+    100% {
+      top: 55vh;
     }
   }
 `;
@@ -225,8 +246,27 @@ export const MoveToNextLeftBtn = styled.div`
   }
   :hover {
     color: #4a9fff;
+    animation: bounce 0.4s infinite linear;
     & p {
       display: inline;
+    }
+  }
+
+  @keyframes bounce {
+    0% {
+      top: 55vh;
+    }
+
+    50% {
+      top: 53vh;
+    }
+
+    70% {
+      top: 52vh;
+    }
+
+    100% {
+      top: 55vh;
     }
   }
 `;
