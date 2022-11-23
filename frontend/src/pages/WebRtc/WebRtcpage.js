@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { useAppSelector } from '../../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+
+import { guildActions } from '../../features/guild/guild-slice';
+import { authActions } from '../../features/auth/authSlice';
 import WaitingRoom from './components/WaitingRoom';
 import io from 'socket.io-client';
 import Peer from 'simple-peer';
 import axios from 'axios';
 
 let messages = [];
-const nickname = '테스트계정';
 const guildId = 2;
 
-const GuildPage = () => {
+const WebRtcPage = () => {
+  const dispatch = useAppDispatch();
+
+  const nickname = useAppSelector((state) => state.auth.currentUser?.nickname);
+
   const [bool, setBool] = useState(false);
 
   useEffect(() => {
     connectWithSocketIOServer();
     setBool(joinGuildChannel(nickname, guildId));
+    // 완료한 과제 정보 미리 dispatch
+    dispatch(authActions.fetchUser());
+    dispatch(guildActions.getProgressTask());
     return () => {};
   }, []);
 
@@ -104,7 +113,7 @@ const GuildPage = () => {
 export const SERVER = 'http://localhost:5002';
 
 let socket = null;
-
+// const nickname = '테스트계정';
 export const joinGuildChannel = (nickname, guildId) => {
   const data = {
     nickname,
@@ -363,7 +372,7 @@ const appendNewMessage = (messageData) => {
 export const sendMessageUsingDataChannel = (messageContent) => {
   const localMessageData = {
     content: messageContent,
-    nickname,
+    // nickname,
     messageCreatedByMe: true,
   };
 
@@ -371,7 +380,7 @@ export const sendMessageUsingDataChannel = (messageContent) => {
 
   const messageData = {
     content: messageContent,
-    nickname,
+    // nickname,
   };
   const stringifiedMessageData = JSON.stringify(messageData);
   for (let socketId in peers) {
@@ -385,4 +394,4 @@ export const getTURNCredentials = async () => {
   return response.data;
 };
 
-export default GuildPage;
+export default WebRtcPage;

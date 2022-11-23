@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+
+import { guildActions } from '../../../features/guild/guild-slice';
+
 import useModal from '../../../utils/useModal';
 import useRoomModal from '../../../utils/useRoomModal';
 
@@ -26,25 +30,40 @@ const RoomInfo = ({
   guildInfo,
   roomNumber,
 }: RoomInfoProps) => {
+  const dispatch = useAppDispatch();
+
   const { isOpenModal, onClickModal } = useModal();
   const { isOpenRoomModal, onClickRoomModal } = useRoomModal();
-  const [videoId, setVideoId] = useState('');
-  const [learningRecordId, setLearningRecordId] = useState('');
+  const [videoId, setVideoId] = useState<string>('');
+  const [learningRecordId, setLearningRecordId] = useState<string>('');
 
   let roomInfo = guildInfo.rooms[roomNumber - 1];
 
-  useEffect(() => {
-    console.log('roomInfo 내의 videoId:', videoId);
-    console.log('roomInfo내의 roomInfo:', roomInfo);
-  }, [videoId]);
+  // useEffect(() => {
+  //   console.log('roomInfo 내의 videoId:', videoId);
+  //   console.log('roomInfo내의 roomInfo:', roomInfo);
+  // }, [videoId]);
+
+  // 완료한 영상 정보
+
+  const completeTaskLst = useAppSelector(
+    (state) => state.guild.completedTaskList
+  );
+
+  console.log('completeTaskLst----', completeTaskLst);
 
   return (
     <div>
       {roomInfo && (
         <div>
-          <RoomVideoInfo setVideoId={setVideoId} videoId={roomInfo.videoId} />
+          <RoomVideoInfo
+            setVideoId={setVideoId}
+            videoId={roomInfo.videoId}
+            completeTaskLst={completeTaskLst}
+            roomNumber={roomNumber}
+          />
           <WaitingRoomBottom>
-            <RoomUserInfo users={roomInfo.connectedUsers} />
+            <RoomUserInfo connectedUsers={roomInfo.connectedUsers} />
             <PickEssay
               roomInfo={roomInfo}
               setLearningRecordId={setLearningRecordId}
@@ -54,10 +73,6 @@ const RoomInfo = ({
               onClickRoomModal={onClickRoomModal}
             />
           </WaitingRoomBottom>
-          {/* <p>videoId: {roomInfo.videoId}</p>
-          <p>{roomInfo.roomNumber}</p>
-          <p>현재 접속한 사람들</p>
-          <p>{JSON.stringify(roomInfo)}</p> */}
 
           {isOpenRoomModal && (
             <RoomModalContainer>

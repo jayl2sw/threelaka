@@ -25,7 +25,16 @@ const PickEssay = ({
   return (
     <WaitingRoomPickEssay>
       <div>
-        <p>learningRecordId</p>
+        <p
+          style={{
+            fontSize: '2.5vmin',
+            fontWeight: 'bold',
+            color: '#4A9FFF',
+            verticalAlign: 'middle',
+          }}
+        >
+          함께 공부할 에세이
+        </p>
         <input onChange={(e) => setLearningRecordId(e.target.value)} />
       </div>
       <button

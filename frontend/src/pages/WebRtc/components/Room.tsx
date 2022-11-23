@@ -38,8 +38,9 @@ const Room = ({
       <VideoContainer />
       <div>
         <p>{videoId}</p>
+        <p>내가 선택한 essay: {learningRecordId}</p>
       </div>
-      {/* <ChatSection messages={messages} /> */}
+
       <button
         onClick={() => {
           onClickRoomModal();

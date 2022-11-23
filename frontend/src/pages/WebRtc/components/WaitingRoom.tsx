@@ -20,7 +20,7 @@ const WaitingRoom = ({
   messages,
   localStream,
 }: WaitingRoomProps) => {
-  const [roomNumber, setRoomNumber] = useState(1);
+  const [roomNumber, setRoomNumber] = useState<number>(1);
   console.log(roomNumber);
 
   return (
@@ -28,21 +28,21 @@ const WaitingRoom = ({
       <RoomNumBtnContainer>
         <RoomNumBtn
           onClick={() => setRoomNumber(1)}
-          className={roomNumber === 1 ? '' : 'not-active'}
+          style={{ opacity: roomNumber === 1 ? '' : '0.5' }}
         >
-          Room1
+          Zone 1
         </RoomNumBtn>
         <RoomNumBtn
           onClick={() => setRoomNumber(2)}
-          className={roomNumber === 2 ? '' : 'not-active'}
+          style={{ opacity: roomNumber === 2 ? '' : '0.5' }}
         >
-          Room2
+          Zone 2
         </RoomNumBtn>
         <RoomNumBtn
           onClick={() => setRoomNumber(3)}
-          className={roomNumber === 3 ? '' : 'not-active'}
+          style={{ opacity: roomNumber === 3 ? '' : '0.5' }}
         >
-          Room3
+          Zone 3
         </RoomNumBtn>
       </RoomNumBtnContainer>
       <RoomInfo
