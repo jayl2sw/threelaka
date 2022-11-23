@@ -41,6 +41,7 @@ const WebCam = () => {
       'dataavailable',
       handleDataAvailable
     );
+    console.log(webcamRef);
     mediaRecorderRef.current.start();
   }, [webcamRef, setRecording, mediaRecorderRef]);
 
@@ -66,6 +67,8 @@ const WebCam = () => {
 
   // 녹화된 영상 세팅
   const setRecordedVideo = useCallback(() => {
+    console.log('얍얍');
+    console.log(recordedChunks);
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: 'video/webm',
@@ -116,7 +119,7 @@ const WebCam = () => {
         ></video>
       </VideoAudioContainer>
       <VideoAudioBtnContainer>
-        {/* <VideoAudioBtn
+        <VideoAudioBtn
           onClick={() => {
             turnScreen();
             setRecordedVideo();
@@ -124,9 +127,16 @@ const WebCam = () => {
           title="화면 전환"
         >
           <MdCameraswitch />
-        </VideoAudioBtn> */}
+        </VideoAudioBtn>
         {recording ? (
-          <VideoAudioBtn onClick={handleStopCaptureClick} title="녹화 중지">
+          <VideoAudioBtn
+            onClick={() => {
+              handleStopCaptureClick();
+              turnScreen();
+              setRecordedVideo();
+            }}
+            title="녹화 중지"
+          >
             <BsFillStopFill />
           </VideoAudioBtn>
         ) : (
