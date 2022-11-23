@@ -15,7 +15,7 @@ import VideoModal from '../../utils/VideoModal';
 import DailyBoard from '../Dashboard/DailyBoard/DailyBoard';
 import HistoryBoard from '../Dashboard/HistoryBoard/HistoryBoard';
 import Profile from '../Dashboard/Profile/Profile';
-import WebRtcPage from '../WebRtc/WebRtcPage';
+import WebRtcPage from '../WebRtc/WebRtcpage';
 
 const GuildPage = () => {
   const dispatch = useAppDispatch();
