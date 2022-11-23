@@ -4,13 +4,11 @@
 
 // // style
 // import { FlexTransparentDiv } from '../../../../styles/Common/CommonDivStyle';
-// import {
-//   VideoAudioContainer,
-//   VideoAudioBtnContainer,
-//   VideoAudioBtn,
-// } from '../../../../styles/Speaking/SpeakingStyle';
-import { BsFillRecordFill, BsFillStopFill } from 'react-icons/bs';
-import { MdDownload, MdCameraswitch } from 'react-icons/md';
+import {
+  VideoAudioContainer,
+  VideoAudioBtnContainer,
+  VideoAudioBtn,
+} from '../../../../styles/Speaking/SpeakingStyle';
 
 // const WebCam = () => {
 //   const webcamRef = useRef<Webcam & HTMLVideoElement>(null) as any;
@@ -144,9 +142,18 @@ import { MdDownload, MdCameraswitch } from 'react-icons/md';
 
 // export default WebCam;
 
-import React, { useCallback, useEffect, useState } from 'react';
-import { RecordWebcam, useRecordWebcam } from 'react-record-webcam';
+import React, { useEffect, useState } from 'react';
+import { useRecordWebcam } from 'react-record-webcam';
 import { VideoBtnBox } from '../../../../styles/Speaking/SpeakingStyle';
+import { BsFillRecordFill, BsFillStopFill } from 'react-icons/bs';
+import { MdDownload, MdCameraswitch, MdReplay } from 'react-icons/md';
+import { BsCameraFill } from 'react-icons/bs';
+import styled from 'styled-components';
+
+import { LoadingSpinner } from '../../../../styles/Common/LoadingSpinner';
+const CameraIcon = styled(BsCameraFill)`
+  color: white;
+`;
 
 export default function WebCam() {
   const [isCamera, setIsCamera] = useState<boolean>(false);
@@ -154,7 +161,6 @@ export default function WebCam() {
   const [isShow, setIsShow] = useState<boolean>(false);
   const [isRetake, setIsRetake] = useState<boolean>(false);
 
-  const [isEnd, setIsEnd] = useState<boolean>(false);
   const OPTIONS = {
     filename: 'test-filename',
     fileType: 'mp4',
@@ -162,15 +168,6 @@ export default function WebCam() {
     height: 1080,
   };
   const recordWebcam = useRecordWebcam(OPTIONS);
-  const getRecordingFileHooks = async () => {
-    const blob = await recordWebcam.getRecording();
-
-    console.log({ blob });
-  };
-
-  const getRecordingFileRenderProp = async (blob: Blob) => {
-    console.log({ blob });
-  };
 
   useEffect(() => {
     recordWebcam.open();
@@ -204,97 +201,110 @@ export default function WebCam() {
         }}
         controls
       />
-      {/* <p>Camera status: {recordWebcam.status}</p> */}
 
       {isCamera ? (
         <VideoBtnBox
           style={{
             position: 'absolute',
-            top: '40vh',
+            top: '36vh',
             zIndex: '1',
-            left: '15vw',
+            left: '20.5vw',
           }}
         >
           {isRecording ? (
-            <button
-              disabled={recordWebcam.status !== 'RECORDING'}
-              onClick={() => {
-                recordWebcam.stop();
-                setIsRecording(false);
-                // setIsEnd(true);
-                setIsShow(true);
-              }}
-              // onClick={()=> recordWebcam.stop(); setIsRecording(false);}}
-            >
-              Stop recording
-            </button>
+            <>
+              <div
+                style={{
+                  background: '#111111',
+                  borderRadius: '50%',
+                  width: '8vmin',
+                  height: '8vmin',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  zIndex: '2',
+                }}
+                onClick={() => {
+                  recordWebcam.stop();
+                  setIsRecording(false);
+
+                  setIsShow(true);
+                }}
+              >
+                <CameraIcon size={35} />
+              </div>
+              {isRecording ? (
+                <LoadingSpinner
+                  widthSize="8.8vmin"
+                  heightSize="8.8vmin"
+                  style={{
+                    display: 'absolute',
+                    top: '-8.5vh',
+                    zIndex: '-1',
+                    right: '0.3vw',
+                  }}
+                ></LoadingSpinner>
+              ) : null}
+            </>
           ) : (
-            <button
-              style={{ display: isShow || isRetake ? 'none' : 'block' }}
-              disabled={
-                recordWebcam.status === 'CLOSED' ||
-                recordWebcam.status === 'RECORDING' ||
-                recordWebcam.status === 'PREVIEW'
-              }
-              // onClick={recordWebcam.start}
-              onClick={() => {
-                recordWebcam.start();
-                setIsRecording(true);
-              }}
-            >
-              Start recording
-            </button>
+            <div style={{ display: isShow || isRetake ? 'none' : 'block' }}>
+              <div
+                style={{
+                  background: '#111111',
+                  borderRadius: '50%',
+                  width: '8vmin',
+                  height: '8vmin',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                onClick={() => {
+                  recordWebcam.start();
+                  setIsRecording(true);
+                }}
+              >
+                <CameraIcon size={35} />
+              </div>
+            </div>
           )}
-          {/* <button
-            disabled={
-              recordWebcam.status === 'CLOSED' ||
-              recordWebcam.status === 'RECORDING' ||
-              recordWebcam.status === 'PREVIEW'
-            }
-            onClick={recordWebcam.start}
-          >
-            Start recording
-          </button>
-          <button
-            disabled={recordWebcam.status !== 'RECORDING'}
-            onClick={recordWebcam.stop}
-          >
-            Stop recording
-          </button> */}
 
           {!isShow ? null : (
-            <VideoBtnBox>
-              <button
-                // style={{ display: isEnd ? 'block' : 'none' }}
-                // disabled={recordWebcam.status !== 'PREVIEW'}
-                // onClick={recordWebcam.retake}
+            <div
+              style={{ position: 'absolute', top: '-35vh', right: '-7.5vw' }}
+            >
+              <VideoBtnBox style={{ display: 'flex' }}>
+                {/* <button
                 onClick={() => {
                   recordWebcam.retake();
-                  // setIsEnd(false);
-                  // setIsEnd(false);
+
                   setIsShow(false);
                   setIsRetake(true);
                   setTimeout(() => {
                     setIsRetake(false);
                   }, 2000);
-
-                  // setTimeout(() => {
-                  //   setIsShow(true);
-                  // }, 2000);
-
-                  // setIsShow(false);
                 }}
               >
                 Retake
-              </button>
-              <button
-                // style={{ display: isEnd ? 'block' : 'none' }}
-                // disabled={recordWebcam.status !== 'PREVIEW'}
-                onClick={recordWebcam.download}
-              >
-                Download
-              </button>
-            </VideoBtnBox>
+              </button> */}
+                <VideoAudioBtn
+                  onClick={() => {
+                    recordWebcam.retake();
+
+                    setIsShow(false);
+                    setIsRetake(true);
+                    setTimeout(() => {
+                      setIsRetake(false);
+                    }, 2000);
+                  }}
+                >
+                  <MdReplay />
+                </VideoAudioBtn>
+                <VideoAudioBtn onClick={recordWebcam.download}>
+                  <MdDownload />
+                </VideoAudioBtn>
+                {/* <button onClick={recordWebcam.download}>Download</button> */}
+              </VideoBtnBox>
+            </div>
           )}
         </VideoBtnBox>
       ) : null}
