@@ -300,6 +300,12 @@ export const Count = styled.div`
   color: white;
   font-size: 5.5vmin;
   font-family: 'pretendardbold';
+  .word {
+    :hover {
+      transform: scale(1.2);
+    }
+    transition: all 0.8s ease;
+  }
 `;
 
 export const ProfileContainer = styled.div`

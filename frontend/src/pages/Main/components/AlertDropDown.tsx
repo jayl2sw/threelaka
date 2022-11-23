@@ -14,13 +14,13 @@ const AlertDropDown = ({
   setModalToggleVideoId,
   setToggleDropDown,
 }: IAlertDropDownProps) => {
-  const [blockScroll, allowScroll] = useScrollBlock();
-  useEffect(() => {
-    // modal이 떠 있을 땐 스크롤 막음
-    blockScroll();
-    // modal 닫히면 다시 스크롤 가능하도록 함
-    return () => allowScroll();
-  }, []);
+  // const [blockScroll, allowScroll] = useScrollBlock();
+  // useEffect(() => {
+  //   // modal이 떠 있을 땐 스크롤 막음
+  //   blockScroll();
+  //   // modal 닫히면 다시 스크롤 가능하도록 함
+  //   return () => allowScroll();
+  // }, []);
   return (
     <AlertDropDownContainer>
       <div className="dropdown">

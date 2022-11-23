@@ -34,12 +34,12 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
     setSelectDate(nextDate);
   };
 
-  useEffect(() => {
-    if (!dateRef.current?.getAttribute('date-active-month')) {
-      console.warn('얍얍');
-      dateRef.current?.classList.add('notThisMonth');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!dateRef.current?.getAttribute('date-active-month')) {
+  //     console.warn('얍얍');
+  //     dateRef.current?.classList.add('notThisMonth');
+  //   }
+  // }, []);
 
   return (
     <DateIndicatorContainer style={{ zIndex: '1' }}>
@@ -70,11 +70,11 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
               date-active-month={item.currentMonth.toString()}
               date-date={item.date.toString()}
               key={`date-${idx}`}
-              style={{
-                color: dateRef.current?.getAttribute('date-active-month')
-                  ? ''
-                  : 'red',
-              }}
+              // style={{
+              //   color: dateRef.current?.getAttribute('date-active-month')
+              //     ? ''
+              //     : 'red',
+              // }}
               // date-date를 getattribute하는 대신 i.date 값을 직접 넘겨주기
               // onClick={(e) => changeDate(e, item.date)}
             >
