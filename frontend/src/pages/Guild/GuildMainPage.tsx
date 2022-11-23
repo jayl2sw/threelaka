@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaCrown } from 'react-icons/fa';
 import { FcIdea } from 'react-icons/fc';
 import { BiImageAdd } from 'react-icons/bi';
+import { GuildProgressbar } from '../../styles/Guild/MyGuildStyle';
 
 const GuildMain = () => {
   const dispatch = useAppDispatch();
@@ -48,6 +49,7 @@ const GuildMain = () => {
     useState<string>('activity');
   const [myRequestNames, setMyRequestNames] = useState<string[]>([]);
   const [files, setFiles] = useState<any>('');
+  const [progressAnime, setProgressAnime] = useState<boolean>(false);
   // useEffect
   useEffect(() => {
     dispatch(guildActions.getTopThreeGuildStart());
@@ -75,6 +77,15 @@ const GuildMain = () => {
       };
     }
   }, [dispatch, isCreateSuccess]);
+  // 프로그레스바 transition
+  useEffect(() => {
+    if (topThreeGuild.length === 0) {
+      return;
+    }
+    setTimeout(() => {
+      setProgressAnime(true);
+    }, 200);
+  }, [topThreeGuild]);
   // onClickHandler
   const onClickGuildSortedList = (basis: string) => {
     dispatch(guildActions.getSortedGuildStart(basis));
@@ -183,19 +194,18 @@ const GuildMain = () => {
           heightSize={'5vh'}
           paddingSize={'0'}
           flexDirection={'row'}
-          justifyContent={'center'}
+          justifyContent={'start'}
           alignItems={'center'}
           IsBorder={'none'}
         >
           <div
             style={{
-              fontSize: '2.5vmin',
-              backgroundColor: '#4f9fff',
-              color: '#ffffff',
+              fontSize: '2.3vmin',
+              color: '#4f9fff',
               borderRadius: '2vmin',
-              padding: '0.8vh 1vw',
-              marginTop: '2vh',
-              fontFamily: 'PretendardRegular',
+              paddingLeft: '2.2vw',
+              paddingTop: '3vh',
+              fontFamily: 'PretendardBold',
             }}
           >
             이번 주 우수 길드
@@ -219,149 +229,89 @@ const GuildMain = () => {
             alignItems={'center'}
             IsBorder={'none'}
           >
-            <MainBox
+            <BackBlurBox
               widthSize={'32vw'}
               heightSize={'30vh'}
-              paddingSize={'2vw 1vw'}
+              paddingSize={'1vh 1vw'}
               fontColor={'black'}
-              fontSize={'3vmin'}
+              fontSize={'2vmin'}
               style={{
                 display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'end',
+                flexDirection: 'column',
+                alignItems: 'start',
+                justifyContent: 'center',
                 marginBottom: '2vh',
-                background: 'transparent',
-                boxShadow: 'none',
-                // border: 'solid black 1px',
               }}
             >
               {topThreeGuild.length !== 0 ? (
                 <>
-                  <GradientCircleDiv
-                    widthSize={'20vmin'}
-                    heightSize={'20vmin'}
-                    paddingSize={'0'}
-                    fontColor={'black'}
-                    fontSize={'2vmin'}
-                    backgroundUrl={topThreeGuild[0] && topThreeGuild[0].profile}
-                    style={{ position: 'relative', marginRight: '2vw' }}
-                  >
-                    <FaCrown
-                      style={{
-                        color: '#ffb94c',
-                        position: 'absolute',
-                        width: '9vmin',
-                        height: '9vmin',
-                        top: '-9.5vmin',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                      }}
-                    />
-                    <div
-                      style={{
-                        height: '5vmin',
-                        fontSize: '2vmin',
-                        position: 'absolute',
-                        top: '19vmin',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        fontWeight: 'bold',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: '100%',
-                        wordBreak: 'keep-all',
-                      }}
-                    >
-                      {topThreeGuild[0] &&
-                        topThreeGuild[0].guildname.substring(6, 0)}
-                    </div>
-                  </GradientCircleDiv>
-                  <GradientCircleDiv
-                    widthSize={'15vmin'}
-                    heightSize={'15vmin'}
-                    paddingSize={'0'}
-                    fontColor={'black'}
-                    fontSize={'1vmin'}
-                    backgroundUrl={topThreeGuild[1] && topThreeGuild[1].profile}
-                    style={{ position: 'relative', marginRight: '2vw' }}
-                  >
-                    <FaCrown
-                      style={{
-                        color: '#bcbcbc',
-                        position: 'absolute',
-                        width: '7vmin',
-                        height: '7vmin',
-                        top: '-7.5vmin',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                      }}
-                    />
-                    <div
-                      style={{
-                        height: '5vmin',
-                        fontSize: '2vmin',
-                        position: 'absolute',
-                        top: '14vmin',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        fontWeight: 'bold',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: '100%',
-                        wordBreak: 'keep-all',
-                      }}
-                    >
-                      {topThreeGuild[1] &&
-                        topThreeGuild[1].guildname.substring(6, 0)}
-                    </div>
-                  </GradientCircleDiv>
-                  <GradientCircleDiv
-                    widthSize={'10vmin'}
-                    heightSize={'10vmin'}
-                    paddingSize={'0'}
-                    fontColor={'black'}
-                    fontSize={'2vmin'}
-                    backgroundUrl={topThreeGuild[2] && topThreeGuild[2].profile}
-                    style={{ position: 'relative', marginRight: '0vw' }}
-                  >
-                    <FaCrown
-                      style={{
-                        color: '#cc7c00',
-                        position: 'absolute',
-                        width: '5vmin',
-                        height: '5vmin',
-                        top: '-5.5vmin',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                      }}
-                    />
-                    <div
-                      style={{
-                        height: '5vmin',
-                        fontSize: '2vmin',
-                        position: 'absolute',
-                        top: '9vmin',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        fontWeight: 'bold',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: '100%',
-                        wordBreak: 'keep-all',
-                      }}
-                    >
-                      {topThreeGuild[2] &&
-                        topThreeGuild[2].guildname.substring(6, 0)}
-                    </div>
-                  </GradientCircleDiv>
+                  {topThreeGuild.map((guild, idx) => {
+                    const timeRatio = guild.time / topThreeGuild[0].time;
+                    return (
+                      <FlexTransparentDiv
+                        key={`progress-${idx}`}
+                        widthSize={'30vw'}
+                        heightSize={'8vh'}
+                        paddingSize={'0'}
+                        flexDirection={'row'}
+                        justifyContent={'start'}
+                        alignItems={'center'}
+                        IsBorder={'none'}
+                      >
+                        <FlexTransparentDiv
+                          widthSize={'8vw'}
+                          heightSize={'4vh'}
+                          paddingSize={'0'}
+                          flexDirection={'row'}
+                          justifyContent={'start'}
+                          alignItems={'center'}
+                          IsBorder={'none'}
+                          style={{ fontSize: '2.5vmin', fontWeight: 'bold' }}
+                        >
+                          {guild.guildname}
+                        </FlexTransparentDiv>
+                        <FlexTransparentDiv
+                          widthSize={'22vw'}
+                          heightSize={'4vh'}
+                          paddingSize={'0'}
+                          flexDirection={'row'}
+                          justifyContent={'start'}
+                          alignItems={'center'}
+                          IsBorder={'none'}
+                        >
+                          <GuildProgressbar
+                            widthSize={`${timeRatio * 16}vw`}
+                            heightSize={'2.5vh'}
+                            progressPercent={timeRatio}
+                            className={progressAnime ? 'on' : 'off'}
+                          />
+                          <FlexTransparentDiv
+                            widthSize={'6vw'}
+                            heightSize={'4vh'}
+                            paddingSize={'0'}
+                            flexDirection={'row'}
+                            justifyContent={'start'}
+                            alignItems={'center'}
+                            IsBorder={'none'}
+                            style={{
+                              fontSize: '1.5vmin',
+                              fontWeight: 'bold',
+                              color: 'black',
+                              paddingLeft: '0.5vw',
+                            }}
+                          >
+                            {Math.floor(guild.time / 3600)}시간&nbsp;
+                            {Math.floor((guild.time % 3600) / 60)}분
+                          </FlexTransparentDiv>
+                        </FlexTransparentDiv>
+                      </FlexTransparentDiv>
+                    );
+                  })}
                 </>
               ) : (
                 ''
               )}
-            </MainBox>
+            </BackBlurBox>
             <MainBox
               widthSize={'32vw'}
               heightSize={'40vh'}
