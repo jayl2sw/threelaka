@@ -216,9 +216,10 @@ public class GuildServiceImpl implements GuildService{
         alertRepository.save(alert);
     }
     @Override
-    public void quitGuild(int guildId){
+    public void quitGuild(){
         User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername).orElseThrow(UserNotFoundException::new);
-        Guild guild = guildRepository.findById(guildId).orElseThrow(GuildNotFoundException::new);
+        Guild guild = user.getGuild();
+
 
         if (user.getUserId() == guild.getMaster()){
             throw new GuildMasterException();
@@ -228,9 +229,6 @@ public class GuildServiceImpl implements GuildService{
             throw new NotInGuildException();
         }
 
-        if (guildId != user.getGuild().getId()){
-            throw new NotMyGuildException();
-        }
         user.joinGuild(null);
     }
 

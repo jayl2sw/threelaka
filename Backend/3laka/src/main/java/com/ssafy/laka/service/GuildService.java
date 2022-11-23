@@ -37,7 +37,7 @@ public interface GuildService {
 //    길드 공지 수정
 //    길드 정보 수정
     void setDescription(String description);
-    void quitGuild(int guildId);
+    void quitGuild();
     NoticeResponseDto createNotice(String notice);
     NoticeResponseDto getNotice(int guildId);
     void deleteNotice();

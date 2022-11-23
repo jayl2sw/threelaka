@@ -12,4 +12,9 @@ public class GuildCreateDto {
     private String name;
     @NotBlank
     private String description;
+
+    public GuildCreateDto(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

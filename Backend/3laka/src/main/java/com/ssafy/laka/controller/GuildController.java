@@ -36,26 +36,31 @@ public class GuildController {
     private String bucketName;
 
 
-    @PostMapping("")
+    @PostMapping("/")
     @ApiOperation(value = "길드 생성")
-    public ResponseEntity<GuildResponseDto> createGuild(@Valid @RequestPart GuildCreateDto data,
+    public ResponseEntity<GuildResponseDto> createGuild(@RequestPart String title,
+                                                        @RequestPart String description,
                                                         @RequestPart(required = false) MultipartFile file,
                                                         BindingResult result){
         if(result.hasErrors()){
             throw new InvalidParameterException(result);
         }
-        GuildResponseDto guild = guildService.createGuild(data);
+        GuildCreateDto guildCreateDto = new GuildCreateDto(title, description);
+        GuildResponseDto guild = guildService.createGuild(guildCreateDto);
         if (file.isEmpty()) {
             return new ResponseEntity<>(guild, HttpStatus.OK);
         }
         Date today = new Date();
+        System.out.println(1);
         SimpleDateFormat sdf = new SimpleDateFormat( "_yyyyMMddHHmmss");
         String suffix = sdf.format(today);
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(file.getContentType());
+        System.out.println(2);
         try(InputStream inputStream = file.getInputStream()){
             amazonS3Client.putObject(new PutObjectRequest(bucketName, guild.getGuildId() + suffix, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
+            System.out.println(3);
             Guild guild1 = guildService.updateProfile(guild.getGuildId(), guild.getGuildId() + suffix);
             return new ResponseEntity<>(GuildResponseDto.from(guild1, guild.getMasterNickname()), HttpStatus.OK);
         } catch (IOException e){
@@ -82,10 +87,10 @@ public class GuildController {
         return new ResponseEntity<>(guildService.searchGuild(guildId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/quit/{guildId}")
+    @DeleteMapping("/quit/")
     @ApiOperation(value = "내가 가입한 길드 탈퇴")
-    public ResponseEntity<String> quitGuild(@PathVariable int guildId){
-        guildService.quitGuild(guildId);
+    public ResponseEntity<String> quitGuild(){
+        guildService.quitGuild();
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
@@ -176,9 +181,9 @@ public class GuildController {
     // 길드 마스터 권한 한정 기능 ==========================================================================================
 
     @PreAuthorize("hasRole('ROLE_GUILD_MASTER')")
-    @DeleteMapping("")
+    @DeleteMapping("/")
     @ApiOperation(value = "내가 마스터인 길드 삭제")
-    public ResponseEntity<String> deleteGuild(@PathVariable int guildId){
+    public ResponseEntity<String> deleteGuild(){
         guildService.deleteGuild();
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
