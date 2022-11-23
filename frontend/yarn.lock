@@ -8539,6 +8539,13 @@ react-multi-carousel@^2.8.2:
   resolved "https://registry.npmjs.org/react-multi-carousel/-/react-multi-carousel-2.8.2.tgz"
   integrity sha512-M9Y7DfAp8bA/r6yexttU6RLA7uyppje4c0ELRuCHZWswH+u7nr0uVP6qHNPjc4XGOEY1MYFOb5nBg7JvoKutuQ==
 
+react-record-webcam@^0.0.18:
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/react-record-webcam/-/react-record-webcam-0.0.18.tgz#ec09c359bca09104703d6d79b0bf173f75e58481"
+  integrity sha512-IO145Fs+xY4jbzqC/w9LbSuOaEwsKDTvTiR0spurhVIhw31U9MPCrabU+nb5VaDVfIfR3hQdQTiRMStW3IMp9Q==
+  dependencies:
+    recordrtc "5.6.2"
+
 react-redux@^8.0.4:
   version "8.0.4"
   resolved "https://registry.npmjs.org/react-redux/-/react-redux-8.0.4.tgz"
@@ -8730,6 +8737,11 @@ readdirp@~3.6.0:
   integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
+
+recordrtc@5.6.2:
+  version "5.6.2"
+  resolved "https://registry.yarnpkg.com/recordrtc/-/recordrtc-5.6.2.tgz#48fc214b35084973ccce82c6251198b5742bc327"
+  integrity sha512-1QNKKNtl7+KcwD1lyOgP3ZlbiJ1d0HtXnypUy7yq49xEERxk31PHvE9RCciDrulPCY7WJ+oz0R9hpNxgsIurGQ==
 
 recursive-readdir@^2.2.2:
   version "2.2.2"
