@@ -125,12 +125,13 @@ const ModifyPassword = ({ initialValues, onSubmit }: IModifyPasswordProps) => {
       IsBorder={'none'}
       style={{ margin: '1vw' }}
     >
-      <h3>비밀번호 변경</h3>
+      <h3 style={{ marginTop: '2vh' }}>비밀번호 변경</h3>
       <form
         onSubmit={handleSubmit(handleFormSubmit)}
         style={{
           width: '100%',
           height: '18vh',
+          marginTop: '5vh',
         }}
       >
         <ProfileInputField
@@ -161,10 +162,10 @@ const ModifyPassword = ({ initialValues, onSubmit }: IModifyPasswordProps) => {
           IsBorder={'none'}
         >
           <MainBtn
-            widthSize={'5vw'}
-            heightSize={'3.5vh'}
+            widthSize={'4vw'}
+            heightSize={'4vh'}
             paddingSize={'0'}
-            fontSize={'2vmin'}
+            fontSize={'1.8vmin'}
             fontColor={'white'}
             backgroundColor={'blue'}
             style={{ borderRadius: '10px' }}

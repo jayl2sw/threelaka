@@ -210,10 +210,10 @@ export const GraphBox = styled.div`
     /* color: #565656 !important; */
   }
   background: linear-gradient(
-    110.64deg,
-    #4a9fff 5.65%,
-    rgba(88, 172, 240, 0.861458) 45.15%,
-    #b0ff91 84.64%
+    106.56deg,
+    rgba(132, 176, 226, 0.5) 7.3%,
+    rgba(88, 172, 240, 0.43) 77.68%,
+    rgba(174, 243, 147, 0.5) 99.32%
   );
   width: 41vw;
   height: 43vh;
@@ -246,10 +246,10 @@ export const GradientBorderBox = styled.div`
   margin-top: 4vh;
   margin-left: 3.7vw;
   background: linear-gradient(
-    110.64deg,
-    #4a9fff 5.65%,
-    rgba(88, 172, 240, 0.861458) 45.15%,
-    #b0ff91 84.64%
+    106.56deg,
+    rgba(132, 176, 226, 0.5) 7.3%,
+    rgba(88, 172, 240, 0.43) 77.68%,
+    rgba(174, 243, 147, 0.5) 99.32%
   );
   width: 26vw;
   height: 47vh;
