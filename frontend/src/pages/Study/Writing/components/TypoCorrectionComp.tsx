@@ -5,14 +5,8 @@ import {
   BackBlurBox,
   FlexTransparentDiv,
 } from '../../../../styles/Common/CommonDivStyle';
-import { RiMenuFoldFill, RiMenuUnfoldFill } from 'react-icons/ri';
 import { useHorizontalScroll } from '../../../../utils/useSideScroll';
-import {
-  AiOutlineArrowLeft,
-  AiOutlineArrowRight,
-  AiOutlineArrowUp,
-  AiOutlineArrowDown,
-} from 'react-icons/ai';
+import { HiBarsArrowUp, HiBars2 } from 'react-icons/hi2';
 
 // 필요한 props interface
 interface ITypoCorretionProps {
@@ -104,25 +98,28 @@ const TypoCorrectionComp = ({
                   );
                 })}
               </FlexTransparentDiv>
+              <div
+                style={{
+                  width: '2vw',
+                  height: '5vh',
+                  // border: '3px solid blue',
+                  position: 'absolute',
+                  zIndex: 5,
+                  top: '32.5vh',
+                  right: '0vw',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                }}
+                onClick={() => setFoldLayoutMode(1)}
+              >
+                <HiBars2
+                  style={{ transform: 'rotate(90deg)' }}
+                  size={30}
+                ></HiBars2>
+              </div>
             </MainPaleBox>
-            <div
-              style={{
-                width: '2vw',
-                height: '5vh',
-                // border: '3px solid blue',
-                position: 'absolute',
-                zIndex: 5,
-                top: '53.4vh',
-                left: '37.5vw',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                cursor: 'pointer',
-              }}
-              onClick={() => setFoldLayoutMode(1)}
-            >
-              <AiOutlineArrowLeft size={30}>ddd</AiOutlineArrowLeft>
-            </div>
           </>
         ) : (
           <MainPaleBox
@@ -146,7 +143,7 @@ const TypoCorrectionComp = ({
                 // border: '3px solid blue',
                 position: 'absolute',
                 top: '53.4vh',
-                left: '12vw',
+                left: '10vw',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -154,7 +151,10 @@ const TypoCorrectionComp = ({
               }}
               onClick={() => setFoldLayoutMode(0)}
             >
-              <AiOutlineArrowRight size={30}></AiOutlineArrowRight>
+              <HiBars2
+                style={{ transform: 'rotate(90deg)' }}
+                size={30}
+              ></HiBars2>
             </div>
             {/* <p>{spellCheckResult}</p> */}
           </MainPaleBox>
@@ -279,7 +279,10 @@ const TypoCorrectionComp = ({
             }}
             onClick={() => setFoldLayoutMode(1)}
           >
-            <AiOutlineArrowUp size={30}></AiOutlineArrowUp>
+            <HiBars2
+              style={{ transform: 'rotate(180deg)' }}
+              size={30}
+            ></HiBars2>
           </div>
         </MainPaleBox>
       ) : (
@@ -303,7 +306,7 @@ const TypoCorrectionComp = ({
               height: '66vh',
               // border: '3px solid blue',
               position: 'absolute',
-              top: '-12.5vh',
+              top: '-12vh',
               right: '50vw',
               display: 'flex',
               justifyContent: 'center',
@@ -312,7 +315,10 @@ const TypoCorrectionComp = ({
             }}
             onClick={() => setFoldLayoutMode(0)}
           >
-            <AiOutlineArrowDown size={30}></AiOutlineArrowDown>
+            <HiBars2
+              style={{ transform: 'rotate(180deg)' }}
+              size={30}
+            ></HiBars2>
           </div>
           {/* <p>{spellCheckResult}</p> */}
         </MainPaleBox>

@@ -372,7 +372,7 @@ IScriptCompProps) => {
               }
         }
       >
-        <div
+        {/* <div
           style={{
             width: '8vw',
             height: '5vw',
@@ -383,11 +383,30 @@ IScriptCompProps) => {
           }}
         >
           <p>{isAutoScroll ? 'AUTO' : 'MANUAL'}</p>
-        </div>
+        </div> */}
         <AutoScrollBtn
           onClick={() => setIsAutoScroll(!isAutoScroll)}
           className={isAutoScroll ? 'auto-scroll' : 'manual-scroll'}
-        ></AutoScrollBtn>
+          style={{ marginLeft: '6vw' }}
+        >
+          <FlexTransparentDiv
+            widthSize={'2vw'}
+            heightSize={'3vh'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            paddingSize={'0'}
+            flexDirection={'row'}
+            IsBorder={'none'}
+            style={{
+              position: 'absolute',
+              fontSize: '2vmin',
+              marginLeft: '1.9vw',
+              color: 'white',
+            }}
+          >
+            {isAutoScroll ? 'ON' : 'OFF'}
+          </FlexTransparentDiv>
+        </AutoScrollBtn>
       </FlexTransparentDiv>
     </>
   );

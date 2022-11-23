@@ -75,7 +75,7 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
     <ModalBackdrop>
       <MainBox
         widthSize={'30vw'}
-        heightSize={'55vh'}
+        heightSize={'60vh'}
         paddingSize={'4vh 2vw'}
         fontColor={'black'}
         fontSize={'1.5vmin'}
@@ -113,14 +113,28 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
           IsBorder={'none'}
         >
           <div style={{ textAlign: 'start', fontSize: '1.7vmin' }}>
-            <h2>Threelaka가 당신을 위해,</h2>
-            <h2>관심 태그 기반으로 공부 영상을 추천해드려요</h2>
+            {/* <h2>Threelaka가 당신을 위해,</h2> */}
+            <h2 style={{ fontSize: '4vmin' }}>관심 태그를 설정하세요</h2>
           </div>
+          <p
+            style={{
+              fontSize: '1.8vmin',
+              marginLeft: '17vw',
+              marginBottom: '-2vh',
+            }}
+          >
+            3개 선택 가능
+          </p>
 
           <form onSubmit={(e) => handleSubmit(e)}>
             <FlexTransparentDiv
+
+              // widthSize={'22vw'}
+              // heightSize={'25vh'}
+
               widthSize={'28vw'}
               heightSize={'19vh'}
+
               paddingSize={'0'}
               flexDirection={'row'}
               justifyContent={'center'}
@@ -154,7 +168,6 @@ const UpdateTagModal = ({ isTagOpen, setIsTagOpen }: IUpdateTagModalProps) => {
                 </Label>
               ))}
             </FlexTransparentDiv>
-            <p style={{ textAlign: 'end' }}>3개 선택 가능</p>
 
             {selectedItem.length === 3 ? (
               <MainBtn

@@ -213,11 +213,15 @@ const VideoModal = ({
                 justifyContent={'center'}
                 alignItems={'center'}
                 IsBorder={'none'}
-                style={{ marginBottom: '3vh' }}
+                style={{
+                  marginBottom:
+                    videoData.learning_record === null ? '0vh' : '3vh',
+                  marginTop: videoData.learning_record === null ? '8vh' : '0vh',
+                }}
               >
                 <MainBtn
                   widthSize={'12vw'}
-                  heightSize={'10vh'}
+                  heightSize={'8vh'}
                   paddingSize={'0'}
                   fontSize={'2.5vmin'}
                   fontColor={'white'}
@@ -414,7 +418,7 @@ const VideoModal = ({
                 videoData.learning_record && (
                   <MainBtn
                     widthSize={'12vw'}
-                    heightSize={'10vh'}
+                    heightSize={'8vh'}
                     paddingSize={'0'}
                     fontSize={'2.5vmin'}
                     fontColor={'white'}

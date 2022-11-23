@@ -4,9 +4,10 @@ import ModifyUserInfo from './ModifyUserInfo';
 const UpdateUserInfo = () => {
   return (
     <div>
+      {/* update user Info */}
       <MainBox
-        widthSize={'33.8vw'}
-        heightSize={'81.5vh'}
+        widthSize={'30vw'}
+        heightSize={'40vh'}
         paddingSize={'2vh 2vw'}
         fontColor={'black'}
         fontSize={'2vmin'}
@@ -14,6 +15,7 @@ const UpdateUserInfo = () => {
           display: 'flex',
           justifyContent: 'center',
           boxShadow: 'none',
+          margin: '1vh 1vw',
         }}
       >
         <ModifyUserInfo></ModifyUserInfo>

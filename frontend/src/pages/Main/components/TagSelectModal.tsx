@@ -158,7 +158,7 @@ const TagSelectModal = ({ setIsModal }: ITagSelectModalProps) => {
           >
             <div style={{ textAlign: 'start', fontSize: '1.7vmin' }}>
               <h2>Threelaka가 당신을 위해,</h2>
-              <h2>관심 태그 기반으로 공부 영상을 추천해드려요</h2>
+              <h2>관심 태그 기반으로 영상을 추천해드려요</h2>
             </div>
 
             <form onSubmit={(e) => handleSubmit(e)}>

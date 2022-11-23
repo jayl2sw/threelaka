@@ -405,6 +405,9 @@ const guildSlice = createSlice({
     getAssignmentProgressFailed(state) {
       state.loading = false;
     },
+    resetAssignmentProgressLst(state) {
+      state.AssignmentProgressLst = [];
+    },
   },
 });
 // actions 만들어줘서 saga에서 import 해서 씀

@@ -31,24 +31,6 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // const moveToNext = (
-  //   e: React.MouseEvent<HTMLSpanElement>,
-  //   nextStep: string
-  // ) => {
-  //   // 1. 스테이지 업데이트 액션 dispatch
-
-  //   const stageInfo = {
-  //     learningRecordId: pageParams.learningRecordId,
-  //     stage: nextStep,
-  //   };
-  //   dispatch(studyActions.UpdateStudyStageStart(stageInfo));
-  //   // 2. 라이팅 페이지로 이동
-  //   navigate(
-  //     `/study/${nextStep.toLocaleLowerCase()}/${
-  //       pageParams.learningRecordId
-  //     }/${nextStep}/${pageParams.videoId}`
-  //   );
-  // };
   const goToHome = () => {
     dispatch(studyActions.resetStudystate());
     navigate('/');
