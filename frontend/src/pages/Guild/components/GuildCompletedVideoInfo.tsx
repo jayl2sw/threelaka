@@ -27,14 +27,22 @@ const GuildCompletedVideoInfo = ({
 }: IGuildCompletedVideoProps) => {
   const dispatch = useAppDispatch();
   const [pageNum, setPageNum] = useState<number>(1);
-  const [memberPageNum, setMemberPageNum] = useState<number>(1);
   const totalPageNum = Math.ceil(completeTaskLst.length / 4);
 
   const [selectedIdx, setSelectedIdx] = useState<number>(-1);
+  const [selectedEssayIdx, setSelectedEssayIdx] = useState<number>(-1);
   const assignmentProgressLst = useAppSelector(
     (state) => state.guild.AssignmentProgressLst
   );
-  const totalMemberPageNum = Math.ceil(assignmentProgressLst.length / 5);
+  const [isEssayMode, setIsEssayMode] = useState<number>(0);
+  // useEffect
+  useEffect(() => {
+    if (isEssayMode === 1) {
+      setTimeout(() => {
+        setIsEssayMode(2); // display none
+      }, 1100);
+    }
+  }, [isEssayMode]);
   // 선택할 때 마다 해당 과제 정보 받아오기
   useEffect(() => {
     if (selectedIdx !== -1) {
@@ -45,6 +53,10 @@ const GuildCompletedVideoInfo = ({
       );
     }
   }, [selectedIdx]);
+
+  const resetAssignmentProgressHandler = () => {
+    dispatch(guildActions.resetAssignmentProgressLst());
+  };
 
   return (
     <FlexTransparentDiv
@@ -75,7 +87,10 @@ const GuildCompletedVideoInfo = ({
           fontColor={'white'}
           backgroundColor={'black'}
           style={{ position: 'absolute', right: '2vw' }}
-          onClick={() => setMode(1)}
+          onClick={() => {
+            resetAssignmentProgressHandler();
+            setMode(1);
+          }}
         >
           뒤로가기
         </MainBtn>
@@ -139,7 +154,11 @@ const GuildCompletedVideoInfo = ({
                       alignItems: 'center',
                       cursor: 'pointer',
                     }}
-                    onClick={() => setSelectedIdx(4 * (pageNum - 1) + idx)}
+                    onClick={() => {
+                      setSelectedIdx(4 * (pageNum - 1) + idx);
+                      setSelectedEssayIdx(-1);
+                      setIsEssayMode(0);
+                    }}
                   >
                     <FlexTransparentDiv
                       widthSize={'6vw'}
@@ -225,7 +244,7 @@ const GuildCompletedVideoInfo = ({
             )}
           </FlexTransparentDiv>
         </FlexTransparentDiv>
-        <FlexTransparentDiv
+        <FlexFadeInOutDiv
           widthSize={'35vw'}
           heightSize={'60vh'}
           paddingSize={'2.5vh 1vw'}
@@ -233,22 +252,73 @@ const GuildCompletedVideoInfo = ({
           justifyContent={'start'}
           alignItems={'center'}
           IsBorder={'is'}
-          style={{ border: '5px solid green' }}
+          className={
+            isEssayMode === 2
+              ? 'hidden'
+              : isEssayMode === 1
+              ? 'disappear'
+              : 'appear'
+          }
         >
           <FlexTransparentDiv
             widthSize={'32vw'}
             heightSize={'15vh'}
             paddingSize={'0'}
-            flexDirection={'column'}
+            flexDirection={'row'}
             justifyContent={'start'}
             alignItems={'center'}
-            IsBorder={'is'}
+            IsBorder={'none'}
             style={{
-              border: '2px solid blue',
               marginBottom: '5vh',
             }}
           >
-            {selectedIdx !== -1 ? completeTaskLst[selectedIdx].videoTitle : ''}
+            {selectedIdx !== -1 ? (
+              <>
+                <FlexTransparentDiv
+                  widthSize={'10vw'}
+                  heightSize={'14vh'}
+                  paddingSize={'0'}
+                  flexDirection={'column'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  IsBorder={'none'}
+                >
+                  <img
+                    src={`https://img.youtube.com/vi/${completeTaskLst[selectedIdx].videoId}/0.jpg`}
+                    style={{
+                      width: '10vw',
+                      height: '13vh',
+                      borderRadius: '5px',
+                    }}
+                  />
+                </FlexTransparentDiv>
+                <FlexTransparentDiv
+                  widthSize={'22vw'}
+                  heightSize={'14vh'}
+                  paddingSize={'1vh 0 0 1vw'}
+                  flexDirection={'column'}
+                  justifyContent={'start'}
+                  alignItems={'start'}
+                  IsBorder={'none'}
+                  style={{
+                    fontSize: '2vmin',
+                  }}
+                >
+                  <div style={{ height: '5vh', fontWeight: 'bold' }}>
+                    {completeTaskLst[selectedIdx].videoTitle}
+                  </div>
+                  <div style={{ height: '2vh' }}>과제진행날짜</div>
+                  <div style={{ height: '6vh' }}>
+                    {completeTaskLst[selectedIdx].startDate} ~{' '}
+                    {completeTaskLst[selectedIdx].endDate}
+                  </div>
+                </FlexTransparentDiv>
+              </>
+            ) : (
+              ''
+            )}
+
+            {/* {selectedIdx !== -1 ? completeTaskLst[selectedIdx].videoTitle : ''} */}
           </FlexTransparentDiv>
           <FlexTransparentDiv
             widthSize={'32vw'}
@@ -257,115 +327,149 @@ const GuildCompletedVideoInfo = ({
             flexDirection={'column'}
             justifyContent={'start'}
             alignItems={'center'}
-            IsBorder={'is'}
+            IsBorder={'none'}
             style={{
-              border: '2px solid pink',
               position: 'relative',
+              overflowY: 'auto',
             }}
           >
-            {memberPageNum === 1 ? (
-              ''
-            ) : (
-              <VscTriangleLeft
-                size={30}
-                style={{ position: 'absolute', left: '0', top: '14.5vh' }}
-                onClick={() =>
-                  setMemberPageNum((memberPageNum) => memberPageNum - 1)
-                }
-              ></VscTriangleLeft>
-            )}
-
-            {memberPageNum === totalMemberPageNum ? (
-              ''
-            ) : (
-              <VscTriangleRight
-                size={30}
-                style={{ position: 'absolute', right: '0', top: '14.5vh' }}
-                onClick={() =>
-                  setMemberPageNum((memberPageNum) => memberPageNum + 1)
-                }
-              ></VscTriangleRight>
-            )}
-
-            {assignmentProgressLst
-              .slice(5 * (memberPageNum - 1), 5 * memberPageNum)
-              .map((item, idx) => {
-                return (
-                  <MainBox
-                    widthSize={'28vw'}
+            {assignmentProgressLst.map((item, idx) => {
+              return (
+                <MainBox
+                  widthSize={'28vw'}
+                  heightSize={'10vh'}
+                  paddingSize={'0'}
+                  fontColor={'black'}
+                  fontSize={'1vmin'}
+                  style={{
+                    minHeight: '5vh',
+                    border: '1px solid black',
+                    marginBottom: '2vh',
+                    display: 'flex',
+                  }}
+                >
+                  <FlexTransparentDiv
+                    key={`member-progress-${idx}`}
+                    widthSize={'5vw'}
                     heightSize={'5vh'}
                     paddingSize={'0'}
-                    fontColor={'black'}
-                    fontSize={'1vmin'}
+                    flexDirection={'row'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    IsBorder={'none'}
                     style={{
-                      minHeight: '5vh',
-                      border: '1px solid black',
-                      marginBottom: '2vh',
-                      display: 'flex',
+                      borderRadius: '10px',
                     }}
                   >
-                    <FlexTransparentDiv
-                      key={`member-progress-${idx}`}
-                      widthSize={'5vw'}
-                      heightSize={'5vh'}
-                      paddingSize={'0'}
-                      flexDirection={'row'}
-                      justifyContent={'center'}
-                      alignItems={'center'}
-                      IsBorder={'none'}
+                    <img
+                      src={`https://threelaka.s3.ap-northeast-2.amazonaws.com/profile${item.profile}.png`}
                       style={{
-                        background: `url('https://threelaka.s3.ap-northeast-2.amazonaws.com/profile${item.profile}.png') center no-repeat`,
-                        borderRadius: '10px',
-                        backgroundSize: '5vmin 5vmin',
+                        width: '5vmin',
+                        height: '5vmin',
                       }}
-                    ></FlexTransparentDiv>
-                    <FlexTransparentDiv
-                      widthSize={'7vw'}
-                      heightSize={'5vh'}
-                      paddingSize={'0'}
-                      flexDirection={'row'}
-                      justifyContent={'center'}
-                      alignItems={'center'}
-                      IsBorder={'none'}
-                      style={{ fontSize: '1.7vmin' }}
-                    >
-                      {item.nickname}
-                    </FlexTransparentDiv>
-                    <FlexTransparentDiv
-                      widthSize={'5vw'}
-                      heightSize={'5vh'}
-                      paddingSize={'0'}
-                      flexDirection={'row'}
-                      justifyContent={'center'}
-                      alignItems={'center'}
-                      IsBorder={'none'}
-                      style={{ marginRight: '4vw', fontSize: '2vmin' }}
-                    >
-                      {item.stage === 0
-                        ? 'R/L'
-                        : item.stage === 1
-                        ? 'Writing'
-                        : item.stage === 2
-                        ? 'Speaking'
-                        : 'Completed'}
-                    </FlexTransparentDiv>
-                    <FlexTransparentDiv
-                      widthSize={'7vw'}
-                      heightSize={'5vh'}
-                      paddingSize={'0'}
-                      flexDirection={'row'}
-                      justifyContent={'center'}
-                      alignItems={'center'}
-                      IsBorder={'none'}
-                      style={{ cursor: 'pointer', fontSize: '2vmin' }}
-                    >
-                      {item.stage > 0 ? '에세이' : ''}
-                    </FlexTransparentDiv>
-                  </MainBox>
-                );
-              })}
+                    />
+                  </FlexTransparentDiv>
+                  <FlexTransparentDiv
+                    widthSize={'7vw'}
+                    heightSize={'5vh'}
+                    paddingSize={'0'}
+                    flexDirection={'row'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    IsBorder={'none'}
+                    style={{ fontSize: '1.7vmin' }}
+                  >
+                    {item.nickname}
+                  </FlexTransparentDiv>
+                  <FlexTransparentDiv
+                    widthSize={'5vw'}
+                    heightSize={'5vh'}
+                    paddingSize={'0'}
+                    flexDirection={'row'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    IsBorder={'none'}
+                    style={{ marginRight: '4vw', fontSize: '2vmin' }}
+                  >
+                    {item.stage === 0
+                      ? 'R/L'
+                      : item.stage === 1
+                      ? 'Writing'
+                      : item.stage === 2
+                      ? 'Speaking'
+                      : 'Completed'}
+                  </FlexTransparentDiv>
+                  <FlexTransparentDiv
+                    widthSize={'7vw'}
+                    heightSize={'5vh'}
+                    paddingSize={'0'}
+                    flexDirection={'row'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    IsBorder={'none'}
+                    style={{ cursor: 'pointer', fontSize: '2vmin' }}
+                    onClick={() => {
+                      setSelectedEssayIdx(idx);
+                      setIsEssayMode(1);
+                    }}
+                  >
+                    {item.stage > 0 ? '에세이' : ''}
+                  </FlexTransparentDiv>
+                </MainBox>
+              );
+            })}
           </FlexTransparentDiv>
-        </FlexTransparentDiv>
+        </FlexFadeInOutDiv>
+
+        <FlexFadeInOutDiv
+          widthSize={'35vw'}
+          heightSize={'60vh'}
+          paddingSize={'2.5vh 1vw'}
+          flexDirection={'column'}
+          justifyContent={'start'}
+          alignItems={'center'}
+          IsBorder={'is'}
+          className={
+            isEssayMode === 2
+              ? 'appear'
+              : isEssayMode === 1
+              ? 'disappear'
+              : 'hidden'
+          }
+        >
+          <FlexTransparentDiv
+            widthSize={'35vw'}
+            heightSize={'60vh'}
+            paddingSize={'1vh 1vw'}
+            flexDirection={'column'}
+            justifyContent={'start'}
+            alignItems={'start'}
+            IsBorder={'none'}
+            style={{
+              cursor: 'pointer',
+              fontSize: '3vmin',
+              border: '2px dashed red',
+              overflowY: 'auto',
+            }}
+          >
+            <MainBtn
+              widthSize={'10vw'}
+              heightSize={'5vh'}
+              paddingSize={'0'}
+              fontSize={'2vmin'}
+              fontColor={'white'}
+              backgroundColor={'black'}
+              onClick={() => setIsEssayMode(0)}
+              style={{ marginLeft: '22vw' }}
+            >
+              돌아가기
+            </MainBtn>
+
+            {selectedEssayIdx !== -1
+              ? assignmentProgressLst[selectedEssayIdx].essay
+              : ''}
+          </FlexTransparentDiv>
+        </FlexFadeInOutDiv>
       </FlexTransparentDiv>
     </FlexTransparentDiv>
   );
