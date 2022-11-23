@@ -148,7 +148,7 @@ const ModifyProfile = () => {
                 }}
               >
                 {myGuildInfo.guildName === ''
-                  ? '가입한 길드가 없습니다 :('
+                  ? '길드가 없어요 :('
                   : myGuildInfo.guildName}
               </div>
             </div>

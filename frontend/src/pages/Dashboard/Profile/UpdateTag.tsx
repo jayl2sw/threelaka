@@ -88,7 +88,7 @@ const UpdateTag = () => {
           <h2># 나의 관심 태그</h2>
           <FlexTransparentDiv
             widthSize={'29vw'}
-            heightSize={'17vh'}
+            heightSize={'15vh'}
             paddingSize={'0'}
             flexDirection={'row'}
             justifyContent={'center'}
@@ -101,7 +101,7 @@ const UpdateTag = () => {
                   return (
                     <FlexTransparentDiv
                       widthSize={'8vw'}
-                      heightSize={'8vw'}
+                      heightSize={'6vw'}
                       paddingSize={'0'}
                       flexDirection={'row'}
                       justifyContent={'center'}
@@ -115,7 +115,7 @@ const UpdateTag = () => {
                     >
                       <FlexTransparentDiv
                         widthSize={'8vw'}
-                        heightSize={'8vw'}
+                        heightSize={'6vw'}
                         paddingSize={'0'}
                         flexDirection={'row'}
                         justifyContent={'center'}
