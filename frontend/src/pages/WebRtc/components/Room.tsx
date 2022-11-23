@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import VideoContainer from './VideoContainer';
 import { getLocalPreviewAndInitRoomConnection, exitRoom } from '../WebRtcpage';
 import ChatSection from './ChatSection';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import { writingActions } from '../../../features/writing/writing-slice';
 
 type RoomProps = {
   messages: any;
@@ -21,6 +23,7 @@ const Room = ({
   learningRecordId,
   onClickRoomModal,
 }: RoomProps) => {
+  const dispatch = useAppDispatch();
   useEffect(() => {
     getLocalPreviewAndInitRoomConnection(
       roomInfo,
@@ -29,16 +32,23 @@ const Room = ({
       videoId,
       learningRecordId
     );
+    dispatch(writingActions.getEssayStart(Number(learningRecordId)));
     return () => {
       exitRoom();
     };
   }, []);
+  const handleGetUserEssay = (learningRecordId: number) => {
+    dispatch(writingActions.getEssayStart(learningRecordId));
+  };
+
+  const myEssay = useAppSelector((state) => state.write.essay);
   return (
     <div>
       <VideoContainer />
       <div>
         <p>{videoId}</p>
         <p>내가 선택한 essay: {learningRecordId}</p>
+        <p>{myEssay}</p>
       </div>
 
       <button
