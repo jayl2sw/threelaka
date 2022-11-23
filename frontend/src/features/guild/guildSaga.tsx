@@ -13,6 +13,7 @@ import {
   MyRequest,
   GuildAssignment,
   CreateGuildForm,
+  AssignmentProgress,
 } from '../../models/guild';
 import {
   getGuildNoticeApi,
@@ -36,6 +37,7 @@ import {
   PostGuildAssignmentApi,
   DeleteGuildAssignmentApi,
   CreateGuildApi,
+  GetAssignmentProgressApi,
 } from '../../services/guildApi';
 import { authActions } from '../auth/authSlice';
 import { guildActions } from './guild-slice';
@@ -240,9 +242,14 @@ function* onGetMyRequestAsync() {
 function* onPostGuildRequestAsync(action: PayloadAction<number>) {
   try {
     yield call(PostGuildRequestApi, action.payload);
+    yield put(guildActions.getMyRequestStart());
     yield put(guildActions.postGuildRequestSuccess());
+    yield delay(1000);
+    yield put(guildActions.resetIsCreateSuccess());
   } catch (error) {
-    console.error();
+    yield put(guildActions.postGuildRequestFailed());
+    yield delay(1000);
+    yield put(guildActions.resetIsCreateSuccess());
   }
 }
 
@@ -280,7 +287,7 @@ function* onDeleteGuildAssignmentAsync(action: PayloadAction<number>) {
 }
 
 // 길드 생성하기
-function* onCreateGuildStartAsync(action: PayloadAction<CreateGuildForm>) {
+function* onCreateGuildStartAsync(action: PayloadAction<any>) {
   try {
     yield call(CreateGuildApi, action.payload);
     yield put(authActions.fetchUser()); // guild ID 다시 가져오기 위해
@@ -289,6 +296,21 @@ function* onCreateGuildStartAsync(action: PayloadAction<CreateGuildForm>) {
     yield put(guildActions.createGuildStartSuccess());
   } catch (error) {
     yield put(guildActions.createGuildStartFailed());
+    console.error();
+  }
+}
+
+// onGetAssignmentProgressAsync
+// 과제별 진행도 에세이 가져오기
+function* onGetAssignmentProgressAsync(action: PayloadAction<number>) {
+  try {
+    const response: AssignmentProgress[] = yield call(
+      GetAssignmentProgressApi,
+      action.payload
+    );
+    yield put(guildActions.getAssignmentProgressSuccess(response));
+  } catch (error) {
+    yield put(guildActions.getAssignmentProgressFailed());
     console.error();
   }
 }
@@ -436,6 +458,14 @@ export function* watchCreateGuildStartAsync() {
   yield takeLatest(guildActions.createGuildStart.type, onCreateGuildStartAsync);
 }
 
+// 과제별 진행도 에세이 가져오기
+export function* watchGetAssignmentProgressAsync() {
+  yield takeLatest(
+    guildActions.getAssignmentProgress.type,
+    onGetAssignmentProgressAsync
+  );
+}
+
 export const guildSagas = [
   fork(watchGetGuildNoticeAsync),
   fork(watchGetProgressTaskAsync),
@@ -458,4 +488,5 @@ export const guildSagas = [
   fork(watchPostGuildAssignmentAsync),
   fork(watchDeleteGuildAssignmentAsync),
   fork(watchCreateGuildStartAsync),
+  fork(watchGetAssignmentProgressAsync),
 ];

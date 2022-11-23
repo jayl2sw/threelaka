@@ -8,13 +8,14 @@ import { IAlertDropDownProps } from './AlertDropDown';
 export const CardContainer = styled.div`
   display: grid;
   /* grid-template-columns: repeat(3, 7vw); */
-  grid-template-columns: 4.5vw 10.1vw 6vw;
+  grid-template-columns: 4.5vw 11.1vw 6vw;
   height: 10vh;
   align-items: center;
 
   background: #f1f1f1;
 
   border-radius: 2vmin;
+  padding-left: 0.5vw;
 `;
 
 export const CardImgBox = styled.div`
@@ -86,8 +87,9 @@ const Card = ({
                     <div
                       style={{
                         padding: '0.4vw',
-                        fontSize: '1.2vmin',
+                        fontSize: '1.5vmin',
                         textAlign: 'justify',
+                        marginLeft: '1vw',
                       }}
                     >
                       {item.alertState === 'rejected' ? (
@@ -151,8 +153,9 @@ const Card = ({
                     <div
                       style={{
                         padding: '0 0.4vw 0 0.7vw',
-                        fontSize: '1.2vmin',
+                        fontSize: '1.8vmin',
                         textAlign: 'justify',
+                        marginLeft: '0.5vw',
                       }}
                     >
                       {item.alertState === 'newVideo' ? (
@@ -203,14 +206,14 @@ const Card = ({
                       </MainBtn>
                     ) : item.alertState === 'accepted' ? (
                       <Link
-                        to={`/auth/guild/main/${item.guildId}`}
+                        to={`/auth/guild/myGuild/${item.guildId}`}
                         style={{ width: '4vw' }}
                       >
                         <MainBtn
                           widthSize={'4vw'}
                           heightSize={'5vh'}
                           paddingSize={'0.5vw'}
-                          fontSize={'1.5vmin'}
+                          fontSize={'1vmin'}
                           fontColor={'white'}
                           backgroundColor={'blue'}
                           style={{

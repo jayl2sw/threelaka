@@ -6,6 +6,7 @@ import {
   GuildBlueArcodianItem,
   GuildCreateContainer,
   GuildCreateInput,
+  GuildCreateTextArea,
 } from '../../styles/Guild/GuildMainStyle';
 import { guildActions } from '../../features/guild/guild-slice';
 import {
@@ -17,9 +18,9 @@ import {
 } from '../../styles/Common/CommonDivStyle';
 import { ToastMessage } from '../../utils/ToastMessage';
 import { useNavigate } from 'react-router-dom';
-import { RiBearSmileLine } from 'react-icons/ri';
 import { FaCrown } from 'react-icons/fa';
 import { FcIdea } from 'react-icons/fc';
+import { BiImageAdd } from 'react-icons/bi';
 
 const GuildMain = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +35,10 @@ const GuildMain = () => {
   const isCreateSuccess = useAppSelector(
     (state) => state.guild.isCreateSuccess
   );
+  const myRequestLst = useAppSelector((state) => state.guild.MyRequestLst);
+  const isRequestSuccess = useAppSelector(
+    (state) => state.guild.isRequestSuccess
+  );
   // useState
   const [guildCreateToggle, setGuildCreateToggle] = useState<boolean>(false);
   const [guildCreateName, setGuildCreateName] = useState<string>('');
@@ -41,12 +46,22 @@ const GuildMain = () => {
     useState<string>('');
   const [pickedSortStandard, setPickedSortStandard] =
     useState<string>('activity');
+  const [myRequestNames, setMyRequestNames] = useState<string[]>([]);
+  const [files, setFiles] = useState<any>('');
   // useEffect
   useEffect(() => {
     dispatch(guildActions.getTopThreeGuildStart());
     dispatch(guildActions.getSortedGuildStart('activity'));
     dispatch(guildActions.getSearchGuildStart());
+    dispatch(guildActions.getMyRequestStart());
   }, []);
+  useEffect(() => {
+    const temp = myRequestLst.map((item, idx) => {
+      return item.guildName;
+    });
+    setMyRequestNames(temp);
+  }, [myRequestLst]);
+  // 요청보낸 길드 목록 name
 
   // 길드 생성 alert
   useEffect(() => {
@@ -71,7 +86,11 @@ const GuildMain = () => {
     dispatch(guildActions.postGuildRequestStart(guildId));
   };
   // guild create form value update
-  const onChangeGuildCreateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeGuildCreateValue = (
+    e:
+      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLInputElement>
+  ) => {
     const inputType = e.target.id;
     if (inputType === 'createName') {
       setGuildCreateName(e.target.value);
@@ -79,13 +98,33 @@ const GuildMain = () => {
       setGuildCreateDescription(e.target.value);
     }
   };
-  // guild Create dispatch
+  // guild Create dispatch + profile img
   const createGuild = () => {
-    const payload = {
-      description: guildCreateDescription,
-      name: guildCreateName,
-    };
-    dispatch(guildActions.createGuildStart(payload));
+    console.log(files);
+    const formdata = new FormData();
+    formdata.append('file', files[0]);
+    formdata.append('title', guildCreateName);
+    formdata.append('description', guildCreateDescription);
+
+    // const value = {
+    //   description: guildCreateDescription,
+    //   name: guildCreateName,
+    // };
+
+    // const blob = new Blob([JSON.stringify(value)], {
+    //   type: 'application/json',
+    // });
+
+    for (let value of formdata.values() as any) {
+      console.log(value);
+    }
+    dispatch(guildActions.createGuildStart(formdata));
+  };
+  // profile img upload 관련
+  const onLoadFile = (e: any) => {
+    const file = e.target.files;
+    console.log(file);
+    setFiles(file);
   };
 
   return (
@@ -112,6 +151,30 @@ const GuildMain = () => {
           left={'40vw'}
         >
           <ToastMessage text={'길드 생성에 실패했어요'}></ToastMessage>
+        </ToastContainer>
+      )}
+      {isRequestSuccess && (
+        <ToastContainer
+          widthSize={'30vw'}
+          heightSize={'20vh'}
+          paddingSize={'2vh 1vw'}
+          fontColor={'black'}
+          top={'40vh'}
+          left={'40vw'}
+        >
+          <ToastMessage text={'가입 신청 성공!'}></ToastMessage>
+        </ToastContainer>
+      )}
+      {isRequestSuccess === false && (
+        <ToastContainer
+          widthSize={'30vw'}
+          heightSize={'20vh'}
+          paddingSize={'2vh 1vw'}
+          fontColor={'black'}
+          top={'40vh'}
+          left={'40vw'}
+        >
+          <ToastMessage text={'가입 신청에 실패했어요'}></ToastMessage>
         </ToastContainer>
       )}
       <div>
@@ -211,7 +274,7 @@ const GuildMain = () => {
                       }}
                     >
                       {topThreeGuild[0] &&
-                        topThreeGuild[0].guildName.substring(6, 0)}
+                        topThreeGuild[0].guildname.substring(6, 0)}
                     </div>
                   </GradientCircleDiv>
                   <GradientCircleDiv
@@ -251,7 +314,7 @@ const GuildMain = () => {
                       }}
                     >
                       {topThreeGuild[1] &&
-                        topThreeGuild[1].guildName.substring(6, 0)}
+                        topThreeGuild[1].guildname.substring(6, 0)}
                     </div>
                   </GradientCircleDiv>
                   <GradientCircleDiv
@@ -291,7 +354,7 @@ const GuildMain = () => {
                       }}
                     >
                       {topThreeGuild[2] &&
-                        topThreeGuild[2].guildName.substring(6, 0)}
+                        topThreeGuild[2].guildname.substring(6, 0)}
                     </div>
                   </GradientCircleDiv>
                 </>
@@ -324,7 +387,31 @@ const GuildMain = () => {
                       justifyContent={'start'}
                       alignItems={'start'}
                       IsBorder={'none'}
+                      style={{ position: 'relative' }}
                     >
+                      <form className="upload_input">
+                        <label
+                          htmlFor="input-file"
+                          style={{
+                            position: 'absolute',
+                            cursor: 'pointer',
+                            top: '-0.5vh',
+                            left: '4vw',
+                            backgroundColor: 'skyblue',
+                            borderRadius: '10px',
+                          }}
+                        >
+                          <BiImageAdd size={30}></BiImageAdd>
+                        </label>
+                        <input
+                          type="file"
+                          id="input-file"
+                          accept="img/*"
+                          onChange={onLoadFile}
+                          style={{ display: 'none' }}
+                        />
+                      </form>
+
                       <img
                         src="https://threelaka.s3.ap-northeast-2.amazonaws.com/white.png"
                         alt="blue bear logo"
@@ -336,50 +423,31 @@ const GuildMain = () => {
                         }}
                       />
                       <FlexTransparentDiv
-                        widthSize={'30vw'}
+                        widthSize={'10vw'}
                         heightSize={'10vh'}
                         paddingSize={'0'}
                         flexDirection={'column'}
                         justifyContent={'start'}
                         alignItems={'start'}
                         IsBorder={'none'}
+                        style={{ marginLeft: '3vh' }}
                       >
-                        <FlexTransparentDiv
-                          widthSize={'23vw'}
-                          heightSize={'4vh'}
-                          paddingSize={'0'}
-                          flexDirection={'column'}
-                          justifyContent={'center'}
-                          alignItems={'start'}
-                          IsBorder={'none'}
+                        <div
                           style={{
-                            fontSize: '2.5vmin',
+                            height: '4vh',
+                            fontSize: '2vmin',
                             color: '#4a9fff',
                             fontWeight: 'bold',
                           }}
                         >
-                          {guildCreateName}
-                        </FlexTransparentDiv>
-
-                        <FlexTransparentDiv
-                          widthSize={'23vw'}
-                          heightSize={'6vh'}
-                          paddingSize={'0 1vw'}
-                          flexDirection={'column'}
-                          justifyContent={'start'}
-                          alignItems={'start'}
-                          IsBorder={'none'}
-                          style={{
-                            fontSize:
-                              guildCreateDescription.length > 40
-                                ? '1.3vmin'
-                                : '2vmin',
-                            color: '#111111',
-                            wordBreak: 'break-all',
-                          }}
-                        >
-                          {guildCreateDescription}
-                        </FlexTransparentDiv>
+                          길드이름(6자 이하)
+                        </div>
+                        <GuildCreateInput
+                          value={guildCreateName}
+                          onChange={(e) => onChangeGuildCreateValue(e)}
+                          id="createName"
+                          maxLength={6}
+                        ></GuildCreateInput>
                       </FlexTransparentDiv>
                     </FlexTransparentDiv>
 
@@ -388,7 +456,7 @@ const GuildMain = () => {
                       heightSize={'20vh'}
                       paddingSize={'0'}
                       flexDirection={'column'}
-                      justifyContent={'center'}
+                      justifyContent={'start'}
                       alignItems={'start'}
                       IsBorder={'none'}
                     >
@@ -398,33 +466,18 @@ const GuildMain = () => {
                           fontSize: '2vmin',
                           color: '#4a9fff',
                           fontWeight: 'bold',
-                        }}
-                      >
-                        길드이름(6자 이하로 작성해주세요)
-                      </div>
-                      <GuildCreateInput
-                        value={guildCreateName}
-                        onChange={(e) => onChangeGuildCreateValue(e)}
-                        id="createName"
-                        maxLength={6}
-                      ></GuildCreateInput>
-                      <div
-                        style={{
-                          height: '3vh',
-                          fontSize: '2vmin',
-                          color: '#4a9fff',
-                          fontWeight: 'bold',
                           marginTop: '1vh',
+                          marginBottom: '1vh',
                         }}
                       >
                         길드설명
                       </div>
-                      <GuildCreateInput
+                      <GuildCreateTextArea
                         value={guildCreateDescription}
                         onChange={(e) => onChangeGuildCreateValue(e)}
                         id="createDescription"
                         maxLength={100}
-                      ></GuildCreateInput>
+                      ></GuildCreateTextArea>
                     </FlexTransparentDiv>
 
                     <FlexTransparentDiv
@@ -435,6 +488,7 @@ const GuildMain = () => {
                       justifyContent={'center'}
                       alignItems={'center'}
                       IsBorder={'none'}
+                      style={{ marginTop: '1.5vh' }}
                     >
                       <MainBtn
                         widthSize={'10vw'}
@@ -544,9 +598,7 @@ const GuildMain = () => {
                         paddingSize={'0'}
                         fontColor={'black'}
                         fontSize={'2vmin'}
-                        backgroundUrl={
-                          topThreeGuild[2] && topThreeGuild[2].profile
-                        }
+                        backgroundUrl={myGuildInfo && myGuildInfo.profile}
                         style={{ position: 'relative', marginRight: '1vw' }}
                       ></GradientCircleDiv>
                     </FlexTransparentDiv>
@@ -672,7 +724,11 @@ const GuildMain = () => {
                           >
                             소개
                           </BackBlurBox>
-                          <span style={{ fontSize: '2.5vmin' }}>
+                          <span
+                            style={{
+                              fontSize: '2.5vmin',
+                            }}
+                          >
                             {myGuildInfo.description}
                           </span>
                         </FlexTransparentDiv>
@@ -867,11 +923,28 @@ const GuildMain = () => {
                       style={{
                         position: 'relative',
                         boxShadow: 'none',
-                        width: '100%',
                       }}
                     >
                       {guildId !== null ? (
                         ''
+                      ) : myRequestNames.includes(guild.guildName) ? (
+                        <div
+                          style={{
+                            position: 'absolute',
+                            right: '1vw',
+                            width: '6vw',
+                            height: '5vh',
+                            fontSize: '2vmin',
+                            color: 'white',
+                            backgroundColor: 'black',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderRadius: '2vmin',
+                          }}
+                        >
+                          가입신청중
+                        </div>
                       ) : (
                         <MainBtn
                           widthSize={'6vw'}
@@ -968,7 +1041,17 @@ const GuildMain = () => {
                           >
                             소개
                           </BackBlurBox>
-                          {guild.description}
+                          <div
+                            style={{
+                              width: '16vw',
+                              fontSize:
+                                guild.description.length > 20
+                                  ? '1.5vmin'
+                                  : '2vmin',
+                            }}
+                          >
+                            {guild.description}
+                          </div>
                         </FlexTransparentDiv>
                         <FlexTransparentDiv
                           widthSize={'22vw'}

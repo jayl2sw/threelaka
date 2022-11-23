@@ -9,10 +9,10 @@ const GraphContainer = () => {
   const [mode, setMode] = useState(0);
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      {/* <div style={{ display: 'flex', alignItems: 'center' }}>
         <RiBearSmileLine size={26} />
         <h3 style={{ margin: '0' }}>&nbsp;나의 주간 공부 시간</h3>
-      </div>
+      </div> */}
       {mode === 0 ? (
         <ParentSize>
           {({ width, height }) => {

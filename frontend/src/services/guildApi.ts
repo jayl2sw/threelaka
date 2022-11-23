@@ -157,9 +157,26 @@ export const DeleteGuildAssignmentApi = async (
 };
 
 // 길드 생성하기
-export const CreateGuildApi = async (
-  guildCreateData: CreateGuildForm
+export const CreateGuildApi = async (guildCreateData: any): Promise<any> => {
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+  const res = await customAxios.post(
+    `/api/v1/user/guild/`,
+    guildCreateData,
+    config
+  );
+  return res.data;
+};
+
+// 과제 진행도 에세이 가져오기
+export const GetAssignmentProgressApi = async (
+  assignmentId: number
 ): Promise<any> => {
-  const res = await customAxios.post(`/api/v1/user/guild`, guildCreateData);
+  const res = await customAxios.get(
+    `/api/v1/user/guild/${assignmentId}/progress`
+  );
   return res.data;
 };

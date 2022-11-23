@@ -13,6 +13,7 @@ interface ICustomSliderProps {
   stage: string;
   learningRecordId: number;
   videoId: string;
+  date: string;
 }
 
 interface TagThumbnailProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
@@ -25,7 +26,7 @@ const TagThumbnail = styled.div<TagThumbnailProps>`
   object-fit: contain;
   background: url(${(props) => props.url}) center no-repeat;
   background-size: 100vw 100vh;
-  opacity: 0.5;
+  opacity: 0.3;
 `;
 
 const ElipsisDiv = styled.div`
@@ -41,7 +42,7 @@ const ElipsisDiv = styled.div`
   overflow: hidden;
   word-wrap: break-word;
   word-break: keep-all;
-  padding: 0 4vw 0 5vw;
+  padding: 0 4vw;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -56,6 +57,7 @@ const CustomSliderBottomItem = ({
   stage,
   learningRecordId,
   videoId,
+  date,
 }: ICustomSliderProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -106,7 +108,7 @@ const CustomSliderBottomItem = ({
         IsBorder={'none'}
       >
         <FlexTransparentDiv
-          widthSize={'35vw'}
+          widthSize={'45vw'}
           heightSize={'100vh'}
           paddingSize={'0'}
           flexDirection={'column'}
@@ -118,23 +120,26 @@ const CustomSliderBottomItem = ({
               'linear-gradient(90deg, rgba(0, 0, 0, 1), 90%, rgba(0, 0, 0, 0))',
             zIndex: 1,
             minWidth: '35vw',
+            paddingTop: '20vh',
           }}
         >
           <FlexTransparentDiv
             widthSize={'35vw'}
             heightSize={'30vh'}
             paddingSize={'0 4vw'}
-            flexDirection={'row'}
-            justifyContent={'center'}
-            alignItems={'center'}
+            flexDirection={'column'}
+            justifyContent={'end'}
+            alignItems={'start'}
             IsBorder={'none'}
             style={{
-              fontSize: '4vmin',
+              fontSize: '4.5vmin',
               color: 'white',
-              fontFamily: 'pretendardextrabold',
             }}
           >
-            {title}
+            <p style={{ fontSize: '2.5vmin' }}>최근 학습 영상</p>
+            <p style={{ fontFamily: 'pretendardextrabold', marginTop: '0' }}>
+              {title}
+            </p>
           </FlexTransparentDiv>
           <ElipsisDiv>{content}</ElipsisDiv>
           <FlexTransparentDiv
@@ -142,46 +147,45 @@ const CustomSliderBottomItem = ({
             heightSize={'30vh'}
             paddingSize={'0'}
             flexDirection={'row'}
-            justifyContent={'center'}
+            justifyContent={'space-evenly'}
             alignItems={'center'}
             IsBorder={'none'}
           >
-            <GradientRoundBtn
-              widthSize={'10vw'}
-              heightSize={'7vh'}
-              paddingSize={'0 1vw'}
-              fontColor={'white'}
-              fontSize={'1.7vmin'}
-              backgroundColor={'blue'}
-              style={{ marginRight: '2vw' }}
-              onClick={() => handlerPostStartStudy(videoId)}
+            <div
+              style={{
+                color: 'white',
+                textAlign: 'center',
+                lineHeight: '3vmin',
+              }}
             >
-              새로운 학습 시작하기
-            </GradientRoundBtn>
+              {date.slice(0, 4)}년 {date.slice(5, 7)}월 {date.slice(8, 10)}일
+              <br />
+              {stage}
+            </div>
             <GradientRoundBtn
-              widthSize={'10vw'}
-              heightSize={'7vh'}
+              widthSize={'13vw'}
+              heightSize={'6vh'}
               paddingSize={'0 1vw'}
               fontColor={'white'}
-              fontSize={'1.7vmin'}
-              backgroundColor={'blue'}
-              style={{ backgroundColor: 'grey' }}
+              fontSize={'2.3vmin'}
+              backgroundColor={'gradient'}
+              style={{ borderRadius: '2vmin', fontWeight: 'bold' }}
               onClick={() =>
                 handlerResumeStudy(stage, learningRecordId, videoId)
               }
             >
-              기존 학습 이어하기
+              학습 이어하기
             </GradientRoundBtn>
           </FlexTransparentDiv>
         </FlexTransparentDiv>
         <FlexTransparentDiv
-          widthSize={'65vw'}
+          widthSize={'55vw'}
           heightSize={'100vh'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'center'}
           alignItems={'center'}
-          IsBorder={'is'}
+          IsBorder={'none'}
         >
           <TagThumbnail url={sThreeUrl} />
         </FlexTransparentDiv>

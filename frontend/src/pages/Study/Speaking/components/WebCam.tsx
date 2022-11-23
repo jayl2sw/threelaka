@@ -116,7 +116,7 @@ const WebCam = () => {
         ></video>
       </VideoAudioContainer>
       <VideoAudioBtnContainer>
-        <VideoAudioBtn
+        {/* <VideoAudioBtn
           onClick={() => {
             turnScreen();
             setRecordedVideo();
@@ -124,7 +124,7 @@ const WebCam = () => {
           title="화면 전환"
         >
           <MdCameraswitch />
-        </VideoAudioBtn>
+        </VideoAudioBtn> */}
         {recording ? (
           <VideoAudioBtn onClick={handleStopCaptureClick} title="녹화 중지">
             <BsFillStopFill />

@@ -15,6 +15,7 @@ import VideoModal from '../../utils/VideoModal';
 import DailyBoard from '../Dashboard/DailyBoard/DailyBoard';
 import HistoryBoard from '../Dashboard/HistoryBoard/HistoryBoard';
 import Profile from '../Dashboard/Profile/Profile';
+import WebRtcPage from '../WebRtc/WebRtcPage';
 
 const GuildPage = () => {
   const dispatch = useAppDispatch();
@@ -84,6 +85,7 @@ const GuildPage = () => {
             )}
             {pageNum === '2' && <HistoryBoard />}
             {pageNum === '3' && <Profile />}
+            {pageNum === '4' && <WebRtcPage />}
             {guildPageType === 'main' && <GuildMain />}
             {guildPageType === 'myGuild' && <MyGuild />}
             {guildPageType === 'admin' && <MasterSetting />}

@@ -91,16 +91,41 @@ export const EssayContainer = styled.div`
   border-radius: 2vmin;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: auto;
+  /* overflow-x: hidden;
+  overflow-y: auto; */
   .trigger {
     display: none;
   }
 `;
 
 export const TextContainer = styled.div`
+  overflow-x: hidden;
+  overflow-y: auto;
+  .active {
+    color: #111111;
+    font-size: 4vmin !important;
+    transition: all 1s ease;
+  }
+  .backlight {
+    text-shadow: 2px 2px 5px #c1ffa9;
+  }
+
   /* margin-top: 1vh; */
 `;
+
+export const ScriptContainer = styled.div`
+  overflow-x: hidden;
+  overflow-y: auto;
+  .active {
+    color: #111111;
+    font-size: 3vmin !important;
+    transition: all 1s ease;
+  }
+  .backlight {
+    text-shadow: 2px 2px 5px #c1ffa9;
+  }
+`;
+
 export const TextBox = styled.div`
   width: 45vw;
   /* height: 10rem; */
@@ -115,6 +140,8 @@ export const TextBox = styled.div`
   color: #9897a9;
   /* background-color: #febf00; */
   transition: 0.4s;
+  text-align: justify;
+
   /* &.active {
     font-size: 3.8vmin;
     width: 50vw;
@@ -136,15 +163,17 @@ export const TextEssayBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3.8vmin;
+  font-size: 3vmin;
   color: #9897a9;
   box-shadow: inset 0 0 0 0 #8dc2ff;
-  :hover {
+
+  /* :hover {
     color: #fff;
     box-shadow: inset 50vw 0 0 0 #8dc2ff;
     cursor: pointer;
   }
-  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; */
+  cursor: pointer;
 `;
 
 export const SpeechTestContainer = styled.div`
