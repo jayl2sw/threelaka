@@ -94,6 +94,7 @@ const MainPage = () => {
   //
 
   useEffect(() => {
+    dispatch(authActions.fetchUser());
     dispatch(authActions.getUserAlert());
     dispatch(dashboardActions.getTagList());
     dispatch(videoActions.getRecentVideoData());

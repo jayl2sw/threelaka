@@ -103,17 +103,18 @@ const GuildMain = () => {
     console.log(files);
     const formdata = new FormData();
     formdata.append('file', files[0]);
+    formdata.append('title', guildCreateName);
+    formdata.append('description', guildCreateDescription);
 
-    const value = {
-      description: guildCreateDescription,
-      name: guildCreateName,
-    };
+    // const value = {
+    //   description: guildCreateDescription,
+    //   name: guildCreateName,
+    // };
 
-    const blob = new Blob([JSON.stringify(value)], {
-      type: 'application/json',
-    });
+    // const blob = new Blob([JSON.stringify(value)], {
+    //   type: 'application/json',
+    // });
 
-    formdata.append('data', blob);
     for (let value of formdata.values() as any) {
       console.log(value);
     }
@@ -161,7 +162,7 @@ const GuildMain = () => {
           top={'40vh'}
           left={'40vw'}
         >
-          <ToastMessage text={'가입 신청이 성공적으로 됐습니다'}></ToastMessage>
+          <ToastMessage text={'가입 신청 성공!'}></ToastMessage>
         </ToastContainer>
       )}
       {isRequestSuccess === false && (

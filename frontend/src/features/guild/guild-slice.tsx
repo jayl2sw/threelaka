@@ -11,6 +11,7 @@ import {
   GuildRequest,
   GuildAssignment,
   CreateGuildForm,
+  AssignmentProgress,
 } from '../../models/guild';
 
 type GuildState = {
@@ -28,6 +29,7 @@ type GuildState = {
   GuildRequestLst: GuildRequest[];
   isCreateSuccess: null | true | false;
   isRequestSuccess: null | true | false;
+  AssignmentProgressLst: AssignmentProgress[];
 };
 
 let initialState: GuildState = {
@@ -62,6 +64,7 @@ let initialState: GuildState = {
   GuildRequestLst: [],
   isCreateSuccess: null,
   isRequestSuccess: null,
+  AssignmentProgressLst: [],
 };
 
 const guildSlice = createSlice({
@@ -384,6 +387,26 @@ const guildSlice = createSlice({
     resetIsCreateSuccess(state) {
       state.isCreateSuccess = null;
       state.isRequestSuccess = null;
+    },
+
+    // 과제별 진행도, 에세이 가져오기 시작
+    getAssignmentProgress(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 과제별 진행도, 에세이 가져오기 성공
+    getAssignmentProgressSuccess(
+      state,
+      action: PayloadAction<AssignmentProgress[]>
+    ) {
+      state.loading = false;
+      state.AssignmentProgressLst = action.payload;
+    },
+    // 과제별 진행도, 에세이 가져오기 실패
+    getAssignmentProgressFailed(state) {
+      state.loading = false;
+    },
+    resetAssignmentProgressLst(state) {
+      state.AssignmentProgressLst = [];
     },
   },
 });

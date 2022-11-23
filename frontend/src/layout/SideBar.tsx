@@ -129,7 +129,7 @@ const SideBar = ({ isMaster }: IOnClickProps) => {
             <span className="title">Guild</span>
           </NavLink>
         </MenuItems>
-        <MenuItems>
+        {/* <MenuItems>
           <NavLink
             to={`/auth/dashboard/4`}
             className={({ isActive }) => (isActive ? 'clicked' : 'not')}
@@ -137,7 +137,7 @@ const SideBar = ({ isMaster }: IOnClickProps) => {
             <BsPeopleFill className="icon" size={20} />
             <span className="title">지현하민화이팅</span>
           </NavLink>
-        </MenuItems>
+        </MenuItems> */}
         {guildId ? (
           <MenuItems>
             <NavLink

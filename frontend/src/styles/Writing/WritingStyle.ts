@@ -24,7 +24,7 @@ export const WordListAndWritingContainer = styled.div`
 
 export const WordCheckBox = styled.div`
   display: flex;
-  width: 3vmin;
+  width: 1vmin;
   height: 3vmin;
   background-color: #9897a9;
   margin-right: 1vw;
@@ -45,11 +45,15 @@ export const WordCheckBox = styled.div`
 export const HighlightTextAreaWrapper = styled.div`
   overflow-y: scroll;
   min-height: 40vh;
+  line-height: 4.5vh;
   & mark {
     border-radius: 4px;
-    padding: 2px;
+    padding: 0 2px;
     &.blue {
       background-color: #4a9fff;
+    }
+    &.green {
+      background-color: #b5fe89;
     }
     &.red {
       border-radius: 0;
