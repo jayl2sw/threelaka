@@ -232,7 +232,7 @@ const UpdateProfile = () => {
             fontSize={'2.5vmin'}
             fontColor={'white'}
             backgroundColor={'black'}
-            style={{ marginLeft: '9vw', borderRadius: '5vmin' }}
+            style={{ marginLeft: '10vw', borderRadius: '5vmin' }}
             onClick={openModalTag}
           >
             수정
