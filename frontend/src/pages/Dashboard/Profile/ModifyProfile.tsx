@@ -42,13 +42,17 @@ const ModifyProfile = () => {
   return (
     <FlexTransparentDiv
       widthSize={'32vw'}
-      heightSize={'30vh'}
+      heightSize={'35vh'}
       paddingSize={'0'}
       flexDirection={'column'}
       justifyContent={'center'}
       alignItems={'center'}
       IsBorder={'none'}
-      style={{ position: 'relative', marginTop: '6vh' }}
+      style={{
+        position: 'relative',
+        marginTop: '6vh',
+        border: '1px solid green',
+      }}
     >
       <ProfileImgBox
         style={{
@@ -82,10 +86,10 @@ const ModifyProfile = () => {
           setProfileNum={setProfileNum}
         />
       ) : null}
-
+      {/* 프로필 이미지 들어있는 왼쪽 상단 박스 */}
       <MainBox
-        widthSize={'28vw'}
-        heightSize={'40vh'}
+        widthSize={'30vw'}
+        heightSize={'28vh'}
         paddingSize={'2vh 2vw'}
         fontColor={'black'}
         fontSize={'2vmin'}
@@ -98,13 +102,18 @@ const ModifyProfile = () => {
       >
         <FlexTransparentDiv
           widthSize={'24vw'}
-          heightSize={'40vh'}
+          heightSize={'20vh'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'start'}
           alignItems={'center'}
           IsBorder={'none'}
-          style={{ position: 'absolute', top: '9vh' }}
+          style={{
+            position: 'absolute',
+            top: '5vh',
+            border: 'solid brown 1px',
+            marginLeft: '1vw',
+          }}
         >
           <div style={{ margin: '2vh 0 1vh', color: '#aaa' }}>{username}</div>
           <div style={{ margin: '0 0 2vh', color: '#aaa' }}>{nickname}</div>
@@ -113,7 +122,7 @@ const ModifyProfile = () => {
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 6vw)',
               justifyItems: 'center',
-              marginTop: '2vh',
+              marginTop: '1vh',
               textAlign: 'center',
             }}
           >
@@ -137,7 +146,7 @@ const ModifyProfile = () => {
               style={{
                 border: '1.2px solid #eee',
                 width: '0.3px',
-                height: '13vh',
+                height: '8vh',
                 background: '#eee',
               }}
             ></div>

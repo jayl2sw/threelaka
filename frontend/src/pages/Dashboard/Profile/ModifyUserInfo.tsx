@@ -117,7 +117,7 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
   return (
     <FlexTransparentDiv
       widthSize={'30vw'}
-      heightSize={'80vh'}
+      heightSize={'40vh'}
       paddingSize={'0 0 4vh 0'}
       flexDirection={'column'}
       justifyContent={'center'}

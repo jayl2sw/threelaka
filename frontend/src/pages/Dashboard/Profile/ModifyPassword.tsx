@@ -120,6 +120,7 @@ const ModifyPassword = ({ initialValues, onSubmit }: IModifyPasswordProps) => {
       justifyContent={'start'}
       alignItems={'start'}
       IsBorder={'none'}
+      style={{ border: 'solid yellow 1px' }}
     >
       <form
         onSubmit={handleSubmit(handleFormSubmit)}
