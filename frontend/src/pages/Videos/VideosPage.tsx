@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { videoActions } from '../../features/video/video-slice';
-import { FlexTransparentDiv } from '../../styles/Common/CommonDivStyle';
+import {
+  FlexTransparentDiv,
+  ToastContainer,
+} from '../../styles/Common/CommonDivStyle';
+import { ToastMessage } from '../../utils/ToastMessage';
 import { MainBtn } from '../../styles/Common/CommonBtnStyle';
 import GradientInput from '../../utils/GradientInput';
 import { PageDownButton } from '../../styles/Main/MainStyle';
@@ -74,6 +78,8 @@ const tagUrl: ItagIdCommentDict = {
   지식: 'https://threelaka.s3.ap-northeast-2.amazonaws.com/knowledge.jpg',
 };
 
+const check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
 const VideosPage = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -122,6 +128,7 @@ const VideosPage = () => {
   const [inputValue, setInpuValue] = useState<string>('');
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
+  const [isKorean, setIsKorean] = useState<boolean>(false);
   const [selectedTag, setSelectedTag] = useState<string>('');
   const [serachMode, setSearchMode] = useState<string>('search');
   // onClickHandler
@@ -133,6 +140,15 @@ const VideosPage = () => {
     if (keyword.length < 2) {
       alert('키워드를 2글자 이상 입력해주세요');
     } else {
+      if (check.test(keyword)) {
+        setIsKorean(true);
+        setInpuValue('');
+        setTimeout(() => {
+          setIsKorean(false);
+        }, 2000);
+        return;
+      }
+
       dispatch(videoActions.getKeywordSearchVideosStart(keyword));
       setSearchKeyword(keyword);
       setSearchMode('search');
@@ -186,13 +202,32 @@ const VideosPage = () => {
   //
   return (
     <>
+      {isKorean && (
+        <ToastContainer
+          widthSize={'20vw'}
+          heightSize={'20vh'}
+          paddingSize={'2vh 1vw'}
+          fontColor={'black'}
+          top={'40vh'}
+          left={'40vw'}
+        >
+          <ToastMessage text={'한글로 입력해주세요'}></ToastMessage>
+        </ToastContainer>
+      )}
       {serachMode === 'tag' ? (
         <>
           <BlackBlurDiv></BlackBlurDiv>
           <StickyBackDiv url={tagUrl[selectedTag]}></StickyBackDiv>
         </>
       ) : (
-        <StickyBackDiv url={''}></StickyBackDiv>
+        <>
+          <BlackBlurDiv></BlackBlurDiv>
+          <StickyBackDiv
+            url={
+              'https://threelaka.s3.ap-northeast-2.amazonaws.com/recommend.jpg'
+            }
+          ></StickyBackDiv>
+        </>
       )}
 
       <FlexTransparentDiv
@@ -271,13 +306,17 @@ const VideosPage = () => {
                   return (
                     <MainBtn
                       key={`upper-tag-btn-${idx}`}
-                      widthSize={'10vw'}
+                      widthSize={'8vw'}
                       heightSize={'5vh'}
                       paddingSize={'0'}
-                      fontSize={'2vmin'}
-                      fontColor={'white'}
-                      backgroundColor={'gradient'}
-                      style={{ marginRight: '1vw' }}
+                      fontSize={'2.5vmin'}
+                      fontColor={'black'}
+                      backgroundColor={'black'}
+                      style={{
+                        marginRight: '1vw',
+                        borderRadius: '5px',
+                        backgroundColor: '#C1FFA9',
+                      }}
                       onClick={() => onClickTagVideo(tagName)}
                     >
                       #{tagName}
@@ -294,19 +333,20 @@ const VideosPage = () => {
               justifyContent={'center'}
               alignItems={'center'}
               IsBorder={'none'}
+              style={{ marginTop: '2vh' }}
             >
               {tagStringLst.map((tagName, idx) => {
                 if (!mySelectedTags.includes(tagName)) {
                   return (
                     <MainBtn
                       key={`bottom-tag-btn-${idx}`}
-                      widthSize={'10vw'}
+                      widthSize={'8vw'}
                       heightSize={'5vh'}
                       paddingSize={'0'}
-                      fontSize={'2vmin'}
+                      fontSize={'2.5vmin'}
                       fontColor={'white'}
                       backgroundColor={'blue'}
-                      style={{ marginRight: '1vw' }}
+                      style={{ marginRight: '1vw', borderRadius: '5px' }}
                       onClick={() => onClickTagVideo(tagName)}
                     >
                       #{tagName}
@@ -314,19 +354,45 @@ const VideosPage = () => {
                   );
                 }
               })}
-              <MainBtn
-                widthSize={'10vw'}
-                heightSize={'5vh'}
-                paddingSize={'0'}
-                fontSize={'2vmin'}
-                fontColor={'white'}
-                backgroundColor={'gradient'}
-                style={{ marginRight: '1vw' }}
-                onClick={() => getModelRecommentVideo()}
-              >
-                추천알고리즘
-              </MainBtn>
             </FlexTransparentDiv>
+            <FlexTransparentDiv
+              widthSize={'100vw'}
+              heightSize={'7vh'}
+              paddingSize={'0'}
+              flexDirection={'row'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              IsBorder={'none'}
+              style={{ color: 'white', marginTop: '15vh' }}
+            >
+              <FlexTransparentDiv
+                widthSize={'20vw'}
+                heightSize={'7vh'}
+                paddingSize={'0'}
+                flexDirection={'row'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                IsBorder={'none'}
+                style={{ color: 'white', fontSize: '4vmin' }}
+              >
+                라카의 추천을 원한다면?
+              </FlexTransparentDiv>
+            </FlexTransparentDiv>
+            <MainBtn
+              widthSize={'8vw'}
+              heightSize={'5vh'}
+              paddingSize={'0'}
+              fontSize={'2.5vmin'}
+              fontColor={'black'}
+              backgroundColor={'gradient'}
+              style={{
+                borderRadius: '5px',
+                marginTop: '1vh',
+              }}
+              onClick={() => getModelRecommentVideo()}
+            >
+              #추천
+            </MainBtn>
           </FlexTransparentDiv>
 
           <FlexTransparentDiv
@@ -363,9 +429,11 @@ const VideosPage = () => {
               {serachMode === 'tag'
                 ? `${tagComment[selectedTag]}`
                 : serachMode === 'model'
-                ? `선호 태그 기반 추천 영상입니다.`
+                ? `LAKA의 알고리즘 추천 영상입니다.`
                 : searchKeyword !== ''
-                ? `${searchKeyword}의 검색결과 입니다.`
+                ? searchResultVideo.length === 0
+                  ? `검색결과를 찾지 못했어요..`
+                  : `${searchKeyword}의 검색결과 입니다.`
                 : ''}
             </FlexTransparentDiv>
             <FlexTransparentDiv
@@ -378,37 +446,58 @@ const VideosPage = () => {
               IsBorder={'none'}
               style={{ flexWrap: 'wrap' }}
             >
-              {serachMode === 'tag'
-                ? tagSearchResultVideo &&
-                  tagSearchResultVideo.map((videoData, i) => {
-                    return (
-                      <VideoCardTwo
-                        setModalToggleVideoId={setModalToggleVideoId}
-                        data={videoData}
-                        key={`video-${i}`}
-                      />
-                    );
-                  })
-                : serachMode === 'model'
-                ? modelRecommendVideo.map((videoData, i) => {
-                    return (
-                      <VideoCardTwo
-                        setModalToggleVideoId={setModalToggleVideoId}
-                        data={videoData}
-                        key={`video-${i}`}
-                      />
-                    );
-                  })
-                : searchResultVideo &&
-                  searchResultVideo.map((videoData, i) => {
-                    return (
-                      <VideoCardTwo
-                        setModalToggleVideoId={setModalToggleVideoId}
-                        data={videoData}
-                        key={`video-${i}`}
-                      />
-                    );
-                  })}
+              {serachMode === 'tag' ? (
+                tagSearchResultVideo &&
+                tagSearchResultVideo.map((videoData, i) => {
+                  return (
+                    <VideoCardTwo
+                      setModalToggleVideoId={setModalToggleVideoId}
+                      data={videoData}
+                      key={`video-${i}`}
+                    />
+                  );
+                })
+              ) : serachMode === 'model' ? (
+                modelRecommendVideo.map((videoData, i) => {
+                  return (
+                    <VideoCardTwo
+                      setModalToggleVideoId={setModalToggleVideoId}
+                      data={videoData}
+                      key={`video-${i}`}
+                    />
+                  );
+                })
+              ) : searchResultVideo.length === 0 ? (
+                <FlexTransparentDiv
+                  widthSize={'100vw'}
+                  heightSize={'60vh'}
+                  paddingSize={'0'}
+                  flexDirection={'row'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  IsBorder={'none'}
+                  style={{ flexWrap: 'wrap' }}
+                >
+                  <img
+                    style={{
+                      width: '40vmin',
+                      height: '35vmin',
+                      objectFit: 'cover',
+                    }}
+                    src={`https://threelaka.s3.ap-northeast-2.amazonaws.com/blue.png`}
+                  ></img>
+                </FlexTransparentDiv>
+              ) : (
+                searchResultVideo.map((videoData, i) => {
+                  return (
+                    <VideoCardTwo
+                      setModalToggleVideoId={setModalToggleVideoId}
+                      data={videoData}
+                      key={`video-${i}`}
+                    />
+                  );
+                })
+              )}
               {}
               {/* {searchResultVideo.length > 0
               ? searchResultVideo[0].description

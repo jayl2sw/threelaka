@@ -253,6 +253,7 @@ const DictionaryComp = ({
             onChange={dictInputChange}
             onKeyDown={(e) => WordSearchEnterHandler(e, dictInputValue)}
             style={layoutMode === 2 ? { width: '24vw' } : {}}
+            placeholder={'단어를 검색해 보세요'}
           />
           <GradientRoundBtn
             widthSize={'5vmin'}
@@ -266,229 +267,264 @@ const DictionaryComp = ({
             <GoSearch size={20} />
           </GradientRoundBtn>
         </FlexTransparentDiv>
-        <FlexTransparentDiv
-          widthSize={layoutMode === 2 ? '27.5vw' : '37.5vw'}
-          heightSize={layoutMode === 2 ? '48vh' : '28vh'}
-          paddingSize={'0'}
-          flexDirection={'column'}
-          justifyContent={'start'}
-          alignItems={'center'}
-          IsBorder={'none'}
-          style={{
-            overflowY: 'scroll',
-            overflowX: 'hidden',
-            paddingTop: '1vh',
-          }}
-        >
-          {/* {wordLoading ? '로딩중' : '로딩완료'} */}
-          {wordLoading ? (
-            <LoadingSpinner
-              widthSize={layoutMode === 2 ? '15vmin' : '20vmin'}
-              heightSize={layoutMode === 2 ? '15vmin' : '20vmin'}
-              style={
-                layoutMode === 2 ? { marginTop: '10vh' } : { marginTop: '2vh' }
-              }
-            />
-          ) : (
-            <>
-              <div
+        {!wordLoading &&
+        wordMeaning.wordList.length === 0 &&
+        dictInputValue === '' ? (
+          <FlexTransparentDiv
+            widthSize={layoutMode === 2 ? '27.5vw' : '37.5vw'}
+            heightSize={layoutMode === 2 ? '48vh' : '28vh'}
+            paddingSize={'0'}
+            flexDirection={'row'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            IsBorder={'none'}
+            style={{
+              overflowY: 'scroll',
+              overflowX: 'hidden',
+              paddingBottom: '2vh',
+            }}
+          >
+            <div style={{ width: '16vw', fontSize: '2.5vmin' }}>
+              단어를 클릭해 검색해 보세요
+            </div>
+            <img
+              style={{
+                width: '7vmin',
+                height: '7vmin',
+                objectFit: 'cover',
+              }}
+              src={`https://threelaka.s3.ap-northeast-2.amazonaws.com/white.png`}
+            ></img>
+          </FlexTransparentDiv>
+        ) : (
+          <FlexTransparentDiv
+            widthSize={layoutMode === 2 ? '27.5vw' : '37.5vw'}
+            heightSize={layoutMode === 2 ? '48vh' : '28vh'}
+            paddingSize={'0'}
+            flexDirection={'column'}
+            justifyContent={'start'}
+            alignItems={'center'}
+            IsBorder={'none'}
+            style={{
+              overflowY: 'scroll',
+              overflowX: 'hidden',
+              paddingTop: '1vh',
+            }}
+          >
+            {/* {wordLoading ? '로딩중' : '로딩완료'} */}
+            {wordLoading ? (
+              <LoadingSpinner
+                widthSize={layoutMode === 2 ? '15vmin' : '20vmin'}
+                heightSize={layoutMode === 2 ? '15vmin' : '20vmin'}
                 style={
                   layoutMode === 2
-                    ? {
-                        width: '27vw',
-                        minHeight: '7vh',
-                        display: 'flex',
-                        justifyContent: 'start',
-                        alignItems: 'center',
-                        fontSize: '5vmin',
-                        fontFamily: 'PretendardBold',
-                      }
-                    : {
-                        width: '34vw',
-                        minHeight: '10vh',
-                        display: 'flex',
-                        justifyContent: 'start',
-                        alignItems: 'center',
-                        fontSize: '5vmin',
-                        fontFamily: 'PretendardBold',
-                      }
+                    ? { marginTop: '10vh' }
+                    : { marginTop: '2vh' }
                 }
-              >
+              />
+            ) : (
+              <>
                 <div
-                  style={{
-                    width: '15vw',
-                    minHeight: '10vh',
-                    display: 'flex',
-                    justifyContent: 'start',
-                    alignItems: 'center',
-                    fontSize: '5vmin',
-                    fontFamily: 'PretendardBold',
-                  }}
+                  style={
+                    layoutMode === 2
+                      ? {
+                          width: '27vw',
+                          minHeight: '7vh',
+                          display: 'flex',
+                          justifyContent: 'start',
+                          alignItems: 'center',
+                          fontSize: '5vmin',
+                          fontFamily: 'PretendardBold',
+                        }
+                      : {
+                          width: '34vw',
+                          minHeight: '10vh',
+                          display: 'flex',
+                          justifyContent: 'start',
+                          alignItems: 'center',
+                          fontSize: '5vmin',
+                          fontFamily: 'PretendardBold',
+                        }
+                  }
                 >
-                  {' '}
-                  {wordMeaning.wordId}
-                </div>
+                  <div
+                    style={{
+                      width: '15vw',
+                      minHeight: '10vh',
+                      display: 'flex',
+                      justifyContent: 'start',
+                      alignItems: 'center',
+                      fontSize: '5vmin',
+                      fontFamily: 'PretendardBold',
+                    }}
+                  >
+                    {' '}
+                    {wordMeaning.wordId}
+                  </div>
 
-                {wordMeaning.wordId !== '' && dictInputValue === '' ? (
-                  isInWordBookId === 0 ? (
-                    <MainBtn
-                      widthSize={layoutMode === 2 ? '12vw' : '19vw'}
-                      heightSize={'5vh'}
-                      paddingSize={'0'}
-                      fontSize={'2vmin'}
-                      fontColor={'black'}
-                      backgroundColor={'gradient'}
-                      onClick={(e) => {
-                        AddWordToWordbook(e);
-                        // setAddSuccessModal(true);
-                      }}
-                    >
-                      단어장에 추가
-                    </MainBtn>
+                  {wordMeaning.wordId !== '' && dictInputValue === '' ? (
+                    isInWordBookId === 0 ? (
+                      <MainBtn
+                        widthSize={layoutMode === 2 ? '12vw' : '12vw'}
+                        heightSize={'5vh'}
+                        paddingSize={'0'}
+                        fontSize={'2.2vmin'}
+                        fontColor={'black'}
+                        backgroundColor={'gradient'}
+                        onClick={(e) => {
+                          AddWordToWordbook(e);
+                          // setAddSuccessModal(true);
+                        }}
+                        style={{ marginLeft: '7vw' }}
+                      >
+                        단어장에 추가
+                      </MainBtn>
+                    ) : (
+                      <MainBtn
+                        widthSize={layoutMode === 2 ? '12vw' : '12vw'}
+                        heightSize={'5vh'}
+                        paddingSize={'0'}
+                        fontSize={'2.2vmin'}
+                        fontColor={'white'}
+                        backgroundColor={'black'}
+                        onClick={() => {
+                          deleteWordToWordbook();
+                          // setAddSuccessModal(true);
+                        }}
+                        style={{ marginLeft: '7vw' }}
+                      >
+                        단어장에서 삭제
+                      </MainBtn>
+                    )
                   ) : (
-                    <MainBtn
-                      widthSize={layoutMode === 2 ? '12vw' : '19vw'}
-                      heightSize={'5vh'}
-                      paddingSize={'0'}
-                      fontSize={'2vmin'}
-                      fontColor={'white'}
-                      backgroundColor={'black'}
-                      onClick={() => {
-                        deleteWordToWordbook();
-                        // setAddSuccessModal(true);
-                      }}
-                    >
-                      단어장에서 삭제
-                    </MainBtn>
-                  )
-                ) : (
-                  ''
-                )}
-              </div>
-              {searchDictError === '' ? (
-                wordMeaning.wordList.map((aWord) => {
-                  return (
-                    <FlexTransparentDiv
-                      widthSize={layoutMode === 2 ? '27.5vw' : '34vw'}
-                      heightSize={layoutMode === 2 ? '25vh' : '32vh'}
-                      paddingSize={'0 1vw'}
-                      flexDirection={'column'}
-                      justifyContent={'center'}
-                      alignItems={'center'}
-                      IsBorder={'none'}
-                      style={{
-                        borderBottom: 'black 2px solid',
-                        backgroundColor: 'white',
-                        fontSize: '3vmin',
-                        // border: 'blue 2px solid',
-                      }}
-                    >
+                    ''
+                  )}
+                </div>
+                {searchDictError === '' ? (
+                  wordMeaning.wordList.map((aWord) => {
+                    return (
                       <FlexTransparentDiv
-                        widthSize={layoutMode === 2 ? '27.5vw' : '37.5vw'}
-                        heightSize={layoutMode === 2 ? '15vh' : '14vh'}
-                        paddingSize={'1vw 2vw 1vw 1vw'}
-                        flexDirection={'row'}
-                        justifyContent={'start'}
-                        alignItems={'start'}
+                        widthSize={layoutMode === 2 ? '27.5vw' : '34vw'}
+                        heightSize={layoutMode === 2 ? '25vh' : '32vh'}
+                        paddingSize={'0 1vw'}
+                        flexDirection={'column'}
+                        justifyContent={'center'}
+                        alignItems={'center'}
                         IsBorder={'none'}
+                        style={{
+                          borderBottom: 'black 2px solid',
+                          backgroundColor: 'white',
+                          fontSize: '3vmin',
+                          // border: 'blue 2px solid',
+                        }}
                       >
                         <FlexTransparentDiv
-                          widthSize={'80%'}
+                          widthSize={layoutMode === 2 ? '27.5vw' : '37.5vw'}
                           heightSize={layoutMode === 2 ? '15vh' : '14vh'}
-                          paddingSize={layoutMode === 2 ? '0vw' : '1vw'}
-                          flexDirection={'column'}
+                          paddingSize={'1vw 2vw 1vw 1vw'}
+                          flexDirection={'row'}
                           justifyContent={'start'}
                           alignItems={'start'}
                           IsBorder={'none'}
                         >
-                          <div
-                            style={{
-                              color: '#4a9fff',
-                              fontWeight: 'bold',
-                            }}
+                          <FlexTransparentDiv
+                            widthSize={'80%'}
+                            heightSize={layoutMode === 2 ? '15vh' : '14vh'}
+                            paddingSize={layoutMode === 2 ? '0vw' : '1vw'}
+                            flexDirection={'column'}
+                            justifyContent={'start'}
+                            alignItems={'start'}
+                            IsBorder={'none'}
                           >
-                            definition
-                          </div>
-                          <div
-                            style={{
-                              paddingLeft: '0.5vw',
-                              fontSize:
-                                aWord.wordDefinition.length > 100
-                                  ? '2vmin'
-                                  : '2.5vmin',
-                            }}
-                          >
-                            {aWord.wordDefinition}
-                          </div>
-                          {/* <p style={{ width: '80%', padding: '0 1vw' }}>
+                            <div
+                              style={{
+                                color: '#4a9fff',
+                                fontWeight: 'bold',
+                              }}
+                            >
+                              definition
+                            </div>
+                            <div
+                              style={{
+                                paddingLeft: '0.5vw',
+                                fontSize:
+                                  aWord.wordDefinition.length > 100
+                                    ? '2vmin'
+                                    : '2.5vmin',
+                              }}
+                            >
+                              {aWord.wordDefinition}
+                            </div>
+                            {/* <p style={{ width: '80%', padding: '0 1vw' }}>
                   definition: {aWord.wordDefinition}
                 </p> */}
+                          </FlexTransparentDiv>
+                          <div
+                            style={{
+                              width: '20%',
+                              padding: '0 1vw',
+                              color: 'red',
+                              fontSize: '2.5vmin',
+                              fontWeight: 'bold',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}
+                          >
+                            {aWord.lexicalCategory}
+                          </div>
                         </FlexTransparentDiv>
-                        <div
-                          style={{
-                            width: '20%',
-                            padding: '0 1vw',
-                            color: 'red',
-                            fontSize: '2.5vmin',
-                            fontWeight: 'bold',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                          }}
-                        >
-                          {aWord.lexicalCategory}
-                        </div>
-                      </FlexTransparentDiv>
-                      <FlexTransparentDiv
-                        widthSize={layoutMode === 2 ? '27.5vw' : '37.5vw'}
-                        heightSize={layoutMode === 2 ? '10vh' : '14vh'}
-                        paddingSize={
-                          layoutMode === 2 ? '0vw 0vw 1vw 0vw' : '1vw'
-                        }
-                        flexDirection={'row'}
-                        justifyContent={'start'}
-                        alignItems={'center'}
-                        IsBorder={'none'}
-                      >
                         <FlexTransparentDiv
-                          widthSize={layoutMode === 2 ? '100%' : '80%'}
-                          heightSize={'14vh'}
-                          paddingSize={'1vw'}
-                          flexDirection={'column'}
-                          justifyContent={'center'}
-                          alignItems={'start'}
+                          widthSize={layoutMode === 2 ? '27.5vw' : '37.5vw'}
+                          heightSize={layoutMode === 2 ? '10vh' : '14vh'}
+                          paddingSize={
+                            layoutMode === 2 ? '0vw 0vw 1vw 0vw' : '1vw'
+                          }
+                          flexDirection={'row'}
+                          justifyContent={'start'}
+                          alignItems={'center'}
                           IsBorder={'none'}
                         >
-                          <div
-                            style={{
-                              color: '#4a9fff',
-                              fontWeight: 'bold',
-                            }}
+                          <FlexTransparentDiv
+                            widthSize={layoutMode === 2 ? '100%' : '80%'}
+                            heightSize={'14vh'}
+                            paddingSize={'1vw'}
+                            flexDirection={'column'}
+                            justifyContent={'center'}
+                            alignItems={'start'}
+                            IsBorder={'none'}
                           >
-                            example
-                          </div>
-                          <div
-                            style={{
-                              paddingLeft: '0.5vw',
-                              fontSize: '2.5vmin',
-                            }}
-                          >
-                            {aWord.wordExample}
-                          </div>
-                          {/* <p style={{ width: '80%', padding: '0 1vw' }}>
+                            <div
+                              style={{
+                                color: '#4a9fff',
+                                fontWeight: 'bold',
+                              }}
+                            >
+                              example
+                            </div>
+                            <div
+                              style={{
+                                paddingLeft: '0.5vw',
+                                fontSize: '2.5vmin',
+                              }}
+                            >
+                              {aWord.wordExample}
+                            </div>
+                            {/* <p style={{ width: '80%', padding: '0 1vw' }}>
                   definition: {aWord.wordDefinition}
                 </p> */}
+                          </FlexTransparentDiv>
                         </FlexTransparentDiv>
                       </FlexTransparentDiv>
-                    </FlexTransparentDiv>
-                  );
-                })
-              ) : (
-                <p style={{ fontSize: '2vmin' }}>{searchDictError}</p>
-              )}
-            </>
-          )}
-        </FlexTransparentDiv>
+                    );
+                  })
+                ) : (
+                  <p style={{ fontSize: '2vmin' }}>{searchDictError}</p>
+                )}
+              </>
+            )}
+          </FlexTransparentDiv>
+        )}
       </MainBox>
     </>
   );

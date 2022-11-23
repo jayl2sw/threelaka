@@ -9,6 +9,8 @@ import { MoveToNextRightBtn } from '../../../styles/Common/CommonBtnStyle';
 import { StudyPageParams } from '../../../models';
 import { IheaderProps } from '../../../layout/Header';
 import { AiOutlineRight } from 'react-icons/ai';
+import { HiBars2 } from 'react-icons/hi2';
+import { HiBarsArrowDown } from 'react-icons/hi2';
 import { MdUnfoldLess } from 'react-icons/md';
 import DictionaryComp from './components/DictionaryComp';
 import ScriptComp from './components/ScriptComp';
@@ -125,7 +127,7 @@ const ReadPage = () => {
           flexDirection={'column'}
           justifyContent={'center'}
           alignItems={'center'}
-          IsBorder={'is'}
+          IsBorder={'none'}
           onClick={() => setLayoutMode(2)}
           style={{
             position: 'absolute',
@@ -134,7 +136,7 @@ const ReadPage = () => {
             cursor: 'pointer',
           }}
         >
-          <MdUnfoldLess size={20}></MdUnfoldLess>
+          <HiBarsArrowDown size={20}></HiBarsArrowDown>
         </FlexTransparentDiv>
       ) : (
         ''
