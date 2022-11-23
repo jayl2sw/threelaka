@@ -6,7 +6,7 @@ const UpdateUserInfo = () => {
     <div>
       <MainBox
         widthSize={'33.8vw'}
-        heightSize={'81.5vh'}
+        heightSize={'50vh'}
         paddingSize={'2vh 2vw'}
         fontColor={'black'}
         fontSize={'2vmin'}
@@ -14,6 +14,7 @@ const UpdateUserInfo = () => {
           display: 'flex',
           justifyContent: 'center',
           boxShadow: 'none',
+          border: 'solid red 1px',
         }}
       >
         <ModifyUserInfo></ModifyUserInfo>

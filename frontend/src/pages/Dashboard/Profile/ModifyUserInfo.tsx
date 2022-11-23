@@ -124,15 +124,15 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
       alignItems={'center'}
       IsBorder={'none'}
     >
-      <StyledForm
+      {/* <StyledForm
         onSubmit={handleSubmit(handleFormSubmit)}
         className="sign-up-form"
         style={{ width: '95%', margin: '2vmin 0' }}
-      >
-        <InputWrap style={{ height: '80%', width: '95%' }}>
-          <h3>회원정보수정</h3>
-          {/* <ProfileInputField name="username" control={control} label="이메일" /> */}
-          <ProfileInputField
+      > */}
+      {/* <InputWrap style={{ height: '80%', width: '95%' }}>
+          <h3>회원정보수정</h3> */}
+      {/* <ProfileInputField name="username" control={control} label="이메일" /> */}
+      {/* <ProfileInputField
             name="nickname"
             control={control}
             label="닉네임"
@@ -178,12 +178,12 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
               fontSize={'2vmin'}
               backgroundColor={'gradient'}
               style={{ margin: '0 auto' }}
-            >
-              회원정보수정
+            > */}
+      {/* 회원정보수정
             </GradientRoundBtn>
           </SubmitBtnWrap>
         </InputWrap>
-      </StyledForm>
+      </StyledForm> */}
 
       <FlexTransparentDiv
         widthSize={'90%'}
