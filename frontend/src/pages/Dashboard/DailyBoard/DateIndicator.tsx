@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   getDayOfMonth,
   getMonthDayYear,
@@ -14,15 +14,14 @@ import { DateIndicatorContainer } from '../../../styles/DashBoard/DashBoardStyle
 
 import { useAppSelector } from '../../../utils/hooks';
 import moment from 'moment';
+import { useRef } from 'react';
 export interface IDateIndicatorProps {
   selectDate: Date;
   setSelectDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
 const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
-  // const [hourMonthStudyTime, setHourMonthStudyTime] = useState<Array<object>>(
-  //   []
-  // );
+  const dateRef = useRef<HTMLDivElement>(null);
   const monthStudyTime = useAppSelector(
     (state) => state.dashboard.monthStudyTime
   );
@@ -34,14 +33,16 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
     // const target = e.target as HTMLDivElement;
     setSelectDate(nextDate);
   };
-  // const handleStudyTime = (studyTime: Array<object>) => {
-  //   return;
-  // };
-  //
-  //0~1시간 verybad 1~ 2시간bad 2~ 3시간well 3~4시간good 4시간이상 verygood
+
+  useEffect(() => {
+    if (!dateRef.current?.getAttribute('date-active-month')) {
+      console.warn('얍얍');
+      dateRef.current?.classList.add('notThisMonth');
+    }
+  }, []);
 
   return (
-    <DateIndicatorContainer style={{ zIndex: '10' }}>
+    <DateIndicatorContainer style={{ zIndex: '1' }}>
       {datesInMonth.map((item, idx) => {
         if (item.currentMonth && item.beforeToday) {
           const time = (
@@ -50,6 +51,7 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
 
           return (
             <div
+              ref={dateRef}
               data-tooltip={`이 날의 공부 : ${time}분`}
               className={`${
                 monthStudyTime[getDayOfMonth(item.date)] === 0
@@ -68,6 +70,11 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
               date-active-month={item.currentMonth.toString()}
               date-date={item.date.toString()}
               key={`date-${idx}`}
+              style={{
+                color: dateRef.current?.getAttribute('date-active-month')
+                  ? ''
+                  : 'red',
+              }}
               // date-date를 getattribute하는 대신 i.date 값을 직접 넘겨주기
               // onClick={(e) => changeDate(e, item.date)}
             >

@@ -19,6 +19,7 @@ import { videoActions } from '../../features/video/video-slice';
 import { FlexTransparentDiv } from '../../styles/Common/CommonDivStyle';
 import { GradientRoundBtn } from '../../styles/Common/CommonBtnStyle';
 import styled from 'styled-components';
+import { useScrollBlock } from '../../utils/scrollBlock';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -26,6 +27,13 @@ const MainPage = () => {
     extends React.ButtonHTMLAttributes<HTMLDivElement> {
     url: string;
   }
+  const [blockScroll, allowScroll] = useScrollBlock();
+  useEffect(() => {
+    // modal이 떠 있을 땐 스크롤 막음
+    blockScroll();
+    // modal 닫히면 다시 스크롤 가능하도록 함
+    return () => allowScroll();
+  }, []);
 
   const TagThumbnail = styled.div<TagThumbnailProps>`
     width: 100vw;

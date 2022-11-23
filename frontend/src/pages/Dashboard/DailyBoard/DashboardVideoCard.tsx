@@ -51,24 +51,20 @@ const DashboardVideoCard = ({
       <VideoDataBox>
         <FlexTransparentDiv
           widthSize={'19vw'}
-          heightSize={'20vh'}
+          heightSize={'22.5vh'}
           paddingSize={'0'}
           flexDirection={'column'}
           justifyContent={'center'}
           alignItems={'center'}
           IsBorder={'none'}
           style={{
-            marginTop: '1.5vh',
             borderTop: '10px solid black',
             borderBottom: '10px solid black',
             borderRadius: '10px',
             background: 'black',
           }}
         >
-          <VideoImg
-            src={`https://img.youtube.com/vi/${data.videoId}/0.jpg`}
-            style={{ height: '16vh' }}
-          />
+          <VideoImg src={`https://img.youtube.com/vi/${data.videoId}/0.jpg`} />
           <SubTagContainer>
             {/* {data.korScript && <SubTag>한글</SubTag>} */}
             <SubTag>ENG</SubTag>

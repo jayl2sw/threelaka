@@ -15,6 +15,7 @@ import {
 } from 'react-icons/ai';
 import { CloseModalBtn } from '../styles/Common/VideoModalStyle';
 import { MainBtn } from '../styles/Common/CommonBtnStyle';
+import { useScrollBlock } from './scrollBlock';
 import { ModalBackdrop } from '../styles/DashBoard/DashBoardStyle';
 
 interface IVideoModalProps {
@@ -31,6 +32,14 @@ const VideoModal = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const outside = useRef<HTMLDivElement>(null);
+  const [blockScroll, allowScroll] = useScrollBlock();
+  useEffect(() => {
+    // modal이 떠 있을 땐 스크롤 막음
+    blockScroll();
+    // modal 닫히면 다시 스크롤 가능하도록 함
+    return () => allowScroll();
+  }, []);
+
   // 버튼 클릭으로 영상 정보 조회
   useEffect(() => {
     if (modalToggleVideoId !== 'none') {
