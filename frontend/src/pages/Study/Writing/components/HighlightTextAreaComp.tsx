@@ -45,7 +45,7 @@ const HighlightTextAreaComp = ({
           value={textAreaValue}
           highlight={{
             highlight: modeValue ? spellFilterTarget : filterEssayTarget,
-            className: modeValue ? 'red' : 'blue',
+            className: modeValue ? 'red' : 'green',
           }}
           onChange={onChangeText}
         ></HighlightWithinTextarea>

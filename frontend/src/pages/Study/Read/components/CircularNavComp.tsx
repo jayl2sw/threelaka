@@ -40,8 +40,10 @@ const CicularNavComp = ({
         className={toggle ? 'toggle' : ''}
         onClick={() => {
           setLayoutMode(0);
-          setToggle(!toggle);
+          setToggle(false);
         }}
+        onMouseOver={() => setToggle(true)}
+        onMouseOut={() => setToggle(false)}
       >
         <RiLayout4Fill size={30} />
       </CircularMenuItem>
@@ -52,8 +54,10 @@ const CicularNavComp = ({
         className={toggle ? 'toggle' : ''}
         onClick={() => {
           setLayoutMode(1);
-          setToggle(!toggle);
+          setToggle(false);
         }}
+        onMouseOver={() => setToggle(true)}
+        onMouseOut={() => setToggle(false)}
       >
         <RiLayout4Fill style={{ transform: 'rotate(90deg)' }} size={30} />
       </CircularMenuItem>
@@ -64,12 +68,17 @@ const CicularNavComp = ({
         className={toggle ? 'toggle' : ''}
         onClick={() => {
           setLayoutMode(2);
-          setToggle(!toggle);
+          setToggle(false);
         }}
+        onMouseOver={() => setToggle(true)}
+        onMouseOut={() => setToggle(false)}
       >
         <RiLayout3Fill style={{ transform: 'rotate(180deg)' }} size={30} />
       </CircularMenuItem>
-      <CircularMenu onClick={() => setToggle(!toggle)}>
+      <CircularMenu
+        onMouseOver={() => setToggle(true)}
+        onMouseOut={() => setToggle(false)}
+      >
         <TbLayoutBoardSplit size={30} />
       </CircularMenu>
     </FlexTransparentDiv>
