@@ -23,13 +23,11 @@ public interface LearningRecordRepository extends JpaRepository<LearningRecord, 
     List<LearningRecord> findAllByUser(User user);
 
     @Query(nativeQuery = true,
-            value="SELECT u.nickname, u.profile, max(lr.stage) stage " +
-                    "FROM learning_record lr, users u where " +
-                    "lr.user_id = u.user_id and " +
-                    "u.guild_id = :guildId and " +
-                    "video_id = :videoId and " +
-                    "lr.modified_date between :start and :end " +
-                    "group by u.user_id")
+            value="SELECT t1.stage, t1.essay, u.nickname, u.profile " +
+                    "FROM (SELECT lr.learning_record_id, lr.essay, lr.user_id, lr.stage, ROW_NUMBER() " +
+                    "OVER(PARTITION BY lr.user_id ORDER BY lr.stage DESC, lr.modified_date DESC) AS RowIdx " +
+                    "FROM learning_record lr WHERE lr.video_id = :videoId AND lr.modified_date BETWEEN :start AND :end) AS t1, users u " +
+                    "WHERE RowIdx = 1 AND u.user_id = t1.user_id AND u.guild_id = :guildId")
     List<ProgressInterface> findProgress(int guildId, String videoId, String start, String end);
 
     int countByUserAndAndEssayNotNull(User usr);

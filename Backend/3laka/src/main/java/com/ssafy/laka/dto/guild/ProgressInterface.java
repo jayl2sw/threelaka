@@ -5,5 +5,6 @@ public interface ProgressInterface {
     String getNickname();
     String getProfile();
     Integer getStage();
+    String getEssay();
 
 }
