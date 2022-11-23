@@ -37,10 +37,10 @@ const StudyHistoryContainer = () => {
       IsBorder={'none'}
       style={{ marginTop: '13.2vh', marginLeft: '1.8vw' }}
     >
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      {/* <div style={{ display: 'flex', alignItems: 'center' }}>
         <RiBearSmileLine size={26} />
         <h3 style={{ margin: '0' }}>&nbsp;숫자로 보는 나의 영어 기록</h3>
-      </div>
+      </div> */}
 
       <MainBox
         widthSize={'28vw'}

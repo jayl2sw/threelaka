@@ -45,7 +45,7 @@ const EssayButtons = ({ essayOn, setEssayOn }: IEssayButtons) => {
             className={isOn ? '' : 'not-active'}
             onClick={() => {
               setIsOn(true);
-              setEssayOn(1);
+              setEssayOn(0);
             }}
           >
             ON
@@ -61,7 +61,7 @@ const EssayButtons = ({ essayOn, setEssayOn }: IEssayButtons) => {
             className={isOn ? 'not-active' : ''}
             onClick={() => {
               setIsOn(false);
-              setEssayOn(0);
+              setEssayOn(1);
             }}
           >
             OFF

@@ -55,7 +55,7 @@ const WordList = ({
           style={{ borderRadius: '1.5vmin', marginBottom: '1.5vh' }}
           onClick={openWordTestModal}
         >
-          Let's Word Test Game!
+          Word Test !
         </MainBtn>
         <AiFillCloseCircle
           size={25}
