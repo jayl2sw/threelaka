@@ -118,7 +118,7 @@ const WordListAndWritingContainerComp = ({
       if (textAreaRef.current!.innerText.length !== 0) {
         dispatch(writingActions.postCheckWordStart(wordCheckPayload));
       }
-    }, 20000);
+    }, 2000);
     return () => clearInterval(wordChecker);
   }, [wordBookList]); // wordbooklist가 있을 때 돌아가게 하기 위해
 
