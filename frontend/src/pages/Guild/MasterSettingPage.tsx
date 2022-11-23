@@ -754,7 +754,7 @@ const MasterSetting = () => {
                       key={idx}
                     >
                       <div style={{ minWidth: '8vw', fontSize: '2.5vmin' }}>
-                        {request.requstId}의 신청
+                        {request.userId}의 신청
                       </div>
                       <div
                         style={{

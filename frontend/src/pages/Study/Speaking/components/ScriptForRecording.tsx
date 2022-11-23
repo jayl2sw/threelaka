@@ -81,7 +81,7 @@ const ScriptForRecording = () => {
           </TextEssayBox>
         ))
       ) : (
-        <h2 style={{ textAlign: 'center', lineHeight: '20vh' }}>
+        <h2 style={{ textAlign: 'center', lineHeight: '20vh', color: 'black' }}>
           스크립트를 불러올 수 없어요😂
         </h2>
       )}

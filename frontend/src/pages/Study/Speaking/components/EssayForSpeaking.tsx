@@ -53,7 +53,7 @@ const EssayForSpeaking = ({ essayOn, setEssayOn }: IEssayButtons) => {
     const container = document.querySelector('#container');
 
     const options = {
-      root: container, // viewport
+      root: null, // viewport
       rootMargin: '0px',
       threshold: 1.0, // 50%가 viewport에 들어와 있어야 callback 실행
     };
@@ -91,9 +91,8 @@ const EssayForSpeaking = ({ essayOn, setEssayOn }: IEssayButtons) => {
       widthSize={'50vw'}
       heightSize={'30vh'}
       paddingSize={'1vw'}
-      fontSize={'1.5vw'}
-      color={'white'}
-      fontColor={'black'}
+      fontSize={'2vmin'}
+      fontColor={'grey'}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -112,7 +111,7 @@ const EssayForSpeaking = ({ essayOn, setEssayOn }: IEssayButtons) => {
             paddingSize={'0'}
             flexDirection={'row'}
             IsBorder={'none'}
-            style={{ position: 'relative' }}
+            style={{ position: 'fixed' }}
           >
             <div
               style={{
@@ -164,7 +163,13 @@ const EssayForSpeaking = ({ essayOn, setEssayOn }: IEssayButtons) => {
                     </TextEssayBox>
                   ))
                 ) : (
-                  <h2 style={{ textAlign: 'center', lineHeight: '20vh' }}>
+                  <h2
+                    style={{
+                      textAlign: 'center',
+                      lineHeight: '20vh',
+                      color: 'black',
+                    }}
+                  >
                     아직 작성한 에세이가 없어요😂
                   </h2>
                 )}
@@ -173,9 +178,15 @@ const EssayForSpeaking = ({ essayOn, setEssayOn }: IEssayButtons) => {
           )}
         </div>
       ) : (
-        <h3 style={{ textAlign: 'center', lineHeight: '20vh' }}>
+        <h2
+          style={{
+            textAlign: 'center',
+            lineHeight: '20vh',
+            color: 'black',
+          }}
+        >
           문장을 보지않고 말하기 연습을 해보세요
-        </h3>
+        </h2>
       )}
 
       {/* <div>

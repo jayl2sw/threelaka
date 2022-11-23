@@ -401,6 +401,7 @@ export const AlertImgBox = styled.img.attrs((props) => ({
 
   animation: blinker 1s;
   animation-iteration-count: 3;
+  cursor: pointer;
 
   @keyframes blinker {
     50% {
@@ -422,7 +423,7 @@ export const AlertImgBoxVideo = styled.img.attrs((props) => ({
 export const AlertDropDownContainer = styled.div`
   position: fixed;
   top: 10.5vh;
-  right: 7vw;
+  right: 9vw;
   @keyframes growDown {
     0% {
       transform: scaleY(0);
