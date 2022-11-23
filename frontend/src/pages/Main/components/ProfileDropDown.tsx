@@ -24,10 +24,10 @@ const ProfileDropDown = () => {
   const handleLogout = () => {
     dispatch(authActions.logout());
     navigate('/auth/login');
+    window.location.reload();
   };
   return (
     <div>
-      {' '}
       <ProfileDropDownContainer>
         <div className="dropdown">
           <MainBox

@@ -21,7 +21,13 @@ const Calendar = () => {
     <Wrapper>
       <div
         className="dynamic-text-shadow"
-        style={{ zIndex: '1', height: '10vh', width: '25vw' }}
+        style={{
+          zIndex: '1',
+          height: '10vh',
+          width: '25vw',
+          marginTop: '5vh',
+          marginRight: '2vw',
+        }}
       >
         <span style={{ fontSize: '8vmin' }}>{seqDays}</span>
         <span>&nbsp;days streak!</span>

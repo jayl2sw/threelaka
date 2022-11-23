@@ -68,18 +68,34 @@ const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
       </FlexTransparentDiv>
       <MainBox
         widthSize={'41vw'}
-        heightSize={'33vh'}
+        heightSize={'33.5vh'}
         paddingSize={'2vh 1vw'}
         fontColor={'black'}
         fontSize={'1vmin'}
-        style={{ overflowY: 'hidden', overflowX: 'scroll', boxShadow: 'none' }}
-        ref={scrollRef}
+        // style={{ overflowY: 'hidden', overflowX: 'scroll', boxShadow: 'none' }}
+        // ref={scrollRef}
       >
-        <DashboardVideos
-          mode={mode}
-          recentVideoBlock={recentVideoBlock}
-          setModalToggleVideoId={setModalToggleVideoId}
-        ></DashboardVideos>
+        <FlexTransparentDiv
+          widthSize={'40vw'}
+          heightSize={'30vh'}
+          paddingSize={'0'}
+          flexDirection={'column'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          IsBorder={'none'}
+          style={{
+            overflowY: 'hidden',
+            overflowX: 'scroll',
+            boxShadow: 'none',
+          }}
+          ref={scrollRef}
+        >
+          <DashboardVideos
+            mode={mode}
+            recentVideoBlock={recentVideoBlock}
+            setModalToggleVideoId={setModalToggleVideoId}
+          ></DashboardVideos>
+        </FlexTransparentDiv>
       </MainBox>
     </VideoBlock>
   );

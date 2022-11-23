@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
 import DashboardVideoCard from './DashboardVideoCard';
 import { RecentVideoContainer } from '../../../styles/DashBoard/DashBoardStyle';
+import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 
 interface IRecentVideosPros {
   recentVideoBlock: RefObject<HTMLDivElement>;
@@ -34,7 +35,7 @@ const DashboardVideos = ({
   );
 
   return (
-    <>
+    <div>
       {/* <RecentVideoContainer ref={recentVideoBlock} style={{ display: 'flex' }}> */}
       {mode === 0 ? (
         <RecentVideoContainer
@@ -90,7 +91,7 @@ const DashboardVideos = ({
         </RecentVideoContainer>
       )}
       {/* </RecentVideoContainer> */}
-    </>
+    </div>
   );
 };
 

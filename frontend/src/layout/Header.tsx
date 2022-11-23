@@ -30,10 +30,6 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
   const moveToNext = customMoveToNext;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleLogout = () => {
-    dispatch(authActions.logout());
-    navigate('/auth/login');
-  };
 
   const goToHome = () => {
     dispatch(studyActions.resetStudystate());
