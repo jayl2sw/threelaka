@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { throttle } from 'lodash';
+import { useNavigate } from 'react-router-dom';
 import {
   MainPageBlock,
   FirstpageBlock,
@@ -21,6 +21,7 @@ import { GradientRoundBtn } from '../../styles/Common/CommonBtnStyle';
 import styled from 'styled-components';
 
 const MainPage = () => {
+  const navigate = useNavigate();
   interface TagThumbnailProps
     extends React.ButtonHTMLAttributes<HTMLDivElement> {
     url: string;
@@ -83,6 +84,10 @@ const MainPage = () => {
       }
       setScrollQuantity((scrollQuantity) => scrollQuantity + 3);
     }
+  };
+
+  const onClickMoveToVideos = () => {
+    navigate('/videos');
   };
 
   useEffect(() => {
@@ -180,6 +185,7 @@ const MainPage = () => {
                   fontSize={'2.3vmin'}
                   backgroundColor={'gradient'}
                   style={{ borderRadius: '2vmin', fontWeight: 'bold' }}
+                  onClick={() => onClickMoveToVideos()}
                 >
                   영상 찾아보기
                 </GradientRoundBtn>

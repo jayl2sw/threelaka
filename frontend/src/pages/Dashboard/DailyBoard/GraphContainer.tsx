@@ -13,7 +13,7 @@ const GraphContainer = () => {
         <RiBearSmileLine size={26} />
         <h3 style={{ margin: '0' }}>&nbsp;나의 주간 공부 시간</h3>
       </div> */}
-      {mode === 0 ? (
+      {mode === 1 ? (
         <ParentSize>
           {({ width, height }) => {
             return (

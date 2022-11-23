@@ -41,7 +41,7 @@ const DateIndicator = ({ selectDate, setSelectDate }: IDateIndicatorProps) => {
   //0~1시간 verybad 1~ 2시간bad 2~ 3시간well 3~4시간good 4시간이상 verygood
 
   return (
-    <DateIndicatorContainer>
+    <DateIndicatorContainer style={{ zIndex: '10' }}>
       {datesInMonth.map((item, idx) => {
         if (item.currentMonth && item.beforeToday) {
           const time = (

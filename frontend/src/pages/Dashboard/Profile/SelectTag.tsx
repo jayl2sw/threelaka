@@ -101,10 +101,11 @@ const UpdateTagModal = () => {
       >
         <div
           style={{
+            width: '28vw',
             textAlign: 'start',
-            fontSize: '2vmin',
+            fontSize: '2.5vmin',
             marginTop: '1vh',
-            lineHeight: '3.3vmin',
+            lineHeight: '5vmin',
           }}
         >
           {/* <h2>Threelaka가 당신을 위해,</h2> */}
@@ -114,8 +115,11 @@ const UpdateTagModal = () => {
         <p
           style={{
             fontSize: '1.5vmin',
-            marginLeft: '17vw',
-            marginBottom: '-2vh',
+            textAlign: 'right',
+            width: '100%',
+            margin: '0 0 -1vh 0',
+            paddingRight: '1vw',
+            color: '#7e7e7e',
           }}
         >
           3개 선택 가능
@@ -136,10 +140,9 @@ const UpdateTagModal = () => {
             style={{
               flexWrap: 'wrap',
               alignContent: 'flex-start',
-
               background: 'rgba(131,189,255, 0.3)',
               borderRadius: '2vmin',
-              marginTop: '3vh',
+              marginTop: '2vh',
             }}
           >
             {tags.map((item, idx) => (

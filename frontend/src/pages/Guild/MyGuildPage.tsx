@@ -6,14 +6,15 @@ import {
   MainBox,
   FlexFadeInOutDiv,
   MainPaleBox,
+  BackBlurBox,
 } from '../../styles/Common/CommonDivStyle';
-import { MainBtn } from '../../styles/Common/CommonBtnStyle';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { guildActions } from '../../features/guild/guild-slice';
-import { LearnTimeProgressbar } from '../../styles/Guild/MyGuildStyle';
-import { AiFillFire, AiFillBell } from 'react-icons/ai';
-import { GoFlame } from 'react-icons/go';
-import { VscTriangleLeft, VscTriangleRight } from 'react-icons/vsc';
+import {
+  LearnTimeProgressbar,
+  AssignmentDiv,
+} from '../../styles/Guild/MyGuildStyle';
+import { BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
 import { TopBtn } from '../../styles/Common/CommonBtnStyle';
 import { useHorizontalScroll } from '../../utils/useSideScroll';
 import VideoModal from '../../utils/VideoModal';
@@ -41,7 +42,7 @@ const MyGuild = () => {
 
   const learnTimePageNum = Math.ceil(myguildLearnTime.length / 7);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [roomNubmer, setRoomNumber] = useState<number>(0);
+  const [animateToggle, setAnimateToggle] = useState<boolean>(false);
   const [modalToggleVideoId, setModalToggleVideoId] = useState<string>('none');
 
   const [mode, setMode] = useState<number>(0);
@@ -61,6 +62,15 @@ const MyGuild = () => {
   useEffect(() => {
     dispatch(guildActions.getProgressTask());
   }, [userGuildId]);
+
+  useEffect(() => {
+    if (myguildLearnTime.length === 0) {
+      return;
+    }
+    setTimeout(() => {
+      setAnimateToggle(true);
+    }, 200);
+  }, [myguildLearnTime, currentPage]);
 
   // 수평 스크롤
   const scrollRef = useHorizontalScroll([
@@ -129,14 +139,13 @@ const MyGuild = () => {
                 mode === 3 ? 'hidden' : mode === 2 ? 'disappear' : 'appear'
               }
             >
-              <FlexTransparentDiv
+              <BackBlurBox
                 widthSize={'33vw'}
-                heightSize={'20vh'}
-                paddingSize={'0'}
-                flexDirection={'column'}
-                justifyContent={'start'}
-                alignItems={'start'}
-                IsBorder={'none'}
+                heightSize={'15vh'}
+                paddingSize={'2vh 1vw'}
+                fontSize={'2vmin'}
+                fontColor={'black'}
+                style={{ marginBottom: '2vh' }}
               >
                 <FlexTransparentDiv
                   widthSize={'33vw'}
@@ -156,11 +165,6 @@ const MyGuild = () => {
                     alignItems={'start'}
                     IsBorder={'none'}
                   >
-                    <GoFlame
-                      size={30}
-                      color="red"
-                      style={{ height: '4vh' }}
-                    ></GoFlame>
                     <FlexTransparentDiv
                       widthSize={'30vw'}
                       heightSize={'5vh'}
@@ -173,7 +177,7 @@ const MyGuild = () => {
                     >
                       <p
                         style={{
-                          fontSize: '2vmin',
+                          fontSize: '2.5vmin',
                           fontWeight: 'bold',
                           color: '#4A9FFF',
                           verticalAlign: 'middle',
@@ -186,12 +190,12 @@ const MyGuild = () => {
                   <FlexTransparentDiv
                     widthSize={'33vw'}
                     heightSize={'5vh'}
-                    paddingSize={'0 0 0 4vw'}
+                    paddingSize={'0 0 0 3vw'}
                     flexDirection={'column'}
                     justifyContent={'start'}
                     alignItems={'start'}
                     IsBorder={'none'}
-                    style={{ fontSize: '2.5vmin' }}
+                    style={{ fontSize: '2.5vmin', fontWeight: 'bold' }}
                   >
                     {myguildLearnTime[0] &&
                       `${myguildLearnTime[0].nickname}님이 ${Math.floor(
@@ -201,24 +205,14 @@ const MyGuild = () => {
                       )}분 공부했어요!`}
                   </FlexTransparentDiv>
                 </FlexTransparentDiv>
-                <FlexTransparentDiv
-                  widthSize={'33vw'}
-                  heightSize={'10vh'}
-                  paddingSize={'0'}
-                  flexDirection={'column'}
-                  justifyContent={'start'}
-                  alignItems={'start'}
-                  IsBorder={'none'}
-                ></FlexTransparentDiv>
-              </FlexTransparentDiv>
-              <FlexTransparentDiv
+              </BackBlurBox>
+              <BackBlurBox
                 widthSize={'33vw'}
                 heightSize={'20vh'}
-                paddingSize={'0'}
-                flexDirection={'column'}
-                justifyContent={'start'}
-                alignItems={'start'}
-                IsBorder={'none'}
+                paddingSize={'2vh 1vw'}
+                fontSize={'2vmin'}
+                fontColor={'black'}
+                style={{ marginBottom: '2vh' }}
               >
                 <FlexTransparentDiv
                   widthSize={'33vw'}
@@ -229,11 +223,6 @@ const MyGuild = () => {
                   alignItems={'start'}
                   IsBorder={'none'}
                 >
-                  <AiFillBell
-                    size={30}
-                    color="#ffb94c"
-                    style={{ height: '5vh' }}
-                  ></AiFillBell>
                   <FlexTransparentDiv
                     widthSize={'30vw'}
                     heightSize={'5vh'}
@@ -246,7 +235,7 @@ const MyGuild = () => {
                   >
                     <p
                       style={{
-                        fontSize: '2vmin',
+                        fontSize: '2.5vmin',
                         fontWeight: 'bold',
                         color: '#4A9FFF',
                       }}
@@ -258,7 +247,7 @@ const MyGuild = () => {
                 <FlexTransparentDiv
                   widthSize={'30vw'}
                   heightSize={'15vh'}
-                  paddingSize={'1vh 0 0 4vw'}
+                  paddingSize={'0 0 0 3vw'}
                   flexDirection={'row'}
                   justifyContent={'start'}
                   alignItems={'start'}
@@ -267,7 +256,7 @@ const MyGuild = () => {
                 >
                   {myGuildInfo.notice}
                 </FlexTransparentDiv>
-              </FlexTransparentDiv>
+              </BackBlurBox>
             </FlexFadeInOutDiv>
 
             <FlexFadeInOutDiv
@@ -286,12 +275,12 @@ const MyGuild = () => {
                 widthSize={'8vw'}
                 heightSize={'4.5vh'}
                 paddingSize={'0'}
-                fontColor={'black'}
+                fontColor={'white'}
                 fontSize={'2vmin'}
                 backgroundColor={'blue'}
                 style={{ marginLeft: '1vw', wordBreak: 'keep-all' }}
                 onClick={() => setMode(0)}
-                className={mode === 0 ? 'pale' : ''}
+                className={mode === 0 ? '' : 'pale'}
               >
                 진행중인 과제
               </TopBtn>
@@ -299,14 +288,14 @@ const MyGuild = () => {
                 widthSize={'8vw'}
                 heightSize={'4.5vh'}
                 paddingSize={'0'}
-                fontColor={'black'}
+                fontColor={'white'}
                 fontSize={'2vmin'}
                 backgroundColor={'blue'}
                 style={{ marginLeft: '1vw' }}
                 onClick={() => {
                   setMode(1);
                 }}
-                className={mode === 1 ? 'pale' : ''}
+                className={mode === 1 ? '' : 'pale'}
               >
                 예정된 과제
               </TopBtn>
@@ -314,14 +303,14 @@ const MyGuild = () => {
                 widthSize={'8vw'}
                 heightSize={'4.5vh'}
                 paddingSize={'0'}
-                fontColor={'black'}
+                fontColor={'white'}
                 fontSize={'2vmin'}
                 backgroundColor={'blue'}
                 style={{ marginLeft: '1vw' }}
                 onClick={() => {
                   setMode(2);
                 }}
-                className={mode === 2 ? 'pale' : ''}
+                className={mode === 2 ? '' : 'pale'}
               >
                 완료한 과제
               </TopBtn>
@@ -339,7 +328,7 @@ const MyGuild = () => {
               }
             >
               <MainBox
-                widthSize={'34vw'}
+                widthSize={'33vw'}
                 heightSize={'25vh'}
                 paddingSize={'2vh 1vw'}
                 fontColor={'black'}
@@ -357,22 +346,12 @@ const MyGuild = () => {
                   <>
                     {progressTaskLst.map((task, idx) => {
                       return (
-                        <FlexTransparentDiv
+                        <AssignmentDiv
                           key={`video-progree-${idx}`}
-                          widthSize={'15vw'}
-                          heightSize={'20vh'}
-                          paddingSize={'0'}
-                          flexDirection={'row'}
-                          justifyContent={'center'}
-                          alignItems={'center'}
-                          IsBorder={'none'}
+                          dueDate={task.startDate}
                           onClick={() => setModalToggleVideoId(task.videoId)}
                           style={{
                             cursor: 'pointer',
-                            borderTop: '10px solid black',
-                            borderBottom: '10px solid black',
-                            borderRadius: '10px',
-                            background: 'black',
                             margin: '0.5vw',
                             position: 'relative',
                           }}
@@ -382,22 +361,11 @@ const MyGuild = () => {
                               width: '15vw',
                               height: '18vh',
                               objectFit: 'cover',
+                              borderRadius: '10px',
                             }}
                             src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
                           ></img>
-                          <div
-                            style={{
-                              position: 'absolute',
-                              width: '10vw',
-                              top: '0.5vh',
-                              left: '1vw',
-                              color: 'white',
-                              fontSize: '2.5vmin',
-                            }}
-                          >
-                            ~{task.startDate}
-                          </div>
-                        </FlexTransparentDiv>
+                        </AssignmentDiv>
                       );
                       // return <p key={`task-${idx}`}>{task.videoId}</p>;
                     })}
@@ -406,22 +374,12 @@ const MyGuild = () => {
                   <>
                     {upcomingTaskLst.map((task, idx) => {
                       return (
-                        <FlexTransparentDiv
-                          key={`video-progree-${idx}`}
-                          widthSize={'15vw'}
-                          heightSize={'20vh'}
-                          paddingSize={'0'}
-                          flexDirection={'row'}
-                          justifyContent={'center'}
-                          alignItems={'center'}
-                          IsBorder={'none'}
+                        <AssignmentDiv
+                          key={`video-upcome-${idx}`}
+                          dueDate={task.startDate}
                           onClick={() => setModalToggleVideoId(task.videoId)}
                           style={{
                             cursor: 'pointer',
-                            borderTop: '10px solid black',
-                            borderBottom: '10px solid black',
-                            borderRadius: '10px',
-                            background: 'black',
                             margin: '0.5vw',
                             position: 'relative',
                           }}
@@ -431,22 +389,11 @@ const MyGuild = () => {
                               width: '15vw',
                               height: '18vh',
                               objectFit: 'cover',
+                              borderRadius: '10px',
                             }}
                             src={`https://img.youtube.com/vi/${task.videoId}/0.jpg`}
                           ></img>
-                          <div
-                            style={{
-                              position: 'absolute',
-                              width: '10vw',
-                              top: '0.5vh',
-                              left: '1vw',
-                              color: 'white',
-                              fontSize: '2.5vmin',
-                            }}
-                          >
-                            ~{task.startDate}
-                          </div>
-                        </FlexTransparentDiv>
+                        </AssignmentDiv>
                       );
                       // return <p key={`task-${idx}`}>{task.videoId}</p>;
                     })}
@@ -513,7 +460,7 @@ const MyGuild = () => {
               heightSize={'70vh'}
               paddingSize={'1vh 1vw'}
               flexDirection={'column'}
-              justifyContent={'space-between'}
+              justifyContent={'start'}
               alignItems={'start'}
               IsBorder={'none'}
             >
@@ -522,6 +469,7 @@ const MyGuild = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'start',
+                  minHeight: '56vh',
                 }}
               >
                 {myguildLearnTime
@@ -533,7 +481,7 @@ const MyGuild = () => {
                       <FlexTransparentDiv
                         key={`progress-${idx}`}
                         widthSize={'28vw'}
-                        heightSize={'10vh'}
+                        heightSize={'8vh'}
                         paddingSize={'0'}
                         flexDirection={'column'}
                         justifyContent={'start'}
@@ -542,7 +490,7 @@ const MyGuild = () => {
                       >
                         <FlexTransparentDiv
                           widthSize={'28vw'}
-                          heightSize={'5vh'}
+                          heightSize={'4vh'}
                           paddingSize={'0'}
                           flexDirection={'row'}
                           justifyContent={'start'}
@@ -554,7 +502,7 @@ const MyGuild = () => {
                         </FlexTransparentDiv>
                         <FlexTransparentDiv
                           widthSize={'28vw'}
-                          heightSize={'5vh'}
+                          heightSize={'4vh'}
                           paddingSize={'0'}
                           flexDirection={'row'}
                           justifyContent={'start'}
@@ -565,6 +513,9 @@ const MyGuild = () => {
                             widthSize={'20vw'}
                             heightSize={'2vh'}
                             progressPercent={timePercent}
+                            animeIdx={idx}
+                            profileNum={learnRecord.profile}
+                            className={animateToggle ? 'on' : 'off'}
                             style={{ marginBottom: '1vh' }}
                           />
                           <FlexTransparentDiv
@@ -591,7 +542,7 @@ const MyGuild = () => {
                   })}
               </div>
               <FlexTransparentDiv
-                widthSize={'28vw'}
+                widthSize={'29vw'}
                 heightSize={'5vh'}
                 paddingSize={'1vh 1vw'}
                 flexDirection={'row'}
@@ -600,25 +551,29 @@ const MyGuild = () => {
                 IsBorder={'none'}
               >
                 {currentPage === 1 ? (
-                  ''
+                  <div style={{ width: '20px', height: '20px' }}></div>
                 ) : (
-                  <VscTriangleLeft
-                    size={30}
-                    onClick={() =>
-                      setCurrentPage((currentPage) => currentPage - 1)
-                    }
-                  ></VscTriangleLeft>
+                  <BsCaretLeftFill
+                    size={20}
+                    onClick={() => {
+                      setAnimateToggle(false);
+                      setCurrentPage((currentPage) => currentPage - 1);
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  ></BsCaretLeftFill>
                 )}
                 {currentPage}&nbsp;/&nbsp;{learnTimePageNum}
                 {currentPage === learnTimePageNum ? (
-                  ''
+                  <div style={{ width: '20px', height: '20px' }}></div>
                 ) : (
-                  <VscTriangleRight
-                    onClick={() =>
-                      setCurrentPage((currentPage) => currentPage + 1)
-                    }
-                    size={30}
-                  ></VscTriangleRight>
+                  <BsCaretRightFill
+                    onClick={() => {
+                      setAnimateToggle(false);
+                      setCurrentPage((currentPage) => currentPage + 1);
+                    }}
+                    size={20}
+                    style={{ cursor: 'pointer' }}
+                  ></BsCaretRightFill>
                 )}
               </FlexTransparentDiv>
             </FlexTransparentDiv>

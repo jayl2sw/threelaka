@@ -30,7 +30,7 @@ const ModeScreen = () => {
       <MainPaleBox
         widthSize={'50vw'}
         heightSize={'50vh'}
-        paddingSize={'2vw'}
+        paddingSize={'2.5vh 2vw'}
         fontSize={'1rem'}
         color={'white'}
         fontColor={'black'}

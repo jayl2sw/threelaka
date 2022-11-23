@@ -377,3 +377,17 @@ export const EssayOnOffContainer = styled.div`
     opacity: 0.5;
   }
 `;
+
+export const VideoBtnBox = styled.div`
+  animation: smoothAppear 1s ease-in-out;
+  @keyframes smoothAppear {
+    from {
+      opacity: 0;
+      transform: translateY(-5%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
