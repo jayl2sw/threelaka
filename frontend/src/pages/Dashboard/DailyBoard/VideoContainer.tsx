@@ -72,7 +72,7 @@ const VideoContainer = ({ setModalToggleVideoId }: IVideoContainerProps) => {
         paddingSize={'2vh 1vw'}
         fontColor={'black'}
         fontSize={'1vmin'}
-        // style={{ overflowY: 'hidden', overflowX: 'scroll', boxShadow: 'none' }}
+        style={{ boxShadow: 'none' }}
         // ref={scrollRef}
       >
         <FlexTransparentDiv
