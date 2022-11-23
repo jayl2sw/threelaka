@@ -33,6 +33,7 @@ const Header = ({ customMoveToNext }: IheaderProps) => {
   const handleLogout = () => {
     dispatch(authActions.logout());
     navigate('/auth/login');
+    window.location.reload();
   };
 
   // const moveToNext = (
