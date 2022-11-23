@@ -223,6 +223,7 @@ export default function WebCam() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   zIndex: '2',
+                  cursor: 'pointer',
                 }}
                 onClick={() => {
                   recordWebcam.stop();
@@ -241,7 +242,7 @@ export default function WebCam() {
                     display: 'absolute',
                     top: '-8.5vh',
                     zIndex: '-1',
-                    right: '0.3vw',
+                    right: '0.2vw',
                   }}
                 ></LoadingSpinner>
               ) : null}
@@ -257,6 +258,7 @@ export default function WebCam() {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
+                  cursor: 'pointer',
                 }}
                 onClick={() => {
                   recordWebcam.start();
@@ -273,19 +275,6 @@ export default function WebCam() {
               style={{ position: 'absolute', top: '-35vh', right: '-7.5vw' }}
             >
               <VideoBtnBox style={{ display: 'flex' }}>
-                {/* <button
-                onClick={() => {
-                  recordWebcam.retake();
-
-                  setIsShow(false);
-                  setIsRetake(true);
-                  setTimeout(() => {
-                    setIsRetake(false);
-                  }, 2000);
-                }}
-              >
-                Retake
-              </button> */}
                 <VideoAudioBtn
                   onClick={() => {
                     recordWebcam.retake();

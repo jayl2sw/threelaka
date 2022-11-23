@@ -49,7 +49,7 @@ const SpeechTest = () => {
       <MainPaleBox
         widthSize={'50vw'}
         heightSize={'50vh'}
-        paddingSize={'0 0 0 1vw'}
+        paddingSize={'0'}
         fontSize={'3.8vmin'}
         fontColor={'black'}
         style={{ minHeight: '50vh' }}
@@ -75,7 +75,7 @@ const SpeechTest = () => {
                     alignItems: 'center',
                   }}
                 >
-                  <h3>발음 분석 중 입니다</h3>
+                  <h3 style={{ margin: '0' }}>발음 분석 중 입니다</h3>
                   <LoadingSpinner
                     widthSize="20vmin"
                     heightSize="20vmin"

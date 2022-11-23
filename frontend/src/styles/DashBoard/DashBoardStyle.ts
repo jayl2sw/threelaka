@@ -255,6 +255,7 @@ export const GradientBorderBox = styled.div`
   height: 47vh;
   border-radius: 1rem;
   position: relative;
+
   .innerBox {
     position: absolute;
     top: 1vh;
@@ -263,6 +264,7 @@ export const GradientBorderBox = styled.div`
     border-radius: 0.8rem;
     height: 45vh;
     width: 25vw;
+    padding-top: 2vh;
   }
 `;
 

@@ -78,8 +78,13 @@ const SelectProfile = ({
           })}
         </FlexTransparentDiv>
         <BtnDiv>
-          <CheckBtn onClick={() => handleProfileChange(num)}>저장</CheckBtn>
-          <CancelBtn onClick={closeModalProfile}>취소</CancelBtn>
+          <CheckBtn
+            onClick={() => {
+              handleProfileChange(num);
+              closeModalProfile();
+            }}
+          ></CheckBtn>
+          <CancelBtn onClick={closeModalProfile}></CancelBtn>
         </BtnDiv>
       </ModalView>
     </ModalBackdrop>

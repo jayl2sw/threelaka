@@ -91,6 +91,7 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
             bgColor="transparent"
             widthSize="2vw"
             onClick={handleToggle}
+            style={{ marginRight: '1vw' }}
           >
             {userAlertList.length !== 0 ? (
               <AlertImgBox
@@ -105,7 +106,7 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
                   flexDirection: 'column',
 
                   top: '6vh',
-                  right: '6.5vw',
+                  right: '7.4vw',
                 }}
               ></AlertImgBox>
             ) : null}
