@@ -31,7 +31,7 @@ import PageNotFound from './layout/PageNotFound';
 import { ProtectedRoute } from './pages/private/ProtectedRoute';
 
 import Test from './pages/Test';
-import WebRtcPage from './pages/WebRtc/WebRtcPage';
+import WebRtcPage from './pages/WebRtc/WebRtcpage';
 
 function App() {
   const dispatch = useAppDispatch();
