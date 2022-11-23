@@ -97,6 +97,7 @@ const VoiceRecorderForTest = ({
     dispatch(writingActions.getEssayStart(pageParams.learningRecordId));
   }, []);
   const userEssay = useAppSelector((state) => state.write.essay);
+  const tedScript = useAppSelector((state) => state.read.TedScriptList);
 
   return (
     <div>
@@ -104,7 +105,9 @@ const VoiceRecorderForTest = ({
         {new Date(timer * 1000).toISOString().substr(11, 8)}
       </p> */}
 
-      <RecordBox className={userEssay === '' ? 'noEssay' : ''}>
+      <RecordBox
+        className={userEssay !== '' || tedScript.length !== 0 ? '' : 'noEssay'}
+      >
         <VideoAudioBtnContainer className="test-recorder" style={{}}>
           {isRecording ? (
             <LoadingSpinner
