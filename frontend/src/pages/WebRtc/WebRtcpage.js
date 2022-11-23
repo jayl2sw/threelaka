@@ -8,6 +8,8 @@ import io from 'socket.io-client';
 import Peer from 'simple-peer';
 import axios from 'axios';
 
+import '../../styles/WebRtc/WebRtc.css';
+
 let messages = [];
 const guildId = 2;
 
@@ -110,8 +112,8 @@ const WebRtcPage = () => {
   );
 };
 
-// export const SERVER = 'http://localhost:5002';
-export const SERVER = 'https://3laka.com';
+export const SERVER = 'http://localhost:5002';
+// export const SERVER = 'https://3laka.com/socket_api/';
 
 let socket = null;
 // const nickname = '테스트계정';
@@ -199,8 +201,6 @@ export const getLocalPreviewAndInitRoomConnection = async (
 
 //////////////////////////////////////////UI///////////////////////////////////////////////////////////////
 const showLocalVideoPreview = (stream) => {
-  // local 프리뷰 바닐라 스크립트로 짜야해서 index.html에 div만들고 index.css에 css적용해야함
-  // 근데 모달 뒤에 나와요 어캄?
   const videosContainer = document.getElementById('RTCroom');
   videosContainer.classList.add('videos_portal_styles');
   const videoContainer = document.createElement('div');
