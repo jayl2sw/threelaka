@@ -5,7 +5,10 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ProfileInputField } from './ProfileInputField';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
-import { GradientRoundBtn } from '../../../styles/Common/CommonBtnStyle';
+import {
+  GradientRoundBtn,
+  MainBtn,
+} from '../../../styles/Common/CommonBtnStyle';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { authActions } from '../../../features/auth/authSlice';
 interface IPwdForm {
@@ -113,19 +116,22 @@ const ModifyPassword = ({ initialValues, onSubmit }: IModifyPasswordProps) => {
   };
   return (
     <FlexTransparentDiv
-      widthSize={'100%'}
-      heightSize={'38vh'}
-      paddingSize={'1vh 0'}
+      widthSize={'22vw'}
+      heightSize={'36vh'}
+      paddingSize={'0'}
       flexDirection={'column'}
       justifyContent={'start'}
       alignItems={'start'}
       IsBorder={'none'}
+      style={{ margin: '1vw' }}
     >
+      <h3 style={{ marginTop: '2vh' }}>비밀번호 변경</h3>
       <form
         onSubmit={handleSubmit(handleFormSubmit)}
         style={{
           width: '100%',
-          height: '20vh',
+          height: '18vh',
+          marginTop: '5vh',
         }}
       >
         <ProfileInputField
@@ -146,17 +152,27 @@ const ModifyPassword = ({ initialValues, onSubmit }: IModifyPasswordProps) => {
           label="새 비밀번호 확인"
           type="password"
         />
-        <GradientRoundBtn
-          widthSize={'70%'}
-          heightSize={'5vh'}
-          paddingSize={'0'}
-          fontColor={'black'}
-          fontSize={'2vmin'}
-          backgroundColor={'gradient'}
-          style={{ margin: '2vh auto' }}
+        <FlexTransparentDiv
+          widthSize={'21.7vw'}
+          heightSize={'6vh'}
+          paddingSize={'1vh 0'}
+          flexDirection={'row'}
+          justifyContent={'end'}
+          alignItems={'start'}
+          IsBorder={'none'}
         >
-          비밀번호변경
-        </GradientRoundBtn>
+          <MainBtn
+            widthSize={'4vw'}
+            heightSize={'4vh'}
+            paddingSize={'0'}
+            fontSize={'1.8vmin'}
+            fontColor={'white'}
+            backgroundColor={'blue'}
+            style={{ borderRadius: '10px' }}
+          >
+            수정
+          </MainBtn>
+        </FlexTransparentDiv>
       </form>
     </FlexTransparentDiv>
   );

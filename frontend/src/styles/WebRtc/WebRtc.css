@@ -1,0 +1,109 @@
+.room_container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+/* video */
+.videos_container {
+  width: 100%;
+  height: 100%;
+  /* background-color: #f6f9fb; */
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 영상 전체 컨테이너 */
+.videos_portal_styles {
+  width: 85vw;
+  height: 26vh;
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid green; */
+}
+
+video {
+  width: 20vw;
+  height: 26vh;
+  /* border: 1px solid red; */
+}
+
+.video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  /* position: relative; */
+}
+
+
+.video_track_container:first-child:nth-last-child(1) {
+  width: 100%;
+  height: 100%;
+  /* position: relative; */
+}
+
+.video_track_container:first-child:nth-last-child(2),
+.video_track_container:first-child:nth-last-child(2) ~ .video_track_container {
+  width: 100%;
+  height: 100%;
+  /* position: relative; */
+}
+
+.video_track_container:first-child:nth-last-child(3),
+.video_track_container:first-child:nth-last-child(3) ~ .video_track_container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.video_track_container:first-child:nth-last-child(4),
+.video_track_container:first-child:nth-last-child(4) ~ .video_track_container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.video_track_container:first-child:nth-last-child(5),
+.video_track_container:first-child:nth-last-child(5) ~ .video_track_container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.video_track_container:first-child:nth-last-child(6),
+.video_track_container:first-child:nth-last-child(6) ~ .video_track_container {
+  width: 100%;
+  height: 100%;
+}
+
+/* .video_track_container:first-child:nth-last-child(7),
+.video_track_container:first-child:nth-last-child(7) ~ .video_track_container {
+  width: 100%;
+  height: 100%;
+}
+
+.video_track_container:first-child:nth-last-child(8),
+.video_track_container:first-child:nth-last-child(8) ~ .video_track_container {
+  width: 100%;
+  height: 100%;
+}
+
+.video_track_container:first-child:nth-last-child(9),
+.video_track_container:first-child:nth-last-child(9) ~ .video_track_container {
+  width: 100%;
+  height: 100%;
+} */
+
+.video_section_container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

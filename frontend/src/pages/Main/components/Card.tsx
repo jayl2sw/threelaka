@@ -3,18 +3,25 @@ import styled from 'styled-components';
 import { useAppSelector } from '../../../utils/hooks';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
 import { Link } from 'react-router-dom';
-
+import { GradientCircleDiv } from '../../../styles/Common/CommonDivStyle';
 import { IAlertDropDownProps } from './AlertDropDown';
+import {
+  FlexFadeInOutDiv,
+  FlexTransparentDiv,
+} from '../../../styles/Common/CommonDivStyle';
 export const CardContainer = styled.div`
   display: grid;
   /* grid-template-columns: repeat(3, 7vw); */
-  grid-template-columns: 4.5vw 10.1vw 6vw;
-  height: 10vh;
+  grid-template-columns: 17vw 13vw;
+  height: 15vh;
   align-items: center;
 
   background: #f1f1f1;
+  width: 28vw;
 
-  border-radius: 2vmin;
+  /* border-radius: 2vmin; */
+  padding-left: 0.8vw;
+  padding-top: 1vh;
 `;
 
 export const CardImgBox = styled.div`
@@ -25,7 +32,7 @@ export const CardImgBox = styled.div`
   .isBadAlert {
     background: url('https://threelaka.s3.ap-northeast-2.amazonaws.com/blue.png')
       no-repeat center;
-    background-size: 9vmin 9vmin;
+    background-size: 7vmin 7vmin;
   }
 `;
 const CardImgCenter = styled.div`
@@ -52,165 +59,57 @@ const Card = ({
                 <>
                   <CardContainer className="link">
                     <div>
-                      <CardImgBox
+                      <div
                         style={{
-                          width: '9.5vmin',
-                          height: '9.5vmin',
-                          background: `linear-gradient(
-              110.64deg,
-                #4a9fff
-                 5.65%,
-              rgba(88, 172, 240, 0.861458) 45.15%,
-                #b0ff91 84.64%
-              )`,
-                          borderRadius: '2vmin',
-                          border: '4px solid #fff',
-
                           display: 'flex',
-                          flexDirection: 'column',
-                          // top: '-6vh',
-                          margin: '0 0.2vw',
+                          alignItems: 'center',
+                          marginLeft: '0.5vw',
                         }}
                       >
-                        <CardImgCenter
-                          className={
-                            item.alertState === 'rejected'
-                              ? 'isBadAlert'
-                              : item.alertState === 'kicked'
-                              ? 'isBadAlert'
-                              : ''
-                          }
-                        ></CardImgCenter>
-                      </CardImgBox>
-                    </div>
-                    <div
-                      style={{
-                        padding: '0.4vw',
-                        fontSize: '1.2vmin',
-                        textAlign: 'justify',
-                      }}
-                    >
-                      {item.alertState === 'rejected' ? (
                         <div>
-                          {item.guildName}에 보낸 가입 요청이 거절되었습니다.
+                          <GradientCircleDiv
+                            widthSize={'7vmin'}
+                            heightSize={'7vmin'}
+                            paddingSize={'0'}
+                            fontColor={'black'}
+                            fontSize={'2vmin'}
+                            backgroundUrl={item && item.profile}
+                          ></GradientCircleDiv>
                         </div>
-                      ) : item.alertState === 'kicked' ? (
-                        <div>{item.guildName}에서 추방되었습니다.</div>
-                      ) : (
-                        ''
-                      )}
+                        <div
+                          style={{ fontSize: '1.8vmin', fontWeight: 'bold' }}
+                        >
+                          {item.guildName}
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          padding: '1vh 1vw',
+                          fontSize: '1.8vmin',
+                          textAlign: 'justify',
+                          marginLeft: '0.5vw',
+                        }}
+                      >
+                        {item.alertState === 'rejected' ? (
+                          <div>길드 가입 신청이 거절 되었습니다</div>
+                        ) : item.alertState === 'kicked' ? (
+                          <div>길드에서 추방되었습니다</div>
+                        ) : (
+                          ''
+                        )}
+                      </div>
                     </div>
-                    <div></div>
-                  </CardContainer>
-                </>
-              );
-            } else {
-              return (
-                <>
-                  <CardContainer className="link">
                     <div>
-                      <CardImgBox
-                        style={{
-                          width: '9.5vmin',
-                          height: '9.5vmin',
-                          background:
-                            item.alertState === 'newVideo'
-                              ? 'black'
-                              : `linear-gradient(
-                    110.64deg,
-                      #4a9fff
-                       5.65%,
-                    rgba(88, 172, 240, 0.861458) 45.15%,
-                      #b0ff91 84.64%
-                    )`,
-                          borderRadius: '2vmin',
-                          border: '4px solid #fff',
-
-                          display: 'flex',
-                          flexDirection: 'column',
-                          // top: '-6vh',
-                          margin: '0 0.2vw',
-                        }}
-                      >
-                        <img
-                          src={
-                            item.alertState === 'newVideo'
-                              ? `https://img.youtube.com/vi/${item.videoId}/0.jpg`
-                              : item.alertState === 'accepted'
-                              ? 'https://threelaka.s3.ap-northeast-2.amazonaws.com/0.png'
-                              : ''
-                          }
-                          style={{
-                            objectFit: 'cover',
-                            width: '7vmin',
-                            // height: '7min',
-                          }}
-                        ></img>
-                      </CardImgBox>
-                    </div>
-                    <div
-                      style={{
-                        padding: '0 0.4vw 0 0.7vw',
-                        fontSize: '1.2vmin',
-                        textAlign: 'justify',
-                      }}
-                    >
-                      {item.alertState === 'newVideo' ? (
-                        <div>
-                          '
-                          <span style={{ fontWeight: 'bold' }}>
-                            {item.guildName}
-                          </span>
-                          ' 에서 새로운 영상 '
-                          <span style={{ fontWeight: 'bold' }}>
-                            {item.videoTitle}
-                          </span>
-                          ' 이 생성되었습니다.
-                        </div>
-                      ) : item.alertState === 'accepted' ? (
-                        <div>
-                          '
-                          <span style={{ fontWeight: 'bold' }}>
-                            {item.guildName}
-                          </span>
-                          ' 에 보낸 가입 요청이 수락되었습니다.
-                        </div>
-                      ) : (
-                        ''
-                      )}
-                    </div>
-                    {item.alertState === 'newVideo' ? (
-                      <MainBtn
-                        widthSize={'4vw'}
-                        heightSize={'5vh'}
-                        paddingSize={'0.5vw'}
-                        fontSize={'1.5vmin'}
-                        fontColor={'white'}
-                        backgroundColor={'blue'}
-                        style={{
-                          borderRadius: '1.5vmin',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          marginLeft: '0.2vw',
-                        }}
-                        onClick={() => {
-                          setModalToggleVideoId(item.videoId);
-                          setToggleDropDown(false);
-                        }}
-                      >
-                        <div>영상 공부</div>
-                        <div>바로 가기</div>
-                      </MainBtn>
-                    ) : item.alertState === 'accepted' ? (
                       <Link
                         to={`/auth/guild/main/${item.guildId}`}
                         style={{ width: '4vw' }}
                       >
                         <MainBtn
-                          widthSize={'4vw'}
+                          widthSize={'8vw'}
                           heightSize={'5vh'}
                           paddingSize={'0.5vw'}
-                          fontSize={'1.5vmin'}
+                          fontSize={'1.7vmin'}
                           fontColor={'white'}
                           backgroundColor={'blue'}
                           style={{
@@ -218,13 +117,124 @@ const Card = ({
                             display: 'flex',
                             flexDirection: 'column',
                             marginLeft: '0.2vw',
+                            background: `linear-gradient(
+                                       110.64deg,
+                                       #4a9fff 5.65%,
+                                       rgba(88, 172, 240, 0.861458) 45.15%,
+                                       #b0ff91 84.64%
+                                     )`,
+                            fontWeight: 'bold',
+                            marginBottom: '1vh',
                           }}
                         >
-                          <div>길드 구경</div>
-                          <div>바로 가기</div>
+                          <div>길드 홈 가기</div>
                         </MainBtn>
                       </Link>
-                    ) : null}
+                    </div>
+                  </CardContainer>
+                </>
+              );
+            } else {
+              return (
+                <>
+                  <CardContainer className="link">
+                    <div style={{ marginBottom: '2vh', marginLeft: '0.5vw' }}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div>
+                          <GradientCircleDiv
+                            widthSize={'7vmin'}
+                            heightSize={'7vmin'}
+                            paddingSize={'0'}
+                            fontColor={'black'}
+                            fontSize={'2vmin'}
+                            backgroundUrl={item && item.profile}
+                          ></GradientCircleDiv>
+                        </div>
+                        <div
+                          style={{ fontSize: '1.8vmin', fontWeight: 'bold' }}
+                        >
+                          {item.guildName}
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          padding: '1vh 1vw',
+                          fontSize: '1.8vmin',
+                          textAlign: 'justify',
+                          marginLeft: '0vw',
+                        }}
+                      >
+                        {item.alertState === 'newVideo' ? (
+                          <div>새로운 과제가 등록 되었습니다</div>
+                        ) : item.alertState === 'accepted' ? (
+                          <div>길드 가입 신청이 승인 되었습니다</div>
+                        ) : (
+                          ''
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      {item.alertState === 'newVideo' ? (
+                        <MainBtn
+                          widthSize={'8vw'}
+                          heightSize={'5vh'}
+                          paddingSize={'0.5vw'}
+                          fontSize={'1.7vmin'}
+                          fontColor={'white'}
+                          backgroundColor={'blue'}
+                          style={{
+                            borderRadius: '1.5vmin',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            marginLeft: '0.2vw',
+                            background: `linear-gradient(
+                              110.64deg,
+                              #4a9fff 5.65%,
+                              rgba(88, 172, 240, 0.861458) 45.15%,
+                              #b0ff91 84.64%
+                            )`,
+                            fontWeight: 'bold',
+                            marginBottom: '1vh',
+                          }}
+                          onClick={() => {
+                            setModalToggleVideoId(item.videoId);
+                            setToggleDropDown(false);
+                          }}
+                        >
+                          <div>공부 하러 가기</div>
+                        </MainBtn>
+                      ) : (
+                        <Link
+                          to={`/auth/guild/myGuild/${item.guildId}`}
+                          style={{ width: '4vw' }}
+                        >
+                          <MainBtn
+                            widthSize={'8vw'}
+                            heightSize={'5vh'}
+                            paddingSize={'0.5vw'}
+                            fontSize={'1.7vmin'}
+                            fontColor={'white'}
+                            backgroundColor={'blue'}
+                            style={{
+                              borderRadius: '1.5vmin',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              marginLeft: '0.2vw',
+                              background: `linear-gradient(
+                                   110.64deg,
+                                   #4a9fff 5.65%,
+                                   rgba(88, 172, 240, 0.861458) 45.15%,
+                                   #b0ff91 84.64%
+                                 )`,
+                              fontWeight: 'bold',
+                              marginBottom: '1vh',
+                            }}
+                          >
+                            <div>내 길드 가기</div>
+                          </MainBtn>
+                        </Link>
+                      )}
+                    </div>
                   </CardContainer>
                 </>
               );

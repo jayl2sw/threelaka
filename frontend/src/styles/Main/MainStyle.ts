@@ -280,7 +280,7 @@ export const VideoCardBlock = styled.div`
   display: flex;
   flex-direction: column;
   width: 20vw;
-  height: 40vh;
+  height: 32vh;
   padding: 1vw;
 `;
 
@@ -401,6 +401,7 @@ export const AlertImgBox = styled.img.attrs((props) => ({
 
   animation: blinker 1s;
   animation-iteration-count: 3;
+  cursor: pointer;
 
   @keyframes blinker {
     50% {
@@ -422,7 +423,7 @@ export const AlertImgBoxVideo = styled.img.attrs((props) => ({
 export const AlertDropDownContainer = styled.div`
   position: fixed;
   top: 10.5vh;
-  right: 7vw;
+  right: 16.5vw;
   @keyframes growDown {
     0% {
       transform: scaleY(0);

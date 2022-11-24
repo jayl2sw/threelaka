@@ -51,3 +51,11 @@ export interface SatisfactionSurvey {
   learningRecordId: number;
   survey: number;
 }
+
+export interface TodayStudyRecord {
+  learningRecord: number;
+  startDate: string;
+  finishedDate: string;
+  numberOfWordbook: number;
+  todayLearningTime: number;
+}

@@ -15,6 +15,7 @@ import {
 } from 'react-icons/ai';
 import { CloseModalBtn } from '../styles/Common/VideoModalStyle';
 import { MainBtn } from '../styles/Common/CommonBtnStyle';
+import { useScrollBlock } from './scrollBlock';
 import { ModalBackdrop } from '../styles/DashBoard/DashBoardStyle';
 
 interface IVideoModalProps {
@@ -31,6 +32,14 @@ const VideoModal = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const outside = useRef<HTMLDivElement>(null);
+  const [blockScroll, allowScroll] = useScrollBlock();
+  // useEffect(() => {
+  //   // modal이 떠 있을 땐 스크롤 막음
+  //   blockScroll();
+  //   // modal 닫히면 다시 스크롤 가능하도록 함
+  //   return () => allowScroll();
+  // }, []);
+
   // 버튼 클릭으로 영상 정보 조회
   useEffect(() => {
     if (modalToggleVideoId !== 'none') {
@@ -130,6 +139,7 @@ const VideoModal = ({
             setModalToggleVideoId('none');
             setContinuedToggle(false);
             setContinuePage(0);
+            allowScroll();
           }}
           style={{ cursor: 'pointer' }}
         >
@@ -213,13 +223,17 @@ const VideoModal = ({
                 justifyContent={'center'}
                 alignItems={'center'}
                 IsBorder={'none'}
-                style={{ marginBottom: '3vh' }}
+                style={{
+                  marginBottom:
+                    videoData.learning_record === null ? '0vh' : '3vh',
+                  marginTop: videoData.learning_record === null ? '8vh' : '0vh',
+                }}
               >
                 <MainBtn
                   widthSize={'12vw'}
-                  heightSize={'10vh'}
+                  heightSize={'8vh'}
                   paddingSize={'0'}
-                  fontSize={'2.5vmin'}
+                  fontSize={'2.2vmin'}
                   fontColor={'white'}
                   backgroundColor={'blue'}
                   style={{ marginLeft: '1.5vw' }}
@@ -414,9 +428,9 @@ const VideoModal = ({
                 videoData.learning_record && (
                   <MainBtn
                     widthSize={'12vw'}
-                    heightSize={'10vh'}
+                    heightSize={'8vh'}
                     paddingSize={'0'}
-                    fontSize={'2.5vmin'}
+                    fontSize={'2.2vmin'}
                     fontColor={'white'}
                     backgroundColor={'black'}
                     onClick={() => setContinuedToggle(true)}

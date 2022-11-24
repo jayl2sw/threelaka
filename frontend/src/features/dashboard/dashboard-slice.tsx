@@ -34,6 +34,8 @@ type DashboardState = {
 
   //
   pickRandomWord: UserWordInfo;
+  // 태그 수정 성공 토스트
+  isNewTag: boolean;
 };
 
 let initialState: DashboardState = {
@@ -61,6 +63,7 @@ let initialState: DashboardState = {
     example: '',
     exampleKor: '',
   },
+  isNewTag: false,
 };
 
 // Slice
@@ -172,6 +175,7 @@ const dashboardSlice = createSlice({
 
     updateTagSuccess(state, action: PayloadAction<string>) {
       state.loading = false;
+      state.isNewTag = true;
     },
 
     updateTagFailed(state, action: PayloadAction<string>) {
@@ -224,6 +228,10 @@ const dashboardSlice = createSlice({
 
     putIsMemorizedWordFailed(state, action: PayloadAction<string>) {
       state.loading = false;
+    },
+
+    resetIsNewTag(state) {
+      state.isNewTag = false;
     },
   },
 });

@@ -27,10 +27,7 @@ import { studyActions } from '../features/study/study-slice';
 const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleLogout = () => {
-    dispatch(authActions.logout());
-    navigate('/auth/login');
-  };
+
   const userAlertList = useAppSelector((state) => state.auth.userAlertList);
   const profile = useAppSelector((state) => state.auth.currentUser?.profile);
 
@@ -73,7 +70,15 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
           </MainLinkWrapper>
 
           <MainLinkWrapper bgColor="transparent" widthSize="5vw">
-            <Link to={`/auth/guild/main/${guildId}`}>GUILD</Link>
+            <Link
+              to={
+                guildId === null
+                  ? `/auth/guild/main/${guildId}`
+                  : `/auth/guild/myGuild/${guildId}`
+              }
+            >
+              GUILD
+            </Link>
           </MainLinkWrapper>
         </HeaderLeftBlock>
 
@@ -86,6 +91,7 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
             bgColor="transparent"
             widthSize="2vw"
             onClick={handleToggle}
+            style={{ marginRight: '1vw' }}
           >
             {userAlertList.length !== 0 ? (
               <AlertImgBox
@@ -100,7 +106,7 @@ const MainHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
                   flexDirection: 'column',
 
                   top: '6vh',
-                  right: '6.5vw',
+                  right: '7.4vw',
                 }}
               ></AlertImgBox>
             ) : null}

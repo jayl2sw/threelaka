@@ -25,6 +25,7 @@
     "@types/react-dom": "^17.0.11",
     "@types/react-slick": "^0.23.10",
     "@types/react-webcam": "^3.0.0",
+    "@types/simple-peer": "^9.11.5",
     "@vx/axis": "^0.0.199",
     "@vx/gradient": "^0.0.199",
     "@vx/group": "^0.0.199",
@@ -76,6 +77,7 @@
     "react-horizontal-scrolling": "^0.1.13",
     "react-icons": "^4.6.0",
     "react-multi-carousel": "^2.8.2",
+    "react-record-webcam": "^0.0.18",
     "react-redux": "^8.0.4",
     "react-refresh": "^0.11.0",
     "react-router-dom": "^6.4.2",
@@ -84,7 +86,6 @@
     "react-spring": "^9.5.5",
     "react-touch-carousel": "^0.10.2",
     "react-use-scroll-direction": "^0.1.0",
-    "react-webcam": "^7.0.1",
     "react-youtube": "9.0.3",
     "redux": "^4.2.0",
     "redux-saga": "^1.2.1",
@@ -92,6 +93,7 @@
     "resolve-url-loader": "^4.0.0",
     "sass-loader": "^12.3.0",
     "semver": "^7.3.5",
+    "simple-peer": "^9.11.1",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.5.3",
     "source-map-loader": "^3.0.0",
@@ -191,5 +193,5 @@
     "@types/styled-components": "^5.1.26",
     "redux-devtools-extension": "^2.13.9"
   },
-  "homepage": "./"
+  "homepage": "."
 }

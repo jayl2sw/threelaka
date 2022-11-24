@@ -42,7 +42,7 @@ export const CSearchBarInput = styled.div`
     color: rgba(0, 0, 0, 0.4);
     pointer-events: none;
     font-family: 'PretendardRegular';
-    font-size: 1vw;
+    font-size: 2.5vmin;
   }
   // 인풋 박스 입력 시작 시
   & input:valid ~ span,

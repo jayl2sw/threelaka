@@ -28,10 +28,6 @@ import { AlertImgBoxVideo } from '../styles/Main/MainStyle';
 const MainVideoHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleLogout = () => {
-    dispatch(authActions.logout());
-    navigate('/auth/login');
-  };
 
   const profile = useAppSelector((state) => state.auth.currentUser?.profile);
 
@@ -92,6 +88,7 @@ const MainVideoHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
             bgColor="transparent"
             widthSize="2vw"
             onClick={handleToggle}
+            style={{ marginRight: '1vw' }}
           >
             {userAlertList.length !== 0 ? (
               <AlertImgBoxVideo
@@ -106,7 +103,7 @@ const MainVideoHeader = ({ setModalToggleVideoId }: IVideoContainerProps) => {
                   flexDirection: 'column',
 
                   top: '6vh',
-                  right: '6.5vw',
+                  right: '7.4vw',
                 }}
               ></AlertImgBoxVideo>
             ) : null}

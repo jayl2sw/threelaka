@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { call, put, takeLatest, fork } from 'redux-saga/effects';
+import { call, put, takeLatest, fork, delay } from 'redux-saga/effects';
 import { writingActions } from './writing-slice';
 import {
   CheckedWord,
@@ -42,6 +42,8 @@ function* onPostSaveEssayAsync(action: PayloadAction<SaveEssayPayload>) {
   try {
     const response: string = yield call(postSaveEssayApi, action.payload);
     yield put(writingActions.postSaveEssaySuccess(response));
+    yield delay(1000);
+    yield put(writingActions.resetIsSaveSuccess());
   } catch (error: any) {
     yield put(writingActions.postSaveEssayFailed(error.data));
   }

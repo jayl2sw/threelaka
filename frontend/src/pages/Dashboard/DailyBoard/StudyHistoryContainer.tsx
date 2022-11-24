@@ -29,27 +29,22 @@ const StudyHistoryContainer = () => {
   return (
     <FlexTransparentDiv
       widthSize={'30vw'}
-      heightSize={'30vh'}
+      heightSize={'35vh'}
       paddingSize={'0'}
       flexDirection={'column'}
       justifyContent={'center'}
       alignItems={'start'}
       IsBorder={'none'}
-      style={{ marginTop: '13.2vh', marginLeft: '1.8vw' }}
+      style={{ marginTop: '9.5vh', marginLeft: '3.7vw' }}
     >
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <RiBearSmileLine size={26} />
-        <h3 style={{ margin: '0' }}>&nbsp;숫자로 보는 나의 영어 기록</h3>
-      </div>
-
       <MainBox
-        widthSize={'28vw'}
-        heightSize={'30vh'}
-        paddingSize={'3vh 1.5vw'}
+        widthSize={'26vw'}
+        heightSize={'29.5vh'}
+        paddingSize={'5vh 1.5vw'}
         fontColor={'black'}
         fontSize={'1vmin'}
         style={{
-          marginTop: '1vh',
+          marginTop: '3vh',
           display: 'flex',
           justifyContent: 'space-between',
           boxShadow: 'none',

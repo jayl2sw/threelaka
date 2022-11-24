@@ -14,12 +14,23 @@ import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
 import { AiOutlineConsoleSql } from 'react-icons/ai';
 import { LinearGradient, RadialGradient } from '@vx/gradient';
 import { GraphBox } from '../../../styles/DashBoard/DashBoardStyle';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
-
+import { FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa';
 import ParentSize from '@vx/responsive/lib/components/ParentSize';
 import { useSpring, animated } from 'react-spring';
+import styled from 'styled-components';
+import { BsCaretRightFill, BsCaretLeftFill } from 'react-icons/bs';
 
+const LeftArrow = styled(FaAngleDoubleLeft)`
+  :hover {
+    transform: scale(1.2);
+  }
+`;
+const RightArrow = styled(FaAngleDoubleRight)`
+  :hover {
+    transform: scale(1.2);
+  }
+`;
 export type BarsProps = {
   width: number;
   height: number;
@@ -34,7 +45,7 @@ export default function Example({
   mode,
   setMode,
 }: BarsProps) {
-  const verticalMargin = 70;
+  const verticalMargin = 40;
   // const controls = useAnimation();
 
   // accessors
@@ -49,9 +60,6 @@ export default function Example({
   useEffect(() => {
     dispatch(dashboardActions.getDailyStudyTime());
   }, []);
-
-  console.log(lastWeekdailyStudyTime);
-  // const [mode, setMode] = useState(0);
 
   const graphRef = useRef<HTMLDivElement>(null);
 
@@ -76,7 +84,7 @@ export default function Example({
   const xScale = useMemo(
     () =>
       scaleBand<string>({
-        range: [0, width * 0.7], //x축크기
+        range: [0, width * 0.83], //x축크기
         round: true,
         domain: timeData.map(x),
         padding: 0.4,
@@ -103,7 +111,7 @@ export default function Example({
     <div className="" style={{ width, height }}>
       <GraphBox>
         <FlexTransparentDiv
-          widthSize={'13vw'}
+          widthSize={'40vw'}
           heightSize={'2vh'}
           paddingSize={'2vh 0'}
           flexDirection={'row'}
@@ -112,38 +120,50 @@ export default function Example({
           IsBorder={'none'}
           style={{ fontSize: '2.2vmin' }}
         >
-          <IoIosArrowBack
-            style={{ cursor: 'pointer' }}
-            onClick={() => setMode(0)}
-          ></IoIosArrowBack>
-          <div ref={graphRef}>
-            {mode === 0 ? (
-              <div>지난 주 공부 시간</div>
-            ) : (
-              <div>이번 주 공부 시간</div>
-            )}
-          </div>
-          <IoIosArrowForward
-            style={{ cursor: 'pointer' }}
+          <FlexTransparentDiv
+            widthSize={'20px'}
+            heightSize={'20px'}
+            paddingSize={'0'}
+            flexDirection={'row'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            IsBorder={'none'}
+          ></FlexTransparentDiv>
+          {/* <BsCaretLeftFill
+            size={20}
+            style={{ cursor: 'pointer', color: '#04009A' }}
             onClick={() => setMode(1)}
-          ></IoIosArrowForward>
+          ></BsCaretLeftFill> */}
+          <div ref={graphRef} style={{ fontSize: '2vmin', margin: '0 2vw' }}>
+            {mode === 0 ? <div>THIS WEEK</div> : <div>LAST WEEK</div>}
+          </div>
+          <BsCaretRightFill
+            size={15}
+            style={{ cursor: 'pointer', color: '#04009A' }}
+            onClick={() => setMode(0)}
+          ></BsCaretRightFill>
         </FlexTransparentDiv>
 
         <div className="graph">
           <ParentSize className="graph-container">
             {({ width: visWidth, height: visHeight }) => {
-              const innerWidth = width - 32;
+              const innerWidth = width + 29;
 
               return (
                 <svg width={visWidth} height={visHeight}>
-                  <LinearGradient id="gradient" from="#4A9FFF" to="#B0FF91" />
+                  <LinearGradient
+                    id="gradient"
+                    from="rgb(74, 159, 255)"
+                    to="
+                    rgb(198, 223, 253)"
+                  />
                   <rect
                     width={innerWidth}
-                    height={height}
+                    height={height + 79}
                     fill="#fff"
                     rx={14}
                   />
-                  <Group top={20} left={90}>
+                  <Group top={45} left={90}>
                     <AxisLeft
                       labelOffset={45}
                       stroke="#565656"

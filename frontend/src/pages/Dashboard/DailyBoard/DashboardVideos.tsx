@@ -65,7 +65,16 @@ const DashboardVideos = ({
               })
             )
           ) : (
-            <h1>'아직 공부중인 영상이 없어요'</h1>
+            <h1
+              style={{
+                fontSize: '2.5vmin',
+                lineHeight: '25vh',
+                textAlign: 'center',
+                width: '41vw',
+              }}
+            >
+              '아직 공부중인 영상이 없어요'
+            </h1>
           )}
         </RecentVideoContainer>
       ) : (
@@ -85,7 +94,16 @@ const DashboardVideos = ({
               );
             })
           ) : (
-            <h1>'공부 완료한 영상이 없어요'</h1>
+            <h1
+              style={{
+                fontSize: '2.5vmin',
+                lineHeight: '25vh',
+                textAlign: 'center',
+                width: '41vw',
+              }}
+            >
+              '공부 완료한 영상이 없어요'
+            </h1>
           )}
         </RecentVideoContainer>
       )}

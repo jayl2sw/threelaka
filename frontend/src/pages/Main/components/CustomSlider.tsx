@@ -60,9 +60,10 @@ const CutomSlider = () => {
           sThreeUrl={
             'https://threelaka.s3.ap-northeast-2.amazonaws.com/animals.jpg'
           }
+          korTitle={'생물'}
           title={'ANIMALS'}
           content={
-            '박테리아부터 코끼리까지, 알수록 더 궁금한 생물의 세계로 빠져볼까요?'
+            '박테리아부터 코끼리까지, 알수록 더 궁금한, 생물의 세계로 빠져볼까요?'
           }
           tagContent={'#동물 #식물 #곤충 #미생물'}
         />
@@ -70,6 +71,7 @@ const CutomSlider = () => {
           sThreeUrl={
             'https://threelaka.s3.ap-northeast-2.amazonaws.com/culture.jpg'
           }
+          korTitle={'문화'}
           title={'CULTURE'}
           content={
             '인간이 그려낸 아름다움에 대하여, 형형색색의 미를 만나보세요'
@@ -80,17 +82,19 @@ const CutomSlider = () => {
           sThreeUrl={
             'https://threelaka.s3.ap-northeast-2.amazonaws.com/industry.jpg'
           }
+          korTitle={'산업'}
           title={'INDUSTRY'}
-          content={'세상을 움직이는 힘,어떻게 발전하고 있을까요?'}
+          content={'세상을 움직이는 힘, 어떻게 발전하고 있을까요?'}
           tagContent={'#발명 #발전 #기술 #에너지 #공업'}
         />
         <CustomSliderItem
           sThreeUrl={
             'https://threelaka.s3.ap-northeast-2.amazonaws.com/knowledge.jpg'
           }
+          korTitle={'지식'}
           title={'KNOWLEDGE'}
           content={
-            ' 끊임없이 탐구하는 당신을 위하여, 세계적인 석학들의 강의를 만나보세요'
+            ' 끊임없이 탐구하는 당신을 위한, 세계적인 석학들의 강의를 만나보세요'
           }
           tagContent={'#철학 #과학 #수학 #정치 #의학'}
         />
@@ -98,9 +102,10 @@ const CutomSlider = () => {
           sThreeUrl={
             'https://threelaka.s3.ap-northeast-2.amazonaws.com/human.jpg'
           }
+          korTitle={'인간'}
           title={'HUMAN'}
           content={
-            '당신은 인간을 얼마나 알고있나요, 더 깊이 더 많이 알아보세요'
+            '당신은 인간을 얼마나 알고있나요?, 더 깊이 더 많이 알아보세요'
           }
           tagContent={'#진화 #심리 #감각 #감정 #인류'}
         />
@@ -108,9 +113,10 @@ const CutomSlider = () => {
           sThreeUrl={
             'https://threelaka.s3.ap-northeast-2.amazonaws.com/nature.jpg'
           }
+          korTitle={'자연'}
           title={'NATURE'}
           content={
-            '인간보다 거대한 존재들의 이야기 바다부터 우주까지, 미지의 세계를 탐구해보세요'
+            '인간보다 거대한 존재들의 이야기, 바다부터 우주까지, 미지의 세계를 탐구해보세요'
           }
           tagContent={'#해양 #우주 #환경 #오염'}
         />
@@ -118,8 +124,9 @@ const CutomSlider = () => {
           sThreeUrl={
             'https://threelaka.s3.ap-northeast-2.amazonaws.com/civilization.jpg'
           }
+          korTitle={'문명'}
           title={'CIVILIZATION'}
-          content={'우리가 살고 있는 이곳은 어떻게 변해왔을까요?'}
+          content={'우리가 살고 있는 이곳은, 어떻게 변해왔을까요?'}
           tagContent={'#IT #건축 #도시 #국가 #경영'}
         />
       </SliderContainer>

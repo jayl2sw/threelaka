@@ -210,13 +210,13 @@ export const GraphBox = styled.div`
     /* color: #565656 !important; */
   }
   background: linear-gradient(
-    110.64deg,
-    #4a9fff 5.65%,
-    rgba(88, 172, 240, 0.861458) 45.15%,
-    #b0ff91 84.64%
+    106.56deg,
+    rgba(132, 176, 226, 0.5) 7.3%,
+    rgba(88, 172, 240, 0.43) 77.68%,
+    rgba(174, 243, 147, 0.5) 99.32%
   );
-  width: 37vw;
-  height: 39.8vh;
+  width: 41vw;
+  height: 43vh;
   border-radius: 1rem;
   position: relative;
   .graph-container {
@@ -243,26 +243,28 @@ export const DailyBoardContainer = styled.div`
 `;
 
 export const GradientBorderBox = styled.div`
-  /* margin-top: 0.5vh; */
+  margin-top: 4vh;
   margin-left: 3.7vw;
   background: linear-gradient(
-    110.64deg,
-    #4a9fff 5.65%,
-    rgba(88, 172, 240, 0.861458) 45.15%,
-    #b0ff91 84.64%
+    106.56deg,
+    rgba(132, 176, 226, 0.5) 7.3%,
+    rgba(88, 172, 240, 0.43) 77.68%,
+    rgba(174, 243, 147, 0.5) 99.32%
   );
   width: 26vw;
-  height: 48vh;
+  height: 47vh;
   border-radius: 1rem;
   position: relative;
+
   .innerBox {
     position: absolute;
     top: 1vh;
     left: 0.5vw;
     background: #fff;
     border-radius: 0.8rem;
-    height: 46vh;
+    height: 45vh;
     width: 25vw;
+    padding-top: 2vh;
   }
 `;
 
@@ -298,6 +300,20 @@ export const Count = styled.div`
   color: white;
   font-size: 5.5vmin;
   font-family: 'pretendardbold';
+  /* &:hover {
+    :after {
+      background: rgba(0, 0, 0, 0.5);
+      content: '';
+      width: 7.3vw;
+      height: 18vh;
+    }
+  } */
+  .word {
+    :hover {
+      transform: scale(1.2);
+    }
+    transition: all 0.8s ease;
+  }
 `;
 
 export const ProfileContainer = styled.div`
@@ -306,6 +322,7 @@ export const ProfileContainer = styled.div`
   }
   display: grid;
   height: 90vh;
+  margin-left: 0.5vw;
   grid-template-columns: repeat(2, 34vw);
   /* grid-template-rows: repeat(2, 38.5vh); */
 `;
@@ -492,12 +509,6 @@ export const RightAlert = styled.div`
 export const HistoryCounterContainer = styled.div`
   .historyTitle {
     color: #111111;
-    box-shadow: inset 0 0 0 0 #54b3d6;
-    :hover {
-      color: #fff;
-      box-shadow: inset 200px 0 0 0 #4a9fff;
-      cursor: pointer;
-    }
     transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   }
 `;

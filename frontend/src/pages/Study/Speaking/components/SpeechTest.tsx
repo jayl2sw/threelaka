@@ -75,7 +75,7 @@ const SpeechTest = () => {
                     alignItems: 'center',
                   }}
                 >
-                  <h3>발음 분석 중 입니다</h3>
+                  <h3 style={{ margin: '0' }}>발음 분석 중 입니다</h3>
                   <LoadingSpinner
                     widthSize="20vmin"
                     heightSize="20vmin"
@@ -126,7 +126,11 @@ const SpeechTest = () => {
                           <ScoreTextBox
                             style={{
                               fontSize:
-                                selectedText.length > 100 ? '2vmin' : '3.8vmin',
+                                selectedText.length > 100
+                                  ? '2.3vmin'
+                                  : selectedText.length > 50
+                                  ? '2.8vmin'
+                                  : '3vmin',
                             }}
                           >
                             <span

@@ -116,23 +116,23 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
 
   return (
     <FlexTransparentDiv
-      widthSize={'30vw'}
-      heightSize={'80vh'}
+      widthSize={'28vw'}
+      heightSize={'36vh'}
       paddingSize={'0 0 4vh 0'}
       flexDirection={'column'}
       justifyContent={'center'}
       alignItems={'center'}
       IsBorder={'none'}
     >
-      <StyledForm
+      {/* <StyledForm
         onSubmit={handleSubmit(handleFormSubmit)}
         className="sign-up-form"
         style={{ width: '95%', margin: '2vmin 0' }}
-      >
-        <InputWrap style={{ height: '80%', width: '95%' }}>
-          <h3>회원정보수정</h3>
-          {/* <ProfileInputField name="username" control={control} label="이메일" /> */}
-          <ProfileInputField
+      > */}
+      {/* <InputWrap style={{ height: '80%', width: '95%' }}>
+          <h3>회원정보수정</h3> */}
+      {/* <ProfileInputField name="username" control={control} label="이메일" /> */}
+      {/* <ProfileInputField
             name="nickname"
             control={control}
             label="닉네임"
@@ -178,38 +178,36 @@ const ModifyUserInfo = ({ initialValues, onSubmit }: IModifyUserInfoProps) => {
               fontSize={'2vmin'}
               backgroundColor={'gradient'}
               style={{ margin: '0 auto' }}
-            >
-              회원정보수정
+            > */}
+      {/* 회원정보수정
             </GradientRoundBtn>
           </SubmitBtnWrap>
         </InputWrap>
-      </StyledForm>
+      </StyledForm> */}
 
       <FlexTransparentDiv
         widthSize={'90%'}
-        heightSize={'45vh'}
+        heightSize={'36vh'}
         paddingSize={'1vh 0'}
         flexDirection={'column'}
         justifyContent={'start'}
         alignItems={'start'}
         IsBorder={'none'}
-        style={{ marginTop: '1.5vh' }}
       >
         {isSuccess && (
           <ToastContainer
-            widthSize={'20vw'}
+            widthSize={'23vw'}
             heightSize={'20vh'}
             paddingSize={'2vh 1vw'}
             fontColor={'black'}
             top={'55vh'}
-            left={'63.5vw'}
+            left={'26.5vw'}
           >
             <ToastMessage
               text={'비밀번호가 성공적으로 변경되었습니다'}
             ></ToastMessage>
           </ToastContainer>
         )}
-        <h3>비밀번호변경</h3>
         <ModifyPassword></ModifyPassword>
       </FlexTransparentDiv>
     </FlexTransparentDiv>

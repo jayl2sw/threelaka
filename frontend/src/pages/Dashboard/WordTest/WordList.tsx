@@ -4,6 +4,7 @@ import { ModalBackdrop } from '../../../styles/DashBoard/DashBoardStyle';
 import {
   FlexTransparentDiv,
   MainBox,
+  BackBlurBox,
 } from '../../../styles/Common/CommonDivStyle';
 
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
@@ -41,101 +42,129 @@ const WordList = ({
           // display: 'flex',
           position: 'relative',
           transition: 'all 0.8s ease-in-out',
-          overflow: 'auto',
-          overflowX: 'hidden',
+          // overflow: 'auto',
+          // overflowX: 'hidden',
+          overflow: 'hidden',
         }}
       >
-        <MainBtn
-          widthSize={'12vw'}
-          heightSize={'4vh'}
-          paddingSize={'0'}
-          fontSize={'2.2vmin'}
-          fontColor={'white'}
-          backgroundColor={'black'}
-          style={{ borderRadius: '1.5vmin', marginBottom: '1.5vh' }}
-          onClick={openWordTestModal}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
         >
-          Let's Word Test Game!
-        </MainBtn>
+          <div
+            style={{
+              width: '18vw',
+              fontSize: '3vmin',
+              margin: '3vh',
+              fontWeight: 'bold',
+            }}
+          >
+            단어테스트 시작해 VOCA?
+          </div>
+          <img
+            style={{
+              width: '7vmin',
+              height: '7vmin',
+              objectFit: 'cover',
+              marginBottom: '1.5vh',
+            }}
+            src={`https://threelaka.s3.ap-northeast-2.amazonaws.com/white.png`}
+          ></img>
+
+          <MainBtn
+            widthSize={'5vw'}
+            heightSize={'4vh'}
+            paddingSize={'0'}
+            fontSize={'2.2vmin'}
+            fontColor={'white'}
+            backgroundColor={'gradient'}
+            style={{ borderRadius: '1.5vmin', marginBottom: '2vh' }}
+            onClick={openWordTestModal}
+          >
+            시작하기
+          </MainBtn>
+        </div>
+
         <AiFillCloseCircle
           size={25}
           color={'black'}
           style={{
             position: 'absolute',
             top: '2.2vh',
-            right: '1.5vw',
+            right: '1vw',
             cursor: 'pointer',
           }}
           onClick={() => {
             closeModalWordList();
           }}
         ></AiFillCloseCircle>
-        {userWordInfo.map((item, idx) => {
-          return (
-            <MainBox
-              widthSize={'25vw'}
-              heightSize={'16vh'}
-              paddingSize={'0 1vw'}
-              fontColor={'black'}
-              fontSize={'2vmin'}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-
-                transition: 'all 0.8s ease-in-out',
-                background: '#f1f1f1',
-                marginBottom: '2vh',
-              }}
-            >
-              <h3>{item.word}</h3>
-
-              <span style={{ fontSize: '2vmin', color: '#4a9fff' }}>
-                {'example'}{' '}
-              </span>
-              <span
+        <BackBlurBox
+          widthSize={'26vw'}
+          heightSize={'40vh'}
+          paddingSize={'1vh 1vw'}
+          fontColor={'black'}
+          fontSize={'2vmin'}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'start',
+            flexDirection: 'column',
+            transition: 'all 0.8s ease-in-out',
+            marginBottom: '2vh',
+            overflow: 'auto',
+            overflowX: 'hidden',
+          }}
+        >
+          {userWordInfo.map((item, idx) => {
+            return (
+              <MainBox
+                widthSize={'24vw'}
+                heightSize={'auto'}
+                paddingSize={'0 1vw'}
+                fontColor={'black'}
+                fontSize={'2vmin'}
                 style={{
-                  fontSize: item.example.length > 100 ? '1.5vmin' : '2vmin',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  marginTop: '2vh',
+                  transition: 'all 0.8s ease-in-out',
+                  background: '#f1f1f1',
+                  // marginBottom: '2vh',
                 }}
               >
-                &nbsp;&nbsp;{item.example}
-              </span>
-            </MainBox>
-            // <ArcodianBox
-            //   key={`word-${idx}`}
-            //   // style={{ transition: 'all 0.8s ease-in-out' }}
-            // >
-            //   {/* <WordCheckBox
-            //     className={filterTarget.includes(aWord.word) ? 'checked' : ''}
-            //   /> */}
-            //   <WordText>
-            //     <p>{item.word}</p>
-            //     <p className="back">
-            //       <span
-            //         style={{
-            //           fontSize: '2.5vmin',
-            //         }}
-            //       >
-            //         {item.word}
-            //       </span>
-            //       <br />
-            //       <br />
-            //       <span style={{ fontSize: '2vmin', color: '#4a9fff' }}>
-            //         {'example'}
-            //       </span>
-            //       <br style={{ marginBottom: '5vmin' }} />
-            //       <span
-            //         style={{
-            //           fontSize: item.example.length > 100 ? '1.5vmin' : '2vmin',
-            //         }}
-            //       >
-            //         &nbsp;&nbsp;{item.example}
-            //       </span>
-            //     </p>
-            //   </WordText>
-            //   {item.example}
-            // </ArcodianBox>
-          );
-        })}
+                <div
+                  style={{
+                    fontSize: '3vmin',
+                    height: '4vh',
+                    fontWeight: 'bold',
+                    margin: '1vh 0 1vh 0',
+                  }}
+                >
+                  {item.word}
+                </div>
+
+                <div
+                  style={{ height: '3vh', fontSize: '2vmin', color: '#4a9fff' }}
+                >
+                  {'example'}{' '}
+                </div>
+                <div
+                  style={{
+                    height: 'auto',
+                    fontSize: '2vmin',
+                    paddingBottom: '2vh',
+                  }}
+                >
+                  &nbsp;&nbsp;{item.example}
+                </div>
+              </MainBox>
+            );
+          })}
+        </BackBlurBox>
       </MainBox>
     </ModalBackdrop>
   );

@@ -97,20 +97,19 @@ const VoiceRecorderForTest = ({
     dispatch(writingActions.getEssayStart(pageParams.learningRecordId));
   }, []);
   const userEssay = useAppSelector((state) => state.write.essay);
+  const tedScript = useAppSelector((state) => state.read.TedScriptList);
 
   return (
     <div>
-      {/* <p style={{ textAlign: 'center', fontSize: '2vmin' }}>
-        {new Date(timer * 1000).toISOString().substr(11, 8)}
-      </p> */}
-
-      <RecordBox className={userEssay === '' ? 'noEssay' : ''}>
-        <VideoAudioBtnContainer className="test-recorder" style={{}}>
+      <RecordBox
+        className={userEssay !== '' || tedScript.length !== 0 ? '' : 'noEssay'}
+      >
+        <VideoAudioBtnContainer className="test-recorder">
           {isRecording ? (
             <LoadingSpinner
               widthSize="7.3vmin"
               heightSize="7.3vmin"
-              style={{ display: 'absolute', left: '8vmin' }}
+              style={{ display: 'absolute', left: '7.9vmin' }}
             ></LoadingSpinner>
           ) : null}
           {recording ? (
