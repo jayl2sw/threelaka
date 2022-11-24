@@ -423,7 +423,7 @@ export const AlertImgBoxVideo = styled.img.attrs((props) => ({
 export const AlertDropDownContainer = styled.div`
   position: fixed;
   top: 10.5vh;
-  right: 9vw;
+  right: 16.5vw;
   @keyframes growDown {
     0% {
       transform: scaleY(0);

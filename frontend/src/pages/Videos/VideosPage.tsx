@@ -14,6 +14,7 @@ import VideoCardTwo from '../Main/components/VideoCardTwo';
 import VideoModal from '../../utils/VideoModal';
 import { useLocation } from 'react-router-dom';
 import { dashboardActions } from '../../features/dashboard/dashboard-slice';
+import { useScrollBlock } from '../../utils/scrollBlock';
 import { StickyBackDiv, BlackBlurDiv } from './VideoStyle';
 
 interface ItagIdDict {
@@ -85,6 +86,8 @@ const VideosPage = () => {
   const location = useLocation();
   const firstRef = useRef<HTMLDivElement>(null);
   const secondRef = useRef<HTMLDivElement>(null);
+
+  const [blockScroll, allowScroll] = useScrollBlock();
 
   let tagConv = '';
   if (location.state !== null) {

@@ -116,8 +116,8 @@ const EssayForSpeaking = ({ essayOn, setEssayOn }: IEssayButtons) => {
             <div
               style={{
                 position: 'absolute',
-                top: '-3.8vh',
-                left: '37.5vw',
+                top: '-3.6vh',
+                left: '36vw',
                 display: 'flex',
                 alignItems: 'center',
               }}

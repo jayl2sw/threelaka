@@ -39,9 +39,8 @@ export const VideoAudioBtnContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /* width: 24vw; */
+
   height: 8vh;
-  margin-top: 1vh;
 `;
 
 export const VideoAudioBtn = styled.button`
@@ -128,27 +127,17 @@ export const ScriptContainer = styled.div`
 
 export const TextBox = styled.div`
   width: 45vw;
-  /* height: 10rem; */
-  /* padding-top: 5vh; */
+
   margin: 5rem auto;
-  padding-bottom: 2.2vh;
-  /* margin-bottom: 1vh; */
+
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 3.8vmin;
   color: #9897a9;
-  /* background-color: #febf00; */
+
   transition: 0.4s;
   text-align: justify;
-
-  /* &.active {
-    font-size: 3.8vmin;
-    width: 50vw;
-    background-color: #8dc2ff;
-    color: #fff;
-    padding: 1vw;
-  } */
 `;
 
 export const TextEssayBox = styled.div`

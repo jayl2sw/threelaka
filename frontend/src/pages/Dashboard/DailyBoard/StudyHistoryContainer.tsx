@@ -40,7 +40,7 @@ const StudyHistoryContainer = () => {
       <MainBox
         widthSize={'26vw'}
         heightSize={'29.5vh'}
-        paddingSize={'3vh 1.5vw'}
+        paddingSize={'5vh 1.5vw'}
         fontColor={'black'}
         fontSize={'1vmin'}
         style={{
