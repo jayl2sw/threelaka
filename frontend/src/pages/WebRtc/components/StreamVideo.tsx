@@ -1,7 +1,7 @@
 import React from 'react';
 
-const VideoContainer = () => {
+const StreamVideo = () => {
   return <div id="RTCroom"></div>;
 };
 
-export default VideoContainer;
+export default StreamVideo;

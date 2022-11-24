@@ -1,9 +1,23 @@
 import React, { useEffect } from 'react';
-import VideoContainer from './VideoContainer';
+import StreamVideo from './StreamVideo';
 import { getLocalPreviewAndInitRoomConnection, exitRoom } from '../WebRtcpage';
-import ChatSection from './ChatSection';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { writingActions } from '../../../features/writing/writing-slice';
+import RoomEssayPickBtn from './RoomEssay';
+import RoomEssays from './RoomEssays';
+import RoomStudyVideo from './RoomStudyVideo';
+
+// style
+import {
+  EozRoomBlock,
+  EozRoomVideoContainer,
+  UserEssayContainer,
+  EozRoomStudyVideoContainer,
+  EozRoomStudyContainer,
+  EssayPickBtnContainer,
+  EozRoomBtnContainer,
+  EozBtn,
+} from '../../../styles/WebRtc/WebRtcStyle';
 
 type RoomProps = {
   messages: any;
@@ -24,6 +38,8 @@ const Room = ({
   onClickRoomModal,
 }: RoomProps) => {
   const dispatch = useAppDispatch();
+  console.log('room----------', videoId);
+
   useEffect(() => {
     getLocalPreviewAndInitRoomConnection(
       roomInfo,
@@ -32,7 +48,6 @@ const Room = ({
       videoId,
       learningRecordId
     );
-    dispatch(writingActions.getEssayStart(Number(learningRecordId)));
     return () => {
       exitRoom();
     };
@@ -40,26 +55,40 @@ const Room = ({
   const handleGetUserEssay = (learningRecordId: number) => {
     dispatch(writingActions.getEssayStart(learningRecordId));
   };
+  const handleRoomDisconnection = () => {
+    const siteUrl = '/auth/dashboard/4';
+    window.location.href = siteUrl;
+  };
 
-  const myEssay = useAppSelector((state) => state.write.essay);
   return (
-    <div>
-      <VideoContainer />
-      <div>
-        <p>{videoId}</p>
-        <p>내가 선택한 essay: {learningRecordId}</p>
-        <p>{myEssay}</p>
-      </div>
-
-      <button
-        onClick={() => {
-          onClickRoomModal();
-          exitRoom();
-        }}
-      >
-        나가기
-      </button>
-    </div>
+    <EozRoomBlock>
+      <EozRoomVideoContainer>
+        <StreamVideo />
+        <StreamVideo />
+        <StreamVideo />
+        <StreamVideo />
+        <StreamVideo />
+      </EozRoomVideoContainer>
+      <EozRoomStudyContainer>
+        <RoomStudyVideo videoId={videoId} />
+        <RoomEssays connectedUsers={roomInfo.connectedUsers} />
+      </EozRoomStudyContainer>
+      <EozRoomBtnContainer>
+        <EozBtn
+          widthSize="10vw"
+          heightSize="5vh"
+          fontColor="white"
+          backgroundColor="black"
+          onClick={() => {
+            onClickRoomModal();
+            exitRoom();
+            handleRoomDisconnection();
+          }}
+        >
+          나가기
+        </EozBtn>
+      </EozRoomBtnContainer>
+    </EozRoomBlock>
   );
 };
 

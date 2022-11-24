@@ -39,18 +39,11 @@ const RoomInfo = ({
 
   let roomInfo = guildInfo.rooms[roomNumber - 1];
 
-  // useEffect(() => {
-  //   console.log('roomInfo 내의 videoId:', videoId);
-  //   console.log('roomInfo내의 roomInfo:', roomInfo);
-  // }, [videoId]);
-
   // 완료한 영상 정보
 
   const completeTaskLst = useAppSelector(
     (state) => state.guild.completedTaskList
   );
-
-  console.log('completeTaskLst----', completeTaskLst);
 
   return (
     <div>
