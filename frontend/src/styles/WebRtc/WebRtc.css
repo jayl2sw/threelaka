@@ -22,13 +22,13 @@
   height: 26vh;
   display: flex;
   flex-direction: row;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
 
 video {
   width: 20vw;
   height: 26vh;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .video {

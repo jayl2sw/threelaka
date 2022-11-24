@@ -9,6 +9,9 @@ import {
   RoomInfoBlock,
 } from '../../../styles/WebRtc/WebRtcStyle';
 
+import { TopBtn } from '../../../styles/Common/CommonBtnStyle';
+import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
+
 type WaitingRoomProps = {
   guildInfo: any;
   messages: string;
@@ -25,26 +28,59 @@ const WaitingRoom = ({
 
   return (
     <WaitingRoomBlock>
-      <RoomNumBtnContainer>
-        <RoomNumBtn
+      <FlexTransparentDiv
+        widthSize={'60vw'}
+        heightSize={'5vh'}
+        paddingSize={'0'}
+        flexDirection={'row'}
+        justifyContent={'start'}
+        alignItems={'center'}
+        IsBorder={'none'}
+      >
+        <TopBtn
+          widthSize={'6vw'}
+          heightSize={'4.5vh'}
+          paddingSize={'0'}
+          fontColor={'white'}
+          fontSize={'2vmin'}
+          backgroundColor={'blue'}
           onClick={() => setRoomNumber(1)}
           style={{ opacity: roomNumber === 1 ? '' : '0.5' }}
         >
-          Zone 1
-        </RoomNumBtn>
-        <RoomNumBtn
+          ZONE 1
+        </TopBtn>
+        <TopBtn
+          widthSize={'6vw'}
+          heightSize={'4.5vh'}
+          paddingSize={'0'}
+          fontColor={'white'}
+          fontSize={'2vmin'}
+          backgroundColor={'blue'}
           onClick={() => setRoomNumber(2)}
-          style={{ opacity: roomNumber === 2 ? '' : '0.5' }}
+          style={{
+            opacity: roomNumber === 2 ? '' : '0.5',
+            marginLeft: '0.5vw',
+          }}
         >
-          Zone 2
-        </RoomNumBtn>
-        <RoomNumBtn
+          ZONE 2
+        </TopBtn>
+        <TopBtn
+          widthSize={'6vw'}
+          heightSize={'4.5vh'}
+          paddingSize={'0'}
+          fontColor={'white'}
+          fontSize={'2vmin'}
+          backgroundColor={'blue'}
           onClick={() => setRoomNumber(3)}
-          style={{ opacity: roomNumber === 3 ? '' : '0.5' }}
+          style={{
+            opacity: roomNumber === 3 ? '' : '0.5',
+            marginLeft: '0.5vw',
+          }}
         >
-          Zone 3
-        </RoomNumBtn>
-      </RoomNumBtnContainer>
+          ZONE 3
+        </TopBtn>
+      </FlexTransparentDiv>
+
       <RoomInfo
         messages={messages}
         localStream={localStream}

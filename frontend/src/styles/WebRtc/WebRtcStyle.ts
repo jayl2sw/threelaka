@@ -8,9 +8,12 @@ interface EozBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const WaitingRoomBlock = styled.div`
-  width: 62vw;
+  width: 67vw;
   height: 78vh;
-  margin: 3vh 3vw;
+  /* border: 1px solid black; */
+  margin-left: 1.2vw;
+  display: flex;
+  flex-direction: column;
 
   & p {
     margin: 0;
@@ -96,7 +99,7 @@ export const RoomInfoBlock = styled.div`
 `;
 
 export const WaitingRoomVideoBox = styled.div`
-  width: 62vw;
+  width: 66vw;
   height: 28vh;
   margin-bottom: 2vh;
   padding: 2vh 1.5vw;
@@ -109,7 +112,7 @@ export const WaitingRoomVideoBox = styled.div`
 `;
 
 export const PickedVideoDataContainer = styled.div`
-  width: 44vw;
+  width: 46vw;
   height: 20vh;
   padding: 4.5vh 2vw;
   display: flex;
@@ -117,7 +120,7 @@ export const PickedVideoDataContainer = styled.div`
   justify-content: start;
   align-items: start;
   & .title-container {
-    width: 35vw;
+    width: 40vw;
     height: 10vh;
     display: flex;
     flex-direction: row;
@@ -151,7 +154,7 @@ export const PickedVideoDataContainer = styled.div`
     margin-right: 1vw;
   }
   & button {
-    width: 7vw;
+    width: 10vw;
     height: 3.5vh;
     padding: 0.5vh 1vmin;
     background-color: #9897a9;
@@ -164,11 +167,12 @@ export const PickedVideoDataContainer = styled.div`
 `;
 
 export const WaitingRoomBottom = styled.div`
-  width: 62vw;
+  width: 66vw;
   height: 43vh;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  padding: 1vh 1vw;
+  justify-content: start;
   align-items: center;
   background: linear-gradient(
     106.56deg,
@@ -196,7 +200,7 @@ export const RoomUsersContainer = styled.div`
 `;
 
 export const WaitingRoomPickEssay = styled.div`
-  width: 39vw;
+  width: 44vw;
   height: 38vh;
   padding: 3.5vh 1.5vw;
   background: #ffffff;
@@ -249,7 +253,7 @@ export const EozRoomVideoContainer = styled.div`
 export const EozRoomStudyContainer = styled.div`
   width: 85vw;
   height: 47vh;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: row;
 `;
@@ -258,7 +262,7 @@ export const EozRoomStudyContainer = styled.div`
 export const EozRoomStudyVideoContainer = styled.div`
   width: 36vw;
   height: 47vh;
-  border: 1px solid green;
+  /* border: 1px solid green; */
   margin-right: 1vw;
   display: flex;
   flex-direction: column;
@@ -276,14 +280,14 @@ export const UserEssayContainer = styled.div`
   width: 48vw;
   height: 47vh;
   font-family: 'PretendardRegular';
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 export const EssayPickBtnContainer = styled.div`
   width: 48vw;
   display: flex;
   flex-direction: row;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 export const EssayPickBtn = styled.button`
@@ -326,7 +330,7 @@ export const RoomEmptyEssayContainer = styled.div`
 export const EozRoomBtnContainer = styled.div`
   width: 85vw;
   height: 7vh;
-  border: 1px solid purple;
+  /* border: 1px solid purple; */
   display: flex;
   justify-content: flex-end;
   align-items: center;

@@ -88,7 +88,14 @@ const SideBar = ({ isMaster }: IOnClickProps) => {
         </ProfileImgBox>
       </FlexTransparentDiv>
       {nickname && (
-        <div style={{ color: 'white', textAlign: 'center', marginTop: '1vh' }}>
+        <div
+          style={{
+            color: 'white',
+            textAlign: 'center',
+            marginTop: '1vh',
+            marginBottom: '5vh',
+          }}
+        >
           {nickname}
         </div>
       )}

@@ -44,7 +44,7 @@ const GuildCompletedVideoInfo = ({
     if (isEssayMode === 1) {
       setTimeout(() => {
         setIsEssayMode(2); // display none
-      }, 1100);
+      }, 510);
     }
   }, [isEssayMode]);
   // 선택할 때 마다 해당 과제 정보 받아오기
@@ -448,24 +448,37 @@ const GuildCompletedVideoInfo = ({
                       ? 'Speaking'
                       : 'Completed'}
                   </FlexTransparentDiv>
-                  <GradientRoundBtn
-                    widthSize="4vw"
-                    heightSize="4vh"
-                    paddingSize="0"
-                    fontSize="1.5vmin"
-                    fontColor="white"
-                    backgroundColor="blue"
-                    style={{
-                      borderRadius: '10px',
-                      margin: '1.5vh 0 0 4vw',
-                    }}
-                    onClick={() => {
-                      setSelectedEssayIdx(idx);
-                      setIsEssayMode(1);
-                    }}
-                  >
-                    {item.stage > 0 ? '에세이' : ''}
-                  </GradientRoundBtn>
+                  {item.stage > 0 ? (
+                    <GradientRoundBtn
+                      widthSize="4vw"
+                      heightSize="4vh"
+                      paddingSize="0"
+                      fontSize="1.5vmin"
+                      fontColor="white"
+                      backgroundColor="blue"
+                      style={{
+                        borderRadius: '10px',
+                        margin: '1.5vh 0 0 4vw',
+                      }}
+                      onClick={() => {
+                        setSelectedEssayIdx(idx);
+                        setIsEssayMode(1);
+                      }}
+                    >
+                      에세이
+                    </GradientRoundBtn>
+                  ) : (
+                    <FlexTransparentDiv
+                      widthSize={'4vw'}
+                      heightSize={'4vh'}
+                      paddingSize={'0'}
+                      flexDirection={'row'}
+                      justifyContent={'center'}
+                      alignItems={'center'}
+                      IsBorder={'none'}
+                      style={{ margin: '1.5vh 0 0 4vw', minWidth: '4vw' }}
+                    ></FlexTransparentDiv>
+                  )}
                   {/* <FlexTransparentDiv
                     widthSize={'7vw'}
                     heightSize={'7vh'}

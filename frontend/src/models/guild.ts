@@ -145,3 +145,12 @@ export interface AssignmentProgress {
   nickname: string;
   essay: string;
 }
+
+// specifitVideoEssayLst
+export interface specifitVideoEssay {
+  createDate: string;
+  essay: string;
+  learningRecordId: number;
+  modifiedDate: string;
+  userId: number;
+}

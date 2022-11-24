@@ -12,6 +12,7 @@ import {
   GuildAssignment,
   CreateGuildForm,
   AssignmentProgress,
+  specifitVideoEssay,
 } from '../../models/guild';
 
 type GuildState = {
@@ -30,6 +31,7 @@ type GuildState = {
   isCreateSuccess: null | true | false;
   isRequestSuccess: null | true | false;
   AssignmentProgressLst: AssignmentProgress[];
+  specifitVideoEssayLst: specifitVideoEssay[];
 };
 
 let initialState: GuildState = {
@@ -59,6 +61,7 @@ let initialState: GuildState = {
     assignments: [],
     profile: '',
   },
+  specifitVideoEssayLst: [],
   myguildLearnTime: [],
   MyRequestLst: [],
   GuildRequestLst: [],
@@ -407,6 +410,23 @@ const guildSlice = createSlice({
     },
     resetAssignmentProgressLst(state) {
       state.AssignmentProgressLst = [];
+    },
+
+    // 특정 비디오 유저 에세이 목록 가져오기 시작
+    getSpecificEssayStart(state, action: PayloadAction<string>) {
+      state.loading = true;
+    },
+    // 특정 비디오 유저 에세이 목록 가져오기 성공
+    getSpecificEssaySuccess(
+      state,
+      action: PayloadAction<specifitVideoEssay[]>
+    ) {
+      state.loading = false;
+      state.specifitVideoEssayLst = action.payload;
+    },
+    // 특정 비디오 유저 에세이 목록 가져오기 실패
+    getSpecificEssayFailed(state) {
+      state.loading = false;
     },
   },
 });

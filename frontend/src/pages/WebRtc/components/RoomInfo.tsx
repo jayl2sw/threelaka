@@ -58,6 +58,7 @@ const RoomInfo = ({
           <WaitingRoomBottom>
             <RoomUserInfo connectedUsers={roomInfo.connectedUsers} />
             <PickEssay
+              videoId={videoId}
               roomInfo={roomInfo}
               setLearningRecordId={setLearningRecordId}
               localStream={localStream}

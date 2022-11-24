@@ -14,6 +14,7 @@ import {
   GuildAssignment,
   CreateGuildForm,
   AssignmentProgress,
+  specifitVideoEssay,
 } from '../../models/guild';
 import {
   getGuildNoticeApi,
@@ -38,6 +39,7 @@ import {
   DeleteGuildAssignmentApi,
   CreateGuildApi,
   GetAssignmentProgressApi,
+  GetSpecificEssayApi,
 } from '../../services/guildApi';
 import { authActions } from '../auth/authSlice';
 import { guildActions } from './guild-slice';
@@ -315,6 +317,21 @@ function* onGetAssignmentProgressAsync(action: PayloadAction<number>) {
   }
 }
 
+// onGetSpecificEssayAsync
+// 특정 비디오 유저 에세이 목록 가져오기
+function* onGetSpecificEssayAsync(action: PayloadAction<string>) {
+  try {
+    const response: specifitVideoEssay[] = yield call(
+      GetSpecificEssayApi,
+      action.payload
+    );
+    yield put(guildActions.getSpecificEssaySuccess(response));
+  } catch (error) {
+    yield put(guildActions.getSpecificEssayFailed());
+    console.error();
+  }
+}
+
 // 길드 공지 받아오기 watch
 export function* watchGetGuildNoticeAsync() {
   yield takeLatest(guildActions.getGuildNotice.type, onGetGuildNoticeAsync);
@@ -466,6 +483,14 @@ export function* watchGetAssignmentProgressAsync() {
   );
 }
 
+// 특정 비디오 유저 에세이 목록 가져오기 시작
+export function* watchGetSpecificEssayAsync() {
+  yield takeLatest(
+    guildActions.getSpecificEssayStart.type,
+    onGetSpecificEssayAsync
+  );
+}
+
 export const guildSagas = [
   fork(watchGetGuildNoticeAsync),
   fork(watchGetProgressTaskAsync),
@@ -489,4 +514,5 @@ export const guildSagas = [
   fork(watchDeleteGuildAssignmentAsync),
   fork(watchCreateGuildStartAsync),
   fork(watchGetAssignmentProgressAsync),
+  fork(watchGetSpecificEssayAsync),
 ];
