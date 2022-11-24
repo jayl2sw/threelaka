@@ -349,7 +349,7 @@ const DictionaryComp = ({
                 >
                   <div
                     style={{
-                      width: '15vw',
+                      width: layoutMode === 2 ? '10vw' : '15vw',
                       minHeight: '10vh',
                       display: 'flex',
                       justifyContent: 'start',
@@ -375,7 +375,7 @@ const DictionaryComp = ({
                           AddWordToWordbook(e);
                           // setAddSuccessModal(true);
                         }}
-                        style={{ marginLeft: '7vw' }}
+                        style={{ marginLeft: layoutMode === 2 ? '4vw' : '7vw' }}
                       >
                         단어장에 추가
                       </MainBtn>

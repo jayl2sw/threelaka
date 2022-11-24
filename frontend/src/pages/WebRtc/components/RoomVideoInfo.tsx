@@ -55,7 +55,7 @@ const RoomVideoInfo = ({
 
                     <PickedVideoDataContainer>
                       <p className="container-title">
-                        Zone {roomNumber + 1}에서 학습할 영상
+                        Zone {roomNumber}에서 학습할 영상
                       </p>
                       <div className="title-container">
                         <p className="video-title">{pickedVideo.videoTitle}</p>

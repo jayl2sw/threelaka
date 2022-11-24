@@ -53,7 +53,7 @@ const MyGuild = () => {
     if (mode === 2) {
       setTimeout(() => {
         setMode(3); // display none
-      }, 1100);
+      }, 510);
     }
   }, [mode]);
   useEffect(() => {
@@ -94,7 +94,7 @@ const MyGuild = () => {
         IsBorder={'none'}
         style={{ marginLeft: '1.4vw' }}
       >
-        <FlexTransparentDiv
+        <FlexFadeInOutDiv
           widthSize={'65vw'}
           heightSize={'10vh'}
           paddingSize={'0 0 0 1vw'}
@@ -102,15 +102,15 @@ const MyGuild = () => {
           justifyContent={'center'}
           alignItems={'start'}
           IsBorder={'none'}
+          className={mode === 3 ? 'hidden' : mode === 2 ? 'hidden' : 'appear'}
           style={{
             fontSize: '4vmin',
             fontFamily: 'pretendardBold',
-            display: mode === 3 ? 'none' : '',
             color: 'black',
           }}
         >
           WELCOME TO {myGuildInfo.guildName}
-        </FlexTransparentDiv>
+        </FlexFadeInOutDiv>
         <FlexTransparentDiv
           widthSize={'65vw'}
           heightSize={mode === 3 ? '80vh' : '70vh'}
@@ -294,7 +294,7 @@ const MyGuild = () => {
                 fontColor={'white'}
                 fontSize={'2vmin'}
                 backgroundColor={'blue'}
-                style={{ marginLeft: '1vw' }}
+                style={{ marginLeft: '0.2vw' }}
                 onClick={() => {
                   setMode(1);
                 }}
@@ -309,7 +309,7 @@ const MyGuild = () => {
                 fontColor={'white'}
                 fontSize={'2vmin'}
                 backgroundColor={'blue'}
-                style={{ marginLeft: '1vw' }}
+                style={{ marginLeft: '0.2vw' }}
                 onClick={() => {
                   setMode(2);
                 }}

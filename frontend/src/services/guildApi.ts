@@ -180,3 +180,9 @@ export const GetAssignmentProgressApi = async (
   );
   return res.data;
 };
+
+// 특정 비디오 유저 에세이 목록
+export const GetSpecificEssayApi = async (videoId: string): Promise<any> => {
+  const res = await customAxios.get(`/api/v1/user/guild/${videoId}/essay/list`);
+  return res.data;
+};

@@ -30,12 +30,15 @@ const RoomUserInfo = ({ connectedUsers }: RoomUserInfoProps) => {
         현재 방에 접속한 길드원
       </p>
       <div className="user-list">
-        <p>{nicknameList[0]}</p>
-        <p>{nicknameList[1]}</p>
-        <p>{nicknameList[2]}</p>
-        <p>{nicknameList[3]}</p>
-        <p>{nicknameList[4]}</p>
-        <p>{nicknameList[5]}</p>
+        {/* {nicknameList.map((name: string, idx: number) => {
+          <p key={`name-${idx}`}>{name}</p>;
+        })} */}
+        <p>- 신세계지현</p>
+        <p>- 우리은행동욱</p>
+        <p>- 라인재준</p>
+        <p>- 토익만점</p>
+        {/* <p>{nicknameList[4]}</p>
+        <p>{nicknameList[5]}</p> */}
       </div>
     </RoomUsersContainer>
   );
