@@ -140,14 +140,6 @@ public class GuildController {
         return new ResponseEntity<>(guildService.getProgress(assignment_id), HttpStatus.OK);
     }
 
-    // 수정 필요 ========================================================================================================
-    @GetMapping("/{assignment_id}/essay")
-    @ApiOperation(value = "해당 공통과제의 모든 길드원 에세이 조회")
-    public ResponseEntity<?> getEssay(@PathVariable int assignment_id){
-        // 해당 공통과제의 모든 길드원 에세이 조회 (반환값 형식에 길드원의 일부 유저정보 필요)
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
     @GetMapping("/activity")
     @ApiOperation(value = "길드 활동량 순 정렬 조회")
     public ResponseEntity<List<GuildOrderResponseDto>> getGuildOrderActivity(){

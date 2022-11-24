@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 public class EssayDto {
     private int userId;
+    private int learningRecordId;
     private String createDate;
     private String modifiedDate;
     private String essay;
@@ -24,6 +25,7 @@ public class EssayDto {
         String modifiedDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(entity.getModifiedDate()).toString();
         return EssayDto.builder()
                 .userId(entity.getUser().getUserId())
+                .learningRecordId(entity.getLearningRecordId())
                 .createDate(createDate)
                 .modifiedDate(modifiedDate)
                 .essay(entity.getEssay())
