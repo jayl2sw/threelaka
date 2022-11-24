@@ -300,6 +300,14 @@ export const Count = styled.div`
   color: white;
   font-size: 5.5vmin;
   font-family: 'pretendardbold';
+  /* &:hover {
+    :after {
+      background: rgba(0, 0, 0, 0.5);
+      content: '';
+      width: 7.3vw;
+      height: 18vh;
+    }
+  } */
   .word {
     :hover {
       transform: scale(1.2);
@@ -314,6 +322,7 @@ export const ProfileContainer = styled.div`
   }
   display: grid;
   height: 90vh;
+  margin-left: 0.5vw;
   grid-template-columns: repeat(2, 34vw);
   /* grid-template-rows: repeat(2, 38.5vh); */
 `;
@@ -500,12 +509,6 @@ export const RightAlert = styled.div`
 export const HistoryCounterContainer = styled.div`
   .historyTitle {
     color: #111111;
-    box-shadow: inset 0 0 0 0 #54b3d6;
-    :hover {
-      color: #fff;
-      box-shadow: inset 200px 0 0 0 #4a9fff;
-      cursor: pointer;
-    }
     transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   }
 `;

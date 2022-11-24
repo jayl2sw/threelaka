@@ -214,7 +214,7 @@ const GuildMain = () => {
           </div>
         </FlexTransparentDiv>
         <FlexTransparentDiv
-          widthSize={'65vw'}
+          widthSize={'68vw'}
           heightSize={'75vh'}
           paddingSize={'0'}
           flexDirection={'row'}
@@ -790,7 +790,7 @@ const GuildMain = () => {
             </MainBox>
           </FlexTransparentDiv>
           <FlexTransparentDiv
-            widthSize={'30vw'}
+            widthSize={'32vw'}
             heightSize={'75vh'}
             paddingSize={'0'}
             flexDirection={'row'}
@@ -799,7 +799,7 @@ const GuildMain = () => {
             IsBorder={'none'}
           >
             <MainBox
-              widthSize={'30vw'}
+              widthSize={'32vw'}
               heightSize={'72vh'}
               paddingSize={'1.5vh 1vw'}
               fontColor={'black'}
@@ -816,9 +816,9 @@ const GuildMain = () => {
             >
               <TopBtn
                 widthSize="5vw"
-                heightSize="5vh"
+                heightSize="4.5vh"
                 paddingSize="0"
-                fontSize="2.3vmin"
+                fontSize="2vmin"
                 fontColor="white"
                 backgroundColor="blue"
                 style={{
@@ -838,9 +838,9 @@ const GuildMain = () => {
               </TopBtn>
               <TopBtn
                 widthSize="5vw"
-                heightSize="5vh"
+                heightSize="4.5vh"
                 paddingSize="0"
-                fontSize="2.3vmin"
+                fontSize="2vmin"
                 fontColor="white"
                 backgroundColor="blue"
                 style={{
@@ -860,9 +860,9 @@ const GuildMain = () => {
               </TopBtn>
               <TopBtn
                 widthSize="5vw"
-                heightSize="5vh"
+                heightSize="4.5vh"
                 paddingSize="0"
-                fontSize="2.3vmin"
+                fontSize="2vmin"
                 fontColor="white"
                 backgroundColor="blue"
                 style={{
@@ -881,7 +881,7 @@ const GuildMain = () => {
               </TopBtn>
               {/* <button>길드 검색 (누르면 모달 뜨기)</button> */}
               <FlexTransparentDiv
-                widthSize={'28vw'}
+                widthSize={'30vw'}
                 heightSize={'69vh'}
                 paddingSize={'0'}
                 flexDirection={'column'}

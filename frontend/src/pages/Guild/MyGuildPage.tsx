@@ -19,6 +19,7 @@ import { TopBtn } from '../../styles/Common/CommonBtnStyle';
 import { useHorizontalScroll } from '../../utils/useSideScroll';
 import VideoModal from '../../utils/VideoModal';
 import GuildCompletedVideoInfo from './components/GuildCompletedVideoInfo';
+import { IoMdTrophy } from 'react-icons/io';
 
 const MyGuild = () => {
   const userGuildId = useAppSelector(
@@ -84,18 +85,19 @@ const MyGuild = () => {
         setModalToggleVideoId={setModalToggleVideoId}
       ></VideoModal>
       <FlexTransparentDiv
-        widthSize={'65vw'}
+        widthSize={'68vw'}
         heightSize={'80vh'}
         paddingSize={'0'}
         flexDirection={'column'}
         justifyContent={'start'}
         alignItems={'start'}
         IsBorder={'none'}
+        style={{ marginLeft: '1.4vw' }}
       >
         <FlexTransparentDiv
           widthSize={'65vw'}
           heightSize={'10vh'}
-          paddingSize={'0'}
+          paddingSize={'0 0 0 1vw'}
           flexDirection={'column'}
           justifyContent={'center'}
           alignItems={'start'}
@@ -104,6 +106,7 @@ const MyGuild = () => {
             fontSize: '4vmin',
             fontFamily: 'pretendardBold',
             display: mode === 3 ? 'none' : '',
+            color: 'black',
           }}
         >
           WELCOME TO {myGuildInfo.guildName}
@@ -464,6 +467,73 @@ const MyGuild = () => {
               alignItems={'start'}
               IsBorder={'none'}
             >
+              <FlexTransparentDiv
+                widthSize={'28vw'}
+                heightSize={'5vh'}
+                paddingSize={'0'}
+                flexDirection={'row'}
+                justifyContent={'start'}
+                alignItems={'start'}
+                IsBorder={'none'}
+                style={{
+                  fontSize: '3vmin',
+                  color: '#4A9FFF',
+                  fontWeight: 'bold',
+                  position: 'relative',
+                  // border: '1px solid black',
+                  // marginBottom: '5vh',
+                }}
+              >
+                <IoMdTrophy size={30} color={'#ffbf00'} />
+                <div style={{ height: '5vh', paddingTop: '0.2vh' }}>
+                  &nbsp;이번 주 1등은 누구?
+                </div>
+              </FlexTransparentDiv>
+              <FlexTransparentDiv
+                widthSize={'29vw'}
+                heightSize={'5vh'}
+                paddingSize={'1vh 1vw'}
+                flexDirection={'row'}
+                justifyContent={'end'}
+                alignItems={'center'}
+                IsBorder={'none'}
+              >
+                {currentPage === 1 ? (
+                  <div
+                    style={{
+                      width: '20px',
+                      height: '20px',
+                    }}
+                  ></div>
+                ) : (
+                  <BsCaretLeftFill
+                    size={20}
+                    onClick={() => {
+                      setAnimateToggle(false);
+                      setCurrentPage((currentPage) => currentPage - 1);
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  ></BsCaretLeftFill>
+                )}
+                {currentPage}&nbsp;/&nbsp;{learnTimePageNum}
+                {currentPage === learnTimePageNum ? (
+                  <div
+                    style={{
+                      width: '20px',
+                      height: '20px',
+                    }}
+                  ></div>
+                ) : (
+                  <BsCaretRightFill
+                    onClick={() => {
+                      setAnimateToggle(false);
+                      setCurrentPage((currentPage) => currentPage + 1);
+                    }}
+                    size={20}
+                    style={{ cursor: 'pointer' }}
+                  ></BsCaretRightFill>
+                )}
+              </FlexTransparentDiv>
               <div
                 style={{
                   display: 'flex',
@@ -541,41 +611,6 @@ const MyGuild = () => {
                     );
                   })}
               </div>
-              <FlexTransparentDiv
-                widthSize={'29vw'}
-                heightSize={'5vh'}
-                paddingSize={'1vh 1vw'}
-                flexDirection={'row'}
-                justifyContent={'end'}
-                alignItems={'center'}
-                IsBorder={'none'}
-              >
-                {currentPage === 1 ? (
-                  <div style={{ width: '20px', height: '20px' }}></div>
-                ) : (
-                  <BsCaretLeftFill
-                    size={20}
-                    onClick={() => {
-                      setAnimateToggle(false);
-                      setCurrentPage((currentPage) => currentPage - 1);
-                    }}
-                    style={{ cursor: 'pointer' }}
-                  ></BsCaretLeftFill>
-                )}
-                {currentPage}&nbsp;/&nbsp;{learnTimePageNum}
-                {currentPage === learnTimePageNum ? (
-                  <div style={{ width: '20px', height: '20px' }}></div>
-                ) : (
-                  <BsCaretRightFill
-                    onClick={() => {
-                      setAnimateToggle(false);
-                      setCurrentPage((currentPage) => currentPage + 1);
-                    }}
-                    size={20}
-                    style={{ cursor: 'pointer' }}
-                  ></BsCaretRightFill>
-                )}
-              </FlexTransparentDiv>
             </FlexTransparentDiv>
           </FlexFadeInOutDiv>
         </FlexTransparentDiv>
