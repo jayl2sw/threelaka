@@ -26,7 +26,7 @@ const AlertDropDown = ({
       <div className="dropdown">
         <MainBox
           widthSize={'28vw'}
-          heightSize={'37vh'}
+          heightSize={'39vh'}
           paddingSize={'1vh 0'}
           fontColor={'black'}
           fontSize={'1vmin'}

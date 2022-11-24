@@ -34,7 +34,7 @@ const StudyLayout = () => {
     if (nextStep === 'COMPLETE') {
       dispatch(studyActions.UpdateStudyStageStart(stageInfo));
       dispatch(dashboardActions.getCompletedVideos());
-      navigate('/auth/dashboard/1');
+      // navigate('/auth/dashboard/1');
       // dispatch(studyActions.resetStudystate());
     } else if (nextStep === 'SPEAKING') {
       // 2. 라이팅 페이지로 이동

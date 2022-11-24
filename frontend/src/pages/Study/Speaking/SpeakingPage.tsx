@@ -16,7 +16,8 @@ import { RiBearSmileLine } from 'react-icons/ri';
 
 import { IheaderProps } from '../../../layout/Header';
 import { StudyPageParams } from '../../../models';
-import useModal from '../../../utils/useModal';
+import Survey from '../../../pages/Study/Survey';
+import { SurveyBlock } from '../../../styles/Speaking/SpeakingStyle';
 
 import { useParams, useOutletContext } from 'react-router-dom';
 const SpeakingPage = () => {
@@ -40,7 +41,6 @@ const SpeakingPage = () => {
     };
   }, []);
 
-  const { isOpenModal, onClickModal } = useModal();
   // 실전녹화 선택
 
   const onClickComplete = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -48,9 +48,13 @@ const SpeakingPage = () => {
 
     moveToNext(e, 'COMPLETE', pageParams);
   };
-
+  const [isModal, setIsModal] = useState<boolean>(false);
   return (
     <SpeakingPageBlock>
+      {isModal ? <Survey setIsModal={setIsModal}></Survey> : null}
+
+      {/* <Survey setIsModal={setIsModal}></Survey> */}
+
       <MoveToNextLeftBtn
         onClick={(e) => {
           moveToNext(e, 'WRITING', pageParams);
@@ -64,6 +68,7 @@ const SpeakingPage = () => {
       <MoveToNextRightBtn
         onClick={(e) => {
           onClickComplete(e);
+          setIsModal(true);
         }}
       >
         <RiBearSmileLine size={30} />
