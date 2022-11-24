@@ -26,7 +26,12 @@ const WebRtcPage = () => {
     // 완료한 과제 정보 미리 dispatch
     dispatch(authActions.fetchUser());
     dispatch(guildActions.getProgressTask());
-    return () => {};
+    return () => {
+      socket.disconnect();
+      mediaStream.getTracks().forEach(function (track) {
+        track.stop();
+      });
+    };
   }, []);
 
   //   useEffect(() => {}, [guildInfo]);
@@ -164,7 +169,7 @@ const defaultConstraint = {
   audio: true,
   video: true,
 };
-
+let mediaStream = null;
 export const getLocalPreviewAndInitRoomConnection = async (
   roomInfo,
   roomNumber,
@@ -173,9 +178,7 @@ export const getLocalPreviewAndInitRoomConnection = async (
   learningRecordId
 ) => {
   await fetchTURNCredentials();
-  await fetchTURNCredentials();
-
-  navigator.mediaDevices
+  mediaStream = navigator.mediaDevices
     .getUserMedia(defaultConstraint)
     .then((stream) => {
       localStream = stream;
@@ -348,7 +351,9 @@ const addStream = (stream, connUserSocketId) => {
   videoContainer.appendChild(videoElement);
 
   videoContainer.style.position = 'static';
-  videosContainer.appendChild(videoContainer);
+  if (videosContainer !== null) {
+    videosContainer.appendChild(videoContainer);
+  }
 };
 
 export const signalPeerData = (data) => {

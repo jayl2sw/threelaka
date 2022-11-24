@@ -7,6 +7,7 @@ import {
   WordBook,
   SpeechScores,
   SatisfactionSurvey,
+  TodayStudyRecord,
 } from '../../models';
 
 type StudyState = {
@@ -19,6 +20,7 @@ type StudyState = {
   speechTestError: String;
   resetToggle: boolean;
   searchDictError: string;
+  todayStudyRecord: TodayStudyRecord;
 };
 
 let initialState: StudyState = {
@@ -39,6 +41,13 @@ let initialState: StudyState = {
   },
   wordBookList: [],
   resetToggle: false,
+  todayStudyRecord: {
+    learningRecord: 0,
+    startDate: '',
+    finishedDate: '',
+    numberOfWordbook: 0,
+    todayLearningTime: 0,
+  },
 };
 
 const studySlice = createSlice({
@@ -133,6 +142,20 @@ const studySlice = createSlice({
     getWordBookFailed(state) {
       state.loading = false;
       // console.log(action);
+    },
+
+    // 오늘 공부기록 불러오기시작
+    getTodayStudyRecord(state, action: PayloadAction<number>) {
+      state.loading = true;
+    },
+    // 오늘 공부기록 불러오기 성공
+    getTodayStudyRecordSuccess(state, action: PayloadAction<TodayStudyRecord>) {
+      state.loading = false;
+      state.todayStudyRecord = action.payload;
+    },
+    // 오늘 공부기록 불러오기 실패
+    getTodayStudyRecordFailed(state) {
+      state.loading = false;
     },
     //발음 테스트
     speechTest(state, action: PayloadAction<any>) {

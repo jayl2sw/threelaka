@@ -207,7 +207,7 @@ export const RoomModalContainer = styled.div`
   width: 90vw;
   height: 90vh;
   padding: 1vh 1vw;
-  background: #ffffff;
+  background: #dfecf9;
   display: flex;
   color: black;
   flex-direction: column;
@@ -223,4 +223,111 @@ export const RoomModalContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+`;
+
+// 채팅 방 내부
+export const EozRoomBlock = styled.div`
+  width: 90vw;
+  height: 90vh;
+  padding: 1vh 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const EozRoomVideoContainer = styled.div`
+  width: 85vw;
+  height: 27vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+// 화상 아래, 학습 자료 컨테이너
+export const EozRoomStudyContainer = styled.div`
+  width: 85vw;
+  height: 47vh;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+`;
+
+// 학습 영상 컨테이너
+export const EozRoomStudyVideoContainer = styled.div`
+  width: 36vw;
+  height: 47vh;
+  border: 1px solid green;
+  margin-right: 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #4f9fff;
+  & .today-study {
+    font-size: 2vmin;
+    margin-top: 0.7vh;
+    font-family: 'PretendardBold';
+  }
+`;
+
+// 에세이 전체 컨테이너
+export const UserEssayContainer = styled.div`
+  width: 48vw;
+  height: 47vh;
+  font-family: 'PretendardRegular';
+  border: 1px solid red;
+`;
+
+export const EssayPickBtnContainer = styled.div`
+  width: 48vw;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid red;
+`;
+
+export const EssayPickBtn = styled.button`
+  width: 8vw;
+  height: 4vh;
+  padding: 0 0.5vw;
+  font-size: 1vw;
+  color: #ffffff;
+  background-color: #4f9fff;
+  border: none;
+  border-radius: 1.5vmin 1.5vmin 0 0;
+  cursor: pointer;
+  & .not-active {
+    opacity: 0.5;
+  }
+`;
+
+// 에세이 내용 보여주는 부분
+export const RoomEssayContainer = styled.div`
+  width: 48vw;
+  height: 43vh;
+  padding: 1vh 1vw;
+  background-color: #ffffff;
+  border-radius: 0 1.5vmin 1.5vmin 1.5vmin;
+`;
+
+export const RoomEmptyEssayContainer = styled.div`
+  width: 48vw;
+  height: 43vh;
+  padding: 1vh 1vw;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 1.5vmin 1.5vmin 1.5vmin;
+`;
+
+// 나가기 버튼 block
+export const EozRoomBtnContainer = styled.div`
+  width: 85vw;
+  height: 7vh;
+  border: 1px solid purple;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 `;

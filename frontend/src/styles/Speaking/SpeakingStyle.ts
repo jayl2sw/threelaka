@@ -380,3 +380,17 @@ export const VideoBtnBox = styled.div`
     }
   }
 `;
+
+export const SurveyBlock = styled.div`
+  animation: smoothAppear 1s ease-in-out;
+  @keyframes smoothAppear {
+    from {
+      opacity: 0;
+      transform: translateY(-5%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;

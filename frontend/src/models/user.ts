@@ -22,4 +22,5 @@ export interface UserAlertInfo {
   guildName: string;
   videoId: string;
   videoTitle: string;
+  profile: string;
 }
