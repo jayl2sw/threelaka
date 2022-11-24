@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useAppSelector } from '../../../utils/hooks';
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
 import { Link } from 'react-router-dom';
-
+import { GradientCircleDiv } from '../../../styles/Common/CommonDivStyle';
 import { IAlertDropDownProps } from './AlertDropDown';
 import {
   FlexFadeInOutDiv,
@@ -13,7 +13,7 @@ export const CardContainer = styled.div`
   display: grid;
   /* grid-template-columns: repeat(3, 7vw); */
   grid-template-columns: 17vw 13vw;
-  height: 14vh;
+  height: 15vh;
   align-items: center;
 
   background: #f1f1f1;
@@ -59,38 +59,22 @@ const Card = ({
                 <>
                   <CardContainer className="link">
                     <div>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          marginLeft: '0.5vw',
+                        }}
+                      >
                         <div>
-                          <CardImgBox
-                            style={{
-                              width: '8vmin',
-                              height: '8vmin',
-                              background: `linear-gradient(
-                    110.64deg,
-                      #4a9fff
-                      5.65%,
-                    rgba(88, 172, 240, 0.861458) 45.15%,
-                      #b0ff91 84.64%
-                    )`,
-                              borderRadius: '50%',
-                              border: '4px solid #fff',
-
-                              display: 'flex',
-                              flexDirection: 'column',
-                              // top: '-6vh',
-                              margin: '0 1vw',
-                            }}
-                          >
-                            <CardImgCenter
-                              className={
-                                item.alertState === 'rejected'
-                                  ? 'isBadAlert'
-                                  : item.alertState === 'kicked'
-                                  ? 'isBadAlert'
-                                  : ''
-                              }
-                            ></CardImgCenter>
-                          </CardImgBox>
+                          <GradientCircleDiv
+                            widthSize={'7vmin'}
+                            heightSize={'7vmin'}
+                            paddingSize={'0'}
+                            fontColor={'black'}
+                            fontSize={'2vmin'}
+                            backgroundUrl={item && item.profile}
+                          ></GradientCircleDiv>
                         </div>
                         <div
                           style={{ fontSize: '1.8vmin', fontWeight: 'bold' }}
@@ -154,47 +138,17 @@ const Card = ({
               return (
                 <>
                   <CardContainer className="link">
-                    <div>
+                    <div style={{ marginBottom: '2vh', marginLeft: '0.5vw' }}>
                       <div style={{ display: 'flex', alignItems: 'center' }}>
                         <div>
-                          <CardImgBox
-                            style={{
-                              width: '8vmin',
-                              height: '8vmin',
-                              background:
-                                item.alertState === 'newVideo'
-                                  ? 'black'
-                                  : `linear-gradient(
-                      110.64deg,
-                        #4a9fff
-                        5.65%,
-                      rgba(88, 172, 240, 0.861458) 45.15%,
-                        #b0ff91 84.64%
-                      )`,
-                              borderRadius: '50%',
-                              border: '4px solid #fff',
-
-                              display: 'flex',
-                              flexDirection: 'column',
-                              // top: '-6vh',
-                              margin: '0 1vw',
-                            }}
-                          >
-                            <img
-                              src={
-                                item.alertState === 'newVideo'
-                                  ? `https://img.youtube.com/vi/${item.videoId}/0.jpg`
-                                  : item.alertState === 'accepted'
-                                  ? 'https://threelaka.s3.ap-northeast-2.amazonaws.com/0.png'
-                                  : ''
-                              }
-                              style={{
-                                objectFit: 'cover',
-                                width: '5vmin',
-                                // height: '7min',
-                              }}
-                            ></img>
-                          </CardImgBox>
+                          <GradientCircleDiv
+                            widthSize={'7vmin'}
+                            heightSize={'7vmin'}
+                            paddingSize={'0'}
+                            fontColor={'black'}
+                            fontSize={'2vmin'}
+                            backgroundUrl={item && item.profile}
+                          ></GradientCircleDiv>
                         </div>
                         <div
                           style={{ fontSize: '1.8vmin', fontWeight: 'bold' }}
@@ -207,7 +161,7 @@ const Card = ({
                           padding: '1vh 1vw',
                           fontSize: '1.8vmin',
                           textAlign: 'justify',
-                          marginLeft: '0.5vw',
+                          marginLeft: '0vw',
                         }}
                       >
                         {item.alertState === 'newVideo' ? (

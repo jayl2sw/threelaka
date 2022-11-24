@@ -14,13 +14,14 @@ import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
 import { AiOutlineConsoleSql } from 'react-icons/ai';
 import { LinearGradient, RadialGradient } from '@vx/gradient';
 import { GraphBox } from '../../../styles/DashBoard/DashBoardStyle';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+
 import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
-import { BsChevronDoubleLeft, BsChevronDoubleRight } from 'react-icons/bs';
+
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa';
 import ParentSize from '@vx/responsive/lib/components/ParentSize';
 import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
+import { BsCaretRightFill, BsCaretLeftFill } from 'react-icons/bs';
 
 const LeftArrow = styled(FaAngleDoubleLeft)`
   :hover {
@@ -121,21 +122,23 @@ export default function Example({
           IsBorder={'none'}
           style={{ fontSize: '2.2vmin' }}
         >
-          <LeftArrow
+          <BsCaretLeftFill
+            size={15}
             style={{ cursor: 'pointer', color: '#04009A' }}
             onClick={() => setMode(1)}
-          ></LeftArrow>
-          <div ref={graphRef} style={{ fontSize: '2.5vmin', margin: '0 5vw' }}>
-            {mode === 0 ? (
-              <div>이번 주 공부 시간</div>
-            ) : (
-              <div>지난 주 공부 시간</div>
-            )}
+          ></BsCaretLeftFill>
+          <div ref={graphRef} style={{ fontSize: '2vmin', margin: '0 2vw' }}>
+            {mode === 0 ? <div>THIS WEEK</div> : <div>LAST WEEK</div>}
           </div>
-          <RightArrow
-            style={{ cursor: 'pointer', color: '#04009A' }}
-            onClick={() => setMode(0)}
-          ></RightArrow>
+          <FlexTransparentDiv
+            widthSize={'20px'}
+            heightSize={'20px'}
+            paddingSize={'0'}
+            flexDirection={'row'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            IsBorder={'none'}
+          ></FlexTransparentDiv>
         </FlexTransparentDiv>
 
         <div className="graph">

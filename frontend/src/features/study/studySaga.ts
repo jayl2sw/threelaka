@@ -5,6 +5,7 @@ import {
   getWordBookApi,
   speechaceApi,
   postStudySatisfactionApi,
+  getTodayStudyRecordApi,
 } from '../../services/studyApi';
 import { getFindWordApi } from '../../services/readApi';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -16,6 +17,7 @@ import {
   WordBook,
   SpeechTest,
   SatisfactionSurvey,
+  TodayStudyRecord,
 } from '../../models';
 import { studyActions } from './study-slice';
 // 공부 시작 SAGA
@@ -95,6 +97,19 @@ function* onPostStudySatisfactionAsync(
   }
 }
 
+// 오늘의 학습 기록 가져오기
+function* onGetTodayStudyRecordAsync(action: PayloadAction<number>) {
+  try {
+    const response: TodayStudyRecord = yield call(
+      getTodayStudyRecordApi,
+      action.payload
+    );
+    yield put(studyActions.getTodayStudyRecordSuccess(response));
+  } catch (error: any) {
+    yield put(studyActions.getTodayStudyRecordFailed());
+  }
+}
+
 // 공부 시작 watch
 export function* watchPostStartStudyAsync() {
   yield takeLatest(studyActions.postStartStudy.type, onPostStartStudyAsync);
@@ -118,6 +133,13 @@ export function* watchUpdateStudyStageAsync() {
 export function* watchGetWordBookAsync() {
   yield takeLatest(studyActions.getWordBookStart.type, onGetWordBookAsync);
 }
+// 오늘의 학습기록 가져오기
+export function* watchGetTodayStudyRecordAsync() {
+  yield takeLatest(
+    studyActions.getTodayStudyRecord.type,
+    onGetTodayStudyRecordAsync
+  );
+}
 
 // 학습후 만족도 검사 watch
 export function* watchPostStudySatisfactionAsync() {
@@ -139,4 +161,5 @@ export const studySagas = [
   fork(watchGetWordBookAsync),
   fork(watchonPostSpeechTestInfo),
   fork(watchPostStudySatisfactionAsync),
+  fork(watchGetTodayStudyRecordAsync),
 ];

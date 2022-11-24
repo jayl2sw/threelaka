@@ -369,7 +369,7 @@ const VideosPage = () => {
               style={{ color: 'white', marginTop: '15vh' }}
             >
               <FlexTransparentDiv
-                widthSize={'20vw'}
+                widthSize={'22vw'}
                 heightSize={'7vh'}
                 paddingSize={'0'}
                 flexDirection={'row'}
@@ -378,7 +378,7 @@ const VideosPage = () => {
                 IsBorder={'none'}
                 style={{ color: 'white', fontSize: '4vmin' }}
               >
-                라카의 추천을 원한다면?
+                라까의 추천을 원한다면?
               </FlexTransparentDiv>
             </FlexTransparentDiv>
             <MainBtn
@@ -511,7 +511,8 @@ const VideosPage = () => {
               style={{
                 rotate: '90deg',
                 position: 'absolute',
-                bottom: '0',
+                bottom: '-12vh',
+                marginBottom: '5vh',
                 left: '48vw',
               }}
               onClick={() => {
@@ -520,6 +521,16 @@ const VideosPage = () => {
             >
               《
             </PageDownButton>
+            <FlexTransparentDiv
+              widthSize={'100vw'}
+              heightSize={'10vh'}
+              paddingSize={'0'}
+              flexDirection={'row'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              IsBorder={'none'}
+              style={{ position: 'absolute', bottom: '-10vh' }}
+            ></FlexTransparentDiv>
           </FlexTransparentDiv>
         </FlexTransparentDiv>
       </FlexTransparentDiv>

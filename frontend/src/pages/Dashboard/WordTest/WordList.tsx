@@ -4,6 +4,7 @@ import { ModalBackdrop } from '../../../styles/DashBoard/DashBoardStyle';
 import {
   FlexTransparentDiv,
   MainBox,
+  BackBlurBox,
 } from '../../../styles/Common/CommonDivStyle';
 
 import { MainBtn } from '../../../styles/Common/CommonBtnStyle';
@@ -101,19 +102,17 @@ const WordList = ({
             closeModalWordList();
           }}
         ></AiFillCloseCircle>
-        <MainBox
+        <BackBlurBox
           widthSize={'26vw'}
           heightSize={'40vh'}
-          paddingSize={'0 1vw'}
+          paddingSize={'1vh 1vw'}
           fontColor={'black'}
           fontSize={'2vmin'}
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'start',
             flexDirection: 'column',
-            paddingTop: '20vh',
-
             transition: 'all 0.8s ease-in-out',
             marginBottom: '2vh',
             overflow: 'auto',
@@ -123,8 +122,8 @@ const WordList = ({
           {userWordInfo.map((item, idx) => {
             return (
               <MainBox
-                widthSize={'25vw'}
-                heightSize={'16vh'}
+                widthSize={'24vw'}
+                heightSize={'auto'}
                 paddingSize={'0 1vw'}
                 fontColor={'black'}
                 fontSize={'2vmin'}
@@ -137,57 +136,35 @@ const WordList = ({
                   // marginBottom: '2vh',
                 }}
               >
-                <h3>{item.word}</h3>
-
-                <span style={{ fontSize: '2vmin', color: '#4a9fff' }}>
-                  {'example'}{' '}
-                </span>
-                <span
+                <div
                   style={{
-                    fontSize: item.example.length > 100 ? '1.5vmin' : '2vmin',
+                    fontSize: '3vmin',
+                    height: '4vh',
+                    fontWeight: 'bold',
+                    margin: '1vh 0 1vh 0',
+                  }}
+                >
+                  {item.word}
+                </div>
+
+                <div
+                  style={{ height: '3vh', fontSize: '2vmin', color: '#4a9fff' }}
+                >
+                  {'example'}{' '}
+                </div>
+                <div
+                  style={{
+                    height: 'auto',
+                    fontSize: '2vmin',
+                    paddingBottom: '2vh',
                   }}
                 >
                   &nbsp;&nbsp;{item.example}
-                </span>
+                </div>
               </MainBox>
-
-              // <ArcodianBox
-              //   key={`word-${idx}`}
-              //   // style={{ transition: 'all 0.8s ease-in-out' }}
-              // >
-              //   {/* <WordCheckBox
-              //     className={filterTarget.includes(aWord.word) ? 'checked' : ''}
-              //   /> */}
-              //   <WordText>
-              //     <p>{item.word}</p>
-              //     <p className="back">
-              //       <span
-              //         style={{
-              //           fontSize: '2.5vmin',
-              //         }}
-              //       >
-              //         {item.word}
-              //       </span>
-              //       <br />
-              //       <br />
-              //       <span style={{ fontSize: '2vmin', color: '#4a9fff' }}>
-              //         {'example'}
-              //       </span>
-              //       <br style={{ marginBottom: '5vmin' }} />
-              //       <span
-              //         style={{
-              //           fontSize: item.example.length > 100 ? '1.5vmin' : '2vmin',
-              //         }}
-              //       >
-              //         &nbsp;&nbsp;{item.example}
-              //       </span>
-              //     </p>
-              //   </WordText>
-              //   {item.example}
-              // </ArcodianBox>
             );
           })}
-        </MainBox>
+        </BackBlurBox>
       </MainBox>
     </ModalBackdrop>
   );

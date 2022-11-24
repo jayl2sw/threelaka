@@ -119,7 +119,7 @@ export const BackBlurBox = styled.div<CommonDivProps>`
       ? '#4a9fff'
       : '#111111'};
   background: #ffffff;
-  box-shadow: 10px 10px 80px rgba(63, 39, 102, 0.1);
+  /* box-shadow: 10px 10px 80px rgba(63, 39, 102, 0.1); */
   border-radius: 2vmin;
 `;
 
