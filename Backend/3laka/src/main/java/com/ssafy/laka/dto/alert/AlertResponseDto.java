@@ -17,6 +17,7 @@ public class AlertResponseDto {
     private String videoTitle;
     private Integer guildId;
     private String guildName;
+    private String profile;
     private AlertState alertState;
 
     public static AlertResponseDto from(Alert entity) {
@@ -27,6 +28,7 @@ public class AlertResponseDto {
                 .videoTitle(entity.getAssignment() == null ? null : entity.getAssignment().getVideo().getTitle())
                 .guildId(entity.getGuild() == null ? null : entity.getGuild().getId())
                 .guildName(entity.getGuild()== null ? null : entity.getGuild().getGuildName())
+                .profile(entity.getGuild().getProfile())
                 .alertState(entity.getAlertState())
                 .build();
 
