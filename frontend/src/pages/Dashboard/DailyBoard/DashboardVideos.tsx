@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { dashboardActions } from '../../../features/dashboard/dashboard-slice';
 import DashboardVideoCard from './DashboardVideoCard';
 import { RecentVideoContainer } from '../../../styles/DashBoard/DashBoardStyle';
-import { FlexTransparentDiv } from '../../../styles/Common/CommonDivStyle';
 
 interface IRecentVideosPros {
   recentVideoBlock: RefObject<HTMLDivElement>;
@@ -35,7 +34,7 @@ const DashboardVideos = ({
   );
 
   return (
-    <div>
+    <>
       {/* <RecentVideoContainer ref={recentVideoBlock} style={{ display: 'flex' }}> */}
       {mode === 0 ? (
         <RecentVideoContainer
@@ -66,7 +65,16 @@ const DashboardVideos = ({
               })
             )
           ) : (
-            <h1>'아직 공부중인 영상이 없어요'</h1>
+            <h1
+              style={{
+                fontSize: '2.5vmin',
+                lineHeight: '25vh',
+                textAlign: 'center',
+                width: '41vw',
+              }}
+            >
+              '아직 공부중인 영상이 없어요'
+            </h1>
           )}
         </RecentVideoContainer>
       ) : (
@@ -86,12 +94,21 @@ const DashboardVideos = ({
               );
             })
           ) : (
-            <h1>'공부 완료한 영상이 없어요'</h1>
+            <h1
+              style={{
+                fontSize: '2.5vmin',
+                lineHeight: '25vh',
+                textAlign: 'center',
+                width: '41vw',
+              }}
+            >
+              '공부 완료한 영상이 없어요'
+            </h1>
           )}
         </RecentVideoContainer>
       )}
       {/* </RecentVideoContainer> */}
-    </div>
+    </>
   );
 };
 

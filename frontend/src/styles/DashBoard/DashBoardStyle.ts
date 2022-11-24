@@ -255,6 +255,7 @@ export const GradientBorderBox = styled.div`
   height: 47vh;
   border-radius: 1rem;
   position: relative;
+
   .innerBox {
     position: absolute;
     top: 1vh;
@@ -263,6 +264,7 @@ export const GradientBorderBox = styled.div`
     border-radius: 0.8rem;
     height: 45vh;
     width: 25vw;
+    padding-top: 2vh;
   }
 `;
 
@@ -298,6 +300,12 @@ export const Count = styled.div`
   color: white;
   font-size: 5.5vmin;
   font-family: 'pretendardbold';
+  .word {
+    :hover {
+      transform: scale(1.2);
+    }
+    transition: all 0.8s ease;
+  }
 `;
 
 export const ProfileContainer = styled.div`

@@ -145,7 +145,12 @@ export default function Example({
 
               return (
                 <svg width={visWidth} height={visHeight}>
-                  <LinearGradient id="gradient" from="#4A9FFF" to="#B0FF91" />
+                  <LinearGradient
+                    id="gradient"
+                    from="rgb(74, 159, 255)"
+                    to="
+                    rgb(198, 223, 253)"
+                  />
                   <rect
                     width={innerWidth}
                     height={height + 79}

@@ -56,7 +56,11 @@ const HistoryCounter = ({
             &nbsp;에세이
           </span>
         ) : (
-          <span onClick={openModalWordList} style={{ cursor: 'pointer' }}>
+          <span
+            className="word"
+            onClick={openModalWordList}
+            style={{ cursor: 'pointer' }}
+          >
             <RiStickyNoteFill
               size={25}
               color="#ffb94c"
@@ -86,7 +90,11 @@ const HistoryCounter = ({
           ) : mode === 'essays' ? (
             <CountUp end={studyHistory.essays} duration={1} />
           ) : (
-            <div onClick={openModalWordList} style={{ cursor: 'pointer' }}>
+            <div
+              className="word"
+              onClick={openModalWordList}
+              style={{ cursor: 'pointer' }}
+            >
               <CountUp end={studyHistory.words} duration={1} />
             </div>
           )}
