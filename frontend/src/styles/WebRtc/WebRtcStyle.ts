@@ -249,7 +249,7 @@ export const EozRoomVideoContainer = styled.div`
 export const EozRoomStudyContainer = styled.div`
   width: 85vw;
   height: 47vh;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: row;
 `;
@@ -258,7 +258,7 @@ export const EozRoomStudyContainer = styled.div`
 export const EozRoomStudyVideoContainer = styled.div`
   width: 36vw;
   height: 47vh;
-  border: 1px solid green;
+  /* border: 1px solid green; */
   margin-right: 1vw;
   display: flex;
   flex-direction: column;
@@ -276,14 +276,14 @@ export const UserEssayContainer = styled.div`
   width: 48vw;
   height: 47vh;
   font-family: 'PretendardRegular';
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 export const EssayPickBtnContainer = styled.div`
   width: 48vw;
   display: flex;
   flex-direction: row;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 export const EssayPickBtn = styled.button`
@@ -326,7 +326,7 @@ export const RoomEmptyEssayContainer = styled.div`
 export const EozRoomBtnContainer = styled.div`
   width: 85vw;
   height: 7vh;
-  border: 1px solid purple;
+  /* border: 1px solid purple; */
   display: flex;
   justify-content: flex-end;
   align-items: center;
