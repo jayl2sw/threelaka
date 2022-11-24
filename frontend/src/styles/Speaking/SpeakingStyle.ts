@@ -102,7 +102,7 @@ export const TextContainer = styled.div`
   overflow-y: auto;
   .active {
     color: #111111;
-    font-size: 4vmin !important;
+    font-size: 3.5vmin !important;
     transition: all 1s ease;
   }
   .backlight {
@@ -286,6 +286,7 @@ export const SpeechResultBox = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 37vh;
+  padding-left: 0.5vw;
   /* flex-wrap: wrap; */
   /* width: auto; */
 `;

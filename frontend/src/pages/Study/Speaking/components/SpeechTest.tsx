@@ -92,7 +92,9 @@ const SpeechTest = () => {
                   ) : null}
                   {speechScores && speechScores.length !== 0 ? (
                     <MarkedTextBox>
-                      <ColorScoreIndicator style={{ fontSize: '2vmin' }}>
+                      <ColorScoreIndicator
+                        style={{ fontSize: '2vmin', marginLeft: '1.5vw' }}
+                      >
                         <div className="box">
                           <div className="innerBox">
                             <ScoreIcon className="bad" />
@@ -116,7 +118,7 @@ const SpeechTest = () => {
                         style={{
                           color: '#111111',
                           width: 'auto',
-                          fontSize: '3vmin',
+                          fontSize: '2.5vmin',
                           display: 'flex',
                           flexWrap: 'wrap',
                         }}
@@ -129,8 +131,8 @@ const SpeechTest = () => {
                                 selectedText.length > 100
                                   ? '2.3vmin'
                                   : selectedText.length > 50
-                                  ? '2.8vmin'
-                                  : '3vmin',
+                                  ? '2.5vmin'
+                                  : '2.8vmin',
                             }}
                           >
                             <span
