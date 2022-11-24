@@ -369,7 +369,7 @@ const VideosPage = () => {
               style={{ color: 'white', marginTop: '15vh' }}
             >
               <FlexTransparentDiv
-                widthSize={'20vw'}
+                widthSize={'22vw'}
                 heightSize={'7vh'}
                 paddingSize={'0'}
                 flexDirection={'row'}
@@ -378,7 +378,7 @@ const VideosPage = () => {
                 IsBorder={'none'}
                 style={{ color: 'white', fontSize: '4vmin' }}
               >
-                라카의 추천을 원한다면?
+                라까의 추천을 원한다면?
               </FlexTransparentDiv>
             </FlexTransparentDiv>
             <MainBtn

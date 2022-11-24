@@ -58,3 +58,12 @@ export const postStudySatisfactionApi = async (
 
   return res.data;
 };
+
+//오늘의 학습기록 가져오기
+export const getTodayStudyRecordApi = async (
+  learningId: number
+): Promise<any> => {
+  const res = await customAxios.get(`/api/v1/study/result/${learningId}`);
+
+  return res.data;
+};
