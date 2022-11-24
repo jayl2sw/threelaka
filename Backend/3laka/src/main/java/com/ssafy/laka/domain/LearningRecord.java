@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
+import static com.ssafy.laka.domain.enums.Gender.SECRET;
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -42,6 +44,12 @@ public class LearningRecord extends BaseTime {
     private int survey;
 
     private String essay;
+
+    @PrePersist
+    public void prePersist(){
+        this.essay = this.essay == null ? "" : this.essay;
+    }
+
     public void setStage (Stage stage) { this.stage = stage; }
     public void setEssay (String content) { this.essay = content; }
     public void setSurvey (int result) { this.survey = result; }
