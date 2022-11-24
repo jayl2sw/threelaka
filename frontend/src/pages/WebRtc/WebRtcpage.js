@@ -390,7 +390,7 @@ export const sendMessageUsingDataChannel = (messageContent) => {
 };
 
 // const serverApi = 'http://localhost:5002/api';
-const serverApi = 'https://3laka.com/socket_api/';
+const serverApi = 'https://3laka.com/socket_api';
 export const getTURNCredentials = async () => {
   const response = await axios.get(`${serverApi}/get-turn-credentials`);
   return response.data;
